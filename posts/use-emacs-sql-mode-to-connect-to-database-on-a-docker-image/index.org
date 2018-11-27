@@ -1,0 +1,78 @@
+#+BEGIN_COMMENT
+.. title: Use Emacs sql-mode to connect to database on a Docker image
+.. slug: use-emacs-sql-mode-to-connect-to-database-on-a-docker-image
+.. date: 2017-06-21 00:00:00 UTC+02:00
+.. tags: Emacs, Docker, sql-mode
+.. category: Emacs
+.. link:
+.. description:
+.. type: text
+
+#+END_COMMENT
+
+While working on a project I had to load and process some resources from a MySQL database. I had a database dump and all I needed was to ~sudo apt-get install mysql~ but I decided against it because that would just bloat my OS with software used only once and drain my laptop battery with the service running in the background.
+
+Instead, I decided to restore the database on a Docker image for MySQL and query the data using ~mysql-client~.
+* Install ~mysql-client~ locally
+  This one is simple; just run:
+  #+BEGIN_SRC sh
+    sudo apt-get install mysql-client
+  #+END_SRC
+* Install Docker on Ubuntu
+  The first thing to do is to head to [[https://docs.docker.com/engine/installation/linux/ubuntu/#install-docker][Docker documentation]] for instalation instructions which I've copied here:
+  + Install packages to allow ~apt~ to use a repository over HTTPS:
+   #+BEGIN_SRC sh
+     sudo apt-get install \
+	 apt-transport-https \
+	 ca-certificates \
+	 curl \
+	 software-properties-common
+   #+END_SRC
+  + Add the official GPG key for Docker
+   #+BEGIN_SRC sh
+     curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+   #+END_SRC
+  + Setup the *stable* repository. Make sure to select the proper architecture; in my case it's ~amd64~
+   #+BEGIN_SRC sh
+     sudo add-apt-repository \
+	 "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+	 $(lsb_release -cs) \
+	 stable"
+   #+END_SRC
+  + Update the package index
+   #+BEGIN_SRC sh
+     sudo apt-get update
+   #+END_SRC
+  + Install Docker
+   #+BEGIN_SRC sh
+     sudo apt-get install docker-ce
+   #+END_SRC
+* Restore MySQL database to a Docker container
+  + Download the Docker image for ~MySQL~
+   #+BEGIN_SRC sh
+     sudo docker pull mysql
+   #+END_SRC
+  + Create an empty database
+   #+BEGIN_SRC sh
+     sudo docker run --name <container-name> -e MYSQL_ROOT_PASSWORD=<password> -e MYSQL_DATABASE=<db-name> -d mysql
+   #+END_SRC
+   This will create a new container with an empty database and login ~root~.
+  + Restore database from dump
+   #+BEGIN_SRC sh
+     sudo docker exec -i <container-name> mysql -u<user-name> -p<password> --database=<db-name> < <path-to-sql-file>
+   #+END_SRC
+   Notes:
+   1. Make sure that there is no space between ~-u~ and ~<user-name>~, e.g. for user ~root~ the option should be ~-uroot~
+   2. The same goes for password - e.g. if password is ~my-secret~ then the option should be ~-pmy-secret~
+   3. ~path-to-sql-file~ should point to a file on host OS
+* Connect to MySQL database running on Docker container from Emacs
+  + First, start the container ~sudo docker start <container-name>~
+  + Get the IP Address of the container
+  + Get the container configuration using ~sudo docker inspect <container-name>~
+  + Copy the IP Address from the output under ~NetworkSettings/IPAddress~
+  + In Emacs execute ~M-x sql-mysql~
+    + For ~User:~ enter the value for ~<user-name>~ (~root~ is the default)
+    + For ~Password:~ enter the value for ~<password>~
+    + For ~Database:~ enter the value for ~<db-name>~
+    + For ~Server:~ enter the IP Address from 2.
+  That's it. Happy querying!
