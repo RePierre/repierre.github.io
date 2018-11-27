@@ -10,6 +10,10 @@
   <lastmod>2018-11-27T15:17:00Z</lastmod>
  </sitemap>
  <sitemap>
+  <loc>https://blog.rebeja.eu/categories/c.xml</loc>
+  <lastmod>2018-11-27T15:51:00Z</lastmod>
+ </sitemap>
+ <sitemap>
   <loc>https://blog.rebeja.eu/categories/cohesion.xml</loc>
   <lastmod>2018-11-25T22:10:00Z</lastmod>
  </sitemap>
@@ -20,6 +24,10 @@
  <sitemap>
   <loc>https://blog.rebeja.eu/categories/encapsulation.xml</loc>
   <lastmod>2018-11-25T22:10:00Z</lastmod>
+ </sitemap>
+ <sitemap>
+  <loc>https://blog.rebeja.eu/categories/enums.xml</loc>
+  <lastmod>2018-11-27T15:51:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://blog.rebeja.eu/categories/fii-practic.xml</loc>
@@ -54,15 +62,19 @@
   <lastmod>2018-11-25T22:10:00Z</lastmod>
  </sitemap>
  <sitemap>
+  <loc>https://blog.rebeja.eu/categories/solid.xml</loc>
+  <lastmod>2018-11-27T15:51:00Z</lastmod>
+ </sitemap>
+ <sitemap>
   <loc>https://blog.rebeja.eu/galleries/rss.xml</loc>
-  <lastmod>2018-11-27T15:19:00Z</lastmod>
+  <lastmod>2018-11-27T15:52:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://blog.rebeja.eu/rss.xml</loc>
-  <lastmod>2018-11-27T15:17:00Z</lastmod>
+  <lastmod>2018-11-27T15:51:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://blog.rebeja.eu/sitemap.xml</loc>
-  <lastmod>2018-11-27T15:19:00Z</lastmod>
+  <lastmod>2018-11-27T15:52:00Z</lastmod>
  </sitemap>
 </sitemapindex>

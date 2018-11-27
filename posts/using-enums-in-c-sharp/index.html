@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article# " lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Using enums in C# | Rebeja</title>
+<link href="../../assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
+<meta name="theme-color" content="#5670d4">
+<meta name="generator" content="Nikola (getnikola.com)">
+<link rel="alternate" type="application/rss+xml" title="RSS" href="../../rss.xml">
+<link rel="canonical" href="https://blog.rebeja.eu/posts/using-enums-in-c-sharp/">
+<!--[if lt IE 9]><script src="../../assets/js/html5.js"></script><![endif]--><meta name="author" content="Petru Rebeja">
+<link rel="prev" href="../abstraction-is-not-a-principle-of-object-oriented-programming/" title="Abstraction is not a principle of Object Oriented Programming" type="text/html">
+<meta property="og:site_name" content="Rebeja">
+<meta property="og:title" content="Using enums in C#">
+<meta property="og:url" content="https://blog.rebeja.eu/posts/using-enums-in-c-sharp/">
+<meta property="og:description" content="Recently Steve Smith posted an article named Enum Alternatives in C# where he points out that C# enums are nothing more than
+
+
+
+simple value-type flags that provide very minimal protection from invali">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2016-08-31T00:00:00+02:00">
+<meta property="article:tag" content="c#">
+<meta property="article:tag" content="enums">
+<meta property="article:tag" content="SOLID">
+</head>
+<body>
+<a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
+
+<!-- Header and menu bar -->
+<div class="container">
+      <header class="blog-header py-3"><div class="row nbb-header align-items-center">
+          <div class="col-md-3 col-xs-2 col-sm-2" style="width: auto;">
+            <button class="navbar-toggler navbar-light bg-light nbb-navbar-toggler" type="button" data-toggle="collapse" data-target=".bs-nav-collapsible" aria-controls="bs-navbar" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse bs-nav-collapsible bootblog4-search-form-holder">
+                
+            </div>
+        </div>
+          <div class="col-md-6 col-xs-10 col-sm-10 bootblog4-brand" style="width: auto;">
+            <a class="navbar-brand blog-header-logo text-dark" href="https://blog.rebeja.eu/">
+
+            <span id="blog-title">Rebeja</span>
+        </a>
+          </div>
+            <div class="col-md-3 justify-content-end align-items-center bs-nav-collapsible collapse flex-collapse bootblog4-right-nav">
+            <nav class="navbar navbar-light bg-white"><ul class="navbar-nav bootblog4-right-nav">
+<li class="nav-item">
+    <a href="index.org" id="sourcelink" class="nav-link">Source</a>
+    </li>
+
+
+                    
+            </ul></nav>
+</div>
+    </div>
+</header><nav class="navbar navbar-expand-md navbar-light bg-white static-top"><div class="collapse navbar-collapse bs-nav-collapsible" id="bs-navbar">
+            <ul class="navbar-nav nav-fill d-flex w-100">
+<li class="nav-item">
+<a href="../../archive.html" class="nav-link">Archive</a>
+                </li>
+<li class="nav-item">
+<a href="../../categories/" class="nav-link">Tags</a>
+                </li>
+<li class="nav-item">
+<a href="../../rss.xml" class="nav-link">RSS feed</a>
+
+                
+            </li>
+</ul>
+</div>
+<!-- /.navbar-collapse -->
+</nav>
+</div>
+
+<div class="container" id="content" role="main">
+    <div class="body-content">
+        <!--Body content-->
+        
+        
+<article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title" itemprop="headline name"><a href="." class="u-url">Using enums in C#</a></h1>
+
+        <div class="metadata">
+            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                    Petru Rebeja
+            </span></p>
+            <p class="dateline">
+            <a href="." rel="bookmark">
+            <time class="published dt-published" datetime="2016-08-31T00:00:00+02:00" itemprop="datePublished" title="2016-08-31 00:00">2016-08-31 00:00</time></a>
+            </p>
+            
+        <p class="sourceline"><a href="index.org" class="sourcelink">Source</a></p>
+
+        </div>
+        
+
+    </header><div class="e-content entry-content" itemprop="articleBody text">
+    <p>
+Recently Steve Smith posted an article named <a href="http://ardalis.com/enum-alternatives-in-c">Enum Alternatives in C#</a> where he points out that <a href="https://msdn.microsoft.com/en-us/library/sbbt4032.aspx">C# enums</a> are nothing more than
+</p>
+<blockquote>
+<p>
+simple value-type flags that provide very minimal protection from invalid values and no behavior
+</p>
+</blockquote>
+<p>
+In the same article he mentiones <a href="http://blog.falafel.com/introducing-type-safe-enum-pattern/">type safe enum pattern</a> as a better alternative to enums due to type safety. As a conclusion, Steve suggests that instead of using and declaring enums in the classical way
+</p>
+<div class="highlight"><pre><span></span>public enum WeekDay
+{
+    Monday,
+    Tuesday,
+    Wednesday,
+    Thursday,
+    Friday,
+    Saturday,
+    Sunday
+}
+</pre></div>
+<p>
+we should declare them in a <code>type safe</code> manner like this:
+</p>
+<div class="highlight"><pre><span></span>public class WeekDay
+{
+    public static WeekDay Monday = new WeekDay(0, Resources.Monday);
+    public static WeekDay Tuesday = new WeekDay(1, Resources.Tuesday);
+    public static WeekDay Wednesday = new WeekDay(2, Resources.Wednesday);
+    public static WeekDay Thursday = new WeekDay(3, Resources.Thursday);
+    public static WeekDay Friday = new WeekDay(4, Resources.Friday);
+    public static WeekDay Saturday = new WeekDay(5, Resources.Saturday);
+    public static WeekDay Sunday = new WeekDay(6, Resources.Sunday);
+
+    private WeekDay(int value, string name)
+    {
+	Value = value;
+	Name = name;
+    }
+
+    public int Value { get; private set; }
+    public string Name { get; private set; }
+}
+</pre></div>
+<p>
+This way the <a href="https://msdn.microsoft.com/en-us/library/06tc147t.aspx"><code>switch</code></a> we all know and love (<b>not</b>) on the values of <code>WeekDay</code> will remain the same. Although this is a very elegant way of solving the issue of someone calling <code>themeSelector.GetTheme((WeekDay)13)</code> without getting an error from the compiler there are some issues with <code>type safe enums</code>:
+</p>
+<ul class="org-ul">
+<li>First of all, <code>type safe enums</code> are <code>nullable</code> which means that now we can call <code>themeSelector.GetTheme(null)</code> and that would be a valid call which will most probably throw a <code>NullReferenceException</code> when executed.
+</li>
+<li>Second, <code>type safe enums</code> cannot represent <a href="https://msdn.microsoft.com/en-us/library/system.flagsattribute(v=vs.110).aspx#Anchor_7">flags</a> easily; they <i>can</i> by enumerating all possible values but that may not be an easy task for large <code>enums</code>.
+</li>
+</ul>
+<p>
+However, the problems the article refers to are not in the lack of compiler checks for valid <code>enum</code> values but rather how the <code>enum</code> values are used.
+</p>
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1">Displaying <code>enums</code> in UI elements</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+Let's look at the simplest problem Steve mentiones - displaying <code>enum</code> values in the UI. Indeed using the <code>DescriptionAttribute</code> is not the best solution you can have.
+</p>
+
+<p>
+The biggest grudge <b>I</b> have with <code>DescriptionAttribute</code> is that it doesn't play nice with applications that have to support multiple languages. However, for the past few years (basically since <code>extension methods</code> were added to .NET Framework) I've taken another approach on displaying <code>enum</code> values in the UI.
+</p>
+
+<p>
+The idea behind this is simple - build a <code>Dictionary&lt;TEnum, string&gt;</code> where the keys are <code>enum</code> values and values are localized strings taken from a resource file and bind the results to whatever control is used to display the <code>enum</code>. And for that I use a single <code>extension method</code>:
+</p>
+<div class="highlight"><pre><span></span>public static class EnumUtils
+{
+    public static Dictionary&lt;T, string&gt; GetLocalizedEnumValues&lt;T&gt;(this ResourceManager resourceManager)
+    {
+	return Enum.GetValues(typeof(T))
+	    .Cast&lt;T&gt;()
+	    .Select(val =&gt; new { Value = val, Text = resourceManager.GetString(val.ToString()) })
+	    .ToDictionary(kvp =&gt; kvp.Value, kvp =&gt; kvp.Text);
+    }
+}
+</pre></div>
+<p>
+Of course, this method relies on a convention that the resource file must have entries for each <code>enum</code> value in order for it to work but when working with applications that support multiple languages there is seldom a case when something that needs to be displayed in the UI is not localized.
+</p>
+
+<p>
+And now let's look at how this method can be used to localize <code>enum</code> values; as the example platform let's consider <code>ASP.NET MVC</code>:
+</p>
+<div class="highlight"><pre><span></span>public class ThemeController : Controller
+{
+    public ActionResult Index()
+    {
+	var viewModel = new ThemeViewModel
+	{
+	    WeekDays = Resources.ResourceManager.GetLocalizedEnumValues&lt;WeekDay&gt;()
+		.Select(kvp =&gt; new SelectListItem { Value = kvp.Key, Text = kvp.Value})
+	};
+	return View(viewModel);
+    }
+}
+</pre></div>
+<p>
+Granted, it's more work to do in order to display <code>enums</code> like this but there are advantages:
+</p>
+<ul class="org-ul">
+<li>
+<b>No magic strings</b> are involved compared to using <code>DescriptionAttribute</code>
+</li>
+<li>You have to do <b>less repetitive work</b>. If you declare your <code>enum</code> in a <code>type safe</code> manner you'll have the tedious task of pairing each <code>enum</code> value with its (localized) description by hand; <code>GetlocalizedEnumValues</code> method will do that automatically for all enums which have entries in the resources file.
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2">Use defensive coding in <code>switch</code> statements</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+Now, let's address the bigger issue when dealing with <code>enums</code>, namely calling (in our case) <code>themeSelector.GetTheme((WeekDay)13)</code>. The problem here is that a lot of developers don't use defensive programming when dealing with <code>enums</code> (or at all).
+</p>
+
+<p>
+Let's consider how our <code>GetTheme</code> method would look like in a non-defensive style and to emphasize things let's look at the worst-case scenario:
+</p>
+<div class="highlight"><pre><span></span>public class ThemeSelector
+{
+    public Theme GetTheme(WeekDay weekDay)
+    {
+	switch(weekDay)
+	    case WeekDay.Monday:
+		return new Theme { Playlist = "Monday mood" };
+	    case WeekDay.Tuesday:
+		return new Theme { Playlist = "Four more days to Friday" };
+	    case WeekDay.Wednesday:
+		return new Theme { Playlist = "It's hump day already!" };
+	    case WeekDay.Thursday:
+		return new Theme { Playlist = "One more day!" };
+	    case WeekDay.Friday:
+		return new Theme { Playlist = "Friday margueritas!" };
+	    case WeekDay.Saturday:
+		return new Theme { Playlist = "Go away hangover!" };
+	    case WeekDay.Sunday:
+	    default: // BAD!!!
+		return new Theme { Playlist = "There's still time to party!" };
+    }
+}
+</pre></div>
+<p>
+See the problem there? The developer <b>assumes that the method will always receive a valid value</b> thus he/she links the <code>default</code> case with an existing label instead of checking the value.
+</p>
+
+<p>
+The simplest fix for this is below:
+</p>
+<div class="highlight"><pre><span></span>public class ThemeSelector
+{
+    public Theme GetTheme(WeekDay weekDay)
+    {
+	switch(weekDay)
+	    case WeekDay.Monday:
+		return new Theme { Playlist = "Monday mood" };
+	    case WeekDay.Tuesday:
+		return new Theme { Playlist = "Four more days to Friday" };
+	    case WeekDay.Wednesday:
+		return new Theme { Playlist = "It's hump day already!" };
+	    case WeekDay.Thursday:
+		return new Theme { Playlist = "One more day!" };
+	    case WeekDay.Friday:
+		return new Theme { Playlist = "Friday margueritas!" };
+	    case WeekDay.Saturday:
+		return new Theme { Playlist = "Go away hangover!" };
+	    case WeekDay.Sunday:
+		return new Theme { Playlist = "There's still time to party!" };
+	    default:
+		throw new ArgumentException("Invalid value for WeekDay enum.");
+    }
+}
+</pre></div>
+<p>
+Throwing the <code>ArgumentException</code> when receiving an invalid value will crash the application but this crash gives us at least two benefits:
+</p>
+<ul class="org-ul">
+<li>The application behavior becomes predictable: <code>GetTheme</code> method will either return a valid <code>Theme</code> or will throw an error
+</li>
+<li>It makes debugging <b>a lot</b> easier; you know the point of failure, you know the reason and you have the full stack trace. When the application crashes twenty steps after receiving the invalid value there are a lot more unknows to <b>why</b> the application crashed and it may be harder to reproduce the problem.
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3">Use specialzed <code>builders</code> instead of <code>switch</code> statements</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+However, the best way to use <code>switch</code> statements is to avoid it altoghether. Why? Mainly because <code>switch</code> statements are the main violators of <a href="https://en.wikipedia.org/wiki/Open/closed_principle">Open/Closed Principle</a> i.e.every time a new member of the enum is added, every <code>switch</code> on that enum values needs to be changed in order to accomodate the new member (except for the cases that use the <code>default</code> label).
+</p>
+
+<p>
+In such cases I prefer to use something that I call <code>specialized builders</code> to avoid the switch statement.
+</p>
+
+<p>
+The ideea is simple: the logic behind each label of the <code>switch</code> statement is refactored into a separate class which implements a common interface for all the labels. The same interface exposes a property of the enum type which tells the clients of the interface which enum value it can process. The client code receives as a dependency a collection of such instances and instead of a switch statement it just iterates through the collection to find the suitable instance.
+</p>
+
+<p>
+Let's exemplify using our scenario; instead of having the <code>switch</code> statement inside the <code>GetTheme</code> method from the previous example, let's refactor each labels logic into a separate class. But before that, let's define an interface that will be implemented by all the classes.
+</p>
+
+<p>
+Since the switch is used to build instances of <code>Theme</code> class, let's call the interface <code>IThemeBuilder</code>; here is it's definition:
+</p>
+<div class="highlight"><pre><span></span>public interface IThemeBuilder
+{
+    WeekDay WeekDay { get; }
+
+    Theme BuildTheme();
+}
+</pre></div>
+<p>
+Now an implementation of this interface for <code>WeekDay.Monday</code> would look like this:
+</p>
+<div class="highlight"><pre><span></span>public class MondayThemeBuilder
+{
+    public WeekDay WeekDay
+    {
+	get { return WeekDay.Monday; }
+    }
+
+    public Theme BuildTheme()
+    {
+	return new Theme { Playlist = "Monday mood" };
+    }
+}
+</pre></div>
+<p>
+With all the implementations in place, all it remains to do is to register the implementations of <code>IThemeBuilder</code> interface in the <a href="http://en.wikipedia.org/wiki/Dependency_injection">DI</a> container and inject them into the <code>ThemeSelector</code> class. The <code>GetTheme</code> method now becomes an iteration to find a suitable <code>builder</code> for the argument received. If no such instance is found, an exception is thrown to signal the error.
+</p>
+<div class="highlight"><pre><span></span>public class ThemeSelector
+{
+    private readonly IEnumerable&lt;ThemeBuilder&gt; builders;
+
+    public ThemeSelector(IEnumerable&lt;IThemeBuilder&gt; themeBuilders)
+    {
+	builders = themeBuilders;
+    }
+
+    public Theme GetTheme(WeekDay weekDay)
+    {
+	var builder = builders.SingleOrDefault(b =&gt; b.WeekDay == weekDay);
+	if( builder == null)
+	    throw new ArgumentException(String.Format("Invalid value '{0}' received for week day.", weekDay));
+	return builder.BuildTheme();
+    }
+}
+</pre></div>
+<p>
+Now everytime a new member needs to be added to <code>WeekDay</code> enum, although not the case here, there are at most three changes to make to accomodate the new value:
+</p>
+<ol class="org-ol">
+<li>Add the new value to the <code>enum</code>
+</li>
+<li>Create a new class that will implement <code>IThemeBuilder</code> for the new value
+</li>
+<li>Register the new class in the <code>DI container</code>
+</li>
+</ol>
+<p>
+Depending on which <code>dependency injection</code> library you use, there may be no change required for registering the new class in the container.
+</p>
+</div>
+</div>
+<div id="outline-container-sec-4" class="outline-2">
+<h2 id="sec-4">Conclusions</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+The main conclusion of the article is that <b><code>enums</code> aren't bad they're just improperly used</b>. Sometimes creating a thick class to represent <code>type safe enums</code> may be suitable for your scenario but most of the time it's not worth the effort. Instead, you should concentrate more on the places in code where the <code>enum</code> is used to make them safer, more clean and elegant.
+</p>
+</div>
+</div>
+    </div>
+    <aside class="postpromonav"><nav><ul itemprop="keywords" class="tags">
+<li><a class="tag p-category" href="../../categories/c/" rel="tag">c#</a></li>
+            <li><a class="tag p-category" href="../../categories/enums/" rel="tag">enums</a></li>
+            <li><a class="tag p-category" href="../../categories/solid/" rel="tag">SOLID</a></li>
+        </ul>
+<ul class="pager hidden-print">
+<li class="previous">
+                <a href="../abstraction-is-not-a-principle-of-object-oriented-programming/" rel="prev" title="Abstraction is not a principle of Object Oriented Programming">Previous post</a>
+            </li>
+        </ul></nav></aside></article><!--End of body content--><footer id="footer">
+            Contents © 2018         <a href="mailto:petru.rebeja@gmail.com">Petru Rebeja</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+            
+        </footer>
+</div>
+</div>
+
+
+        <script src="../../assets/js/all-nocdn.js"></script><!-- fancy dates --><script>
+    moment.locale("en");
+    fancydates(0, "YYYY-MM-DD HH:mm");
+    </script><!-- end fancy dates --><script>
+    baguetteBox.run('div#content', {
+        ignoreClass: 'islink',
+        captions: function(element) {
+            return element.getElementsByTagName('img')[0].alt;
+    }});
+    </script>
+</body>
+</html>
