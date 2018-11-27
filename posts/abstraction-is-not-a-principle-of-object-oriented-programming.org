@@ -1,0 +1,135 @@
+#+BEGIN_COMMENT
+.. title: Abstraction is not a principle of Object Oriented Programming
+.. slug: abstraction-is-not-a-principle-of-object-oriented-programming
+.. date: 2016-07-29 00:00:00 UTC+02:00
+.. tags: abstraction, OOP, OOP principles
+.. category:
+.. link:
+.. description:
+.. type: text
+
+#+END_COMMENT
+* TL;DR
+  ~Abstraction~ is a core concept in programming and not a principle that is *solely* applicable in OOP, because *programming is all about dealing with an abstract representation of the business model (application space)*.
+* Abstraction is an overall programming principle
+  There are a lot of articles saying that OOP has four principles:
+  + ~Encapsulation~
+  + ~Inheritance~
+  + ~Polymorphism~
+  + ~Abstraction~
+  But if we do a web searh for /what is abstraction?/ we get more or less the same definition as the one from [[http://whatis.techtarget.com/definition/abstraction][here]].
+  #+BEGIN_QUOTE
+  Abstraction (from the Latin abs, meaning away from and trahere, meaning to draw) is the process of taking away or removing characteristics from something in order to reduce it to a set of essential characteristics.
+  #+END_QUOTE
+  Although the article defines ~abstraction~ in an OOP context, /~abstraction~ is actually a an overall programming principle/.
+
+  Why? Because programming means modeling entities and interactions of an /abstract representation of the business model/. And since there are several programming paradigms all of which are used to represent a set of specific business models all of those paradigms use ~abstraction~ to succeed in that representation.
+* An example of ~abstraction~ in OOP
+  To better clarify what ~abstraction~ is (in OOP) let's consider a trivial example: A ~StudentRegistrationController~ (ASP.NET MVC) needs to save the data from a registration form (~Student~) into some sort of database represented by an instance of ~IStudentDataStore~.
+
+  For the sake of brevity let's say that ~IStudentDataStore~ interface has the following definition:
+  #+BEGIN_SRC csharp
+    public interface IStudentDataStore
+    {
+	void Save(Student student);
+    }
+  #+END_SRC
+  With that in mind, the code for the example above would look like this:
+  #+BEGIN_SRC csharp
+    public class Student
+    {
+	public string FirstName { get; set; }
+
+	public string LastName { get; set; }
+
+	public DateTime DateOfBirth { get; set; }
+
+	public Gender Gender { get; set; }
+
+	public string Email { get; set; }
+
+	public string PhoneNumber { get; set; }
+    }
+
+    public class StudentRegistrationController : Controller
+    {
+	public StudentRegistrationController(IStudentDataStore dataStore)
+	{
+	    _dataStore = dataStore;
+	}
+
+	public ActionResult Save(Student viewModel)
+	{
+	    // Validation ommited for brevity
+	    _dataStore.Save(viewModel);
+	}
+    }
+  #+END_SRC
+  As we can see from the code the ~IStudentDataStore~ abstracts the details of how ~Student~ data is persisted. The interface doesn't tell whether the data is persisted to a flat file, SQL Database, NoSQL database or other media. As long as we have an implementation of ~IStudentDataStore~ the controller works just fine.
+
+  But is this ~abstraction~ technique available /only/ in OOP paradigm? The answer is *no*. The same thing, although in a different form can be used in other paradigms. To demonstrate so, let's use [[https://en.wikipedia.org/wiki/Lisp_(programming_language)][lisp]] as a programming language and let's see how /abstraction/ works in a *functional programming paradigm*.
+* The same example of ~abstraction~ in functional programming
+  To see how the same thing would be written in a functional style let's first see what are the entities from the previous example and how those entities interact between them:
+  + ~StudentRegistrationController~
+    + Is the top-most entity
+    + Has an ~IStudentDataStore~ on which calls the ~Save~ method
+  + ~IStudentDataStore~
+    + Defines a contract between the controller and the underlying data store
+  + ~Student~
+    + Is a data contract, i.e. encapsulates all the properties of a student into a single entity
+  Having the above and knowing that in functional programming /everything is a function/ we replace every /entity/ with a /function/:
+  + We'll create a top-level function named ~save-student~; it will have the following parameters:
+    + ~student-info~ -> a hash map containing the data contract
+    + ~persist-func~ -> a function that will be called to save the data to a data store
+  + Another two functions ~persist-student-info-to-file~ and ~persist-student-info-in-memory~ will encapsulate the logic of persisting data to a data store.
+  Note that both functions have the same signature. The parameters of these functions represent the data contract.
+  #+BEGIN_SRC lisp
+    (defun persist-student-info-to-file (first-name last-name dob gender email phone)
+      ;; Writes the info as a new line into the file specified by *database-location*
+      (let ((stream (open *database-location*
+		  :direction :output
+		  :if-exists :append)))
+	(format stream "~s|~s|~s|~s|~s|~s"
+	    first-name
+	    last-name
+	    dob
+	    gender
+	    email
+	    phone)
+	(close stream)))
+
+
+    (defun persist-student-info-in-memory (first-name last-name dob gender email phone)
+      ;; Persists student data into an in-memory data store named *all-students*
+      (let ((student-id (list-length *all-students*)))
+	(setq *all-students*
+	  (append *all-students*
+	      (list student-id first-name last-name dob gender email phone)))))
+
+    (defun save-student (student-info persist-func)
+      ;; Saves student data to a persistent store
+      (let ((first-name (gethash 'first-name student-info))
+	    (last-name (gethash 'last-name student-info))
+	    (dob (gethash 'date-of-birth student-info))
+	    (gender (gethash 'gender student-info))
+	    (email (gethash 'email student-info))
+	    (phone (gethash 'phone-number student-info)))
+	(funcall persist-func first-name last-name dob gender email phone)))
+  #+END_SRC
+  Having the definitions above we can achieve the same level of abstraction by putting everything together and defining global variables (think of it as poor mans ~dependency injection~):
+  #+BEGIN_SRC lisp
+    (defparameter *database-location* "/tmp/students")
+    (defparameter *student-info* (make-hash-table))
+
+    (progn
+      (setf (gethash 'first-name *student-info*) "John")
+      (setf (gethash 'last-name *student-info*) "Doe")
+      (setf (gethash 'date-of-birth *student-info) "2000-05-14")
+      (setf (gethash 'email *student-info*) "john.doe@example.com")
+      (setf (gethash 'phone-number *student-info*) "1234567981"))
+
+    (save-student *student-info* 'persist-student-info-to-file)
+  #+END_SRC
+  Et voilà! We have used ~abstraction~ in a functional style to remove the details of how the data is persisted thus showing that ~abstraction~ isn't a principle applicable only to object oriented programming.
+* Acknowledgments
+  A big thank you to [[https://be.linkedin.com/in/ion-cojocaru-81b5a230][Ion Cojocaru]] and [[https://ro.linkedin.com/in/florin-olariu-38615126][Florin Olariu]] who reviewed this post before publication.
