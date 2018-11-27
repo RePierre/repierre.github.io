@@ -1,0 +1,751 @@
+#+BEGIN_COMMENT
+.. title: FII Practic 2016
+.. slug: fii-practic-2016
+.. date: 2016-04-08 00:00:00 UTC+02:00
+.. tags: programming principles, SOLID, presentation, FII Practic
+.. category:
+.. link:
+.. description:
+.. type: text
+
+#+END_COMMENT
+
+* Programming principles
+** Chapter I - Object Oriented Programming
+*** Encapsulation
+    #+BEGIN_QUOTE
+    [[https://en.wikipedia.org/wiki/Encapsulation_%2528computer_programming%2529][Encapsulation facilitates bundling of data with the method(s) operating on that data.]]
+    #+END_QUOTE
+
+    To exemplify let's consider the following requirement: *As an account holder I want to perform withdrawal and deposit of various amounts from and into my account*.
+
+    To implement the requirement we consider the following:
+    + An ~Account~ has a ~Balance~
+    + A ~Withdrawal~ is an operation which subtracts the ~amount~ from the ~Balance~
+    + A ~Deposit~ is an operation which adds the ~amount~ to the ~Balance~
+
+    The code below should do it:
+    #+BEGIN_SRC csharp
+      public class Account
+      {
+	  public Money Balance { get; set; }
+
+      }
+
+      public class Program
+      {
+	  static void Main(string[] args)
+	  {
+	      var account = new Account();
+	      // Make a deposit
+	      account.Balance += 50;
+	      // Withdraw some cash
+	      account.Balance -= 100;
+	  }
+      }
+    #+END_SRC
+
+    [[https://en.wiktionary.org/wiki/Houston,_we_have_a_problem][Houston, we have a problem]]. If we let the consumers of our code (in this case ~Program~) to change the ~Balance~ at will, our system may end up in such funky situations where account holders can withdraw as much money as they want from the ATM without having enough funds.
+
+    Of course, we need to validate each withdrawal but we can't surround each ~account.Balance -= amount~ with an ~if(account.Balance > amount)~ because it's time consuming, inefficient
+and we simply may not have access to the code that uses our class. What we /can/ do is to *encapsulate* the withdrawal and validation into a single operation like this:
+#+BEGIN_SRC csharp
+  public class Account
+  {
+      public Money Balance {get; private set; } // The balance is now read-only
+
+      public Money Withdraw(Money amount)
+      {
+	  if( Balance <= amount)
+	  {
+	      throw new InvalidOperationException("Insufficient funds.");
+	  }
+	  this.Balance -= amount;
+	  return amount;
+      }
+
+      public void Deposit(Money money)
+      {
+	  this.Balance += money;
+      }
+  }
+
+  public class Program
+  {
+      static void Main(string[] args)
+      {
+	  var account = new Account();
+	  account.Deposit(50);
+	  account.Withdraw(100); // => InvalidOperationException.
+      }
+  }
+#+END_SRC
+
+Much better! Now we are in control and we can be sure that /every/ withdrawal is validated against account balance. As a nice side effect our code gains [[https://en.wikipedia.org/wiki/Computer_programming#Readability_of_source_code][readability]].
+*** Inheritance and Polymorphism
+#+BEGIN_QUOTE
+[[http://www.codeproject.com/Articles/22769/Introduction-to-Object-Oriented-Programming-Concep#Inheritance][Inheritance is the ability of a new class to acquire the properties of another class.]]
+#+END_QUOTE
+
+Let's look at another requirement:
+
+*As an account holder I can have multiple accounts of various types such as savings account, debit account etc for which different withdrawal fees apply. For a debit account the withdrawal fee is zero; for a savings account the withdrawal fee is 0.5% of the amount withdrawn.*
+
+From the requirement we can deduct that an ~Account~ can be modeled as a class with two properties - a ~Balance~ and a ~Type~ which can take values from an enumeration.
+
+Also, additional changes to the ~Withdraw~ method should be applied:
++ Each withdrawal calculates and subtracts a fee from the balance
++ The check for insufficient funds should also take into the consideration the fee alongside the amount
+
+Given the above, our code would look like this:
+#+BEGIN_SRC csharp
+  public enum AccountType
+  {
+      Debit,
+      Savings
+  }
+
+  public class Account
+  {
+      private readonly AccountType _accountType;
+
+      public Account(AccountType accountType)
+      {
+	  _accountType = accountType;
+      }
+
+      public AccountType AccountType { get { return _accountType; } }
+
+      public Money Balance { get; private set; }
+
+      public void Deposit(Money money)
+      {
+	  this.Balance += money;
+      }
+
+      public Money Withdraw(Money amount)
+      {
+	  var fee = CalculateWithdrawalFee(amount);
+	  amount = amount + fee;
+	  if( Balance <= amount)
+	  {
+	      throw new InvalidOperationException("Insufficient funds.");
+	  }
+	  this.Balance -= amount;
+      }
+
+      private Money CalculateWithdrawalFee(Money amount)
+      {
+	  var margin = _accountType == AccountType.Savings ? 0.5 : 0;
+	  return amount * margin / 100;
+      }
+  }
+#+END_SRC
+
+Everything looks good except the [[https://en.wikipedia.org/wiki/Magic_number_%2528programming%2529][magic numbers]]. Until we get a new requirement:
+
+*As an account holder I can have a credit account with a withdrawal fee of 0.7%*
+
+To accomodate this new requirement we just have to change the ~CalculateWithdrawalFee~ method *and* add a new value in our ~AccountType~ enum:
+#+BEGIN_SRC csharp
+  public enum AccountType
+  {
+      Debit,
+      Savings,
+      Credit
+  }
+
+  ...
+
+  private Money CalculateWithdrawalFee(Money amount)
+  {
+      switch( _accountType )
+	  case AccountType.Savings:
+	      return amount * 0.5 / 100;
+	  case AccountType.Credit:
+	      return amount * 0.7 / 100;
+	  default:
+	      return 0;
+  }
+#+END_SRC
+The problem with this approach is that we had to add changes in more than one place; and the hint that this way of implementing the new requirement is not ok was given by the
+/and/ conjunction from the previous sentence. And if that wasn't enough then the ~switch~ should be the indicator of a possible code smell.
+
+A better way to address these requirements is through inheritance by first determining which are the common traits of an ~Account~ and extracting them into a base class followed by modeling the specific behavior for each
+subsequent type of account into its separate class.
+
+So, as before, the common traits of an account are:
++ All accounts have a ~Balance~ property
++ All accounts support ~Withdrawal~ and ~Deposit~
++ All accounts validate available amount when a withdrawal is performed
+The distinct traits of the accounts are:
+- Savings accounts have a withdrawal fee of 0.5% of the amount withdrawn
+- Credit accounts have a withdrawal fee of 0.7% of the amount withdrawn
+- Debit accounts don't have a withdrawal fee
+Although we can see a clear difference between the common traits and specific features for each account type there is a certain amount of overlapping between them when performing a withdrawal.
+In other words and specifically for withdrawal operation we can say that:
++ All account types support withdrawal
++ Each account type applies a specific withdrawal fee
++ All account types validate the amount against available funds
+In order to model such kind of mixture between common and specific behavior we can make use of ~polymorphism~ by defining an abstract method ~CalculateWithdrawalFee~ which will be overridden
+in the derived classes with specific values for each account type but still keeping the common behavior in a single place.
+#+BEGIN_QUOTE
+[[http://www.codeproject.com/Articles/22769/Introduction-to-Object-Oriented-Programming-Concep#Polymorphism][Polymorphisms means the ability to request that the same operations be performed by a wide range of different types of things.]]
+#+END_QUOTE
+Now, with this approach let's address each requirement in the order they arrived. First, let's create the base class:
+#+BEGIN_SRC csharp
+  public abstract class Account
+  {
+      public Money Balance { get; private set; }
+
+      public void Deposit(Money money)
+      {
+	  this.Balance += money;
+      }
+
+      public Money Withdraw(Money amount)
+      {
+	  var fee = CalculateWithdrawalFee(amount);
+	  amount = amount + fee;
+	  if( Balance <= amount)
+	  {
+	      throw new InvalidOperationException("Insufficient funds.");
+	  }
+	  this.Balance -= amount;
+      }
+
+      protected abstract Money CalculateWithdrawalFee(Money amount);
+  }
+#+END_SRC
+With the base class in place, let's model the first two account types - /debit/ and /savings/:
+#+BEGIN_SRC csharp
+  public class DebitAccount : Account
+  {
+      protected override Money CalculateWithdrawalFee(Money amount)
+      {
+	  return 0;
+      }
+  }
+
+  public class SavingsAccount : Account
+  {
+      protected override Money CalculateWithdrawalFee(Money amount)
+      {
+	  return amount * 0.5 / 100;
+      }
+  }
+#+END_SRC
+With this structure in place adding a new account type is as simple as adding a new derived class and all edits are in a single place - the newly added file:
+#+BEGIN_SRC csharp
+  public class CreditAccount : Account
+  {
+      protected override Money CalculateWithdrawalFee(Money amount)
+      {
+	  return amount * 0.7 / 100;
+      }
+  }
+#+END_SRC
+** Chapter II - Structure
+How you structure your code is very important in software development. A good code structure promotes *low coupling and high cohesion* which is a must for all good software.
+
+Let's take a look at what *coupling* and *cohesion* mean.
+*** Low coupling - The case of the ~Singleton~
+#+BEGIN_QUOTE
+[[https://en.wikipedia.org/wiki/Coupling_%2528computer_programming%2529][Coupling is the manner and degree of interdependence between software modules; a measure of how closely connected two routines or modules are; the strength of the relationships between modules.]]
+#+END_QUOTE
+To exemplify what *low coupling* is and its importance let's take a look at the well-kown ~Singleton~ pattern:
+#+BEGIN_SRC csharp
+  public class FileSystem
+  {
+      private static readonly FileSystem _root = new FileSystem();
+
+      private FileSystem()
+      {
+      }
+
+      public static FileSystem Root
+      {
+	  get { return _root; }
+      }
+
+      public string[] List(string path)
+      {
+	  return Directory.EnumerateDirectories(path)
+	      .Union(Directory.EnumerateFiles(path))
+	      .ToArray();
+      }
+  }
+
+  public class Explorer
+  {
+      public string CurrentDirectory { get; set; }
+
+      public IEnumerable<string> Contents { get; private set;}
+
+      public void NavigateTo(string path)
+      {
+	  var contents = FileSystem.Root.List(path);
+	  CurrentDirectory = path;
+	  Contents = contents;
+
+	  foreach(var item in contents)
+	  {
+	      Display(item);
+	  }
+      }
+  }
+
+  public class Program
+  {
+      static void Main(string[] args)
+      {
+	  var explorer = new Explorer();
+	  explorer.NavigateTo(@"c:\users\petru\Documents\");
+      }
+  }
+#+END_SRC
+What is wrong in the code above? *The ~Explorer~ class is tightly coupled with ~FileSystem~ singleton*, i.e. ~Explorer~ class is highly denendent on the ~FileSystem~ class and cannot be used without the ~FileSystem~.
+
+To demonstrate this *tight coupling* let's create a test for ~Explorer~ class to verify that it returns proper values from a known directory:
+#+BEGIN_SRC csharp
+  public class ExplorerTests
+  {
+      protected string Directory { get; set; }
+
+      protected Explorer Explorer { get; private set;}
+
+      protected void Initialize()
+      {
+	  Explorer = new Explorer();
+      }
+
+      [TestClass]
+      public class WhenNavigatingToTempDirectory : ExplorerTests
+      {
+	  [TestInitialize]
+	  public void TestInitialize()
+	  {
+	      Initialize();
+	      Directory = @"C:\Temp\";
+	  }
+
+	  [TestMethod]
+	  public void ShouldDisplayDirectoryContents()
+	  {
+	      Explorer.NavigateTo(Directory);
+	      Assert.AreEqual(Directory, Explorer.CurrentDirectory);
+	      Assert.AreEqual("C:\Temp\test.txt", Explorer.Contents.Single());
+	  }
+      }
+  }
+#+END_SRC
+This test may succeed on our machine because we know that there's a file named ~text.txt~ in our ~C:\Temp\~ directory because we've put it there. But what if we execute that test on another machine? Will that file be there?
+
+Having such code means that not only our ~Explorer~ class is *tightly coupled* with the ~FileSystem~ class but also that this chain of dependency can grow to depend on the contents of the machine it's running on. We'll see how to break this dependecies in *Chapter III - SOLID code*.
+*** High cohesion - Why can't I have all code in ~Program.cs~?
+#+BEGIN_QUOTE
+[[https://en.wikipedia.org/wiki/Cohesion_%2528computer_science%2529][Cohesion refers to the degree to which the elements of a module belong together.]]
+#+END_QUOTE
+The main reason for properly structuring your application is that *similar entities belong toghether*.
+
+Let's consider the previous example in a less cohesive form:
+#+BEGIN_SRC csharp
+  public class Program
+  {
+      static void Main(string[] args)
+      {
+	  NavigateTo(@"C:\users\petru\Documents\");
+      }
+
+      static void NavigateTo(string path)
+      {
+	  var contents = Directory.EnumerateDirectories(path)
+	      .Union(Directory.EnumerateFiles(path));
+	  foreach(var item in contents)
+	  {
+	      Display(item);
+	  }
+      }
+  }
+#+END_SRC
+In this case our ~Program~ is nothing more than a [[https://en.wikipedia.org/wiki/God_object][*God object*]] - it does /everything/ and this is a problem. It may not be a problem for such a trivial application but when it comes to real applications things get more complicated.
+
+Even small production applications have a lot of objects and that number keeps growing alongside the growth of the application and at some point having everything in one place is simply unbearable. Furthermore, chances are that more than one developer will be working on the same codebase and you can't just have everything in a single file.
+** Chapter III - SOLID code
+*** Single Responsibility Principle
+#+BEGIN_QUOTE
+[[https://en.wikipedia.org/wiki/Single_responsibility_principle][Every module or class should have responsibility over a single part of the functionality provided by the software, and that responsibility should be entirely encapsulated by the class.]]
+#+END_QUOTE
+Let's look again at our Account example:
+#+BEGIN_SRC csharp
+  public abstract class Account
+  {
+      public Money Balance { get; private set; }
+
+      public void Deposit(Money money)
+      {
+	  this.Balance += money;
+      }
+
+      public Money Withdraw(Money amount)
+      {
+	  var fee = CalculateWithdrawalFee(amount);
+	  amount = amount + fee;
+	  if( Balance <= amount)
+	  {
+	      throw new InvalidOperationException("Insufficient funds.");
+	  }
+	  this.Balance -= amount;
+      }
+
+      protected abstract Money CalculateWithdrawalFee(Money amount);
+  }
+#+END_SRC
+As you can see from the code, the ~Withdraw~ method does more than one thing, namely:
++ It calculates the withdrawal fee
++ It subtracts the amount and withdrawal fee from the balance
+The purpose of this method is to withdraw the ~amount~ from the available balance; calculating the withdrawal fee should be someone else's responsibility. And that /someone else/ should be a ~WithdrawalAmountCalculator~:
+#+BEGIN_SRC csharp
+  public class WithdrawalAmountCalculator
+  {
+      public Money CalculateWithdrawalAmount(Money amount, decimal percentage)
+      {
+	  return amount * percentage / 100;
+      }
+  }
+#+END_SRC
+Now, let's put it all together and remove the extra responsibilities from ~Account~ class:
+#+BEGIN_SRC csharp
+  public class WithdrawalAmountCalculator
+  {
+      public Money CalculateWithdrawalAmount(Money amount, decimal feePercentage)
+      {
+	  return amount * feePercentage / 100;
+      }
+  }
+
+  public abstract class Account
+  {
+      private readonly WithdrawalAmountCalculator _amountCalculator;
+
+      protected Account(WithdrawalFeeCalculator amountCalculator)
+      {
+	  _amountCalculator = amountCalculator;
+      }
+
+      public Money Balance { get; private set; }
+
+      public abstract decimal WithdrawalInterestRate { get; }
+
+      public void Deposit(Money money)
+      {
+	  this.Balance += money;
+      }
+
+      public Money Withdraw(Money amount)
+      {
+	  var amountToWithdraw = _amountCalculator.CalculateWithdrawalAmount(amount, WithdrawalInterestRate);
+	  if( Balance <= amountToWithdraw)
+	  {
+	      throw new InvalidOperationException("Insufficient funds.");
+	  }
+	  this.Balance -= amountToWithdraw;
+	  return amount;
+      }
+  }
+
+  public class DebitAccount : Account
+  {
+      public DebitAccount(WithdrawalAmountCalculator amountCalculator) : base(amountCalculator)
+      {
+      }
+
+      public override decimal WithdrawalInterestRate
+      {
+	  { get { return 0m; }}
+      }
+  }
+
+  public class Program
+  {
+      static void Main(string[] args)
+      {
+	  var calculator = new WithdrawalAmountCalculator();
+	  var account = new DebitAccount(calculator);
+	  account.Deposit(new Money(100));
+
+	  var cash = account.Withdraw(50);
+      }
+  }
+#+END_SRC
+Much better! Each class does only one thing, namely:
++ ~WithdrawalAmountCalculator~ calculates the withdrawal amount and
++ ~Account~ handles the changes to balance.
+*** Open/Closed principle
+#+BEGIN_QUOTE
+[[https://en.wikipedia.org/wiki/Open/closed_principle][Software entities (classes, modules, functions, etc.) should be open for extension, but closed for modification]]
+#+END_QUOTE
+Let's go back again to a previous example, the one with multiple account types:
+#+BEGIN_SRC csharp
+  public enum AccountType
+  {
+      Debit,
+      Savings,
+      Credit
+  }
+
+  ...
+
+  private Money CalculateWithdrawalFee(Money amount)
+  {
+      switch( _accountType )
+	  case AccountType.Savings:
+	      return amount * 0.5 / 100;
+	  case AccountType.Credit:
+	      return amount * 0.7 / 100;
+	  default:
+	      return 0;
+  }
+#+END_SRC
+The code from the example above is the exact opposite of *Open/Closed principle*:
++ It is /open for modification/ because every time we'll need to create a new account type we'll have to add another ~case~ to the ~switch~ statement within ~CalculateWithdrawalAmount~ method
++ It is /closed for extension/ in the sense that even if we do create a derived type of ~Account~ that type will have to *always* take into consideration the ~AccountType~ property when implementing its custom behavior.
+*** Liskov substitution principle
+#+BEGIN_QUOTE
+[[https://en.wikipedia.org/wiki/Liskov_substitution_principle][Objects in a program should be replaceable with instances of their subtypes without altering the correctness of that program.]]
+#+END_QUOTE
+To exemplify let's consider the overused ~Rectangle~ and ~Square~ example where one would model the relationship between them using the following statement: *a ~Square~ is a ~Rectangle~ having ~Width == Height~* as behavioral description. In other words, /a ~Square~ behaves exactly like a ~Rectangle~ but the ~Square~ has ~Width == Heigth~/.
+
+As an object hierarchy this would look like the following:
+#+BEGIN_SRC csharp
+  public class Rectangle
+  {
+      protected int _width;
+
+      protected int _height;
+
+      public virtual int Width
+      {
+	  get { return _width; }
+	  set { _width = value; }
+      }
+
+      public virtual int Height
+      {
+	  get { return _height; }
+	  set { _height = value; }
+      }
+  }
+
+  public class Square : Rectangle
+  {
+      public override int Width
+      {
+	  get { return _width; }
+	  set
+	  {
+	      _width = value;
+	      _height = value;
+	  }
+      }
+
+      public override int Height
+      {
+	  get { return _height; }
+	  set
+	  {
+	      _height = value;
+	      _width = value;
+	  }
+      }
+  }
+#+END_SRC
+Now let' think of consumer of this code: it knows it's working with a ~Rectangle~ and sets all the values accordingly but it is given a ~Square~ to work with. Let's see that in code:
+#+BEGIN_SRC csharp
+  public class Program
+  {
+      private const int ImageWidth = 800;
+      private const int ImageHeight = 600;
+
+      static void Main(string[] args)
+      {
+	  var rectangle = new Square();
+	  InitializeRectangle(rectangle);
+	  var area = rectangle.Width * rectangle.Height;
+	  Debug.Assert(area == ImageWidth * ImageHeight);
+      }
+
+      void InitializeRectangle(Rectangle rectangle)
+      {
+	  rectangle.Width = ImageWidth;
+	  rectangle.Height = ImageHeight;
+      }
+  }
+#+END_SRC
+The method ~InitializeRectangle~ will perform it's work on a ~Rectangle~ thus will set its ~Width~ and ~Height~ properties and the ~Main~ method will be expecting to have an rectangle with the area of ~ImageWidth * ImageHeight~ but since the ~Square~ overrides the ~Width~ when ~Height~ is set (and viceversa) the actual area of the rectangle will be ~ImageHeight * ImageHeight~.
+
+This shows that although a ~Square~ may have a similar structure with an ~Rectangle~ it cannot be used as a substitute for a ~Rectangle~ because it doesn't have the same behavior.
+*** Interface Segregation principle
+#+BEGIN_QUOTE
+[[https://en.wikipedia.org/wiki/Interface_segregation_principle][Many client-specific interfaces are better than one general-purpose interface.]]
+#+END_QUOTE
+To exemplify this let's consider some existing types within ~.NET Framework~: [[https://msdn.microsoft.com/en-us/library/system.web.security.membershipprovider%2528v=vs.110%2529.aspx][~MembershipProvider~]] from ~System.Web.Security~ namespace and [[https://msdn.microsoft.com/en-us/library/dn613278%2528v=vs.108%2529.aspx][~IUserStore~]] from ~Microsoft.AspNet.Identity~ namespace:
+#+BEGIN_SRC csharp
+  public abstract class MembershipProvider : ProviderBase
+  {
+      public abstract bool EnablePasswordRetrieval { get; }
+
+      public abstract bool EnablePasswordReset { get; }
+
+      public abstract bool RequiresQuestionAndAnswer { get; }
+
+      public abstract string ApplicationName { get; set; }
+
+      public abstract int MaxInvalidPasswordAttempts { get; }
+
+      public abstract int PasswordAttemptWindow { get; }
+
+      public abstract bool RequiresUniqueEmail { get; }
+
+      public abstract MembershipPasswordFormat PasswordFormat { get; }
+
+      public abstract int MinRequiredPasswordLength { get; }
+
+      public abstract int MinRequiredNonAlphanumericCharacters { get; }
+
+      public abstract string PasswordStrengthRegularExpression { get; }
+
+      public event MembershipValidatePasswordEventHandler ValidatingPassword
+
+      public abstract MembershipUser CreateUser(string username, string password, string email, string passwordQuestion, string passwordAnswer, bool isApproved, object providerUserKey, out MembershipCreateStatus status);
+
+      public abstract bool ChangePasswordQuestionAndAnswer(string username, string password, string newPasswordQuestion, string newPasswordAnswer);
+
+      public abstract string GetPassword(string username, string answer);
+
+      public abstract bool ChangePassword(string username, string oldPassword, string newPassword);
+
+      public abstract string ResetPassword(string username, string answer);
+
+      public abstract void UpdateUser(MembershipUser user);
+
+      public abstract bool ValidateUser(string username, string password);
+
+      public abstract MembershipUser GetUser(object providerUserKey, bool userIsOnline);
+
+      public abstract MembershipUser GetUser(string username, bool userIsOnline);
+
+      internal MembershipUser GetUser(string username, bool userIsOnline, bool throwOnError)
+
+      public abstract string GetUserNameByEmail(string email);
+
+      public abstract bool DeleteUser(string username, bool deleteAllRelatedData);
+
+      public abstract MembershipUserCollection GetAllUsers(int pageIndex, int pageSize, out int totalRecords);
+
+      public abstract int GetNumberOfUsersOnline();
+
+      public abstract MembershipUserCollection FindUsersByName(string usernameToMatch, int pageIndex, int pageSize, out int totalRecords);
+
+      public abstract MembershipUserCollection FindUsersByEmail(string emailToMatch, int pageIndex, int pageSize, out int totalRecords);
+
+      protected virtual byte[] EncryptPassword(byte[] password)
+
+      protected virtual byte[] EncryptPassword(byte[] password, MembershipPasswordCompatibilityMode legacyPasswordCompatibilityMode)
+
+      protected virtual byte[] DecryptPassword(byte[] encodedPassword)
+
+      protected virtual void OnValidatingPassword(ValidatePasswordEventArgs e)
+
+  }
+
+
+  public interface IUserStore<TUser, in TKey> : IDisposable where TUser : class, IUser<TKey>
+  {
+      Task CreateAsync(TUser user);
+
+      Task UpdateAsync(TUser user);
+
+      Task DeleteAsync(TUser user);
+
+      Task<TUser> FindByIdAsync(TKey userId);
+
+      Task<TUser> FindByNameAsync(string userName);
+  }
+
+   public interface IUserPasswordStore<TUser, in TKey> : IUserStore<TUser, TKey>, IDisposable where TUser : class, IUser<TKey>
+    {
+      Task SetPasswordHashAsync(TUser user, string passwordHash);
+
+      Task<string> GetPasswordHashAsync(TUser user);
+
+      Task<bool> HasPasswordAsync(TUser user);
+    }
+#+END_SRC
+If we would have to implement a simple authentication mechanism the functionality of ~IUserStore~ and ~IUserPasswordStore~ would be sufficient for our needs. Compare implementing only the functionality required for these two interfaces with the effort required to derive from the ~MembershipProvider~ class. Even worse, I can say from my experience that with the ~MembershipProvider~ you'll be writing code which will never be used.
+*** Dependency Inversion principle
+#+BEGIN_QUOTE
+[[https://en.wikipedia.org/wiki/Dependency_inversion_principle][Depend upon Abstractions. Do not depend upon concretions.]]
+#+END_QUOTE
+Let's go back to our ~Singleton~ example. In the previous module we stated that the ~Explorer~ class is *tightly coupled* with the ~FileSystem~ class thus depending on it and also depending on underlying file system for tests to succed.
+
+To break this dependency we need to hide the functionality of our ~FileSystem~ behind an abstraction and we do that using an interface ~IFileSystem~ which will be implemented by ~FileSystem~ class:
+#+BEGIN_SRC csharp
+  public interface IFileSystem
+  {
+      string[] List(string path);
+  }
+
+  public class FileSystem : IFileSystem
+  {
+      public string[] List(string path)
+      {
+	  return Directory.EnumerateDirectories(path)
+	      .Union(Directory.EnumerateFiles(path))
+	      .ToArray();
+      }
+  }
+#+END_SRC
+Now we make the ~Explorer~ class depend upon the ~IFileSystem~ interface:
+#+BEGIN_SRC csharp
+  public class Explorer
+  {
+      private readonly IFileSystem _fileSystem;
+
+      public Explorer(IFileSystem fileSystem)
+      {
+	  _fileSystem = fileSystem;
+      }
+
+      public string CurrentDirectory { get; set; }
+
+      public IEnumerable<string> Contents { get; private set;}
+
+      public void NavigateTo(string path)
+      {
+	  var contents = _fileSystem.Root.List(path);
+	  CurrentDirectory = path;
+	  Contents = contents;
+
+	  foreach(var item in contents)
+	  {
+	      Display(item);
+	  }
+      }
+  }
+#+END_SRC
+Now it's up to the ~Program~ class to glue them together:
+#+BEGIN_SRC csharp
+  public class Program
+  {
+      static void Main(string[] args)
+      {
+	  var fs = new FileSystem();
+	  var explorer = new Explorer(fs);
+	  explorer.NavigateTo(@"c:\users\petru\Documents\");
+      }
+  }
+#+END_SRC
+This way we can test the ~Explorer~ class separately from the ~FileSystem~ class by passing it an instance of a class that implements ~IFileSystem~ and returns some stub data.
+
+As an additional bonus, the semantics of the ~Singleton~ is still in place - there is *only one instance* of the ~FileSystem~ class for the whole lifetime of the application.

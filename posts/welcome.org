@@ -1,0 +1,21 @@
+#+BEGIN_COMMENT
+.. title: Welcome
+.. slug: welcome
+.. date: 2016-02-19 00:00:00 UTC+02:00
+.. tags:
+.. category:
+.. link:
+.. description:
+.. type: text
+#+END_COMMENT
+
+Welcome to my new and shiny blog!
+
+Here I'll be posting thoughts, stories and ideas from my everyday life as a developer.
+
+If you want to know the other (creative) part of me you can visit my other blog at http://repierre.wordpress.com.
+
+Meanwhile checkout my activity on the following sites:
++ [[http://stackoverflow.com/users/844006/repierre][StackOverflow]]
++ [[https://twitter.com/petrurebeja][Twitter]]
++ [[https://ro.linkedin.com/in/petrurebeja][LinkedIn]]
