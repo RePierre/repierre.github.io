@@ -1,4 +1,8 @@
+# Nikola build items
 .doit.db
 __pycache__
 cache
 output
+
+# Emacs backup files
+*~
