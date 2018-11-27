@@ -1,0 +1,31 @@
+#+BEGIN_COMMENT
+.. title: Editing remote files over ssh with Emacs and Tramp mode
+.. slug: editing-remote-files-over-ssh-with-emacs-and-tramp-mode
+.. date: 2017-05-15 00:00:00 UTC+02:00
+.. tags: Emacs, ssh, remote files, tramp
+.. category: Emacs
+.. link:
+.. description:
+.. type: text
+
+#+END_COMMENT
+In a discussion over a beer, a friend of mine asked whether I know a way to edit remote files over ~ssh~? It was then that I realized that my long time obsession with Emacs is starting to pay off and I gave him the only way I know how to do that: *Emacs and [[https://www.emacswiki.org/emacs/TrampMode][Tramp Mode]]*.
+
+This is how I do it.
+* Setup
+  I use ~Emacs 25.2~ on Kubuntu 17.04 and on Windows 10 using [[http://cygwin.com/][Cygwin]] and when working with remote files both systems behave the same.
+* The flow
+  1. Configure the remote machine to authenticate you with a key file as specified in this [[https://askubuntu.com/a/20921/561980][stackoverflow answer]]
+  2. Start Emacs
+  To open the remote file for editing invoke the ~find-file~ command either using ~C-x C-f~ (~C = Ctrl~) or with ~M-x find-file~ (~M=Alt~) and at the file prompt specify the path in the following format:
+  #+BEGIN_SRC sh
+    /ssh:user@ip[:port]:path/to/file
+  #+END_SRC
+* An example
+  To exemplify let's consider the following scenario: I have a virtual machine with the IP ~192.168.13.13~ to which I can connect remotely with ~ssh~ using the username ~petru~ and the default public key (*~/.ssh/id_rsa.pub*). On that machine I want to edit the file ~/home/petru/src/debugutils.py~.
+
+  To do so, I open the file as usually in Emacs using ~C-x C-f~ and at the prompt (the minibuffer) I enter the following:
+  #+BEGIN_SRC sh
+    /ssh:petru@192.168.13.13:/home/petru/src/debugutils.py
+  #+END_SRC
+  and press ~<Enter>~.

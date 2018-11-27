@@ -7,23 +7,27 @@
                         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
  <url>
   <loc>https://blog.rebeja.eu/</loc>
-  <lastmod>2018-11-23T13:13:00Z</lastmod>
+  <lastmod>2018-11-27T15:59:00Z</lastmod>
  </url>
  <url>
   <loc>https://blog.rebeja.eu/2016/</loc>
   <lastmod>2018-11-23T13:13:00Z</lastmod>
  </url>
  <url>
+  <loc>https://blog.rebeja.eu/2017/</loc>
+  <lastmod>2018-11-27T15:59:00Z</lastmod>
+ </url>
+ <url>
   <loc>https://blog.rebeja.eu/2018/</loc>
-  <lastmod>2018-11-27T15:23:00Z</lastmod>
+  <lastmod>2018-11-27T15:55:00Z</lastmod>
  </url>
  <url>
   <loc>https://blog.rebeja.eu/archive.html</loc>
-  <lastmod>2018-11-27T15:52:00Z</lastmod>
+  <lastmod>2018-11-27T16:04:00Z</lastmod>
  </url>
  <url>
   <loc>https://blog.rebeja.eu/categories/</loc>
-  <lastmod>2018-11-27T15:26:00Z</lastmod>
+  <lastmod>2018-11-27T15:59:00Z</lastmod>
  </url>
  <url>
   <loc>https://blog.rebeja.eu/categories/abstraction/</loc>
@@ -34,12 +38,20 @@
   <lastmod>2018-11-27T15:25:00Z</lastmod>
  </url>
  <url>
+  <loc>https://blog.rebeja.eu/categories/cat_emacs/</loc>
+  <lastmod>2018-11-27T15:59:00Z</lastmod>
+ </url>
+ <url>
   <loc>https://blog.rebeja.eu/categories/cohesion/</loc>
   <lastmod>2018-11-25T22:10:00Z</lastmod>
  </url>
  <url>
   <loc>https://blog.rebeja.eu/categories/coupling/</loc>
   <lastmod>2018-11-25T22:10:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://blog.rebeja.eu/categories/emacs/</loc>
+  <lastmod>2018-11-27T15:59:00Z</lastmod>
  </url>
  <url>
   <loc>https://blog.rebeja.eu/categories/encapsulation/</loc>
@@ -78,12 +90,24 @@
   <lastmod>2018-11-25T19:41:00Z</lastmod>
  </url>
  <url>
+  <loc>https://blog.rebeja.eu/categories/remote-files/</loc>
+  <lastmod>2018-11-27T15:59:00Z</lastmod>
+ </url>
+ <url>
   <loc>https://blog.rebeja.eu/categories/solid-principles/</loc>
   <lastmod>2018-11-25T22:10:00Z</lastmod>
  </url>
  <url>
   <loc>https://blog.rebeja.eu/categories/solid/</loc>
   <lastmod>2018-11-27T15:26:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://blog.rebeja.eu/categories/ssh/</loc>
+  <lastmod>2018-11-27T15:59:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://blog.rebeja.eu/categories/tramp/</loc>
+  <lastmod>2018-11-27T15:59:00Z</lastmod>
  </url>
  <url>
   <loc>https://blog.rebeja.eu/galleries/</loc>
@@ -96,6 +120,10 @@
  <url>
   <loc>https://blog.rebeja.eu/posts/abstraction-is-not-a-principle-of-object-oriented-programming/</loc>
   <lastmod>2018-11-27T15:03:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://blog.rebeja.eu/posts/editing-remote-files-over-ssh-with-emacs-and-tramp-mode/</loc>
+  <lastmod>2018-11-27T15:55:00Z</lastmod>
  </url>
  <url>
   <loc>https://blog.rebeja.eu/posts/fii-practic-2016/</loc>
