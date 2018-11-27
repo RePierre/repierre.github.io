@@ -1,0 +1,211 @@
+#+BEGIN_COMMENT
+.. title: Using enums in C#
+.. slug: using-enums-in-c-sharp
+.. date: 2016-08-31 00:00:00 UTC+02:00
+.. tags: SOLID, c#, enums
+.. category:
+.. link:
+.. description:
+.. type: text
+
+#+END_COMMENT
+Recently Steve Smith posted an article named [[http://ardalis.com/enum-alternatives-in-c][Enum Alternatives in C#]] where he points out that [[https://msdn.microsoft.com/en-us/library/sbbt4032.aspx][C# enums]] are nothing more than
+#+BEGIN_QUOTE
+simple value-type flags that provide very minimal protection from invalid values and no behavior
+#+END_QUOTE
+In the same article he mentiones [[http://blog.falafel.com/introducing-type-safe-enum-pattern/][type safe enum pattern]] as a better alternative to enums due to type safety. As a conclusion, Steve suggests that instead of using and declaring enums in the classical way
+#+BEGIN_SRC csharp
+  public enum WeekDay
+  {
+      Monday,
+      Tuesday,
+      Wednesday,
+      Thursday,
+      Friday,
+      Saturday,
+      Sunday
+  }
+#+END_SRC
+we should declare them in a ~type safe~ manner like this:
+#+BEGIN_SRC csharp
+  public class WeekDay
+  {
+      public static WeekDay Monday = new WeekDay(0, Resources.Monday);
+      public static WeekDay Tuesday = new WeekDay(1, Resources.Tuesday);
+      public static WeekDay Wednesday = new WeekDay(2, Resources.Wednesday);
+      public static WeekDay Thursday = new WeekDay(3, Resources.Thursday);
+      public static WeekDay Friday = new WeekDay(4, Resources.Friday);
+      public static WeekDay Saturday = new WeekDay(5, Resources.Saturday);
+      public static WeekDay Sunday = new WeekDay(6, Resources.Sunday);
+
+      private WeekDay(int value, string name)
+      {
+	  Value = value;
+	  Name = name;
+      }
+
+      public int Value { get; private set; }
+      public string Name { get; private set; }
+  }
+#+END_SRC
+This way the [[https://msdn.microsoft.com/en-us/library/06tc147t.aspx][~switch~]] we all know and love (*not*) on the values of ~WeekDay~ will remain the same. Although this is a very elegant way of solving the issue of someone calling ~themeSelector.GetTheme((WeekDay)13)~ without getting an error from the compiler there are some issues with ~type safe enums~:
+- First of all, ~type safe enums~ are ~nullable~ which means that now we can call ~themeSelector.GetTheme(null)~ and that would be a valid call which will most probably throw a ~NullReferenceException~ when executed.
+- Second, ~type safe enums~ cannot represent [[https://msdn.microsoft.com/en-us/library/system.flagsattribute(v=vs.110).aspx#Anchor_7][flags]] easily; they /can/ by enumerating all possible values but that may not be an easy task for large ~enums~.
+However, the problems the article refers to are not in the lack of compiler checks for valid ~enum~ values but rather how the ~enum~ values are used.
+* Displaying ~enums~ in UI elements
+  Let's look at the simplest problem Steve mentiones - displaying ~enum~ values in the UI. Indeed using the ~DescriptionAttribute~ is not the best solution you can have.
+
+  The biggest grudge *I* have with ~DescriptionAttribute~ is that it doesn't play nice with applications that have to support multiple languages. However, for the past few years (basically since ~extension methods~ were added to .NET Framework) I've taken another approach on displaying ~enum~ values in the UI.
+
+  The idea behind this is simple - build a ~Dictionary<TEnum, string>~ where the keys are ~enum~ values and values are localized strings taken from a resource file and bind the results to whatever control is used to display the ~enum~. And for that I use a single ~extension method~:
+  #+BEGIN_SRC csharp
+    public static class EnumUtils
+    {
+	public static Dictionary<T, string> GetLocalizedEnumValues<T>(this ResourceManager resourceManager)
+	{
+	    return Enum.GetValues(typeof(T))
+		.Cast<T>()
+		.Select(val => new { Value = val, Text = resourceManager.GetString(val.ToString()) })
+		.ToDictionary(kvp => kvp.Value, kvp => kvp.Text);
+	}
+    }
+  #+END_SRC
+  Of course, this method relies on a convention that the resource file must have entries for each ~enum~ value in order for it to work but when working with applications that support multiple languages there is seldom a case when something that needs to be displayed in the UI is not localized.
+
+  And now let's look at how this method can be used to localize ~enum~ values; as the example platform let's consider ~ASP.NET MVC~:
+  #+BEGIN_SRC csharp
+    public class ThemeController : Controller
+    {
+	public ActionResult Index()
+	{
+	    var viewModel = new ThemeViewModel
+	    {
+		WeekDays = Resources.ResourceManager.GetLocalizedEnumValues<WeekDay>()
+		    .Select(kvp => new SelectListItem { Value = kvp.Key, Text = kvp.Value})
+	    };
+	    return View(viewModel);
+	}
+    }
+  #+END_SRC
+  Granted, it's more work to do in order to display ~enums~ like this but there are advantages:
+  + *No magic strings* are involved compared to using ~DescriptionAttribute~
+  + You have to do *less repetitive work*. If you declare your ~enum~ in a ~type safe~ manner you'll have the tedious task of pairing each ~enum~ value with its (localized) description by hand; ~GetlocalizedEnumValues~ method will do that automatically for all enums which have entries in the resources file.
+* Use defensive coding in ~switch~ statements
+  Now, let's address the bigger issue when dealing with ~enums~, namely calling (in our case) ~themeSelector.GetTheme((WeekDay)13)~. The problem here is that a lot of developers don't use defensive programming when dealing with ~enums~ (or at all).
+
+  Let's consider how our ~GetTheme~ method would look like in a non-defensive style and to emphasize things let's look at the worst-case scenario:
+  #+BEGIN_SRC csharp
+    public class ThemeSelector
+    {
+	public Theme GetTheme(WeekDay weekDay)
+	{
+	    switch(weekDay)
+		case WeekDay.Monday:
+		    return new Theme { Playlist = "Monday mood" };
+		case WeekDay.Tuesday:
+		    return new Theme { Playlist = "Four more days to Friday" };
+		case WeekDay.Wednesday:
+		    return new Theme { Playlist = "It's hump day already!" };
+		case WeekDay.Thursday:
+		    return new Theme { Playlist = "One more day!" };
+		case WeekDay.Friday:
+		    return new Theme { Playlist = "Friday margueritas!" };
+		case WeekDay.Saturday:
+		    return new Theme { Playlist = "Go away hangover!" };
+		case WeekDay.Sunday:
+		default: // BAD!!!
+		    return new Theme { Playlist = "There's still time to party!" };
+	}
+    }
+  #+END_SRC
+  See the problem there? The developer *assumes that the method will always receive a valid value* thus he/she links the ~default~ case with an existing label instead of checking the value.
+
+  The simplest fix for this is below:
+  #+BEGIN_SRC csharp
+    public class ThemeSelector
+    {
+	public Theme GetTheme(WeekDay weekDay)
+	{
+	    switch(weekDay)
+		case WeekDay.Monday:
+		    return new Theme { Playlist = "Monday mood" };
+		case WeekDay.Tuesday:
+		    return new Theme { Playlist = "Four more days to Friday" };
+		case WeekDay.Wednesday:
+		    return new Theme { Playlist = "It's hump day already!" };
+		case WeekDay.Thursday:
+		    return new Theme { Playlist = "One more day!" };
+		case WeekDay.Friday:
+		    return new Theme { Playlist = "Friday margueritas!" };
+		case WeekDay.Saturday:
+		    return new Theme { Playlist = "Go away hangover!" };
+		case WeekDay.Sunday:
+		    return new Theme { Playlist = "There's still time to party!" };
+		default:
+		    throw new ArgumentException("Invalid value for WeekDay enum.");
+	}
+    }
+  #+END_SRC
+  Throwing the ~ArgumentException~ when receiving an invalid value will crash the application but this crash gives us at least two benefits:
+  + The application behavior becomes predictable: ~GetTheme~ method will either return a valid ~Theme~ or will throw an error
+  + It makes debugging *a lot* easier; you know the point of failure, you know the reason and you have the full stack trace. When the application crashes twenty steps after receiving the invalid value there are a lot more unknows to *why* the application crashed and it may be harder to reproduce the problem.
+* Use specialzed ~builders~ instead of ~switch~ statements
+  However, the best way to use ~switch~ statements is to avoid it altoghether. Why? Mainly because ~switch~ statements are the main violators of [[https://en.wikipedia.org/wiki/Open/closed_principle][Open/Closed Principle]] i.e.every time a new member of the enum is added, every ~switch~ on that enum values needs to be changed in order to accomodate the new member (except for the cases that use the ~default~ label).
+
+  In such cases I prefer to use something that I call ~specialized builders~ to avoid the switch statement.
+
+  The ideea is simple: the logic behind each label of the ~switch~ statement is refactored into a separate class which implements a common interface for all the labels. The same interface exposes a property of the enum type which tells the clients of the interface which enum value it can process. The client code receives as a dependency a collection of such instances and instead of a switch statement it just iterates through the collection to find the suitable instance.
+
+  Let's exemplify using our scenario; instead of having the ~switch~ statement inside the ~GetTheme~ method from the previous example, let's refactor each labels logic into a separate class. But before that, let's define an interface that will be implemented by all the classes.
+
+  Since the switch is used to build instances of ~Theme~ class, let's call the interface ~IThemeBuilder~; here is it's definition:
+  #+BEGIN_SRC csharp
+    public interface IThemeBuilder
+    {
+	WeekDay WeekDay { get; }
+
+	Theme BuildTheme();
+    }
+  #+END_SRC
+  Now an implementation of this interface for ~WeekDay.Monday~ would look like this:
+  #+BEGIN_SRC csharp
+    public class MondayThemeBuilder
+    {
+	public WeekDay WeekDay
+	{
+	    get { return WeekDay.Monday; }
+	}
+
+	public Theme BuildTheme()
+	{
+	    return new Theme { Playlist = "Monday mood" };
+	}
+    }
+  #+END_SRC
+  With all the implementations in place, all it remains to do is to register the implementations of ~IThemeBuilder~ interface in the [[http://en.wikipedia.org/wiki/Dependency_injection][DI]] container and inject them into the ~ThemeSelector~ class. The ~GetTheme~ method now becomes an iteration to find a suitable ~builder~ for the argument received. If no such instance is found, an exception is thrown to signal the error.
+  #+BEGIN_SRC csharp
+    public class ThemeSelector
+    {
+	private readonly IEnumerable<ThemeBuilder> builders;
+
+	public ThemeSelector(IEnumerable<IThemeBuilder> themeBuilders)
+	{
+	    builders = themeBuilders;
+	}
+
+	public Theme GetTheme(WeekDay weekDay)
+	{
+	    var builder = builders.SingleOrDefault(b => b.WeekDay == weekDay);
+	    if( builder == null)
+		throw new ArgumentException(String.Format("Invalid value '{0}' received for week day.", weekDay));
+	    return builder.BuildTheme();
+	}
+    }
+  #+END_SRC
+  Now everytime a new member needs to be added to ~WeekDay~ enum, although not the case here, there are at most three changes to make to accomodate the new value:
+  1. Add the new value to the ~enum~
+  2. Create a new class that will implement ~IThemeBuilder~ for the new value
+  3. Register the new class in the ~DI container~
+  Depending on which ~dependency injection~ library you use, there may be no change required for registering the new class in the container.
+* Conclusions
+  The main conclusion of the article is that *~enums~ aren't bad they're just improperly used*. Sometimes creating a thick class to represent ~type safe enums~ may be suitable for your scenario but most of the time it's not worth the effort. Instead, you should concentrate more on the places in code where the ~enum~ is used to make them safer, more clean and elegant.
