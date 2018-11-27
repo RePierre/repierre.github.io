@@ -1,0 +1,1091 @@
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article# " lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FII Practic 2016 | Rebeja</title>
+<link href="../../assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
+<meta name="theme-color" content="#5670d4">
+<meta name="generator" content="Nikola (getnikola.com)">
+<link rel="alternate" type="application/rss+xml" title="RSS" href="../../rss.xml">
+<link rel="canonical" href="https://blog.rebeja.eu/posts/fii-practic-2016/">
+<!--[if lt IE 9]><script src="../../assets/js/html5.js"></script><![endif]--><meta name="author" content="Petru Rebeja">
+<link rel="prev" href="../welcome/" title="Welcome" type="text/html">
+<meta property="og:site_name" content="Rebeja">
+<meta property="og:title" content="FII Practic 2016">
+<meta property="og:url" content="https://blog.rebeja.eu/posts/fii-practic-2016/">
+<meta property="og:description" content="Programming principles
+
+
+Chapter I - Object Oriented Programming
+
+
+Encapsulation
+
+
+
+Encapsulation facilitates bundling of data with the method(s) operating on that data.
+
+
+
+
+To exemplify let's conside">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2016-04-08T00:00:00+02:00">
+<meta property="article:tag" content="cohesion">
+<meta property="article:tag" content="coupling">
+<meta property="article:tag" content="encapsulation">
+<meta property="article:tag" content="FII Practic">
+<meta property="article:tag" content="inheritance">
+<meta property="article:tag" content="OOP principles">
+<meta property="article:tag" content="polymorphism">
+<meta property="article:tag" content="presentation">
+<meta property="article:tag" content="programming principles">
+<meta property="article:tag" content="SOLID principles">
+</head>
+<body>
+<a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
+
+<!-- Header and menu bar -->
+<div class="container">
+      <header class="blog-header py-3"><div class="row nbb-header align-items-center">
+          <div class="col-md-3 col-xs-2 col-sm-2" style="width: auto;">
+            <button class="navbar-toggler navbar-light bg-light nbb-navbar-toggler" type="button" data-toggle="collapse" data-target=".bs-nav-collapsible" aria-controls="bs-navbar" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse bs-nav-collapsible bootblog4-search-form-holder">
+                
+            </div>
+        </div>
+          <div class="col-md-6 col-xs-10 col-sm-10 bootblog4-brand" style="width: auto;">
+            <a class="navbar-brand blog-header-logo text-dark" href="https://blog.rebeja.eu/">
+
+            <span id="blog-title">Rebeja</span>
+        </a>
+          </div>
+            <div class="col-md-3 justify-content-end align-items-center bs-nav-collapsible collapse flex-collapse bootblog4-right-nav">
+            <nav class="navbar navbar-light bg-white"><ul class="navbar-nav bootblog4-right-nav">
+<li class="nav-item">
+    <a href="index.org" id="sourcelink" class="nav-link">Source</a>
+    </li>
+
+
+                    
+            </ul></nav>
+</div>
+    </div>
+</header><nav class="navbar navbar-expand-md navbar-light bg-white static-top"><div class="collapse navbar-collapse bs-nav-collapsible" id="bs-navbar">
+            <ul class="navbar-nav nav-fill d-flex w-100">
+<li class="nav-item">
+<a href="../../archive.html" class="nav-link">Archive</a>
+                </li>
+<li class="nav-item">
+<a href="../../categories/" class="nav-link">Tags</a>
+                </li>
+<li class="nav-item">
+<a href="../../rss.xml" class="nav-link">RSS feed</a>
+
+                
+            </li>
+</ul>
+</div>
+<!-- /.navbar-collapse -->
+</nav>
+</div>
+
+<div class="container" id="content" role="main">
+    <div class="body-content">
+        <!--Body content-->
+        
+        
+<article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title" itemprop="headline name"><a href="." class="u-url">FII Practic 2016</a></h1>
+
+        <div class="metadata">
+            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                    Petru Rebeja
+            </span></p>
+            <p class="dateline">
+            <a href="." rel="bookmark">
+            <time class="published dt-published" datetime="2016-04-08T00:00:00+02:00" itemprop="datePublished" title="2016-04-08 00:00">2016-04-08 00:00</time></a>
+            </p>
+            
+        <p class="sourceline"><a href="index.org" class="sourcelink">Source</a></p>
+
+        </div>
+        
+
+    </header><div class="e-content entry-content" itemprop="articleBody text">
+    <div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1">Programming principles</h2>
+<div class="outline-text-2" id="text-1">
+</div>
+<div id="outline-container-sec-1-1" class="outline-3">
+<h3 id="sec-1-1">Chapter I - Object Oriented Programming</h3>
+<div class="outline-text-3" id="text-1-1">
+</div>
+<div id="outline-container-sec-1-1-1" class="outline-4">
+<h4 id="sec-1-1-1">Encapsulation</h4>
+<div class="outline-text-4" id="text-1-1-1">
+<blockquote>
+<p>
+<a href="https://en.wikipedia.org/wiki/Encapsulation_%2528computer_programming%2529">Encapsulation facilitates bundling of data with the method(s) operating on that data.</a>
+</p>
+</blockquote>
+
+<p>
+To exemplify let's consider the following requirement: <b>As an account holder I want to perform withdrawal and deposit of various amounts from and into my account</b>.
+</p>
+
+<p>
+To implement the requirement we consider the following:
+</p>
+<ul class="org-ul">
+<li>An <code>Account</code> has a <code>Balance</code>
+</li>
+<li>A <code>Withdrawal</code> is an operation which subtracts the <code>amount</code> from the <code>Balance</code>
+</li>
+<li>A <code>Deposit</code> is an operation which adds the <code>amount</code> to the <code>Balance</code>
+</li>
+</ul>
+<p>
+The code below should do it:
+</p>
+<div class="highlight"><pre><span></span>public class Account
+{
+    public Money Balance { get; set; }
+
+}
+
+public class Program
+{
+    static void Main(string[] args)
+    {
+	var account = new Account();
+	// Make a deposit
+	account.Balance += 50;
+	// Withdraw some cash
+	account.Balance -= 100;
+    }
+}
+</pre></div>
+
+<p>
+<a href="https://en.wiktionary.org/wiki/Houston,_we_have_a_problem">Houston, we have a problem</a>. If we let the consumers of our code (in this case <code>Program</code>) to change the <code>Balance</code> at will, our system may end up in such funky situations where account holders can withdraw as much money as they want from the ATM without having enough funds.
+</p>
+
+<p>
+    Of course, we need to validate each withdrawal but we can't surround each <code>account.Balance -= amount</code> with an <code>if(account.Balance &gt; amount)</code> because it's time consuming, inefficient
+and we simply may not have access to the code that uses our class. What we <i>can</i> do is to <b>encapsulate</b> the withdrawal and validation into a single operation like this:
+</p>
+<div class="highlight"><pre><span></span>public class Account
+{
+    public Money Balance {get; private set; } // The balance is now read-only
+
+    public Money Withdraw(Money amount)
+    {
+	if( Balance &lt;= amount)
+	{
+	    throw new InvalidOperationException("Insufficient funds.");
+	}
+	this.Balance -= amount;
+	return amount;
+    }
+
+    public void Deposit(Money money)
+    {
+	this.Balance += money;
+    }
+}
+
+public class Program
+{
+    static void Main(string[] args)
+    {
+	var account = new Account();
+	account.Deposit(50);
+	account.Withdraw(100); // =&gt; InvalidOperationException.
+    }
+}
+</pre></div>
+
+<p>
+Much better! Now we are in control and we can be sure that <i>every</i> withdrawal is validated against account balance. As a nice side effect our code gains <a href="https://en.wikipedia.org/wiki/Computer_programming#Readability_of_source_code">readability</a>.
+</p>
+</div>
+</div>
+<div id="outline-container-sec-1-1-2" class="outline-4">
+<h4 id="sec-1-1-2">Inheritance and Polymorphism</h4>
+<div class="outline-text-4" id="text-1-1-2">
+<blockquote>
+<p>
+<a href="http://www.codeproject.com/Articles/22769/Introduction-to-Object-Oriented-Programming-Concep#Inheritance">Inheritance is the ability of a new class to acquire the properties of another class.</a>
+</p>
+</blockquote>
+
+<p>
+Let's look at another requirement:
+</p>
+
+<p>
+<b>As an account holder I can have multiple accounts of various types such as savings account, debit account etc for which different withdrawal fees apply. For a debit account the withdrawal fee is zero; for a savings account the withdrawal fee is 0.5% of the amount withdrawn.</b>
+</p>
+
+<p>
+From the requirement we can deduct that an <code>Account</code> can be modeled as a class with two properties - a <code>Balance</code> and a <code>Type</code> which can take values from an enumeration.
+</p>
+
+<p>
+Also, additional changes to the <code>Withdraw</code> method should be applied:
+</p>
+<ul class="org-ul">
+<li>Each withdrawal calculates and subtracts a fee from the balance
+</li>
+<li>The check for insufficient funds should also take into the consideration the fee alongside the amount
+</li>
+</ul>
+<p>
+Given the above, our code would look like this:
+</p>
+<div class="highlight"><pre><span></span>public enum AccountType
+{
+    Debit,
+    Savings
+}
+
+public class Account
+{
+    private readonly AccountType _accountType;
+
+    public Account(AccountType accountType)
+    {
+	_accountType = accountType;
+    }
+
+    public AccountType AccountType { get { return _accountType; } }
+
+    public Money Balance { get; private set; }
+
+    public void Deposit(Money money)
+    {
+	this.Balance += money;
+    }
+
+    public Money Withdraw(Money amount)
+    {
+	var fee = CalculateWithdrawalFee(amount);
+	amount = amount + fee;
+	if( Balance &lt;= amount)
+	{
+	    throw new InvalidOperationException("Insufficient funds.");
+	}
+	this.Balance -= amount;
+    }
+
+    private Money CalculateWithdrawalFee(Money amount)
+    {
+	var margin = _accountType == AccountType.Savings ? 0.5 : 0;
+	return amount * margin / 100;
+    }
+}
+</pre></div>
+
+<p>
+Everything looks good except the <a href="https://en.wikipedia.org/wiki/Magic_number_%2528programming%2529">magic numbers</a>. Until we get a new requirement:
+</p>
+
+<p>
+<b>As an account holder I can have a credit account with a withdrawal fee of 0.7%</b>
+</p>
+
+<p>
+To accomodate this new requirement we just have to change the <code>CalculateWithdrawalFee</code> method <b>and</b> add a new value in our <code>AccountType</code> enum:
+</p>
+<div class="highlight"><pre><span></span>public enum AccountType
+{
+    Debit,
+    Savings,
+    Credit
+}
+
+...
+
+private Money CalculateWithdrawalFee(Money amount)
+{
+    switch( _accountType )
+	case AccountType.Savings:
+	    return amount * 0.5 / 100;
+	case AccountType.Credit:
+	    return amount * 0.7 / 100;
+	default:
+	    return 0;
+}
+</pre></div>
+<p>
+The problem with this approach is that we had to add changes in more than one place; and the hint that this way of implementing the new requirement is not ok was given by the
+<i>and</i> conjunction from the previous sentence. And if that wasn't enough then the <code>switch</code> should be the indicator of a possible code smell.
+</p>
+
+<p>
+A better way to address these requirements is through inheritance by first determining which are the common traits of an <code>Account</code> and extracting them into a base class followed by modeling the specific behavior for each
+subsequent type of account into its separate class.
+</p>
+
+<p>
+So, as before, the common traits of an account are:
+</p>
+<ul class="org-ul">
+<li>All accounts have a <code>Balance</code> property
+</li>
+<li>All accounts support <code>Withdrawal</code> and <code>Deposit</code>
+</li>
+<li>All accounts validate available amount when a withdrawal is performed
+</li>
+</ul>
+<p>
+The distinct traits of the accounts are:
+</p>
+<ul class="org-ul">
+<li>Savings accounts have a withdrawal fee of 0.5% of the amount withdrawn
+</li>
+<li>Credit accounts have a withdrawal fee of 0.7% of the amount withdrawn
+</li>
+<li>Debit accounts don't have a withdrawal fee
+</li>
+</ul>
+<p>
+Although we can see a clear difference between the common traits and specific features for each account type there is a certain amount of overlapping between them when performing a withdrawal.
+In other words and specifically for withdrawal operation we can say that:
+</p>
+<ul class="org-ul">
+<li>All account types support withdrawal
+</li>
+<li>Each account type applies a specific withdrawal fee
+</li>
+<li>All account types validate the amount against available funds
+</li>
+</ul>
+<p>
+In order to model such kind of mixture between common and specific behavior we can make use of <code>polymorphism</code> by defining an abstract method <code>CalculateWithdrawalFee</code> which will be overridden
+in the derived classes with specific values for each account type but still keeping the common behavior in a single place.
+</p>
+<blockquote>
+<p>
+<a href="http://www.codeproject.com/Articles/22769/Introduction-to-Object-Oriented-Programming-Concep#Polymorphism">Polymorphisms means the ability to request that the same operations be performed by a wide range of different types of things.</a>
+</p>
+</blockquote>
+<p>
+Now, with this approach let's address each requirement in the order they arrived. First, let's create the base class:
+</p>
+<div class="highlight"><pre><span></span>public abstract class Account
+{
+    public Money Balance { get; private set; }
+
+    public void Deposit(Money money)
+    {
+	this.Balance += money;
+    }
+
+    public Money Withdraw(Money amount)
+    {
+	var fee = CalculateWithdrawalFee(amount);
+	amount = amount + fee;
+	if( Balance &lt;= amount)
+	{
+	    throw new InvalidOperationException("Insufficient funds.");
+	}
+	this.Balance -= amount;
+    }
+
+    protected abstract Money CalculateWithdrawalFee(Money amount);
+}
+</pre></div>
+<p>
+With the base class in place, let's model the first two account types - <i>debit</i> and <i>savings</i>:
+</p>
+<div class="highlight"><pre><span></span>public class DebitAccount : Account
+{
+    protected override Money CalculateWithdrawalFee(Money amount)
+    {
+	return 0;
+    }
+}
+
+public class SavingsAccount : Account
+{
+    protected override Money CalculateWithdrawalFee(Money amount)
+    {
+	return amount * 0.5 / 100;
+    }
+}
+</pre></div>
+<p>
+With this structure in place adding a new account type is as simple as adding a new derived class and all edits are in a single place - the newly added file:
+</p>
+<div class="highlight"><pre><span></span>public class CreditAccount : Account
+{
+    protected override Money CalculateWithdrawalFee(Money amount)
+    {
+	return amount * 0.7 / 100;
+    }
+}
+</pre></div>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-1-2" class="outline-3">
+<h3 id="sec-1-2">Chapter II - Structure</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+How you structure your code is very important in software development. A good code structure promotes <b>low coupling and high cohesion</b> which is a must for all good software.
+</p>
+
+<p>
+Let's take a look at what <b>coupling</b> and <b>cohesion</b> mean.
+</p>
+</div>
+<div id="outline-container-sec-1-2-1" class="outline-4">
+<h4 id="sec-1-2-1">Low coupling - The case of the <code>Singleton</code>
+</h4>
+<div class="outline-text-4" id="text-1-2-1">
+<blockquote>
+<p>
+<a href="https://en.wikipedia.org/wiki/Coupling_%2528computer_programming%2529">Coupling is the manner and degree of interdependence between software modules; a measure of how closely connected two routines or modules are; the strength of the relationships between modules.</a>
+</p>
+</blockquote>
+<p>
+To exemplify what <b>low coupling</b> is and its importance let's take a look at the well-kown <code>Singleton</code> pattern:
+</p>
+<div class="highlight"><pre><span></span>public class FileSystem
+{
+    private static readonly FileSystem _root = new FileSystem();
+
+    private FileSystem()
+    {
+    }
+
+    public static FileSystem Root
+    {
+	get { return _root; }
+    }
+
+    public string[] List(string path)
+    {
+	return Directory.EnumerateDirectories(path)
+	    .Union(Directory.EnumerateFiles(path))
+	    .ToArray();
+    }
+}
+
+public class Explorer
+{
+    public string CurrentDirectory { get; set; }
+
+    public IEnumerable&lt;string&gt; Contents { get; private set;}
+
+    public void NavigateTo(string path)
+    {
+	var contents = FileSystem.Root.List(path);
+	CurrentDirectory = path;
+	Contents = contents;
+
+	foreach(var item in contents)
+	{
+	    Display(item);
+	}
+    }
+}
+
+public class Program
+{
+    static void Main(string[] args)
+    {
+	var explorer = new Explorer();
+	explorer.NavigateTo(@"c:\users\petru\Documents\");
+    }
+}
+</pre></div>
+<p>
+What is wrong in the code above? <b>The <code>Explorer</code> class is tightly coupled with <code>FileSystem</code> singleton</b>, i.e. <code>Explorer</code> class is highly denendent on the <code>FileSystem</code> class and cannot be used without the <code>FileSystem</code>.
+</p>
+
+<p>
+To demonstrate this <b>tight coupling</b> let's create a test for <code>Explorer</code> class to verify that it returns proper values from a known directory:
+</p>
+<div class="highlight"><pre><span></span>public class ExplorerTests
+{
+    protected string Directory { get; set; }
+
+    protected Explorer Explorer { get; private set;}
+
+    protected void Initialize()
+    {
+	Explorer = new Explorer();
+    }
+
+    [TestClass]
+    public class WhenNavigatingToTempDirectory : ExplorerTests
+    {
+	[TestInitialize]
+	public void TestInitialize()
+	{
+	    Initialize();
+	    Directory = @"C:\Temp\";
+	}
+
+	[TestMethod]
+	public void ShouldDisplayDirectoryContents()
+	{
+	    Explorer.NavigateTo(Directory);
+	    Assert.AreEqual(Directory, Explorer.CurrentDirectory);
+	    Assert.AreEqual("C:\Temp\test.txt", Explorer.Contents.Single());
+	}
+    }
+}
+</pre></div>
+<p>
+This test may succeed on our machine because we know that there's a file named <code>text.txt</code> in our <code>C:\Temp\</code> directory because we've put it there. But what if we execute that test on another machine? Will that file be there?
+</p>
+
+<p>
+Having such code means that not only our <code>Explorer</code> class is <b>tightly coupled</b> with the <code>FileSystem</code> class but also that this chain of dependency can grow to depend on the contents of the machine it's running on. We'll see how to break this dependecies in <b>Chapter III - SOLID code</b>.
+</p>
+</div>
+</div>
+<div id="outline-container-sec-1-2-2" class="outline-4">
+<h4 id="sec-1-2-2">High cohesion - Why can't I have all code in <code>Program.cs</code>?</h4>
+<div class="outline-text-4" id="text-1-2-2">
+<blockquote>
+<p>
+<a href="https://en.wikipedia.org/wiki/Cohesion_%2528computer_science%2529">Cohesion refers to the degree to which the elements of a module belong together.</a>
+</p>
+</blockquote>
+<p>
+The main reason for properly structuring your application is that <b>similar entities belong toghether</b>.
+</p>
+
+<p>
+Let's consider the previous example in a less cohesive form:
+</p>
+<div class="highlight"><pre><span></span>public class Program
+{
+    static void Main(string[] args)
+    {
+	NavigateTo(@"C:\users\petru\Documents\");
+    }
+
+    static void NavigateTo(string path)
+    {
+	var contents = Directory.EnumerateDirectories(path)
+	    .Union(Directory.EnumerateFiles(path));
+	foreach(var item in contents)
+	{
+	    Display(item);
+	}
+    }
+}
+</pre></div>
+<p>
+In this case our <code>Program</code> is nothing more than a <a href="https://en.wikipedia.org/wiki/God_object"><b>God object</b></a> - it does <i>everything</i> and this is a problem. It may not be a problem for such a trivial application but when it comes to real applications things get more complicated.
+</p>
+
+<p>
+Even small production applications have a lot of objects and that number keeps growing alongside the growth of the application and at some point having everything in one place is simply unbearable. Furthermore, chances are that more than one developer will be working on the same codebase and you can't just have everything in a single file.
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-1-3" class="outline-3">
+<h3 id="sec-1-3">Chapter III - SOLID code</h3>
+<div class="outline-text-3" id="text-1-3">
+</div>
+<div id="outline-container-sec-1-3-1" class="outline-4">
+<h4 id="sec-1-3-1">Single Responsibility Principle</h4>
+<div class="outline-text-4" id="text-1-3-1">
+<blockquote>
+<p>
+<a href="https://en.wikipedia.org/wiki/Single_responsibility_principle">Every module or class should have responsibility over a single part of the functionality provided by the software, and that responsibility should be entirely encapsulated by the class.</a>
+</p>
+</blockquote>
+<p>
+Let's look again at our Account example:
+</p>
+<div class="highlight"><pre><span></span>public abstract class Account
+{
+    public Money Balance { get; private set; }
+
+    public void Deposit(Money money)
+    {
+	this.Balance += money;
+    }
+
+    public Money Withdraw(Money amount)
+    {
+	var fee = CalculateWithdrawalFee(amount);
+	amount = amount + fee;
+	if( Balance &lt;= amount)
+	{
+	    throw new InvalidOperationException("Insufficient funds.");
+	}
+	this.Balance -= amount;
+    }
+
+    protected abstract Money CalculateWithdrawalFee(Money amount);
+}
+</pre></div>
+<p>
+As you can see from the code, the <code>Withdraw</code> method does more than one thing, namely:
+</p>
+<ul class="org-ul">
+<li>It calculates the withdrawal fee
+</li>
+<li>It subtracts the amount and withdrawal fee from the balance
+</li>
+</ul>
+<p>
+The purpose of this method is to withdraw the <code>amount</code> from the available balance; calculating the withdrawal fee should be someone else's responsibility. And that <i>someone else</i> should be a <code>WithdrawalAmountCalculator</code>:
+</p>
+<div class="highlight"><pre><span></span>public class WithdrawalAmountCalculator
+{
+    public Money CalculateWithdrawalAmount(Money amount, decimal percentage)
+    {
+	return amount * percentage / 100;
+    }
+}
+</pre></div>
+<p>
+Now, let's put it all together and remove the extra responsibilities from <code>Account</code> class:
+</p>
+<div class="highlight"><pre><span></span>public class WithdrawalAmountCalculator
+{
+    public Money CalculateWithdrawalAmount(Money amount, decimal feePercentage)
+    {
+	return amount * feePercentage / 100;
+    }
+}
+
+public abstract class Account
+{
+    private readonly WithdrawalAmountCalculator _amountCalculator;
+
+    protected Account(WithdrawalFeeCalculator amountCalculator)
+    {
+	_amountCalculator = amountCalculator;
+    }
+
+    public Money Balance { get; private set; }
+
+    public abstract decimal WithdrawalInterestRate { get; }
+
+    public void Deposit(Money money)
+    {
+	this.Balance += money;
+    }
+
+    public Money Withdraw(Money amount)
+    {
+	var amountToWithdraw = _amountCalculator.CalculateWithdrawalAmount(amount, WithdrawalInterestRate);
+	if( Balance &lt;= amountToWithdraw)
+	{
+	    throw new InvalidOperationException("Insufficient funds.");
+	}
+	this.Balance -= amountToWithdraw;
+	return amount;
+    }
+}
+
+public class DebitAccount : Account
+{
+    public DebitAccount(WithdrawalAmountCalculator amountCalculator) : base(amountCalculator)
+    {
+    }
+
+    public override decimal WithdrawalInterestRate
+    {
+	{ get { return 0m; }}
+    }
+}
+
+public class Program
+{
+    static void Main(string[] args)
+    {
+	var calculator = new WithdrawalAmountCalculator();
+	var account = new DebitAccount(calculator);
+	account.Deposit(new Money(100));
+
+	var cash = account.Withdraw(50);
+    }
+}
+</pre></div>
+<p>
+Much better! Each class does only one thing, namely:
+</p>
+<ul class="org-ul">
+<li>
+<code>WithdrawalAmountCalculator</code> calculates the withdrawal amount and
+</li>
+<li>
+<code>Account</code> handles the changes to balance.
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-sec-1-3-2" class="outline-4">
+<h4 id="sec-1-3-2">Open/Closed principle</h4>
+<div class="outline-text-4" id="text-1-3-2">
+<blockquote>
+<p>
+<a href="https://en.wikipedia.org/wiki/Open/closed_principle">Software entities (classes, modules, functions, etc.) should be open for extension, but closed for modification</a>
+</p>
+</blockquote>
+<p>
+Let's go back again to a previous example, the one with multiple account types:
+</p>
+<div class="highlight"><pre><span></span>public enum AccountType
+{
+    Debit,
+    Savings,
+    Credit
+}
+
+...
+
+private Money CalculateWithdrawalFee(Money amount)
+{
+    switch( _accountType )
+	case AccountType.Savings:
+	    return amount * 0.5 / 100;
+	case AccountType.Credit:
+	    return amount * 0.7 / 100;
+	default:
+	    return 0;
+}
+</pre></div>
+<p>
+The code from the example above is the exact opposite of <b>Open/Closed principle</b>:
+</p>
+<ul class="org-ul">
+<li>It is <i>open for modification</i> because every time we'll need to create a new account type we'll have to add another <code>case</code> to the <code>switch</code> statement within <code>CalculateWithdrawalAmount</code> method
+</li>
+<li>It is <i>closed for extension</i> in the sense that even if we do create a derived type of <code>Account</code> that type will have to <b>always</b> take into consideration the <code>AccountType</code> property when implementing its custom behavior.
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-sec-1-3-3" class="outline-4">
+<h4 id="sec-1-3-3">Liskov substitution principle</h4>
+<div class="outline-text-4" id="text-1-3-3">
+<blockquote>
+<p>
+<a href="https://en.wikipedia.org/wiki/Liskov_substitution_principle">Objects in a program should be replaceable with instances of their subtypes without altering the correctness of that program.</a>
+</p>
+</blockquote>
+<p>
+To exemplify let's consider the overused <code>Rectangle</code> and <code>Square</code> example where one would model the relationship between them using the following statement: <b>a <code>Square</code> is a <code>Rectangle</code> having <code>Width == Height</code></b> as behavioral description. In other words, <i>a <code>Square</code> behaves exactly like a <code>Rectangle</code> but the <code>Square</code> has <code>Width == Heigth</code></i>.
+</p>
+
+<p>
+As an object hierarchy this would look like the following:
+</p>
+<div class="highlight"><pre><span></span>public class Rectangle
+{
+    protected int _width;
+
+    protected int _height;
+
+    public virtual int Width
+    {
+	get { return _width; }
+	set { _width = value; }
+    }
+
+    public virtual int Height
+    {
+	get { return _height; }
+	set { _height = value; }
+    }
+}
+
+public class Square : Rectangle
+{
+    public override int Width
+    {
+	get { return _width; }
+	set
+	{
+	    _width = value;
+	    _height = value;
+	}
+    }
+
+    public override int Height
+    {
+	get { return _height; }
+	set
+	{
+	    _height = value;
+	    _width = value;
+	}
+    }
+}
+</pre></div>
+<p>
+Now let' think of consumer of this code: it knows it's working with a <code>Rectangle</code> and sets all the values accordingly but it is given a <code>Square</code> to work with. Let's see that in code:
+</p>
+<div class="highlight"><pre><span></span>public class Program
+{
+    private const int ImageWidth = 800;
+    private const int ImageHeight = 600;
+
+    static void Main(string[] args)
+    {
+	var rectangle = new Square();
+	InitializeRectangle(rectangle);
+	var area = rectangle.Width * rectangle.Height;
+	Debug.Assert(area == ImageWidth * ImageHeight);
+    }
+
+    void InitializeRectangle(Rectangle rectangle)
+    {
+	rectangle.Width = ImageWidth;
+	rectangle.Height = ImageHeight;
+    }
+}
+</pre></div>
+<p>
+The method <code>InitializeRectangle</code> will perform it's work on a <code>Rectangle</code> thus will set its <code>Width</code> and <code>Height</code> properties and the <code>Main</code> method will be expecting to have an rectangle with the area of <code>ImageWidth * ImageHeight</code> but since the <code>Square</code> overrides the <code>Width</code> when <code>Height</code> is set (and viceversa) the actual area of the rectangle will be <code>ImageHeight * ImageHeight</code>.
+</p>
+
+<p>
+This shows that although a <code>Square</code> may have a similar structure with an <code>Rectangle</code> it cannot be used as a substitute for a <code>Rectangle</code> because it doesn't have the same behavior.
+</p>
+</div>
+</div>
+<div id="outline-container-sec-1-3-4" class="outline-4">
+<h4 id="sec-1-3-4">Interface Segregation principle</h4>
+<div class="outline-text-4" id="text-1-3-4">
+<blockquote>
+<p>
+<a href="https://en.wikipedia.org/wiki/Interface_segregation_principle">Many client-specific interfaces are better than one general-purpose interface.</a>
+</p>
+</blockquote>
+<p>
+To exemplify this let's consider some existing types within <code>.NET Framework</code>: <a href="https://msdn.microsoft.com/en-us/library/system.web.security.membershipprovider%2528v=vs.110%2529.aspx"><code>MembershipProvider</code></a> from <code>System.Web.Security</code> namespace and <a href="https://msdn.microsoft.com/en-us/library/dn613278%2528v=vs.108%2529.aspx"><code>IUserStore</code></a> from <code>Microsoft.AspNet.Identity</code> namespace:
+</p>
+<div class="highlight"><pre><span></span>public abstract class MembershipProvider : ProviderBase
+{
+    public abstract bool EnablePasswordRetrieval { get; }
+
+    public abstract bool EnablePasswordReset { get; }
+
+    public abstract bool RequiresQuestionAndAnswer { get; }
+
+    public abstract string ApplicationName { get; set; }
+
+    public abstract int MaxInvalidPasswordAttempts { get; }
+
+    public abstract int PasswordAttemptWindow { get; }
+
+    public abstract bool RequiresUniqueEmail { get; }
+
+    public abstract MembershipPasswordFormat PasswordFormat { get; }
+
+    public abstract int MinRequiredPasswordLength { get; }
+
+    public abstract int MinRequiredNonAlphanumericCharacters { get; }
+
+    public abstract string PasswordStrengthRegularExpression { get; }
+
+    public event MembershipValidatePasswordEventHandler ValidatingPassword
+
+    public abstract MembershipUser CreateUser(string username, string password, string email, string passwordQuestion, string passwordAnswer, bool isApproved, object providerUserKey, out MembershipCreateStatus status);
+
+    public abstract bool ChangePasswordQuestionAndAnswer(string username, string password, string newPasswordQuestion, string newPasswordAnswer);
+
+    public abstract string GetPassword(string username, string answer);
+
+    public abstract bool ChangePassword(string username, string oldPassword, string newPassword);
+
+    public abstract string ResetPassword(string username, string answer);
+
+    public abstract void UpdateUser(MembershipUser user);
+
+    public abstract bool ValidateUser(string username, string password);
+
+    public abstract MembershipUser GetUser(object providerUserKey, bool userIsOnline);
+
+    public abstract MembershipUser GetUser(string username, bool userIsOnline);
+
+    internal MembershipUser GetUser(string username, bool userIsOnline, bool throwOnError)
+
+    public abstract string GetUserNameByEmail(string email);
+
+    public abstract bool DeleteUser(string username, bool deleteAllRelatedData);
+
+    public abstract MembershipUserCollection GetAllUsers(int pageIndex, int pageSize, out int totalRecords);
+
+    public abstract int GetNumberOfUsersOnline();
+
+    public abstract MembershipUserCollection FindUsersByName(string usernameToMatch, int pageIndex, int pageSize, out int totalRecords);
+
+    public abstract MembershipUserCollection FindUsersByEmail(string emailToMatch, int pageIndex, int pageSize, out int totalRecords);
+
+    protected virtual byte[] EncryptPassword(byte[] password)
+
+    protected virtual byte[] EncryptPassword(byte[] password, MembershipPasswordCompatibilityMode legacyPasswordCompatibilityMode)
+
+    protected virtual byte[] DecryptPassword(byte[] encodedPassword)
+
+    protected virtual void OnValidatingPassword(ValidatePasswordEventArgs e)
+
+}
+
+
+public interface IUserStore&lt;TUser, in TKey&gt; : IDisposable where TUser : class, IUser&lt;TKey&gt;
+{
+    Task CreateAsync(TUser user);
+
+    Task UpdateAsync(TUser user);
+
+    Task DeleteAsync(TUser user);
+
+    Task&lt;TUser&gt; FindByIdAsync(TKey userId);
+
+    Task&lt;TUser&gt; FindByNameAsync(string userName);
+}
+
+ public interface IUserPasswordStore&lt;TUser, in TKey&gt; : IUserStore&lt;TUser, TKey&gt;, IDisposable where TUser : class, IUser&lt;TKey&gt;
+  {
+    Task SetPasswordHashAsync(TUser user, string passwordHash);
+
+    Task&lt;string&gt; GetPasswordHashAsync(TUser user);
+
+    Task&lt;bool&gt; HasPasswordAsync(TUser user);
+  }
+</pre></div>
+<p>
+If we would have to implement a simple authentication mechanism the functionality of <code>IUserStore</code> and <code>IUserPasswordStore</code> would be sufficient for our needs. Compare implementing only the functionality required for these two interfaces with the effort required to derive from the <code>MembershipProvider</code> class. Even worse, I can say from my experience that with the <code>MembershipProvider</code> you'll be writing code which will never be used.
+</p>
+</div>
+</div>
+<div id="outline-container-sec-1-3-5" class="outline-4">
+<h4 id="sec-1-3-5">Dependency Inversion principle</h4>
+<div class="outline-text-4" id="text-1-3-5">
+<blockquote>
+<p>
+<a href="https://en.wikipedia.org/wiki/Dependency_inversion_principle">Depend upon Abstractions. Do not depend upon concretions.</a>
+</p>
+</blockquote>
+<p>
+Let's go back to our <code>Singleton</code> example. In the previous module we stated that the <code>Explorer</code> class is <b>tightly coupled</b> with the <code>FileSystem</code> class thus depending on it and also depending on underlying file system for tests to succed.
+</p>
+
+<p>
+To break this dependency we need to hide the functionality of our <code>FileSystem</code> behind an abstraction and we do that using an interface <code>IFileSystem</code> which will be implemented by <code>FileSystem</code> class:
+</p>
+<div class="highlight"><pre><span></span>public interface IFileSystem
+{
+    string[] List(string path);
+}
+
+public class FileSystem : IFileSystem
+{
+    public string[] List(string path)
+    {
+	return Directory.EnumerateDirectories(path)
+	    .Union(Directory.EnumerateFiles(path))
+	    .ToArray();
+    }
+}
+</pre></div>
+<p>
+Now we make the <code>Explorer</code> class depend upon the <code>IFileSystem</code> interface:
+</p>
+<div class="highlight"><pre><span></span>public class Explorer
+{
+    private readonly IFileSystem _fileSystem;
+
+    public Explorer(IFileSystem fileSystem)
+    {
+	_fileSystem = fileSystem;
+    }
+
+    public string CurrentDirectory { get; set; }
+
+    public IEnumerable&lt;string&gt; Contents { get; private set;}
+
+    public void NavigateTo(string path)
+    {
+	var contents = _fileSystem.Root.List(path);
+	CurrentDirectory = path;
+	Contents = contents;
+
+	foreach(var item in contents)
+	{
+	    Display(item);
+	}
+    }
+}
+</pre></div>
+<p>
+Now it's up to the <code>Program</code> class to glue them together:
+</p>
+<div class="highlight"><pre><span></span>public class Program
+{
+    static void Main(string[] args)
+    {
+	var fs = new FileSystem();
+	var explorer = new Explorer(fs);
+	explorer.NavigateTo(@"c:\users\petru\Documents\");
+    }
+}
+</pre></div>
+<p>
+This way we can test the <code>Explorer</code> class separately from the <code>FileSystem</code> class by passing it an instance of a class that implements <code>IFileSystem</code> and returns some stub data.
+</p>
+
+<p>
+As an additional bonus, the semantics of the <code>Singleton</code> is still in place - there is <b>only one instance</b> of the <code>FileSystem</code> class for the whole lifetime of the application.
+</p>
+</div>
+</div>
+</div>
+</div>
+    </div>
+    <aside class="postpromonav"><nav><ul itemprop="keywords" class="tags">
+<li><a class="tag p-category" href="../../categories/cohesion/" rel="tag">cohesion</a></li>
+            <li><a class="tag p-category" href="../../categories/coupling/" rel="tag">coupling</a></li>
+            <li><a class="tag p-category" href="../../categories/encapsulation/" rel="tag">encapsulation</a></li>
+            <li><a class="tag p-category" href="../../categories/fii-practic/" rel="tag">FII Practic</a></li>
+            <li><a class="tag p-category" href="../../categories/inheritance/" rel="tag">inheritance</a></li>
+            <li><a class="tag p-category" href="../../categories/oop-principles/" rel="tag">OOP principles</a></li>
+            <li><a class="tag p-category" href="../../categories/polymorphism/" rel="tag">polymorphism</a></li>
+            <li><a class="tag p-category" href="../../categories/presentation/" rel="tag">presentation</a></li>
+            <li><a class="tag p-category" href="../../categories/programming-principles/" rel="tag">programming principles</a></li>
+            <li><a class="tag p-category" href="../../categories/solid-principles/" rel="tag">SOLID principles</a></li>
+        </ul>
+<ul class="pager hidden-print">
+<li class="previous">
+                <a href="../welcome/" rel="prev" title="Welcome">Previous post</a>
+            </li>
+        </ul></nav></aside></article><!--End of body content--><footer id="footer">
+            Contents © 2018         <a href="mailto:petru.rebeja@gmail.com">Petru Rebeja</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+            
+        </footer>
+</div>
+</div>
+
+
+        <script src="../../assets/js/all-nocdn.js"></script><!-- fancy dates --><script>
+    moment.locale("en");
+    fancydates(0, "YYYY-MM-DD HH:mm");
+    </script><!-- end fancy dates --><script>
+    baguetteBox.run('div#content', {
+        ignoreClass: 'islink',
+        captions: function(element) {
+            return element.getElementsByTagName('img')[0].alt;
+    }});
+    </script>
+</body>
+</html>

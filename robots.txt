@@ -1,0 +1,4 @@
+Sitemap: https://blog.rebeja.eu/sitemapindex.xml
+
+User-Agent: *
+Host: blog.rebeja.eu
