@@ -20,10 +20,12 @@ To do so, follow the steps below:
 6. In the editor navigate to ~wwwroot\content\themes\<your-theme>\post.hbs~. This will load the file in the panel on the right.
 7. Go back to [[https://disqus.com/admin/install/platforms/ghost/][Ghost Install Instructions]] on Disqus and copy the [[https://disqus.com/admin/install/platforms/universalcode/][Universal Embed Code]].
 8. Paste the code into post.hbs file in the place where you want your comment section to be.
-9. Find the section to define configuration variables and replace ~PAGE_URL~ with ~'{{@blog.url}}{{url}}'~ and ~PAGE_IDENTIFIER~ with ~'{{id}}'~. Your code should look like this:
+9. Find the section to define configuration variables and make it look like this:
    #+BEGIN_SRC js
      var disqus_config = function () {
 	 this.page.url = '{{@blog.url}}{{url}}';
 	 this.page.identifier = '{{id}}';
      };
    #+END_SRC
+
+Happy blogging!
