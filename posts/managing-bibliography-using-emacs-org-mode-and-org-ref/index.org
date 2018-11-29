@@ -1,0 +1,100 @@
+#+BEGIN_COMMENT
+.. title: Managing bibliography using Emacs Org-Mode and Org-Ref
+.. slug: managing-bibliography-using-emacs-org-mode-and-org-ref
+.. date: 2017-07-29 00:00:00 UTC+02:00
+.. tags: Emacs, reading list, bibliography, org-ref
+.. category: Emacs
+.. link:
+.. description:
+.. type: text
+
+#+END_COMMENT
+
+Since I've started to use Emacs more and more I started wondering whether I can use org-mode to keep a reading list/bibliography?
+
+A quick search led me to this [[http://blog.modelworks.ch/][blog post]] where the author was presenting his setup for the same thing. However, after reading into the post I saw that the author
+uses a combination of tasks and a reading list which requires custom code to be executed and is too complex for my needs.
+
+All I want is a simple list that:
++ should be available on multiple workstations
++ can be built/managed with out-of-the-shelf components and without much effort
++ should allow me to change the status of an entry.
+I did however liked the idea of using references to the papers being read and since I recently saw a [[https://www.youtube.com/watch?v=JyvpSVl4_dg][YouTube video]] presenting ~org-ref~ I thought I should give it a try.
+
+To handle the availability part I decided to use Dropbox which is also suggested by ~org-ref~.
+* Setup org-ref
+  ~org-ref~ is available on [[http://melpa.org/][Melpa]] so to install it just type ~M-x package-install org-ref~. Afterwards copy the code below to your init file and adjust the paths:
+  #+BEGIN_SRC emacs-lisp
+    (setq reftex-default-bibliography '("~/Dropbox/bibliography/references.bib"))
+    ;; see org-ref for use of these variables
+    (setq org-ref-bibliography-notes "~/Dropbox/bibliography/notes.org"
+	  org-ref-default-bibliography '("~/Dropbox/bibliography/references.bib")
+	  org-ref-pdf-directory "~/Dropbox/bibliography/bibtex-pdfs/")
+
+    (setq bibtex-completion-bibliography "~/Dropbox/bibliography/references.bib"
+	  bibtex-completion-library-path "~/Dropbox/bibliography/bibtex-pdfs"
+	  bibtex-completion-notes-path "~/Dropbox/bibliography/helm-bibtex-notes")
+  #+END_SRC
+* Creating the reading list
+  With ~org-ref~ in place, it was time to setup the reading list so I created a new file named ~reading-list.org~ under ~~/Dropbox/bibliography/~ with the following header:
+  #+BEGIN_SRC sh
+    ,#+TITLE: Reading list
+    ,#+STATUS: "Maybe" "Pending" "Reading" "Finished" ""
+    ,#+COLUMNS: %120ITEM %STATUS
+  #+END_SRC
+  The first line obviously defines the title of the document. The second line defines the values for status where:
+  + ~Maybe~ means that reading the entry is optional
+  + ~Pending~ - the entry will be read sometime after finishing the item that I'm currently reading
+  + ~Reading~ - the item currently being read
+  + ~Finished~ - the entries that are already read.
+* Adding an entry to the list
+  + Add ~bibtex~ entry in ~references.bib~ file. E.g.:
+    #+BEGIN_SRC sh
+      @inproceedings{le2014distributed,
+	title={Distributed representations of sentences and documents},
+	author={Le, Quoc and Mikolov, Tomas},
+	booktitle={Proceedings of the 31st International Conference on Machine Learning (ICML-14)},
+	pages={1188--1196},
+	year={2014}
+      }
+    #+END_SRC
+  + In the ~reading-list.org~ file add the title to the list using ~M-return~
+  + Add ~Status~ and ~Source~ properties
+    + With the cursor on the header:
+      + Press ~C-c C-x p~
+      + Select or write ~Status~
+      + Press return
+      + Select the value for status (e. g. ~Pending~)
+      + Press return
+    + With the cursor on the header:
+      + Press ~C-c C-x p~
+      + Write or select ~Source~
+      + Press return
+      + If you know the citation key (le2014distributed in the example above) then you can write directly ~cite:le2014distributed~; otherwise, leave the value for ~Source~ empty and put the cursor after the property declaration. Then, press ~C-c ]~ and select the entry from the reference list.
+  Repeat the steps above and you should end up with a list like this:
+  [[img-url:/images/emacs-reading-list.png]]
+* Change the status of an entry
+  To change the status of an entry:
+  + Navigate to the desired entry
+  + Repeat the steps above for setting the ~Status~ property and select the proper value for ~Status~
+* Status overview
+  After creating the list you may want to have an overview of the status for each entry. This can be achieved using ~Org Column View~.
+  The setup for column view is in the third line of the header
+  #+BEGIN_SRC sh
+    ,#+COLUMNS: %120ITEM %STATUS
+  #+END_SRC
+  which tells org-mode how to display the entries. Namely, we're defining two columns:
+  1. *Item* which will display the heading on 120 characters and
+  2. *Status* which will take as much space as needed to display the status
+** Switching to column view
+   To switch to column view, place the cursor outside the headings and press ~C-c C-x C-c~ (or ~M-x org-columns~). The list should look like the image below:
+   [[img-url:/images/emacs-reading-list-column-view.png]]
+   If your cursor was on a heading when pressing ~C-c C-x C-c~ (invoking ~org-columns~) then the column view will be activated only for the selected heading.
+** Exiting column view
+   To exit column view position the cursor on a heading that is currently in column view and press ~q~.
+
+   That's it. Happy reading!
+* References
+  1. [[https://github.com/jkitchin/org-ref/blob/master/org-ref.org#start-of-content][The org-ref manual]]
+  2. [[http://blog.modelworks.ch/managing-papers-with-org-mode-and-reftex/][Managing papers with Org-Mode and RefTex]]
+  3. [[http://orgmode.org/org.html#Defining-columns][Org Manual - Defining columns]]

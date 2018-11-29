@@ -7,7 +7,7 @@
                         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
  <url>
   <loc>https://blog.rebeja.eu/</loc>
-  <lastmod>2018-11-27T15:59:00Z</lastmod>
+  <lastmod>2018-11-29T13:56:00Z</lastmod>
  </url>
  <url>
   <loc>https://blog.rebeja.eu/2016/</loc>
@@ -18,12 +18,16 @@
   <lastmod>2018-11-27T15:59:00Z</lastmod>
  </url>
  <url>
+  <loc>https://blog.rebeja.eu/2018/</loc>
+  <lastmod>2018-11-29T13:37:00Z</lastmod>
+ </url>
+ <url>
   <loc>https://blog.rebeja.eu/archive.html</loc>
-  <lastmod>2018-11-29T13:36:00Z</lastmod>
+  <lastmod>2018-11-29T15:34:00Z</lastmod>
  </url>
  <url>
   <loc>https://blog.rebeja.eu/categories/</loc>
-  <lastmod>2018-11-29T12:49:00Z</lastmod>
+  <lastmod>2018-11-29T13:39:00Z</lastmod>
  </url>
  <url>
   <loc>https://blog.rebeja.eu/categories/abstraction/</loc>
@@ -32,6 +36,10 @@
  <url>
   <loc>https://blog.rebeja.eu/categories/azure/</loc>
   <lastmod>2018-11-29T12:49:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://blog.rebeja.eu/categories/bibliography/</loc>
+  <lastmod>2018-11-29T13:39:00Z</lastmod>
  </url>
  <url>
   <loc>https://blog.rebeja.eu/categories/blog/</loc>
@@ -94,6 +102,10 @@
   <lastmod>2018-11-27T15:03:00Z</lastmod>
  </url>
  <url>
+  <loc>https://blog.rebeja.eu/categories/org-ref/</loc>
+  <lastmod>2018-11-29T13:39:00Z</lastmod>
+ </url>
+ <url>
   <loc>https://blog.rebeja.eu/categories/polymorphism/</loc>
   <lastmod>2018-11-25T22:10:00Z</lastmod>
  </url>
@@ -104,6 +116,10 @@
  <url>
   <loc>https://blog.rebeja.eu/categories/programming-principles/</loc>
   <lastmod>2018-11-25T19:41:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://blog.rebeja.eu/categories/reading-list/</loc>
+  <lastmod>2018-11-29T13:39:00Z</lastmod>
  </url>
  <url>
   <loc>https://blog.rebeja.eu/categories/remote-files/</loc>
@@ -152,6 +168,10 @@
  <url>
   <loc>https://blog.rebeja.eu/posts/fii-practic-2016/</loc>
   <lastmod>2018-11-25T19:38:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://blog.rebeja.eu/posts/managing-bibliography-using-emacs-org-mode-and-org-ref/</loc>
+  <lastmod>2018-11-29T13:37:00Z</lastmod>
  </url>
  <url>
   <loc>https://blog.rebeja.eu/posts/use-emacs-sql-mode-to-connect-to-database-on-a-docker-image/</loc>
