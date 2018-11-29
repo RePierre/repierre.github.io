@@ -19,19 +19,27 @@
  </url>
  <url>
   <loc>https://blog.rebeja.eu/2018/</loc>
-  <lastmod>2018-11-27T16:06:00Z</lastmod>
+  <lastmod>2018-11-29T12:46:00Z</lastmod>
  </url>
  <url>
   <loc>https://blog.rebeja.eu/archive.html</loc>
-  <lastmod>2018-11-27T16:27:00Z</lastmod>
+  <lastmod>2018-11-29T13:28:00Z</lastmod>
  </url>
  <url>
   <loc>https://blog.rebeja.eu/categories/</loc>
-  <lastmod>2018-11-27T16:07:00Z</lastmod>
+  <lastmod>2018-11-29T12:49:00Z</lastmod>
  </url>
  <url>
   <loc>https://blog.rebeja.eu/categories/abstraction/</loc>
   <lastmod>2018-11-27T15:03:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://blog.rebeja.eu/categories/azure/</loc>
+  <lastmod>2018-11-29T12:49:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://blog.rebeja.eu/categories/blog/</loc>
+  <lastmod>2018-11-29T12:49:00Z</lastmod>
  </url>
  <url>
   <loc>https://blog.rebeja.eu/categories/c/</loc>
@@ -48,6 +56,10 @@
  <url>
   <loc>https://blog.rebeja.eu/categories/coupling/</loc>
   <lastmod>2018-11-25T22:10:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://blog.rebeja.eu/categories/disqus-comments/</loc>
+  <lastmod>2018-11-29T12:49:00Z</lastmod>
  </url>
  <url>
   <loc>https://blog.rebeja.eu/categories/docker/</loc>
@@ -68,6 +80,10 @@
  <url>
   <loc>https://blog.rebeja.eu/categories/fii-practic/</loc>
   <lastmod>2018-11-25T19:42:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://blog.rebeja.eu/categories/ghost/</loc>
+  <lastmod>2018-11-29T12:49:00Z</lastmod>
  </url>
  <url>
   <loc>https://blog.rebeja.eu/categories/inheritance/</loc>
@@ -128,6 +144,10 @@
  <url>
   <loc>https://blog.rebeja.eu/posts/abstraction-is-not-a-principle-of-object-oriented-programming/</loc>
   <lastmod>2018-11-27T15:03:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://blog.rebeja.eu/posts/adding-disqus-comments-to-ghost-blog-on-azure/</loc>
+  <lastmod>2018-11-29T12:46:00Z</lastmod>
  </url>
  <url>
   <loc>https://blog.rebeja.eu/posts/editing-remote-files-over-ssh-with-emacs-and-tramp-mode/</loc>
