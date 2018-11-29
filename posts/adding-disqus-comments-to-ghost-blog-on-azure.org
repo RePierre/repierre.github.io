@@ -1,0 +1,29 @@
+#+BEGIN_COMMENT
+.. title: Adding Disqus comments to Ghost blog on Azure
+.. slug: adding-disqus-comments-to-ghost-blog-on-azure
+.. date: 2017-06-22 00:00:00 UTC+02:00
+.. tags: Ghost, blog, Azure, Disqus comments
+.. category:
+.. link:
+.. description:
+.. type: text
+
+#+END_COMMENT
+If you have a [[https://ghost.org/][Ghost]] hosted on [[https://azure.microsoft.com/][Azure]] (like I did) then you may want to add [[https://disqus.com/][Disqus]] comments to it (like I did).
+
+To do so, follow the steps below:
+1. [[https://disqus.com/profile/signup/][Create a Disqus account]] if you haven't done so already.
+2. [[https://disqus.com/profile/login/][Login to Disqus]] and navigate to the admin page.
+3. Click on [[https://disqus.com/profile/login/?next=/admin/install/][Install Disqus]] and choose [[https://disqus.com/admin/install/platforms/ghost/][Ghost]] from the list.
+4. Open a new tab and navigate to [[https://portal.azure.com/][Azure portal]] and from the dashboard open/navigate to the application hosting your Ghost blog.
+5. On the application blade select ~App Service Editor~ and press ~Go->~ to open the editor for your blog.
+6. In the editor navigate to ~wwwroot\content\themes\<your-theme>\post.hbs~. This will load the file in the panel on the right.
+7. Go back to [[https://disqus.com/admin/install/platforms/ghost/][Ghost Install Instructions]] on Disqus and copy the [[https://disqus.com/admin/install/platforms/universalcode/][Universal Embed Code]].
+8. Paste the code into post.hbs file in the place where you want your comment section to be.
+9. Find the section to define configuration variables and replace ~PAGE_URL~ with ~'{{@blog.url}}{{url}}'~ and ~PAGE_IDENTIFIER~ with ~'{{id}}'~. Your code should look like this:
+   #+BEGIN_SRC js
+     var disqus_config = function () {
+	 this.page.url = '{{@blog.url}}{{url}}';
+	 this.page.identifier = '{{id}}';
+     };
+   #+END_SRC
