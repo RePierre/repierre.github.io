@@ -104,7 +104,7 @@ To do so, follow the steps below:
 </li>
 <li>Paste the code into post.hbs file in the place where you want your comment section to be.
 </li>
-<li>Find the section to define configuration variables and replace <code>PAGE_URL</code> with ~'{{@blog.url}}{{url}}'~ and <code>PAGE_IDENTIFIER</code> with ~'{{id}}'~. Your code should look like this:
+<li>Find the section to define configuration variables and make it look like this:
 <div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">disqus_config</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
     <span class="k">this</span><span class="p">.</span><span class="nx">page</span><span class="p">.</span><span class="nx">url</span> <span class="o">=</span> <span class="s1">'{{@blog.url}}{{url}}'</span><span class="p">;</span>
     <span class="k">this</span><span class="p">.</span><span class="nx">page</span><span class="p">.</span><span class="nx">identifier</span> <span class="o">=</span> <span class="s1">'{{id}}'</span><span class="p">;</span>
@@ -112,7 +112,10 @@ To do so, follow the steps below:
 </pre></div>
 </li>
 </ol>
-</div>
+<p>
+Happy blogging!
+</p>
+                </div>
             </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/use-emacs-sql-mode-to-connect-to-database-on-a-docker-image/" class="u-url">Use Emacs sql-mode to connect to database on a Docker image</a></h1>
                 <div class="metadata">
                     <p class="byline author vcard"><span class="byline-name fn" itemprop="author">

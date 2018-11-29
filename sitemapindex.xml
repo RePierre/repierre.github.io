@@ -11,11 +11,11 @@
  </sitemap>
  <sitemap>
   <loc>https://blog.rebeja.eu/categories/azure.xml</loc>
-  <lastmod>2018-11-29T13:21:00Z</lastmod>
+  <lastmod>2018-11-29T13:35:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://blog.rebeja.eu/categories/blog.xml</loc>
-  <lastmod>2018-11-29T13:21:00Z</lastmod>
+  <lastmod>2018-11-29T13:35:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://blog.rebeja.eu/categories/c.xml</loc>
@@ -35,7 +35,7 @@
  </sitemap>
  <sitemap>
   <loc>https://blog.rebeja.eu/categories/disqus-comments.xml</loc>
-  <lastmod>2018-11-29T13:21:00Z</lastmod>
+  <lastmod>2018-11-29T13:35:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://blog.rebeja.eu/categories/docker.xml</loc>
@@ -59,7 +59,7 @@
  </sitemap>
  <sitemap>
   <loc>https://blog.rebeja.eu/categories/ghost.xml</loc>
-  <lastmod>2018-11-29T13:21:00Z</lastmod>
+  <lastmod>2018-11-29T13:35:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://blog.rebeja.eu/categories/inheritance.xml</loc>
@@ -111,14 +111,14 @@
  </sitemap>
  <sitemap>
   <loc>https://blog.rebeja.eu/galleries/rss.xml</loc>
-  <lastmod>2018-11-29T13:28:00Z</lastmod>
+  <lastmod>2018-11-29T13:35:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://blog.rebeja.eu/rss.xml</loc>
-  <lastmod>2018-11-29T13:21:00Z</lastmod>
+  <lastmod>2018-11-29T13:35:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://blog.rebeja.eu/sitemap.xml</loc>
-  <lastmod>2018-11-29T13:28:00Z</lastmod>
+  <lastmod>2018-11-29T13:35:00Z</lastmod>
  </sitemap>
 </sitemapindex>
