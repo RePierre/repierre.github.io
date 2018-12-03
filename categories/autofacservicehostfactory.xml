@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Rebeja (Posts about AutoFacServiceHostFactory)</title><link>https://blog.rebeja.eu/</link><description></description><atom:link rel="self" href="https://blog.rebeja.eu/categories/autofacservicehostfactory.xml" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2018 &lt;a href="mailto:petru.rebeja@gmail.com"&gt;Petru Rebeja&lt;/a&gt; </copyright><lastBuildDate>Mon, 03 Dec 2018 14:39:26 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>ServiceActivationException when auto-starting WCF services with AutofacServiceHostFactory</title><link>https://blog.rebeja.eu/posts/serviceactivationexception-autofacservicehostfactory/</link><dc:creator>Petru Rebeja</dc:creator><description>&lt;p&gt;
+I switched teams at work and as a welcome gift into the new team I got to investigate the following error:
+&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;
+  Exception: System.ServiceModel.ServiceActivationException: The service '/AuthorisationService.svc' cannot be activated due to an exception during compilation.  The exception message is: The AutofacServiceHost.Container static property must be set before services can be instantiated.. —&amp;gt; System.InvalidOperationException: The AutofacServiceHost.Container static property must be set before services can be instantiated.
+   at Autofac.Integration.Wcf.AutofacHostFactory.CreateServiceHost(String constructorString, Uri[] baseAddresses)
+   at System.ServiceModel.ServiceHostingEnvironment.HostingManager.CreateService(String normalizedVirtualPath, EventTraceActivity eventTraceActivity)
+   at System.ServiceModel.ServiceHostingEnvironment.HostingManager.ActivateService(ServiceActivationInfo serviceActivationInfo, EventTraceActivity eventTraceActivity)
+   at System.ServiceModel.ServiceHostingEnvironment.HostingManager.EnsureServiceAvailable(String normalizedVirtualPath, EventTraceActivity eventTraceActivity)
+   — End of inner exception stack trace —
+   at System.ServiceModel.ServiceHostingEnvironment.HostingManager.EnsureServiceAvailable(String normalizedVirtualPath, EventTraceActivity eventTraceActivity)
+   at System.ServiceModel.ServiceHostingEnvironment.EnsureServiceAvailableFast(String relativeVirtualPath, EventTraceActivity eventTraceActivity)
+Process Name: w3wp
+Process ID: 9776
+&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;
+The troublesome service is hosted in an &lt;code&gt;ASP.NET&lt;/code&gt; web application and it's preloaded with a custom implementation of &lt;a href="https://msdn.microsoft.com/en-us/library/system.web.hosting.iprocesshostpreloadclient(v=vs.110).aspx"&gt;&lt;code&gt;IProcessHostPreloadClient&lt;/code&gt;&lt;/a&gt; which more or less does what's described in &lt;a href="http://lazynreclined.blogspot.nl/2014/09/enable-autostart-in-iis-75-without.html"&gt;this blog post&lt;/a&gt;.
+Since the project hosting the service is using AutoFac as it's DI framework/library the service is setup to use &lt;code&gt;AutofacServiceHostFactory&lt;/code&gt; as the service factory:
+&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&amp;lt;%@ ServiceHost
+  Service="AuthorizationServiceImpl, AuthorizationService"
+  Factory="Autofac.Integration.Wcf.AutofacServiceHostFactory, Autofac.Integration.Wcf" %&amp;gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;
+After some googling for the error I turned out to the &lt;a href="http://docs.autofac.org/en/latest/integration/wcf.html#was-hosting-and-non-http-activation"&gt;AutoFac documentation page&lt;/a&gt; where I got the first idea of what is happening:
+&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;
+When hosting WCF Services in WAS (Windows Activation Service), you are not given an opportunity to build your container in the Application&lt;sub&gt;Start&lt;/sub&gt; event defined in your Global.asax because WAS doesn’t use the standard ASP.NET pipeline.
+&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;
+Ok, great! Now I know that &lt;code&gt;ServiceHostingEnvironment.EnsureServiceAvailable()&lt;/code&gt; method (which is called to activate the service) doesn't use the HTTP pipeline from ASP.NET. A solution to this issue is in the next paragraph of the documentation:
+&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;
+The alternative approach is to place a code file in your &lt;code&gt;App_Code&lt;/code&gt; folder that contains a type with a &lt;code&gt;public static void AppInitialize()&lt;/code&gt; method.
+&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;
+And that's what I did. I went to to the project in Visual Studio, added a &lt;code&gt;special ASP.NET folder&lt;/code&gt; named &lt;code&gt;App_Code&lt;/code&gt; and added a class named &lt;code&gt;AppStart&lt;/code&gt; to it with a single method &lt;code&gt;public static void AppInitialize()&lt;/code&gt; which contained all the required bootstrapping logic for AutoFac. I redeployed the application on but the error kept popping and it's after &lt;b&gt;carefully&lt;/b&gt; reading the comments from &lt;a href="https://stackoverflow.com/a/330720/844006"&gt;this StackOverflow answer&lt;/a&gt; and &lt;a href="https://blogs.msdn.microsoft.com/wenlong/2006/01/11/how-to-initialize-hosted-wcf-services/"&gt;this blog post on how to initialize WCF services&lt;/a&gt; I found why the &lt;code&gt;AppInitialize&lt;/code&gt; method wasn't invoked: &lt;b&gt;it was because the &lt;code&gt;AppStart.cs&lt;/code&gt; needs it's build action to be &lt;code&gt;Content&lt;/code&gt; not Compile&lt;/b&gt;
+&lt;/p&gt;
+
+&lt;p&gt;
+So when getting the &lt;code&gt;ServiceActivationexception&lt;/code&gt; with the error message &lt;code&gt;The AutofacServiceHost.Container static property must be set before services can be instantiated&lt;/code&gt; make sure to have the following:
+&lt;/p&gt;
+&lt;ol class="org-ol"&gt;
+&lt;li&gt;The special ASP.NET folder &lt;code&gt;App_Code&lt;/code&gt;
+&lt;/li&gt;
+&lt;li&gt;A class in &lt;code&gt;App_Code&lt;/code&gt; having a method with this signature &lt;code&gt;public static void AppInitialize()&lt;/code&gt; which contains all the required initialization code
+&lt;/li&gt;
+&lt;li&gt;The build action of the file containing the above method is set to &lt;code&gt;Content&lt;/code&gt; as shown in the picture below
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;
+&lt;img src="https://blog.rebeja.eu/images/appinitialize.png" alt="nil"&gt;
+&lt;/p&gt;</description><category>AutoFacServiceHostFactory</category><category>Service Activation</category><category>WCF</category><guid>https://blog.rebeja.eu/posts/serviceactivationexception-autofacservicehostfactory/</guid><pubDate>Wed, 16 May 2018 22:00:00 GMT</pubDate></item></channel></rss>

@@ -68,7 +68,231 @@
     
         
     <div class="postindex">
-            <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/fii-practic-2016/" class="u-url">FII Practic 2016</a></h1>
+            <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/abstraction-is-not-a-principle-of-object-oriented-programming/" class="u-url">Abstraction is not a principle of Object Oriented Programming</a></h1>
+                <div class="metadata">
+                    <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                        Petru Rebeja
+                    </span></p>
+            <p class="dateline">
+            <a href="posts/abstraction-is-not-a-principle-of-object-oriented-programming/" rel="bookmark">
+            <time class="published dt-published" datetime="2016-07-29T00:00:00+02:00" itemprop="datePublished" title="2016-07-29 00:00">2016-07-29 00:00</time></a>
+            </p>
+                </div>
+            </header><div class="e-content entry-content">
+                    <div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1">TL;DR</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+<code>Abstraction</code> is a core concept in programming and not a principle that is <b>solely</b> applicable in OOP, because <b>programming is all about dealing with an abstract representation of the business model (application space)</b>.
+</p>
+</div>
+</div>
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2">Abstraction is an overall programming principle</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+There are a lot of articles saying that OOP has four principles:
+</p>
+<ul class="org-ul">
+<li>
+<code>Encapsulation</code>
+</li>
+<li>
+<code>Inheritance</code>
+</li>
+<li>
+<code>Polymorphism</code>
+</li>
+<li>
+<code>Abstraction</code>
+</li>
+</ul>
+<p>
+But if we do a web searh for <i>what is abstraction?</i> we get more or less the same definition as the one from <a href="http://whatis.techtarget.com/definition/abstraction">here</a>.
+</p>
+<blockquote>
+<p>
+Abstraction (from the Latin abs, meaning away from and trahere, meaning to draw) is the process of taking away or removing characteristics from something in order to reduce it to a set of essential characteristics.
+</p>
+</blockquote>
+<p>
+Although the article defines <code>abstraction</code> in an OOP context, <i><code>abstraction</code> is actually a an overall programming principle</i>.
+</p>
+
+<p>
+Why? Because programming means modeling entities and interactions of an <i>abstract representation of the business model</i>. And since there are several programming paradigms all of which are used to represent a set of specific business models all of those paradigms use <code>abstraction</code> to succeed in that representation.
+</p>
+</div>
+</div>
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3">An example of <code>abstraction</code> in OOP</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+To better clarify what <code>abstraction</code> is (in OOP) let's consider a trivial example: A <code>StudentRegistrationController</code> (ASP.NET MVC) needs to save the data from a registration form (<code>Student</code>) into some sort of database represented by an instance of <code>IStudentDataStore</code>.
+</p>
+
+<p>
+For the sake of brevity let's say that <code>IStudentDataStore</code> interface has the following definition:
+</p>
+<div class="highlight"><pre><span></span>public interface IStudentDataStore
+{
+    void Save(Student student);
+}
+</pre></div>
+<p>
+With that in mind, the code for the example above would look like this:
+</p>
+<div class="highlight"><pre><span></span>public class Student
+{
+    public string FirstName { get; set; }
+
+    public string LastName { get; set; }
+
+    public DateTime DateOfBirth { get; set; }
+
+    public Gender Gender { get; set; }
+
+    public string Email { get; set; }
+
+    public string PhoneNumber { get; set; }
+}
+
+public class StudentRegistrationController : Controller
+{
+    public StudentRegistrationController(IStudentDataStore dataStore)
+    {
+	_dataStore = dataStore;
+    }
+
+    public ActionResult Save(Student viewModel)
+    {
+	// Validation ommited for brevity
+	_dataStore.Save(viewModel);
+    }
+}
+</pre></div>
+<p>
+As we can see from the code the <code>IStudentDataStore</code> abstracts the details of how <code>Student</code> data is persisted. The interface doesn't tell whether the data is persisted to a flat file, SQL Database, NoSQL database or other media. As long as we have an implementation of <code>IStudentDataStore</code> the controller works just fine.
+</p>
+
+<p>
+But is this <code>abstraction</code> technique available <i>only</i> in OOP paradigm? The answer is <b>no</b>. The same thing, although in a different form can be used in other paradigms. To demonstrate so, let's use <a href="https://en.wikipedia.org/wiki/Lisp_(programming_language)">lisp</a> as a programming language and let's see how <i>abstraction</i> works in a <b>functional programming paradigm</b>.
+</p>
+</div>
+</div>
+<div id="outline-container-sec-4" class="outline-2">
+<h2 id="sec-4">The same example of <code>abstraction</code> in functional programming</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+To see how the same thing would be written in a functional style let's first see what are the entities from the previous example and how those entities interact between them:
+</p>
+<ul class="org-ul">
+<li>
+<code>StudentRegistrationController</code>
+<ul class="org-ul">
+<li>Is the top-most entity
+</li>
+<li>Has an <code>IStudentDataStore</code> on which calls the <code>Save</code> method
+</li>
+</ul>
+</li>
+<li>
+<code>IStudentDataStore</code>
+<ul class="org-ul">
+<li>Defines a contract between the controller and the underlying data store
+</li>
+</ul>
+</li>
+<li>
+<code>Student</code>
+<ul class="org-ul">
+<li>Is a data contract, i.e. encapsulates all the properties of a student into a single entity
+</li>
+</ul>
+</li>
+</ul>
+<p>
+Having the above and knowing that in functional programming <i>everything is a function</i> we replace every <i>entity</i> with a <i>function</i>:
+</p>
+<ul class="org-ul">
+<li>We'll create a top-level function named <code>save-student</code>; it will have the following parameters:
+<ul class="org-ul">
+<li>
+<code>student-info</code> -&gt; a hash map containing the data contract
+</li>
+<li>
+<code>persist-func</code> -&gt; a function that will be called to save the data to a data store
+</li>
+</ul>
+</li>
+<li>Another two functions <code>persist-student-info-to-file</code> and <code>persist-student-info-in-memory</code> will encapsulate the logic of persisting data to a data store.
+</li>
+</ul>
+<p>
+Note that both functions have the same signature. The parameters of these functions represent the data contract.
+</p>
+<div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">defun</span> <span class="nv">persist-student-info-to-file</span> <span class="p">(</span><span class="nv">first-name</span> <span class="nv">last-name</span> <span class="nv">dob</span> <span class="nv">gender</span> <span class="nv">email</span> <span class="nv">phone</span><span class="p">)</span>
+  <span class="c1">;; Writes the info as a new line into the file specified by *database-location*</span>
+  <span class="p">(</span><span class="k">let</span> <span class="p">((</span><span class="nc">stream</span> <span class="p">(</span><span class="nb">open</span> <span class="vg">*database-location*</span>
+	      <span class="ss">:direction</span> <span class="ss">:output</span>
+	      <span class="ss">:if-exists</span> <span class="ss">:append</span><span class="p">)))</span>
+    <span class="p">(</span><span class="nb">format</span> <span class="nc">stream</span> <span class="s">"~s|~s|~s|~s|~s|~s"</span>
+	<span class="nv">first-name</span>
+	<span class="nv">last-name</span>
+	<span class="nv">dob</span>
+	<span class="nv">gender</span>
+	<span class="nv">email</span>
+	<span class="nv">phone</span><span class="p">)</span>
+    <span class="p">(</span><span class="nb">close</span> <span class="nc">stream</span><span class="p">)))</span>
+
+
+<span class="p">(</span><span class="nb">defun</span> <span class="nv">persist-student-info-in-memory</span> <span class="p">(</span><span class="nv">first-name</span> <span class="nv">last-name</span> <span class="nv">dob</span> <span class="nv">gender</span> <span class="nv">email</span> <span class="nv">phone</span><span class="p">)</span>
+  <span class="c1">;; Persists student data into an in-memory data store named *all-students*</span>
+  <span class="p">(</span><span class="k">let</span> <span class="p">((</span><span class="nv">student-id</span> <span class="p">(</span><span class="nb">list-length</span> <span class="vg">*all-students*</span><span class="p">)))</span>
+    <span class="p">(</span><span class="k">setq</span> <span class="vg">*all-students*</span>
+      <span class="p">(</span><span class="nb">append</span> <span class="vg">*all-students*</span>
+	  <span class="p">(</span><span class="nb">list</span> <span class="nv">student-id</span> <span class="nv">first-name</span> <span class="nv">last-name</span> <span class="nv">dob</span> <span class="nv">gender</span> <span class="nv">email</span> <span class="nv">phone</span><span class="p">)))))</span>
+
+<span class="p">(</span><span class="nb">defun</span> <span class="nv">save-student</span> <span class="p">(</span><span class="nv">student-info</span> <span class="nv">persist-func</span><span class="p">)</span>
+  <span class="c1">;; Saves student data to a persistent store</span>
+  <span class="p">(</span><span class="k">let</span> <span class="p">((</span><span class="nv">first-name</span> <span class="p">(</span><span class="nb">gethash</span> <span class="ss">'first-name</span> <span class="nv">student-info</span><span class="p">))</span>
+	<span class="p">(</span><span class="nv">last-name</span> <span class="p">(</span><span class="nb">gethash</span> <span class="ss">'last-name</span> <span class="nv">student-info</span><span class="p">))</span>
+	<span class="p">(</span><span class="nv">dob</span> <span class="p">(</span><span class="nb">gethash</span> <span class="ss">'date-of-birth</span> <span class="nv">student-info</span><span class="p">))</span>
+	<span class="p">(</span><span class="nv">gender</span> <span class="p">(</span><span class="nb">gethash</span> <span class="ss">'gender</span> <span class="nv">student-info</span><span class="p">))</span>
+	<span class="p">(</span><span class="nv">email</span> <span class="p">(</span><span class="nb">gethash</span> <span class="ss">'email</span> <span class="nv">student-info</span><span class="p">))</span>
+	<span class="p">(</span><span class="nv">phone</span> <span class="p">(</span><span class="nb">gethash</span> <span class="ss">'phone-number</span> <span class="nv">student-info</span><span class="p">)))</span>
+    <span class="p">(</span><span class="nb">funcall</span> <span class="nv">persist-func</span> <span class="nv">first-name</span> <span class="nv">last-name</span> <span class="nv">dob</span> <span class="nv">gender</span> <span class="nv">email</span> <span class="nv">phone</span><span class="p">)))</span>
+</pre></div>
+<p>
+Having the definitions above we can achieve the same level of abstraction by putting everything together and defining global variables (think of it as poor mans <code>dependency injection</code>):
+</p>
+<div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">defparameter</span> <span class="vg">*database-location*</span> <span class="s">"/tmp/students"</span><span class="p">)</span>
+<span class="p">(</span><span class="nb">defparameter</span> <span class="vg">*student-info*</span> <span class="p">(</span><span class="nb">make-hash-table</span><span class="p">))</span>
+
+<span class="p">(</span><span class="k">progn</span>
+  <span class="p">(</span><span class="nb">setf</span> <span class="p">(</span><span class="nb">gethash</span> <span class="ss">'first-name</span> <span class="vg">*student-info*</span><span class="p">)</span> <span class="s">"John"</span><span class="p">)</span>
+  <span class="p">(</span><span class="nb">setf</span> <span class="p">(</span><span class="nb">gethash</span> <span class="ss">'last-name</span> <span class="vg">*student-info*</span><span class="p">)</span> <span class="s">"Doe"</span><span class="p">)</span>
+  <span class="p">(</span><span class="nb">setf</span> <span class="p">(</span><span class="nb">gethash</span> <span class="ss">'date-of-birth</span> <span class="nv">*student-info</span><span class="p">)</span> <span class="s">"2000-05-14"</span><span class="p">)</span>
+  <span class="p">(</span><span class="nb">setf</span> <span class="p">(</span><span class="nb">gethash</span> <span class="ss">'email</span> <span class="vg">*student-info*</span><span class="p">)</span> <span class="s">"john.doe@example.com"</span><span class="p">)</span>
+  <span class="p">(</span><span class="nb">setf</span> <span class="p">(</span><span class="nb">gethash</span> <span class="ss">'phone-number</span> <span class="vg">*student-info*</span><span class="p">)</span> <span class="s">"1234567981"</span><span class="p">))</span>
+
+<span class="p">(</span><span class="nv">save-student</span> <span class="vg">*student-info*</span> <span class="ss">'persist-student-info-to-file</span><span class="p">)</span>
+</pre></div>
+<p>
+Et voilà! We have used <code>abstraction</code> in a functional style to remove the details of how the data is persisted thus showing that <code>abstraction</code> isn't a principle applicable only to object oriented programming.
+</p>
+</div>
+</div>
+<div id="outline-container-sec-5" class="outline-2">
+<h2 id="sec-5">Acknowledgments</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+A big thank you to <a href="https://be.linkedin.com/in/ion-cojocaru-81b5a230">Ion Cojocaru</a> and <a href="https://ro.linkedin.com/in/florin-olariu-38615126">Florin Olariu</a> who reviewed this post before publication.
+</p>
+</div>
+</div>
+                </div>
+            </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/fii-practic-2016/" class="u-url">FII Practic 2016</a></h1>
                 <div class="metadata">
                     <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
                         Petru Rebeja
