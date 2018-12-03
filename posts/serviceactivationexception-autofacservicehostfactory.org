@@ -1,0 +1,52 @@
+#+BEGIN_COMMENT
+.. title: ServiceActivationException when auto-starting WCF services with AutofacServiceHostFactory
+.. slug: serviceactivationexception-autofacservicehostfactory
+.. date: 2018-05-17 00:00:00 UTC+02:00
+.. tags: WCF, Service Activation, AutoFacServiceHostFactory
+.. category:
+.. link:
+.. description:
+.. type: text
+
+#+END_COMMENT
+  I switched teams at work and as a welcome gift into the new team I got to investigate the following error:
+  #+BEGIN_QUOTE
+  Exception: System.ServiceModel.ServiceActivationException: The service '/AuthorisationService.svc' cannot be activated due to an exception during compilation.  The exception message is: The AutofacServiceHost.Container static property must be set before services can be instantiated.. ---> System.InvalidOperationException: The AutofacServiceHost.Container static property must be set before services can be instantiated.
+   at Autofac.Integration.Wcf.AutofacHostFactory.CreateServiceHost(String constructorString, Uri[] baseAddresses)
+   at System.ServiceModel.ServiceHostingEnvironment.HostingManager.CreateService(String normalizedVirtualPath, EventTraceActivity eventTraceActivity)
+   at System.ServiceModel.ServiceHostingEnvironment.HostingManager.ActivateService(ServiceActivationInfo serviceActivationInfo, EventTraceActivity eventTraceActivity)
+   at System.ServiceModel.ServiceHostingEnvironment.HostingManager.EnsureServiceAvailable(String normalizedVirtualPath, EventTraceActivity eventTraceActivity)
+   --- End of inner exception stack trace ---
+   at System.ServiceModel.ServiceHostingEnvironment.HostingManager.EnsureServiceAvailable(String normalizedVirtualPath, EventTraceActivity eventTraceActivity)
+   at System.ServiceModel.ServiceHostingEnvironment.EnsureServiceAvailableFast(String relativeVirtualPath, EventTraceActivity eventTraceActivity)
+Process Name: w3wp
+Process ID: 9776
+
+  #+END_QUOTE
+
+  The troublesome service is hosted in an ~ASP.NET~ web application and it's preloaded with a custom implementation of [[https://msdn.microsoft.com/en-us/library/system.web.hosting.iprocesshostpreloadclient(v=vs.110).aspx][~IProcessHostPreloadClient~]] which more or less does what's described in [[http://lazynreclined.blogspot.nl/2014/09/enable-autostart-in-iis-75-without.html][this blog post]].
+  Since the project hosting the service is using AutoFac as it's DI framework/library the service is setup to use ~AutofacServiceHostFactory~ as the service factory:
+  #+BEGIN_SRC csharp
+  <%@ ServiceHost
+    Service="AuthorizationServiceImpl, AuthorizationService"
+    Factory="Autofac.Integration.Wcf.AutofacServiceHostFactory, Autofac.Integration.Wcf" %>
+  #+END_SRC
+
+  After some googling for the error I turned out to the [[http://docs.autofac.org/en/latest/integration/wcf.html#was-hosting-and-non-http-activation][AutoFac documentation page]] where I got the first idea of what is happening:
+  #+BEGIN_QUOTE
+  When hosting WCF Services in WAS (Windows Activation Service), you are not given an opportunity to build your container in the Application_Start event defined in your Global.asax because WAS doesn’t use the standard ASP.NET pipeline.
+  #+END_QUOTE
+
+  Ok, great! Now I know that ~ServiceHostingEnvironment.EnsureServiceAvailable()~ method (which is called to activate the service) doesn't use the HTTP pipeline from ASP.NET. A solution to this issue is in the next paragraph of the documentation:
+
+#+BEGIN_QUOTE
+The alternative approach is to place a code file in your ~App_Code~ folder that contains a type with a ~public static void AppInitialize()~ method.
+#+END_QUOTE
+
+And that's what I did. I went to to the project in Visual Studio, added a ~special ASP.NET folder~ named ~App_Code~ and added a class named ~AppStart~ to it with a single method ~public static void AppInitialize()~ which contained all the required bootstrapping logic for AutoFac. I redeployed the application on but the error kept popping and it's after *carefully* reading the comments from [[https://stackoverflow.com/a/330720/844006][this StackOverflow answer]] and [[https://blogs.msdn.microsoft.com/wenlong/2006/01/11/how-to-initialize-hosted-wcf-services/][this blog post on how to initialize WCF services]] I found why the ~AppInitialize~ method wasn't invoked: *it was because the ~AppStart.cs~ needs it's build action to be ~Content~ not Compile*
+
+So when getting the ~ServiceActivationexception~ with the error message ~The AutofacServiceHost.Container static property must be set before services can be instantiated~ make sure to have the following:
+1. The special ASP.NET folder ~App_Code~
+2. A class in ~App_Code~ having a method with this signature ~public static void AppInitialize()~ which contains all the required initialization code
+3. The build action of the file containing the above method is set to ~Content~ as shown in the picture below
+[[img-url:/images/appinitialize.png]]
