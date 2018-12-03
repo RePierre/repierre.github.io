@@ -19,15 +19,15 @@
  </url>
  <url>
   <loc>https://blog.rebeja.eu/2018/</loc>
-  <lastmod>2018-11-29T13:37:00Z</lastmod>
+  <lastmod>2018-11-29T15:35:00Z</lastmod>
  </url>
  <url>
   <loc>https://blog.rebeja.eu/archive.html</loc>
-  <lastmod>2018-11-29T15:34:00Z</lastmod>
+  <lastmod>2018-12-03T12:13:00Z</lastmod>
  </url>
  <url>
   <loc>https://blog.rebeja.eu/categories/</loc>
-  <lastmod>2018-11-29T13:39:00Z</lastmod>
+  <lastmod>2018-11-29T15:54:00Z</lastmod>
  </url>
  <url>
   <loc>https://blog.rebeja.eu/categories/abstraction/</loc>
@@ -60,6 +60,10 @@
  <url>
   <loc>https://blog.rebeja.eu/categories/coupling/</loc>
   <lastmod>2018-11-25T22:10:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://blog.rebeja.eu/categories/dired/</loc>
+  <lastmod>2018-11-29T15:54:00Z</lastmod>
  </url>
  <url>
   <loc>https://blog.rebeja.eu/categories/disqus-comments/</loc>
@@ -126,6 +130,10 @@
   <lastmod>2018-11-27T15:59:00Z</lastmod>
  </url>
  <url>
+  <loc>https://blog.rebeja.eu/categories/rename-multiple-files/</loc>
+  <lastmod>2018-11-29T15:54:00Z</lastmod>
+ </url>
+ <url>
   <loc>https://blog.rebeja.eu/categories/solid-principles/</loc>
   <lastmod>2018-11-25T22:10:00Z</lastmod>
  </url>
@@ -172,6 +180,10 @@
  <url>
   <loc>https://blog.rebeja.eu/posts/managing-bibliography-using-emacs-org-mode-and-org-ref/</loc>
   <lastmod>2018-11-29T13:37:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://blog.rebeja.eu/posts/rename-multiple-files-with-emacs-dired/</loc>
+  <lastmod>2018-11-29T15:35:00Z</lastmod>
  </url>
  <url>
   <loc>https://blog.rebeja.eu/posts/use-emacs-sql-mode-to-connect-to-database-on-a-docker-image/</loc>
