@@ -7,7 +7,7 @@
                         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
  <url>
   <loc>https://blog.rebeja.eu/</loc>
-  <lastmod>2018-11-29T13:56:00Z</lastmod>
+  <lastmod>2018-12-03T14:01:00Z</lastmod>
  </url>
  <url>
   <loc>https://blog.rebeja.eu/2016/</loc>
@@ -19,15 +19,15 @@
  </url>
  <url>
   <loc>https://blog.rebeja.eu/2018/</loc>
-  <lastmod>2018-12-03T12:14:00Z</lastmod>
+  <lastmod>2018-12-03T14:01:00Z</lastmod>
  </url>
  <url>
   <loc>https://blog.rebeja.eu/archive.html</loc>
-  <lastmod>2018-12-03T13:29:00Z</lastmod>
+  <lastmod>2018-12-03T14:18:00Z</lastmod>
  </url>
  <url>
   <loc>https://blog.rebeja.eu/categories/</loc>
-  <lastmod>2018-12-03T12:17:00Z</lastmod>
+  <lastmod>2018-12-03T14:03:00Z</lastmod>
  </url>
  <url>
   <loc>https://blog.rebeja.eu/categories/abstraction/</loc>
@@ -110,6 +110,14 @@
   <lastmod>2018-11-29T13:39:00Z</lastmod>
  </url>
  <url>
+  <loc>https://blog.rebeja.eu/categories/orm/</loc>
+  <lastmod>2018-12-03T14:03:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://blog.rebeja.eu/categories/pitfalls/</loc>
+  <lastmod>2018-12-03T14:03:00Z</lastmod>
+ </url>
+ <url>
   <loc>https://blog.rebeja.eu/categories/polymorphism/</loc>
   <lastmod>2018-11-25T22:10:00Z</lastmod>
  </url>
@@ -124,6 +132,10 @@
  <url>
   <loc>https://blog.rebeja.eu/categories/python/</loc>
   <lastmod>2018-12-03T12:17:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://blog.rebeja.eu/categories/rbar/</loc>
+  <lastmod>2018-12-03T14:03:00Z</lastmod>
  </url>
  <url>
   <loc>https://blog.rebeja.eu/categories/reading-list/</loc>
@@ -166,6 +178,10 @@
   <lastmod>2018-11-23T11:47:00Z</lastmod>
  </url>
  <url>
+  <loc>https://blog.rebeja.eu/index-1.html</loc>
+  <lastmod>2018-12-03T14:18:00Z</lastmod>
+ </url>
+ <url>
   <loc>https://blog.rebeja.eu/listings/</loc>
   <lastmod>2018-11-23T11:47:00Z</lastmod>
  </url>
@@ -196,6 +212,10 @@
  <url>
   <loc>https://blog.rebeja.eu/posts/rename-multiple-files-with-emacs-dired/</loc>
   <lastmod>2018-11-29T15:35:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://blog.rebeja.eu/posts/the-common-pitfalls-of-orm-frameworks-rbar/</loc>
+  <lastmod>2018-12-03T14:01:00Z</lastmod>
  </url>
  <url>
   <loc>https://blog.rebeja.eu/posts/use-emacs-sql-mode-to-connect-to-database-on-a-docker-image/</loc>

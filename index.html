@@ -11,7 +11,8 @@
 <meta name="generator" content="Nikola (getnikola.com)">
 <link rel="alternate" type="application/rss+xml" title="RSS" href="rss.xml">
 <link rel="canonical" href="https://blog.rebeja.eu/">
-<!--[if lt IE 9]><script src="assets/js/html5.js"></script><![endif]--><link rel="prefetch" href="posts/python-development-using-emacs-from-terminal/" type="text/html">
+<link rel="next" href="index-1.html" type="text/html">
+<!--[if lt IE 9]><script src="assets/js/html5.js"></script><![endif]--><link rel="prefetch" href="posts/the-common-pitfalls-of-orm-frameworks-rbar/" type="text/html">
 </head>
 <body>
 <a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
@@ -67,7 +68,153 @@
     
         
     <div class="postindex">
-            <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/python-development-using-emacs-from-terminal/" class="u-url">Python development using Emacs from terminal</a></h1>
+            <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/the-common-pitfalls-of-orm-frameworks-rbar/" class="u-url">The common pitfalls of ORM frameworks - RBAR</a></h1>
+                <div class="metadata">
+                    <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                        Petru Rebeja
+                    </span></p>
+            <p class="dateline">
+            <a href="posts/the-common-pitfalls-of-orm-frameworks-rbar/" rel="bookmark">
+            <time class="published dt-published" datetime="2018-01-18T00:00:00+02:00" itemprop="datePublished" title="2018-01-18 00:00">2018-01-18 00:00</time></a>
+            </p>
+                </div>
+            </header><div class="e-content entry-content">
+                    <p>
+ORM frameworks are a great tool especially for junior developers because they allow bluring the line between the application logic and the data it crunches. Except that the aforementioned line blurring advantage may become a real production issue if not taken in consideration when writing the code.
+</p>
+
+<p>
+Let us consider an example. Let's suppose we're working on a (what else?) e-commerce platform. Somewhere in the depts of that platform there is a <code>IOrderService</code> which exposes the following method:
+</p>
+<div class="highlight"><pre><span></span>public interface IOrderService
+{
+    void PlaceOrder(Guid customerId, IEnumerable&lt;OrderItem&gt; itemIds)
+}
+</pre></div>
+<p>
+where <code>OrderItem</code> holds the data about an ordered item.
+</p>
+<div class="highlight"><pre><span></span>public class OrderItem
+{
+    public Guid ItemId { get; set; }
+
+    public int Quantity { get; set; }
+}
+</pre></div>
+<p>
+The <code>PlaceOrder</code> method needs to:
+</p>
+<ul class="org-ul">
+<li>Lookup the <code>Customer</code> in the database
+</li>
+<li>Create a new <code>CustomerOrder</code> instance
+</li>
+<li>Add each <code>Item</code> to the order and decrease stock count
+</li>
+<li>Save the <code>CustomerOrder</code> in the database
+</li>
+</ul>
+<p>
+Of course, since we're using an ORM framework, the classes used by the repositories - <code>Customer</code>, <code>CustomerOrder</code> and <code>Item</code> - are mapped to database tables.
+</p>
+
+<p>
+Given the above, someone would be tempted to implement the <code>PlaceOrder</code> method like this:
+</p>
+<div class="highlight"><pre><span></span>public void PlaceOrder(Guid customerId, IEnumerable&lt;OrderItem&gt; orderItems)
+{
+    var customer = _customerRepository.Get(customerId);
+    var order = new CustomerOrder(customer);
+
+    foreach(var orderedItem in orderItems)
+    {
+	var item = _itemRepository.Get(orderedItem.ItemId);
+	item.DecreaseStockCount(orderedItem.Quantity);
+	order.Add(item);
+    }
+
+    _customerOrderRepository.Register(order);
+    _unitOfWork.Commit();
+}
+</pre></div>
+<p>
+And why wouldn't they? It seems the most straightforward transposition of the requirements defined above. The code behaves as expected in both Dev and QA environments and afterwards it's promoted to production where lies a database with hundreds of thousands of rows in the <code>Items</code> table. There also, the behavior is as expected until one day an eager customer wants to buy 980 distinct items (because why not?).
+</p>
+
+<p>
+What happens with the code above? It <i>still</i> works well but the database command times out and the customer cannot place a <b>significant</b> order.
+</p>
+
+<p>
+So what is the problem? Why it times out? Well, because the aforementioned line between application logic and database is blurred enough for the iterative paradigm to creep into the set-based one. In the SQL community this paradigm creep has a name - <a href="https://www.red-gate.com/simple-talk/sql/t-sql-programming/rbar--row-by-agonizing-row/">Row By Agonizing Row</a>.
+</p>
+
+<p>
+To put it in the context of the example above - <b>it takes more time to do 980 pairs of <code>SELECT</code> and <code>UPDATE</code> operations than to do one <code>SELECT</code> which returns 980 rows followed by one <code>UPDATE</code> which alters 980 rows</b>.
+</p>
+
+<p>
+So, let's switch the paradigm and start working with collections in our code to minimize the number of operations in the database. The first thing to do is to load all items in bulk instead of loading them one by one. This will reduce the number of <code>SELECT</code> operations <b>from 980 to 1</b> (a whooping 50% of the number of operations). We still need to update the stock counts for each item individually because the ORM framework doesn't know how to translate the changes for each item into a single <code>UPDATE</code> statement but considering that we've halved the total number of operations let's give this approach a try shall we?
+</p>
+<div class="highlight"><pre><span></span>public void PlaceOrder(Guid customerId, IEnumerable&lt;OrderItem&gt; orderItems)
+{
+    var customer = _customerRepository.Get(customerId);
+    var customerOrder = new CustomerOrder();
+
+    var items = itemRepository.Items
+	.Join(orderItems,
+	      item =&gt; item.Id,
+	      orderedItem =&gt; orderedItem.ItemId,
+	      (item, _) =&gt; item)
+	.ToDictionary(i =&gt; i.Id);
+
+    foreach(var orderedItem in orderedItems)
+    {
+	var item  = items[orderedItem.ItemId];
+	item.DecreaseStockCount(orderedItem.Quantity);
+	customerOrder.Add(item);
+    }
+
+    _customerOrderRepository.Register(order);
+    _unitOfWork.Commit();
+}
+</pre></div>
+<p>
+This will solve the problem with the timeout but will create another one - useless load on the system. The code loads 980 rows from the database but only uses two attributes of each row - <code>Id</code> and <code>Barcode</code>. We might say that this can be solved by projecting an <code>Item</code> into a tuple of <code>&lt;Barcode, Id&gt;</code> but this would be a partial solution because we can still place a great burden on system memory by sending an request of 10k items.
+Also, there are still 980 <code>UPDATE</code> statements that need to be executed which is still <b>a lot</b>.
+</p>
+
+<p>
+The best approach to this is to not load any data at all from the database and to do the processing as close to the actual data as possible.
+And how can we do that? Exactly - with <code>stored procedures</code>.
+</p>
+<div class="highlight"><pre><span></span><span class="k">declare</span> <span class="k">procedure</span> <span class="n">CreateCustomerOrder</span><span class="p">(</span>
+	<span class="o">@</span><span class="n">customerId</span> <span class="n">uniqueidentifier</span> <span class="k">not</span> <span class="k">null</span><span class="p">,</span>
+	<span class="o">@</span><span class="n">orderItems</span> <span class="n">udttorderitems</span> <span class="n">readonly</span><span class="p">)</span>
+<span class="k">begin</span>
+    <span class="k">set</span> <span class="n">no_count</span> <span class="k">on</span>
+
+    <span class="k">update</span> <span class="n">sc</span>
+    <span class="k">set</span> <span class="n">sc</span><span class="p">.</span><span class="k">Count</span> <span class="o">=</span> <span class="n">sc</span><span class="p">.</span><span class="k">Count</span> <span class="o">-</span> <span class="n">o</span><span class="p">.</span><span class="n">Quantity</span>
+    <span class="k">from</span> <span class="n">StockCounts</span> <span class="n">sc</span>
+    <span class="k">join</span> <span class="n">Items</span> <span class="n">i</span> <span class="k">on</span> <span class="n">sc</span><span class="p">.</span><span class="n">ItemId</span> <span class="o">==</span> <span class="n">i</span><span class="p">.</span><span class="n">Id</span>
+    <span class="k">join</span> <span class="o">@</span><span class="n">orderItems</span> <span class="mi">0</span> <span class="k">on</span> <span class="n">i</span><span class="p">.</span><span class="n">Id</span> <span class="o">=</span> <span class="n">o</span><span class="p">.</span><span class="n">ItemId</span>
+
+    <span class="k">insert</span> <span class="k">into</span> <span class="n">CustomerOrder</span><span class="p">(</span><span class="n">CustomerId</span><span class="p">,</span> <span class="n">OrderDateTime</span><span class="p">)</span>
+    <span class="k">values</span> <span class="p">(</span><span class="o">@</span><span class="n">customerId</span><span class="p">,</span> <span class="n">GetDate</span><span class="p">())</span>
+
+    <span class="k">insert</span> <span class="k">into</span> <span class="n">OrderLines</span><span class="p">(</span><span class="n">OrderId</span><span class="p">,</span> <span class="n">ItemId</span><span class="p">,</span> <span class="n">Quantity</span><span class="p">)</span>
+    <span class="k">select</span> <span class="n">scope_identity</span><span class="p">(),</span> <span class="n">i</span><span class="p">.</span><span class="n">Id</span><span class="p">,</span> <span class="n">o</span><span class="p">.</span><span class="n">Quantity</span>
+    <span class="k">from</span> <span class="n">Items</span> <span class="n">i</span>
+    <span class="k">join</span> <span class="o">@</span><span class="n">orderItems</span> <span class="n">o</span> <span class="k">on</span> <span class="n">o</span><span class="p">.</span><span class="n">ItemId</span> <span class="o">=</span> <span class="n">i</span><span class="p">.</span><span class="n">Id</span>
+<span class="k">end</span>
+</pre></div>
+<p>
+Now, of course in real life situations there won't be a customer that orders almost 1000 items with a single order and the second approach (bulk load items and iterate the collection) will do just fine.
+The important thing to keep in mind in such cases is the need to switch from a procedural mindset to a set-based one thus pruning this phenomenon of paradigm creep which can become a full-blown RBAR processing.
+</p>
+                </div>
+            </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/python-development-using-emacs-from-terminal/" class="u-url">Python development using Emacs from terminal</a></h1>
                 <div class="metadata">
                     <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
                         Petru Rebeja
@@ -2113,56 +2260,13 @@ As an additional bonus, the semantics of the <code>Singleton</code> is still in 
 </div>
 </div>
                 </div>
-            </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/welcome/" class="u-url">Welcome</a></h1>
-                <div class="metadata">
-                    <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
-                        Petru Rebeja
-                    </span></p>
-            <p class="dateline">
-            <a href="posts/welcome/" rel="bookmark">
-            <time class="published dt-published" datetime="2016-02-19T00:00:00+02:00" itemprop="datePublished" title="2016-02-19 00:00">2016-02-19 00:00</time></a>
-            </p>
-                </div>
-            </header><div class="e-content entry-content">
-                    <p>
-Welcome to my new and shiny blog!
-</p>
-
-<p>
-Here I'll be posting thoughts, stories and ideas from my everyday life as a developer.
-</p>
-
-<p>
-If you want to know the other (creative) part of me you can visit my other blog at <a href="http://repierre.wordpress.com">http://repierre.wordpress.com</a>.
-</p>
-
-<p>
-Meanwhile checkout my activity on the following sites:
-</p>
-<ul class="org-ul">
-<li>
-<a href="http://stackoverflow.com/users/844006/repierre">StackOverflow</a>
-</li>
-<li>
-<a href="https://twitter.com/petrurebeja">Twitter</a>
-</li>
-<li>
-<a href="https://ro.linkedin.com/in/petrurebeja">LinkedIn</a>
-</li>
-</ul>
-</div>
             </article>
 </div>
     
-
-    
-
-    
-
-
-        <!--End of body content-->
-
-        <footer id="footer">
+        <ul class="pager postindexpager clearfix">
+<li class="next"><a href="index-1.html" rel="next">Older posts</a></li>
+        </ul>
+<!--End of body content--><footer id="footer">
             Contents © 2018         <a href="mailto:petru.rebeja@gmail.com">Petru Rebeja</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
             
         </footer>

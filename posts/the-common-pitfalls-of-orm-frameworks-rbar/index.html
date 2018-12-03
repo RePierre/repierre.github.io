@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article# " lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The common pitfalls of ORM frameworks - RBAR | Rebeja</title>
+<link href="../../assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
+<meta name="theme-color" content="#5670d4">
+<meta name="generator" content="Nikola (getnikola.com)">
+<link rel="alternate" type="application/rss+xml" title="RSS" href="../../rss.xml">
+<link rel="canonical" href="https://blog.rebeja.eu/posts/the-common-pitfalls-of-orm-frameworks-rbar/">
+<!--[if lt IE 9]><script src="../../assets/js/html5.js"></script><![endif]--><meta name="author" content="Petru Rebeja">
+<link rel="prev" href="../python-development-using-emacs-from-terminal/" title="Python development using Emacs from terminal" type="text/html">
+<meta property="og:site_name" content="Rebeja">
+<meta property="og:title" content="The common pitfalls of ORM frameworks - RBAR">
+<meta property="og:url" content="https://blog.rebeja.eu/posts/the-common-pitfalls-of-orm-frameworks-rbar/">
+<meta property="og:description" content="ORM frameworks are a great tool especially for junior developers because they allow bluring the line between the application logic and the data it crunches. Except that the aforementioned line blurrin">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2018-01-18T00:00:00+02:00">
+<meta property="article:tag" content="ORM">
+<meta property="article:tag" content="pitfalls">
+<meta property="article:tag" content="RBAR">
+</head>
+<body>
+<a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
+
+<!-- Header and menu bar -->
+<div class="container">
+      <header class="blog-header py-3"><div class="row nbb-header align-items-center">
+          <div class="col-md-3 col-xs-2 col-sm-2" style="width: auto;">
+            <button class="navbar-toggler navbar-light bg-light nbb-navbar-toggler" type="button" data-toggle="collapse" data-target=".bs-nav-collapsible" aria-controls="bs-navbar" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse bs-nav-collapsible bootblog4-search-form-holder">
+                
+            </div>
+        </div>
+          <div class="col-md-6 col-xs-10 col-sm-10 bootblog4-brand" style="width: auto;">
+            <a class="navbar-brand blog-header-logo text-dark" href="https://blog.rebeja.eu/">
+
+            <span id="blog-title">Rebeja</span>
+        </a>
+          </div>
+            <div class="col-md-3 justify-content-end align-items-center bs-nav-collapsible collapse flex-collapse bootblog4-right-nav">
+            <nav class="navbar navbar-light bg-white"><ul class="navbar-nav bootblog4-right-nav">
+<li class="nav-item">
+    <a href="index.org" id="sourcelink" class="nav-link">Source</a>
+    </li>
+
+
+                    
+            </ul></nav>
+</div>
+    </div>
+</header><nav class="navbar navbar-expand-md navbar-light bg-white static-top"><div class="collapse navbar-collapse bs-nav-collapsible" id="bs-navbar">
+            <ul class="navbar-nav nav-fill d-flex w-100">
+<li class="nav-item">
+<a href="../../archive.html" class="nav-link">Archive</a>
+                </li>
+<li class="nav-item">
+<a href="../../categories/" class="nav-link">Tags</a>
+                </li>
+<li class="nav-item">
+<a href="../../rss.xml" class="nav-link">RSS feed</a>
+
+                
+            </li>
+</ul>
+</div>
+<!-- /.navbar-collapse -->
+</nav>
+</div>
+
+<div class="container" id="content" role="main">
+    <div class="body-content">
+        <!--Body content-->
+        
+        
+<article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title" itemprop="headline name"><a href="." class="u-url">The common pitfalls of ORM frameworks - RBAR</a></h1>
+
+        <div class="metadata">
+            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                    Petru Rebeja
+            </span></p>
+            <p class="dateline">
+            <a href="." rel="bookmark">
+            <time class="published dt-published" datetime="2018-01-18T00:00:00+02:00" itemprop="datePublished" title="2018-01-18 00:00">2018-01-18 00:00</time></a>
+            </p>
+            
+        <p class="sourceline"><a href="index.org" class="sourcelink">Source</a></p>
+
+        </div>
+        
+
+    </header><div class="e-content entry-content" itemprop="articleBody text">
+    <p>
+ORM frameworks are a great tool especially for junior developers because they allow bluring the line between the application logic and the data it crunches. Except that the aforementioned line blurring advantage may become a real production issue if not taken in consideration when writing the code.
+</p>
+
+<p>
+Let us consider an example. Let's suppose we're working on a (what else?) e-commerce platform. Somewhere in the depts of that platform there is a <code>IOrderService</code> which exposes the following method:
+</p>
+<div class="highlight"><pre><span></span>public interface IOrderService
+{
+    void PlaceOrder(Guid customerId, IEnumerable&lt;OrderItem&gt; itemIds)
+}
+</pre></div>
+<p>
+where <code>OrderItem</code> holds the data about an ordered item.
+</p>
+<div class="highlight"><pre><span></span>public class OrderItem
+{
+    public Guid ItemId { get; set; }
+
+    public int Quantity { get; set; }
+}
+</pre></div>
+<p>
+The <code>PlaceOrder</code> method needs to:
+</p>
+<ul class="org-ul">
+<li>Lookup the <code>Customer</code> in the database
+</li>
+<li>Create a new <code>CustomerOrder</code> instance
+</li>
+<li>Add each <code>Item</code> to the order and decrease stock count
+</li>
+<li>Save the <code>CustomerOrder</code> in the database
+</li>
+</ul>
+<p>
+Of course, since we're using an ORM framework, the classes used by the repositories - <code>Customer</code>, <code>CustomerOrder</code> and <code>Item</code> - are mapped to database tables.
+</p>
+
+<p>
+Given the above, someone would be tempted to implement the <code>PlaceOrder</code> method like this:
+</p>
+<div class="highlight"><pre><span></span>public void PlaceOrder(Guid customerId, IEnumerable&lt;OrderItem&gt; orderItems)
+{
+    var customer = _customerRepository.Get(customerId);
+    var order = new CustomerOrder(customer);
+
+    foreach(var orderedItem in orderItems)
+    {
+	var item = _itemRepository.Get(orderedItem.ItemId);
+	item.DecreaseStockCount(orderedItem.Quantity);
+	order.Add(item);
+    }
+
+    _customerOrderRepository.Register(order);
+    _unitOfWork.Commit();
+}
+</pre></div>
+<p>
+And why wouldn't they? It seems the most straightforward transposition of the requirements defined above. The code behaves as expected in both Dev and QA environments and afterwards it's promoted to production where lies a database with hundreds of thousands of rows in the <code>Items</code> table. There also, the behavior is as expected until one day an eager customer wants to buy 980 distinct items (because why not?).
+</p>
+
+<p>
+What happens with the code above? It <i>still</i> works well but the database command times out and the customer cannot place a <b>significant</b> order.
+</p>
+
+<p>
+So what is the problem? Why it times out? Well, because the aforementioned line between application logic and database is blurred enough for the iterative paradigm to creep into the set-based one. In the SQL community this paradigm creep has a name - <a href="https://www.red-gate.com/simple-talk/sql/t-sql-programming/rbar--row-by-agonizing-row/">Row By Agonizing Row</a>.
+</p>
+
+<p>
+To put it in the context of the example above - <b>it takes more time to do 980 pairs of <code>SELECT</code> and <code>UPDATE</code> operations than to do one <code>SELECT</code> which returns 980 rows followed by one <code>UPDATE</code> which alters 980 rows</b>.
+</p>
+
+<p>
+So, let's switch the paradigm and start working with collections in our code to minimize the number of operations in the database. The first thing to do is to load all items in bulk instead of loading them one by one. This will reduce the number of <code>SELECT</code> operations <b>from 980 to 1</b> (a whooping 50% of the number of operations). We still need to update the stock counts for each item individually because the ORM framework doesn't know how to translate the changes for each item into a single <code>UPDATE</code> statement but considering that we've halved the total number of operations let's give this approach a try shall we?
+</p>
+<div class="highlight"><pre><span></span>public void PlaceOrder(Guid customerId, IEnumerable&lt;OrderItem&gt; orderItems)
+{
+    var customer = _customerRepository.Get(customerId);
+    var customerOrder = new CustomerOrder();
+
+    var items = itemRepository.Items
+	.Join(orderItems,
+	      item =&gt; item.Id,
+	      orderedItem =&gt; orderedItem.ItemId,
+	      (item, _) =&gt; item)
+	.ToDictionary(i =&gt; i.Id);
+
+    foreach(var orderedItem in orderedItems)
+    {
+	var item  = items[orderedItem.ItemId];
+	item.DecreaseStockCount(orderedItem.Quantity);
+	customerOrder.Add(item);
+    }
+
+    _customerOrderRepository.Register(order);
+    _unitOfWork.Commit();
+}
+</pre></div>
+<p>
+This will solve the problem with the timeout but will create another one - useless load on the system. The code loads 980 rows from the database but only uses two attributes of each row - <code>Id</code> and <code>Barcode</code>. We might say that this can be solved by projecting an <code>Item</code> into a tuple of <code>&lt;Barcode, Id&gt;</code> but this would be a partial solution because we can still place a great burden on system memory by sending an request of 10k items.
+Also, there are still 980 <code>UPDATE</code> statements that need to be executed which is still <b>a lot</b>.
+</p>
+
+<p>
+The best approach to this is to not load any data at all from the database and to do the processing as close to the actual data as possible.
+And how can we do that? Exactly - with <code>stored procedures</code>.
+</p>
+<div class="highlight"><pre><span></span><span class="k">declare</span> <span class="k">procedure</span> <span class="n">CreateCustomerOrder</span><span class="p">(</span>
+	<span class="o">@</span><span class="n">customerId</span> <span class="n">uniqueidentifier</span> <span class="k">not</span> <span class="k">null</span><span class="p">,</span>
+	<span class="o">@</span><span class="n">orderItems</span> <span class="n">udttorderitems</span> <span class="n">readonly</span><span class="p">)</span>
+<span class="k">begin</span>
+    <span class="k">set</span> <span class="n">no_count</span> <span class="k">on</span>
+
+    <span class="k">update</span> <span class="n">sc</span>
+    <span class="k">set</span> <span class="n">sc</span><span class="p">.</span><span class="k">Count</span> <span class="o">=</span> <span class="n">sc</span><span class="p">.</span><span class="k">Count</span> <span class="o">-</span> <span class="n">o</span><span class="p">.</span><span class="n">Quantity</span>
+    <span class="k">from</span> <span class="n">StockCounts</span> <span class="n">sc</span>
+    <span class="k">join</span> <span class="n">Items</span> <span class="n">i</span> <span class="k">on</span> <span class="n">sc</span><span class="p">.</span><span class="n">ItemId</span> <span class="o">==</span> <span class="n">i</span><span class="p">.</span><span class="n">Id</span>
+    <span class="k">join</span> <span class="o">@</span><span class="n">orderItems</span> <span class="mi">0</span> <span class="k">on</span> <span class="n">i</span><span class="p">.</span><span class="n">Id</span> <span class="o">=</span> <span class="n">o</span><span class="p">.</span><span class="n">ItemId</span>
+
+    <span class="k">insert</span> <span class="k">into</span> <span class="n">CustomerOrder</span><span class="p">(</span><span class="n">CustomerId</span><span class="p">,</span> <span class="n">OrderDateTime</span><span class="p">)</span>
+    <span class="k">values</span> <span class="p">(</span><span class="o">@</span><span class="n">customerId</span><span class="p">,</span> <span class="n">GetDate</span><span class="p">())</span>
+
+    <span class="k">insert</span> <span class="k">into</span> <span class="n">OrderLines</span><span class="p">(</span><span class="n">OrderId</span><span class="p">,</span> <span class="n">ItemId</span><span class="p">,</span> <span class="n">Quantity</span><span class="p">)</span>
+    <span class="k">select</span> <span class="n">scope_identity</span><span class="p">(),</span> <span class="n">i</span><span class="p">.</span><span class="n">Id</span><span class="p">,</span> <span class="n">o</span><span class="p">.</span><span class="n">Quantity</span>
+    <span class="k">from</span> <span class="n">Items</span> <span class="n">i</span>
+    <span class="k">join</span> <span class="o">@</span><span class="n">orderItems</span> <span class="n">o</span> <span class="k">on</span> <span class="n">o</span><span class="p">.</span><span class="n">ItemId</span> <span class="o">=</span> <span class="n">i</span><span class="p">.</span><span class="n">Id</span>
+<span class="k">end</span>
+</pre></div>
+<p>
+Now, of course in real life situations there won't be a customer that orders almost 1000 items with a single order and the second approach (bulk load items and iterate the collection) will do just fine.
+The important thing to keep in mind in such cases is the need to switch from a procedural mindset to a set-based one thus pruning this phenomenon of paradigm creep which can become a full-blown RBAR processing.
+</p>
+    </div>
+    <aside class="postpromonav"><nav><ul itemprop="keywords" class="tags">
+<li><a class="tag p-category" href="../../categories/orm/" rel="tag">ORM</a></li>
+            <li><a class="tag p-category" href="../../categories/pitfalls/" rel="tag">pitfalls</a></li>
+            <li><a class="tag p-category" href="../../categories/rbar/" rel="tag">RBAR</a></li>
+        </ul>
+<ul class="pager hidden-print">
+<li class="previous">
+                <a href="../python-development-using-emacs-from-terminal/" rel="prev" title="Python development using Emacs from terminal">Previous post</a>
+            </li>
+        </ul></nav></aside></article><!--End of body content--><footer id="footer">
+            Contents © 2018         <a href="mailto:petru.rebeja@gmail.com">Petru Rebeja</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+            
+        </footer>
+</div>
+</div>
+
+
+        <script src="../../assets/js/all-nocdn.js"></script><!-- fancy dates --><script>
+    moment.locale("en");
+    fancydates(0, "YYYY-MM-DD HH:mm");
+    </script><!-- end fancy dates --><script>
+    baguetteBox.run('div#content', {
+        ignoreClass: 'islink',
+        captions: function(element) {
+            return element.getElementsByTagName('img')[0].alt;
+    }});
+    </script>
+</body>
+</html>

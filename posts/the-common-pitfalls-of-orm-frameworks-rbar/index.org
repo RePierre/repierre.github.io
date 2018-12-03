@@ -1,0 +1,116 @@
+#+BEGIN_COMMENT
+.. title: The common pitfalls of ORM frameworks - RBAR
+.. slug: the-common-pitfalls-of-orm-frameworks-rbar
+.. date: 2018-01-18 00:00:00 UTC+02:00
+.. tags: ORM, pitfalls, RBAR
+.. category:
+.. link:
+.. description:
+.. type: text
+
+#+END_COMMENT
+ORM frameworks are a great tool especially for junior developers because they allow bluring the line between the application logic and the data it crunches. Except that the aforementioned line blurring advantage may become a real production issue if not taken in consideration when writing the code.
+
+Let us consider an example. Let's suppose we're working on a (what else?) e-commerce platform. Somewhere in the depts of that platform there is a ~IOrderService~ which exposes the following method:
+#+BEGIN_SRC csharp
+  public interface IOrderService
+  {
+      void PlaceOrder(Guid customerId, IEnumerable<OrderItem> itemIds)
+  }
+#+END_SRC
+where ~OrderItem~ holds the data about an ordered item.
+#+BEGIN_SRC csharp
+  public class OrderItem
+  {
+      public Guid ItemId { get; set; }
+
+      public int Quantity { get; set; }
+  }
+#+END_SRC
+The ~PlaceOrder~ method needs to:
++ Lookup the ~Customer~ in the database
++ Create a new ~CustomerOrder~ instance
++ Add each ~Item~ to the order and decrease stock count
++ Save the ~CustomerOrder~ in the database
+Of course, since we're using an ORM framework, the classes used by the repositories - ~Customer~, ~CustomerOrder~ and ~Item~ - are mapped to database tables.
+
+Given the above, someone would be tempted to implement the ~PlaceOrder~ method like this:
+#+BEGIN_SRC csharp
+  public void PlaceOrder(Guid customerId, IEnumerable<OrderItem> orderItems)
+  {
+      var customer = _customerRepository.Get(customerId);
+      var order = new CustomerOrder(customer);
+
+      foreach(var orderedItem in orderItems)
+      {
+	  var item = _itemRepository.Get(orderedItem.ItemId);
+	  item.DecreaseStockCount(orderedItem.Quantity);
+	  order.Add(item);
+      }
+
+      _customerOrderRepository.Register(order);
+      _unitOfWork.Commit();
+  }
+#+END_SRC
+And why wouldn't they? It seems the most straightforward transposition of the requirements defined above. The code behaves as expected in both Dev and QA environments and afterwards it's promoted to production where lies a database with hundreds of thousands of rows in the ~Items~ table. There also, the behavior is as expected until one day an eager customer wants to buy 980 distinct items (because why not?).
+
+What happens with the code above? It /still/ works well but the database command times out and the customer cannot place a *significant* order.
+
+So what is the problem? Why it times out? Well, because the aforementioned line between application logic and database is blurred enough for the iterative paradigm to creep into the set-based one. In the SQL community this paradigm creep has a name - [[https://www.red-gate.com/simple-talk/sql/t-sql-programming/rbar--row-by-agonizing-row/][Row By Agonizing Row]].
+
+To put it in the context of the example above - *it takes more time to do 980 pairs of ~SELECT~ and ~UPDATE~ operations than to do one ~SELECT~ which returns 980 rows followed by one ~UPDATE~ which alters 980 rows*.
+
+So, let's switch the paradigm and start working with collections in our code to minimize the number of operations in the database. The first thing to do is to load all items in bulk instead of loading them one by one. This will reduce the number of ~SELECT~ operations *from 980 to 1* (a whooping 50% of the number of operations). We still need to update the stock counts for each item individually because the ORM framework doesn't know how to translate the changes for each item into a single ~UPDATE~ statement but considering that we've halved the total number of operations let's give this approach a try shall we?
+#+BEGIN_SRC csharp
+  public void PlaceOrder(Guid customerId, IEnumerable<OrderItem> orderItems)
+  {
+      var customer = _customerRepository.Get(customerId);
+      var customerOrder = new CustomerOrder();
+
+      var items = itemRepository.Items
+	  .Join(orderItems,
+		item => item.Id,
+		orderedItem => orderedItem.ItemId,
+		(item, _) => item)
+	  .ToDictionary(i => i.Id);
+
+      foreach(var orderedItem in orderedItems)
+      {
+	  var item  = items[orderedItem.ItemId];
+	  item.DecreaseStockCount(orderedItem.Quantity);
+	  customerOrder.Add(item);
+      }
+
+      _customerOrderRepository.Register(order);
+      _unitOfWork.Commit();
+  }
+#+END_SRC
+This will solve the problem with the timeout but will create another one - useless load on the system. The code loads 980 rows from the database but only uses two attributes of each row - ~Id~ and ~Barcode~. We might say that this can be solved by projecting an ~Item~ into a tuple of ~<Barcode, Id>~ but this would be a partial solution because we can still place a great burden on system memory by sending an request of 10k items.
+Also, there are still 980 ~UPDATE~ statements that need to be executed which is still *a lot*.
+
+The best approach to this is to not load any data at all from the database and to do the processing as close to the actual data as possible.
+And how can we do that? Exactly - with ~stored procedures~.
+#+BEGIN_SRC sql
+  declare procedure CreateCustomerOrder(
+	  @customerId uniqueidentifier not null,
+	  @orderItems udttorderitems readonly)
+  begin
+      set no_count on
+
+      update sc
+      set sc.Count = sc.Count - o.Quantity
+      from StockCounts sc
+      join Items i on sc.ItemId == i.Id
+      join @orderItems 0 on i.Id = o.ItemId
+
+      insert into CustomerOrder(CustomerId, OrderDateTime)
+      values (@customerId, GetDate())
+
+      insert into OrderLines(OrderId, ItemId, Quantity)
+      select scope_identity(), i.Id, o.Quantity
+      from Items i
+      join @orderItems o on o.ItemId = i.Id
+  end
+#+END_SRC
+Now, of course in real life situations there won't be a customer that orders almost 1000 items with a single order and the second approach (bulk load items and iterate the collection) will do just fine.
+The important thing to keep in mind in such cases is the need to switch from a procedural mindset to a set-based one thus pruning this phenomenon of paradigm creep which can become a full-blown RBAR processing.

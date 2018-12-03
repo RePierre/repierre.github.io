@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/" version="2.0"><channel><title>Rebeja (Posts about ORM)</title><link>https://blog.rebeja.eu/</link><description></description><atom:link href="https://blog.rebeja.eu/categories/orm.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2018 &lt;a href="mailto:petru.rebeja@gmail.com"&gt;Petru Rebeja&lt;/a&gt; </copyright><lastBuildDate>Mon, 03 Dec 2018 14:17:22 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>The common pitfalls of ORM frameworks - RBAR</title><link>https://blog.rebeja.eu/posts/the-common-pitfalls-of-orm-frameworks-rbar/</link><dc:creator>Petru Rebeja</dc:creator><description>&lt;p&gt;
+ORM frameworks are a great tool especially for junior developers because they allow bluring the line between the application logic and the data it crunches. Except that the aforementioned line blurring advantage may become a real production issue if not taken in consideration when writing the code.
+&lt;/p&gt;
+
+&lt;p&gt;
+Let us consider an example. Let's suppose we're working on a (what else?) e-commerce platform. Somewhere in the depts of that platform there is a &lt;code&gt;IOrderService&lt;/code&gt; which exposes the following method:
+&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;public interface IOrderService
+{
+    void PlaceOrder(Guid customerId, IEnumerable&amp;lt;OrderItem&amp;gt; itemIds)
+}
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;
+where &lt;code&gt;OrderItem&lt;/code&gt; holds the data about an ordered item.
+&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;public class OrderItem
+{
+    public Guid ItemId { get; set; }
+
+    public int Quantity { get; set; }
+}
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;
+The &lt;code&gt;PlaceOrder&lt;/code&gt; method needs to:
+&lt;/p&gt;
+&lt;ul class="org-ul"&gt;
+&lt;li&gt;Lookup the &lt;code&gt;Customer&lt;/code&gt; in the database
+&lt;/li&gt;
+&lt;li&gt;Create a new &lt;code&gt;CustomerOrder&lt;/code&gt; instance
+&lt;/li&gt;
+&lt;li&gt;Add each &lt;code&gt;Item&lt;/code&gt; to the order and decrease stock count
+&lt;/li&gt;
+&lt;li&gt;Save the &lt;code&gt;CustomerOrder&lt;/code&gt; in the database
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;
+Of course, since we're using an ORM framework, the classes used by the repositories - &lt;code&gt;Customer&lt;/code&gt;, &lt;code&gt;CustomerOrder&lt;/code&gt; and &lt;code&gt;Item&lt;/code&gt; - are mapped to database tables.
+&lt;/p&gt;
+
+&lt;p&gt;
+Given the above, someone would be tempted to implement the &lt;code&gt;PlaceOrder&lt;/code&gt; method like this:
+&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;public void PlaceOrder(Guid customerId, IEnumerable&amp;lt;OrderItem&amp;gt; orderItems)
+{
+    var customer = _customerRepository.Get(customerId);
+    var order = new CustomerOrder(customer);
+
+    foreach(var orderedItem in orderItems)
+    {
+	var item = _itemRepository.Get(orderedItem.ItemId);
+	item.DecreaseStockCount(orderedItem.Quantity);
+	order.Add(item);
+    }
+
+    _customerOrderRepository.Register(order);
+    _unitOfWork.Commit();
+}
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;
+And why wouldn't they? It seems the most straightforward transposition of the requirements defined above. The code behaves as expected in both Dev and QA environments and afterwards it's promoted to production where lies a database with hundreds of thousands of rows in the &lt;code&gt;Items&lt;/code&gt; table. There also, the behavior is as expected until one day an eager customer wants to buy 980 distinct items (because why not?).
+&lt;/p&gt;
+
+&lt;p&gt;
+What happens with the code above? It &lt;i&gt;still&lt;/i&gt; works well but the database command times out and the customer cannot place a &lt;b&gt;significant&lt;/b&gt; order.
+&lt;/p&gt;
+
+&lt;p&gt;
+So what is the problem? Why it times out? Well, because the aforementioned line between application logic and database is blurred enough for the iterative paradigm to creep into the set-based one. In the SQL community this paradigm creep has a name - &lt;a href="https://www.red-gate.com/simple-talk/sql/t-sql-programming/rbar--row-by-agonizing-row/"&gt;Row By Agonizing Row&lt;/a&gt;.
+&lt;/p&gt;
+
+&lt;p&gt;
+To put it in the context of the example above - &lt;b&gt;it takes more time to do 980 pairs of &lt;code&gt;SELECT&lt;/code&gt; and &lt;code&gt;UPDATE&lt;/code&gt; operations than to do one &lt;code&gt;SELECT&lt;/code&gt; which returns 980 rows followed by one &lt;code&gt;UPDATE&lt;/code&gt; which alters 980 rows&lt;/b&gt;.
+&lt;/p&gt;
+
+&lt;p&gt;
+So, let's switch the paradigm and start working with collections in our code to minimize the number of operations in the database. The first thing to do is to load all items in bulk instead of loading them one by one. This will reduce the number of &lt;code&gt;SELECT&lt;/code&gt; operations &lt;b&gt;from 980 to 1&lt;/b&gt; (a whooping 50% of the number of operations). We still need to update the stock counts for each item individually because the ORM framework doesn't know how to translate the changes for each item into a single &lt;code&gt;UPDATE&lt;/code&gt; statement but considering that we've halved the total number of operations let's give this approach a try shall we?
+&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;public void PlaceOrder(Guid customerId, IEnumerable&amp;lt;OrderItem&amp;gt; orderItems)
+{
+    var customer = _customerRepository.Get(customerId);
+    var customerOrder = new CustomerOrder();
+
+    var items = itemRepository.Items
+	.Join(orderItems,
+	      item =&amp;gt; item.Id,
+	      orderedItem =&amp;gt; orderedItem.ItemId,
+	      (item, _) =&amp;gt; item)
+	.ToDictionary(i =&amp;gt; i.Id);
+
+    foreach(var orderedItem in orderedItems)
+    {
+	var item  = items[orderedItem.ItemId];
+	item.DecreaseStockCount(orderedItem.Quantity);
+	customerOrder.Add(item);
+    }
+
+    _customerOrderRepository.Register(order);
+    _unitOfWork.Commit();
+}
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;
+This will solve the problem with the timeout but will create another one - useless load on the system. The code loads 980 rows from the database but only uses two attributes of each row - &lt;code&gt;Id&lt;/code&gt; and &lt;code&gt;Barcode&lt;/code&gt;. We might say that this can be solved by projecting an &lt;code&gt;Item&lt;/code&gt; into a tuple of &lt;code&gt;&amp;lt;Barcode, Id&amp;gt;&lt;/code&gt; but this would be a partial solution because we can still place a great burden on system memory by sending an request of 10k items.
+Also, there are still 980 &lt;code&gt;UPDATE&lt;/code&gt; statements that need to be executed which is still &lt;b&gt;a lot&lt;/b&gt;.
+&lt;/p&gt;
+
+&lt;p&gt;
+The best approach to this is to not load any data at all from the database and to do the processing as close to the actual data as possible.
+And how can we do that? Exactly - with &lt;code&gt;stored procedures&lt;/code&gt;.
+&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;declare&lt;/span&gt; &lt;span class="k"&gt;procedure&lt;/span&gt; &lt;span class="n"&gt;CreateCustomerOrder&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;
+	&lt;span class="o"&gt;@&lt;/span&gt;&lt;span class="n"&gt;customerId&lt;/span&gt; &lt;span class="n"&gt;uniqueidentifier&lt;/span&gt; &lt;span class="k"&gt;not&lt;/span&gt; &lt;span class="k"&gt;null&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+	&lt;span class="o"&gt;@&lt;/span&gt;&lt;span class="n"&gt;orderItems&lt;/span&gt; &lt;span class="n"&gt;udttorderitems&lt;/span&gt; &lt;span class="n"&gt;readonly&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="k"&gt;begin&lt;/span&gt;
+    &lt;span class="k"&gt;set&lt;/span&gt; &lt;span class="n"&gt;no_count&lt;/span&gt; &lt;span class="k"&gt;on&lt;/span&gt;
+
+    &lt;span class="k"&gt;update&lt;/span&gt; &lt;span class="n"&gt;sc&lt;/span&gt;
+    &lt;span class="k"&gt;set&lt;/span&gt; &lt;span class="n"&gt;sc&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="k"&gt;Count&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;sc&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="k"&gt;Count&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;o&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Quantity&lt;/span&gt;
+    &lt;span class="k"&gt;from&lt;/span&gt; &lt;span class="n"&gt;StockCounts&lt;/span&gt; &lt;span class="n"&gt;sc&lt;/span&gt;
+    &lt;span class="k"&gt;join&lt;/span&gt; &lt;span class="n"&gt;Items&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="k"&gt;on&lt;/span&gt; &lt;span class="n"&gt;sc&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ItemId&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Id&lt;/span&gt;
+    &lt;span class="k"&gt;join&lt;/span&gt; &lt;span class="o"&gt;@&lt;/span&gt;&lt;span class="n"&gt;orderItems&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt; &lt;span class="k"&gt;on&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Id&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;o&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ItemId&lt;/span&gt;
+
+    &lt;span class="k"&gt;insert&lt;/span&gt; &lt;span class="k"&gt;into&lt;/span&gt; &lt;span class="n"&gt;CustomerOrder&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;CustomerId&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;OrderDateTime&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="k"&gt;values&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;@&lt;/span&gt;&lt;span class="n"&gt;customerId&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;GetDate&lt;/span&gt;&lt;span class="p"&gt;())&lt;/span&gt;
+
+    &lt;span class="k"&gt;insert&lt;/span&gt; &lt;span class="k"&gt;into&lt;/span&gt; &lt;span class="n"&gt;OrderLines&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;OrderId&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;ItemId&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;Quantity&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="k"&gt;select&lt;/span&gt; &lt;span class="n"&gt;scope_identity&lt;/span&gt;&lt;span class="p"&gt;(),&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Id&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;o&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Quantity&lt;/span&gt;
+    &lt;span class="k"&gt;from&lt;/span&gt; &lt;span class="n"&gt;Items&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;
+    &lt;span class="k"&gt;join&lt;/span&gt; &lt;span class="o"&gt;@&lt;/span&gt;&lt;span class="n"&gt;orderItems&lt;/span&gt; &lt;span class="n"&gt;o&lt;/span&gt; &lt;span class="k"&gt;on&lt;/span&gt; &lt;span class="n"&gt;o&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ItemId&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Id&lt;/span&gt;
+&lt;span class="k"&gt;end&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;
+Now, of course in real life situations there won't be a customer that orders almost 1000 items with a single order and the second approach (bulk load items and iterate the collection) will do just fine.
+The important thing to keep in mind in such cases is the need to switch from a procedural mindset to a set-based one thus pruning this phenomenon of paradigm creep which can become a full-blown RBAR processing.
+&lt;/p&gt;</description><category>ORM</category><category>pitfalls</category><category>RBAR</category><guid>https://blog.rebeja.eu/posts/the-common-pitfalls-of-orm-frameworks-rbar/</guid><pubDate>Wed, 17 Jan 2018 22:00:00 GMT</pubDate></item></channel></rss>
