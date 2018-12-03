@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Rebeja (Posts about Python)</title><link>https://blog.rebeja.eu/</link><description></description><atom:link type="application/rss+xml" rel="self" href="https://blog.rebeja.eu/categories/python.xml"></atom:link><language>en</language><copyright>Contents © 2018 &lt;a href="mailto:petru.rebeja@gmail.com"&gt;Petru Rebeja&lt;/a&gt; </copyright><lastBuildDate>Mon, 03 Dec 2018 12:29:32 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Python development using Emacs from terminal</title><link>https://blog.rebeja.eu/posts/python-development-using-emacs-from-terminal/</link><dc:creator>Petru Rebeja</dc:creator><description>&lt;p&gt;
+A few weeks ago, while working on a hackathon project I found myself very disappointed with my progress.
+&lt;/p&gt;
+
+&lt;p&gt;
+I had the impression that I can do better but something is holding me back and then I realized that I was too distracted by &lt;code&gt;Alt-Tab&lt;/code&gt;-ing through all open applications, iterating through dozens of open tabs in the browser and spending too much time on websites that were of no use at that time.
+&lt;/p&gt;
+
+&lt;p&gt;
+At that moment, on a whim I decided to try and eliminate all of these distractions the hard way - &lt;b&gt;by not using the X server at all&lt;/b&gt; (I was working on &lt;a href="https://kubuntu.org/"&gt;Kubuntu&lt;/a&gt;).
+&lt;/p&gt;
+
+&lt;p&gt;
+Since I was mainly working with Python code and occasionally I would need to open some file for inspection and all of these were done from Emacs I said to myself:
+&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;
+Emacs can be opened from console so why not start working on hackathon from console?
+&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;
+Said and done. &lt;code&gt;Ctrl-Alt-F1&lt;/code&gt; and I was prompted with the TTY cursor. I logged in, started Emacs opened all the required files and started working. All good until I found myself in the situation where I needed to lookup something on the Internet. I knew I could use &lt;code&gt;eww&lt;/code&gt; as a web browser so normally I did so (yeah, I'm one of those people that use Bing instead of Google):
+&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;M-x eww
+Enter URL or keywords: www.bing.com
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;
+And nothing… Oh, wait, I remember needing to enter some username and password when connecting to the Wi-Fi but I wasn't prompted for those after logging into terminal. How do I connect to the network?
+&lt;/p&gt;
+
+&lt;p&gt;
+As there was no way for me to find that out without using some sort of GUI (I'm not that good with terminals) I started a new X session, connected from there to Wi-Fi and found this &lt;a href="https://askubuntu.com/a/461831/561980"&gt;StackOverflow answer&lt;/a&gt;. So I logged back to the terminal and from Emacs started &lt;b&gt;eshell&lt;/b&gt; with &lt;code&gt;M-x eshell&lt;/code&gt;. From there I issued the following command
+&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;nmcli c up &amp;lt;wi-fi-name&amp;gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;
+which connected me to the Wi-Fi network.
+&lt;/p&gt;
+
+&lt;p&gt;
+Note: I got connected because on previous sessions I opted to store the credentials for the connection; to get a prompt for username and password for the Wi-Fi use the &lt;code&gt;--ask&lt;/code&gt; parameter like this:
+&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;nmcli --ask c up &amp;lt;wi-fi-name&amp;gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;
+After connecting I resumed my coding and only at the end of the hackathon I stopped to ponder upon my experience; it wasn't as smooth as I expected. Although I consider a big plus the fact that I was able to issue shell commands within Emacs through &lt;b&gt;eshell&lt;/b&gt; there were some hick-ups along the way.
+&lt;/p&gt;
+
+&lt;p&gt;
+The first thing I noticed is that under terminal not all shortcuts that are very familiar for me are available. Namely, in &lt;b&gt;org-mode&lt;/b&gt; the combination &lt;code&gt;M-right&lt;/code&gt; which is used for indentation, moving columns within a table and demoting list items is not available; instead I had to use either &lt;code&gt;C-c C-x r&lt;/code&gt; shortcut or explicitly invoke the command using &lt;code&gt;M-x org-meta-right&lt;/code&gt;. Although I did not invoke this command frequently, without the shortcut I felt like I was pulled out of &lt;a href="https://en.wikipedia.org/wiki/Flow_(psychology)"&gt;the flow&lt;/a&gt; each time I had to use an alternative method of invoking the command.
+&lt;/p&gt;
+
+&lt;p&gt;
+The second and by far the biggest nuisance was the lack of proper web-browsing experience. Although I most frequently landed on StackOverflow pages and although &lt;b&gt;eww&lt;/b&gt; rendered them pretty good (see image below) the lack of visual experience &lt;i&gt;I was used to&lt;/i&gt; gave me a sense of discomfort.
+&lt;img src="https://blog.rebeja.eu/images/eww-stackoverflow-2.png" alt="nil"&gt;
+&lt;/p&gt;
+
+&lt;p&gt;
+However, when I got to analyze how much I have accomplished while working from terminal I was simply &lt;b&gt;amazed&lt;/b&gt;. Having no distraction and meaningless motion like cycling through windows and tabs had a huge impact on my productivity. I was able to fully concentrate and immerse in the code and by doing so I had &lt;b&gt;a lot&lt;/b&gt; of work done.
+&lt;/p&gt;</description><category>Emacs</category><category>Python</category><category>terminal</category><guid>https://blog.rebeja.eu/posts/python-development-using-emacs-from-terminal/</guid><pubDate>Thu, 28 Sep 2017 22:00:00 GMT</pubDate></item></channel></rss>

@@ -1,0 +1,47 @@
+#+BEGIN_COMMENT
+.. title: Python development using Emacs from terminal
+.. slug: python-development-using-emacs-from-terminal
+.. date: 2017-09-29 00:00:00 UTC+02:00
+.. tags: Emacs, Python, terminal
+.. category: Emacs
+.. link:
+.. description:
+.. type: text
+
+#+END_COMMENT
+A few weeks ago, while working on a hackathon project I found myself very disappointed with my progress.
+
+I had the impression that I can do better but something is holding me back and then I realized that I was too distracted by ~Alt-Tab~-ing through all open applications, iterating through dozens of open tabs in the browser and spending too much time on websites that were of no use at that time.
+
+At that moment, on a whim I decided to try and eliminate all of these distractions the hard way - *by not using the X server at all* (I was working on [[https://kubuntu.org/][Kubuntu]]).
+
+Since I was mainly working with Python code and occasionally I would need to open some file for inspection and all of these were done from Emacs I said to myself:
+#+BEGIN_QUOTE
+Emacs can be opened from console so why not start working on hackathon from console?
+#+END_QUOTE
+Said and done. ~Ctrl-Alt-F1~ and I was prompted with the TTY cursor. I logged in, started Emacs opened all the required files and started working. All good until I found myself in the situation where I needed to lookup something on the Internet. I knew I could use ~eww~ as a web browser so normally I did so (yeah, I'm one of those people that use Bing instead of Google):
+#+BEGIN_SRC sh
+  M-x eww
+  Enter URL or keywords: www.bing.com
+#+END_SRC
+And nothing... Oh, wait, I remember needing to enter some username and password when connecting to the Wi-Fi but I wasn't prompted for those after logging into terminal. How do I connect to the network?
+
+As there was no way for me to find that out without using some sort of GUI (I'm not that good with terminals) I started a new X session, connected from there to Wi-Fi and found this [[https://askubuntu.com/a/461831/561980][StackOverflow answer]]. So I logged back to the terminal and from Emacs started *eshell* with ~M-x eshell~. From there I issued the following command
+#+BEGIN_SRC sh
+  nmcli c up <wi-fi-name>
+#+END_SRC
+which connected me to the Wi-Fi network.
+
+Note: I got connected because on previous sessions I opted to store the credentials for the connection; to get a prompt for username and password for the Wi-Fi use the ~--ask~ parameter like this:
+#+BEGIN_SRC sh
+  nmcli --ask c up <wi-fi-name>
+#+END_SRC
+
+After connecting I resumed my coding and only at the end of the hackathon I stopped to ponder upon my experience; it wasn't as smooth as I expected. Although I consider a big plus the fact that I was able to issue shell commands within Emacs through *eshell* there were some hick-ups along the way.
+
+The first thing I noticed is that under terminal not all shortcuts that are very familiar for me are available. Namely, in *org-mode* the combination ~M-right~ which is used for indentation, moving columns within a table and demoting list items is not available; instead I had to use either ~C-c C-x r~ shortcut or explicitly invoke the command using ~M-x org-meta-right~. Although I did not invoke this command frequently, without the shortcut I felt like I was pulled out of [[https://en.wikipedia.org/wiki/Flow_(psychology)][the flow]] each time I had to use an alternative method of invoking the command.
+
+The second and by far the biggest nuisance was the lack of proper web-browsing experience. Although I most frequently landed on StackOverflow pages and although *eww* rendered them pretty good (see image below) the lack of visual experience /I was used to/ gave me a sense of discomfort.
+[[img-url:/images/eww-stackoverflow-2.png]]
+
+However, when I got to analyze how much I have accomplished while working from terminal I was simply *amazed*. Having no distraction and meaningless motion like cycling through windows and tabs had a huge impact on my productivity. I was able to fully concentrate and immerse in the code and by doing so I had *a lot* of work done.
