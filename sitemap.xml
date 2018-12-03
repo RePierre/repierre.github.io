@@ -23,11 +23,11 @@
  </url>
  <url>
   <loc>https://blog.rebeja.eu/archive.html</loc>
-  <lastmod>2018-12-03T14:40:00Z</lastmod>
+  <lastmod>2018-12-03T14:45:00Z</lastmod>
  </url>
  <url>
   <loc>https://blog.rebeja.eu/categories/</loc>
-  <lastmod>2018-12-03T14:37:00Z</lastmod>
+  <lastmod>2018-12-03T14:44:00Z</lastmod>
  </url>
  <url>
   <loc>https://blog.rebeja.eu/categories/abstraction/</loc>
@@ -36,6 +36,14 @@
  <url>
   <loc>https://blog.rebeja.eu/categories/autofacservicehostfactory/</loc>
   <lastmod>2018-12-03T14:37:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://blog.rebeja.eu/categories/automation/</loc>
+  <lastmod>2018-12-03T14:44:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://blog.rebeja.eu/categories/awesome/</loc>
+  <lastmod>2018-12-03T14:44:00Z</lastmod>
  </url>
  <url>
   <loc>https://blog.rebeja.eu/categories/azure/</loc>
@@ -64,6 +72,10 @@
  <url>
   <loc>https://blog.rebeja.eu/categories/coupling/</loc>
   <lastmod>2018-11-25T22:10:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://blog.rebeja.eu/categories/custom-workflow/</loc>
+  <lastmod>2018-12-03T14:44:00Z</lastmod>
  </url>
  <url>
   <loc>https://blog.rebeja.eu/categories/dired/</loc>
@@ -203,7 +215,7 @@
  </url>
  <url>
   <loc>https://blog.rebeja.eu/index-1.html</loc>
-  <lastmod>2018-12-03T14:40:00Z</lastmod>
+  <lastmod>2018-12-03T14:45:00Z</lastmod>
  </url>
  <url>
   <loc>https://blog.rebeja.eu/listings/</loc>
@@ -216,6 +228,10 @@
  <url>
   <loc>https://blog.rebeja.eu/posts/adding-disqus-comments-to-ghost-blog-on-azure/</loc>
   <lastmod>2018-11-29T12:46:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://blog.rebeja.eu/posts/automating-custom-workflow-in-emacs/</loc>
+  <lastmod>2018-12-03T14:41:00Z</lastmod>
  </url>
  <url>
   <loc>https://blog.rebeja.eu/posts/editing-remote-files-over-ssh-with-emacs-and-tramp-mode/</loc>

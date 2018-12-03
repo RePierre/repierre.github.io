@@ -1,5 +1,121 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Rebeja</title><link>https://blog.rebeja.eu/</link><description>Single threaded stories.</description><atom:link rel="self" href="https://blog.rebeja.eu/rss.xml" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2018 &lt;a href="mailto:petru.rebeja@gmail.com"&gt;Petru Rebeja&lt;/a&gt; </copyright><lastBuildDate>Mon, 03 Dec 2018 14:39:26 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>ServiceActivationException when auto-starting WCF services with AutofacServiceHostFactory</title><link>https://blog.rebeja.eu/posts/serviceactivationexception-autofacservicehostfactory/</link><dc:creator>Petru Rebeja</dc:creator><description>&lt;p&gt;
+<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Rebeja</title><link>https://blog.rebeja.eu/</link><description>Single threaded stories.</description><atom:link rel="self" type="application/rss+xml" href="https://blog.rebeja.eu/rss.xml"></atom:link><language>en</language><copyright>Contents © 2018 &lt;a href="mailto:petru.rebeja@gmail.com"&gt;Petru Rebeja&lt;/a&gt; </copyright><lastBuildDate>Mon, 03 Dec 2018 14:44:54 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Automating custom workflow in Emacs</title><link>https://blog.rebeja.eu/posts/automating-custom-workflow-in-emacs/</link><dc:creator>Petru Rebeja</dc:creator><description>&lt;p&gt;
+Due to the lack of human resources in a research project I'm involved the team decided to take upon itself the semantic comparison of 3000 pairs of papers from the medical domain.
+&lt;/p&gt;
+
+&lt;p&gt;
+Each paper is a &lt;code&gt;json&lt;/code&gt; file with structured contents of the publication like in the picture below:
+&lt;img src="https://blog.rebeja.eu/images/publication-json.png" alt="nil"&gt;
+&lt;/p&gt;
+
+&lt;p&gt;
+Since we also want to do &lt;span class="underline"&gt;at least some&lt;/span&gt; cross-validation we decided that each member of the team should compare 2000 pairs of publications so that each pair will be compared by two out of three persons from the team.
+So we split the 3000 publication pairs into 3 sets which were saved into &lt;code&gt;csv&lt;/code&gt; files with the following structure: &lt;code&gt;file1, file2, similarity_score&lt;/code&gt;; where &lt;code&gt;file1&lt;/code&gt; and &lt;code&gt;file2&lt;/code&gt; are the names of the files and &lt;code&gt;similarity_score&lt;/code&gt; is to be filled with the semantic similarity score.
+&lt;/p&gt;
+
+&lt;p&gt;
+My first idea was to have Emacs split into three windows to allow for both registering the score and a side-by-side comparison of files:
+&lt;img src="https://blog.rebeja.eu/images/comparison-layout.png" alt="nil"&gt;
+&lt;/p&gt;
+
+&lt;p&gt;
+For each pair of files from the left window I would:
+&lt;/p&gt;
+&lt;ol class="org-ol"&gt;
+&lt;li&gt;Copy the name of the first file using &lt;code&gt;C-a C-SPC C-u 2 M-f M-w&lt;/code&gt;
+&lt;/li&gt;
+&lt;li&gt;Go the the top window on the right using &lt;code&gt;C-x o 2&lt;/code&gt; (I'm using &lt;code&gt;ace-window&lt;/code&gt; thus after pressing &lt;code&gt;C-x o&lt;/code&gt; I can select the window to switch to by pressing it's number key)
+&lt;/li&gt;
+&lt;li&gt;Open the file using &lt;code&gt;C-x C-f&lt;/code&gt; then navigating to the directory and yanking the file name at the end
+&lt;/li&gt;
+&lt;li&gt;Move back to the first window using &lt;code&gt;C-x o 1&lt;/code&gt;
+&lt;/li&gt;
+&lt;li&gt;Copy the name of the second file by first moving over the first comma with &lt;code&gt;C-f&lt;/code&gt; then &lt;code&gt;C-u 2 M-f M-w&lt;/code&gt;
+&lt;/li&gt;
+&lt;li&gt;Go to the bottom window on the right using &lt;code&gt;C-x o 3&lt;/code&gt;
+&lt;/li&gt;
+&lt;li&gt;Repeat step 3
+&lt;/li&gt;
+&lt;li&gt;Repeat step 4
+&lt;/li&gt;
+&lt;li&gt;Compare publications and register score in &lt;code&gt;similarity_score&lt;/code&gt; column
+&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;
+Although this workflow seems quite laborious due to so many steps I've gotten used quite rapidly (from the second pair) to it and managed to form some sort of temporary muscle memory for opening files in the sense that I was doing that on full auto-pilot, &lt;i&gt;without thinking that I'm opening files&lt;/i&gt;.
+&lt;/p&gt;
+
+&lt;p&gt;
+However, there was a problem with this workflow: the directory in which the files to be compared are located contains around 100 K such &lt;code&gt;json&lt;/code&gt; files and on my 5400 RPM hard-disk it took what seemed like forever to scan the directory when pressing &lt;code&gt;C-x C-f&lt;/code&gt; in order to give me the benefit of autocompletion which I did not need because I &lt;i&gt;already knew the files names&lt;/i&gt;. So basically for each pair of publications I was stuck waiting twice for the directory to be scanned.
+&lt;/p&gt;
+
+&lt;p&gt;
+And then I got an idea: &lt;b&gt;I already knew the file names; the directory containing them is the same so wouldn't it be faster to send the full path (obtained by concatenating file name and directory path) to &lt;code&gt;find-file&lt;/code&gt; function instead of waiting for a directory scan?&lt;/b&gt;
+&lt;/p&gt;
+
+&lt;p&gt;
+I switched to the &lt;code&gt;*scratch*&lt;/code&gt; buffer and evaluated a &lt;code&gt;find-file&lt;/code&gt; call with the full path of a file and of course, the file was loaded instantly.
+&lt;/p&gt;
+
+&lt;p&gt;
+So I decided to take it a bit further: &lt;b&gt;Can't I, while on a line in left window open the files on that line in the other two windows?&lt;/b&gt;
+&lt;/p&gt;
+
+&lt;p&gt;
+Of course I can because &lt;b&gt;Emacs is awesome&lt;/b&gt;. All I need to do is write some code lisp code that will do what I want.
+&lt;/p&gt;
+
+&lt;p&gt;
+Fisrt things first, I declared a (global) variable to hold the full path to the directory containing the files:
+&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;defvar&lt;/span&gt; &lt;span class="nv"&gt;*compare-publications-dir*&lt;/span&gt;
+  &lt;span class="s"&gt;"&amp;lt;directory-path&amp;gt;"&lt;/span&gt;
+  &lt;span class="s"&gt;"The location of files to compare."&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;
+Then I created a function to get the whole line from the &lt;code&gt;csv&lt;/code&gt; file:
+&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;defun&lt;/span&gt; &lt;span class="nv"&gt;get-current-line&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+  &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;progn&lt;/span&gt;
+    &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;beginning-of-visual-line&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;let &lt;/span&gt;&lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="nf"&gt;start&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;point&lt;/span&gt;&lt;span class="p"&gt;)))&lt;/span&gt;
+      &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;end-of-visual-line&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+      &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;buffer-substring-no-properties&lt;/span&gt; &lt;span class="nv"&gt;start&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;point&lt;/span&gt;&lt;span class="p"&gt;)))))&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;
+This function moves the point to the beginning of the line by calling &lt;code&gt;(beginning-of-visual-line)&lt;/code&gt; then saves the position in a local variable &lt;code&gt;start&lt;/code&gt; and moves to the end of the line via a call to &lt;code&gt;(end-of-visual-line)&lt;/code&gt;. In the end it returns the substring which is between &lt;code&gt;start&lt;/code&gt; position and the position returned by &lt;code&gt;(point)&lt;/code&gt; function.
+&lt;/p&gt;
+
+&lt;p&gt;
+Having the line of text I need to:
+a) Split the line by ~,~
+b) Store first and second parts of the line into two variables called &lt;code&gt;file-1&lt;/code&gt; and &lt;code&gt;file-2&lt;/code&gt;
+c) Move to the top-right window
+d) Concatenate the values of &lt;code&gt;*compare-publications-dir*&lt;/code&gt; and &lt;code&gt;file-1&lt;/code&gt; and pass the result to &lt;code&gt;(find-file-readonly)&lt;/code&gt; (I don't want to accidentally change the files being compared)
+e) Move to the bottom-right window
+f) Repeat d) with &lt;code&gt;file-2&lt;/code&gt; instead of &lt;code&gt;file-1&lt;/code&gt;
+g) Return to the left window
+&lt;/p&gt;
+
+&lt;p&gt;
+This was also implemented with a function which can be called interactively via &lt;code&gt;M-x&lt;/code&gt;:
+&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;defun&lt;/span&gt; &lt;span class="nv"&gt;compare-publications&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+  &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;interactive&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+  &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;let* &lt;/span&gt;&lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="nf"&gt;files&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;csv-split-string&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;get-current-line&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="s"&gt;","&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+	 &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;file-1&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;car &lt;/span&gt;&lt;span class="nv"&gt;files&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+	 &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;file-2&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;car &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;cdr &lt;/span&gt;&lt;span class="nv"&gt;files&lt;/span&gt;&lt;span class="p"&gt;))))&lt;/span&gt;
+    &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;other-window&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;find-file-read-only&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;concat&lt;/span&gt; &lt;span class="nv"&gt;*compare-publications-dir*&lt;/span&gt; &lt;span class="nv"&gt;file-1&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+    &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;other-window&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;find-file-read-only&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;concat&lt;/span&gt; &lt;span class="nv"&gt;*compare-publications-dir*&lt;/span&gt; &lt;span class="nv"&gt;file-2&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+    &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;other-window&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)))&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;
+And that's it. After calling &lt;code&gt;eval&lt;/code&gt; on the functions above I have an automated workflow. Now, to compare two files, I just navigate to a line in the &lt;code&gt;csv&lt;/code&gt; file and from there type &lt;code&gt;M-x compare-publications&lt;/code&gt;. The only thing left to do manually (beside the comparison itself) is to press the key for the &lt;code&gt;similarity_score&lt;/code&gt; of files from that line.
+&lt;/p&gt;</description><category>automation</category><category>awesome</category><category>custom workflow</category><category>Emacs</category><guid>https://blog.rebeja.eu/posts/automating-custom-workflow-in-emacs/</guid><pubDate>Sat, 02 Jun 2018 22:00:00 GMT</pubDate></item><item><title>ServiceActivationException when auto-starting WCF services with AutofacServiceHostFactory</title><link>https://blog.rebeja.eu/posts/serviceactivationexception-autofacservicehostfactory/</link><dc:creator>Petru Rebeja</dc:creator><description>&lt;p&gt;
 I switched teams at work and as a welcome gift into the new team I got to investigate the following error:
 &lt;/p&gt;
 &lt;blockquote&gt;
@@ -761,281 +877,4 @@ To do so, I open the file as usually in Emacs using &lt;code&gt;C-x C-f&lt;/code
 and press &lt;code&gt;&amp;lt;Enter&amp;gt;&lt;/code&gt;.
 &lt;/p&gt;
 &lt;/div&gt;
-&lt;/div&gt;</description><category>Emacs</category><category>remote files</category><category>ssh</category><category>tramp</category><guid>https://blog.rebeja.eu/posts/editing-remote-files-over-ssh-with-emacs-and-tramp-mode/</guid><pubDate>Sun, 14 May 2017 22:00:00 GMT</pubDate></item><item><title>Using enums in C#</title><link>https://blog.rebeja.eu/posts/using-enums-in-c-sharp/</link><dc:creator>Petru Rebeja</dc:creator><description>&lt;p&gt;
-Recently Steve Smith posted an article named &lt;a href="http://ardalis.com/enum-alternatives-in-c"&gt;Enum Alternatives in C#&lt;/a&gt; where he points out that &lt;a href="https://msdn.microsoft.com/en-us/library/sbbt4032.aspx"&gt;C# enums&lt;/a&gt; are nothing more than
-&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;
-simple value-type flags that provide very minimal protection from invalid values and no behavior
-&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;
-In the same article he mentiones &lt;a href="http://blog.falafel.com/introducing-type-safe-enum-pattern/"&gt;type safe enum pattern&lt;/a&gt; as a better alternative to enums due to type safety. As a conclusion, Steve suggests that instead of using and declaring enums in the classical way
-&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;public enum WeekDay
-{
-    Monday,
-    Tuesday,
-    Wednesday,
-    Thursday,
-    Friday,
-    Saturday,
-    Sunday
-}
-&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;
-we should declare them in a &lt;code&gt;type safe&lt;/code&gt; manner like this:
-&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;public class WeekDay
-{
-    public static WeekDay Monday = new WeekDay(0, Resources.Monday);
-    public static WeekDay Tuesday = new WeekDay(1, Resources.Tuesday);
-    public static WeekDay Wednesday = new WeekDay(2, Resources.Wednesday);
-    public static WeekDay Thursday = new WeekDay(3, Resources.Thursday);
-    public static WeekDay Friday = new WeekDay(4, Resources.Friday);
-    public static WeekDay Saturday = new WeekDay(5, Resources.Saturday);
-    public static WeekDay Sunday = new WeekDay(6, Resources.Sunday);
-
-    private WeekDay(int value, string name)
-    {
-	Value = value;
-	Name = name;
-    }
-
-    public int Value { get; private set; }
-    public string Name { get; private set; }
-}
-&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;
-This way the &lt;a href="https://msdn.microsoft.com/en-us/library/06tc147t.aspx"&gt;&lt;code&gt;switch&lt;/code&gt;&lt;/a&gt; we all know and love (&lt;b&gt;not&lt;/b&gt;) on the values of &lt;code&gt;WeekDay&lt;/code&gt; will remain the same. Although this is a very elegant way of solving the issue of someone calling &lt;code&gt;themeSelector.GetTheme((WeekDay)13)&lt;/code&gt; without getting an error from the compiler there are some issues with &lt;code&gt;type safe enums&lt;/code&gt;:
-&lt;/p&gt;
-&lt;ul class="org-ul"&gt;
-&lt;li&gt;First of all, &lt;code&gt;type safe enums&lt;/code&gt; are &lt;code&gt;nullable&lt;/code&gt; which means that now we can call &lt;code&gt;themeSelector.GetTheme(null)&lt;/code&gt; and that would be a valid call which will most probably throw a &lt;code&gt;NullReferenceException&lt;/code&gt; when executed.
-&lt;/li&gt;
-&lt;li&gt;Second, &lt;code&gt;type safe enums&lt;/code&gt; cannot represent &lt;a href="https://msdn.microsoft.com/en-us/library/system.flagsattribute(v=vs.110).aspx#Anchor_7"&gt;flags&lt;/a&gt; easily; they &lt;i&gt;can&lt;/i&gt; by enumerating all possible values but that may not be an easy task for large &lt;code&gt;enums&lt;/code&gt;.
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;
-However, the problems the article refers to are not in the lack of compiler checks for valid &lt;code&gt;enum&lt;/code&gt; values but rather how the &lt;code&gt;enum&lt;/code&gt; values are used.
-&lt;/p&gt;
-&lt;div id="outline-container-sec-1" class="outline-2"&gt;
-&lt;h2 id="sec-1"&gt;Displaying &lt;code&gt;enums&lt;/code&gt; in UI elements&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-1"&gt;
-&lt;p&gt;
-Let's look at the simplest problem Steve mentiones - displaying &lt;code&gt;enum&lt;/code&gt; values in the UI. Indeed using the &lt;code&gt;DescriptionAttribute&lt;/code&gt; is not the best solution you can have.
-&lt;/p&gt;
-
-&lt;p&gt;
-The biggest grudge &lt;b&gt;I&lt;/b&gt; have with &lt;code&gt;DescriptionAttribute&lt;/code&gt; is that it doesn't play nice with applications that have to support multiple languages. However, for the past few years (basically since &lt;code&gt;extension methods&lt;/code&gt; were added to .NET Framework) I've taken another approach on displaying &lt;code&gt;enum&lt;/code&gt; values in the UI.
-&lt;/p&gt;
-
-&lt;p&gt;
-The idea behind this is simple - build a &lt;code&gt;Dictionary&amp;lt;TEnum, string&amp;gt;&lt;/code&gt; where the keys are &lt;code&gt;enum&lt;/code&gt; values and values are localized strings taken from a resource file and bind the results to whatever control is used to display the &lt;code&gt;enum&lt;/code&gt;. And for that I use a single &lt;code&gt;extension method&lt;/code&gt;:
-&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;public static class EnumUtils
-{
-    public static Dictionary&amp;lt;T, string&amp;gt; GetLocalizedEnumValues&amp;lt;T&amp;gt;(this ResourceManager resourceManager)
-    {
-	return Enum.GetValues(typeof(T))
-	    .Cast&amp;lt;T&amp;gt;()
-	    .Select(val =&amp;gt; new { Value = val, Text = resourceManager.GetString(val.ToString()) })
-	    .ToDictionary(kvp =&amp;gt; kvp.Value, kvp =&amp;gt; kvp.Text);
-    }
-}
-&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;
-Of course, this method relies on a convention that the resource file must have entries for each &lt;code&gt;enum&lt;/code&gt; value in order for it to work but when working with applications that support multiple languages there is seldom a case when something that needs to be displayed in the UI is not localized.
-&lt;/p&gt;
-
-&lt;p&gt;
-And now let's look at how this method can be used to localize &lt;code&gt;enum&lt;/code&gt; values; as the example platform let's consider &lt;code&gt;ASP.NET MVC&lt;/code&gt;:
-&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;public class ThemeController : Controller
-{
-    public ActionResult Index()
-    {
-	var viewModel = new ThemeViewModel
-	{
-	    WeekDays = Resources.ResourceManager.GetLocalizedEnumValues&amp;lt;WeekDay&amp;gt;()
-		.Select(kvp =&amp;gt; new SelectListItem { Value = kvp.Key, Text = kvp.Value})
-	};
-	return View(viewModel);
-    }
-}
-&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;
-Granted, it's more work to do in order to display &lt;code&gt;enums&lt;/code&gt; like this but there are advantages:
-&lt;/p&gt;
-&lt;ul class="org-ul"&gt;
-&lt;li&gt;&lt;b&gt;No magic strings&lt;/b&gt; are involved compared to using &lt;code&gt;DescriptionAttribute&lt;/code&gt;
-&lt;/li&gt;
-&lt;li&gt;You have to do &lt;b&gt;less repetitive work&lt;/b&gt;. If you declare your &lt;code&gt;enum&lt;/code&gt; in a &lt;code&gt;type safe&lt;/code&gt; manner you'll have the tedious task of pairing each &lt;code&gt;enum&lt;/code&gt; value with its (localized) description by hand; &lt;code&gt;GetlocalizedEnumValues&lt;/code&gt; method will do that automatically for all enums which have entries in the resources file.
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div id="outline-container-sec-2" class="outline-2"&gt;
-&lt;h2 id="sec-2"&gt;Use defensive coding in &lt;code&gt;switch&lt;/code&gt; statements&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-2"&gt;
-&lt;p&gt;
-Now, let's address the bigger issue when dealing with &lt;code&gt;enums&lt;/code&gt;, namely calling (in our case) &lt;code&gt;themeSelector.GetTheme((WeekDay)13)&lt;/code&gt;. The problem here is that a lot of developers don't use defensive programming when dealing with &lt;code&gt;enums&lt;/code&gt; (or at all).
-&lt;/p&gt;
-
-&lt;p&gt;
-Let's consider how our &lt;code&gt;GetTheme&lt;/code&gt; method would look like in a non-defensive style and to emphasize things let's look at the worst-case scenario:
-&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;public class ThemeSelector
-{
-    public Theme GetTheme(WeekDay weekDay)
-    {
-	switch(weekDay)
-	    case WeekDay.Monday:
-		return new Theme { Playlist = "Monday mood" };
-	    case WeekDay.Tuesday:
-		return new Theme { Playlist = "Four more days to Friday" };
-	    case WeekDay.Wednesday:
-		return new Theme { Playlist = "It's hump day already!" };
-	    case WeekDay.Thursday:
-		return new Theme { Playlist = "One more day!" };
-	    case WeekDay.Friday:
-		return new Theme { Playlist = "Friday margueritas!" };
-	    case WeekDay.Saturday:
-		return new Theme { Playlist = "Go away hangover!" };
-	    case WeekDay.Sunday:
-	    default: // BAD!!!
-		return new Theme { Playlist = "There's still time to party!" };
-    }
-}
-&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;
-See the problem there? The developer &lt;b&gt;assumes that the method will always receive a valid value&lt;/b&gt; thus he/she links the &lt;code&gt;default&lt;/code&gt; case with an existing label instead of checking the value.
-&lt;/p&gt;
-
-&lt;p&gt;
-The simplest fix for this is below:
-&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;public class ThemeSelector
-{
-    public Theme GetTheme(WeekDay weekDay)
-    {
-	switch(weekDay)
-	    case WeekDay.Monday:
-		return new Theme { Playlist = "Monday mood" };
-	    case WeekDay.Tuesday:
-		return new Theme { Playlist = "Four more days to Friday" };
-	    case WeekDay.Wednesday:
-		return new Theme { Playlist = "It's hump day already!" };
-	    case WeekDay.Thursday:
-		return new Theme { Playlist = "One more day!" };
-	    case WeekDay.Friday:
-		return new Theme { Playlist = "Friday margueritas!" };
-	    case WeekDay.Saturday:
-		return new Theme { Playlist = "Go away hangover!" };
-	    case WeekDay.Sunday:
-		return new Theme { Playlist = "There's still time to party!" };
-	    default:
-		throw new ArgumentException("Invalid value for WeekDay enum.");
-    }
-}
-&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;
-Throwing the &lt;code&gt;ArgumentException&lt;/code&gt; when receiving an invalid value will crash the application but this crash gives us at least two benefits:
-&lt;/p&gt;
-&lt;ul class="org-ul"&gt;
-&lt;li&gt;The application behavior becomes predictable: &lt;code&gt;GetTheme&lt;/code&gt; method will either return a valid &lt;code&gt;Theme&lt;/code&gt; or will throw an error
-&lt;/li&gt;
-&lt;li&gt;It makes debugging &lt;b&gt;a lot&lt;/b&gt; easier; you know the point of failure, you know the reason and you have the full stack trace. When the application crashes twenty steps after receiving the invalid value there are a lot more unknows to &lt;b&gt;why&lt;/b&gt; the application crashed and it may be harder to reproduce the problem.
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div id="outline-container-sec-3" class="outline-2"&gt;
-&lt;h2 id="sec-3"&gt;Use specialzed &lt;code&gt;builders&lt;/code&gt; instead of &lt;code&gt;switch&lt;/code&gt; statements&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-3"&gt;
-&lt;p&gt;
-However, the best way to use &lt;code&gt;switch&lt;/code&gt; statements is to avoid it altoghether. Why? Mainly because &lt;code&gt;switch&lt;/code&gt; statements are the main violators of &lt;a href="https://en.wikipedia.org/wiki/Open/closed_principle"&gt;Open/Closed Principle&lt;/a&gt; i.e.every time a new member of the enum is added, every &lt;code&gt;switch&lt;/code&gt; on that enum values needs to be changed in order to accomodate the new member (except for the cases that use the &lt;code&gt;default&lt;/code&gt; label).
-&lt;/p&gt;
-
-&lt;p&gt;
-In such cases I prefer to use something that I call &lt;code&gt;specialized builders&lt;/code&gt; to avoid the switch statement.
-&lt;/p&gt;
-
-&lt;p&gt;
-The ideea is simple: the logic behind each label of the &lt;code&gt;switch&lt;/code&gt; statement is refactored into a separate class which implements a common interface for all the labels. The same interface exposes a property of the enum type which tells the clients of the interface which enum value it can process. The client code receives as a dependency a collection of such instances and instead of a switch statement it just iterates through the collection to find the suitable instance.
-&lt;/p&gt;
-
-&lt;p&gt;
-Let's exemplify using our scenario; instead of having the &lt;code&gt;switch&lt;/code&gt; statement inside the &lt;code&gt;GetTheme&lt;/code&gt; method from the previous example, let's refactor each labels logic into a separate class. But before that, let's define an interface that will be implemented by all the classes.
-&lt;/p&gt;
-
-&lt;p&gt;
-Since the switch is used to build instances of &lt;code&gt;Theme&lt;/code&gt; class, let's call the interface &lt;code&gt;IThemeBuilder&lt;/code&gt;; here is it's definition:
-&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;public interface IThemeBuilder
-{
-    WeekDay WeekDay { get; }
-
-    Theme BuildTheme();
-}
-&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;
-Now an implementation of this interface for &lt;code&gt;WeekDay.Monday&lt;/code&gt; would look like this:
-&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;public class MondayThemeBuilder
-{
-    public WeekDay WeekDay
-    {
-	get { return WeekDay.Monday; }
-    }
-
-    public Theme BuildTheme()
-    {
-	return new Theme { Playlist = "Monday mood" };
-    }
-}
-&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;
-With all the implementations in place, all it remains to do is to register the implementations of &lt;code&gt;IThemeBuilder&lt;/code&gt; interface in the &lt;a href="http://en.wikipedia.org/wiki/Dependency_injection"&gt;DI&lt;/a&gt; container and inject them into the &lt;code&gt;ThemeSelector&lt;/code&gt; class. The &lt;code&gt;GetTheme&lt;/code&gt; method now becomes an iteration to find a suitable &lt;code&gt;builder&lt;/code&gt; for the argument received. If no such instance is found, an exception is thrown to signal the error.
-&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;public class ThemeSelector
-{
-    private readonly IEnumerable&amp;lt;ThemeBuilder&amp;gt; builders;
-
-    public ThemeSelector(IEnumerable&amp;lt;IThemeBuilder&amp;gt; themeBuilders)
-    {
-	builders = themeBuilders;
-    }
-
-    public Theme GetTheme(WeekDay weekDay)
-    {
-	var builder = builders.SingleOrDefault(b =&amp;gt; b.WeekDay == weekDay);
-	if( builder == null)
-	    throw new ArgumentException(String.Format("Invalid value '{0}' received for week day.", weekDay));
-	return builder.BuildTheme();
-    }
-}
-&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;
-Now everytime a new member needs to be added to &lt;code&gt;WeekDay&lt;/code&gt; enum, although not the case here, there are at most three changes to make to accomodate the new value:
-&lt;/p&gt;
-&lt;ol class="org-ol"&gt;
-&lt;li&gt;Add the new value to the &lt;code&gt;enum&lt;/code&gt;
-&lt;/li&gt;
-&lt;li&gt;Create a new class that will implement &lt;code&gt;IThemeBuilder&lt;/code&gt; for the new value
-&lt;/li&gt;
-&lt;li&gt;Register the new class in the &lt;code&gt;DI container&lt;/code&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;
-Depending on which &lt;code&gt;dependency injection&lt;/code&gt; library you use, there may be no change required for registering the new class in the container.
-&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div id="outline-container-sec-4" class="outline-2"&gt;
-&lt;h2 id="sec-4"&gt;Conclusions&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-4"&gt;
-&lt;p&gt;
-The main conclusion of the article is that &lt;b&gt;&lt;code&gt;enums&lt;/code&gt; aren't bad they're just improperly used&lt;/b&gt;. Sometimes creating a thick class to represent &lt;code&gt;type safe enums&lt;/code&gt; may be suitable for your scenario but most of the time it's not worth the effort. Instead, you should concentrate more on the places in code where the &lt;code&gt;enum&lt;/code&gt; is used to make them safer, more clean and elegant.
-&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;</description><category>c#</category><category>enums</category><category>SOLID</category><guid>https://blog.rebeja.eu/posts/using-enums-in-c-sharp/</guid><pubDate>Tue, 30 Aug 2016 22:00:00 GMT</pubDate></item></channel></rss>
+&lt;/div&gt;</description><category>Emacs</category><category>remote files</category><category>ssh</category><category>tramp</category><guid>https://blog.rebeja.eu/posts/editing-remote-files-over-ssh-with-emacs-and-tramp-mode/</guid><pubDate>Sun, 14 May 2017 22:00:00 GMT</pubDate></item></channel></rss>
