@@ -1,0 +1,35 @@
+#+BEGIN_COMMENT
+.. title: Rename multiple files with Emacs dired
+.. slug: rename-multiple-files-with-emacs-dired
+.. date: 2017-08-22 00:00:00 UTC+02:00
+.. tags: Emacs, dired, rename multiple files
+.. category: Emacs
+.. link:
+.. description:
+.. type: text
+
+#+END_COMMENT
+
+While adding text files from within a folder to a project file I noticed that the files in the folder were lacking naming consistency. Namely, there were files which had the ~.txt~ extension and files without extension, as shown in the image below:
+[[img-url:/images/emacs-dired-files-without-extension.png]]
+
+Since there were about 100 files without extension I started asking myself: *Is there a way to add .txt extension to those files without manually renaming each one*?
+
+Of course there is. Here's what I did using Emacs and ~dired~:
++ ~M-x dired~ to the desired directory (obviously)
++ In the ~dired~ buffer enter the *edit mode* with ~C-x C-q~
++ Go to the last file that has extension before the block of files without extension.
++ Starting from that file, place a mark and select the whole block of files without extension (the selection should include the last file with extension).
++ Narrow to the selected region using ~M-x narrow-to-region~ or ~C-x n n~ The buffer should look like the image below:
+  [[img-url:/images/emacs-dired-narrowed.png]]
++ Move to the beginning of buffer using ~M-<~
++ Start defining a new keyboard macro using ~C-x (~
+  + Move to next line using ~C-n~
+  + Navigate to the end of line using ~C-e~
+  + Add the ~.txt~ extension
++ Save the macro with ~C-x )~
++ Now that I have a macro to add ~.txt~ extension to a file name I just need to run it as many times as there are unnamed files (100 in my case). To do so just ~C-u 100 F4~. This will repeat the macro 100 times.
++ Once all the files are renamed exit the *narrow-region* using ~M-x widen~ or ~C-x n w~
++ Save changes with ~C-c C-c~
+
+That's it!
