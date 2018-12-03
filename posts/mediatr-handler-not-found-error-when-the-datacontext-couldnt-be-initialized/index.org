@@ -1,0 +1,58 @@
+#+BEGIN_COMMENT
+.. title: MediatR - Handler not found error when the DataContext couldn't be initialized
+.. slug: mediatr-handler-not-found-error-when-the-datacontext-couldnt-be-initialized
+.. date: 2018-02-02 00:00:00 UTC+02:00
+.. tags: MediatR, handler not found, error
+.. category:
+.. link:
+.. description:
+.. type: text
+
+#+END_COMMENT
+*TL;DR*
+#+BEGIN_QUOTE
+If you use MediatR package and it suddenly it fails with ~Handler was not found for request of type <type>~ inspect the dependencies of the handler it fails to create/invoke. One or more of those dependencies (a ~DbContext~ in my case) throws an error when instantiated and the error is making MediatR fail.
+#+END_QUOTE
+[[https://jimmybogard.com/][Jimmy Bogard]]s' [[https://github.com/jbogard/MediatR][MediatR]] is a little gem of a package I like using because it enables a good separation of business logic from the boilerplate code and provides a clean and structured enforcement of the [[https://en.wikipedia.org/wiki/Single_responsibility_principle][Single Responsibility Principle]].
+
+I use this package extensively in [[https://rise-tv.net][one of my outside work projects]] (I'm proud to say that it's not a pet project anymore) to delegate requests/commands to their respective request/command handlers. The project itself consists of two parts - an ASP.NET MVC application for public access and back office management and a WebAPI application used for registering payments. In order to keep both Web Application and Web API URLs consistent (and pretty) I have hosted the Web API application as a virtual directory inside the main Web Application.
+
+Recently, after an update of the application the payment module went down (giving me a tiny heart attack). As expected I dove into the application logs and after some thorough search I found the culprit with the following error message:
+#+BEGIN_QUOTE
+An unhandled exception of type 'System.InvalidOperationException' occurred in MediatR.dll Additional information: Handler was not found for request of type GetAuthorizedUserRequest. Container or service locator not configured properly or handlers not registered with your container.
+#+END_QUOTE
+The exception was popping inside the [[https://msdn.microsoft.com/en-us/library/system.web.http.authorizeattribute.isauthorized(v=vs.118).aspx][~IsAuthorized~]] method of a custom [[https://msdn.microsoft.com/en-us/library/system.web.http.authorizeattribute(v=vs.118).aspx][~AuthorizeAttribute~]]
+#+BEGIN_SRC csharp
+  protected override bool IsAuthorized(HttpActionContext actionContext)
+  {
+      try
+      {
+	    var authorizationToken = new AuthorizationToken(actionContext.Request);
+	    if (String.IsNullOrEmpty(authorizationToken.Value))
+	    {
+		  return false;
+	    }
+	    var request = new GetAuthorizedUserRequest
+	    {
+		  AuthorizationToken = authorizationToken.Value
+	    };
+	    var user = _securityService.GetAuthorizedUser(request);
+	    return user != null;
+      }
+      catch (Exception)
+      {
+	    return false;
+      }
+  }
+#+END_SRC
+The first thing to do was to thoroughly inspect what does the IoC container (~StructureMap~ in my case) has registered. After a glimpse through the output of ~WhatDoIHave()~ method I saw that the handler ~GetAuthorizedUserRequestHandler~ was indeed registered as a ~IRequestHandler<GetAuthorizedUserRequest, GetAuthorizedUserResponse>~.
+
+So, what is the problem then? The ~InnerException~ property of the exception that was caught was ~null~ and I was stuck.
+
+On the dawn of divine inspiration I decided to comment out the existing constructor of the request handler and create a default one (also return a dummy user). It worked - the exception wasn't thrown and the user got authenticated.
+
+However, the next request (dispatched through MediatR) that had to query something in the database failed which gave me the idea that there must be some issues with the ~DbContext~ initialization (I use Entity Framework).
+Sure enough - when I put a breakpoint in the constructor of my ~DataContext~ class (derived from ~DbContext~) I got an exception mentioning that the key "mssqllocaldb" is missing from ~<connectionStrings>~ section.
+
+Then, I remembered that the latest code update also came with an update of Entity Framework NuGet package and it dawned upon me why the MediatR was failing. As I said in the beginning, the Web API application is hosted under the main Web Application. This means that the ~<entityFramework>~ configuration element in the child application is inherited from the parent one so the ~Web.config~ file of the child application did not contain any section related to Entity Framework.
+When I did the upgrade of the NuGet package the installer added the configuration section with default values. Those default and wrong values were read by the ~DbContext~ class constructor and since the values were wrong the constructor failed. After deleting the ~<entityFramework>~ configuration element the application went back online.

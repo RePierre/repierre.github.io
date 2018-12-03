@@ -23,11 +23,11 @@
  </url>
  <url>
   <loc>https://blog.rebeja.eu/archive.html</loc>
-  <lastmod>2018-12-03T14:18:00Z</lastmod>
+  <lastmod>2018-12-03T14:33:00Z</lastmod>
  </url>
  <url>
   <loc>https://blog.rebeja.eu/categories/</loc>
-  <lastmod>2018-12-03T14:03:00Z</lastmod>
+  <lastmod>2018-12-03T14:20:00Z</lastmod>
  </url>
  <url>
   <loc>https://blog.rebeja.eu/categories/abstraction/</loc>
@@ -86,6 +86,10 @@
   <lastmod>2018-11-27T15:25:00Z</lastmod>
  </url>
  <url>
+  <loc>https://blog.rebeja.eu/categories/error/</loc>
+  <lastmod>2018-12-03T14:20:00Z</lastmod>
+ </url>
+ <url>
   <loc>https://blog.rebeja.eu/categories/fii-practic/</loc>
   <lastmod>2018-11-25T19:42:00Z</lastmod>
  </url>
@@ -94,8 +98,16 @@
   <lastmod>2018-11-29T12:49:00Z</lastmod>
  </url>
  <url>
+  <loc>https://blog.rebeja.eu/categories/handler-not-found/</loc>
+  <lastmod>2018-12-03T14:20:00Z</lastmod>
+ </url>
+ <url>
   <loc>https://blog.rebeja.eu/categories/inheritance/</loc>
   <lastmod>2018-11-25T22:10:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://blog.rebeja.eu/categories/mediatr/</loc>
+  <lastmod>2018-12-03T14:20:00Z</lastmod>
  </url>
  <url>
   <loc>https://blog.rebeja.eu/categories/oop-principles/</loc>
@@ -179,7 +191,7 @@
  </url>
  <url>
   <loc>https://blog.rebeja.eu/index-1.html</loc>
-  <lastmod>2018-12-03T14:18:00Z</lastmod>
+  <lastmod>2018-12-03T14:33:00Z</lastmod>
  </url>
  <url>
   <loc>https://blog.rebeja.eu/listings/</loc>
@@ -204,6 +216,10 @@
  <url>
   <loc>https://blog.rebeja.eu/posts/managing-bibliography-using-emacs-org-mode-and-org-ref/</loc>
   <lastmod>2018-11-29T13:37:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://blog.rebeja.eu/posts/mediatr-handler-not-found-error-when-the-datacontext-couldnt-be-initialized/</loc>
+  <lastmod>2018-12-03T14:19:00Z</lastmod>
  </url>
  <url>
   <loc>https://blog.rebeja.eu/posts/python-development-using-emacs-from-terminal/</loc>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/"><channel><title>Rebeja (Posts about MediatR)</title><link>https://blog.rebeja.eu/</link><description></description><atom:link href="https://blog.rebeja.eu/categories/mediatr.xml" type="application/rss+xml" rel="self"></atom:link><language>en</language><copyright>Contents © 2018 &lt;a href="mailto:petru.rebeja@gmail.com"&gt;Petru Rebeja&lt;/a&gt; </copyright><lastBuildDate>Mon, 03 Dec 2018 14:32:34 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>MediatR - Handler not found error when the DataContext couldn't be initialized</title><link>https://blog.rebeja.eu/posts/mediatr-handler-not-found-error-when-the-datacontext-couldnt-be-initialized/</link><dc:creator>Petru Rebeja</dc:creator><description>&lt;p&gt;
+&lt;b&gt;TL;DR&lt;/b&gt;
+&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;
+If you use MediatR package and it suddenly it fails with &lt;code&gt;Handler was not found for request of type &amp;lt;type&amp;gt;&lt;/code&gt; inspect the dependencies of the handler it fails to create/invoke. One or more of those dependencies (a &lt;code&gt;DbContext&lt;/code&gt; in my case) throws an error when instantiated and the error is making MediatR fail.
+&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;
+&lt;a href="https://jimmybogard.com/"&gt;Jimmy Bogard&lt;/a&gt;s' &lt;a href="https://github.com/jbogard/MediatR"&gt;MediatR&lt;/a&gt; is a little gem of a package I like using because it enables a good separation of business logic from the boilerplate code and provides a clean and structured enforcement of the &lt;a href="https://en.wikipedia.org/wiki/Single_responsibility_principle"&gt;Single Responsibility Principle&lt;/a&gt;.
+&lt;/p&gt;
+
+&lt;p&gt;
+I use this package extensively in &lt;a href="https://rise-tv.net"&gt;one of my outside work projects&lt;/a&gt; (I'm proud to say that it's not a pet project anymore) to delegate requests/commands to their respective request/command handlers. The project itself consists of two parts - an ASP.NET MVC application for public access and back office management and a WebAPI application used for registering payments. In order to keep both Web Application and Web API URLs consistent (and pretty) I have hosted the Web API application as a virtual directory inside the main Web Application.
+&lt;/p&gt;
+
+&lt;p&gt;
+Recently, after an update of the application the payment module went down (giving me a tiny heart attack). As expected I dove into the application logs and after some thorough search I found the culprit with the following error message:
+&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;
+An unhandled exception of type 'System.InvalidOperationException' occurred in MediatR.dll Additional information: Handler was not found for request of type GetAuthorizedUserRequest. Container or service locator not configured properly or handlers not registered with your container.
+&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;
+The exception was popping inside the &lt;a href="https://msdn.microsoft.com/en-us/library/system.web.http.authorizeattribute.isauthorized(v=vs.118).aspx"&gt;&lt;code&gt;IsAuthorized&lt;/code&gt;&lt;/a&gt; method of a custom &lt;a href="https://msdn.microsoft.com/en-us/library/system.web.http.authorizeattribute(v=vs.118).aspx"&gt;&lt;code&gt;AuthorizeAttribute&lt;/code&gt;&lt;/a&gt;
+&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;protected override bool IsAuthorized(HttpActionContext actionContext)
+{
+    try
+    {
+	  var authorizationToken = new AuthorizationToken(actionContext.Request);
+	  if (String.IsNullOrEmpty(authorizationToken.Value))
+	  {
+		return false;
+	  }
+	  var request = new GetAuthorizedUserRequest
+	  {
+		AuthorizationToken = authorizationToken.Value
+	  };
+	  var user = _securityService.GetAuthorizedUser(request);
+	  return user != null;
+    }
+    catch (Exception)
+    {
+	  return false;
+    }
+}
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;
+The first thing to do was to thoroughly inspect what does the IoC container (&lt;code&gt;StructureMap&lt;/code&gt; in my case) has registered. After a glimpse through the output of &lt;code&gt;WhatDoIHave()&lt;/code&gt; method I saw that the handler &lt;code&gt;GetAuthorizedUserRequestHandler&lt;/code&gt; was indeed registered as a &lt;code&gt;IRequestHandler&amp;lt;GetAuthorizedUserRequest, GetAuthorizedUserResponse&amp;gt;&lt;/code&gt;.
+&lt;/p&gt;
+
+&lt;p&gt;
+So, what is the problem then? The &lt;code&gt;InnerException&lt;/code&gt; property of the exception that was caught was &lt;code&gt;null&lt;/code&gt; and I was stuck.
+&lt;/p&gt;
+
+&lt;p&gt;
+On the dawn of divine inspiration I decided to comment out the existing constructor of the request handler and create a default one (also return a dummy user). It worked - the exception wasn't thrown and the user got authenticated.
+&lt;/p&gt;
+
+&lt;p&gt;
+However, the next request (dispatched through MediatR) that had to query something in the database failed which gave me the idea that there must be some issues with the &lt;code&gt;DbContext&lt;/code&gt; initialization (I use Entity Framework).
+Sure enough - when I put a breakpoint in the constructor of my &lt;code&gt;DataContext&lt;/code&gt; class (derived from &lt;code&gt;DbContext&lt;/code&gt;) I got an exception mentioning that the key "mssqllocaldb" is missing from &lt;code&gt;&amp;lt;connectionStrings&amp;gt;&lt;/code&gt; section.
+&lt;/p&gt;
+
+&lt;p&gt;
+Then, I remembered that the latest code update also came with an update of Entity Framework NuGet package and it dawned upon me why the MediatR was failing. As I said in the beginning, the Web API application is hosted under the main Web Application. This means that the &lt;code&gt;&amp;lt;entityFramework&amp;gt;&lt;/code&gt; configuration element in the child application is inherited from the parent one so the &lt;code&gt;Web.config&lt;/code&gt; file of the child application did not contain any section related to Entity Framework.
+When I did the upgrade of the NuGet package the installer added the configuration section with default values. Those default and wrong values were read by the &lt;code&gt;DbContext&lt;/code&gt; class constructor and since the values were wrong the constructor failed. After deleting the &lt;code&gt;&amp;lt;entityFramework&amp;gt;&lt;/code&gt; configuration element the application went back online.
+&lt;/p&gt;</description><category>error</category><category>handler not found</category><category>MediatR</category><guid>https://blog.rebeja.eu/posts/mediatr-handler-not-found-error-when-the-datacontext-couldnt-be-initialized/</guid><pubDate>Thu, 01 Feb 2018 22:00:00 GMT</pubDate></item></channel></rss>

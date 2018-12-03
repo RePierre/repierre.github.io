@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article# " lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MediatR - Handler not found error when the DataContext couldn't be initialized | Rebeja</title>
+<link href="../../assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
+<meta name="theme-color" content="#5670d4">
+<meta name="generator" content="Nikola (getnikola.com)">
+<link rel="alternate" type="application/rss+xml" title="RSS" href="../../rss.xml">
+<link rel="canonical" href="https://blog.rebeja.eu/posts/mediatr-handler-not-found-error-when-the-datacontext-couldnt-be-initialized/">
+<!--[if lt IE 9]><script src="../../assets/js/html5.js"></script><![endif]--><meta name="author" content="Petru Rebeja">
+<link rel="prev" href="../the-common-pitfalls-of-orm-frameworks-rbar/" title="The common pitfalls of ORM frameworks - RBAR" type="text/html">
+<meta property="og:site_name" content="Rebeja">
+<meta property="og:title" content="MediatR - Handler not found error when the DataContext couldn't be ini">
+<meta property="og:url" content="https://blog.rebeja.eu/posts/mediatr-handler-not-found-error-when-the-datacontext-couldnt-be-initialized/">
+<meta property="og:description" content="TL;DR
+
+
+
+If you use MediatR package and it suddenly it fails with Handler was not found for request of type &lt;type&gt; inspect the dependencies of the handler it fails to create/invoke. One or more of tho">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2018-02-02T00:00:00+02:00">
+<meta property="article:tag" content="error">
+<meta property="article:tag" content="handler not found">
+<meta property="article:tag" content="MediatR">
+</head>
+<body>
+<a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
+
+<!-- Header and menu bar -->
+<div class="container">
+      <header class="blog-header py-3"><div class="row nbb-header align-items-center">
+          <div class="col-md-3 col-xs-2 col-sm-2" style="width: auto;">
+            <button class="navbar-toggler navbar-light bg-light nbb-navbar-toggler" type="button" data-toggle="collapse" data-target=".bs-nav-collapsible" aria-controls="bs-navbar" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse bs-nav-collapsible bootblog4-search-form-holder">
+                
+            </div>
+        </div>
+          <div class="col-md-6 col-xs-10 col-sm-10 bootblog4-brand" style="width: auto;">
+            <a class="navbar-brand blog-header-logo text-dark" href="https://blog.rebeja.eu/">
+
+            <span id="blog-title">Rebeja</span>
+        </a>
+          </div>
+            <div class="col-md-3 justify-content-end align-items-center bs-nav-collapsible collapse flex-collapse bootblog4-right-nav">
+            <nav class="navbar navbar-light bg-white"><ul class="navbar-nav bootblog4-right-nav">
+<li class="nav-item">
+    <a href="index.org" id="sourcelink" class="nav-link">Source</a>
+    </li>
+
+
+                    
+            </ul></nav>
+</div>
+    </div>
+</header><nav class="navbar navbar-expand-md navbar-light bg-white static-top"><div class="collapse navbar-collapse bs-nav-collapsible" id="bs-navbar">
+            <ul class="navbar-nav nav-fill d-flex w-100">
+<li class="nav-item">
+<a href="../../archive.html" class="nav-link">Archive</a>
+                </li>
+<li class="nav-item">
+<a href="../../categories/" class="nav-link">Tags</a>
+                </li>
+<li class="nav-item">
+<a href="../../rss.xml" class="nav-link">RSS feed</a>
+
+                
+            </li>
+</ul>
+</div>
+<!-- /.navbar-collapse -->
+</nav>
+</div>
+
+<div class="container" id="content" role="main">
+    <div class="body-content">
+        <!--Body content-->
+        
+        
+<article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title" itemprop="headline name"><a href="." class="u-url">MediatR - Handler not found error when the DataContext couldn't be initialized</a></h1>
+
+        <div class="metadata">
+            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                    Petru Rebeja
+            </span></p>
+            <p class="dateline">
+            <a href="." rel="bookmark">
+            <time class="published dt-published" datetime="2018-02-02T00:00:00+02:00" itemprop="datePublished" title="2018-02-02 00:00">2018-02-02 00:00</time></a>
+            </p>
+            
+        <p class="sourceline"><a href="index.org" class="sourcelink">Source</a></p>
+
+        </div>
+        
+
+    </header><div class="e-content entry-content" itemprop="articleBody text">
+    <p>
+<b>TL;DR</b>
+</p>
+<blockquote>
+<p>
+If you use MediatR package and it suddenly it fails with <code>Handler was not found for request of type &lt;type&gt;</code> inspect the dependencies of the handler it fails to create/invoke. One or more of those dependencies (a <code>DbContext</code> in my case) throws an error when instantiated and the error is making MediatR fail.
+</p>
+</blockquote>
+<p>
+<a href="https://jimmybogard.com/">Jimmy Bogard</a>s' <a href="https://github.com/jbogard/MediatR">MediatR</a> is a little gem of a package I like using because it enables a good separation of business logic from the boilerplate code and provides a clean and structured enforcement of the <a href="https://en.wikipedia.org/wiki/Single_responsibility_principle">Single Responsibility Principle</a>.
+</p>
+
+<p>
+I use this package extensively in <a href="https://rise-tv.net">one of my outside work projects</a> (I'm proud to say that it's not a pet project anymore) to delegate requests/commands to their respective request/command handlers. The project itself consists of two parts - an ASP.NET MVC application for public access and back office management and a WebAPI application used for registering payments. In order to keep both Web Application and Web API URLs consistent (and pretty) I have hosted the Web API application as a virtual directory inside the main Web Application.
+</p>
+
+<p>
+Recently, after an update of the application the payment module went down (giving me a tiny heart attack). As expected I dove into the application logs and after some thorough search I found the culprit with the following error message:
+</p>
+<blockquote>
+<p>
+An unhandled exception of type 'System.InvalidOperationException' occurred in MediatR.dll Additional information: Handler was not found for request of type GetAuthorizedUserRequest. Container or service locator not configured properly or handlers not registered with your container.
+</p>
+</blockquote>
+<p>
+The exception was popping inside the <a href="https://msdn.microsoft.com/en-us/library/system.web.http.authorizeattribute.isauthorized(v=vs.118).aspx"><code>IsAuthorized</code></a> method of a custom <a href="https://msdn.microsoft.com/en-us/library/system.web.http.authorizeattribute(v=vs.118).aspx"><code>AuthorizeAttribute</code></a>
+</p>
+<div class="highlight"><pre><span></span>protected override bool IsAuthorized(HttpActionContext actionContext)
+{
+    try
+    {
+	  var authorizationToken = new AuthorizationToken(actionContext.Request);
+	  if (String.IsNullOrEmpty(authorizationToken.Value))
+	  {
+		return false;
+	  }
+	  var request = new GetAuthorizedUserRequest
+	  {
+		AuthorizationToken = authorizationToken.Value
+	  };
+	  var user = _securityService.GetAuthorizedUser(request);
+	  return user != null;
+    }
+    catch (Exception)
+    {
+	  return false;
+    }
+}
+</pre></div>
+<p>
+The first thing to do was to thoroughly inspect what does the IoC container (<code>StructureMap</code> in my case) has registered. After a glimpse through the output of <code>WhatDoIHave()</code> method I saw that the handler <code>GetAuthorizedUserRequestHandler</code> was indeed registered as a <code>IRequestHandler&lt;GetAuthorizedUserRequest, GetAuthorizedUserResponse&gt;</code>.
+</p>
+
+<p>
+So, what is the problem then? The <code>InnerException</code> property of the exception that was caught was <code>null</code> and I was stuck.
+</p>
+
+<p>
+On the dawn of divine inspiration I decided to comment out the existing constructor of the request handler and create a default one (also return a dummy user). It worked - the exception wasn't thrown and the user got authenticated.
+</p>
+
+<p>
+However, the next request (dispatched through MediatR) that had to query something in the database failed which gave me the idea that there must be some issues with the <code>DbContext</code> initialization (I use Entity Framework).
+Sure enough - when I put a breakpoint in the constructor of my <code>DataContext</code> class (derived from <code>DbContext</code>) I got an exception mentioning that the key "mssqllocaldb" is missing from <code>&lt;connectionStrings&gt;</code> section.
+</p>
+
+<p>
+Then, I remembered that the latest code update also came with an update of Entity Framework NuGet package and it dawned upon me why the MediatR was failing. As I said in the beginning, the Web API application is hosted under the main Web Application. This means that the <code>&lt;entityFramework&gt;</code> configuration element in the child application is inherited from the parent one so the <code>Web.config</code> file of the child application did not contain any section related to Entity Framework.
+When I did the upgrade of the NuGet package the installer added the configuration section with default values. Those default and wrong values were read by the <code>DbContext</code> class constructor and since the values were wrong the constructor failed. After deleting the <code>&lt;entityFramework&gt;</code> configuration element the application went back online.
+</p>
+    </div>
+    <aside class="postpromonav"><nav><ul itemprop="keywords" class="tags">
+<li><a class="tag p-category" href="../../categories/error/" rel="tag">error</a></li>
+            <li><a class="tag p-category" href="../../categories/handler-not-found/" rel="tag">handler not found</a></li>
+            <li><a class="tag p-category" href="../../categories/mediatr/" rel="tag">MediatR</a></li>
+        </ul>
+<ul class="pager hidden-print">
+<li class="previous">
+                <a href="../the-common-pitfalls-of-orm-frameworks-rbar/" rel="prev" title="The common pitfalls of ORM frameworks - RBAR">Previous post</a>
+            </li>
+        </ul></nav></aside></article><!--End of body content--><footer id="footer">
+            Contents © 2018         <a href="mailto:petru.rebeja@gmail.com">Petru Rebeja</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+            
+        </footer>
+</div>
+</div>
+
+
+        <script src="../../assets/js/all-nocdn.js"></script><!-- fancy dates --><script>
+    moment.locale("en");
+    fancydates(0, "YYYY-MM-DD HH:mm");
+    </script><!-- end fancy dates --><script>
+    baguetteBox.run('div#content', {
+        ignoreClass: 'islink',
+        captions: function(element) {
+            return element.getElementsByTagName('img')[0].alt;
+    }});
+    </script>
+</body>
+</html>

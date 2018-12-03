@@ -62,6 +62,10 @@
   <lastmod>2018-11-27T15:51:00Z</lastmod>
  </sitemap>
  <sitemap>
+  <loc>https://blog.rebeja.eu/categories/error.xml</loc>
+  <lastmod>2018-12-03T14:32:00Z</lastmod>
+ </sitemap>
+ <sitemap>
   <loc>https://blog.rebeja.eu/categories/fii-practic.xml</loc>
   <lastmod>2018-11-25T22:10:00Z</lastmod>
  </sitemap>
@@ -70,8 +74,16 @@
   <lastmod>2018-11-29T13:35:00Z</lastmod>
  </sitemap>
  <sitemap>
+  <loc>https://blog.rebeja.eu/categories/handler-not-found.xml</loc>
+  <lastmod>2018-12-03T14:32:00Z</lastmod>
+ </sitemap>
+ <sitemap>
   <loc>https://blog.rebeja.eu/categories/inheritance.xml</loc>
   <lastmod>2018-11-25T22:10:00Z</lastmod>
+ </sitemap>
+ <sitemap>
+  <loc>https://blog.rebeja.eu/categories/mediatr.xml</loc>
+  <lastmod>2018-12-03T14:32:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://blog.rebeja.eu/categories/oop-principles.xml</loc>
@@ -151,14 +163,14 @@
  </sitemap>
  <sitemap>
   <loc>https://blog.rebeja.eu/galleries/rss.xml</loc>
-  <lastmod>2018-12-03T14:18:00Z</lastmod>
+  <lastmod>2018-12-03T14:33:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://blog.rebeja.eu/rss.xml</loc>
-  <lastmod>2018-12-03T14:17:00Z</lastmod>
+  <lastmod>2018-12-03T14:32:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://blog.rebeja.eu/sitemap.xml</loc>
-  <lastmod>2018-12-03T14:18:00Z</lastmod>
+  <lastmod>2018-12-03T14:33:00Z</lastmod>
  </sitemap>
 </sitemapindex>
