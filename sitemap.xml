@@ -6,295 +6,295 @@
     xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
                         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
  <url>
-  <loc>https://blog.rebeja.eu/</loc>
-  <lastmod>2018-12-03T14:01:00Z</lastmod>
+  <loc>https://rebeja.eu/</loc>
+  <lastmod>2018-12-03T14:55:00Z</lastmod>
  </url>
  <url>
-  <loc>https://blog.rebeja.eu/2016/</loc>
+  <loc>https://rebeja.eu/2016/</loc>
   <lastmod>2018-11-23T13:13:00Z</lastmod>
  </url>
  <url>
-  <loc>https://blog.rebeja.eu/2017/</loc>
+  <loc>https://rebeja.eu/2017/</loc>
   <lastmod>2018-11-27T15:59:00Z</lastmod>
  </url>
  <url>
-  <loc>https://blog.rebeja.eu/2018/</loc>
+  <loc>https://rebeja.eu/2018/</loc>
   <lastmod>2018-12-03T14:01:00Z</lastmod>
  </url>
  <url>
-  <loc>https://blog.rebeja.eu/archive.html</loc>
-  <lastmod>2018-12-03T14:50:00Z</lastmod>
+  <loc>https://rebeja.eu/archive.html</loc>
+  <lastmod>2018-12-03T15:21:00Z</lastmod>
  </url>
  <url>
-  <loc>https://blog.rebeja.eu/categories/</loc>
+  <loc>https://rebeja.eu/categories/</loc>
   <lastmod>2018-12-03T14:47:00Z</lastmod>
  </url>
  <url>
-  <loc>https://blog.rebeja.eu/categories/abstraction/</loc>
+  <loc>https://rebeja.eu/categories/abstraction/</loc>
   <lastmod>2018-11-27T15:03:00Z</lastmod>
  </url>
  <url>
-  <loc>https://blog.rebeja.eu/categories/autofacservicehostfactory/</loc>
+  <loc>https://rebeja.eu/categories/autofacservicehostfactory/</loc>
   <lastmod>2018-12-03T14:37:00Z</lastmod>
  </url>
  <url>
-  <loc>https://blog.rebeja.eu/categories/automation/</loc>
+  <loc>https://rebeja.eu/categories/automation/</loc>
   <lastmod>2018-12-03T14:44:00Z</lastmod>
  </url>
  <url>
-  <loc>https://blog.rebeja.eu/categories/awesome/</loc>
+  <loc>https://rebeja.eu/categories/awesome/</loc>
   <lastmod>2018-12-03T14:44:00Z</lastmod>
  </url>
  <url>
-  <loc>https://blog.rebeja.eu/categories/azure/</loc>
+  <loc>https://rebeja.eu/categories/azure/</loc>
   <lastmod>2018-11-29T12:49:00Z</lastmod>
  </url>
  <url>
-  <loc>https://blog.rebeja.eu/categories/bibliography/</loc>
+  <loc>https://rebeja.eu/categories/bibliography/</loc>
   <lastmod>2018-11-29T13:39:00Z</lastmod>
  </url>
  <url>
-  <loc>https://blog.rebeja.eu/categories/blog/</loc>
+  <loc>https://rebeja.eu/categories/blog/</loc>
   <lastmod>2018-11-29T12:49:00Z</lastmod>
  </url>
  <url>
-  <loc>https://blog.rebeja.eu/categories/c/</loc>
+  <loc>https://rebeja.eu/categories/c/</loc>
   <lastmod>2018-11-27T15:25:00Z</lastmod>
  </url>
  <url>
-  <loc>https://blog.rebeja.eu/categories/cat_emacs/</loc>
+  <loc>https://rebeja.eu/categories/cat_emacs/</loc>
   <lastmod>2018-11-27T15:59:00Z</lastmod>
  </url>
  <url>
-  <loc>https://blog.rebeja.eu/categories/cohesion/</loc>
+  <loc>https://rebeja.eu/categories/cohesion/</loc>
   <lastmod>2018-11-25T22:10:00Z</lastmod>
  </url>
  <url>
-  <loc>https://blog.rebeja.eu/categories/coupling/</loc>
+  <loc>https://rebeja.eu/categories/coupling/</loc>
   <lastmod>2018-11-25T22:10:00Z</lastmod>
  </url>
  <url>
-  <loc>https://blog.rebeja.eu/categories/custom-workflow/</loc>
+  <loc>https://rebeja.eu/categories/custom-workflow/</loc>
   <lastmod>2018-12-03T14:44:00Z</lastmod>
  </url>
  <url>
-  <loc>https://blog.rebeja.eu/categories/dictionary/</loc>
+  <loc>https://rebeja.eu/categories/dictionary/</loc>
   <lastmod>2018-12-03T14:47:00Z</lastmod>
  </url>
  <url>
-  <loc>https://blog.rebeja.eu/categories/dired/</loc>
+  <loc>https://rebeja.eu/categories/dired/</loc>
   <lastmod>2018-11-29T15:54:00Z</lastmod>
  </url>
  <url>
-  <loc>https://blog.rebeja.eu/categories/disqus-comments/</loc>
+  <loc>https://rebeja.eu/categories/disqus-comments/</loc>
   <lastmod>2018-11-29T12:49:00Z</lastmod>
  </url>
  <url>
-  <loc>https://blog.rebeja.eu/categories/docker/</loc>
+  <loc>https://rebeja.eu/categories/docker/</loc>
   <lastmod>2018-11-27T16:07:00Z</lastmod>
  </url>
  <url>
-  <loc>https://blog.rebeja.eu/categories/emacs/</loc>
+  <loc>https://rebeja.eu/categories/emacs/</loc>
   <lastmod>2018-11-27T15:59:00Z</lastmod>
  </url>
  <url>
-  <loc>https://blog.rebeja.eu/categories/encapsulation/</loc>
+  <loc>https://rebeja.eu/categories/encapsulation/</loc>
   <lastmod>2018-11-25T22:10:00Z</lastmod>
  </url>
  <url>
-  <loc>https://blog.rebeja.eu/categories/enums/</loc>
+  <loc>https://rebeja.eu/categories/enums/</loc>
   <lastmod>2018-11-27T15:25:00Z</lastmod>
  </url>
  <url>
-  <loc>https://blog.rebeja.eu/categories/error/</loc>
+  <loc>https://rebeja.eu/categories/error/</loc>
   <lastmod>2018-12-03T14:20:00Z</lastmod>
  </url>
  <url>
-  <loc>https://blog.rebeja.eu/categories/fii-practic/</loc>
+  <loc>https://rebeja.eu/categories/fii-practic/</loc>
   <lastmod>2018-11-25T19:42:00Z</lastmod>
  </url>
  <url>
-  <loc>https://blog.rebeja.eu/categories/ghost/</loc>
+  <loc>https://rebeja.eu/categories/ghost/</loc>
   <lastmod>2018-11-29T12:49:00Z</lastmod>
  </url>
  <url>
-  <loc>https://blog.rebeja.eu/categories/handler-not-found/</loc>
+  <loc>https://rebeja.eu/categories/handler-not-found/</loc>
   <lastmod>2018-12-03T14:20:00Z</lastmod>
  </url>
  <url>
-  <loc>https://blog.rebeja.eu/categories/inheritance/</loc>
+  <loc>https://rebeja.eu/categories/inheritance/</loc>
   <lastmod>2018-11-25T22:10:00Z</lastmod>
  </url>
  <url>
-  <loc>https://blog.rebeja.eu/categories/machine-learning/</loc>
+  <loc>https://rebeja.eu/categories/machine-learning/</loc>
   <lastmod>2018-12-03T14:47:00Z</lastmod>
  </url>
  <url>
-  <loc>https://blog.rebeja.eu/categories/mediatr/</loc>
+  <loc>https://rebeja.eu/categories/mediatr/</loc>
   <lastmod>2018-12-03T14:20:00Z</lastmod>
  </url>
  <url>
-  <loc>https://blog.rebeja.eu/categories/oop-principles/</loc>
+  <loc>https://rebeja.eu/categories/oop-principles/</loc>
   <lastmod>2018-11-25T22:10:00Z</lastmod>
  </url>
  <url>
-  <loc>https://blog.rebeja.eu/categories/oop/</loc>
+  <loc>https://rebeja.eu/categories/oop/</loc>
   <lastmod>2018-11-27T15:03:00Z</lastmod>
  </url>
  <url>
-  <loc>https://blog.rebeja.eu/categories/org-ref/</loc>
+  <loc>https://rebeja.eu/categories/org-ref/</loc>
   <lastmod>2018-11-29T13:39:00Z</lastmod>
  </url>
  <url>
-  <loc>https://blog.rebeja.eu/categories/orm/</loc>
+  <loc>https://rebeja.eu/categories/orm/</loc>
   <lastmod>2018-12-03T14:03:00Z</lastmod>
  </url>
  <url>
-  <loc>https://blog.rebeja.eu/categories/pitfalls/</loc>
+  <loc>https://rebeja.eu/categories/pitfalls/</loc>
   <lastmod>2018-12-03T14:03:00Z</lastmod>
  </url>
  <url>
-  <loc>https://blog.rebeja.eu/categories/polymorphism/</loc>
+  <loc>https://rebeja.eu/categories/polymorphism/</loc>
   <lastmod>2018-11-25T22:10:00Z</lastmod>
  </url>
  <url>
-  <loc>https://blog.rebeja.eu/categories/presentation/</loc>
+  <loc>https://rebeja.eu/categories/presentation/</loc>
   <lastmod>2018-11-25T19:42:00Z</lastmod>
  </url>
  <url>
-  <loc>https://blog.rebeja.eu/categories/programming-principles/</loc>
+  <loc>https://rebeja.eu/categories/programming-principles/</loc>
   <lastmod>2018-11-25T19:41:00Z</lastmod>
  </url>
  <url>
-  <loc>https://blog.rebeja.eu/categories/python/</loc>
+  <loc>https://rebeja.eu/categories/python/</loc>
   <lastmod>2018-12-03T12:17:00Z</lastmod>
  </url>
  <url>
-  <loc>https://blog.rebeja.eu/categories/rbar/</loc>
+  <loc>https://rebeja.eu/categories/rbar/</loc>
   <lastmod>2018-12-03T14:03:00Z</lastmod>
  </url>
  <url>
-  <loc>https://blog.rebeja.eu/categories/reading-list/</loc>
+  <loc>https://rebeja.eu/categories/reading-list/</loc>
   <lastmod>2018-11-29T13:39:00Z</lastmod>
  </url>
  <url>
-  <loc>https://blog.rebeja.eu/categories/remote-files/</loc>
+  <loc>https://rebeja.eu/categories/remote-files/</loc>
   <lastmod>2018-11-27T15:59:00Z</lastmod>
  </url>
  <url>
-  <loc>https://blog.rebeja.eu/categories/rename-multiple-files/</loc>
+  <loc>https://rebeja.eu/categories/rename-multiple-files/</loc>
   <lastmod>2018-11-29T15:54:00Z</lastmod>
  </url>
  <url>
-  <loc>https://blog.rebeja.eu/categories/romanian/</loc>
+  <loc>https://rebeja.eu/categories/romanian/</loc>
   <lastmod>2018-12-03T14:47:00Z</lastmod>
  </url>
  <url>
-  <loc>https://blog.rebeja.eu/categories/service-activation/</loc>
+  <loc>https://rebeja.eu/categories/service-activation/</loc>
   <lastmod>2018-12-03T14:37:00Z</lastmod>
  </url>
  <url>
-  <loc>https://blog.rebeja.eu/categories/solid-principles/</loc>
+  <loc>https://rebeja.eu/categories/solid-principles/</loc>
   <lastmod>2018-11-25T22:10:00Z</lastmod>
  </url>
  <url>
-  <loc>https://blog.rebeja.eu/categories/solid/</loc>
+  <loc>https://rebeja.eu/categories/solid/</loc>
   <lastmod>2018-11-27T15:26:00Z</lastmod>
  </url>
  <url>
-  <loc>https://blog.rebeja.eu/categories/sql-mode/</loc>
+  <loc>https://rebeja.eu/categories/sql-mode/</loc>
   <lastmod>2018-11-27T16:07:00Z</lastmod>
  </url>
  <url>
-  <loc>https://blog.rebeja.eu/categories/ssh/</loc>
+  <loc>https://rebeja.eu/categories/ssh/</loc>
   <lastmod>2018-11-27T15:59:00Z</lastmod>
  </url>
  <url>
-  <loc>https://blog.rebeja.eu/categories/terminal/</loc>
+  <loc>https://rebeja.eu/categories/terminal/</loc>
   <lastmod>2018-12-03T12:17:00Z</lastmod>
  </url>
  <url>
-  <loc>https://blog.rebeja.eu/categories/terms/</loc>
+  <loc>https://rebeja.eu/categories/terms/</loc>
   <lastmod>2018-12-03T14:47:00Z</lastmod>
  </url>
  <url>
-  <loc>https://blog.rebeja.eu/categories/tramp/</loc>
+  <loc>https://rebeja.eu/categories/tramp/</loc>
   <lastmod>2018-11-27T15:59:00Z</lastmod>
  </url>
  <url>
-  <loc>https://blog.rebeja.eu/categories/wcf/</loc>
+  <loc>https://rebeja.eu/categories/wcf/</loc>
   <lastmod>2018-12-03T14:37:00Z</lastmod>
  </url>
  <url>
-  <loc>https://blog.rebeja.eu/galleries/</loc>
+  <loc>https://rebeja.eu/galleries/</loc>
   <lastmod>2018-11-23T11:47:00Z</lastmod>
  </url>
  <url>
-  <loc>https://blog.rebeja.eu/index-1.html</loc>
-  <lastmod>2018-12-03T14:50:00Z</lastmod>
+  <loc>https://rebeja.eu/index-1.html</loc>
+  <lastmod>2018-12-03T15:21:00Z</lastmod>
  </url>
  <url>
-  <loc>https://blog.rebeja.eu/listings/</loc>
+  <loc>https://rebeja.eu/listings/</loc>
   <lastmod>2018-11-23T11:47:00Z</lastmod>
  </url>
  <url>
-  <loc>https://blog.rebeja.eu/posts/abstraction-is-not-a-principle-of-object-oriented-programming/</loc>
+  <loc>https://rebeja.eu/posts/abstraction-is-not-a-principle-of-object-oriented-programming/</loc>
   <lastmod>2018-11-27T15:03:00Z</lastmod>
  </url>
  <url>
-  <loc>https://blog.rebeja.eu/posts/adding-disqus-comments-to-ghost-blog-on-azure/</loc>
+  <loc>https://rebeja.eu/posts/adding-disqus-comments-to-ghost-blog-on-azure/</loc>
   <lastmod>2018-11-29T12:46:00Z</lastmod>
  </url>
  <url>
-  <loc>https://blog.rebeja.eu/posts/automating-custom-workflow-in-emacs/</loc>
+  <loc>https://rebeja.eu/posts/automating-custom-workflow-in-emacs/</loc>
   <lastmod>2018-12-03T14:41:00Z</lastmod>
  </url>
  <url>
-  <loc>https://blog.rebeja.eu/posts/editing-remote-files-over-ssh-with-emacs-and-tramp-mode/</loc>
+  <loc>https://rebeja.eu/posts/editing-remote-files-over-ssh-with-emacs-and-tramp-mode/</loc>
   <lastmod>2018-11-27T15:55:00Z</lastmod>
  </url>
  <url>
-  <loc>https://blog.rebeja.eu/posts/english-romanian-dictionary-for-machine-learning/</loc>
+  <loc>https://rebeja.eu/posts/english-romanian-dictionary-for-machine-learning/</loc>
   <lastmod>2018-12-03T14:46:00Z</lastmod>
  </url>
  <url>
-  <loc>https://blog.rebeja.eu/posts/fii-practic-2016/</loc>
+  <loc>https://rebeja.eu/posts/fii-practic-2016/</loc>
   <lastmod>2018-11-25T19:38:00Z</lastmod>
  </url>
  <url>
-  <loc>https://blog.rebeja.eu/posts/managing-bibliography-using-emacs-org-mode-and-org-ref/</loc>
+  <loc>https://rebeja.eu/posts/managing-bibliography-using-emacs-org-mode-and-org-ref/</loc>
   <lastmod>2018-11-29T13:37:00Z</lastmod>
  </url>
  <url>
-  <loc>https://blog.rebeja.eu/posts/mediatr-handler-not-found-error-when-the-datacontext-couldnt-be-initialized/</loc>
+  <loc>https://rebeja.eu/posts/mediatr-handler-not-found-error-when-the-datacontext-couldnt-be-initialized/</loc>
   <lastmod>2018-12-03T14:19:00Z</lastmod>
  </url>
  <url>
-  <loc>https://blog.rebeja.eu/posts/python-development-using-emacs-from-terminal/</loc>
+  <loc>https://rebeja.eu/posts/python-development-using-emacs-from-terminal/</loc>
   <lastmod>2018-12-03T12:14:00Z</lastmod>
  </url>
  <url>
-  <loc>https://blog.rebeja.eu/posts/rename-multiple-files-with-emacs-dired/</loc>
+  <loc>https://rebeja.eu/posts/rename-multiple-files-with-emacs-dired/</loc>
   <lastmod>2018-11-29T15:35:00Z</lastmod>
  </url>
  <url>
-  <loc>https://blog.rebeja.eu/posts/serviceactivationexception-autofacservicehostfactory/</loc>
+  <loc>https://rebeja.eu/posts/serviceactivationexception-autofacservicehostfactory/</loc>
   <lastmod>2018-12-03T14:35:00Z</lastmod>
  </url>
  <url>
-  <loc>https://blog.rebeja.eu/posts/the-common-pitfalls-of-orm-frameworks-rbar/</loc>
+  <loc>https://rebeja.eu/posts/the-common-pitfalls-of-orm-frameworks-rbar/</loc>
   <lastmod>2018-12-03T14:01:00Z</lastmod>
  </url>
  <url>
-  <loc>https://blog.rebeja.eu/posts/use-emacs-sql-mode-to-connect-to-database-on-a-docker-image/</loc>
+  <loc>https://rebeja.eu/posts/use-emacs-sql-mode-to-connect-to-database-on-a-docker-image/</loc>
   <lastmod>2018-11-27T16:06:00Z</lastmod>
  </url>
  <url>
-  <loc>https://blog.rebeja.eu/posts/using-enums-in-c-sharp/</loc>
+  <loc>https://rebeja.eu/posts/using-enums-in-c-sharp/</loc>
   <lastmod>2018-11-27T15:23:00Z</lastmod>
  </url>
  <url>
-  <loc>https://blog.rebeja.eu/posts/welcome/</loc>
+  <loc>https://rebeja.eu/posts/welcome/</loc>
   <lastmod>2018-11-27T05:25:00Z</lastmod>
  </url>
 </urlset>

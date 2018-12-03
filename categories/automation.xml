@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Rebeja (Posts about automation)</title><link>https://blog.rebeja.eu/</link><description></description><atom:link rel="self" type="application/rss+xml" href="https://blog.rebeja.eu/categories/automation.xml"></atom:link><language>en</language><copyright>Contents © 2018 &lt;a href="mailto:petru.rebeja@gmail.com"&gt;Petru Rebeja&lt;/a&gt; </copyright><lastBuildDate>Mon, 03 Dec 2018 14:44:54 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Automating custom workflow in Emacs</title><link>https://blog.rebeja.eu/posts/automating-custom-workflow-in-emacs/</link><dc:creator>Petru Rebeja</dc:creator><description>&lt;p&gt;
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/"><channel><title>Rebeja (Posts about automation)</title><link>https://rebeja.eu/</link><description></description><atom:link type="application/rss+xml" rel="self" href="https://rebeja.eu/categories/automation.xml"></atom:link><language>en</language><copyright>Contents © 2018 &lt;a href="mailto:petru.rebeja@gmail.com"&gt;Petru Rebeja&lt;/a&gt; </copyright><lastBuildDate>Mon, 03 Dec 2018 14:54:17 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Automating custom workflow in Emacs</title><link>https://rebeja.eu/posts/automating-custom-workflow-in-emacs/</link><dc:creator>Petru Rebeja</dc:creator><description>&lt;p&gt;
 Due to the lack of human resources in a research project I'm involved the team decided to take upon itself the semantic comparison of 3000 pairs of papers from the medical domain.
 &lt;/p&gt;
 
 &lt;p&gt;
 Each paper is a &lt;code&gt;json&lt;/code&gt; file with structured contents of the publication like in the picture below:
-&lt;img src="https://blog.rebeja.eu/images/publication-json.png" alt="nil"&gt;
+&lt;img src="https://rebeja.eu/images/publication-json.png" alt="nil"&gt;
 &lt;/p&gt;
 
 &lt;p&gt;
@@ -15,7 +15,7 @@ So we split the 3000 publication pairs into 3 sets which were saved into &lt;cod
 
 &lt;p&gt;
 My first idea was to have Emacs split into three windows to allow for both registering the score and a side-by-side comparison of files:
-&lt;img src="https://blog.rebeja.eu/images/comparison-layout.png" alt="nil"&gt;
+&lt;img src="https://rebeja.eu/images/comparison-layout.png" alt="nil"&gt;
 &lt;/p&gt;
 
 &lt;p&gt;
@@ -115,4 +115,4 @@ This was also implemented with a function which can be called interactively via 
 
 &lt;p&gt;
 And that's it. After calling &lt;code&gt;eval&lt;/code&gt; on the functions above I have an automated workflow. Now, to compare two files, I just navigate to a line in the &lt;code&gt;csv&lt;/code&gt; file and from there type &lt;code&gt;M-x compare-publications&lt;/code&gt;. The only thing left to do manually (beside the comparison itself) is to press the key for the &lt;code&gt;similarity_score&lt;/code&gt; of files from that line.
-&lt;/p&gt;</description><category>automation</category><category>awesome</category><category>custom workflow</category><category>Emacs</category><guid>https://blog.rebeja.eu/posts/automating-custom-workflow-in-emacs/</guid><pubDate>Sat, 02 Jun 2018 22:00:00 GMT</pubDate></item></channel></rss>
+&lt;/p&gt;</description><category>automation</category><category>awesome</category><category>custom workflow</category><category>Emacs</category><guid>https://rebeja.eu/posts/automating-custom-workflow-in-emacs/</guid><pubDate>Sat, 02 Jun 2018 22:00:00 GMT</pubDate></item></channel></rss>
