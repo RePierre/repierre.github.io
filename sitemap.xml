@@ -23,11 +23,11 @@
  </url>
  <url>
   <loc>https://blog.rebeja.eu/archive.html</loc>
-  <lastmod>2018-12-03T14:45:00Z</lastmod>
+  <lastmod>2018-12-03T14:50:00Z</lastmod>
  </url>
  <url>
   <loc>https://blog.rebeja.eu/categories/</loc>
-  <lastmod>2018-12-03T14:44:00Z</lastmod>
+  <lastmod>2018-12-03T14:47:00Z</lastmod>
  </url>
  <url>
   <loc>https://blog.rebeja.eu/categories/abstraction/</loc>
@@ -78,6 +78,10 @@
   <lastmod>2018-12-03T14:44:00Z</lastmod>
  </url>
  <url>
+  <loc>https://blog.rebeja.eu/categories/dictionary/</loc>
+  <lastmod>2018-12-03T14:47:00Z</lastmod>
+ </url>
+ <url>
   <loc>https://blog.rebeja.eu/categories/dired/</loc>
   <lastmod>2018-11-29T15:54:00Z</lastmod>
  </url>
@@ -120,6 +124,10 @@
  <url>
   <loc>https://blog.rebeja.eu/categories/inheritance/</loc>
   <lastmod>2018-11-25T22:10:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://blog.rebeja.eu/categories/machine-learning/</loc>
+  <lastmod>2018-12-03T14:47:00Z</lastmod>
  </url>
  <url>
   <loc>https://blog.rebeja.eu/categories/mediatr/</loc>
@@ -178,6 +186,10 @@
   <lastmod>2018-11-29T15:54:00Z</lastmod>
  </url>
  <url>
+  <loc>https://blog.rebeja.eu/categories/romanian/</loc>
+  <lastmod>2018-12-03T14:47:00Z</lastmod>
+ </url>
+ <url>
   <loc>https://blog.rebeja.eu/categories/service-activation/</loc>
   <lastmod>2018-12-03T14:37:00Z</lastmod>
  </url>
@@ -202,6 +214,10 @@
   <lastmod>2018-12-03T12:17:00Z</lastmod>
  </url>
  <url>
+  <loc>https://blog.rebeja.eu/categories/terms/</loc>
+  <lastmod>2018-12-03T14:47:00Z</lastmod>
+ </url>
+ <url>
   <loc>https://blog.rebeja.eu/categories/tramp/</loc>
   <lastmod>2018-11-27T15:59:00Z</lastmod>
  </url>
@@ -215,7 +231,7 @@
  </url>
  <url>
   <loc>https://blog.rebeja.eu/index-1.html</loc>
-  <lastmod>2018-12-03T14:45:00Z</lastmod>
+  <lastmod>2018-12-03T14:50:00Z</lastmod>
  </url>
  <url>
   <loc>https://blog.rebeja.eu/listings/</loc>
@@ -236,6 +252,10 @@
  <url>
   <loc>https://blog.rebeja.eu/posts/editing-remote-files-over-ssh-with-emacs-and-tramp-mode/</loc>
   <lastmod>2018-11-27T15:55:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://blog.rebeja.eu/posts/english-romanian-dictionary-for-machine-learning/</loc>
+  <lastmod>2018-12-03T14:46:00Z</lastmod>
  </url>
  <url>
   <loc>https://blog.rebeja.eu/posts/fii-practic-2016/</loc>

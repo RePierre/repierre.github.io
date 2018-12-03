@@ -68,7 +68,67 @@
     
         
     <div class="postindex">
-            <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/using-enums-in-c-sharp/" class="u-url">Using enums in C#</a></h1>
+            <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/editing-remote-files-over-ssh-with-emacs-and-tramp-mode/" class="u-url">Editing remote files over ssh with Emacs and Tramp mode</a></h1>
+                <div class="metadata">
+                    <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                        Petru Rebeja
+                    </span></p>
+            <p class="dateline">
+            <a href="posts/editing-remote-files-over-ssh-with-emacs-and-tramp-mode/" rel="bookmark">
+            <time class="published dt-published" datetime="2017-05-15T00:00:00+02:00" itemprop="datePublished" title="2017-05-15 00:00">2017-05-15 00:00</time></a>
+            </p>
+                </div>
+            </header><div class="e-content entry-content">
+                    <p>
+In a discussion over a beer, a friend of mine asked whether I know a way to edit remote files over <code>ssh</code>? It was then that I realized that my long time obsession with Emacs is starting to pay off and I gave him the only way I know how to do that: <b>Emacs and <a href="https://www.emacswiki.org/emacs/TrampMode">Tramp Mode</a></b>.
+</p>
+
+<p>
+This is how I do it.
+</p>
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1">Setup</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+I use <code>Emacs 25.2</code> on Kubuntu 17.04 and on Windows 10 using <a href="http://cygwin.com/">Cygwin</a> and when working with remote files both systems behave the same.
+</p>
+</div>
+</div>
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2">The flow</h2>
+<div class="outline-text-2" id="text-2">
+<ol class="org-ol">
+<li>Configure the remote machine to authenticate you with a key file as specified in this <a href="https://askubuntu.com/a/20921/561980">stackoverflow answer</a>
+</li>
+<li>Start Emacs
+</li>
+</ol>
+<p>
+To open the remote file for editing invoke the <code>find-file</code> command either using <code>C-x C-f</code> (<code>C = Ctrl</code>) or with <code>M-x find-file</code> (<code>M=Alt</code>) and at the file prompt specify the path in the following format:
+</p>
+<div class="highlight"><pre><span></span>/ssh:user@ip<span class="o">[</span>:port<span class="o">]</span>:path/to/file
+</pre></div>
+</div>
+</div>
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3">An example</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+To exemplify let's consider the following scenario: I have a virtual machine with the IP <code>192.168.13.13</code> to which I can connect remotely with <code>ssh</code> using the username <code>petru</code> and the default public key (<b>~/.ssh/id<sub>rsa</sub>.pub</b>). On that machine I want to edit the file <code>/home/petru/src/debugutils.py</code>.
+</p>
+
+<p>
+To do so, I open the file as usually in Emacs using <code>C-x C-f</code> and at the prompt (the minibuffer) I enter the following:
+</p>
+<div class="highlight"><pre><span></span>/ssh:petru@192.168.13.13:/home/petru/src/debugutils.py
+</pre></div>
+<p>
+and press <code>&lt;Enter&gt;</code>.
+</p>
+</div>
+</div>
+                </div>
+            </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/using-enums-in-c-sharp/" class="u-url">Using enums in C#</a></h1>
                 <div class="metadata">
                     <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
                         Petru Rebeja
