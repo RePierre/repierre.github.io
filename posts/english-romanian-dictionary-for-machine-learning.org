@@ -1,0 +1,26 @@
+#+BEGIN_COMMENT
+.. title: English Romanian dictionary for Machine Learning
+.. slug: english-romanian-dictionary-for-machine-learning
+.. date: 2018-11-16 00:00:00 UTC+02:00
+.. tags: Machine Learning, Romanian, terms, dictionary
+.. category:
+.. link:
+.. description:
+.. type: text
+
+#+END_COMMENT
+This post is an initiative to build a list of Romanian translations for Machine Learning terms.
+* B
+  /Biased/ = tendențios.
+* E
+  /Eigenvalues (vectors)/ = valori (vectori) proprii.
+* F
+  /Features/ = atribute, particularități, caracteristici.
+* O
+  /Outliers/ = valori extreme.
+* S
+  /Skewed/ = asimetric.
+* T
+  /Threshold/ = prag.
+
+  /Toy problem/ = problemă didactică.
