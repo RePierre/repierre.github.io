@@ -10,12 +10,16 @@
 
 #+END_COMMENT
 This post is an initiative to build a list of Romanian translations for Machine Learning terms.
+* A
+  /Artificial Intelligence/ = Inteligență Artificială
 * B
   /Biased/ = tendențios.
 * E
   /Eigenvalues (vectors)/ = valori (vectori) proprii.
 * F
   /Features/ = atribute, particularități, caracteristici.
+* M
+  /Machine Learning/ = Învățare Automată
 * O
   /Outliers/ = valori extreme.
 * S
