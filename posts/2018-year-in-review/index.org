@@ -1,0 +1,30 @@
+#+BEGIN_COMMENT
+.. title: 2018 year in review
+.. slug: 2018-year-in-review
+.. date: 2019-01-01 15:06:26 UTC+02:00
+.. tags:
+.. category:
+.. link:
+.. description:
+.. type: text
+
+#+END_COMMENT
+Looking back at 2018 I can say for sure that it has been a busy and thankfully fruitfull year for me; I have managed to juggle work and community tasks while also spending time with my family.
+
+So, without further ado here are my biggest accomplishments in 2018:
+* Presentation on Big Data Analytics
+  Being known as a /Big Data enthusiast/ at my job, I was asked if I could give a presentation on /Big Data/. I was more than happy to do so and this way I got a glimpse at how it feels when giving a lecture - [[https://www.facebook.com/CentricITSolutionsRomania/posts/2868690433237180][the presentation was scheduled]] in one of the big lecture rooms at the [[http://www.feaa.uaic.ro][Faculty Of Economics and Business Administration]]; can't say I didn't liked the feeling. The [[https://1drv.ms/p/s!AhX9uvfmpbmJnd4LKQn-eGppDHGdeg][slides]] are available from my OneDrive account.
+* Artificial Neural Networks tutorial
+  A few weeks later I was [[https://www.facebook.com/infobalti/photos/a.1888888887828977/1888889244495608/][hosting a tutorial on Artificial Neural Networks]] at [[http://usarb.md][Alecu Russo State University]] from Bălți, Moldova. The tutorial was the first event at the [[http://www.miti2018.usarb.md/][International Conference on Mathematics, Informatics and Information Technologies]] and also *my first academic talk*.
+* PIN Magazine article about Artificial Intelligence
+  In june we celebrated one year since the [[https://iasi.ai/][Iași AI]] community was created with a cover story in [[https://www.pinmagazine.ro/][PIN Magazine]] about Artificial Intelligence. I authored one of the cover story articles in which I expressed my opinion about how Artificial Intelligence, although it had tremendous success lately, it's still at the beginning of its evolution and we, humans, must set our expectations accordingly but still expect that AI will change our lives. You can read the whole article [[https://issuu.com/danzaharia/docs/pinmagazine_9_cu_coperti/25][here]].
+* Iași AI TensorFlow workshops
+  At the end of August and in the beginning of October I co-hosted two [[https://iasi.ai/workshops/tensorflow-workshop-iasi-ai/][TensorFlow worksops]] together with [[https://www.linkedin.com/in/ciprian-talmacel-6b08ba4a/][Ciprian Tălmăcel]] organized by the [[https://iasi.ai/][Iași AI]] community. This was my debut as a presenter within the community and proved to be a great experience and success. I had the opportunity to learn a lot from Ciprian and also to improve my skills through the feedback given by attendees. You can find the Jupyter Notebooks for the workshop in the [[https://github.com/IASIAI/tensorflow-workshop][dedicated Github repository]].
+* RNN presentation @ Iași AI
+  A month later, in November, was my second appearance within the Iași AI community, this time with a presentation about [[https://iasi.ai/meetups/unrolling-recurrent-neural-networks/][Recurrent Neural Networks]]. The main focus of a presentation was how simple the code can be if you possess the theoretical background and how you can actually learn (to some extent) the theory behind just looking at the implementation. I have published the slides, the code and the LaTeX code for the presentation in a [[https://github.com/RePierre/manelator][dedicated Github repository]].
+* Other activity @ Iași AI
+  Gladly, my activity within Iași AI community did not end with the RNN presentation; later on, I helped organize the [[https://iasi.ai/meetups/panel-ai-opportunities/][AI opportunities panel]] which was the last official event of the community for 2018. In parallel we started puring more effort into implementing an Open Data Hub initiative for Iași; this however is a project for the upcomming year(s).
+* Promoted to Technical Lead
+  Last but not least, I got promoted at work. In April I switched projects at work and took the switch as an opportunity to affirm myself. The efforts I've put into building solid and scalable products and also improving the existing ones have been observed by the management team and at the end of the year I got promoted to the role of Technical Lead.
+
+  It's already the start of 2019 and I'm excited to what's comming ahead - the Open Data Hub, the newly opened opportunities at work, the upcomming projects in academia and many more I don't know of. What I do know is that *I will do my best to do even better in 2019*.

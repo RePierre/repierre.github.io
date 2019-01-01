@@ -68,7 +68,137 @@
     
         
     <div class="postindex">
-            <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/editing-remote-files-over-ssh-with-emacs-and-tramp-mode/" class="u-url">Editing remote files over ssh with Emacs and Tramp mode</a></h1>
+            <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/use-emacs-sql-mode-to-connect-to-database-on-a-docker-image/" class="u-url">Use Emacs sql-mode to connect to database on a Docker image</a></h1>
+                <div class="metadata">
+                    <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                        Petru Rebeja
+                    </span></p>
+            <p class="dateline">
+            <a href="posts/use-emacs-sql-mode-to-connect-to-database-on-a-docker-image/" rel="bookmark">
+            <time class="published dt-published" datetime="2017-06-21T00:00:00+02:00" itemprop="datePublished" title="2017-06-21 00:00">2017-06-21 00:00</time></a>
+            </p>
+                </div>
+            </header><div class="e-content entry-content">
+                    <p>
+While working on a project I had to load and process some resources from a MySQL database. I had a database dump and all I needed was to <code>sudo apt-get install mysql</code> but I decided against it because that would just bloat my OS with software used only once and drain my laptop battery with the service running in the background.
+</p>
+
+<p>
+Instead, I decided to restore the database on a Docker image for MySQL and query the data using <code>mysql-client</code>.
+</p>
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1">Install <code>mysql-client</code> locally</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+This one is simple; just run:
+</p>
+<div class="highlight"><pre><span></span>sudo apt-get install mysql-client
+</pre></div>
+</div>
+</div>
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2">Install Docker on Ubuntu</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+The first thing to do is to head to <a href="https://docs.docker.com/engine/installation/linux/ubuntu/#install-docker">Docker documentation</a> for instalation instructions which I've copied here:
+</p>
+<ul class="org-ul">
+<li>Install packages to allow <code>apt</code> to use a repository over HTTPS:
+<div class="highlight"><pre><span></span>sudo apt-get install <span class="se">\</span>
+    apt-transport-https <span class="se">\</span>
+    ca-certificates <span class="se">\</span>
+    curl <span class="se">\</span>
+    software-properties-common
+</pre></div>
+</li>
+<li>Add the official GPG key for Docker
+<div class="highlight"><pre><span></span>curl -fsSL https://download.docker.com/linux/ubuntu/gpg <span class="p">|</span> sudo apt-key add -
+</pre></div>
+</li>
+<li>Setup the <b>stable</b> repository. Make sure to select the proper architecture; in my case it's <code>amd64</code>
+<div class="highlight"><pre><span></span>sudo add-apt-repository <span class="se">\</span>
+    <span class="s2">"deb [arch=amd64] https://download.docker.com/linux/ubuntu \</span>
+<span class="s2">    </span><span class="k">$(</span>lsb_release -cs<span class="k">)</span><span class="s2"> \</span>
+<span class="s2">    stable"</span>
+</pre></div>
+</li>
+<li>Update the package index
+<div class="highlight"><pre><span></span>sudo apt-get update
+</pre></div>
+</li>
+<li>Install Docker
+<div class="highlight"><pre><span></span>sudo apt-get install docker-ce
+</pre></div>
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3">Restore MySQL database to a Docker container</h2>
+<div class="outline-text-2" id="text-3">
+<ul class="org-ul">
+<li>Download the Docker image for <code>MySQL</code>
+<div class="highlight"><pre><span></span>sudo docker pull mysql
+</pre></div>
+</li>
+<li>Create an empty database
+<div class="highlight"><pre><span></span>sudo docker run --name &lt;container-name&gt; -e <span class="nv">MYSQL_ROOT_PASSWORD</span><span class="o">=</span>&lt;password&gt; -e <span class="nv">MYSQL_DATABASE</span><span class="o">=</span>&lt;db-name&gt; -d mysql
+</pre></div>
+<p>
+This will create a new container with an empty database and login <code>root</code>.
+</p>
+</li>
+<li>Restore database from dump
+<div class="highlight"><pre><span></span>sudo docker <span class="nb">exec</span> -i &lt;container-name&gt; mysql -u&lt;user-name&gt; -p&lt;password&gt; --database<span class="o">=</span>&lt;db-name&gt; &lt; &lt;path-to-sql-file&gt;
+</pre></div>
+<p>
+Notes:
+</p>
+<ol class="org-ol">
+<li>Make sure that there is no space between <code>-u</code> and <code>&lt;user-name&gt;</code>, e.g. for user <code>root</code> the option should be <code>-uroot</code>
+</li>
+<li>The same goes for password - e.g. if password is <code>my-secret</code> then the option should be <code>-pmy-secret</code>
+</li>
+<li>
+<code>path-to-sql-file</code> should point to a file on host OS
+</li>
+</ol>
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-sec-4" class="outline-2">
+<h2 id="sec-4">Connect to MySQL database running on Docker container from Emacs</h2>
+<div class="outline-text-2" id="text-4">
+<ul class="org-ul">
+<li>First, start the container <code>sudo docker start &lt;container-name&gt;</code>
+</li>
+<li>Get the IP Address of the container
+</li>
+<li>Get the container configuration using <code>sudo docker inspect &lt;container-name&gt;</code>
+</li>
+<li>Copy the IP Address from the output under <code>NetworkSettings/IPAddress</code>
+</li>
+<li>In Emacs execute <code>M-x sql-mysql</code>
+<ul class="org-ul">
+<li>For <code>User:</code> enter the value for <code>&lt;user-name&gt;</code> (<code>root</code> is the default)
+</li>
+<li>For <code>Password:</code> enter the value for <code>&lt;password&gt;</code>
+</li>
+<li>For <code>Database:</code> enter the value for <code>&lt;db-name&gt;</code>
+</li>
+<li>For <code>Server:</code> enter the IP Address from 2.
+</li>
+</ul>
+</li>
+</ul>
+<p>
+That's it. Happy querying!
+</p>
+</div>
+</div>
+                </div>
+            </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/editing-remote-files-over-ssh-with-emacs-and-tramp-mode/" class="u-url">Editing remote files over ssh with Emacs and Tramp mode</a></h1>
                 <div class="metadata">
                     <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
                         Petru Rebeja
@@ -1636,7 +1766,7 @@ Meanwhile checkout my activity on the following sites:
 <li class="previous"><a href="." rel="prev">Newer posts</a></li>
         </ul>
 <!--End of body content--><footer id="footer">
-            Contents © 2018         <a href="mailto:petru.rebeja@gmail.com">Petru Rebeja</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+            Contents © 2019         <a href="mailto:petru.rebeja@gmail.com">Petru Rebeja</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
             
         </footer>
 </div>
