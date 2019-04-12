@@ -18,6 +18,8 @@ This post is an initiative to build a list of Romanian translations for Machine 
   /Eigenvalues (vectors)/ = valori (vectori) proprii.
 * F
   /Features/ = atribute, particularități, caracteristici.
+* G
+  /Gold corpus/ = corpus de referință
 * M
   /Machine Learning/ = Învățare Automată
 * O
