@@ -27,7 +27,7 @@
  </url>
  <url>
   <loc>https://rebeja.eu/archive.html</loc>
-  <lastmod>2019-05-10T13:48:00Z</lastmod>
+  <lastmod>2019-05-10T13:57:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/categories/</loc>
@@ -231,7 +231,7 @@
  </url>
  <url>
   <loc>https://rebeja.eu/index-1.html</loc>
-  <lastmod>2019-05-10T13:48:00Z</lastmod>
+  <lastmod>2019-05-10T13:57:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/posts/2018-year-in-review/</loc>
@@ -260,10 +260,6 @@
  <url>
   <loc>https://rebeja.eu/posts/fii-practic-2016/</loc>
   <lastmod>2019-03-19T17:06:00Z</lastmod>
- </url>
- <url>
-  <loc>https://rebeja.eu/posts/github-source-code-reference/</loc>
-  <lastmod>2019-04-12T10:09:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/posts/managing-bibliography-using-emacs-org-mode-and-org-ref/</loc>
