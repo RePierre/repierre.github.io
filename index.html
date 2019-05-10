@@ -12,7 +12,7 @@
 <link rel="alternate" type="application/rss+xml" title="RSS" href="rss.xml">
 <link rel="canonical" href="https://rebeja.eu/">
 <link rel="next" href="index-1.html" type="text/html">
-<!--[if lt IE 9]><script src="assets/js/html5.js"></script><![endif]--><link rel="prefetch" href="posts/github-source-code-reference/" type="text/html">
+<!--[if lt IE 9]><script src="assets/js/html5.js"></script><![endif]--><link rel="prefetch" href="posts/2018-year-in-review/" type="text/html">
 </head>
 <body>
 <a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
@@ -68,24 +68,7 @@
     
         
     <div class="postindex">
-            <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/github-source-code-reference/" class="u-url">GitHub is my goto reference for source code</a></h1>
-                <div class="metadata">
-                    <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
-                        Petru Rebeja
-                    </span></p>
-            <p class="dateline">
-            <a href="posts/github-source-code-reference/" rel="bookmark">
-            <time class="published dt-published" datetime="2019-03-25T18:15:35+02:00" itemprop="datePublished" title="2019-03-25 18:15">2019-03-25 18:15</time></a>
-            </p>
-                </div>
-            </header><div class="e-content entry-content">
-                    <p>
-I value very much the code I write and I want to make it the best code I'm able to write from the start.
-When I don't know how to transform some idea into code I go to GitHub and search for code.
-Example: my Emacs config.
-</p>
-                </div>
-            </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/2018-year-in-review/" class="u-url">2018 year in review</a></h1>
+            <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/2018-year-in-review/" class="u-url">2018 year in review</a></h1>
                 <div class="metadata">
                     <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
                         Petru Rebeja
@@ -206,7 +189,7 @@ This post is an initiative to build a list of Romanian translations for Machine 
 <h2 id="sec-4">F</h2>
 <div class="outline-text-2" id="text-4">
 <p>
-<i>Features</i> = atribute, particularități, caracteristici.
+<i>Features</i> = atribute, particularități, caracteristici, trăsături.
 </p>
 </div>
 </div>
@@ -1027,6 +1010,55 @@ That's it. Happy reading!
 </ol>
 </div>
 </div>
+                </div>
+            </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/adding-disqus-comments-to-ghost-blog-on-azure/" class="u-url">Adding Disqus comments to Ghost blog on Azure</a></h1>
+                <div class="metadata">
+                    <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                        Petru Rebeja
+                    </span></p>
+            <p class="dateline">
+            <a href="posts/adding-disqus-comments-to-ghost-blog-on-azure/" rel="bookmark">
+            <time class="published dt-published" datetime="2017-06-22T00:00:00+02:00" itemprop="datePublished" title="2017-06-22 00:00">2017-06-22 00:00</time></a>
+            </p>
+                </div>
+            </header><div class="e-content entry-content">
+                    <p>
+If you have a <a href="https://ghost.org/">Ghost</a> hosted on <a href="https://azure.microsoft.com/">Azure</a> (like I did) then you may want to add <a href="https://disqus.com/">Disqus</a> comments to it (like I did).
+</p>
+
+<p>
+To do so, follow the steps below:
+</p>
+<ol class="org-ol">
+<li>
+<a href="https://disqus.com/profile/signup/">Create a Disqus account</a> if you haven't done so already.
+</li>
+<li>
+<a href="https://disqus.com/profile/login/">Login to Disqus</a> and navigate to the admin page.
+</li>
+<li>Click on <a href="https://disqus.com/profile/login/?next=/admin/install/">Install Disqus</a> and choose <a href="https://disqus.com/admin/install/platforms/ghost/">Ghost</a> from the list.
+</li>
+<li>Open a new tab and navigate to <a href="https://portal.azure.com/">Azure portal</a> and from the dashboard open/navigate to the application hosting your Ghost blog.
+</li>
+<li>On the application blade select <code>App Service Editor</code> and press <code>Go-&gt;</code> to open the editor for your blog.
+</li>
+<li>In the editor navigate to <code>wwwroot\content\themes\&lt;your-theme&gt;\post.hbs</code>. This will load the file in the panel on the right.
+</li>
+<li>Go back to <a href="https://disqus.com/admin/install/platforms/ghost/">Ghost Install Instructions</a> on Disqus and copy the <a href="https://disqus.com/admin/install/platforms/universalcode/">Universal Embed Code</a>.
+</li>
+<li>Paste the code into post.hbs file in the place where you want your comment section to be.
+</li>
+<li>Find the section to define configuration variables and make it look like this:
+<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">disqus_config</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">page</span><span class="p">.</span><span class="nx">url</span> <span class="o">=</span> <span class="s1">'{{@blog.url}}{{url}}'</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">page</span><span class="p">.</span><span class="nx">identifier</span> <span class="o">=</span> <span class="s1">'{{id}}'</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</li>
+</ol>
+<p>
+Happy blogging!
+</p>
                 </div>
             </article>
 </div>

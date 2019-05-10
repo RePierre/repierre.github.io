@@ -5,7 +5,7 @@
 .. tags: Machine Learning, Romanian, terms, dictionary
 .. category:
 .. link:
-.. description:
+.. description: Romanian equivalents for English machine learning terms.
 .. type: text
 
 #+END_COMMENT
@@ -17,7 +17,7 @@ This post is an initiative to build a list of Romanian translations for Machine 
 * E
   /Eigenvalues (vectors)/ = valori (vectori) proprii.
 * F
-  /Features/ = atribute, particularități, caracteristici.
+  /Features/ = atribute, particularități, caracteristici, trăsături.
 * G
   /Gold corpus/ = corpus de referință
 * M
