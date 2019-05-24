@@ -11,22 +11,44 @@
 #+END_COMMENT
 This post is an initiative to build a list of Romanian translations for Machine Learning terms.
 * A
+-----
   /Artificial Intelligence/ = Inteligență Artificială
+-----
 * B
-  /Biased/ = tendențios.
+-----
+  /Biased/ = tendențios, subiectiv.
+-----
 * E
+-----
   /Eigenvalues (vectors)/ = valori (vectori) proprii.
+-----
 * F
-  /Features/ = atribute, particularități, caracteristici, trăsături.
+-----
+  /Features/ = atribute +, particularități, caracteristici, trăsături+.
+-----
 * G
+-----
   /Gold corpus/ = corpus de referință
+-----
 * M
+-----
   /Machine Learning/ = Învățare Automată
+-----
 * O
+-----
   /Outliers/ = valori extreme.
+-----
 * S
-  /Skewed/ = asimetric.
+-----
+  /Skewed/ = nesimetric.
+-----
 * T
+-----
   /Threshold/ = prag.
 
   /Toy problem/ = problemă didactică.
+
+-----
+*Acknowledgements*
+
+Big thanks to [[https://www.facebook.com/gabihaja][Gabriela Haja]] and [[https://profs.info.uaic.ro/~mmoruz/][Alex Moruz]] for reviewing this list.
