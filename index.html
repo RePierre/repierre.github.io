@@ -12,7 +12,7 @@
 <link rel="alternate" type="application/rss+xml" title="RSS" href="rss.xml">
 <link rel="canonical" href="https://rebeja.eu/">
 <link rel="next" href="index-1.html" type="text/html">
-<!--[if lt IE 9]><script src="assets/js/html5.js"></script><![endif]--><link rel="prefetch" href="posts/eurolan-2019/" type="text/html">
+<!--[if lt IE 9]><script src="assets/js/html5.js"></script><![endif]--><link rel="prefetch" href="posts/declutter-the-way-of-working/" type="text/html">
 </head>
 <body>
 <a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
@@ -68,7 +68,96 @@
     
         
     <div class="postindex">
-            <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/eurolan-2019/" class="u-url">EUROLAN 2019 Summer School</a></h1>
+            <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/declutter-the-way-of-working/" class="u-url">Declutter the way of working</a></h1>
+                <div class="metadata">
+                    <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                        Petru Rebeja
+                    </span></p>
+            <p class="dateline">
+            <a href="posts/declutter-the-way-of-working/" rel="bookmark">
+            <time class="published dt-published" datetime="2019-09-12T18:25:23+03:00" itemprop="datePublished" title="2019-09-12 18:25">2019-09-12 18:25</time></a>
+            </p>
+                </div>
+            </header><div class="e-content entry-content">
+                    <p>
+Like many other people I strive to be as productive I can. Being productive means two things for me:
+</p>
+<ul class="org-ul">
+<li>Getting the most out of my tools and</li>
+<li>Spending less time on useless things.</li>
+</ul>
+<p>
+Getting the most of my tools is the reason I continuously invest in learning <a href="https://www.gnu.org/software/emacs/">Emacs</a> (which has proven to have a great return of investment) and in learning <a href="http://visualstudioshortcuts.com/2017/">Visual Studio shortcuts.</a> It was for the same reason I was happy like a kid with a chocolate bar when Visual Studio introduced the <code>Ctrl+Q</code> shortcut for the <code>Quick Launch</code> menu which allowed me to launch various utilities from Visual Studio without bothering to learn shortcuts that aren't often used and without spending time navigating through the menu items looking for the one I had in mind.
+</p>
+
+<p>
+Spending less time on useless things means having a good workflow and <i>I was not happy with mine</i>. And my workflow was quite simple — after getting to work, I would start my workstation, open Outlook and whatever instant messaging applications I needed to use, open Visual Studio, get lates sources from TFS, open required solutions and start coding. In between any of those steps I would make myself a cup of tea from which I would sip ocasionally while working. It took me some time to do all those required steps before being able to actually read, write or debug some piece of code and albeit in time I got ahold of more powerfull machines which loaded things faster, I wasn't happy with the sensation of <i>having to wait to start working</i>.
+</p>
+
+<p>
+I started thinking on how to avoid waiting and I turned to the simplest solution for my problem — for every application that I needed to start at the beginning of the day I would put a shortcut in the Windows startup folder. This way, after getting to work I needed to boot my computer, log in and go make the tea while the applications were loading automatically. I couldn't load <i>all</i> the required applications that way — most of the time I needed to run Visual Studio with elevated permisions which halted the load of other applications due to the UAC settings — but I was happy to open all other applications automatically while making my tea and open Visual Studio manually.
+</p>
+
+<p>
+Meanwhile I switched the workstation with a laptop and got the opportunity to work on a data science project at work, alongside the main project I'm assigned to. Having a laptop brings a great deal of flexibility and having a performant laptop with great battery life tends to make me want to work on it for <i>all</i> my projects.
+</p>
+
+<p>
+And that's when things started to get complicated workflow-wise. The two projects I work on at my job have different technology stacks (<code>C#</code> with <code>.net core</code> on the main project and <code>Python</code> with <code>Azure ML</code> for the data science one) which means different workflows but still using the same applications for communication and other secondary tasks. In my spare time — early in the morning or late at night — I work on personal projects and that's when I feel the most infuriated with the plethora of applications that are starting automatically but are totally useless at that moment and do nothing more than consume resources.
+</p>
+
+<p>
+At some point I realized that the time I used to spend a while ago to open the applications I needed, I now waste on closing the applications which are configured to start automatically but are of no use to me. Then I remembered that a while ago I read a <a href="https://bash.im/quote/436725">story about russian DevOps engineer who would automate a task if it required more that 1.5 minutes of his time</a> (the English version and implementations of the scripts are available on <a href="https://github.com/NARKOZ/hacker-scripts">GitHub</a>). That story got me thinking:
+</p>
+<blockquote>
+<p>
+Can I change which applications are loaded automatically based on the project I'm working?
+</p>
+</blockquote>
+<p>
+Unfortunately, the answer is <b>no</b>. That's because my laptop won't know on which project I'll be working next. But my schedule might give a hint: all week except Thursday, from 9:00 to 18:00 I work on the main project at my job, on Thursdays from 9:00 to 18:00 I work on a secondary project and outside business hours I work on my other projects.
+</p>
+
+<p>
+Ok, and how do I use that information? Up untill now I used to place shortcuts in Windows startup folder but that doesn't do it for me anymore. The problem with placing shortcuts in Windows startup folder is that there's no way to specify <i>when</i> to start the application — it will start all the time.
+</p>
+
+<p>
+So I had to look elsewhere for a solution. The next place I looked was Windows Task Scheduler which provides more options for starting a task but unfortunately the triggers of Task Scheduler are either too simple to encode the ranges from my schedule or too complicated to bother with.
+</p>
+
+<p>
+Thinking of how to make this decision simple I turned to PowerShell. I created two scripts, in each of them testing the following conditions:
+</p>
+<ul class="org-ul">
+<li>Is current time between 9:00 and 18:00 and current day is a work day but not Thursday? If yes, then this means I'm at my job, working for the main project and thus:
+<ul class="org-ul">
+<li>The first script will:
+<ul class="org-ul">
+<li>navigate to the directory mapped to TFS project,</li>
+<li>get latest version and</li>
+<li>open the solution in Visual Studio.</li>
+</ul>
+</li>
+<li>The second script will load other work-related applications like Outlook, MS Teams etc.</li>
+</ul>
+</li>
+<li>Is current day Thursday and time is between 9:00 and 18:00? If yes, then I'm at my job working on the data science project and:
+<ul class="org-ul">
+<li>The first script will open <code>Ubuntu bash</code> from <code>WSL</code>.</li>
+<li>The second script will open the <code>Azure ML workspace</code> in a browser.</li>
+</ul>
+</li>
+</ul>
+<p>
+Each of these scripts is invoked by Windows Task Scheduler at logon; the only difference being that the first one is executed with elevated privileges. I still need to run Visual Studio as administrator and by running the script with highest privileges I don't get the UAC dialog anymore.
+</p>
+
+<p>
+None of the aforementioned scripts do anything outside working hours — in that period I choose on which project to work based on what I feel like doing (to keep me engaged after a day at work) and various other factors. But the fact that, in those late or early hours I don't need to close some pesky little applications that keep distracting me, makes me be happy again with my workflow.
+</p>
+                </div>
+            </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/eurolan-2019/" class="u-url">EUROLAN 2019 Summer School</a></h1>
                 <div class="metadata">
                     <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
                         Petru Rebeja
@@ -905,218 +994,6 @@ Of course there is. Here's what I did using Emacs and <code>dired</code>:
 <p>
 That's it!
 </p>
-                </div>
-            </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/managing-bibliography-using-emacs-org-mode-and-org-ref/" class="u-url">Managing bibliography using Emacs Org-Mode and Org-Ref</a></h1>
-                <div class="metadata">
-                    <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
-                        Petru Rebeja
-                    </span></p>
-            <p class="dateline">
-            <a href="posts/managing-bibliography-using-emacs-org-mode-and-org-ref/" rel="bookmark">
-            <time class="published dt-published" datetime="2017-07-29T00:00:00+02:00" itemprop="datePublished" title="2017-07-29 00:00">2017-07-29 00:00</time></a>
-            </p>
-                </div>
-            </header><div class="e-content entry-content">
-                    <p>
-Since I've started to use Emacs more and more I started wondering whether I can use org-mode to keep a reading list/bibliography?
-</p>
-
-<p>
-A quick search led me to this <a href="http://blog.modelworks.ch/">blog post</a> where the author was presenting his setup for the same thing. However, after reading into the post I saw that the author
-uses a combination of tasks and a reading list which requires custom code to be executed and is too complex for my needs.
-</p>
-
-<p>
-All I want is a simple list that:
-</p>
-<ul class="org-ul">
-<li>should be available on multiple workstations
-</li>
-<li>can be built/managed with out-of-the-shelf components and without much effort
-</li>
-<li>should allow me to change the status of an entry.
-</li>
-</ul>
-<p>
-I did however liked the idea of using references to the papers being read and since I recently saw a <a href="https://www.youtube.com/watch?v=JyvpSVl4_dg">YouTube video</a> presenting <code>org-ref</code> I thought I should give it a try.
-</p>
-
-<p>
-To handle the availability part I decided to use Dropbox which is also suggested by <code>org-ref</code>.
-</p>
-<div id="outline-container-sec-1" class="outline-2">
-<h2 id="sec-1">Setup org-ref</h2>
-<div class="outline-text-2" id="text-1">
-<p>
-<code>org-ref</code> is available on <a href="http://melpa.org/">Melpa</a> so to install it just type <code>M-x package-install org-ref</code>. Afterwards copy the code below to your init file and adjust the paths:
-</p>
-<div class="highlight"><pre><span></span><span class="p">(</span><span class="nf">setq</span> <span class="nv">reftex-default-bibliography</span> <span class="o">'</span><span class="p">(</span><span class="s">"~/Dropbox/bibliography/references.bib"</span><span class="p">))</span>
-<span class="c1">;; see org-ref for use of these variables</span>
-<span class="p">(</span><span class="nf">setq</span> <span class="nv">org-ref-bibliography-notes</span> <span class="s">"~/Dropbox/bibliography/notes.org"</span>
-      <span class="nv">org-ref-default-bibliography</span> <span class="o">'</span><span class="p">(</span><span class="s">"~/Dropbox/bibliography/references.bib"</span><span class="p">)</span>
-      <span class="nv">org-ref-pdf-directory</span> <span class="s">"~/Dropbox/bibliography/bibtex-pdfs/"</span><span class="p">)</span>
-
-<span class="p">(</span><span class="nf">setq</span> <span class="nv">bibtex-completion-bibliography</span> <span class="s">"~/Dropbox/bibliography/references.bib"</span>
-      <span class="nv">bibtex-completion-library-path</span> <span class="s">"~/Dropbox/bibliography/bibtex-pdfs"</span>
-      <span class="nv">bibtex-completion-notes-path</span> <span class="s">"~/Dropbox/bibliography/helm-bibtex-notes"</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div id="outline-container-sec-2" class="outline-2">
-<h2 id="sec-2">Creating the reading list</h2>
-<div class="outline-text-2" id="text-2">
-<p>
-With <code>org-ref</code> in place, it was time to setup the reading list so I created a new file named <code>reading-list.org</code> under <code>~/Dropbox/bibliography/</code> with the following header:
-</p>
-<div class="highlight"><pre><span></span><span class="c1">#+TITLE: Reading list</span>
-<span class="c1">#+STATUS: "Maybe" "Pending" "Reading" "Finished" ""</span>
-<span class="c1">#+COLUMNS: %120ITEM %STATUS</span>
-</pre></div>
-<p>
-The first line obviously defines the title of the document. The second line defines the values for status where:
-</p>
-<ul class="org-ul">
-<li>
-<code>Maybe</code> means that reading the entry is optional
-</li>
-<li>
-<code>Pending</code> - the entry will be read sometime after finishing the item that I'm currently reading
-</li>
-<li>
-<code>Reading</code> - the item currently being read
-</li>
-<li>
-<code>Finished</code> - the entries that are already read.
-</li>
-</ul>
-</div>
-</div>
-<div id="outline-container-sec-3" class="outline-2">
-<h2 id="sec-3">Adding an entry to the list</h2>
-<div class="outline-text-2" id="text-3">
-<ul class="org-ul">
-<li>Add <code>bibtex</code> entry in <code>references.bib</code> file. E.g.:
-<div class="highlight"><pre><span></span>@inproceedings<span class="o">{</span>le2014distributed,
-  <span class="nv">title</span><span class="o">={</span>Distributed representations of sentences and documents<span class="o">}</span>,
-  <span class="nv">author</span><span class="o">={</span>Le, Quoc and Mikolov, Tomas<span class="o">}</span>,
-  <span class="nv">booktitle</span><span class="o">={</span>Proceedings of the 31st International Conference on Machine Learning <span class="o">(</span>ICML-14<span class="o">)}</span>,
-  <span class="nv">pages</span><span class="o">={</span><span class="m">1188</span>--1196<span class="o">}</span>,
-  <span class="nv">year</span><span class="o">={</span><span class="m">2014</span><span class="o">}</span>
-<span class="o">}</span>
-</pre></div>
-</li>
-<li>In the <code>reading-list.org</code> file add the title to the list using <code>M-return</code>
-</li>
-<li>Add <code>Status</code> and <code>Source</code> properties
-<ul class="org-ul">
-<li>With the cursor on the header:
-<ul class="org-ul">
-<li>Press <code>C-c C-x p</code>
-</li>
-<li>Select or write <code>Status</code>
-</li>
-<li>Press return
-</li>
-<li>Select the value for status (e. g. <code>Pending</code>)
-</li>
-<li>Press return
-</li>
-</ul>
-</li>
-<li>With the cursor on the header:
-<ul class="org-ul">
-<li>Press <code>C-c C-x p</code>
-</li>
-<li>Write or select <code>Source</code>
-</li>
-<li>Press return
-</li>
-<li>If you know the citation key (le2014distributed in the example above) then you can write directly <code>cite:le2014distributed</code>; otherwise, leave the value for <code>Source</code> empty and put the cursor after the property declaration. Then, press <code>C-c ]</code> and select the entry from the reference list.
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<p>
-Repeat the steps above and you should end up with a list like this:
-<img src="images/emacs-reading-list.png" alt="nil"></p>
-</div>
-</div>
-<div id="outline-container-sec-4" class="outline-2">
-<h2 id="sec-4">Change the status of an entry</h2>
-<div class="outline-text-2" id="text-4">
-<p>
-To change the status of an entry:
-</p>
-<ul class="org-ul">
-<li>Navigate to the desired entry
-</li>
-<li>Repeat the steps above for setting the <code>Status</code> property and select the proper value for <code>Status</code>
-</li>
-</ul>
-</div>
-</div>
-<div id="outline-container-sec-5" class="outline-2">
-<h2 id="sec-5">Status overview</h2>
-<div class="outline-text-2" id="text-5">
-<p>
-After creating the list you may want to have an overview of the status for each entry. This can be achieved using <code>Org Column View</code>.
-The setup for column view is in the third line of the header
-</p>
-<div class="highlight"><pre><span></span><span class="c1">#+COLUMNS: %120ITEM %STATUS</span>
-</pre></div>
-<p>
-which tells org-mode how to display the entries. Namely, we're defining two columns:
-</p>
-<ol class="org-ol">
-<li>
-<b>Item</b> which will display the heading on 120 characters and
-</li>
-<li>
-<b>Status</b> which will take as much space as needed to display the status
-</li>
-</ol>
-</div>
-<div id="outline-container-sec-5-1" class="outline-3">
-<h3 id="sec-5-1">Switching to column view</h3>
-<div class="outline-text-3" id="text-5-1">
-<p>
-To switch to column view, place the cursor outside the headings and press <code>C-c C-x C-c</code> (or <code>M-x org-columns</code>). The list should look like the image below:
-<img src="images/emacs-reading-list-column-view.png" alt="nil">
-If your cursor was on a heading when pressing <code>C-c C-x C-c</code> (invoking <code>org-columns</code>) then the column view will be activated only for the selected heading.
-</p>
-</div>
-</div>
-<div id="outline-container-sec-5-2" class="outline-3">
-<h3 id="sec-5-2">Exiting column view</h3>
-<div class="outline-text-3" id="text-5-2">
-<p>
-To exit column view position the cursor on a heading that is currently in column view and press <code>q</code>.
-</p>
-
-<p>
-That's it. Happy reading!
-</p>
-</div>
-</div>
-</div>
-<div id="outline-container-sec-6" class="outline-2">
-<h2 id="sec-6">References</h2>
-<div class="outline-text-2" id="text-6">
-<ol class="org-ol">
-<li>
-<a href="https://github.com/jkitchin/org-ref/blob/master/org-ref.org#start-of-content">The org-ref manual</a>
-</li>
-<li>
-<a href="http://blog.modelworks.ch/managing-papers-with-org-mode-and-reftex/">Managing papers with Org-Mode and RefTex</a>
-</li>
-<li>
-<a href="http://orgmode.org/org.html#Defining-columns">Org Manual - Defining columns</a>
-</li>
-</ol>
-</div>
-</div>
                 </div>
             </article>
 </div>
