@@ -27,7 +27,7 @@
  </url>
  <url>
   <loc>https://rebeja.eu/archive.html</loc>
-  <lastmod>2019-09-12T15:25:00Z</lastmod>
+  <lastmod>2019-09-13T10:27:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/categories/</loc>
@@ -231,7 +231,7 @@
  </url>
  <url>
   <loc>https://rebeja.eu/index-1.html</loc>
-  <lastmod>2019-09-12T15:25:00Z</lastmod>
+  <lastmod>2019-09-13T10:28:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/posts/2018-year-in-review/</loc>
@@ -252,10 +252,6 @@
  <url>
   <loc>https://rebeja.eu/posts/declutter-the-way-of-working/</loc>
   <lastmod>2019-09-12T15:23:00Z</lastmod>
- </url>
- <url>
-  <loc>https://rebeja.eu/posts/declutter-your-way-of-working/</loc>
-  <lastmod>2019-09-07T11:46:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/posts/editing-remote-files-over-ssh-with-emacs-and-tramp-mode/</loc>
