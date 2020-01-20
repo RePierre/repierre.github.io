@@ -1,0 +1,115 @@
+#+BEGIN_COMMENT
+.. title: Building a Python IDE with Emacs and Docker
+.. slug: python-ide-with-emacs-and-docker
+.. date: 2019-11-04 16:45:45 UTC+02:00
+.. tags:
+.. category:
+.. link:
+.. description:
+.. type: text
+
+#+END_COMMENT
+* Why?
+  I am a fan of [[https://en.wikipedia.org/wiki/Windows_Subsystem_for_Linux][=Windows Subsystem for Linux=]]. It brings the power of Linux command-line tools to Windows which is something a developer cannot dislike but that isn't the main reason I'm fond of it. I like it because it allows me to run Emacs (albeit in console mode) at its full potential.
+
+  As a side-note, on my personal laptop I use Emacs on Ubuntu whereas on the work laptop I use Emacs from Cygwin. And although Cygwin does a great job in providing the powerful Linux tools on Windows, some of them are really slow compared to the native ones. An example of such a tool is =git=. I heavily use [[https://magit.vc/manual/magit][=Magit=]] for a lot of my projects but working with it in Emacs on Cygwin is a real pain. Waiting for a simple operation to finish knowing that the same operation completes instantly on Linux is exhausting. Thus, in order to avoid such unpleasant experience whenever I would need to use Magit I would use it from Emacs in =Ubuntu Bash on Windows=.
+
+  Furthermore, I use =Ubuntu Bash on Windows= to work on my Python projects simply because I can do everything within Emacs there --- from editing input files in =csv-mode=, to writing code using =elpy= with =jedi= and pushing the code to a GitHub repo using =magit=.
+
+  All was good until an update for Windows [[https://github.com/microsoft/terminal/issues/210][messed up the console output on =WSL=]] which rendered both my Python setup and Emacs unusable. And if that wasn't bad enough, I got affected by this issue before a very important deadline for one of the Python projects.
+
+  Faced with the fact that there nothing I could do at that moment to fix the console output and in desperate need for a solution, I asked myself:
+  #+begin_quote
+  Can't I create the same setup as in =WSL= using =Docker=?
+  #+end_quote
+  The answer is *Yes*. If you want to see only the final =Dockerfile=, head directly to the [[#tldr][*TL;DR*]] section. Otherwise, please read along. In any case --- thanks for reading!
+
+* Issue #1: SSHD refuses connection
+- First issue: fixed =sed= call with the code below:
+#+begin_src shell
+  RUN sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
+#+end_src
+* Issue #2: Emacs monolithic configuration file
+- All the confiugration in Emacs was inside =emacs-init.org= file.
+- Second issue: split Emacs config to allow pre/post init hooks:
+  - =(setq package-check-signature nill)= in =config.el=
+  - replace =(shell . t)= with =(sh . t)= in =common-config.el=
+  - delete extra config files from =init.el= using =sed=
+  - remove =:defer= option for Python packages using =sed=
+  - set =elpy-rpc-virtualenv-path= in =after-init.el=
+* Issue #3: Activating virtual environment inside container
+- Third issue: how to activate virtual environment
+* Issue #4: Using SSH keys to connect to GitHub
+- Fourth issue: how to use SSH keys used by =magit= to commit to GitHub
+* Issue #5: Install Emacs packages once and done
+- Fifth issue: avoid downloading packages every time container is started using =RUN emacs --daemon=
+* Issue #6: Terminal colors
+- Sixt issue: terminal colors
+* TL;DR
+  :PROPERTIES:
+  :CUSTOM_ID: tldr
+  :END:
+The Dockerfile is below:
+#+begin_src shell
+  FROM ubuntu:18.04
+
+  RUN apt-get update && apt-get install -y --no-install-recommends openssh-server tmux emacs emacs-goodies.el \
+				curl git python3 python3-pip python3-virtualenv python3-dev build-essential
+  RUN mkdir /var/run/sshd
+  RUN echo 'root:asd' | chpasswd
+  RUN sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
+
+  # SSH login fix. Otherwise user is kicked off after login
+  RUN sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd
+
+  ENV NOTVISIBLE "in users profile"
+  RUN echo "export VISIBLE=now" >> /etc/profile
+
+  # From https://pythonspeed.com/articles/activate-virtualenv-dockerfile/
+  ENV VIRTUAL_ENV=/opt/venv
+  RUN python3 -m virtualenv --python=/usr/bin/python3 $VIRTUAL_ENV
+  ENV PATH="$VIRTUAL_ENV/bin:$PATH"
+  RUN pip install --upgrade pip setuptools wheel && \
+      pip install numpy tensorflow scikit-learn gensim matplotlib pyyaml matplotlib-venn && \
+      pip install elpy jedi rope yapf importmagic flake8 autopep8 black
+
+  RUN cd /root/ && \
+      git clone https://github.com/RePierre/.emacs.d.git .emacs.d && \
+      echo "(setq package-check-signature nil)" >> ./.emacs.d/config.el && \
+      sed -i '/^.*emacs-init.*$/d' ./.emacs.d/init.el && \
+      sed -i 's/(shell . t)/(sh . t)/' ./.emacs.d/common-config.org && \
+      sed -i '/^.*org-config.*$/d' ./.emacs.d/init.el && \
+      sed -i 's/\:defer\ t//' ./.emacs.d/python-config.org && \
+      echo "(setq elpy-rpc-virtualenv-path \"$VIRTUAL_ENV\")" >> ./.emacs.d/after-init.el
+
+  # From https://stackoverflow.com/a/42125241/844006
+  ARG ssh_prv_key
+  ARG ssh_pub_key
+  # Authorize SSH Host
+  RUN mkdir -p /root/.ssh && \
+      chmod 0700 /root/.ssh && \
+      ssh-keyscan github.com > /root/.ssh/known_hosts
+
+  # Add the keys and set permissions
+  RUN echo "$ssh_prv_key" > /root/.ssh/id_rsa && \
+      echo "$ssh_pub_key" > /root/.ssh/id_rsa.pub && \
+      chmod 600 /root/.ssh/id_rsa && \
+      chmod 600 /root/.ssh/id_rsa.pub
+
+  RUN emacs --daemon
+
+  # Set terminal colors https://stackoverflow.com/a/64585/844006
+  ENV TERM=xterm-256color
+
+  EXPOSE 22
+  CMD ["/usr/sbin/sshd", "-D"]
+#+end_src
+* Conclusions
+  - It was a fun experience.
+  - I learned a big deal of stuff.
+  - I intend to push it further to Azure Container Instances.
+* References
+  1. [[https://docs.docker.com/engine/examples/running_ssh_service/][Dockerize an SSH service]]
+  2. [[https://pythonspeed.com/articles/activate-virtualenv-dockerfile/][Elegantly activating a virtualenv in a Dockerfile]]
+  3. [[https://stackoverflow.com/a/42125241/844006][SO answer on using SSH keys inside Docker container]]
+  4. [[https://stackoverflow.com/a/64585/844006][Setting terminal colors in Emacs]]
