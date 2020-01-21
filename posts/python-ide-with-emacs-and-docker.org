@@ -25,7 +25,14 @@
   Can't I create the same setup as in =WSL= using =Docker=?
   #+end_quote
   The answer is *Yes*. If you want to see only the final =Dockerfile=, head directly to the [[#tldr][*TL;DR*]] section. Otherwise, please read along. In any case --- thanks for reading!
+* How
+  Since I already have been using Emacs as a Python IDE in Ubuntu Bash, replicating this setup in Docker would imply:
+  1. Providing remote access via =ssh= to the container and
+  2. Installing the same packages for both the OS and Emacs.
 
+  I already knew more or less how to do the later (or so I thought) so obviously I started with the former: ssh access to a Docker container.
+
+  Luckily, Docker already has an [[https://docs.docker.com/engine/examples/running_ssh_service/][example of running =ssh= service]] so I started with the Dockerfile provided there. I copied the instructions into a local Dockerfile, built the image and ran the container. But when I tried to connect to the container I ran into the first issue addressed in this post:
 * Issue #1: SSHD refuses connection
 - First issue: fixed =sed= call with the code below:
 #+begin_src shell
