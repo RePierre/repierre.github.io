@@ -11,6 +11,7 @@
 #+END_COMMENT
 * Tasks                                                            :noexport:
 ** TODO Remove inline code --- it looks ugly
+** TODO Add image at the end of motivation section
 * Why?
   I am a fan of [[https://en.wikipedia.org/wiki/Windows_Subsystem_for_Linux][=Windows Subsystem for Linux=]]. It brings the power of Linux command-line tools to Windows which is something a developer cannot dislike but that isn't the main reason I'm fond of it. I like it because it allows me to run Emacs (albeit in console mode) at its full potential.
 
