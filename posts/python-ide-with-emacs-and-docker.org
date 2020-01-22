@@ -34,10 +34,12 @@
 
   Luckily, Docker already has an [[https://docs.docker.com/engine/examples/running_ssh_service/][example of running =ssh= service]] so I started with the Dockerfile provided there. I copied the instructions into a local Dockerfile, built the image and ran the container. But when I tried to connect to the container I ran into the first issue addressed in this post:
 * Issue #1: SSHD refuses connection
-- First issue: fixed =sed= call with the code below:
-#+begin_src shell
-  RUN sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
-#+end_src
+  This one was easy --- there's a typo in the example provided by Docker. I figured it out after inspecting the contents of =sshd_config= file and noticing that the line that needed to be replaced with =sed= was commented-out.
+
+  The fix for this is to include the =#= in the call to =sed= as below:
+  #+begin_src shell
+    RUN sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
+  #+end_src
 * Issue #2: Emacs monolithic configuration file
 - All the confiugration in Emacs was inside =emacs-init.org= file.
 - Second issue: split Emacs config to allow pre/post init hooks:
