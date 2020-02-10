@@ -36,13 +36,49 @@
 
   Luckily, Docker already has an [[https://docs.docker.com/engine/examples/running_ssh_service/][example of running =ssh= service]] so I started with the Dockerfile provided there. I copied the instructions into a local Dockerfile, built the image and ran the container. But when I tried to connect to the container I ran into the first issue addressed in this post:
 * Issue #1: SSHD refuses connection
-  This one was easy --- there's a typo in the example provided by Docker. I figured it out after inspecting the contents of =sshd_config= file and noticing that the line that needed to be replaced with =sed= was commented-out.
+  This one was easy --- there's a typo in the example provided by Docker. I figured it out after inspecting the contents of =sshd_config= file.
+
+  After a while I noticed that the line containing =PermitRootlogin= was commented-out and thus =sed= wasn't able to match the pattern and failed to replace the permission.
+
+  Since I was connecting as =root= the =sshd= refused connection.
 
   The fix for this is to include the =#= in the call to =sed= as below:
   #+begin_src shell
     RUN sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
   #+end_src
-* Issue #2: Emacs monolithic configuration file
+
+  Having done the change, I rebuilt the image and started the container. As the tutorial mentioned, I ran in console =docker port <container-name> 22=. This command gave me the port on which to connect so I ran =ssh root@localhost -p <port>=. Success.
+* Issue #2: Activating virtual environment inside container
+  The second item of my quest was to setup and activate a Python virtual environment. This environment will be used to install all the dependencies required for the project I'm working on.
+
+  Also, this environment will be used by Emacs and elpy to provide the features of an IDE.
+
+  A this point I asked myself whether do I actually need a virtual environment? The Ubuntu Docker image comes with Python preinstalled so why not install the dependencies system-wide? After all, Docker containers and images are somewhat disposable --- I can alwasy recreate the image and start a new container for another project.
+
+  I decided I /need/ a virtual environment because otherwise things would get messy and I like well organized stuff.
+
+  So I started looking out how to setup and activate a virtual environment inside a Docker container. And by looking up I mean googling it or, in my case --- googling it with Bing.
+
+  I got lucky since one of the first results was the article that led to my solution: [[https://pythonspeed.com/articles/activate-virtualenv-dockerfile/][Elegantly activating a virtualenv in a Dockerfile]]. It has a great explanation of what needs to be done and what's going under the hood when activating a virtual environment.
+
+  The changes pertaining to my config are the following:
+  #+begin_src shell
+    ENV VIRTUAL_ENV=/opt/venv
+    RUN python3 -m virtualenv --python=/usr/bin/python3 $VIRTUAL_ENV
+    ENV PATH="$VIRTUAL_ENV/bin:$PATH"
+    RUN pip install --upgrade pip setuptools wheel && \
+	pip install numpy tensorflow scikit-learn gensim matplotlib pyyaml matplotlib-venn && \
+	pip install elpy jedi rope yapf importmagic flake8 autopep8 black
+  #+end_src
+
+  As described in the article linked above, activating a Python virtual environment in its essence is just setting some environment variables.
+
+  What the solution above does is to define where the virtual environment will be created and store it into the =VIRTUAL_ENV= variable. Next, create the environment at the specified path using =python3 -m virtualenv $VIRTUAL_ENV=. The =--python=/usr/bin/python3= argument just makes sure that the python interpreter to use is indeed =python3=.
+
+  Activating the virtual environment means just prepending its =bin= directory to the =PATH= variable: ~ENV PATH="$VIRTUAL_ENV/bin:$PATH"~.
+
+  Afterwards, just install the required packages as usual.
+* Issue #3: Emacs monolithic configuration file
 - All the confiugration in Emacs was inside =emacs-init.org= file.
 - Second issue: split Emacs config to allow pre/post init hooks:
   - =(setq package-check-signature nill)= in =config.el=
@@ -50,8 +86,6 @@
   - delete extra config files from =init.el= using =sed=
   - remove =:defer= option for Python packages using =sed=
   - set =elpy-rpc-virtualenv-path= in =after-init.el=
-* Issue #3: Activating virtual environment inside container
-- Third issue: how to activate virtual environment
 * Issue #4: Using SSH keys to connect to GitHub
 - Fourth issue: how to use SSH keys used by =magit= to commit to GitHub
 * Issue #5: Install Emacs packages once and done
