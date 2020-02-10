@@ -155,6 +155,7 @@ The Dockerfile is below:
   - It was a fun experience.
   - I learned a big deal of stuff.
   - I intend to push it further to Azure Container Instances.
+  - I will try to use this as the default setup for future projects.
 * References
   1. [[https://docs.docker.com/engine/examples/running_ssh_service/][Dockerize an SSH service]]
   2. [[https://pythonspeed.com/articles/activate-virtualenv-dockerfile/][Elegantly activating a virtualenv in a Dockerfile]]
