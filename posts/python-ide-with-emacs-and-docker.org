@@ -12,6 +12,7 @@
 * Tasks                                                            :noexport:
 ** TODO Remove inline code --- it looks ugly
 ** TODO Add image at the end of motivation section
+** TODO Rework motivation section --- write about the need for the IDE
 * Why?
   I am a fan of [[https://en.wikipedia.org/wiki/Windows_Subsystem_for_Linux][=Windows Subsystem for Linux=]]. It brings the power of Linux command-line tools to Windows which is something a developer cannot dislike but that isn't the main reason I'm fond of it. I like it because it allows me to run Emacs (albeit in console mode) at its full potential.
 
@@ -19,7 +20,7 @@
 
   Furthermore, I use =Ubuntu Bash on Windows= to work on my Python projects simply because I can do everything within Emacs there --- from editing input files in =csv-mode=, to writing code using =elpy= with =jedi= and pushing the code to a GitHub repo using =magit=.
 
-  All was good until an update for Windows [[https://github.com/microsoft/terminal/issues/210][messed up the console output on =WSL=]] which rendered both my Python setup and Emacs unusable. And if that wasn't bad enough, I got affected by this issue before a very important deadline for one of the Python projects.
+  All was good until an update for Windows [[https://github.com/microsoft/terminal/issues/210][messed up the console output on =WSL=]] which rendered both my Python setup and Emacs unusable. And if that wasn't bad enough, I got affected by this issue before a verry important deadline for one of the Python projects.
 
   Faced with the fact that there nothing I could do at that moment to fix the console output and in desperate need for a solution, I asked myself:
   #+begin_quote
