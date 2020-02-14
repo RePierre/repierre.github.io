@@ -100,8 +100,10 @@ The Dockerfile is below:
 #+begin_src shell
   FROM ubuntu:18.04
 
-  RUN apt-get update && apt-get install -y --no-install-recommends openssh-server tmux emacs emacs-goodies.el \
-				curl git python3 python3-pip python3-virtualenv python3-dev build-essential
+  RUN apt-get update && \
+      apt-get install -y --no-install-recommends openssh-server tmux \
+	      emacs emacs-goodies.el curl git \
+	      python3 python3-pip python3-virtualenv python3-dev build-essential
   RUN mkdir /var/run/sshd
   RUN echo 'root:asd' | chpasswd
   RUN sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
