@@ -79,13 +79,87 @@
 
   Afterwards, just install the required packages as usual.
 * Issue #3: Emacs monolithic configuration file
-- All the confiugration in Emacs was inside =emacs-init.org= file.
-- Second issue: split Emacs config to allow pre/post init hooks:
-  - =(setq package-check-signature nill)= in =config.el=
-  - replace =(shell . t)= with =(sh . t)= in =common-config.el=
-  - delete extra config files from =init.el= using =sed=
-  - remove =:defer= option for Python packages using =sed=
-  - set =elpy-rpc-virtualenv-path= in =after-init.el=
+  After setting up and activating the virtual environment, I needed to configure Emacs for python development to start working.
+
+  Luckily, I have my Emacs (semi-literate) config script in a [[https://github.com/repierre/.emacs.d][GitHub repository]] and all I need to do is jut clone the repo locally and everything should work. Or so I tought.
+
+  I cloned the repository containing my config, which at that time was just a single file =emacs-init.org= bootstrapped by =init.el=, logged into the container and started Emacs.
+
+  After waiting for all the packages to install I was greeted by a plethora of errors and warnings: some packages were failing to install due to being incompatible with the Emacs version installed in the container, some weren't properly configured to run in console and so on and so forth.
+
+  Not willing to spend a lot of time on this (I had a deadline after all) I decided to take a shortcut: why don't I just split the configuration file such that I would be able to only activate packages related to Python development? After all, the sole purpose of this image is to have a setup where I can do some Python development the way I'm used to. Fortunately, this proved to be a good decision.
+
+  So I split my =emacs-init.org= file into four files: one file for tweaks and packages that I want to have everywhere, one file for =org-mode= related stuff, one file for Python development and lastly one file for tweaks and packages that I would like when I'm using Emacs GUI. The =init.el= file looked like this:
+#+begin_src emacs-lisp
+  (require 'package)
+
+  (package-initialize)
+
+  (org-babel-load-file (expand-file-name "~/.emacs.d/common-config.org"))
+  (org-babel-load-file (expand-file-name "~/.emacs.d/python-config.org"))
+  (org-babel-load-file (expand-file-name "~/.emacs.d/org-config.org"))
+  (org-babel-load-file (expand-file-name "~/.emacs.d/emacs-init.org"))
+#+end_src
+
+  Now I can use =sed= on the =init.el= file to delete the lines that were loading troublesome packages:
+#+begin_src shell
+  sed -i '/^.*emacs-init.*$/d' ./.emacs.d/init.el && \
+  sed -i '/^.*org-config.*$/d' ./.emacs.d/init.el
+#+end_src
+
+  After starting a container from the new image I started getting some odd errors about failing to verify package signature. Again, googling the error message with Bing got me a quick-fix: [[https://emacs.stackexchange.com/a/53142/14110][=(setq package-check-signature nil)=]]. This fix is actually a security risk but since it would be applied to an isolated environment I didn't bother looking for a better way.
+
+  However, another problem arose --- how can I apply this fix without committing it to the GitHub repository?
+
+  Looking back at how I used =sed= to remove some lines from =init.el= file one of the first ideas that popped into my head was to replace an empty line from =init.el= with the quick-fix, but after giving it some more thought I decided to use a more general solution that involves a little bit of (over) engineering.
+
+  Since I'm insterested in altering Emacs behavior before installing packages it would be good to have a way to inject more Lisp code than a single line. Furthermore, in cases where such code consists of multiple lines I could just add it using Dockers' =ADD= command instead of turing into a maintenance nightmare with multiple =sed= calls.
+
+  Don't get me wrong: =sed= is great but I prefer to have large chunks of code in a separate file without the added complexity of them being intertwined with =sed= calls.
+
+  The solution to this problem is quite simple: before loading configuration files, check if a specific file exists; in my case it would be =config.el= (not a descriptive name, I know) located in =.emacs.d= directory. If file exists load it. Afterwards load the known configuration files. And since we're doing this, why not do the same for after loading the known configuration files?
+
+  Thus, the resulting =init.el= looks like this (I promise to fix those names sometimes):
+  #+begin_src emacs-lisp
+    (require 'package)
+
+    (package-initialize)
+
+    (let ((file-name (expand-file-name "config.el" user-emacs-directory)))
+      (if (file-exists-p file-name)
+	  (load-file file-name)))
+
+    (org-babel-load-file (expand-file-name "~/.emacs.d/common-config.org"))
+    (org-babel-load-file (expand-file-name "~/.emacs.d/python-config.org"))
+    (org-babel-load-file (expand-file-name "~/.emacs.d/org-config.org"))
+    (org-babel-load-file (expand-file-name "~/.emacs.d/emacs-init.org"))
+
+    (let ((file-name (expand-file-name "after-init.el" user-emacs-directory)))
+      (if (file-exists-p file-name)
+	  (load-file file-name)))
+  #+end_src
+
+  Now I just need to create the file and apply the fix:
+#+begin_src shell
+  echo "(setq package-check-signature nil)" >> ./.emacs.d/config.el
+#+end_src
+  And since I can run custom code after loading the known configuration files I can set =elpy-rpc-virtualenv-path= variable in the same way:
+#+begin_src shell
+  echo "(setq elpy-rpc-virtualenv-path \"$VIRTUAL_ENV\")" >> ./.emacs.d/after-init.el
+#+end_src
+
+The Dockerfile code for this section is below:
+#+begin_src shell
+  RUN cd /root/ && \
+      git clone https://github.com/RePierre/.emacs.d.git .emacs.d && \
+      echo "(setq package-check-signature nil)" >> ./.emacs.d/config.el && \
+      sed -i '/^.*emacs-init.*$/d' ./.emacs.d/init.el && \
+      sed -i 's/(shell . t)/(sh . t)/' ./.emacs.d/common-config.org && \
+      sed -i '/^.*org-config.*$/d' ./.emacs.d/init.el && \
+      sed -i 's/\:defer\ t//' ./.emacs.d/python-config.org && \
+      echo "(setq elpy-rpc-virtualenv-path \"$VIRTUAL_ENV\")" >> ./.emacs.d/after-init.el
+#+end_src
+It does one more thing not mentioned previously: a =sed= call to remove lazy loading of packages from =python-config.org= file.
 * Issue #4: Using SSH keys to connect to GitHub
 - Fourth issue: how to use SSH keys used by =magit= to commit to GitHub
 * Issue #5: Install Emacs packages once and done
