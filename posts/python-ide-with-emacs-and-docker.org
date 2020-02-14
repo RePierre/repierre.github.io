@@ -161,7 +161,33 @@ The Dockerfile code for this section is below:
 #+end_src
 It does one more thing not mentioned previously: a =sed= call to remove lazy loading of packages from =python-config.org= file.
 * Issue #4: Using SSH keys to connect to GitHub
-- Fourth issue: how to use SSH keys used by =magit= to commit to GitHub
+  Now that I have Emacs running on Ubuntu (albeit terminal only) I can enjoy a smooth workflow without having to wait too much for +an application+ Magit to finish.
+
+  But there's an issue --- although the repository I'm working on is mounted as a separate volume in Docker container which makes Magit read all required info (like user name etc.) directly from the repository, I cannot push changes to GitHub because I'm not authorized.
+
+  To authorize the current container to push to GitHub I need to generate a pair of keys for the SSH authenthication on GitHub.
+
+  However this can become, again, a maintenance chore: for each new container I need to create the keys, add them to my GitHub account and *remember to delete them when I'm finished with the container*.
+
+  Instead, I decided to reuse the keys I already added to my GitHub account; the image I'm building will not leave my computer so there's no risk of someone getting ahold of my keys.
+
+  I found how to do so easily: there's a StackOverflow [[https://stackoverflow.com/a/42125241/844006][answer]] for that. Summing it up is that you need to declare two build arguments that will hold the values for the private and public keys and write the values to their respective files. Of course, this implies creating the proper directories and assigning proper rights to the files. As an added bonus, the [[https://stackoverflow.com/a/42125241/844006][answer]] shows a way to add GitHub to the known hosts.  This is how it looks in the Dockerfile:
+  #+begin_src shell
+      ARG ssh_prv_key
+      ARG ssh_pub_key
+
+      RUN mkdir -p /root/.ssh && \
+	  chmod 0700 /root/.ssh && \
+	  ssh-keyscan github.com > /root/.ssh/known_hosts
+  #+end_src
+
+  To provide the values for the keys use =--build-arg= parameter when building your image like this:
+  #+begin_src shell
+    docker build -t <image-tag> \
+	   --build-arg ssh_prv_key="$(cat ~/.ssh/id_rsa)" \
+	   --build-arg ssh_pub_key="$(cat ~/.ssh/id_rsa.pub)" \
+	   .
+  #+end_src
 * Issue #5: Install Emacs packages once and done
 - Fifth issue: avoid downloading packages every time container is started using =RUN emacs --daemon=
 * Issue #6: Terminal colors
