@@ -189,7 +189,19 @@ It does one more thing not mentioned previously: a =sed= call to remove lazy loa
 	   .
   #+end_src
 * Issue #5: Install Emacs packages once and done
-- Fifth issue: avoid downloading packages every time container is started using =RUN emacs --daemon=
+  After another build of the Docker image I started a container from it, logged in via ssh into the container, started Emacs and noticed yet another issue.
+
+  The problem was that at each start of the container I had to wait for Emacs to download and install all the packages from the configuration files which, as you can guess may take a while.
+
+  Since looking-up the answer on the Web did not return any meaningful results I started refining my question to the point where I came-up with the answer. Basically, when after several failed attempts I started typing in the search bar =how to load Emacs packages in background= I remembered reading somewhere that Emacs can be used in a client-server setup where the server runs in background.
+
+  This is a feature of Emacs called [[https://www.emacswiki.org/emacs/EmacsAsDaemon][daemon mode]]. I have never used it myself but went on a whim and decided to try it just to see what would happen.
+
+  So I changed my =Dockerfile= to start Emacs as a daemon:
+  #+begin_src shell
+    RUN emacs --daemon
+  #+end_src
+  And to my great surprise, when rebuilding the image I saw the output of Emacs packages being downloaded and installed.
 * Issue #6: Terminal colors
 - Sixt issue: terminal colors
 * TL;DR
