@@ -203,12 +203,21 @@ It does one more thing not mentioned previously: a =sed= call to remove lazy loa
   #+end_src
   And to my great surprise, when rebuilding the image I saw the output of Emacs packages being downloaded and installed.
 * Issue #6: Terminal colors
-- Sixt issue: terminal colors
+  Being confident that everything should work now (it's the same setup I had on WSL) I started a new container to which I mounted the GitHub repo as a volume and got cracking.
+
+  Everything went swell until I decided to commit the changes and invoked =magit-status=. Then I got a real eyesore: the colors of the text in the status buffer were making it really hard to understand what changed and where.
+
+  At this point I just rage-quit and started looking for an answer. Fortunately, the right [[https://stackoverflow.com/a/64585/844006][StackOverflow answer]] popped up quickly and I applied the fix which just sets the =TERM= environment variable:
+  #+begin_src sh
+    ENV TERM=xterm-256color
+  #+end_src
+
+  And only after this, I was able to fully benefit from having the Python IDE I'm used to on a native platform.
 * TL;DR
   :PROPERTIES:
   :CUSTOM_ID: tldr
   :END:
-The Dockerfile is below:
+The full Dockerfile is below:
 #+begin_src shell
   FROM ubuntu:18.04
 
