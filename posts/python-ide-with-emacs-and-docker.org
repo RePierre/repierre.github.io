@@ -9,11 +9,7 @@
 .. type: text
 
 #+END_COMMENT
-* Tasks                                                            :noexport:
-** TODO Remove inline code --- it looks ugly
-** TODO Add image at the end of motivation section
-** TODO Rework motivation section --- write about the need for the IDE
-* Why?
+* Prologue
   I am a fan of [[https://en.wikipedia.org/wiki/Windows_Subsystem_for_Linux][=Windows Subsystem for Linux=]]. It brings the power of Linux command-line tools to Windows which is something a developer cannot dislike but that isn't the main reason I'm fond of it. I like it because it allows me to run Emacs (albeit in console mode) at its full potential.
 
   As a side-note, on my personal laptop I use Emacs on Ubuntu whereas on the work laptop I use Emacs from Cygwin. And although Cygwin does a great job in providing the powerful Linux tools on Windows, some of them are really slow compared to the native ones. An example of such a tool is =git=. I heavily use [[https://magit.vc/manual/magit][=Magit=]] for a lot of my projects but working with it in Emacs on Cygwin is a real pain. Waiting for a simple operation to finish knowing that the same operation completes instantly on Linux is exhausting. Thus, in order to avoid such unpleasant experience whenever I would need to use Magit I would use it from Emacs in =Ubuntu Bash on Windows=.
@@ -43,17 +39,19 @@
   Since I was connecting as =root= the =sshd= refused connection.
 
   The fix for this is to include the =#= in the call to =sed= as below:
-  #+begin_src shell
+  #+begin_src sh
     RUN sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
   #+end_src
 
-  Having done the change, I rebuilt the image and started the container. As the tutorial mentioned, I ran in console =docker port <container-name> 22=. This command gave me the port on which to connect so I ran =ssh root@localhost -p <port>=. Success.
+  Having done the change, I rebuilt the image and started the container. As the tutorial mentioned, I ran in console =docker port <container-name> 22=. This command gave me the port on which to connect so I ran =ssh root@localhost -p <port>=.
+
+  Success.
 * Issue #2: Activating virtual environment inside container
   The second item of my quest was to setup and activate a Python virtual environment. This environment will be used to install all the dependencies required for the project I'm working on.
 
-  Also, this environment will be used by Emacs and elpy to provide the features of an IDE.
+  Also, this environment will be used by Emacs and =elpy= to provide the features of an IDE.
 
-  A this point I asked myself whether do I actually need a virtual environment? The Ubuntu Docker image comes with Python preinstalled so why not install the dependencies system-wide? After all, Docker containers and images are somewhat disposable --- I can alwasy recreate the image and start a new container for another project.
+  A this point I asked myself: do I actually need a virtual environment? The Ubuntu Docker image comes with Python preinstalled so why not install the dependencies system-wide? After all, Docker containers and images are somewhat disposable --- I can alwasy recreate the image and start a new container for another project.
 
   I decided I /need/ a virtual environment because otherwise things would get messy and I like well organized stuff.
 
@@ -62,7 +60,7 @@
   I got lucky since one of the first results was the article that led to my solution: [[https://pythonspeed.com/articles/activate-virtualenv-dockerfile/][Elegantly activating a virtualenv in a Dockerfile]]. It has a great explanation of what needs to be done and what's going under the hood when activating a virtual environment.
 
   The changes pertaining to my config are the following:
-  #+begin_src shell
+  #+begin_src sh
     ENV VIRTUAL_ENV=/opt/venv
     RUN python3 -m virtualenv --python=/usr/bin/python3 $VIRTUAL_ENV
     ENV PATH="$VIRTUAL_ENV/bin:$PATH"
@@ -102,7 +100,7 @@
 #+end_src
 
   Now I can use =sed= on the =init.el= file to delete the lines that were loading troublesome packages:
-#+begin_src shell
+#+begin_src sh
   sed -i '/^.*emacs-init.*$/d' ./.emacs.d/init.el && \
   sed -i '/^.*org-config.*$/d' ./.emacs.d/init.el
 #+end_src
@@ -140,11 +138,11 @@
   #+end_src
 
   Now I just need to create the file and apply the fix:
-#+begin_src shell
+#+begin_src sh
   echo "(setq package-check-signature nil)" >> ./.emacs.d/config.el
 #+end_src
   And since I can run custom code after loading the known configuration files I can set =elpy-rpc-virtualenv-path= variable in the same way:
-#+begin_src shell
+#+begin_src sh
   echo "(setq elpy-rpc-virtualenv-path \"$VIRTUAL_ENV\")" >> ./.emacs.d/after-init.el
 #+end_src
 
@@ -161,28 +159,26 @@ The Dockerfile code for this section is below:
 #+end_src
 It does one more thing not mentioned previously: a =sed= call to remove lazy loading of packages from =python-config.org= file.
 * Issue #4: Using SSH keys to connect to GitHub
-  Now that I have Emacs running on Ubuntu (albeit terminal only) I can enjoy a smooth workflow without having to wait too much for +an application+ Magit to finish.
+  Now that I have Emacs running on Ubuntu (albeit terminal only) I can enjoy a smooth workflow without having to wait too much for Magit or other application that took forever on Cygwin to finish.
 
-  But there's an issue --- although the repository I'm working on is mounted as a separate volume in Docker container which makes Magit read all required info (like user name etc.) directly from the repository, I cannot push changes to GitHub because I'm not authorized.
+  But there's an issue. I mount the repository I'm working on as a separate volume in the Docker container which allows =Magit= to read all required info (like user name etc.) directly from the repository. However, I cannot push changes to GitHub because I'm not authorized.
 
-  To authorize the current container to push to GitHub I need to generate a pair of keys for the SSH authenthication on GitHub.
+  To authorize the current container to push to GitHub I need to generate a pair of keys for the SSH authenthication on GitHub. But this can become, again, a maintenance chore: for each new container I need to create the keys, add them to my GitHub account and *remember to delete them when I'm finished with the container*.
 
-  However this can become, again, a maintenance chore: for each new container I need to create the keys, add them to my GitHub account and *remember to delete them when I'm finished with the container*.
-
-  Instead, I decided to reuse the keys I already added to my GitHub account; the image I'm building will not leave my computer so there's no risk of someone getting ahold of my keys.
+  Instead of generating new keys each time, I decided to reuse the keys I already added to my GitHub account; the image I'm building will not leave my computer so there's no risk of someone getting ahold of my keys.
 
   I found how to do so easily: there's a StackOverflow [[https://stackoverflow.com/a/42125241/844006][answer]] for that. Summing it up is that you need to declare two build arguments that will hold the values for the private and public keys and write the values to their respective files. Of course, this implies creating the proper directories and assigning proper rights to the files. As an added bonus, the [[https://stackoverflow.com/a/42125241/844006][answer]] shows a way to add GitHub to the known hosts.  This is how it looks in the Dockerfile:
-  #+begin_src shell
-      ARG ssh_prv_key
-      ARG ssh_pub_key
+  #+begin_src sh
+    ARG ssh_prv_key
+    ARG ssh_pub_key
 
-      RUN mkdir -p /root/.ssh && \
-	  chmod 0700 /root/.ssh && \
-	  ssh-keyscan github.com > /root/.ssh/known_hosts
+    RUN mkdir -p /root/.ssh && \
+	chmod 0700 /root/.ssh && \
+	ssh-keyscan github.com > /root/.ssh/known_hosts
   #+end_src
 
   To provide the values for the keys use =--build-arg= parameter when building your image like this:
-  #+begin_src shell
+  #+begin_src sh
     docker build -t <image-tag> \
 	   --build-arg ssh_prv_key="$(cat ~/.ssh/id_rsa)" \
 	   --build-arg ssh_pub_key="$(cat ~/.ssh/id_rsa.pub)" \
@@ -198,12 +194,12 @@ It does one more thing not mentioned previously: a =sed= call to remove lazy loa
   This is a feature of Emacs called [[https://www.emacswiki.org/emacs/EmacsAsDaemon][daemon mode]]. I have never used it myself but went on a whim and decided to try it just to see what would happen.
 
   So I changed my =Dockerfile= to start Emacs as a daemon:
-  #+begin_src shell
+  #+begin_src sh
     RUN emacs --daemon
   #+end_src
   And to my great surprise, when rebuilding the image I saw the output of Emacs packages being downloaded and installed.
 * Issue #6: Terminal colors
-  Being confident that everything should work now (it's the same setup I had on WSL) I started a new container to which I mounted the GitHub repo as a volume and got cracking.
+  Being confident that everything should work now (it's the same setup I had on =WSL=) I started a new container to which I mounted the GitHub repo as a volume and got cracking.
 
   Everything went swell until I decided to commit the changes and invoked =magit-status=. Then I got a real eyesore: the colors of the text in the status buffer were making it really hard to understand what changed and where.
 
@@ -218,7 +214,7 @@ It does one more thing not mentioned previously: a =sed= call to remove lazy loa
   :CUSTOM_ID: tldr
   :END:
 The full Dockerfile described in this post is below:
-#+begin_src shell
+#+begin_src sh
   FROM ubuntu:18.04
 
   RUN apt-get update && \
@@ -226,7 +222,7 @@ The full Dockerfile described in this post is below:
 	      emacs emacs-goodies.el curl git \
 	      python3 python3-pip python3-virtualenv python3-dev build-essential
   RUN mkdir /var/run/sshd
-  RUN echo 'root:asd' | chpasswd
+  RUN echo 'root:Docker!' | chpasswd
   RUN sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
 
   # SSH login fix. Otherwise user is kicked off after login
@@ -274,13 +270,12 @@ The full Dockerfile described in this post is below:
   EXPOSE 22
   CMD ["/usr/sbin/sshd", "-D"]
 #+end_src
-* (In lieu of) Conclusions
-  Looking back at this sort of quest of mine, I have nothing else to say than it was a fun experience.
+* Epilogue
+  Looking back at this sort of quest of mine, I have nothing else to say than it was, overall, a fun experience.
 
-  Sure, it also has some additional benefits that are important in my day-to-day life as a developer: I got a bit more experience in building =Docker= images and I /got to learn a big deal of stuff/.
-  It is also worth noting that this setup did help me a lot in meeting the deadline, a fact which by itself states how much of an improvement this setup is (also taking in consideration the time I've spent to make it work).
+  Sure, it also has some additional benefits that are important in my day-to-day life as a developer: I got a bit more experience in building =Docker= images and I /got to learn a big deal of stuff/. It is also worth noting that this setup did help me a lot in meeting the deadline, a fact which by itself states how much of an improvement this setup is (also taking in consideration the time I've spent to make it work).
 
-  But the bottom line is that it was a great deal of fun involved which luckily resulted in a new tool in my shed --- while working on this post, I used this setup as the default setup for all new experiments and I will probably use it for future projects as well.
+  But the bottom line is that it was a great deal of fun involved which luckily resulted in a new tool in my shed --- while working on this post, I used this setup as the default for all new Python experiments and I will probably use it for future projects as well.
 * References
   1. [[https://docs.docker.com/engine/examples/running_ssh_service/][Dockerize an SSH service]]
   2. [[https://pythonspeed.com/articles/activate-virtualenv-dockerfile/][Elegantly activating a virtualenv in a Dockerfile]]
