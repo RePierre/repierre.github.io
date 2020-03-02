@@ -217,7 +217,7 @@ It does one more thing not mentioned previously: a =sed= call to remove lazy loa
   :PROPERTIES:
   :CUSTOM_ID: tldr
   :END:
-The full Dockerfile is below:
+The full Dockerfile described in this post is below:
 #+begin_src shell
   FROM ubuntu:18.04
 
@@ -274,11 +274,13 @@ The full Dockerfile is below:
   EXPOSE 22
   CMD ["/usr/sbin/sshd", "-D"]
 #+end_src
-* Conclusions
-  - It was a fun experience.
-  - I learned a big deal of stuff.
-  - I intend to push it further to Azure Container Instances.
-  - I will try to use this as the default setup for future projects.
+* (In lieu of) Conclusions
+  Looking back at this sort of quest of mine, I have nothing else to say than it was a fun experience.
+
+  Sure, it also has some additional benefits that are important in my day-to-day life as a developer: I got a bit more experience in building =Docker= images and I /got to learn a big deal of stuff/.
+  It is also worth noting that this setup did help me a lot in meeting the deadline, a fact which by itself states how much of an improvement this setup is (also taking in consideration the time I've spent to make it work).
+
+  But the bottom line is that it was a great deal of fun involved which luckily resulted in a new tool in my shed --- while working on this post, I used this setup as the default setup for all new experiments and I will probably use it for future projects as well.
 * References
   1. [[https://docs.docker.com/engine/examples/running_ssh_service/][Dockerize an SSH service]]
   2. [[https://pythonspeed.com/articles/activate-virtualenv-dockerfile/][Elegantly activating a virtualenv in a Dockerfile]]
