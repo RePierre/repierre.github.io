@@ -46,6 +46,20 @@
   Having done the change, I rebuilt the image and started the container. As the tutorial mentioned, I ran in console =docker port <container-name> 22=. This command gave me the port on which to connect so I ran =ssh root@localhost -p <port>=.
 
   Success.
+
+  Even though the =sshd= was running and accepting connections, the fact that the root password was hardcoded in plain text /really/ bothered me so I made a small tweak to the =Dockerfile=:
+  #+begin_src sh
+    ARG password
+
+    RUN echo "root:${password}" | chpasswd
+  #+end_src
+  What this does is it declares a variable =password= whose value is supplied when building the image like this:
+  #+begin_src sh
+    docker build -t <image-tag> \
+	   --build-arg password=<your-password-here> \
+	   .
+  #+end_src
+  This way, the root password isn't stored in clear text and in plain-sight anymore. Now I was ready to move to the next step.
 * Issue #2: Activating virtual environment inside container
   The second item of my quest was to setup and activate a Python virtual environment. This environment will be used to install all the dependencies required for the project I'm working on.
 
@@ -221,8 +235,11 @@ The full Dockerfile described in this post is below:
       apt-get install -y --no-install-recommends openssh-server tmux \
 	      emacs emacs-goodies.el curl git \
 	      python3 python3-pip python3-virtualenv python3-dev build-essential
+
+  ARG password
+
   RUN mkdir /var/run/sshd
-  RUN echo 'root:Docker!' | chpasswd
+  RUN echo "root:${password}" | chpasswd
   RUN sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
 
   # SSH login fix. Otherwise user is kicked off after login
@@ -269,6 +286,14 @@ The full Dockerfile described in this post is below:
 
   EXPOSE 22
   CMD ["/usr/sbin/sshd", "-D"]
+#+end_src
+To build the image use this command:
+#+begin_src sh
+  docker build -t <image-tag> \
+	 --build-arg ssh_prv_key="$(cat ~/.ssh/id_rsa)" \
+	 --build-arg ssh_pub_key="$(cat ~/.ssh/id_rsa.pub)" \
+	 --build-arg password=<your-password-here> \
+	 .
 #+end_src
 * Epilogue
   Looking back at this sort of quest of mine, I have nothing else to say than it was, overall, a fun experience.
