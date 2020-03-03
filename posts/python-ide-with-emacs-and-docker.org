@@ -14,7 +14,7 @@
 
   As a side-note, on my personal laptop I use Emacs on Ubuntu whereas on the work laptop I use Emacs from Cygwin. And although Cygwin does a great job in providing the powerful Linux tools on Windows, some of them are really slow compared to the native ones. An example of such a tool is =git=. I heavily use [[https://magit.vc/manual/magit][=Magit=]] for a lot of my projects but working with it in Emacs on Cygwin is a real pain. Waiting for a simple operation to finish knowing that the same operation completes instantly on Linux is exhausting. Thus, in order to avoid such unpleasant experience whenever I would need to use Magit I would use it from Emacs in =Ubuntu Bash on Windows=.
 
-  Furthermore, I use =Ubuntu Bash on Windows= to work on my Python projects simply because I can do everything within Emacs there --- from editing input files in =csv-mode=, to writing code using =elpy= with =jedi= and pushing the code to a GitHub repo using =magit=.
+  Furthermore, I use =Ubuntu Bash on Windows= to work on my Python projects simply because I can do everything from within Emacs there --- from editing input files in =csv-mode=, to writing code using =elpy= with =jedi= and pushing the code to a GitHub repo using =magit=.
 
   All was good until an update for Windows [[https://github.com/microsoft/terminal/issues/210][messed up the console output on =WSL=]] which rendered both my Python setup and Emacs unusable. And if that wasn't bad enough, I got affected by this issue before a verry important deadline for one of the Python projects.
 
