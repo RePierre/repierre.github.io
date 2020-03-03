@@ -1,0 +1,308 @@
+#+BEGIN_COMMENT
+.. title: Building a Python IDE with Emacs and Docker
+.. slug: python-ide-with-emacs-and-docker
+.. date: 2020-03-03 07:19:45 UTC+02:00
+.. tags: Python, IDE, Emacs, Docker, Dockerfile, ssh
+.. category: Emacs
+.. link:
+.. description:
+.. type: text
+
+#+END_COMMENT
+* Prologue
+  I am a fan of [[https://en.wikipedia.org/wiki/Windows_Subsystem_for_Linux][=Windows Subsystem for Linux=]]. It brings the power of Linux command-line tools to Windows which is something a developer cannot dislike but that isn't the main reason I'm fond of it. I like it because it allows me to run Emacs (albeit in console mode) at its full potential.
+
+  As a side-note, on my personal laptop I use Emacs on Ubuntu whereas on the work laptop I use Emacs from Cygwin. And although Cygwin does a great job in providing the powerful Linux tools on Windows, some of them are really slow compared to the native ones. An example of such a tool is =git=. I heavily use [[https://magit.vc/manual/magit][=Magit=]] for a lot of my projects but working with it in Emacs on Cygwin is a real pain. Waiting for a simple operation to finish knowing that the same operation completes instantly on Linux is exhausting. Thus, in order to avoid such unpleasant experience whenever I would need to use Magit I would use it from Emacs in =Ubuntu Bash on Windows=.
+
+  Furthermore, I use =Ubuntu Bash on Windows= to work on my Python projects simply because I can do everything from within Emacs there --- from editing input files in =csv-mode=, to writing code using =elpy= with =jedi= and pushing the code to a GitHub repo using =magit=.
+
+  All was good until an update for Windows [[https://github.com/microsoft/terminal/issues/210][messed up the console output on =WSL=]] which rendered both my Python setup and Emacs unusable. And if that wasn't bad enough, I got affected by this issue before a verry important deadline for one of the Python projects.
+
+  Faced with the fact that there nothing I could do at that moment to fix the console output and in desperate need for a solution, I asked myself:
+  #+begin_quote
+  Can't I create the same setup as in =WSL= using =Docker=?
+  #+end_quote
+  The answer is *Yes*. If you want to see only the final =Dockerfile=, head directly to the [[#tldr][*TL;DR*]] section. Otherwise, please read along. In any case --- thanks for reading!
+* How
+  Since I already have been using Emacs as a Python IDE in Ubuntu Bash, replicating this setup in Docker would imply:
+  1. Providing remote access via =ssh= to the container and
+  2. Installing the same packages for both the OS and Emacs.
+
+  I already knew more or less how to do the later (or so I thought) so obviously I started with the former: ssh access to a Docker container.
+
+  Luckily, Docker already has an [[https://docs.docker.com/engine/examples/running_ssh_service/][example of running =ssh= service]] so I started with the Dockerfile provided there. I copied the instructions into a local Dockerfile, built the image and ran the container. But when I tried to connect to the container I ran into the first issue addressed in this post:
+* Issue #1: SSHD refuses connection
+  This one was easy --- there's a typo in the example provided by Docker. I figured it out after inspecting the contents of =sshd_config= file.
+
+  After a while I noticed that the line containing =PermitRootlogin= was commented-out and thus =sed= wasn't able to match the pattern and failed to replace the permission.
+
+  Since I was connecting as =root= the =sshd= refused connection.
+
+  The fix for this is to include the =#= in the call to =sed= as below:
+  #+begin_src sh
+    RUN sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
+  #+end_src
+
+  Having done the change, I rebuilt the image and started the container. As the tutorial mentioned, I ran in console =docker port <container-name> 22=. This command gave me the port on which to connect so I ran =ssh root@localhost -p <port>=.
+
+  Success.
+
+  Even though the =sshd= was running and accepting connections, the fact that the root password was hardcoded in plain text /really/ bothered me so I made a small tweak to the =Dockerfile=:
+  #+begin_src sh
+    ARG password
+
+    RUN echo "root:${password}" | chpasswd
+  #+end_src
+  What this does is it declares a variable =password= whose value is supplied when building the image like this:
+  #+begin_src sh
+    docker build -t <image-tag> \
+	   --build-arg password=<your-password-here> \
+	   .
+  #+end_src
+  This way, the root password isn't stored in clear text and in plain-sight anymore. Now I was ready to move to the next step.
+* Issue #2: Activating virtual environment inside container
+  The second item of my quest was to setup and activate a Python virtual environment. This environment will be used to install all the dependencies required for the project I'm working on.
+
+  Also, this environment will be used by Emacs and =elpy= to provide the features of an IDE.
+
+  A this point I asked myself: do I actually need a virtual environment? The Ubuntu Docker image comes with Python preinstalled so why not install the dependencies system-wide? After all, Docker containers and images are somewhat disposable --- I can alwasy recreate the image and start a new container for another project.
+
+  I decided I /need/ a virtual environment because otherwise things would get messy and I like well organized stuff.
+
+  So I started looking out how to setup and activate a virtual environment inside a Docker container. And by looking up I mean googling it or, in my case --- googling it with Bing.
+
+  I got lucky since one of the first results was the article that led to my solution: [[https://pythonspeed.com/articles/activate-virtualenv-dockerfile/][Elegantly activating a virtualenv in a Dockerfile]]. It has a great explanation of what needs to be done and what's going under the hood when activating a virtual environment.
+
+  The changes pertaining to my config are the following:
+  #+begin_src sh
+    ENV VIRTUAL_ENV=/opt/venv
+    RUN python3 -m virtualenv --python=/usr/bin/python3 $VIRTUAL_ENV
+    ENV PATH="$VIRTUAL_ENV/bin:$PATH"
+    RUN pip install --upgrade pip setuptools wheel && \
+	pip install numpy tensorflow scikit-learn gensim matplotlib pyyaml matplotlib-venn && \
+	pip install elpy jedi rope yapf importmagic flake8 autopep8 black
+  #+end_src
+
+  As described in the article linked above, activating a Python virtual environment in its essence is just setting some environment variables.
+
+  What the solution above does is to define where the virtual environment will be created and store it into the =VIRTUAL_ENV= variable. Next, create the environment at the specified path using =python3 -m virtualenv $VIRTUAL_ENV=. The =--python=/usr/bin/python3= argument just makes sure that the python interpreter to use is indeed =python3=.
+
+  Activating the virtual environment means just prepending its =bin= directory to the =PATH= variable: ~ENV PATH="$VIRTUAL_ENV/bin:$PATH"~.
+
+  Afterwards, just install the required packages as usual.
+* Issue #3: Emacs monolithic configuration file
+  After setting up and activating the virtual environment, I needed to configure Emacs for python development to start working.
+
+  Luckily, I have my Emacs (semi-literate) config script in a [[https://github.com/repierre/.emacs.d][GitHub repository]] and all I need to do is jut clone the repo locally and everything should work. Or so I tought.
+
+  I cloned the repository containing my config, which at that time was just a single file =emacs-init.org= bootstrapped by =init.el=, logged into the container and started Emacs.
+
+  After waiting for all the packages to install I was greeted by a plethora of errors and warnings: some packages were failing to install due to being incompatible with the Emacs version installed in the container, some weren't properly configured to run in console and so on and so forth.
+
+  Not willing to spend a lot of time on this (I had a deadline after all) I decided to take a shortcut: why don't I just split the configuration file such that I would be able to only activate packages related to Python development? After all, the sole purpose of this image is to have a setup where I can do some Python development the way I'm used to. Fortunately, this proved to be a good decision.
+
+  So I split my =emacs-init.org= file into four files: one file for tweaks and packages that I want to have everywhere, one file for =org-mode= related stuff, one file for Python development and lastly one file for tweaks and packages that I would like when I'm using Emacs GUI. The =init.el= file looked like this:
+#+begin_src emacs-lisp
+  (require 'package)
+
+  (package-initialize)
+
+  (org-babel-load-file (expand-file-name "~/.emacs.d/common-config.org"))
+  (org-babel-load-file (expand-file-name "~/.emacs.d/python-config.org"))
+  (org-babel-load-file (expand-file-name "~/.emacs.d/org-config.org"))
+  (org-babel-load-file (expand-file-name "~/.emacs.d/emacs-init.org"))
+#+end_src
+
+  Now I can use =sed= on the =init.el= file to delete the lines that were loading troublesome packages:
+#+begin_src sh
+  sed -i '/^.*emacs-init.*$/d' ./.emacs.d/init.el && \
+  sed -i '/^.*org-config.*$/d' ./.emacs.d/init.el
+#+end_src
+
+  After starting a container from the new image I started getting some odd errors about failing to verify package signature. Again, googling the error message with Bing got me a quick-fix: [[https://emacs.stackexchange.com/a/53142/14110][=(setq package-check-signature nil)=]]. This fix is actually a security risk but since it would be applied to an isolated environment I didn't bother looking for a better way.
+
+  However, another problem arose --- how can I apply this fix without committing it to the GitHub repository?
+
+  Looking back at how I used =sed= to remove some lines from =init.el= file one of the first ideas that popped into my head was to replace an empty line from =init.el= with the quick-fix, but after giving it some more thought I decided to use a more general solution that involves a little bit of (over) engineering.
+
+  Since I'm insterested in altering Emacs behavior before installing packages it would be good to have a way to inject more Lisp code than a single line. Furthermore, in cases where such code consists of multiple lines I could just add it using Dockers' =ADD= command instead of turing into a maintenance nightmare with multiple =sed= calls.
+
+  Don't get me wrong: =sed= is great but I prefer to have large chunks of code in a separate file without the added complexity of them being intertwined with =sed= calls.
+
+  The solution to this problem is quite simple: before loading configuration files, check if a specific file exists; in my case it would be =config.el= (not a descriptive name, I know) located in =.emacs.d= directory. If file exists load it. Afterwards load the known configuration files. And since we're doing this, why not do the same for after loading the known configuration files?
+
+  Thus, the resulting =init.el= looks like this (I promise to fix those names sometimes):
+  #+begin_src emacs-lisp
+    (require 'package)
+
+    (package-initialize)
+
+    (let ((file-name (expand-file-name "config.el" user-emacs-directory)))
+      (if (file-exists-p file-name)
+	  (load-file file-name)))
+
+    (org-babel-load-file (expand-file-name "~/.emacs.d/common-config.org"))
+    (org-babel-load-file (expand-file-name "~/.emacs.d/python-config.org"))
+    (org-babel-load-file (expand-file-name "~/.emacs.d/org-config.org"))
+    (org-babel-load-file (expand-file-name "~/.emacs.d/emacs-init.org"))
+
+    (let ((file-name (expand-file-name "after-init.el" user-emacs-directory)))
+      (if (file-exists-p file-name)
+	  (load-file file-name)))
+  #+end_src
+
+  Now I just need to create the file and apply the fix:
+#+begin_src sh
+  echo "(setq package-check-signature nil)" >> ./.emacs.d/config.el
+#+end_src
+  And since I can run custom code after loading the known configuration files I can set =elpy-rpc-virtualenv-path= variable in the same way:
+#+begin_src sh
+  echo "(setq elpy-rpc-virtualenv-path \"$VIRTUAL_ENV\")" >> ./.emacs.d/after-init.el
+#+end_src
+
+The Dockerfile code for this section is below:
+#+begin_src shell
+  RUN cd /root/ && \
+      git clone https://github.com/RePierre/.emacs.d.git .emacs.d && \
+      echo "(setq package-check-signature nil)" >> ./.emacs.d/config.el && \
+      sed -i '/^.*emacs-init.*$/d' ./.emacs.d/init.el && \
+      sed -i 's/(shell . t)/(sh . t)/' ./.emacs.d/common-config.org && \
+      sed -i '/^.*org-config.*$/d' ./.emacs.d/init.el && \
+      sed -i 's/\:defer\ t//' ./.emacs.d/python-config.org && \
+      echo "(setq elpy-rpc-virtualenv-path \"$VIRTUAL_ENV\")" >> ./.emacs.d/after-init.el
+#+end_src
+It does one more thing not mentioned previously: a =sed= call to remove lazy loading of packages from =python-config.org= file.
+* Issue #4: Using SSH keys to connect to GitHub
+  Now that I have Emacs running on Ubuntu (albeit terminal only) I can enjoy a smooth workflow without having to wait too much for Magit or other application that took forever on Cygwin to finish.
+
+  But there's an issue. I mount the repository I'm working on as a separate volume in the Docker container which allows =Magit= to read all required info (like user name etc.) directly from the repository. However, I cannot push changes to GitHub because I'm not authorized.
+
+  To authorize the current container to push to GitHub I need to generate a pair of keys for the SSH authenthication on GitHub. But this can become, again, a maintenance chore: for each new container I need to create the keys, add them to my GitHub account and *remember to delete them when I'm finished with the container*.
+
+  Instead of generating new keys each time, I decided to reuse the keys I already added to my GitHub account; the image I'm building will not leave my computer so there's no risk of someone getting ahold of my keys.
+
+  I found how to do so easily: there's a StackOverflow [[https://stackoverflow.com/a/42125241/844006][answer]] for that. Summing it up is that you need to declare two build arguments that will hold the values for the private and public keys and write the values to their respective files. Of course, this implies creating the proper directories and assigning proper rights to the files. As an added bonus, the [[https://stackoverflow.com/a/42125241/844006][answer]] shows a way to add GitHub to the known hosts.  This is how it looks in the Dockerfile:
+  #+begin_src sh
+    ARG ssh_prv_key
+    ARG ssh_pub_key
+
+    RUN mkdir -p /root/.ssh && \
+	chmod 0700 /root/.ssh && \
+	ssh-keyscan github.com > /root/.ssh/known_hosts
+  #+end_src
+
+  To provide the values for the keys use =--build-arg= parameter when building your image like this:
+  #+begin_src sh
+    docker build -t <image-tag> \
+	   --build-arg ssh_prv_key="$(cat ~/.ssh/id_rsa)" \
+	   --build-arg ssh_pub_key="$(cat ~/.ssh/id_rsa.pub)" \
+	   .
+  #+end_src
+* Issue #5: Install Emacs packages once and done
+  After another build of the Docker image I started a container from it, logged in via ssh into the container, started Emacs and noticed yet another issue.
+
+  The problem was that at each start of the container I had to wait for Emacs to download and install all the packages from the configuration files which, as you can guess may take a while.
+
+  Since looking-up the answer on the Web did not return any meaningful results I started refining my question to the point where I came-up with the answer. Basically, when after several failed attempts I started typing in the search bar =how to load Emacs packages in background= I remembered reading somewhere that Emacs can be used in a client-server setup where the server runs in background.
+
+  This is a feature of Emacs called [[https://www.emacswiki.org/emacs/EmacsAsDaemon][daemon mode]]. I have never used it myself but went on a whim and decided to try it just to see what would happen.
+
+  So I changed my =Dockerfile= to start Emacs as a daemon:
+  #+begin_src sh
+    RUN emacs --daemon
+  #+end_src
+  And to my great surprise, when rebuilding the image I saw the output of Emacs packages being downloaded and installed.
+* Issue #6: Terminal colors
+  Being confident that everything should work now (it's the same setup I had on =WSL=) I started a new container to which I mounted the GitHub repo as a volume and got cracking.
+
+  Everything went swell until I decided to commit the changes and invoked =magit-status=. Then I got a real eyesore: the colors of the text in the status buffer were making it really hard to understand what changed and where.
+
+  At this point I just rage-quit and started looking for an answer. Fortunately, the right [[https://stackoverflow.com/a/64585/844006][StackOverflow answer]] popped up quickly and I applied the fix which just sets the =TERM= environment variable:
+  #+begin_src sh
+    ENV TERM=xterm-256color
+  #+end_src
+
+  And only after this, I was able to fully benefit from having the Python IDE I'm used to on a native platform.
+* TL;DR
+  :PROPERTIES:
+  :CUSTOM_ID: tldr
+  :END:
+The full Dockerfile described in this post is below:
+#+begin_src sh
+  FROM ubuntu:18.04
+
+  RUN apt-get update && \
+      apt-get install -y --no-install-recommends openssh-server tmux \
+	      emacs emacs-goodies.el curl git \
+	      python3 python3-pip python3-virtualenv python3-dev build-essential
+
+  ARG password
+
+  RUN mkdir /var/run/sshd
+  RUN echo "root:${password}" | chpasswd
+  RUN sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
+
+  # SSH login fix. Otherwise user is kicked off after login
+  RUN sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd
+
+  ENV NOTVISIBLE "in users profile"
+  RUN echo "export VISIBLE=now" >> /etc/profile
+
+  # From https://pythonspeed.com/articles/activate-virtualenv-dockerfile/
+  ENV VIRTUAL_ENV=/opt/venv
+  RUN python3 -m virtualenv --python=/usr/bin/python3 $VIRTUAL_ENV
+  ENV PATH="$VIRTUAL_ENV/bin:$PATH"
+  RUN pip install --upgrade pip setuptools wheel && \
+      pip install numpy tensorflow scikit-learn gensim matplotlib pyyaml matplotlib-venn && \
+      pip install elpy jedi rope yapf importmagic flake8 autopep8 black
+
+  RUN cd /root/ && \
+      git clone https://github.com/RePierre/.emacs.d.git .emacs.d && \
+      echo "(setq package-check-signature nil)" >> ./.emacs.d/config.el && \
+      sed -i '/^.*emacs-init.*$/d' ./.emacs.d/init.el && \
+      sed -i 's/(shell . t)/(sh . t)/' ./.emacs.d/common-config.org && \
+      sed -i '/^.*org-config.*$/d' ./.emacs.d/init.el && \
+      sed -i 's/\:defer\ t//' ./.emacs.d/python-config.org && \
+      echo "(setq elpy-rpc-virtualenv-path \"$VIRTUAL_ENV\")" >> ./.emacs.d/after-init.el
+
+  # From https://stackoverflow.com/a/42125241/844006
+  ARG ssh_prv_key
+  ARG ssh_pub_key
+  # Authorize SSH Host
+  RUN mkdir -p /root/.ssh && \
+      chmod 0700 /root/.ssh && \
+      ssh-keyscan github.com > /root/.ssh/known_hosts
+
+  # Add the keys and set permissions
+  RUN echo "$ssh_prv_key" > /root/.ssh/id_rsa && \
+      echo "$ssh_pub_key" > /root/.ssh/id_rsa.pub && \
+      chmod 600 /root/.ssh/id_rsa && \
+      chmod 600 /root/.ssh/id_rsa.pub
+
+  RUN emacs --daemon
+
+  # Set terminal colors https://stackoverflow.com/a/64585/844006
+  ENV TERM=xterm-256color
+
+  EXPOSE 22
+  CMD ["/usr/sbin/sshd", "-D"]
+#+end_src
+To build the image use this command:
+#+begin_src sh
+  docker build -t <image-tag> \
+	 --build-arg ssh_prv_key="$(cat ~/.ssh/id_rsa)" \
+	 --build-arg ssh_pub_key="$(cat ~/.ssh/id_rsa.pub)" \
+	 --build-arg password=<your-password-here> \
+	 .
+#+end_src
+* Epilogue
+  Looking back at this sort of quest of mine, I have nothing else to say than it was, overall, a fun experience.
+
+  Sure, it also has some additional benefits that are important in my day-to-day life as a developer: I got a bit more experience in building =Docker= images and I /got to learn a big deal of stuff/. It is also worth noting that this setup did help me a lot in meeting the deadline, a fact which by itself states how much of an improvement this setup is (also taking in consideration the time I've spent to make it work).
+
+  But the bottom line is that it was a great deal of fun involved which luckily resulted in a new tool in my shed --- while working on this post, I used this setup as the default for all new Python experiments and I will probably use it for future projects as well.
+* References
+  1. [[https://docs.docker.com/engine/examples/running_ssh_service/][Dockerize an SSH service]]
+  2. [[https://pythonspeed.com/articles/activate-virtualenv-dockerfile/][Elegantly activating a virtualenv in a Dockerfile]]
+  3. [[https://stackoverflow.com/a/42125241/844006][SO answer on using SSH keys inside Docker container]]
+  4. [[https://stackoverflow.com/a/64585/844006][Setting terminal colors in Emacs]]

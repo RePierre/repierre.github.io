@@ -7,7 +7,7 @@
                         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
  <url>
   <loc>https://rebeja.eu/</loc>
-  <lastmod>2019-03-19T17:06:00Z</lastmod>
+  <lastmod>2020-03-03T05:21:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/2016/</loc>
@@ -26,12 +26,16 @@
   <lastmod>2019-03-19T17:06:00Z</lastmod>
  </url>
  <url>
+  <loc>https://rebeja.eu/2020/</loc>
+  <lastmod>2020-03-03T05:21:00Z</lastmod>
+ </url>
+ <url>
   <loc>https://rebeja.eu/archive.html</loc>
-  <lastmod>2019-09-13T10:27:00Z</lastmod>
+  <lastmod>2020-03-03T05:21:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/categories/</loc>
-  <lastmod>2019-03-19T17:06:00Z</lastmod>
+  <lastmod>2020-03-02T16:33:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/categories/abstraction/</loc>
@@ -98,6 +102,10 @@
   <lastmod>2019-03-19T17:06:00Z</lastmod>
  </url>
  <url>
+  <loc>https://rebeja.eu/categories/dockerfile/</loc>
+  <lastmod>2020-03-02T16:33:00Z</lastmod>
+ </url>
+ <url>
   <loc>https://rebeja.eu/categories/emacs/</loc>
   <lastmod>2019-03-19T17:06:00Z</lastmod>
  </url>
@@ -124,6 +132,10 @@
  <url>
   <loc>https://rebeja.eu/categories/handler-not-found/</loc>
   <lastmod>2019-03-19T17:06:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://rebeja.eu/categories/ide/</loc>
+  <lastmod>2020-03-02T16:33:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/categories/inheritance/</loc>
@@ -231,7 +243,7 @@
  </url>
  <url>
   <loc>https://rebeja.eu/index-1.html</loc>
-  <lastmod>2019-09-13T10:28:00Z</lastmod>
+  <lastmod>2020-03-03T05:21:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/posts/2018-year-in-review/</loc>
@@ -280,6 +292,10 @@
  <url>
   <loc>https://rebeja.eu/posts/python-development-using-emacs-from-terminal/</loc>
   <lastmod>2019-03-19T17:06:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://rebeja.eu/posts/python-ide-with-emacs-and-docker/</loc>
+  <lastmod>2019-11-04T14:46:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/posts/rename-multiple-files-with-emacs-dired/</loc>

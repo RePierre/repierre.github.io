@@ -12,7 +12,7 @@
 <link rel="alternate" type="application/rss+xml" title="RSS" href="rss.xml">
 <link rel="canonical" href="https://rebeja.eu/">
 <link rel="next" href="index-1.html" type="text/html">
-<!--[if lt IE 9]><script src="assets/js/html5.js"></script><![endif]--><link rel="prefetch" href="posts/declutter-the-way-of-working/" type="text/html">
+<!--[if lt IE 9]><script src="assets/js/html5.js"></script><![endif]--><link rel="prefetch" href="posts/python-ide-with-emacs-and-docker/" type="text/html">
 </head>
 <body>
 <a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
@@ -68,7 +68,489 @@
     
         
     <div class="postindex">
-            <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/declutter-the-way-of-working/" class="u-url">Declutter the way of working</a></h1>
+            <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/python-ide-with-emacs-and-docker/" class="u-url">Building a Python IDE with Emacs and Docker</a></h1>
+                <div class="metadata">
+                    <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                        Petru Rebeja
+                    </span></p>
+            <p class="dateline">
+            <a href="posts/python-ide-with-emacs-and-docker/" rel="bookmark">
+            <time class="published dt-published" datetime="2020-03-03T07:19:45+02:00" itemprop="datePublished" title="2020-03-03 07:19">2020-03-03 07:19</time></a>
+            </p>
+                        <p class="commentline">
+        
+    <a href="posts/python-ide-with-emacs-and-docker/#disqus_thread" data-disqus-identifier="cache/posts/python-ide-with-emacs-and-docker.html">Comments</a>
+
+
+                </p>
+</div>
+            </header><div class="e-content entry-content">
+                    <div id="outline-container-org5e9a65e" class="outline-2">
+<h2 id="org5e9a65e">Prologue</h2>
+<div class="outline-text-2" id="text-org5e9a65e">
+<p>
+I am a fan of <a href="https://en.wikipedia.org/wiki/Windows_Subsystem_for_Linux"><code>Windows Subsystem for Linux</code></a>. It brings the power of Linux command-line tools to Windows which is something a developer cannot dislike but that isn't the main reason I'm fond of it. I like it because it allows me to run Emacs (albeit in console mode) at its full potential.
+</p>
+
+<p>
+As a side-note, on my personal laptop I use Emacs on Ubuntu whereas on the work laptop I use Emacs from Cygwin. And although Cygwin does a great job in providing the powerful Linux tools on Windows, some of them are really slow compared to the native ones. An example of such a tool is <code>git</code>. I heavily use <a href="https://magit.vc/manual/magit"><code>Magit</code></a> for a lot of my projects but working with it in Emacs on Cygwin is a real pain. Waiting for a simple operation to finish knowing that the same operation completes instantly on Linux is exhausting. Thus, in order to avoid such unpleasant experience whenever I would need to use Magit I would use it from Emacs in <code>Ubuntu Bash on Windows</code>.
+</p>
+
+<p>
+Furthermore, I use <code>Ubuntu Bash on Windows</code> to work on my Python projects simply because I can do everything from within Emacs there — from editing input files in <code>csv-mode</code>, to writing code using <code>elpy</code> with <code>jedi</code> and pushing the code to a GitHub repo using <code>magit</code>.
+</p>
+
+<p>
+All was good until an update for Windows <a href="https://github.com/microsoft/terminal/issues/210">messed up the console output on <code>WSL</code></a> which rendered both my Python setup and Emacs unusable. And if that wasn't bad enough, I got affected by this issue before a verry important deadline for one of the Python projects.
+</p>
+
+<p>
+Faced with the fact that there nothing I could do at that moment to fix the console output and in desperate need for a solution, I asked myself:
+</p>
+<blockquote>
+<p>
+Can't I create the same setup as in <code>WSL</code> using <code>Docker</code>?
+</p>
+</blockquote>
+<p>
+The answer is <b>Yes</b>. If you want to see only the final <code>Dockerfile</code>, head directly to the <a href="posts/python-ide-with-emacs-and-docker/#tldr"><b>TL;DR</b></a> section. Otherwise, please read along. In any case — thanks for reading!
+</p>
+</div>
+</div>
+<div id="outline-container-org3ef9554" class="outline-2">
+<h2 id="org3ef9554">How</h2>
+<div class="outline-text-2" id="text-org3ef9554">
+<p>
+Since I already have been using Emacs as a Python IDE in Ubuntu Bash, replicating this setup in Docker would imply:
+</p>
+<ol class="org-ol">
+<li>Providing remote access via <code>ssh</code> to the container and</li>
+<li>Installing the same packages for both the OS and Emacs.</li>
+</ol>
+<p>
+I already knew more or less how to do the later (or so I thought) so obviously I started with the former: ssh access to a Docker container.
+</p>
+
+<p>
+Luckily, Docker already has an <a href="https://docs.docker.com/engine/examples/running_ssh_service/">example of running <code>ssh</code> service</a> so I started with the Dockerfile provided there. I copied the instructions into a local Dockerfile, built the image and ran the container. But when I tried to connect to the container I ran into the first issue addressed in this post:
+</p>
+</div>
+</div>
+<div id="outline-container-org8b68494" class="outline-2">
+<h2 id="org8b68494">Issue #1: SSHD refuses connection</h2>
+<div class="outline-text-2" id="text-org8b68494">
+<p>
+This one was easy — there's a typo in the example provided by Docker. I figured it out after inspecting the contents of <code>sshd_config</code> file.
+</p>
+
+<p>
+After a while I noticed that the line containing <code>PermitRootlogin</code> was commented-out and thus <code>sed</code> wasn't able to match the pattern and failed to replace the permission.
+</p>
+
+<p>
+Since I was connecting as <code>root</code> the <code>sshd</code> refused connection.
+</p>
+
+<p>
+The fix for this is to include the <code>#</code> in the call to <code>sed</code> as below:
+</p>
+<div class="highlight"><pre><span></span>  RUN sed -i <span class="s1">'s/#PermitRootLogin prohibit-password/PermitRootLogin yes/'</span> /etc/ssh/sshd_config
+</pre></div>
+
+<p>
+Having done the change, I rebuilt the image and started the container. As the tutorial mentioned, I ran in console <code>docker port &lt;container-name&gt; 22</code>. This command gave me the port on which to connect so I ran <code>ssh root@localhost -p &lt;port&gt;</code>.
+</p>
+
+<p>
+Success.
+</p>
+
+<p>
+Even though the <code>sshd</code> was running and accepting connections, the fact that the root password was hardcoded in plain text <i>really</i> bothered me so I made a small tweak to the <code>Dockerfile</code>:
+</p>
+<div class="highlight"><pre><span></span>  ARG password
+
+  RUN <span class="nb">echo</span> <span class="s2">"root:</span><span class="si">${</span><span class="nv">password</span><span class="si">}</span><span class="s2">"</span> <span class="p">|</span> chpasswd
+</pre></div>
+<p>
+What this does is it declares a variable <code>password</code> whose value is supplied when building the image like this:
+</p>
+<div class="highlight"><pre><span></span>  docker build -t &lt;image-tag&gt; <span class="se">\</span>
+	 --build-arg <span class="nv">password</span><span class="o">=</span>&lt;your-password-here&gt; <span class="se">\</span>
+	 .
+</pre></div>
+<p>
+This way, the root password isn't stored in clear text and in plain-sight anymore. Now I was ready to move to the next step.
+</p>
+</div>
+</div>
+<div id="outline-container-orgc5b91df" class="outline-2">
+<h2 id="orgc5b91df">Issue #2: Activating virtual environment inside container</h2>
+<div class="outline-text-2" id="text-orgc5b91df">
+<p>
+The second item of my quest was to setup and activate a Python virtual environment. This environment will be used to install all the dependencies required for the project I'm working on.
+</p>
+
+<p>
+Also, this environment will be used by Emacs and <code>elpy</code> to provide the features of an IDE.
+</p>
+
+<p>
+A this point I asked myself: do I actually need a virtual environment? The Ubuntu Docker image comes with Python preinstalled so why not install the dependencies system-wide? After all, Docker containers and images are somewhat disposable — I can alwasy recreate the image and start a new container for another project.
+</p>
+
+<p>
+I decided I <i>need</i> a virtual environment because otherwise things would get messy and I like well organized stuff.
+</p>
+
+<p>
+So I started looking out how to setup and activate a virtual environment inside a Docker container. And by looking up I mean googling it or, in my case — googling it with Bing.
+</p>
+
+<p>
+I got lucky since one of the first results was the article that led to my solution: <a href="https://pythonspeed.com/articles/activate-virtualenv-dockerfile/">Elegantly activating a virtualenv in a Dockerfile</a>. It has a great explanation of what needs to be done and what's going under the hood when activating a virtual environment.
+</p>
+
+<p>
+The changes pertaining to my config are the following:
+</p>
+<div class="highlight"><pre><span></span>  ENV <span class="nv">VIRTUAL_ENV</span><span class="o">=</span>/opt/venv
+  RUN python3 -m virtualenv --python<span class="o">=</span>/usr/bin/python3 <span class="nv">$VIRTUAL_ENV</span>
+  ENV <span class="nv">PATH</span><span class="o">=</span><span class="s2">"</span><span class="nv">$VIRTUAL_ENV</span><span class="s2">/bin:</span><span class="nv">$PATH</span><span class="s2">"</span>
+  RUN pip install --upgrade pip setuptools wheel <span class="o">&amp;&amp;</span> <span class="se">\</span>
+      pip install numpy tensorflow scikit-learn gensim matplotlib pyyaml matplotlib-venn <span class="o">&amp;&amp;</span> <span class="se">\</span>
+      pip install elpy jedi rope yapf importmagic flake8 autopep8 black
+</pre></div>
+
+<p>
+As described in the article linked above, activating a Python virtual environment in its essence is just setting some environment variables.
+</p>
+
+<p>
+What the solution above does is to define where the virtual environment will be created and store it into the <code>VIRTUAL_ENV</code> variable. Next, create the environment at the specified path using <code>python3 -m virtualenv $VIRTUAL_ENV</code>. The <code>--python=/usr/bin/python3</code> argument just makes sure that the python interpreter to use is indeed <code>python3</code>.
+</p>
+
+<p>
+Activating the virtual environment means just prepending its <code>bin</code> directory to the <code>PATH</code> variable: <code>ENV PATH="$VIRTUAL_ENV/bin:$PATH"</code>.
+</p>
+
+<p>
+Afterwards, just install the required packages as usual.
+</p>
+</div>
+</div>
+<div id="outline-container-orga1430a5" class="outline-2">
+<h2 id="orga1430a5">Issue #3: Emacs monolithic configuration file</h2>
+<div class="outline-text-2" id="text-orga1430a5">
+<p>
+After setting up and activating the virtual environment, I needed to configure Emacs for python development to start working.
+</p>
+
+<p>
+Luckily, I have my Emacs (semi-literate) config script in a <a href="https://github.com/repierre/.emacs.d">GitHub repository</a> and all I need to do is jut clone the repo locally and everything should work. Or so I tought.
+</p>
+
+<p>
+I cloned the repository containing my config, which at that time was just a single file <code>emacs-init.org</code> bootstrapped by <code>init.el</code>, logged into the container and started Emacs.
+</p>
+
+<p>
+After waiting for all the packages to install I was greeted by a plethora of errors and warnings: some packages were failing to install due to being incompatible with the Emacs version installed in the container, some weren't properly configured to run in console and so on and so forth.
+</p>
+
+<p>
+Not willing to spend a lot of time on this (I had a deadline after all) I decided to take a shortcut: why don't I just split the configuration file such that I would be able to only activate packages related to Python development? After all, the sole purpose of this image is to have a setup where I can do some Python development the way I'm used to. Fortunately, this proved to be a good decision.
+</p>
+
+<p>
+So I split my <code>emacs-init.org</code> file into four files: one file for tweaks and packages that I want to have everywhere, one file for <code>org-mode</code> related stuff, one file for Python development and lastly one file for tweaks and packages that I would like when I'm using Emacs GUI. The <code>init.el</code> file looked like this:
+</p>
+<div class="highlight"><pre><span></span><span class="p">(</span><span class="nf">require</span> <span class="ss">'package</span><span class="p">)</span>
+
+<span class="p">(</span><span class="nf">package-initialize</span><span class="p">)</span>
+
+<span class="p">(</span><span class="nf">org-babel-load-file</span> <span class="p">(</span><span class="nf">expand-file-name</span> <span class="s">"~/.emacs.d/common-config.org"</span><span class="p">))</span>
+<span class="p">(</span><span class="nf">org-babel-load-file</span> <span class="p">(</span><span class="nf">expand-file-name</span> <span class="s">"~/.emacs.d/python-config.org"</span><span class="p">))</span>
+<span class="p">(</span><span class="nf">org-babel-load-file</span> <span class="p">(</span><span class="nf">expand-file-name</span> <span class="s">"~/.emacs.d/org-config.org"</span><span class="p">))</span>
+<span class="p">(</span><span class="nf">org-babel-load-file</span> <span class="p">(</span><span class="nf">expand-file-name</span> <span class="s">"~/.emacs.d/emacs-init.org"</span><span class="p">))</span>
+</pre></div>
+
+<p>
+Now I can use <code>sed</code> on the <code>init.el</code> file to delete the lines that were loading troublesome packages:
+</p>
+<div class="highlight"><pre><span></span>sed -i <span class="s1">'/^.*emacs-init.*$/d'</span> ./.emacs.d/init.el <span class="o">&amp;&amp;</span> <span class="se">\</span>
+sed -i <span class="s1">'/^.*org-config.*$/d'</span> ./.emacs.d/init.el
+</pre></div>
+
+<p>
+After starting a container from the new image I started getting some odd errors about failing to verify package signature. Again, googling the error message with Bing got me a quick-fix: <a href="https://emacs.stackexchange.com/a/53142/14110"><code>(setq package-check-signature nil)</code></a>. This fix is actually a security risk but since it would be applied to an isolated environment I didn't bother looking for a better way.
+</p>
+
+<p>
+However, another problem arose — how can I apply this fix without committing it to the GitHub repository?
+</p>
+
+<p>
+Looking back at how I used <code>sed</code> to remove some lines from <code>init.el</code> file one of the first ideas that popped into my head was to replace an empty line from <code>init.el</code> with the quick-fix, but after giving it some more thought I decided to use a more general solution that involves a little bit of (over) engineering.
+</p>
+
+<p>
+Since I'm insterested in altering Emacs behavior before installing packages it would be good to have a way to inject more Lisp code than a single line. Furthermore, in cases where such code consists of multiple lines I could just add it using Dockers' <code>ADD</code> command instead of turing into a maintenance nightmare with multiple <code>sed</code> calls.
+</p>
+
+<p>
+Don't get me wrong: <code>sed</code> is great but I prefer to have large chunks of code in a separate file without the added complexity of them being intertwined with <code>sed</code> calls.
+</p>
+
+<p>
+The solution to this problem is quite simple: before loading configuration files, check if a specific file exists; in my case it would be <code>config.el</code> (not a descriptive name, I know) located in <code>.emacs.d</code> directory. If file exists load it. Afterwards load the known configuration files. And since we're doing this, why not do the same for after loading the known configuration files?
+</p>
+
+<p>
+Thus, the resulting <code>init.el</code> looks like this (I promise to fix those names sometimes):
+</p>
+<div class="highlight"><pre><span></span>  <span class="p">(</span><span class="nf">require</span> <span class="ss">'package</span><span class="p">)</span>
+
+  <span class="p">(</span><span class="nf">package-initialize</span><span class="p">)</span>
+
+  <span class="p">(</span><span class="k">let </span><span class="p">((</span><span class="nf">file-name</span> <span class="p">(</span><span class="nf">expand-file-name</span> <span class="s">"config.el"</span> <span class="nv">user-emacs-directory</span><span class="p">)))</span>
+    <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nf">file-exists-p</span> <span class="nv">file-name</span><span class="p">)</span>
+	<span class="p">(</span><span class="nf">load-file</span> <span class="nv">file-name</span><span class="p">)))</span>
+
+  <span class="p">(</span><span class="nf">org-babel-load-file</span> <span class="p">(</span><span class="nf">expand-file-name</span> <span class="s">"~/.emacs.d/common-config.org"</span><span class="p">))</span>
+  <span class="p">(</span><span class="nf">org-babel-load-file</span> <span class="p">(</span><span class="nf">expand-file-name</span> <span class="s">"~/.emacs.d/python-config.org"</span><span class="p">))</span>
+  <span class="p">(</span><span class="nf">org-babel-load-file</span> <span class="p">(</span><span class="nf">expand-file-name</span> <span class="s">"~/.emacs.d/org-config.org"</span><span class="p">))</span>
+  <span class="p">(</span><span class="nf">org-babel-load-file</span> <span class="p">(</span><span class="nf">expand-file-name</span> <span class="s">"~/.emacs.d/emacs-init.org"</span><span class="p">))</span>
+
+  <span class="p">(</span><span class="k">let </span><span class="p">((</span><span class="nf">file-name</span> <span class="p">(</span><span class="nf">expand-file-name</span> <span class="s">"after-init.el"</span> <span class="nv">user-emacs-directory</span><span class="p">)))</span>
+    <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nf">file-exists-p</span> <span class="nv">file-name</span><span class="p">)</span>
+	<span class="p">(</span><span class="nf">load-file</span> <span class="nv">file-name</span><span class="p">)))</span>
+</pre></div>
+
+<p>
+Now I just need to create the file and apply the fix:
+</p>
+<div class="highlight"><pre><span></span><span class="nb">echo</span> <span class="s2">"(setq package-check-signature nil)"</span> &gt;&gt; ./.emacs.d/config.el
+</pre></div>
+<p>
+And since I can run custom code after loading the known configuration files I can set <code>elpy-rpc-virtualenv-path</code> variable in the same way:
+</p>
+<div class="highlight"><pre><span></span><span class="nb">echo</span> <span class="s2">"(setq elpy-rpc-virtualenv-path \"</span><span class="nv">$VIRTUAL_ENV</span><span class="s2">\")"</span> &gt;&gt; ./.emacs.d/after-init.el
+</pre></div>
+
+<p>
+The Dockerfile code for this section is below:
+</p>
+<div class="highlight"><pre><span></span>RUN cd /root/ &amp;&amp; \
+    git clone https://github.com/RePierre/.emacs.d.git .emacs.d &amp;&amp; \
+    echo "(setq package-check-signature nil)" &gt;&gt; ./.emacs.d/config.el &amp;&amp; \
+    sed -i '/^.*emacs-init.*$/d' ./.emacs.d/init.el &amp;&amp; \
+    sed -i 's/(shell . t)/(sh . t)/' ./.emacs.d/common-config.org &amp;&amp; \
+    sed -i '/^.*org-config.*$/d' ./.emacs.d/init.el &amp;&amp; \
+    sed -i 's/\:defer\ t//' ./.emacs.d/python-config.org &amp;&amp; \
+    echo "(setq elpy-rpc-virtualenv-path \"$VIRTUAL_ENV\")" &gt;&gt; ./.emacs.d/after-init.el
+</pre></div>
+<p>
+It does one more thing not mentioned previously: a <code>sed</code> call to remove lazy loading of packages from <code>python-config.org</code> file.
+</p>
+</div>
+</div>
+<div id="outline-container-orgec5cd42" class="outline-2">
+<h2 id="orgec5cd42">Issue #4: Using SSH keys to connect to GitHub</h2>
+<div class="outline-text-2" id="text-orgec5cd42">
+<p>
+Now that I have Emacs running on Ubuntu (albeit terminal only) I can enjoy a smooth workflow without having to wait too much for Magit or other application that took forever on Cygwin to finish.
+</p>
+
+<p>
+But there's an issue. I mount the repository I'm working on as a separate volume in the Docker container which allows <code>Magit</code> to read all required info (like user name etc.) directly from the repository. However, I cannot push changes to GitHub because I'm not authorized.
+</p>
+
+<p>
+To authorize the current container to push to GitHub I need to generate a pair of keys for the SSH authenthication on GitHub. But this can become, again, a maintenance chore: for each new container I need to create the keys, add them to my GitHub account and <b>remember to delete them when I'm finished with the container</b>.
+</p>
+
+<p>
+Instead of generating new keys each time, I decided to reuse the keys I already added to my GitHub account; the image I'm building will not leave my computer so there's no risk of someone getting ahold of my keys.
+</p>
+
+<p>
+I found how to do so easily: there's a StackOverflow <a href="https://stackoverflow.com/a/42125241/844006">answer</a> for that. Summing it up is that you need to declare two build arguments that will hold the values for the private and public keys and write the values to their respective files. Of course, this implies creating the proper directories and assigning proper rights to the files. As an added bonus, the <a href="https://stackoverflow.com/a/42125241/844006">answer</a> shows a way to add GitHub to the known hosts.  This is how it looks in the Dockerfile:
+</p>
+<div class="highlight"><pre><span></span>  ARG ssh_prv_key
+  ARG ssh_pub_key
+
+  RUN mkdir -p /root/.ssh <span class="o">&amp;&amp;</span> <span class="se">\</span>
+      chmod <span class="m">0700</span> /root/.ssh <span class="o">&amp;&amp;</span> <span class="se">\</span>
+      ssh-keyscan github.com &gt; /root/.ssh/known_hosts
+</pre></div>
+
+<p>
+To provide the values for the keys use <code>--build-arg</code> parameter when building your image like this:
+</p>
+<div class="highlight"><pre><span></span>  docker build -t &lt;image-tag&gt; <span class="se">\</span>
+	 --build-arg <span class="nv">ssh_prv_key</span><span class="o">=</span><span class="s2">"</span><span class="k">$(</span>cat ~/.ssh/id_rsa<span class="k">)</span><span class="s2">"</span> <span class="se">\</span>
+	 --build-arg <span class="nv">ssh_pub_key</span><span class="o">=</span><span class="s2">"</span><span class="k">$(</span>cat ~/.ssh/id_rsa.pub<span class="k">)</span><span class="s2">"</span> <span class="se">\</span>
+	 .
+</pre></div>
+</div>
+</div>
+<div id="outline-container-org84e95cd" class="outline-2">
+<h2 id="org84e95cd">Issue #5: Install Emacs packages once and done</h2>
+<div class="outline-text-2" id="text-org84e95cd">
+<p>
+After another build of the Docker image I started a container from it, logged in via ssh into the container, started Emacs and noticed yet another issue.
+</p>
+
+<p>
+The problem was that at each start of the container I had to wait for Emacs to download and install all the packages from the configuration files which, as you can guess may take a while.
+</p>
+
+<p>
+Since looking-up the answer on the Web did not return any meaningful results I started refining my question to the point where I came-up with the answer. Basically, when after several failed attempts I started typing in the search bar <code>how to load Emacs packages in background</code> I remembered reading somewhere that Emacs can be used in a client-server setup where the server runs in background.
+</p>
+
+<p>
+This is a feature of Emacs called <a href="https://www.emacswiki.org/emacs/EmacsAsDaemon">daemon mode</a>. I have never used it myself but went on a whim and decided to try it just to see what would happen.
+</p>
+
+<p>
+So I changed my <code>Dockerfile</code> to start Emacs as a daemon:
+</p>
+<div class="highlight"><pre><span></span>  RUN emacs --daemon
+</pre></div>
+<p>
+And to my great surprise, when rebuilding the image I saw the output of Emacs packages being downloaded and installed.
+</p>
+</div>
+</div>
+<div id="outline-container-org0ee4109" class="outline-2">
+<h2 id="org0ee4109">Issue #6: Terminal colors</h2>
+<div class="outline-text-2" id="text-org0ee4109">
+<p>
+Being confident that everything should work now (it's the same setup I had on <code>WSL</code>) I started a new container to which I mounted the GitHub repo as a volume and got cracking.
+</p>
+
+<p>
+Everything went swell until I decided to commit the changes and invoked <code>magit-status</code>. Then I got a real eyesore: the colors of the text in the status buffer were making it really hard to understand what changed and where.
+</p>
+
+<p>
+At this point I just rage-quit and started looking for an answer. Fortunately, the right <a href="https://stackoverflow.com/a/64585/844006">StackOverflow answer</a> popped up quickly and I applied the fix which just sets the <code>TERM</code> environment variable:
+</p>
+<div class="highlight"><pre><span></span>  ENV <span class="nv">TERM</span><span class="o">=</span>xterm-256color
+</pre></div>
+
+<p>
+And only after this, I was able to fully benefit from having the Python IDE I'm used to on a native platform.
+</p>
+</div>
+</div>
+<div id="outline-container-org587313f" class="outline-2">
+<h2 id="tldr">
+<a id="org587313f"></a>TL;DR</h2>
+<div class="outline-text-2" id="text-tldr">
+<p>
+The full Dockerfile described in this post is below:
+</p>
+<div class="highlight"><pre><span></span>FROM ubuntu:18.04
+
+RUN apt-get update <span class="o">&amp;&amp;</span> <span class="se">\</span>
+    apt-get install -y --no-install-recommends openssh-server tmux <span class="se">\</span>
+	    emacs emacs-goodies.el curl git <span class="se">\</span>
+	    python3 python3-pip python3-virtualenv python3-dev build-essential
+
+ARG password
+
+RUN mkdir /var/run/sshd
+RUN <span class="nb">echo</span> <span class="s2">"root:</span><span class="si">${</span><span class="nv">password</span><span class="si">}</span><span class="s2">"</span> <span class="p">|</span> chpasswd
+RUN sed -i <span class="s1">'s/#PermitRootLogin prohibit-password/PermitRootLogin yes/'</span> /etc/ssh/sshd_config
+
+<span class="c1"># SSH login fix. Otherwise user is kicked off after login</span>
+RUN sed <span class="s1">'s@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g'</span> -i /etc/pam.d/sshd
+
+ENV NOTVISIBLE <span class="s2">"in users profile"</span>
+RUN <span class="nb">echo</span> <span class="s2">"export VISIBLE=now"</span> &gt;&gt; /etc/profile
+
+<span class="c1"># From https://pythonspeed.com/articles/activate-virtualenv-dockerfile/</span>
+ENV <span class="nv">VIRTUAL_ENV</span><span class="o">=</span>/opt/venv
+RUN python3 -m virtualenv --python<span class="o">=</span>/usr/bin/python3 <span class="nv">$VIRTUAL_ENV</span>
+ENV <span class="nv">PATH</span><span class="o">=</span><span class="s2">"</span><span class="nv">$VIRTUAL_ENV</span><span class="s2">/bin:</span><span class="nv">$PATH</span><span class="s2">"</span>
+RUN pip install --upgrade pip setuptools wheel <span class="o">&amp;&amp;</span> <span class="se">\</span>
+    pip install numpy tensorflow scikit-learn gensim matplotlib pyyaml matplotlib-venn <span class="o">&amp;&amp;</span> <span class="se">\</span>
+    pip install elpy jedi rope yapf importmagic flake8 autopep8 black
+
+RUN <span class="nb">cd</span> /root/ <span class="o">&amp;&amp;</span> <span class="se">\</span>
+    git clone https://github.com/RePierre/.emacs.d.git .emacs.d <span class="o">&amp;&amp;</span> <span class="se">\</span>
+    <span class="nb">echo</span> <span class="s2">"(setq package-check-signature nil)"</span> &gt;&gt; ./.emacs.d/config.el <span class="o">&amp;&amp;</span> <span class="se">\</span>
+    sed -i <span class="s1">'/^.*emacs-init.*$/d'</span> ./.emacs.d/init.el <span class="o">&amp;&amp;</span> <span class="se">\</span>
+    sed -i <span class="s1">'s/(shell . t)/(sh . t)/'</span> ./.emacs.d/common-config.org <span class="o">&amp;&amp;</span> <span class="se">\</span>
+    sed -i <span class="s1">'/^.*org-config.*$/d'</span> ./.emacs.d/init.el <span class="o">&amp;&amp;</span> <span class="se">\</span>
+    sed -i <span class="s1">'s/\:defer\ t//'</span> ./.emacs.d/python-config.org <span class="o">&amp;&amp;</span> <span class="se">\</span>
+    <span class="nb">echo</span> <span class="s2">"(setq elpy-rpc-virtualenv-path \"</span><span class="nv">$VIRTUAL_ENV</span><span class="s2">\")"</span> &gt;&gt; ./.emacs.d/after-init.el
+
+<span class="c1"># From https://stackoverflow.com/a/42125241/844006</span>
+ARG ssh_prv_key
+ARG ssh_pub_key
+<span class="c1"># Authorize SSH Host</span>
+RUN mkdir -p /root/.ssh <span class="o">&amp;&amp;</span> <span class="se">\</span>
+    chmod <span class="m">0700</span> /root/.ssh <span class="o">&amp;&amp;</span> <span class="se">\</span>
+    ssh-keyscan github.com &gt; /root/.ssh/known_hosts
+
+<span class="c1"># Add the keys and set permissions</span>
+RUN <span class="nb">echo</span> <span class="s2">"</span><span class="nv">$ssh_prv_key</span><span class="s2">"</span> &gt; /root/.ssh/id_rsa <span class="o">&amp;&amp;</span> <span class="se">\</span>
+    <span class="nb">echo</span> <span class="s2">"</span><span class="nv">$ssh_pub_key</span><span class="s2">"</span> &gt; /root/.ssh/id_rsa.pub <span class="o">&amp;&amp;</span> <span class="se">\</span>
+    chmod <span class="m">600</span> /root/.ssh/id_rsa <span class="o">&amp;&amp;</span> <span class="se">\</span>
+    chmod <span class="m">600</span> /root/.ssh/id_rsa.pub
+
+RUN emacs --daemon
+
+<span class="c1"># Set terminal colors https://stackoverflow.com/a/64585/844006</span>
+ENV <span class="nv">TERM</span><span class="o">=</span>xterm-256color
+
+EXPOSE <span class="m">22</span>
+CMD <span class="o">[</span><span class="s2">"/usr/sbin/sshd"</span>, <span class="s2">"-D"</span><span class="o">]</span>
+</pre></div>
+<p>
+To build the image use this command:
+</p>
+<div class="highlight"><pre><span></span>docker build -t &lt;image-tag&gt; <span class="se">\</span>
+       --build-arg <span class="nv">ssh_prv_key</span><span class="o">=</span><span class="s2">"</span><span class="k">$(</span>cat ~/.ssh/id_rsa<span class="k">)</span><span class="s2">"</span> <span class="se">\</span>
+       --build-arg <span class="nv">ssh_pub_key</span><span class="o">=</span><span class="s2">"</span><span class="k">$(</span>cat ~/.ssh/id_rsa.pub<span class="k">)</span><span class="s2">"</span> <span class="se">\</span>
+       --build-arg <span class="nv">password</span><span class="o">=</span>&lt;your-password-here&gt; <span class="se">\</span>
+       .
+</pre></div>
+</div>
+</div>
+<div id="outline-container-org78f097a" class="outline-2">
+<h2 id="org78f097a">Epilogue</h2>
+<div class="outline-text-2" id="text-org78f097a">
+<p>
+Looking back at this sort of quest of mine, I have nothing else to say than it was, overall, a fun experience.
+</p>
+
+<p>
+Sure, it also has some additional benefits that are important in my day-to-day life as a developer: I got a bit more experience in building <code>Docker</code> images and I <i>got to learn a big deal of stuff</i>. It is also worth noting that this setup did help me a lot in meeting the deadline, a fact which by itself states how much of an improvement this setup is (also taking in consideration the time I've spent to make it work).
+</p>
+
+<p>
+But the bottom line is that it was a great deal of fun involved which luckily resulted in a new tool in my shed — while working on this post, I used this setup as the default for all new Python experiments and I will probably use it for future projects as well.
+</p>
+</div>
+</div>
+<div id="outline-container-org3c7183c" class="outline-2">
+<h2 id="org3c7183c">References</h2>
+<div class="outline-text-2" id="text-org3c7183c">
+<ol class="org-ol">
+<li><a href="https://docs.docker.com/engine/examples/running_ssh_service/">Dockerize an SSH service</a></li>
+<li><a href="https://pythonspeed.com/articles/activate-virtualenv-dockerfile/">Elegantly activating a virtualenv in a Dockerfile</a></li>
+<li><a href="https://stackoverflow.com/a/42125241/844006">SO answer on using SSH keys inside Docker container</a></li>
+<li><a href="https://stackoverflow.com/a/64585/844006">Setting terminal colors in Emacs</a></li>
+</ol>
+</div>
+</div>
+                </div>
+            </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/declutter-the-way-of-working/" class="u-url">Declutter the way of working</a></h1>
                 <div class="metadata">
                     <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
                         Petru Rebeja
@@ -989,72 +1471,6 @@ The second and by far the biggest nuisance was the lack of proper web-browsing e
 However, when I got to analyze how much I have accomplished while working from terminal I was simply <b>amazed</b>. Having no distraction and meaningless motion like cycling through windows and tabs had a huge impact on my productivity. I was able to fully concentrate and immerse in the code and by doing so I had <b>a lot</b> of work done.
 </p>
                 </div>
-            </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/rename-multiple-files-with-emacs-dired/" class="u-url">Rename multiple files with Emacs dired</a></h1>
-                <div class="metadata">
-                    <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
-                        Petru Rebeja
-                    </span></p>
-            <p class="dateline">
-            <a href="posts/rename-multiple-files-with-emacs-dired/" rel="bookmark">
-            <time class="published dt-published" datetime="2017-08-22T00:00:00+02:00" itemprop="datePublished" title="2017-08-22 00:00">2017-08-22 00:00</time></a>
-            </p>
-                        <p class="commentline">
-        
-    <a href="posts/rename-multiple-files-with-emacs-dired/#disqus_thread" data-disqus-identifier="cache/posts/rename-multiple-files-with-emacs-dired.html">Comments</a>
-
-
-                </p>
-</div>
-            </header><div class="e-content entry-content">
-                    <p>
-While adding text files from within a folder to a project file I noticed that the files in the folder were lacking naming consistency. Namely, there were files which had the <code>.txt</code> extension and files without extension, as shown in the image below:
-<img src="images/emacs-dired-files-without-extension.png" alt="nil"></p>
-
-<p>
-Since there were about 100 files without extension I started asking myself: <b>Is there a way to add .txt extension to those files without manually renaming each one</b>?
-</p>
-
-<p>
-Of course there is. Here's what I did using Emacs and <code>dired</code>:
-</p>
-<ul class="org-ul">
-<li>
-<code>M-x dired</code> to the desired directory (obviously)
-</li>
-<li>In the <code>dired</code> buffer enter the <b>edit mode</b> with <code>C-x C-q</code>
-</li>
-<li>Go to the last file that has extension before the block of files without extension.
-</li>
-<li>Starting from that file, place a mark and select the whole block of files without extension (the selection should include the last file with extension).
-</li>
-<li>Narrow to the selected region using <code>M-x narrow-to-region</code> or <code>C-x n n</code> The buffer should look like the image below:
-<img src="images/emacs-dired-narrowed.png" alt="nil">
-</li>
-<li>Move to the beginning of buffer using <code>M-&lt;</code>
-</li>
-<li>Start defining a new keyboard macro using <code>C-x (</code>
-<ul class="org-ul">
-<li>Move to next line using <code>C-n</code>
-</li>
-<li>Navigate to the end of line using <code>C-e</code>
-</li>
-<li>Add the <code>.txt</code> extension
-</li>
-</ul>
-</li>
-<li>Save the macro with <code>C-x )</code>
-</li>
-<li>Now that I have a macro to add <code>.txt</code> extension to a file name I just need to run it as many times as there are unnamed files (100 in my case). To do so just <code>C-u 100 F4</code>. This will repeat the macro 100 times.
-</li>
-<li>Once all the files are renamed exit the <b>narrow-region</b> using <code>M-x widen</code> or <code>C-x n w</code>
-</li>
-<li>Save changes with <code>C-c C-c</code>
-</li>
-</ul>
-<p>
-That's it!
-</p>
-                </div>
             </article>
 </div>
     
@@ -1062,7 +1478,7 @@ That's it!
 <li class="next"><a href="index-1.html" rel="next">Older posts</a></li>
         </ul>
 <script>var disqus_shortname="rebeja";(function(){var a=document.createElement("script");a.async=true;a.src="https://"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)}());</script><!--End of body content--><footer id="footer">
-            Contents © 2019         <a href="mailto:petru.rebeja@gmail.com">Petru Rebeja</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+            Contents © 2020         <a href="mailto:petru.rebeja@gmail.com">Petru Rebeja</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
             
         </footer>
 </div>
