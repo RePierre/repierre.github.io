@@ -1,9 +1,9 @@
 #+BEGIN_COMMENT
 .. title: Building a Python IDE with Emacs and Docker
 .. slug: python-ide-with-emacs-and-docker
-.. date: 2019-11-04 16:45:45 UTC+02:00
-.. tags:
-.. category:
+.. date: 2020-03-03 07:19:45 UTC+02:00
+.. tags: Python, IDE, Emacs, Docker, Dockerfile, ssh
+.. category: Emacs
 .. link:
 .. description:
 .. type: text
