@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Rebeja</title><link>https://rebeja.eu/</link><description>Single threaded stories.</description><atom:link href="https://rebeja.eu/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2020 &lt;a href="mailto:petru.rebeja@gmail.com"&gt;Petru Rebeja&lt;/a&gt; </copyright><lastBuildDate>Tue, 03 Mar 2020 05:21:55 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Building a Python IDE with Emacs and Docker</title><link>https://rebeja.eu/posts/python-ide-with-emacs-and-docker/</link><dc:creator>Petru Rebeja</dc:creator><description>&lt;div id="outline-container-org5e9a65e" class="outline-2"&gt;
-&lt;h2 id="org5e9a65e"&gt;Prologue&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-org5e9a65e"&gt;
+<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Rebeja</title><link>https://rebeja.eu/</link><description>Single threaded stories.</description><atom:link href="https://rebeja.eu/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2020 &lt;a href="mailto:petru.rebeja@gmail.com"&gt;Petru Rebeja&lt;/a&gt; </copyright><lastBuildDate>Fri, 06 Mar 2020 04:31:56 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Building a Python IDE with Emacs and Docker</title><link>https://rebeja.eu/posts/python-ide-with-emacs-and-docker/</link><dc:creator>Petru Rebeja</dc:creator><description>&lt;div id="outline-container-orgea6795e" class="outline-2"&gt;
+&lt;h2 id="orgea6795e"&gt;Prologue&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-orgea6795e"&gt;
 &lt;p&gt;
 I am a fan of &lt;a href="https://en.wikipedia.org/wiki/Windows_Subsystem_for_Linux"&gt;&lt;code&gt;Windows Subsystem for Linux&lt;/code&gt;&lt;/a&gt;. It brings the power of Linux command-line tools to Windows which is something a developer cannot dislike but that isn't the main reason I'm fond of it. I like it because it allows me to run Emacs (albeit in console mode) at its full potential.
 &lt;/p&gt;
@@ -15,7 +15,7 @@ Furthermore, I use &lt;code&gt;Ubuntu Bash on Windows&lt;/code&gt; to work on my
 &lt;/p&gt;
 
 &lt;p&gt;
-All was good until an update for Windows &lt;a href="https://github.com/microsoft/terminal/issues/210"&gt;messed up the console output on &lt;code&gt;WSL&lt;/code&gt;&lt;/a&gt; which rendered both my Python setup and Emacs unusable. And if that wasn't bad enough, I got affected by this issue before a verry important deadline for one of the Python projects.
+All was good until an update for Windows &lt;a href="https://github.com/microsoft/terminal/issues/210"&gt;messed up the console output on &lt;code&gt;WSL&lt;/code&gt;&lt;/a&gt; which rendered both my Python setup and Emacs unusable. And if that wasn't bad enough, I got affected by this issue before a very important deadline for one of the Python projects.
 &lt;/p&gt;
 
 &lt;p&gt;
@@ -31,9 +31,9 @@ The answer is &lt;b&gt;Yes&lt;/b&gt;. If you want to see only the final &lt;code
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-org3ef9554" class="outline-2"&gt;
-&lt;h2 id="org3ef9554"&gt;How&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-org3ef9554"&gt;
+&lt;div id="outline-container-org939fc12" class="outline-2"&gt;
+&lt;h2 id="org939fc12"&gt;How&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org939fc12"&gt;
 &lt;p&gt;
 Since I already have been using Emacs as a Python IDE in Ubuntu Bash, replicating this setup in Docker would imply:
 &lt;/p&gt;
@@ -51,9 +51,9 @@ Luckily, Docker already has an &lt;a href="https://docs.docker.com/engine/exampl
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-org8b68494" class="outline-2"&gt;
-&lt;h2 id="org8b68494"&gt;Issue #1: SSHD refuses connection&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-org8b68494"&gt;
+&lt;div id="outline-container-org68c74bd" class="outline-2"&gt;
+&lt;h2 id="org68c74bd"&gt;Issue #1: SSHD refuses connection&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org68c74bd"&gt;
 &lt;p&gt;
 This one was easy — there's a typo in the example provided by Docker. I figured it out after inspecting the contents of &lt;code&gt;sshd_config&lt;/code&gt; file.
 &lt;/p&gt;
@@ -81,7 +81,7 @@ Success.
 &lt;/p&gt;
 
 &lt;p&gt;
-Even though the &lt;code&gt;sshd&lt;/code&gt; was running and accepting connections, the fact that the root password was hardcoded in plain text &lt;i&gt;really&lt;/i&gt; bothered me so I made a small tweak to the &lt;code&gt;Dockerfile&lt;/code&gt;:
+Even though the &lt;code&gt;sshd&lt;/code&gt; was running and accepting connections, the fact that the root password was hard-coded in plain text &lt;i&gt;really&lt;/i&gt; bothered me so I made a small tweak to the &lt;code&gt;Dockerfile&lt;/code&gt;:
 &lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;  ARG password
 
@@ -99,9 +99,9 @@ This way, the root password isn't stored in clear text and in plain-sight anymor
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-orgc5b91df" class="outline-2"&gt;
-&lt;h2 id="orgc5b91df"&gt;Issue #2: Activating virtual environment inside container&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-orgc5b91df"&gt;
+&lt;div id="outline-container-orgab39b6e" class="outline-2"&gt;
+&lt;h2 id="orgab39b6e"&gt;Issue #2: Activating virtual environment inside container&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-orgab39b6e"&gt;
 &lt;p&gt;
 The second item of my quest was to setup and activate a Python virtual environment. This environment will be used to install all the dependencies required for the project I'm working on.
 &lt;/p&gt;
@@ -111,7 +111,7 @@ Also, this environment will be used by Emacs and &lt;code&gt;elpy&lt;/code&gt; t
 &lt;/p&gt;
 
 &lt;p&gt;
-A this point I asked myself: do I actually need a virtual environment? The Ubuntu Docker image comes with Python preinstalled so why not install the dependencies system-wide? After all, Docker containers and images are somewhat disposable — I can alwasy recreate the image and start a new container for another project.
+A this point I asked myself: do I actually need a virtual environment? The Ubuntu Docker image comes with Python preinstalled so why not install the dependencies system-wide? After all, Docker containers and images are somewhat disposable — I can always recreate the image and start a new container for another project.
 &lt;/p&gt;
 
 &lt;p&gt;
@@ -154,15 +154,15 @@ Afterwards, just install the required packages as usual.
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-orga1430a5" class="outline-2"&gt;
-&lt;h2 id="orga1430a5"&gt;Issue #3: Emacs monolithic configuration file&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-orga1430a5"&gt;
+&lt;div id="outline-container-orgd908321" class="outline-2"&gt;
+&lt;h2 id="orgd908321"&gt;Issue #3: Emacs monolithic configuration file&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-orgd908321"&gt;
 &lt;p&gt;
 After setting up and activating the virtual environment, I needed to configure Emacs for python development to start working.
 &lt;/p&gt;
 
 &lt;p&gt;
-Luckily, I have my Emacs (semi-literate) config script in a &lt;a href="https://github.com/repierre/.emacs.d"&gt;GitHub repository&lt;/a&gt; and all I need to do is jut clone the repo locally and everything should work. Or so I tought.
+Luckily, I have my Emacs (semi-literate) config script in a &lt;a href="https://github.com/repierre/.emacs.d"&gt;GitHub repository&lt;/a&gt; and all I need to do is jut clone the repo locally and everything should work. Or so I thought.
 &lt;/p&gt;
 
 &lt;p&gt;
@@ -210,7 +210,7 @@ Looking back at how I used &lt;code&gt;sed&lt;/code&gt; to remove some lines fro
 &lt;/p&gt;
 
 &lt;p&gt;
-Since I'm insterested in altering Emacs behavior before installing packages it would be good to have a way to inject more Lisp code than a single line. Furthermore, in cases where such code consists of multiple lines I could just add it using Dockers' &lt;code&gt;ADD&lt;/code&gt; command instead of turing into a maintenance nightmare with multiple &lt;code&gt;sed&lt;/code&gt; calls.
+Since I'm interested in altering Emacs behavior before installing packages it would be good to have a way to inject more Lisp code than a single line. Furthermore, in cases where such code consists of multiple lines I could just add it using Dockers' &lt;code&gt;ADD&lt;/code&gt; command instead of turning into a maintenance nightmare with multiple &lt;code&gt;sed&lt;/code&gt; calls.
 &lt;/p&gt;
 
 &lt;p&gt;
@@ -270,9 +270,9 @@ It does one more thing not mentioned previously: a &lt;code&gt;sed&lt;/code&gt; 
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-orgec5cd42" class="outline-2"&gt;
-&lt;h2 id="orgec5cd42"&gt;Issue #4: Using SSH keys to connect to GitHub&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-orgec5cd42"&gt;
+&lt;div id="outline-container-org6964504" class="outline-2"&gt;
+&lt;h2 id="org6964504"&gt;Issue #4: Using SSH keys to connect to GitHub&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org6964504"&gt;
 &lt;p&gt;
 Now that I have Emacs running on Ubuntu (albeit terminal only) I can enjoy a smooth workflow without having to wait too much for Magit or other application that took forever on Cygwin to finish.
 &lt;/p&gt;
@@ -282,7 +282,7 @@ But there's an issue. I mount the repository I'm working on as a separate volume
 &lt;/p&gt;
 
 &lt;p&gt;
-To authorize the current container to push to GitHub I need to generate a pair of keys for the SSH authenthication on GitHub. But this can become, again, a maintenance chore: for each new container I need to create the keys, add them to my GitHub account and &lt;b&gt;remember to delete them when I'm finished with the container&lt;/b&gt;.
+To authorize the current container to push to GitHub I need to generate a pair of keys for the SSH authentication on GitHub. But this can become, again, a maintenance chore: for each new container I need to create the keys, add them to my GitHub account and &lt;b&gt;remember to delete them when I'm finished with the container&lt;/b&gt;.
 &lt;/p&gt;
 
 &lt;p&gt;
@@ -310,9 +310,9 @@ To provide the values for the keys use &lt;code&gt;--build-arg&lt;/code&gt; para
 &lt;/pre&gt;&lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-org84e95cd" class="outline-2"&gt;
-&lt;h2 id="org84e95cd"&gt;Issue #5: Install Emacs packages once and done&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-org84e95cd"&gt;
+&lt;div id="outline-container-orgab08103" class="outline-2"&gt;
+&lt;h2 id="orgab08103"&gt;Issue #5: Install Emacs packages once and done&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-orgab08103"&gt;
 &lt;p&gt;
 After another build of the Docker image I started a container from it, logged in via ssh into the container, started Emacs and noticed yet another issue.
 &lt;/p&gt;
@@ -339,9 +339,9 @@ And to my great surprise, when rebuilding the image I saw the output of Emacs pa
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-org0ee4109" class="outline-2"&gt;
-&lt;h2 id="org0ee4109"&gt;Issue #6: Terminal colors&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-org0ee4109"&gt;
+&lt;div id="outline-container-orga73c0fb" class="outline-2"&gt;
+&lt;h2 id="orga73c0fb"&gt;Issue #6: Terminal colors&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-orga73c0fb"&gt;
 &lt;p&gt;
 Being confident that everything should work now (it's the same setup I had on &lt;code&gt;WSL&lt;/code&gt;) I started a new container to which I mounted the GitHub repo as a volume and got cracking.
 &lt;/p&gt;
@@ -361,8 +361,8 @@ And only after this, I was able to fully benefit from having the Python IDE I'm 
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-org587313f" class="outline-2"&gt;
-&lt;h2 id="tldr"&gt;&lt;a id="org587313f"&gt;&lt;/a&gt;TL;DR&lt;/h2&gt;
+&lt;div id="outline-container-orgd03a348" class="outline-2"&gt;
+&lt;h2 id="tldr"&gt;&lt;a id="orgd03a348"&gt;&lt;/a&gt;TL;DR&lt;/h2&gt;
 &lt;div class="outline-text-2" id="text-tldr"&gt;
 &lt;p&gt;
 The full Dockerfile described in this post is below:
@@ -436,9 +436,9 @@ To build the image use this command:
 &lt;/pre&gt;&lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-org78f097a" class="outline-2"&gt;
-&lt;h2 id="org78f097a"&gt;Epilogue&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-org78f097a"&gt;
+&lt;div id="outline-container-orgd485c87" class="outline-2"&gt;
+&lt;h2 id="orgd485c87"&gt;Epilogue&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-orgd485c87"&gt;
 &lt;p&gt;
 Looking back at this sort of quest of mine, I have nothing else to say than it was, overall, a fun experience.
 &lt;/p&gt;
@@ -452,15 +452,23 @@ But the bottom line is that it was a great deal of fun involved which luckily re
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-org3c7183c" class="outline-2"&gt;
-&lt;h2 id="org3c7183c"&gt;References&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-org3c7183c"&gt;
+&lt;div id="outline-container-org34a4071" class="outline-2"&gt;
+&lt;h2 id="org34a4071"&gt;References&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org34a4071"&gt;
 &lt;ol class="org-ol"&gt;
 &lt;li&gt;&lt;a href="https://docs.docker.com/engine/examples/running_ssh_service/"&gt;Dockerize an SSH service&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://pythonspeed.com/articles/activate-virtualenv-dockerfile/"&gt;Elegantly activating a virtualenv in a Dockerfile&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://stackoverflow.com/a/42125241/844006"&gt;SO answer on using SSH keys inside Docker container&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://stackoverflow.com/a/64585/844006"&gt;Setting terminal colors in Emacs&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id="outline-container-orga34ea07" class="outline-2"&gt;
+&lt;h2 id="orga34ea07"&gt;Acknowledgments&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-orga34ea07"&gt;
+&lt;p&gt;
+I would like to thank my colleague &lt;a href="https://www.linkedin.com/in/ionelabarbuta/"&gt;Ionela Bărbuță&lt;/a&gt; for proofreading this post and for the tips &amp;amp; tricks she gave me in order to improve my writing.
+&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;</description><category>Docker</category><category>Dockerfile</category><category>Emacs</category><category>IDE</category><category>Python</category><category>ssh</category><guid>https://rebeja.eu/posts/python-ide-with-emacs-and-docker/</guid><pubDate>Tue, 03 Mar 2020 05:19:45 GMT</pubDate></item><item><title>Declutter the way of working</title><link>https://rebeja.eu/posts/declutter-the-way-of-working/</link><dc:creator>Petru Rebeja</dc:creator><description>&lt;p&gt;
 Like many other people I strive to be as productive as I can. Being productive means two things for me:

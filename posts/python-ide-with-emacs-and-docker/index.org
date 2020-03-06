@@ -16,7 +16,7 @@
 
   Furthermore, I use =Ubuntu Bash on Windows= to work on my Python projects simply because I can do everything from within Emacs there --- from editing input files in =csv-mode=, to writing code using =elpy= with =jedi= and pushing the code to a GitHub repo using =magit=.
 
-  All was good until an update for Windows [[https://github.com/microsoft/terminal/issues/210][messed up the console output on =WSL=]] which rendered both my Python setup and Emacs unusable. And if that wasn't bad enough, I got affected by this issue before a verry important deadline for one of the Python projects.
+  All was good until an update for Windows [[https://github.com/microsoft/terminal/issues/210][messed up the console output on =WSL=]] which rendered both my Python setup and Emacs unusable. And if that wasn't bad enough, I got affected by this issue before a very important deadline for one of the Python projects.
 
   Faced with the fact that there nothing I could do at that moment to fix the console output and in desperate need for a solution, I asked myself:
   #+begin_quote
@@ -47,7 +47,7 @@
 
   Success.
 
-  Even though the =sshd= was running and accepting connections, the fact that the root password was hardcoded in plain text /really/ bothered me so I made a small tweak to the =Dockerfile=:
+  Even though the =sshd= was running and accepting connections, the fact that the root password was hard-coded in plain text /really/ bothered me so I made a small tweak to the =Dockerfile=:
   #+begin_src sh
     ARG password
 
@@ -65,7 +65,7 @@
 
   Also, this environment will be used by Emacs and =elpy= to provide the features of an IDE.
 
-  A this point I asked myself: do I actually need a virtual environment? The Ubuntu Docker image comes with Python preinstalled so why not install the dependencies system-wide? After all, Docker containers and images are somewhat disposable --- I can alwasy recreate the image and start a new container for another project.
+  A this point I asked myself: do I actually need a virtual environment? The Ubuntu Docker image comes with Python preinstalled so why not install the dependencies system-wide? After all, Docker containers and images are somewhat disposable --- I can always recreate the image and start a new container for another project.
 
   I decided I /need/ a virtual environment because otherwise things would get messy and I like well organized stuff.
 
@@ -93,7 +93,7 @@
 * Issue #3: Emacs monolithic configuration file
   After setting up and activating the virtual environment, I needed to configure Emacs for python development to start working.
 
-  Luckily, I have my Emacs (semi-literate) config script in a [[https://github.com/repierre/.emacs.d][GitHub repository]] and all I need to do is jut clone the repo locally and everything should work. Or so I tought.
+  Luckily, I have my Emacs (semi-literate) config script in a [[https://github.com/repierre/.emacs.d][GitHub repository]] and all I need to do is jut clone the repo locally and everything should work. Or so I thought.
 
   I cloned the repository containing my config, which at that time was just a single file =emacs-init.org= bootstrapped by =init.el=, logged into the container and started Emacs.
 
@@ -125,7 +125,7 @@
 
   Looking back at how I used =sed= to remove some lines from =init.el= file one of the first ideas that popped into my head was to replace an empty line from =init.el= with the quick-fix, but after giving it some more thought I decided to use a more general solution that involves a little bit of (over) engineering.
 
-  Since I'm insterested in altering Emacs behavior before installing packages it would be good to have a way to inject more Lisp code than a single line. Furthermore, in cases where such code consists of multiple lines I could just add it using Dockers' =ADD= command instead of turing into a maintenance nightmare with multiple =sed= calls.
+  Since I'm interested in altering Emacs behavior before installing packages it would be good to have a way to inject more Lisp code than a single line. Furthermore, in cases where such code consists of multiple lines I could just add it using Dockers' =ADD= command instead of turning into a maintenance nightmare with multiple =sed= calls.
 
   Don't get me wrong: =sed= is great but I prefer to have large chunks of code in a separate file without the added complexity of them being intertwined with =sed= calls.
 
@@ -177,7 +177,7 @@ It does one more thing not mentioned previously: a =sed= call to remove lazy loa
 
   But there's an issue. I mount the repository I'm working on as a separate volume in the Docker container which allows =Magit= to read all required info (like user name etc.) directly from the repository. However, I cannot push changes to GitHub because I'm not authorized.
 
-  To authorize the current container to push to GitHub I need to generate a pair of keys for the SSH authenthication on GitHub. But this can become, again, a maintenance chore: for each new container I need to create the keys, add them to my GitHub account and *remember to delete them when I'm finished with the container*.
+  To authorize the current container to push to GitHub I need to generate a pair of keys for the SSH authentication on GitHub. But this can become, again, a maintenance chore: for each new container I need to create the keys, add them to my GitHub account and *remember to delete them when I'm finished with the container*.
 
   Instead of generating new keys each time, I decided to reuse the keys I already added to my GitHub account; the image I'm building will not leave my computer so there's no risk of someone getting ahold of my keys.
 
@@ -306,3 +306,5 @@ To build the image use this command:
   2. [[https://pythonspeed.com/articles/activate-virtualenv-dockerfile/][Elegantly activating a virtualenv in a Dockerfile]]
   3. [[https://stackoverflow.com/a/42125241/844006][SO answer on using SSH keys inside Docker container]]
   4. [[https://stackoverflow.com/a/64585/844006][Setting terminal colors in Emacs]]
+* Acknowledgments
+  I would like to thank my colleague [[https://www.linkedin.com/in/ionelabarbuta/][Ionela Bărbuță]] for proofreading this post and for the tips & tricks she gave me in order to improve my writing.
