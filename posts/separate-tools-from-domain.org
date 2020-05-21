@@ -9,7 +9,7 @@
 .. type: text
 
 #+END_COMMENT
-At Centric we have an Architecture club where we have regular meetings to discuss issues related to the architectural decisions of various applications, be it an application developed within the company or elsewhere. One of the latest topics discussed within the architecture club was whether to use or not MediatR (and implicitly the =Mediator= pattern) in the project.
+At [[https://www.centric.eu][Centric]] we have an Architecture club where we have regular meetings to discuss issues related to the architectural decisions of various applications, be it an application developed within the company or elsewhere. One of the latest topics discussed within the architecture club was whether to use or not MediatR (and implicitly the =Mediator= pattern) in the project.
 
 If you're not familiar with [[https://github.com/jbogard/MediatR][MediatR]], it's a library that relays messages to their destination in an easy to use and elegant manner in two ways: it dispatches requests to their handlers and sends notifications to subscribers.
 
@@ -18,9 +18,9 @@ The =Mediator= pattern itself is [[https://www.dofactory.com/net/mediator-design
     Define an object that encapsulates how a set of objects interact. Mediator promotes loose coupling by keeping objects from referring to each other explicitly, and it lets you vary their interaction independently.
     #+end_quote
 
-I'm going to step a bit back and give some additional context regarding this meeting. I wasn't able to attend the meetings of the club since mid February because the meetings overlapped with a class I teach. In an afternoon my colleague George, the founder of the club, told me that the topic of the next meeting will be wether to use or not MediatR and knowing that I use MediatR on my side project it would be nice for me to weigh-in my opinion (thank you George for that!).
+I'm going to step a bit back and give some additional context regarding this meeting. I wasn't able to attend the meetings of the club since mid February because the meetings overlapped with a class I teach. In an afternoon my colleague [[https://www.linkedin.com/in/george-patrascu-b28b523b/][George]], the founder of the club, told me that the topic of the next meeting will be wether to use or not MediatR and knowing that I use MediatR on my side project it would be nice for me to weigh-in my opinion (thank you George for that!).
 
-At first, I must confess, I was taken aback --- for me there was never a doubt; MediatR is a great tool and _should_ be used in a CQRS architecture (the default for projects at Centric). This is why I said I would really like to hear what other members have to say --- especially those oposing the use of MediatR.
+At first, I must confess, I was taken aback --- for me there was never a doubt; MediatR is a great tool and _should_ be used in a CQRS architecture (the default architecture within company). This is why I said I would really like to hear what other members have to say --- especially those oposing the use of MediatR.
 
 As the discussion went on I concluded that the problem wasn't whether to use or not to use MediatR but rather /how it was used/. And it was used as the centerpiece of the big ball of mud.
 
