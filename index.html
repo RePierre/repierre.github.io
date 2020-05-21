@@ -12,7 +12,7 @@
 <link rel="alternate" type="application/rss+xml" title="RSS" href="rss.xml">
 <link rel="canonical" href="https://rebeja.eu/">
 <link rel="next" href="index-1.html" type="text/html">
-<!--[if lt IE 9]><script src="assets/js/html5.js"></script><![endif]--><link rel="prefetch" href="posts/python-ide-with-emacs-and-docker/" type="text/html">
+<!--[if lt IE 9]><script src="assets/js/html5.js"></script><![endif]--><link rel="prefetch" href="posts/separate-tools-from-domain/" type="text/html">
 </head>
 <body>
 <a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
@@ -68,7 +68,187 @@
     
         
     <div class="postindex">
-            <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/python-ide-with-emacs-and-docker/" class="u-url">Building a Python IDE with Emacs and Docker</a></h1>
+            <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/separate-tools-from-domain/" class="u-url">Keep the tools separate from the domain of your application</a></h1>
+                <div class="metadata">
+                    <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                        Petru Rebeja
+                    </span></p>
+            <p class="dateline">
+            <a href="posts/separate-tools-from-domain/" rel="bookmark">
+            <time class="published dt-published" datetime="2020-05-21T10:56:02+03:00" itemprop="datePublished" title="2020-05-21 10:56">2020-05-21 10:56</time></a>
+            </p>
+                        <p class="commentline">
+        
+    <a href="posts/separate-tools-from-domain/#disqus_thread" data-disqus-identifier="cache/posts/separate-tools-from-domain.html">Comments</a>
+
+
+                </p>
+</div>
+            </header><div class="e-content entry-content">
+                    <p>
+At <a href="https://www.centric.eu">Centric</a> we have an Architecture club where we have regular meetings to discuss issues related to the architectural decisions of various applications, be it an application developed within the company or elsewhere. One of the latest topics discussed within the architecture club was whether to use or not MediatR (and implicitly the <code>Mediator</code> pattern) in the project.
+</p>
+
+<p>
+If you're not familiar with <a href="https://github.com/jbogard/MediatR">MediatR</a>, it's a library that relays messages to their destination in an easy to use and elegant manner in two ways: it dispatches requests to their handlers and sends notifications to subscribers.
+</p>
+
+<p>
+The <code>Mediator</code> pattern itself is <a href="https://www.dofactory.com/net/mediator-design-pattern">defined</a> as follows:
+</p>
+<blockquote>
+<p>
+Define an object that encapsulates how a set of objects interact. Mediator promotes loose coupling by keeping objects from referring to each other explicitly, and it lets you vary their interaction independently.
+</p>
+</blockquote>
+
+<p>
+I'm going to step a bit back and give some additional context regarding this meeting. I wasn't able to attend the meetings of the club since mid February because the meetings overlapped with a class I teach. In an afternoon my colleague <a href="https://www.linkedin.com/in/george-patrascu-b28b523b/">George</a>, the founder of the club, told me that the topic of the next meeting will be wether to use or not MediatR and knowing that I use MediatR on my side project it would be nice for me to weigh-in my opinion (thank you George for that!).
+</p>
+
+<p>
+At first, I must confess, I was taken aback — for me there was never a doubt; MediatR is a great tool and <span class="underline">should</span> be used in a CQRS architecture (the default architecture within company). This is why I said I would really like to hear what other members have to say — especially those oposing the use of MediatR.
+</p>
+
+<p>
+As the discussion went on I concluded that the problem wasn't whether to use or not to use MediatR but rather <i>how it was used</i>. And it was used as the centerpiece of the big ball of mud.
+</p>
+
+<p>
+The discussion started with backreferencing a presentation where the same topic was put upfront: <b>to use or not to use MediatR</b>? Afterwards, the forcus of the talk switched to a project where the mediator pattern was imposed to be used for <i>every</i> call pertaining to business logic and even more than that — even the calls to <a href="https://github.com/jbogard/automapper"><code>AutoMapper</code></a> were handled via the mediator. In other words, the vast majority of what should have been simple method calls became calls to <code>mediator.Send(new SomeRequest{...})</code>.
+</p>
+
+<p>
+The ironically interesting part is that in order to avoid being directly coupled to <code>MediatR</code> library the architect decided to hide the original <code>IMediator</code> interface behind a custom interface (let's call it <code>ICustomMediator</code>) thus ensuring a low coupling to the original interface. The irony here is that, although the initial intention is good, the abundence of calls to the custom mediator creates a dependency of application modules upon the custom defined interface. And this is wrong.
+</p>
+
+<p>
+Why is that wrong?, you may ask. After all, the <code>Dependency Inversion principle</code> explicitly states that "classes should depend on interfaces" and since in the aforementioned project classes depend on an <code>ICustomMediator</code> interface which doesn't change even when the original interface changes then it's all good, right?
+</p>
+
+<p>
+<b>Wrong</b>. That project <i>did not avoid coupling</i>, it just changed the contract it couples to from an interface defined in a third-party library to an interface defined within. Thats it; it is still tightly coupled with a single interface. Even worse, that interface has become the centerpiece of the whole application, the <i>God service</i>, which hides the target from the caller behind at least two (vertical) layers and tangles the operations of a business transaction into a big ball of mud. While doing so, it practically obliterates the boundaries between the modules which changes application modules from being highly cohesive pieces to lumps of code which "belong together".
+</p>
+
+<p>
+Furthermore, and this is the worst part, the <code>ICustomMediator</code> has changed its role from being a tool which relays commands to their respective handlers to being part of the application domain, i.e. the role of mediator changed from <i>implementation detail</i> to <i>first class citizen</i> of the application. This shift is subtle but dangerous and not that easy to observe because the change creeps in gradually akin to the gradual increase of the temperature of water in the <a href="https://en.wikipedia.org/wiki/Boiling_frog">boiling frog</a> fable.
+</p>
+
+<p>
+The shift happens because all the classes that need to execute a business operation which is not available as a method to invoke will have a reference to the mediator in order to call the aforementioned operation. As per <a href="https://en.wikipedia.org/wiki/Law_of_Demeter">Law of Demeter</a> (only talk to your immediate friends) that makes the <code>ICustomMediator</code> a friend of <i>all</i> the classes involved in implementing some business logic. And a friend of a domain object (entity, service etc.) <i>is a domain object</i> itself. Or at least it should be.
+</p>
+
+<p>
+OK, you might say, then what's the <i>right</i> way to use the mediator here? I'm glad you asked. Allow me to explain myself by taking (again) a few steps back.
+</p>
+
+<p>
+Ever since I discovered <b>MediatR</b> I've seen it as the <b>great tool</b> it is. I remember how, while pondering upon the examples from  MediatR documentation and how I could adapt those for my project I started running some potential usage scenarios in my head. After a short time some clustering patterns started to emerge from those usage scenarios. The patterns weren't that complicated — a handler that handles a payment registration should somehow belong together with a handler that queries the balance of an account, whereas the handler that deals with customer information should belong somewhere else.
+</p>
+
+<p>
+These patterns are nothing else than a high degree of cohesion between each of the classes implementing the <code>IHandler</code> interface from MediatR and to isolate them I've organized each such cluster into a separate assembly.
+</p>
+
+<p>
+Having done that another pattern emerged from all the handlers within an assembly: each of the handlers were handling an operation of a single service.
+</p>
+
+<p>
+Obviously, the next logical thing was to actually define the service interface which listed all the operations peformed by the handlers within that assembly. And since the interface needs an implementation I've created a class for each service which calls <code>mediator.Send()</code> with the proper parameters for the specific handler and returns the results. This is how it looks:
+</p>
+<div class="highlight"><pre><span></span>public interface IAccountingService
+{
+    void RegisterPayment(RegisterPaymentCommand paymentDetails);
+
+    GetAccountBalanceResponse GetAccountBalance(GetAccountBalanceRequest accountId);
+
+    GetAllPaymentsResponse GetAllPayments();
+}
+
+class AccountingService: IAccountingService
+{
+    private readonly IMediator _mediator;
+
+    public AccountingService(IMediator mediator)
+    {
+	_mediator = mediator;
+    }
+
+    public void RegisterPayment(RegisterPaymentCommand paymentDetails)
+    {
+	_mediator.Send(paymentDetails);
+    }
+
+    public GetAccountBalanceResponse GetAccountBalance(GetAccountBalanceRequest accountId)
+    {
+	return _mediator.Send(GetAccountBalanceRequest);
+    }
+
+    public GetAllPaymentsResponse GetAllPayments()
+    {
+	return _mediator.Send(new GetAllPaymentsRequest());
+    }
+}
+</pre></div>
+
+<p>
+As a result I <i>do have more boilerplate code</i> but on the upside I have:
+</p>
+<ol class="org-ol">
+<li>A separation of the domain logic from the plumbing handled by MediatR. If I want to switch the interface implemented by each handler I can use search and replace with a regex and I'm done.</li>
+<li>A cleaner service interface. For the service above, the handler that returns all payments should look like this:</li>
+</ol>
+<div class="highlight"><pre><span></span>public class GetAllPaymentsRequest: IRequest&lt;GetAllPaymentsResponse&gt;
+{
+}
+
+public class GetAllPaymentsResponse
+{
+    public IEnumerable&lt;Payment&gt; Payments {get; set;}
+}
+
+public GetAllPaymentsRequestHandler: RequestHandler&lt;GetAllPaymentsRequest, GetAllPaymentsResponse&gt;
+{
+    protected override GetAllPaymentsResponse Handle(GetAllPaymentsRequest request)
+    {
+	// ...
+    }
+}
+</pre></div>
+
+<p>
+In order to call this handler you must provide an empty instance of <code>GetAllPaymentsRequest</code> to mediator but such restriction doesn't need to be imposed on the service interface. Thus, the consumer of <code>IAccountingService</code> calls <code>GetAllPayments()</code> without being forced to provide an empty instance which, from consumers' point of view, is useless.
+</p>
+
+<p>
+However, the greatest benefit from introducing this new service is that <i>it is a domain service</i> and does not break the Law of Demeter while abstracting away the technical details. Whichever class will have a reference to an instance of <code>IAccountingService</code>, it will be working with something pertaining to the <code>Accounting</code> domain thus when invoking a method from the <code>IAccountingService</code> <i>it will call a friend</i>.
+</p>
+
+<p>
+This pattern also makes the code a lot more understandable. Imposing a service over the handlers that are related to each-other unifies them and makes their purpose more clear. It's easier to understand that I need to call <code>subscriptionsService</code> to get a subscription but it becomes a little more cluttered when I call <code>mediator.Send(new GetSubscriptionRequest{SubscriptionId = id})</code> because it raises a lot of questions. Who gives me that subscription in the end and where it resides? Is this a database call or a network call? And who the hell is this <code>mediator</code> dude?
+</p>
+
+<p>
+Of course, the first two questions may rise when dealing with any interface and they should be always on the mind of programmers because the implementation may affect the performance, but performance concerns aside, it's just easier to comprehend the relationships and interactions when all the details fit together. And in a class dealing with <code>Accounting</code> domain a call to <code>mediator</code> just doesn't fit.
+</p>
+
+<p>
+Back to the main point, there's the question of what if I <i>need</i> to make a request through a queue (<code>RabbitMq</code> for example)? Let's assume I have a class which needs to get some details using a call to mediator but afterwards needs to write some data to a queue within the same business transaction. In such case, I have to either:
+</p>
+<ul class="org-ul">
+<li>inject into my class an instance that knows how to talk to the queue and an instance of mediator or</li>
+<li>have another mediator handler which does the write and perform two separate calls to mediator.</li>
+</ul>
+<p>
+By doing this I'm polluting the application logic with entities like mediator, queue writer etc., entities which are pertaining to application infrastructure not application domain. In other words, they are tools not building blocks. And tools should be replaceable. But how do I replace them if I have references to them scatered all over the code-base? With maximum effort, as Deadpool says.
+</p>
+
+<p>
+This is why you need to separate tools from application domain. And this is how I achieved this separation: by hiding the implementation details (i.e. tooling) behind a service interface which brings meaning to the domain. This way, when you change the tools, the meaning (i.e. intention) stays the same.
+</p>
+                </div>
+            </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/python-ide-with-emacs-and-docker/" class="u-url">Building a Python IDE with Emacs and Docker</a></h1>
                 <div class="metadata">
                     <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
                         Petru Rebeja
@@ -1399,84 +1579,6 @@ And how can we do that? Exactly - with <code>stored procedures</code>.
 <p>
 Now, of course in real life situations there won't be a customer that orders almost 1000 items with a single order and the second approach (bulk load items and iterate the collection) will do just fine.
 The important thing to keep in mind in such cases is the need to switch from a procedural mindset to a set-based one thus pruning this phenomenon of paradigm creep which can become a full-blown RBAR processing.
-</p>
-                </div>
-            </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/python-development-using-emacs-from-terminal/" class="u-url">Python development using Emacs from terminal</a></h1>
-                <div class="metadata">
-                    <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
-                        Petru Rebeja
-                    </span></p>
-            <p class="dateline">
-            <a href="posts/python-development-using-emacs-from-terminal/" rel="bookmark">
-            <time class="published dt-published" datetime="2017-09-29T00:00:00+02:00" itemprop="datePublished" title="2017-09-29 00:00">2017-09-29 00:00</time></a>
-            </p>
-                        <p class="commentline">
-        
-    <a href="posts/python-development-using-emacs-from-terminal/#disqus_thread" data-disqus-identifier="cache/posts/python-development-using-emacs-from-terminal.html">Comments</a>
-
-
-                </p>
-</div>
-            </header><div class="e-content entry-content">
-                    <p>
-A few weeks ago, while working on a hackathon project I found myself very disappointed with my progress.
-</p>
-
-<p>
-I had the impression that I can do better but something is holding me back and then I realized that I was too distracted by <code>Alt-Tab</code>-ing through all open applications, iterating through dozens of open tabs in the browser and spending too much time on websites that were of no use at that time.
-</p>
-
-<p>
-At that moment, on a whim I decided to try and eliminate all of these distractions the hard way - <b>by not using the X server at all</b> (I was working on <a href="https://kubuntu.org/">Kubuntu</a>).
-</p>
-
-<p>
-Since I was mainly working with Python code and occasionally I would need to open some file for inspection and all of these were done from Emacs I said to myself:
-</p>
-<blockquote>
-<p>
-Emacs can be opened from console so why not start working on hackathon from console?
-</p>
-</blockquote>
-<p>
-Said and done. <code>Ctrl-Alt-F1</code> and I was prompted with the TTY cursor. I logged in, started Emacs opened all the required files and started working. All good until I found myself in the situation where I needed to lookup something on the Internet. I knew I could use <code>eww</code> as a web browser so normally I did so (yeah, I'm one of those people that use Bing instead of Google):
-</p>
-<div class="highlight"><pre><span></span>M-x eww
-Enter URL or keywords: www.bing.com
-</pre></div>
-<p>
-And nothing… Oh, wait, I remember needing to enter some username and password when connecting to the Wi-Fi but I wasn't prompted for those after logging into terminal. How do I connect to the network?
-</p>
-
-<p>
-As there was no way for me to find that out without using some sort of GUI (I'm not that good with terminals) I started a new X session, connected from there to Wi-Fi and found this <a href="https://askubuntu.com/a/461831/561980">StackOverflow answer</a>. So I logged back to the terminal and from Emacs started <b>eshell</b> with <code>M-x eshell</code>. From there I issued the following command
-</p>
-<div class="highlight"><pre><span></span>nmcli c up &lt;wi-fi-name&gt;
-</pre></div>
-<p>
-which connected me to the Wi-Fi network.
-</p>
-
-<p>
-Note: I got connected because on previous sessions I opted to store the credentials for the connection; to get a prompt for username and password for the Wi-Fi use the <code>--ask</code> parameter like this:
-</p>
-<div class="highlight"><pre><span></span>nmcli --ask c up &lt;wi-fi-name&gt;
-</pre></div>
-
-<p>
-After connecting I resumed my coding and only at the end of the hackathon I stopped to ponder upon my experience; it wasn't as smooth as I expected. Although I consider a big plus the fact that I was able to issue shell commands within Emacs through <b>eshell</b> there were some hick-ups along the way.
-</p>
-
-<p>
-The first thing I noticed is that under terminal not all shortcuts that are very familiar for me are available. Namely, in <b>org-mode</b> the combination <code>M-right</code> which is used for indentation, moving columns within a table and demoting list items is not available; instead I had to use either <code>C-c C-x r</code> shortcut or explicitly invoke the command using <code>M-x org-meta-right</code>. Although I did not invoke this command frequently, without the shortcut I felt like I was pulled out of <a href="https://en.wikipedia.org/wiki/Flow_(psychology)">the flow</a> each time I had to use an alternative method of invoking the command.
-</p>
-
-<p>
-The second and by far the biggest nuisance was the lack of proper web-browsing experience. Although I most frequently landed on StackOverflow pages and although <b>eww</b> rendered them pretty good (see image below) the lack of visual experience <i>I was used to</i> gave me a sense of discomfort.
-<img src="images/eww-stackoverflow-2.png" alt="nil"></p>
-
-<p>
-However, when I got to analyze how much I have accomplished while working from terminal I was simply <b>amazed</b>. Having no distraction and meaningless motion like cycling through windows and tabs had a huge impact on my productivity. I was able to fully concentrate and immerse in the code and by doing so I had <b>a lot</b> of work done.
 </p>
                 </div>
             </article>

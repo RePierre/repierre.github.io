@@ -1,0 +1,120 @@
+#+BEGIN_COMMENT
+.. title: Keep the tools separate from the domain of your application
+.. slug: separate-tools-from-domain
+.. date: 2020-05-21 10:56:02 UTC+03:00
+.. tags:
+.. category:
+.. link:
+.. description:
+.. type: text
+
+#+END_COMMENT
+At [[https://www.centric.eu][Centric]] we have an Architecture club where we have regular meetings to discuss issues related to the architectural decisions of various applications, be it an application developed within the company or elsewhere. One of the latest topics discussed within the architecture club was whether to use or not MediatR (and implicitly the =Mediator= pattern) in the project.
+
+If you're not familiar with [[https://github.com/jbogard/MediatR][MediatR]], it's a library that relays messages to their destination in an easy to use and elegant manner in two ways: it dispatches requests to their handlers and sends notifications to subscribers.
+
+The =Mediator= pattern itself is [[https://www.dofactory.com/net/mediator-design-pattern][defined]] as follows:
+    #+begin_quote
+    Define an object that encapsulates how a set of objects interact. Mediator promotes loose coupling by keeping objects from referring to each other explicitly, and it lets you vary their interaction independently.
+    #+end_quote
+
+I'm going to step a bit back and give some additional context regarding this meeting. I wasn't able to attend the meetings of the club since mid February because the meetings overlapped with a class I teach. In an afternoon my colleague [[https://www.linkedin.com/in/george-patrascu-b28b523b/][George]], the founder of the club, told me that the topic of the next meeting will be wether to use or not MediatR and knowing that I use MediatR on my side project it would be nice for me to weigh-in my opinion (thank you George for that!).
+
+At first, I must confess, I was taken aback --- for me there was never a doubt; MediatR is a great tool and _should_ be used in a CQRS architecture (the default architecture within company). This is why I said I would really like to hear what other members have to say --- especially those oposing the use of MediatR.
+
+As the discussion went on I concluded that the problem wasn't whether to use or not to use MediatR but rather /how it was used/. And it was used as the centerpiece of the big ball of mud.
+
+The discussion started with backreferencing a presentation where the same topic was put upfront: *to use or not to use MediatR*? Afterwards, the forcus of the talk switched to a project where the mediator pattern was imposed to be used for /every/ call pertaining to business logic and even more than that --- even the calls to [[https://github.com/jbogard/automapper][=AutoMapper=]] were handled via the mediator. In other words, the vast majority of what should have been simple method calls became calls to =mediator.Send(new SomeRequest{...})=.
+
+The ironically interesting part is that in order to avoid being directly coupled to =MediatR= library the architect decided to hide the original =IMediator= interface behind a custom interface (let's call it =ICustomMediator=) thus ensuring a low coupling to the original interface. The irony here is that, although the initial intention is good, the abundence of calls to the custom mediator creates a dependency of application modules upon the custom defined interface. And this is wrong.
+
+Why is that wrong?, you may ask. After all, the =Dependency Inversion principle= explicitly states that "classes should depend on interfaces" and since in the aforementioned project classes depend on an =ICustomMediator= interface which doesn't change even when the original interface changes then it's all good, right?
+
+*Wrong*. That project /did not avoid coupling/, it just changed the contract it couples to from an interface defined in a third-party library to an interface defined within. Thats it; it is still tightly coupled with a single interface. Even worse, that interface has become the centerpiece of the whole application, the /God service/, which hides the target from the caller behind at least two (vertical) layers and tangles the operations of a business transaction into a big ball of mud. While doing so, it practically obliterates the boundaries between the modules which changes application modules from being highly cohesive pieces to lumps of code which "belong together".
+
+Furthermore, and this is the worst part, the =ICustomMediator= has changed its role from being a tool which relays commands to their respective handlers to being part of the application domain, i.e. the role of mediator changed from /implementation detail/ to /first class citizen/ of the application. This shift is subtle but dangerous and not that easy to observe because the change creeps in gradually akin to the gradual increase of the temperature of water in the [[https://en.wikipedia.org/wiki/Boiling_frog][boiling frog]] fable.
+
+The shift happens because all the classes that need to execute a business operation which is not available as a method to invoke will have a reference to the mediator in order to call the aforementioned operation. As per [[https://en.wikipedia.org/wiki/Law_of_Demeter][Law of Demeter]] (only talk to your immediate friends) that makes the =ICustomMediator= a friend of /all/ the classes involved in implementing some business logic. And a friend of a domain object (entity, service etc.) /is a domain object/ itself. Or at least it should be.
+
+OK, you might say, then what's the /right/ way to use the mediator here? I'm glad you asked. Allow me to explain myself by taking (again) a few steps back.
+
+Ever since I discovered *MediatR* I've seen it as the *great tool* it is. I remember how, while pondering upon the examples from  MediatR documentation and how I could adapt those for my project I started running some potential usage scenarios in my head. After a short time some clustering patterns started to emerge from those usage scenarios. The patterns weren't that complicated --- a handler that handles a payment registration should somehow belong together with a handler that queries the balance of an account, whereas the handler that deals with customer information should belong somewhere else.
+
+These patterns are nothing else than a high degree of cohesion between each of the classes implementing the =IHandler= interface from MediatR and to isolate them I've organized each such cluster into a separate assembly.
+
+Having done that another pattern emerged from all the handlers within an assembly: each of the handlers were handling an operation of a single service.
+
+Obviously, the next logical thing was to actually define the service interface which listed all the operations peformed by the handlers within that assembly. And since the interface needs an implementation I've created a class for each service which calls =mediator.Send()= with the proper parameters for the specific handler and returns the results. This is how it looks:
+#+begin_src csharp
+  public interface IAccountingService
+  {
+      void RegisterPayment(RegisterPaymentCommand paymentDetails);
+
+      GetAccountBalanceResponse GetAccountBalance(GetAccountBalanceRequest accountId);
+
+      GetAllPaymentsResponse GetAllPayments();
+  }
+
+  class AccountingService: IAccountingService
+  {
+      private readonly IMediator _mediator;
+
+      public AccountingService(IMediator mediator)
+      {
+	  _mediator = mediator;
+      }
+
+      public void RegisterPayment(RegisterPaymentCommand paymentDetails)
+      {
+	  _mediator.Send(paymentDetails);
+      }
+
+      public GetAccountBalanceResponse GetAccountBalance(GetAccountBalanceRequest accountId)
+      {
+	  return _mediator.Send(GetAccountBalanceRequest);
+      }
+
+      public GetAllPaymentsResponse GetAllPayments()
+      {
+	  return _mediator.Send(new GetAllPaymentsRequest());
+      }
+  }
+#+end_src
+
+As a result I /do have more boilerplate code/ but on the upside I have:
+1. A separation of the domain logic from the plumbing handled by MediatR. If I want to switch the interface implemented by each handler I can use search and replace with a regex and I'm done.
+2. A cleaner service interface. For the service above, the handler that returns all payments should look like this:
+#+begin_src csharp
+  public class GetAllPaymentsRequest: IRequest<GetAllPaymentsResponse>
+  {
+  }
+
+  public class GetAllPaymentsResponse
+  {
+      public IEnumerable<Payment> Payments {get; set;}
+  }
+
+  public GetAllPaymentsRequestHandler: RequestHandler<GetAllPaymentsRequest, GetAllPaymentsResponse>
+  {
+      protected override GetAllPaymentsResponse Handle(GetAllPaymentsRequest request)
+      {
+	  // ...
+      }
+  }
+#+end_src
+
+In order to call this handler you must provide an empty instance of =GetAllPaymentsRequest= to mediator but such restriction doesn't need to be imposed on the service interface. Thus, the consumer of =IAccountingService= calls =GetAllPayments()= without being forced to provide an empty instance which, from consumers' point of view, is useless.
+
+However, the greatest benefit from introducing this new service is that /it is a domain service/ and does not break the Law of Demeter while abstracting away the technical details. Whichever class will have a reference to an instance of =IAccountingService=, it will be working with something pertaining to the =Accounting= domain thus when invoking a method from the =IAccountingService= /it will call a friend/.
+
+This pattern also makes the code a lot more understandable. Imposing a service over the handlers that are related to each-other unifies them and makes their purpose more clear. It's easier to understand that I need to call =subscriptionsService= to get a subscription but it becomes a little more cluttered when I call =mediator.Send(new GetSubscriptionRequest{SubscriptionId = id})= because it raises a lot of questions. Who gives me that subscription in the end and where it resides? Is this a database call or a network call? And who the hell is this =mediator= dude?
+
+Of course, the first two questions may rise when dealing with any interface and they should be always on the mind of programmers because the implementation may affect the performance, but performance concerns aside, it's just easier to comprehend the relationships and interactions when all the details fit together. And in a class dealing with =Accounting= domain a call to =mediator= just doesn't fit.
+
+Back to the main point, there's the question of what if I /need/ to make a request through a queue (=RabbitMq= for example)? Let's assume I have a class which needs to get some details using a call to mediator but afterwards needs to write some data to a queue within the same business transaction. In such case, I have to either:
+- inject into my class an instance that knows how to talk to the queue and an instance of mediator or
+- have another mediator handler which does the write and perform two separate calls to mediator.
+
+By doing this I'm polluting the application logic with entities like mediator, queue writer etc., entities which are pertaining to application infrastructure not application domain. In other words, they are tools not building blocks. And tools should be replaceable. But how do I replace them if I have references to them scatered all over the code-base? With maximum effort, as Deadpool says.
+
+This is why you need to separate tools from application domain. And this is how I achieved this separation: by hiding the implementation details (i.e. tooling) behind a service interface which brings meaning to the domain. This way, when you change the tools, the meaning (i.e. intention) stays the same.

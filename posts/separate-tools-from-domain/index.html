@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article# " lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Keep the tools separate from the domain of your application | Rebeja</title>
+<link href="../../assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
+<meta name="theme-color" content="#5670d4">
+<meta name="generator" content="Nikola (getnikola.com)">
+<link rel="alternate" type="application/rss+xml" title="RSS" href="../../rss.xml">
+<link rel="canonical" href="https://rebeja.eu/posts/separate-tools-from-domain/">
+<!--[if lt IE 9]><script src="../../assets/js/html5.js"></script><![endif]--><meta name="author" content="Petru Rebeja">
+<link rel="prev" href="../python-ide-with-emacs-and-docker/" title="Building a Python IDE with Emacs and Docker" type="text/html">
+<meta property="og:site_name" content="Rebeja">
+<meta property="og:title" content="Keep the tools separate from the domain of your application">
+<meta property="og:url" content="https://rebeja.eu/posts/separate-tools-from-domain/">
+<meta property="og:description" content="At Centric we have an Architecture club where we have regular meetings to discuss issues related to the architectural decisions of various applications, be it an application developed within the compa">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2020-05-21T10:56:02+03:00">
+</head>
+<body>
+<a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
+
+<!-- Header and menu bar -->
+<div class="container">
+      <header class="blog-header py-3"><div class="row nbb-header align-items-center">
+          <div class="col-md-3 col-xs-2 col-sm-2" style="width: auto;">
+            <button class="navbar-toggler navbar-light bg-light nbb-navbar-toggler" type="button" data-toggle="collapse" data-target=".bs-nav-collapsible" aria-controls="bs-navbar" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse bs-nav-collapsible bootblog4-search-form-holder">
+                
+            </div>
+        </div>
+          <div class="col-md-6 col-xs-10 col-sm-10 bootblog4-brand" style="width: auto;">
+            <a class="navbar-brand blog-header-logo text-dark" href="https://rebeja.eu/">
+
+            <span id="blog-title">Rebeja</span>
+        </a>
+          </div>
+            <div class="col-md-3 justify-content-end align-items-center bs-nav-collapsible collapse flex-collapse bootblog4-right-nav">
+            <nav class="navbar navbar-light bg-white"><ul class="navbar-nav bootblog4-right-nav">
+<li class="nav-item">
+    <a href="index.org" id="sourcelink" class="nav-link">Source</a>
+    </li>
+
+
+                    
+            </ul></nav>
+</div>
+    </div>
+</header><nav class="navbar navbar-expand-md navbar-light bg-white static-top"><div class="collapse navbar-collapse bs-nav-collapsible" id="bs-navbar">
+            <ul class="navbar-nav nav-fill d-flex w-100">
+<li class="nav-item">
+<a href="../../archive.html" class="nav-link">Archive</a>
+                </li>
+<li class="nav-item">
+<a href="../../categories/" class="nav-link">Tags</a>
+                </li>
+<li class="nav-item">
+<a href="../../rss.xml" class="nav-link">RSS feed</a>
+
+                
+            </li>
+</ul>
+</div>
+<!-- /.navbar-collapse -->
+</nav>
+</div>
+
+<div class="container" id="content" role="main">
+    <div class="body-content">
+        <!--Body content-->
+        
+        
+<article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title" itemprop="headline name"><a href="." class="u-url">Keep the tools separate from the domain of your application</a></h1>
+
+        <div class="metadata">
+            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                    Petru Rebeja
+            </span></p>
+            <p class="dateline">
+            <a href="." rel="bookmark">
+            <time class="published dt-published" datetime="2020-05-21T10:56:02+03:00" itemprop="datePublished" title="2020-05-21 10:56">2020-05-21 10:56</time></a>
+            </p>
+                <p class="commentline">
+        
+    <a href="#disqus_thread" data-disqus-identifier="cache/posts/separate-tools-from-domain.html">Comments</a>
+
+
+            
+        </p>
+<p class="sourceline"><a href="index.org" class="sourcelink">Source</a></p>
+
+        </div>
+        
+
+    </header><div class="e-content entry-content" itemprop="articleBody text">
+    <p>
+At <a href="https://www.centric.eu">Centric</a> we have an Architecture club where we have regular meetings to discuss issues related to the architectural decisions of various applications, be it an application developed within the company or elsewhere. One of the latest topics discussed within the architecture club was whether to use or not MediatR (and implicitly the <code>Mediator</code> pattern) in the project.
+</p>
+
+<p>
+If you're not familiar with <a href="https://github.com/jbogard/MediatR">MediatR</a>, it's a library that relays messages to their destination in an easy to use and elegant manner in two ways: it dispatches requests to their handlers and sends notifications to subscribers.
+</p>
+
+<p>
+The <code>Mediator</code> pattern itself is <a href="https://www.dofactory.com/net/mediator-design-pattern">defined</a> as follows:
+</p>
+<blockquote>
+<p>
+Define an object that encapsulates how a set of objects interact. Mediator promotes loose coupling by keeping objects from referring to each other explicitly, and it lets you vary their interaction independently.
+</p>
+</blockquote>
+
+<p>
+I'm going to step a bit back and give some additional context regarding this meeting. I wasn't able to attend the meetings of the club since mid February because the meetings overlapped with a class I teach. In an afternoon my colleague <a href="https://www.linkedin.com/in/george-patrascu-b28b523b/">George</a>, the founder of the club, told me that the topic of the next meeting will be wether to use or not MediatR and knowing that I use MediatR on my side project it would be nice for me to weigh-in my opinion (thank you George for that!).
+</p>
+
+<p>
+At first, I must confess, I was taken aback — for me there was never a doubt; MediatR is a great tool and <span class="underline">should</span> be used in a CQRS architecture (the default architecture within company). This is why I said I would really like to hear what other members have to say — especially those oposing the use of MediatR.
+</p>
+
+<p>
+As the discussion went on I concluded that the problem wasn't whether to use or not to use MediatR but rather <i>how it was used</i>. And it was used as the centerpiece of the big ball of mud.
+</p>
+
+<p>
+The discussion started with backreferencing a presentation where the same topic was put upfront: <b>to use or not to use MediatR</b>? Afterwards, the forcus of the talk switched to a project where the mediator pattern was imposed to be used for <i>every</i> call pertaining to business logic and even more than that — even the calls to <a href="https://github.com/jbogard/automapper"><code>AutoMapper</code></a> were handled via the mediator. In other words, the vast majority of what should have been simple method calls became calls to <code>mediator.Send(new SomeRequest{...})</code>.
+</p>
+
+<p>
+The ironically interesting part is that in order to avoid being directly coupled to <code>MediatR</code> library the architect decided to hide the original <code>IMediator</code> interface behind a custom interface (let's call it <code>ICustomMediator</code>) thus ensuring a low coupling to the original interface. The irony here is that, although the initial intention is good, the abundence of calls to the custom mediator creates a dependency of application modules upon the custom defined interface. And this is wrong.
+</p>
+
+<p>
+Why is that wrong?, you may ask. After all, the <code>Dependency Inversion principle</code> explicitly states that "classes should depend on interfaces" and since in the aforementioned project classes depend on an <code>ICustomMediator</code> interface which doesn't change even when the original interface changes then it's all good, right?
+</p>
+
+<p>
+<b>Wrong</b>. That project <i>did not avoid coupling</i>, it just changed the contract it couples to from an interface defined in a third-party library to an interface defined within. Thats it; it is still tightly coupled with a single interface. Even worse, that interface has become the centerpiece of the whole application, the <i>God service</i>, which hides the target from the caller behind at least two (vertical) layers and tangles the operations of a business transaction into a big ball of mud. While doing so, it practically obliterates the boundaries between the modules which changes application modules from being highly cohesive pieces to lumps of code which "belong together".
+</p>
+
+<p>
+Furthermore, and this is the worst part, the <code>ICustomMediator</code> has changed its role from being a tool which relays commands to their respective handlers to being part of the application domain, i.e. the role of mediator changed from <i>implementation detail</i> to <i>first class citizen</i> of the application. This shift is subtle but dangerous and not that easy to observe because the change creeps in gradually akin to the gradual increase of the temperature of water in the <a href="https://en.wikipedia.org/wiki/Boiling_frog">boiling frog</a> fable.
+</p>
+
+<p>
+The shift happens because all the classes that need to execute a business operation which is not available as a method to invoke will have a reference to the mediator in order to call the aforementioned operation. As per <a href="https://en.wikipedia.org/wiki/Law_of_Demeter">Law of Demeter</a> (only talk to your immediate friends) that makes the <code>ICustomMediator</code> a friend of <i>all</i> the classes involved in implementing some business logic. And a friend of a domain object (entity, service etc.) <i>is a domain object</i> itself. Or at least it should be.
+</p>
+
+<p>
+OK, you might say, then what's the <i>right</i> way to use the mediator here? I'm glad you asked. Allow me to explain myself by taking (again) a few steps back.
+</p>
+
+<p>
+Ever since I discovered <b>MediatR</b> I've seen it as the <b>great tool</b> it is. I remember how, while pondering upon the examples from  MediatR documentation and how I could adapt those for my project I started running some potential usage scenarios in my head. After a short time some clustering patterns started to emerge from those usage scenarios. The patterns weren't that complicated — a handler that handles a payment registration should somehow belong together with a handler that queries the balance of an account, whereas the handler that deals with customer information should belong somewhere else.
+</p>
+
+<p>
+These patterns are nothing else than a high degree of cohesion between each of the classes implementing the <code>IHandler</code> interface from MediatR and to isolate them I've organized each such cluster into a separate assembly.
+</p>
+
+<p>
+Having done that another pattern emerged from all the handlers within an assembly: each of the handlers were handling an operation of a single service.
+</p>
+
+<p>
+Obviously, the next logical thing was to actually define the service interface which listed all the operations peformed by the handlers within that assembly. And since the interface needs an implementation I've created a class for each service which calls <code>mediator.Send()</code> with the proper parameters for the specific handler and returns the results. This is how it looks:
+</p>
+<div class="highlight"><pre><span></span>public interface IAccountingService
+{
+    void RegisterPayment(RegisterPaymentCommand paymentDetails);
+
+    GetAccountBalanceResponse GetAccountBalance(GetAccountBalanceRequest accountId);
+
+    GetAllPaymentsResponse GetAllPayments();
+}
+
+class AccountingService: IAccountingService
+{
+    private readonly IMediator _mediator;
+
+    public AccountingService(IMediator mediator)
+    {
+	_mediator = mediator;
+    }
+
+    public void RegisterPayment(RegisterPaymentCommand paymentDetails)
+    {
+	_mediator.Send(paymentDetails);
+    }
+
+    public GetAccountBalanceResponse GetAccountBalance(GetAccountBalanceRequest accountId)
+    {
+	return _mediator.Send(GetAccountBalanceRequest);
+    }
+
+    public GetAllPaymentsResponse GetAllPayments()
+    {
+	return _mediator.Send(new GetAllPaymentsRequest());
+    }
+}
+</pre></div>
+
+<p>
+As a result I <i>do have more boilerplate code</i> but on the upside I have:
+</p>
+<ol class="org-ol">
+<li>A separation of the domain logic from the plumbing handled by MediatR. If I want to switch the interface implemented by each handler I can use search and replace with a regex and I'm done.</li>
+<li>A cleaner service interface. For the service above, the handler that returns all payments should look like this:</li>
+</ol>
+<div class="highlight"><pre><span></span>public class GetAllPaymentsRequest: IRequest&lt;GetAllPaymentsResponse&gt;
+{
+}
+
+public class GetAllPaymentsResponse
+{
+    public IEnumerable&lt;Payment&gt; Payments {get; set;}
+}
+
+public GetAllPaymentsRequestHandler: RequestHandler&lt;GetAllPaymentsRequest, GetAllPaymentsResponse&gt;
+{
+    protected override GetAllPaymentsResponse Handle(GetAllPaymentsRequest request)
+    {
+	// ...
+    }
+}
+</pre></div>
+
+<p>
+In order to call this handler you must provide an empty instance of <code>GetAllPaymentsRequest</code> to mediator but such restriction doesn't need to be imposed on the service interface. Thus, the consumer of <code>IAccountingService</code> calls <code>GetAllPayments()</code> without being forced to provide an empty instance which, from consumers' point of view, is useless.
+</p>
+
+<p>
+However, the greatest benefit from introducing this new service is that <i>it is a domain service</i> and does not break the Law of Demeter while abstracting away the technical details. Whichever class will have a reference to an instance of <code>IAccountingService</code>, it will be working with something pertaining to the <code>Accounting</code> domain thus when invoking a method from the <code>IAccountingService</code> <i>it will call a friend</i>.
+</p>
+
+<p>
+This pattern also makes the code a lot more understandable. Imposing a service over the handlers that are related to each-other unifies them and makes their purpose more clear. It's easier to understand that I need to call <code>subscriptionsService</code> to get a subscription but it becomes a little more cluttered when I call <code>mediator.Send(new GetSubscriptionRequest{SubscriptionId = id})</code> because it raises a lot of questions. Who gives me that subscription in the end and where it resides? Is this a database call or a network call? And who the hell is this <code>mediator</code> dude?
+</p>
+
+<p>
+Of course, the first two questions may rise when dealing with any interface and they should be always on the mind of programmers because the implementation may affect the performance, but performance concerns aside, it's just easier to comprehend the relationships and interactions when all the details fit together. And in a class dealing with <code>Accounting</code> domain a call to <code>mediator</code> just doesn't fit.
+</p>
+
+<p>
+Back to the main point, there's the question of what if I <i>need</i> to make a request through a queue (<code>RabbitMq</code> for example)? Let's assume I have a class which needs to get some details using a call to mediator but afterwards needs to write some data to a queue within the same business transaction. In such case, I have to either:
+</p>
+<ul class="org-ul">
+<li>inject into my class an instance that knows how to talk to the queue and an instance of mediator or</li>
+<li>have another mediator handler which does the write and perform two separate calls to mediator.</li>
+</ul>
+<p>
+By doing this I'm polluting the application logic with entities like mediator, queue writer etc., entities which are pertaining to application infrastructure not application domain. In other words, they are tools not building blocks. And tools should be replaceable. But how do I replace them if I have references to them scatered all over the code-base? With maximum effort, as Deadpool says.
+</p>
+
+<p>
+This is why you need to separate tools from application domain. And this is how I achieved this separation: by hiding the implementation details (i.e. tooling) behind a service interface which brings meaning to the domain. This way, when you change the tools, the meaning (i.e. intention) stays the same.
+</p>
+    </div>
+    <aside class="postpromonav"><nav><ul class="pager hidden-print">
+<li class="previous">
+                <a href="../python-ide-with-emacs-and-docker/" rel="prev" title="Building a Python IDE with Emacs and Docker">Previous post</a>
+            </li>
+        </ul></nav></aside><section class="comments hidden-print"><h2>Comments</h2>
+        
+        
+        <div id="disqus_thread"></div>
+        <script>
+        var disqus_shortname ="rebeja",
+            disqus_url="https://rebeja.eu/posts/separate-tools-from-domain/",
+        disqus_title="Keep the tools separate from the domain of your application",
+        disqus_identifier="cache/posts/separate-tools-from-domain.html",
+        disqus_config = function () {
+            this.language = "en";
+        };
+        (function() {
+            var dsq = document.createElement('script'); dsq.async = true;
+            dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script><noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a>
+</noscript>
+    <a href="https://disqus.com" class="dsq-brlink" rel="nofollow">Comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+        </section></article><script>var disqus_shortname="rebeja";(function(){var a=document.createElement("script");a.async=true;a.src="https://"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)}());</script><!--End of body content--><footer id="footer">
+            Contents © 2020         <a href="mailto:petru.rebeja@gmail.com">Petru Rebeja</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+            
+        </footer>
+</div>
+</div>
+
+
+        <script src="../../assets/js/all-nocdn.js"></script><script>
+    baguetteBox.run('div#content', {
+        ignoreClass: 'islink',
+        captions: function(element) {
+            return element.getElementsByTagName('img')[0].alt;
+    }});
+    </script>
+</body>
+</html>

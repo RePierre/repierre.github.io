@@ -39,7 +39,7 @@
  </sitemap>
  <sitemap>
   <loc>https://rebeja.eu/categories/cat_emacs.xml</loc>
-  <lastmod>2020-03-03T05:21:00Z</lastmod>
+  <lastmod>2020-03-06T04:31:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://rebeja.eu/categories/cohesion.xml</loc>
@@ -67,15 +67,15 @@
  </sitemap>
  <sitemap>
   <loc>https://rebeja.eu/categories/docker.xml</loc>
-  <lastmod>2020-03-03T05:21:00Z</lastmod>
+  <lastmod>2020-03-06T04:31:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://rebeja.eu/categories/dockerfile.xml</loc>
-  <lastmod>2020-03-03T05:21:00Z</lastmod>
+  <lastmod>2020-03-06T04:31:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://rebeja.eu/categories/emacs.xml</loc>
-  <lastmod>2020-03-03T05:21:00Z</lastmod>
+  <lastmod>2020-03-06T04:31:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://rebeja.eu/categories/encapsulation.xml</loc>
@@ -103,7 +103,7 @@
  </sitemap>
  <sitemap>
   <loc>https://rebeja.eu/categories/ide.xml</loc>
-  <lastmod>2020-03-03T05:21:00Z</lastmod>
+  <lastmod>2020-03-06T04:31:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://rebeja.eu/categories/inheritance.xml</loc>
@@ -151,7 +151,7 @@
  </sitemap>
  <sitemap>
   <loc>https://rebeja.eu/categories/python.xml</loc>
-  <lastmod>2020-03-03T05:21:00Z</lastmod>
+  <lastmod>2020-03-06T04:31:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://rebeja.eu/categories/rbar.xml</loc>
@@ -191,7 +191,7 @@
  </sitemap>
  <sitemap>
   <loc>https://rebeja.eu/categories/ssh.xml</loc>
-  <lastmod>2020-03-03T05:21:00Z</lastmod>
+  <lastmod>2020-03-06T04:31:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://rebeja.eu/categories/terminal.xml</loc>
@@ -211,10 +211,10 @@
  </sitemap>
  <sitemap>
   <loc>https://rebeja.eu/rss.xml</loc>
-  <lastmod>2020-03-03T05:21:00Z</lastmod>
+  <lastmod>2020-05-21T09:26:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://rebeja.eu/sitemap.xml</loc>
-  <lastmod>2020-03-03T05:21:00Z</lastmod>
+  <lastmod>2020-05-21T09:26:00Z</lastmod>
  </sitemap>
 </sitemapindex>
