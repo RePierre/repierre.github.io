@@ -118,3 +118,8 @@ Back to the main point, there's the question of what if I /need/ to make a reque
 By doing this I'm polluting the application logic with entities like mediator, queue writer etc., entities which are pertaining to application infrastructure not application domain. In other words, they are tools not building blocks. And tools should be replaceable. But how do I replace them if I have references to them scatered all over the code-base? With maximum effort, as Deadpool says.
 
 This is why you need to separate tools from application domain. And this is how I achieved this separation: by hiding the implementation details (i.e. tooling) behind a service interface which brings meaning to the domain. This way, when you change the tools, the meaning (i.e. intention) stays the same.
+
+
+*Acknowledgments*
+
+I would like to thank my colleagues [[https://www.linkedin.com/in/ionelabarbuta/][Ionela Bărbuță]] and [[https://www.linkedin.com/in/andymarko/][Andy Nelson]] for their reviews of this blog post. Also a big thank you goes to all the members of Centric Architecture Club for starting the discussion which led to this blog post.
