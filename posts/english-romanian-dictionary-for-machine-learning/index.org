@@ -38,6 +38,10 @@ This post is an initiative to build a list of Romanian translations for Machine 
 -----
   /Outliers/ = valori extreme.
 -----
+* R
+-----
+  /Reinforcement Learning/ = Învăţare prin Consolidare
+-----
 * S
 -----
   /Skewed/ = nesimetric.

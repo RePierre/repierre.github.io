@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Rebeja</title><link>https://rebeja.eu/</link><description>Single threaded stories.</description><atom:link href="https://rebeja.eu/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2020 &lt;a href="mailto:petru.rebeja@gmail.com"&gt;Petru Rebeja&lt;/a&gt; </copyright><lastBuildDate>Mon, 25 May 2020 19:50:18 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Keep the tools separate from the domain of your application</title><link>https://rebeja.eu/posts/separate-tools-from-domain/</link><dc:creator>Petru Rebeja</dc:creator><description>&lt;p&gt;
+<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Rebeja</title><link>https://rebeja.eu/</link><description>Single threaded stories.</description><atom:link href="https://rebeja.eu/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2020 &lt;a href="mailto:petru.rebeja@gmail.com"&gt;Petru Rebeja&lt;/a&gt; </copyright><lastBuildDate>Tue, 26 May 2020 07:41:16 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Keep the tools separate from the domain of your application</title><link>https://rebeja.eu/posts/separate-tools-from-domain/</link><dc:creator>Petru Rebeja</dc:creator><description>&lt;p&gt;
 At &lt;a href="https://www.centric.eu"&gt;Centric&lt;/a&gt; we have an Architecture club where we have regular meetings to discuss issues related to the architectural decisions of various applications, be it an application developed within the company or elsewhere. One of the latest topics discussed within the architecture club was whether to use or not MediatR (and implicitly the &lt;code&gt;Mediator&lt;/code&gt; pattern) in the project.
 &lt;/p&gt;
 
@@ -849,9 +849,9 @@ It's already the start of 2019 and I'm excited to what's comming ahead - the Ope
 &lt;/div&gt;</description><guid>https://rebeja.eu/posts/2018-year-in-review/</guid><pubDate>Tue, 01 Jan 2019 13:06:26 GMT</pubDate></item><item><title>English Romanian dictionary for Machine Learning</title><link>https://rebeja.eu/posts/english-romanian-dictionary-for-machine-learning/</link><dc:creator>Petru Rebeja</dc:creator><description>&lt;p&gt;
 This post is an initiative to build a list of Romanian translations for Machine Learning terms.
 &lt;/p&gt;
-&lt;div id="outline-container-sec-1" class="outline-2"&gt;
-&lt;h2 id="sec-1"&gt;A&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-1"&gt;
+&lt;div id="outline-container-orgc3867d6" class="outline-2"&gt;
+&lt;h2 id="orgc3867d6"&gt;A&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-orgc3867d6"&gt;
 &lt;hr&gt;
 &lt;p&gt;
 &lt;i&gt;Artificial Intelligence&lt;/i&gt; = Inteligență Artificială
@@ -859,9 +859,9 @@ This post is an initiative to build a list of Romanian translations for Machine 
 &lt;hr&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-sec-2" class="outline-2"&gt;
-&lt;h2 id="sec-2"&gt;B&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-2"&gt;
+&lt;div id="outline-container-orgd997704" class="outline-2"&gt;
+&lt;h2 id="orgd997704"&gt;B&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-orgd997704"&gt;
 &lt;hr&gt;
 &lt;p&gt;
 &lt;i&gt;Biased&lt;/i&gt; = tendențios, subiectiv.
@@ -869,9 +869,9 @@ This post is an initiative to build a list of Romanian translations for Machine 
 &lt;hr&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-sec-3" class="outline-2"&gt;
-&lt;h2 id="sec-3"&gt;E&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-3"&gt;
+&lt;div id="outline-container-org94a2763" class="outline-2"&gt;
+&lt;h2 id="org94a2763"&gt;E&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org94a2763"&gt;
 &lt;hr&gt;
 &lt;p&gt;
 &lt;i&gt;Eigenvalues (vectors)&lt;/i&gt; = valori (vectori) proprii.
@@ -879,19 +879,19 @@ This post is an initiative to build a list of Romanian translations for Machine 
 &lt;hr&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-sec-4" class="outline-2"&gt;
-&lt;h2 id="sec-4"&gt;F&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-4"&gt;
+&lt;div id="outline-container-orgab9688b" class="outline-2"&gt;
+&lt;h2 id="orgab9688b"&gt;F&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-orgab9688b"&gt;
 &lt;hr&gt;
 &lt;p&gt;
-&lt;i&gt;Features&lt;/i&gt; = atribute +, particularități, caracteristici, trăsături+.
+&lt;i&gt;Features&lt;/i&gt; = atribute &lt;del&gt;, particularități, caracteristici, trăsături&lt;/del&gt;.
 &lt;/p&gt;
 &lt;hr&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-sec-5" class="outline-2"&gt;
-&lt;h2 id="sec-5"&gt;G&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-5"&gt;
+&lt;div id="outline-container-org4e9a36a" class="outline-2"&gt;
+&lt;h2 id="org4e9a36a"&gt;G&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org4e9a36a"&gt;
 &lt;hr&gt;
 &lt;p&gt;
 &lt;i&gt;Gold corpus&lt;/i&gt; = corpus de referință
@@ -899,9 +899,9 @@ This post is an initiative to build a list of Romanian translations for Machine 
 &lt;hr&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-sec-6" class="outline-2"&gt;
-&lt;h2 id="sec-6"&gt;M&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-6"&gt;
+&lt;div id="outline-container-org1a025a1" class="outline-2"&gt;
+&lt;h2 id="org1a025a1"&gt;M&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org1a025a1"&gt;
 &lt;hr&gt;
 &lt;p&gt;
 &lt;i&gt;Machine Learning&lt;/i&gt; = Învățare Automată
@@ -909,9 +909,9 @@ This post is an initiative to build a list of Romanian translations for Machine 
 &lt;hr&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-sec-7" class="outline-2"&gt;
-&lt;h2 id="sec-7"&gt;O&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-7"&gt;
+&lt;div id="outline-container-org4efe2ed" class="outline-2"&gt;
+&lt;h2 id="org4efe2ed"&gt;O&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org4efe2ed"&gt;
 &lt;hr&gt;
 &lt;p&gt;
 &lt;i&gt;Outliers&lt;/i&gt; = valori extreme.
@@ -919,9 +919,19 @@ This post is an initiative to build a list of Romanian translations for Machine 
 &lt;hr&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-sec-8" class="outline-2"&gt;
-&lt;h2 id="sec-8"&gt;S&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-8"&gt;
+&lt;div id="outline-container-org4f25e9b" class="outline-2"&gt;
+&lt;h2 id="org4f25e9b"&gt;R&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org4f25e9b"&gt;
+&lt;hr&gt;
+&lt;p&gt;
+&lt;i&gt;Reinforcement Learning&lt;/i&gt; = Învăţare prin Consolidare
+&lt;/p&gt;
+&lt;hr&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id="outline-container-orgd7c337f" class="outline-2"&gt;
+&lt;h2 id="orgd7c337f"&gt;S&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-orgd7c337f"&gt;
 &lt;hr&gt;
 &lt;p&gt;
 &lt;i&gt;Skewed&lt;/i&gt; = nesimetric.
@@ -929,9 +939,9 @@ This post is an initiative to build a list of Romanian translations for Machine 
 &lt;hr&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-sec-9" class="outline-2"&gt;
-&lt;h2 id="sec-9"&gt;T&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-9"&gt;
+&lt;div id="outline-container-orgc8d6c98" class="outline-2"&gt;
+&lt;h2 id="orgc8d6c98"&gt;T&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-orgc8d6c98"&gt;
 &lt;hr&gt;
 &lt;p&gt;
 &lt;i&gt;Threshold&lt;/i&gt; = prag.
