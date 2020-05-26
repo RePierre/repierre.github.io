@@ -7,7 +7,7 @@
                         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
  <url>
   <loc>https://rebeja.eu/</loc>
-  <lastmod>2020-05-25T20:11:00Z</lastmod>
+  <lastmod>2020-05-26T07:41:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/2016/</loc>
@@ -31,7 +31,7 @@
  </url>
  <url>
   <loc>https://rebeja.eu/archive.html</loc>
-  <lastmod>2020-05-26T07:41:00Z</lastmod>
+  <lastmod>2020-05-26T13:10:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/categories/</loc>
@@ -243,11 +243,7 @@
  </url>
  <url>
   <loc>https://rebeja.eu/index-1.html</loc>
-  <lastmod>2020-05-26T07:41:00Z</lastmod>
- </url>
- <url>
-  <loc>https://rebeja.eu/index-2.html</loc>
-  <lastmod>2020-05-25T20:11:00Z</lastmod>
+  <lastmod>2020-05-26T13:10:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/posts/2018-year-in-review/</loc>
@@ -306,20 +302,12 @@
   <lastmod>2019-03-19T17:06:00Z</lastmod>
  </url>
  <url>
-  <loc>https://rebeja.eu/posts/separate-tools-from-domain/</loc>
-  <lastmod>2020-05-13T14:56:00Z</lastmod>
- </url>
- <url>
   <loc>https://rebeja.eu/posts/serviceactivationexception-autofacservicehostfactory/</loc>
   <lastmod>2019-03-19T17:06:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/posts/the-common-pitfalls-of-orm-frameworks-rbar/</loc>
   <lastmod>2019-03-19T17:06:00Z</lastmod>
- </url>
- <url>
-  <loc>https://rebeja.eu/posts/train-keras-models-using-fit-generator/</loc>
-  <lastmod>2020-05-25T20:11:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/posts/use-emacs-sql-mode-to-connect-to-database-on-a-docker-image/</loc>
