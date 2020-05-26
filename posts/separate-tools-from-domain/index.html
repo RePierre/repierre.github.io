@@ -126,7 +126,7 @@ As the discussion went on I concluded that the problem wasn't whether to use or 
 </p>
 
 <p>
-The discussion started with backreferencing a presentation where the same topic was put upfront: <b>to use or not to use MediatR</b>? Afterwards, the forcus of the talk switched to a project where the mediator pattern was imposed to be used for <i>every</i> call pertaining to business logic and even more than that — even the calls to <a href="https://github.com/jbogard/automapper"><code>AutoMapper</code></a> were handled via the mediator. In other words, the vast majority of what should have been simple method calls became calls to <code>mediator.Send(new SomeRequest{...})</code>.
+The discussion started with backreferencing a presentation where the same topic was put upfront: <b>to use or not to use MediatR</b>? Afterwards, the focus of the discussion switched to a project where the mediator pattern was imposed to be used for <i>every</i> call pertaining to business logic and even more than that — even the calls to <a href="https://github.com/jbogard/automapper"><code>AutoMapper</code></a> were handled via the mediator. In other words, the vast majority of what should have been simple method calls became calls to <code>mediator.Send(new SomeRequest{...})</code>.
 </p>
 
 <p>
