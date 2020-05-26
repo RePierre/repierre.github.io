@@ -7,6 +7,7 @@
 .. link:
 .. description:
 .. type: text
+.. status: private
 
 #+END_COMMENT
 At [[https://www.centric.eu][Centric]] we have an Architecture club where we have regular meetings to discuss issues related to the architectural decisions of various applications, be it an application developed within the company or elsewhere. One of the latest topics discussed within the architecture club was whether to use or not MediatR (and implicitly the =Mediator= pattern) in the project.
