@@ -114,11 +114,11 @@ Define an object that encapsulates how a set of objects interact. Mediator promo
 </blockquote>
 
 <p>
-I'm going to step a bit back and give some additional context regarding this meeting. I wasn't able to attend the meetings of the club since mid February because the meetings overlapped with a class I teach. In an afternoon my colleague <a href="https://www.linkedin.com/in/george-patrascu-b28b523b/">George</a>, the founder of the club, told me that the topic of the next meeting will be wether to use or not MediatR and knowing that I use MediatR on my side project it would be nice for me to weigh-in my opinion (thank you George for that!).
+I'm going to step a bit back and give some additional context regarding this meeting. I wasn't able to attend the meetings of the club since mid February because the meetings overlapped with a class I teach. In an afternoon my colleague <a href="https://www.linkedin.com/in/george-patrascu-b28b523b/">George</a>, the founder of the club, told me that the topic of the next meeting will be whether to use or not MediatR and knowing that I use MediatR on my side project it would be nice for me to weigh-in my opinion (thank you George for that!).
 </p>
 
 <p>
-At first, I must confess, I was taken aback — for me there was never a doubt; MediatR is a great tool and <span class="underline">should</span> be used in a CQRS architecture (the default architecture within company). This is why I said I would really like to hear what other members have to say — especially those oposing the use of MediatR.
+At first, I must confess, I was taken aback — for me there was never a doubt; MediatR is a great tool and <span class="underline">should</span> be used in a CQRS architecture (the default architecture within company). This is why I said I would really like to hear what other members have to say — especially those opposing the use of MediatR.
 </p>
 
 <p>
@@ -126,11 +126,11 @@ As the discussion went on I concluded that the problem wasn't whether to use or 
 </p>
 
 <p>
-The discussion started with backreferencing a presentation where the same topic was put upfront: <b>to use or not to use MediatR</b>? Afterwards, the focus of the discussion switched to a project where the mediator pattern was imposed to be used for <i>every</i> call pertaining to business logic and even more than that — even the calls to <a href="https://github.com/jbogard/automapper"><code>AutoMapper</code></a> were handled via the mediator. In other words, the vast majority of what should have been simple method calls became calls to <code>mediator.Send(new SomeRequest{...})</code>.
+The discussion started with back-referencing a presentation where the same topic was put upfront: <b>to use or not to use MediatR</b>? Afterwards, the focus of the discussion switched to a project where the mediator pattern was imposed to be used for <i>every</i> call pertaining to business logic and even more than that — even the calls to <a href="https://github.com/jbogard/automapper"><code>AutoMapper</code></a> were handled via the mediator. In other words, the vast majority of what should have been simple method calls became calls to <code>mediator.Send(new SomeRequest{...})</code>.
 </p>
 
 <p>
-The ironically interesting part is that in order to avoid being directly coupled to <code>MediatR</code> library the architect decided to hide the original <code>IMediator</code> interface behind a custom interface (let's call it <code>ICustomMediator</code>) thus ensuring a low coupling to the original interface. The irony here is that, although the initial intention is good, the abundence of calls to the custom mediator creates a dependency of application modules upon the custom defined interface. And this is wrong.
+The ironically interesting part is that in order to avoid being directly coupled to <code>MediatR</code> library the architect decided to hide the original <code>IMediator</code> interface behind a custom interface (let's call it <code>ICustomMediator</code>) thus ensuring a low coupling to the original interface. The irony here is that, although the initial intention is good, the abundance of calls to the custom mediator creates a dependency of application modules upon the custom defined interface. And this is wrong.
 </p>
 
 <p>
@@ -138,7 +138,7 @@ Why is that wrong?, you may ask. After all, the <code>Dependency Inversion princ
 </p>
 
 <p>
-<b>Wrong</b>. That project <i>did not avoid coupling</i>, it just changed the contract it couples to from an interface defined in a third-party library to an interface defined within. Thats it; it is still tightly coupled with a single interface. Even worse, that interface has become the centerpiece of the whole application, the <i>God service</i>, which hides the target from the caller behind at least two (vertical) layers and tangles the operations of a business transaction into a big ball of mud. While doing so, it practically obliterates the boundaries between the modules which changes application modules from being highly cohesive pieces to lumps of code which "belong together".
+<b>Wrong</b>. That project <i>did not avoid coupling</i>, it just changed the contract it couples to from an interface defined in a third-party library to an interface defined within. That's it; it is still tightly coupled with a single interface. Even worse, that interface has become the centerpiece of the whole application, the <i>God service</i>, which hides the target from the caller behind at least two (vertical) layers and tangles the operations of a business transaction into a big ball of mud. While doing so, it practically obliterates the boundaries between the modules which changes application modules from being highly cohesive pieces to lumps of code which "belong together".
 </p>
 
 <p>
@@ -166,7 +166,7 @@ Having done that another pattern emerged from all the handlers within an assembl
 </p>
 
 <p>
-Obviously, the next logical thing was to actually define the service interface which listed all the operations peformed by the handlers within that assembly. And since the interface needs an implementation I've created a class for each service which calls <code>mediator.Send()</code> with the proper parameters for the specific handler and returns the results. This is how it looks:
+Obviously, the next logical thing was to actually define the service interface which listed all the operations performed by the handlers within that assembly. And since the interface needs an implementation I've created a class for each service which calls <code>mediator.Send()</code> with the proper parameters for the specific handler and returns the results. This is how it looks:
 </p>
 <div class="highlight"><pre><span></span>public interface IAccountingService
 {
@@ -252,7 +252,7 @@ Back to the main point, there's the question of what if I <i>need</i> to make a 
 <li>have another mediator handler which does the write and perform two separate calls to mediator.</li>
 </ul>
 <p>
-By doing this I'm polluting the application logic with entities like mediator, queue writer etc., entities which are pertaining to application infrastructure not application domain. In other words, they are tools not building blocks. And tools should be replaceable. But how do I replace them if I have references to them scatered all over the code-base? With maximum effort, as Deadpool says.
+By doing this I'm polluting the application logic with entities like mediator, queue writer etc., entities which are pertaining to application infrastructure not application domain. In other words, they are tools not building blocks. And tools should be replaceable. But how do I replace them if I have references to them scattered all over the code-base? With maximum effort, as Deadpool says.
 </p>
 
 <p>
@@ -265,7 +265,7 @@ This is why you need to separate tools from application domain. And this is how 
 </p>
 
 <p>
-I would like to thank my colleagues <a href="https://www.linkedin.com/in/ionelabarbuta/">Ionela Bărbuță</a> and <a href="https://www.linkedin.com/in/andymarko/">Andy Nelson</a> for their reviews of this blog post. Also a big thank you goes to all the members of Centric Architecture Club for starting the discussion which led to this blog post.
+I would like to thank my colleagues for their reviews of this blog post. Also a big thank you goes to all the members of Centric Architecture Club for starting the discussion which led to this blog post.
 </p>
     </div>
     <aside class="postpromonav"><nav></nav></aside><section class="comments hidden-print"><h2>Comments</h2>
