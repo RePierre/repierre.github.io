@@ -1,0 +1,17 @@
+#+BEGIN_COMMENT
+.. title: Tutorial on Variational Auto Encoders
+.. slug: vae-tutorial
+.. date: 2020-06-02 23:13:03 UTC+03:00
+.. tags:
+.. category:
+.. link:
+.. description:
+.. type: text
+.. status: private
+#+END_COMMENT
+* Outline
+  - The core: latent variables and latent space
+  - The probabilistic perspective: $p(l|w) \rightarrow p(z|w) \wedge p(l|z)$
+  - The deep learning perspective: ~ELBO loss~ and mapping function from ~z~  to ~l~.
+* About
+  This post accompanies my talk about =Variational Auto Encoders= for Iaşi AI. The slides of the talk are available ...
