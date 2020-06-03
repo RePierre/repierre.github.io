@@ -54,10 +54,6 @@
   <lastmod>2020-01-30T15:04:00Z</lastmod>
  </sitemap>
  <sitemap>
-  <loc>https://rebeja.eu/categories/dictionary.xml</loc>
-  <lastmod>2020-05-26T07:38:00Z</lastmod>
- </sitemap>
- <sitemap>
   <loc>https://rebeja.eu/categories/dired.xml</loc>
   <lastmod>2020-01-30T15:04:00Z</lastmod>
  </sitemap>
@@ -108,10 +104,6 @@
  <sitemap>
   <loc>https://rebeja.eu/categories/inheritance.xml</loc>
   <lastmod>2020-01-30T15:04:00Z</lastmod>
- </sitemap>
- <sitemap>
-  <loc>https://rebeja.eu/categories/machine-learning.xml</loc>
-  <lastmod>2020-05-26T07:38:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://rebeja.eu/categories/mediatr.xml</loc>
@@ -170,10 +162,6 @@
   <lastmod>2020-01-30T15:04:00Z</lastmod>
  </sitemap>
  <sitemap>
-  <loc>https://rebeja.eu/categories/romanian.xml</loc>
-  <lastmod>2020-05-26T07:38:00Z</lastmod>
- </sitemap>
- <sitemap>
   <loc>https://rebeja.eu/categories/service-activation.xml</loc>
   <lastmod>2020-01-30T15:04:00Z</lastmod>
  </sitemap>
@@ -198,10 +186,6 @@
   <lastmod>2020-01-30T15:04:00Z</lastmod>
  </sitemap>
  <sitemap>
-  <loc>https://rebeja.eu/categories/terms.xml</loc>
-  <lastmod>2020-05-26T07:38:00Z</lastmod>
- </sitemap>
- <sitemap>
   <loc>https://rebeja.eu/categories/tramp.xml</loc>
   <lastmod>2020-01-30T15:04:00Z</lastmod>
  </sitemap>
@@ -215,6 +199,6 @@
  </sitemap>
  <sitemap>
   <loc>https://rebeja.eu/sitemap.xml</loc>
-  <lastmod>2020-06-03T14:04:00Z</lastmod>
+  <lastmod>2020-06-03T14:11:00Z</lastmod>
  </sitemap>
 </sitemapindex>
