@@ -1,6 +1,6 @@
 #+BEGIN_COMMENT
-.. title: English Romanian dictionary for Machine Learning
-.. slug: english-romanian-dictionary-for-machine-learning
+.. title: Dicţionar Englez-Român pentru Inteligenţa Artificială
+.. slug: en-ro-dictionary-for-ai
 .. date: 2018-11-16 00:00:00 UTC+02:00
 .. tags: Machine Learning, Romanian, terms, dictionary
 .. category:
@@ -9,7 +9,7 @@
 .. type: text
 
 #+END_COMMENT
-This post is an initiative to build a list of Romanian translations for Machine Learning terms.
+Această pagină a fost creată din iniţiativa de a avea o listă de traduceri în limba română a termenilor din Inteligenţa Artificială.
 * A
 -----
   /Artificial Intelligence/ = Inteligență Artificială
@@ -53,6 +53,5 @@ This post is an initiative to build a list of Romanian translations for Machine 
   /Toy problem/ = problemă didactică.
 
 -----
-*Acknowledgements*
-
-Big thanks to [[https://www.facebook.com/gabihaja][Gabriela Haja]] and [[https://profs.info.uaic.ro/~mmoruz/][Alex Moruz]] for reviewing this list.
+* Mulţumiri
+Mulţumesc [[https://www.facebook.com/gabihaja][Gabrielei Haja]] şi lui [[https://profs.info.uaic.ro/~mmoruz/][Alex Moruz]] pentru revizuirea acestei liste.

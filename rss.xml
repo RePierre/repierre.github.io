@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Rebeja</title><link>https://rebeja.eu/</link><description>Single threaded stories.</description><atom:link href="https://rebeja.eu/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2020 &lt;a href="mailto:petru.rebeja@gmail.com"&gt;Petru Rebeja&lt;/a&gt; </copyright><lastBuildDate>Tue, 26 May 2020 13:10:57 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Building a Python IDE with Emacs and Docker</title><link>https://rebeja.eu/posts/python-ide-with-emacs-and-docker/</link><dc:creator>Petru Rebeja</dc:creator><description>&lt;div id="outline-container-orgea6795e" class="outline-2"&gt;
+<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Rebeja</title><link>https://rebeja.eu/</link><description>Single threaded stories.</description><atom:link href="https://rebeja.eu/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2020 &lt;a href="mailto:petru.rebeja@gmail.com"&gt;Petru Rebeja&lt;/a&gt; </copyright><lastBuildDate>Wed, 03 Jun 2020 13:37:27 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Building a Python IDE with Emacs and Docker</title><link>https://rebeja.eu/posts/python-ide-with-emacs-and-docker/</link><dc:creator>Petru Rebeja</dc:creator><description>&lt;div id="outline-container-orgea6795e" class="outline-2"&gt;
 &lt;h2 id="orgea6795e"&gt;Prologue&lt;/h2&gt;
 &lt;div class="outline-text-2" id="text-orgea6795e"&gt;
 &lt;p&gt;
@@ -675,121 +675,7 @@ Last but not least, I got promoted at work. In April I switched projects at work
 It's already the start of 2019 and I'm excited to what's comming ahead - the Open Data Hub, the newly opened opportunities at work, the upcomming projects in academia and many more I don't know of. What I do know is that &lt;b&gt;I will do my best to do even better in 2019&lt;/b&gt;.
 &lt;/p&gt;
 &lt;/div&gt;
-&lt;/div&gt;</description><guid>https://rebeja.eu/posts/2018-year-in-review/</guid><pubDate>Tue, 01 Jan 2019 13:06:26 GMT</pubDate></item><item><title>English Romanian dictionary for Machine Learning</title><link>https://rebeja.eu/posts/english-romanian-dictionary-for-machine-learning/</link><dc:creator>Petru Rebeja</dc:creator><description>&lt;p&gt;
-This post is an initiative to build a list of Romanian translations for Machine Learning terms.
-&lt;/p&gt;
-&lt;div id="outline-container-orgc3867d6" class="outline-2"&gt;
-&lt;h2 id="orgc3867d6"&gt;A&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-orgc3867d6"&gt;
-&lt;hr&gt;
-&lt;p&gt;
-&lt;i&gt;Artificial Intelligence&lt;/i&gt; = Inteligență Artificială
-&lt;/p&gt;
-&lt;hr&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div id="outline-container-orgd997704" class="outline-2"&gt;
-&lt;h2 id="orgd997704"&gt;B&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-orgd997704"&gt;
-&lt;hr&gt;
-&lt;p&gt;
-&lt;i&gt;Biased&lt;/i&gt; = tendențios, subiectiv.
-&lt;/p&gt;
-&lt;hr&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div id="outline-container-org94a2763" class="outline-2"&gt;
-&lt;h2 id="org94a2763"&gt;E&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-org94a2763"&gt;
-&lt;hr&gt;
-&lt;p&gt;
-&lt;i&gt;Eigenvalues (vectors)&lt;/i&gt; = valori (vectori) proprii.
-&lt;/p&gt;
-&lt;hr&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div id="outline-container-orgab9688b" class="outline-2"&gt;
-&lt;h2 id="orgab9688b"&gt;F&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-orgab9688b"&gt;
-&lt;hr&gt;
-&lt;p&gt;
-&lt;i&gt;Features&lt;/i&gt; = atribute &lt;del&gt;, particularități, caracteristici, trăsături&lt;/del&gt;.
-&lt;/p&gt;
-&lt;hr&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div id="outline-container-org4e9a36a" class="outline-2"&gt;
-&lt;h2 id="org4e9a36a"&gt;G&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-org4e9a36a"&gt;
-&lt;hr&gt;
-&lt;p&gt;
-&lt;i&gt;Gold corpus&lt;/i&gt; = corpus de referință
-&lt;/p&gt;
-&lt;hr&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div id="outline-container-org1a025a1" class="outline-2"&gt;
-&lt;h2 id="org1a025a1"&gt;M&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-org1a025a1"&gt;
-&lt;hr&gt;
-&lt;p&gt;
-&lt;i&gt;Machine Learning&lt;/i&gt; = Învățare Automată
-&lt;/p&gt;
-&lt;hr&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div id="outline-container-org4efe2ed" class="outline-2"&gt;
-&lt;h2 id="org4efe2ed"&gt;O&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-org4efe2ed"&gt;
-&lt;hr&gt;
-&lt;p&gt;
-&lt;i&gt;Outliers&lt;/i&gt; = valori extreme.
-&lt;/p&gt;
-&lt;hr&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div id="outline-container-org4f25e9b" class="outline-2"&gt;
-&lt;h2 id="org4f25e9b"&gt;R&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-org4f25e9b"&gt;
-&lt;hr&gt;
-&lt;p&gt;
-&lt;i&gt;Reinforcement Learning&lt;/i&gt; = Învăţare prin Consolidare
-&lt;/p&gt;
-&lt;hr&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div id="outline-container-orgd7c337f" class="outline-2"&gt;
-&lt;h2 id="orgd7c337f"&gt;S&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-orgd7c337f"&gt;
-&lt;hr&gt;
-&lt;p&gt;
-&lt;i&gt;Skewed&lt;/i&gt; = nesimetric.
-&lt;/p&gt;
-&lt;hr&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div id="outline-container-orgc8d6c98" class="outline-2"&gt;
-&lt;h2 id="orgc8d6c98"&gt;T&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-orgc8d6c98"&gt;
-&lt;hr&gt;
-&lt;p&gt;
-&lt;i&gt;Threshold&lt;/i&gt; = prag.
-&lt;/p&gt;
-
-&lt;p&gt;
-&lt;i&gt;Toy problem&lt;/i&gt; = problemă didactică.
-&lt;/p&gt;
-
-&lt;hr&gt;
-&lt;p&gt;
-&lt;b&gt;Acknowledgements&lt;/b&gt;
-&lt;/p&gt;
-
-&lt;p&gt;
-Big thanks to &lt;a href="https://www.facebook.com/gabihaja"&gt;Gabriela Haja&lt;/a&gt; and &lt;a href="https://profs.info.uaic.ro/~mmoruz/"&gt;Alex Moruz&lt;/a&gt; for reviewing this list.
-&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;</description><category>dictionary</category><category>Machine Learning</category><category>Romanian</category><category>terms</category><guid>https://rebeja.eu/posts/english-romanian-dictionary-for-machine-learning/</guid><pubDate>Thu, 15 Nov 2018 22:00:00 GMT</pubDate></item><item><title>Automating custom workflow in Emacs</title><link>https://rebeja.eu/posts/automating-custom-workflow-in-emacs/</link><dc:creator>Petru Rebeja</dc:creator><description>&lt;p&gt;
+&lt;/div&gt;</description><guid>https://rebeja.eu/posts/2018-year-in-review/</guid><pubDate>Tue, 01 Jan 2019 13:06:26 GMT</pubDate></item><item><title>Automating custom workflow in Emacs</title><link>https://rebeja.eu/posts/automating-custom-workflow-in-emacs/</link><dc:creator>Petru Rebeja</dc:creator><description>&lt;p&gt;
 Due to the lack of human resources in a research project I'm involved the team decided to take upon itself the semantic comparison of 3000 pairs of papers from the medical domain.
 &lt;/p&gt;
 
@@ -1230,4 +1116,52 @@ The second and by far the biggest nuisance was the lack of proper web-browsing e
 
 &lt;p&gt;
 However, when I got to analyze how much I have accomplished while working from terminal I was simply &lt;b&gt;amazed&lt;/b&gt;. Having no distraction and meaningless motion like cycling through windows and tabs had a huge impact on my productivity. I was able to fully concentrate and immerse in the code and by doing so I had &lt;b&gt;a lot&lt;/b&gt; of work done.
-&lt;/p&gt;</description><category>Emacs</category><category>Python</category><category>terminal</category><guid>https://rebeja.eu/posts/python-development-using-emacs-from-terminal/</guid><pubDate>Thu, 28 Sep 2017 22:00:00 GMT</pubDate></item></channel></rss>
+&lt;/p&gt;</description><category>Emacs</category><category>Python</category><category>terminal</category><guid>https://rebeja.eu/posts/python-development-using-emacs-from-terminal/</guid><pubDate>Thu, 28 Sep 2017 22:00:00 GMT</pubDate></item><item><title>Rename multiple files with Emacs dired</title><link>https://rebeja.eu/posts/rename-multiple-files-with-emacs-dired/</link><dc:creator>Petru Rebeja</dc:creator><description>&lt;p&gt;
+While adding text files from within a folder to a project file I noticed that the files in the folder were lacking naming consistency. Namely, there were files which had the &lt;code&gt;.txt&lt;/code&gt; extension and files without extension, as shown in the image below:
+&lt;img src="https://rebeja.eu/images/emacs-dired-files-without-extension.png" alt="nil"&gt;
+&lt;/p&gt;
+
+&lt;p&gt;
+Since there were about 100 files without extension I started asking myself: &lt;b&gt;Is there a way to add .txt extension to those files without manually renaming each one&lt;/b&gt;?
+&lt;/p&gt;
+
+&lt;p&gt;
+Of course there is. Here's what I did using Emacs and &lt;code&gt;dired&lt;/code&gt;:
+&lt;/p&gt;
+&lt;ul class="org-ul"&gt;
+&lt;li&gt;&lt;code&gt;M-x dired&lt;/code&gt; to the desired directory (obviously)
+&lt;/li&gt;
+&lt;li&gt;In the &lt;code&gt;dired&lt;/code&gt; buffer enter the &lt;b&gt;edit mode&lt;/b&gt; with &lt;code&gt;C-x C-q&lt;/code&gt;
+&lt;/li&gt;
+&lt;li&gt;Go to the last file that has extension before the block of files without extension.
+&lt;/li&gt;
+&lt;li&gt;Starting from that file, place a mark and select the whole block of files without extension (the selection should include the last file with extension).
+&lt;/li&gt;
+&lt;li&gt;Narrow to the selected region using &lt;code&gt;M-x narrow-to-region&lt;/code&gt; or &lt;code&gt;C-x n n&lt;/code&gt; The buffer should look like the image below:
+&lt;img src="https://rebeja.eu/images/emacs-dired-narrowed.png" alt="nil"&gt;
+&lt;/li&gt;
+&lt;li&gt;Move to the beginning of buffer using &lt;code&gt;M-&amp;lt;&lt;/code&gt;
+&lt;/li&gt;
+&lt;li&gt;Start defining a new keyboard macro using &lt;code&gt;C-x (&lt;/code&gt;
+&lt;ul class="org-ul"&gt;
+&lt;li&gt;Move to next line using &lt;code&gt;C-n&lt;/code&gt;
+&lt;/li&gt;
+&lt;li&gt;Navigate to the end of line using &lt;code&gt;C-e&lt;/code&gt;
+&lt;/li&gt;
+&lt;li&gt;Add the &lt;code&gt;.txt&lt;/code&gt; extension
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Save the macro with &lt;code&gt;C-x )&lt;/code&gt;
+&lt;/li&gt;
+&lt;li&gt;Now that I have a macro to add &lt;code&gt;.txt&lt;/code&gt; extension to a file name I just need to run it as many times as there are unnamed files (100 in my case). To do so just &lt;code&gt;C-u 100 F4&lt;/code&gt;. This will repeat the macro 100 times.
+&lt;/li&gt;
+&lt;li&gt;Once all the files are renamed exit the &lt;b&gt;narrow-region&lt;/b&gt; using &lt;code&gt;M-x widen&lt;/code&gt; or &lt;code&gt;C-x n w&lt;/code&gt;
+&lt;/li&gt;
+&lt;li&gt;Save changes with &lt;code&gt;C-c C-c&lt;/code&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;
+That's it!
+&lt;/p&gt;</description><category>dired</category><category>Emacs</category><category>rename multiple files</category><guid>https://rebeja.eu/posts/rename-multiple-files-with-emacs-dired/</guid><pubDate>Mon, 21 Aug 2017 22:00:00 GMT</pubDate></item></channel></rss>
