@@ -1,5 +1,176 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Rebeja</title><link>https://rebeja.eu/</link><description>Single threaded stories.</description><atom:link href="https://rebeja.eu/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2020 &lt;a href="mailto:petru.rebeja@gmail.com"&gt;Petru Rebeja&lt;/a&gt; </copyright><lastBuildDate>Wed, 03 Jun 2020 13:37:27 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Building a Python IDE with Emacs and Docker</title><link>https://rebeja.eu/posts/python-ide-with-emacs-and-docker/</link><dc:creator>Petru Rebeja</dc:creator><description>&lt;div id="outline-container-orgea6795e" class="outline-2"&gt;
+<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Rebeja</title><link>https://rebeja.eu/</link><description>Single threaded stories.</description><atom:link href="https://rebeja.eu/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2020 &lt;a href="mailto:petru.rebeja@gmail.com"&gt;Petru Rebeja&lt;/a&gt; </copyright><lastBuildDate>Mon, 22 Jun 2020 14:14:51 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Keep the tools separate from the domain of your application</title><link>https://rebeja.eu/posts/separate-tools-from-domain/</link><dc:creator>Petru Rebeja</dc:creator><description>&lt;p&gt;
+At work we have an Architecture club where we have regular meetings to discuss issues related to the architectural decisions of various applications, be it an application developed within the company or elsewhere. One of the latest topics discussed within the architecture club was whether to use or not MediatR (and implicitly the &lt;code&gt;Mediator&lt;/code&gt; pattern) in a project based on &lt;code&gt;CQRS&lt;/code&gt; architecture.
+&lt;/p&gt;
+
+&lt;p&gt;
+If you're not familiar with &lt;a href="https://github.com/jbogard/MediatR"&gt;MediatR&lt;/a&gt;, it's a library that relays messages to their destination in an easy to use and elegant manner in two ways: it dispatches requests to their handlers and sends notifications to subscribers.
+&lt;/p&gt;
+
+&lt;p&gt;
+The &lt;code&gt;Mediator&lt;/code&gt; pattern itself is &lt;a href="https://www.dofactory.com/net/mediator-design-pattern"&gt;defined&lt;/a&gt; as follows:
+&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;
+Define an object that encapsulates how a set of objects interact. Mediator promotes loose coupling by keeping objects from referring to each other explicitly, and it lets you vary their interaction independently.
+&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;
+I'm going to step a bit back and give some additional context regarding this meeting. I wasn't able to attend the meetings of the club since mid February because the meetings overlapped with a class I teach. In an afternoon my colleague George, the founder of the club, told me that the topic of the next meeting will be whether to use or not MediatR and knowing that I use MediatR on my side project it would be nice for me to weigh-in my opinion.
+&lt;/p&gt;
+
+&lt;p&gt;
+At first, I must confess, I was taken aback — for me there was never a doubt; MediatR is a great tool and &lt;span class="underline"&gt;should&lt;/span&gt; be used in a CQRS architecture. This is why I said I would really like to hear what other members have to say — especially those opposing the use of MediatR.
+&lt;/p&gt;
+
+&lt;p&gt;
+As the discussion went on I concluded that the problem wasn't whether to use or not to use MediatR but rather &lt;i&gt;how it was used&lt;/i&gt;. And it was used as the centerpiece of the big ball of mud.
+&lt;/p&gt;
+
+&lt;p&gt;
+The discussion started with back-referencing a presentation at a local IT event, where the same topic was put upfront: &lt;b&gt;to use or not to use MediatR&lt;/b&gt;? Afterwards, the focus of the discussion switched to a project where the mediator pattern was imposed to be used for &lt;i&gt;every&lt;/i&gt; call pertaining to business logic and even more than that — even the calls to &lt;a href="https://github.com/jbogard/automapper"&gt;&lt;code&gt;AutoMapper&lt;/code&gt;&lt;/a&gt; were handled via the mediator. In other words, the vast majority of what should have been simple method calls became calls to &lt;code&gt;mediator.Send(new SomeRequest{...})&lt;/code&gt;.
+&lt;/p&gt;
+
+&lt;p&gt;
+In order to avoid being directly coupled to &lt;code&gt;MediatR&lt;/code&gt; library the project was hiding the original &lt;code&gt;IMediator&lt;/code&gt; interface behind a custom interface (let's call it &lt;code&gt;ICustomMediator&lt;/code&gt;) thus ensuring a low coupling to the original interface. The problem is that, although the initial intention was good, the abundance of calls to the custom mediator creates a dependency of application modules upon the custom defined interface. And this is wrong.
+&lt;/p&gt;
+
+&lt;p&gt;
+Why is that wrong?, you may ask. After all, the &lt;code&gt;Dependency Inversion principle&lt;/code&gt; explicitly states that "classes should depend on interfaces" and since in the aforementioned project classes depend on an &lt;code&gt;ICustomMediator&lt;/code&gt; interface which doesn't change even when the original interface changes then it's all good, right?
+&lt;/p&gt;
+
+&lt;p&gt;
+&lt;b&gt;Wrong&lt;/b&gt;. That project &lt;i&gt;did not avoid coupling&lt;/i&gt;, it just changed the contract it couples to from an interface defined in a third-party library to an interface defined within. That's it; it is still tightly coupled with a single interface. Even worse, that interface has become the centerpiece of the whole application, the &lt;i&gt;God service&lt;/i&gt;, which hides the target from the caller behind at least two (vertical) layers and tangles the operations of a business transaction into a big ball of mud. While doing so, it practically obliterates the boundaries between the modules which changes application modules from being highly cohesive pieces to lumps of code which "belong together".
+&lt;/p&gt;
+
+&lt;p&gt;
+Furthermore, and this is the worst part, the &lt;code&gt;ICustomMediator&lt;/code&gt; has changed its role from being a tool which relays commands to their respective handlers to being part of the application domain, i.e. the role of mediator changed from &lt;i&gt;implementation detail&lt;/i&gt; to &lt;i&gt;first class citizen&lt;/i&gt; of the application. This shift is subtle but dangerous and not that easy to observe because the change creeps in gradually akin to the gradual increase of the temperature of water in the &lt;a href="https://en.wikipedia.org/wiki/Boiling_frog"&gt;boiling frog&lt;/a&gt; fable.
+&lt;/p&gt;
+
+&lt;p&gt;
+The shift happens because all the classes that need to execute a business operation which is not available as a method to invoke will have a reference to the mediator in order to call the aforementioned operation. As per &lt;a href="https://en.wikipedia.org/wiki/Law_of_Demeter"&gt;Law of Demeter&lt;/a&gt; (only talk to your immediate friends) that makes the &lt;code&gt;ICustomMediator&lt;/code&gt; a friend of &lt;i&gt;all&lt;/i&gt; the classes involved in implementing some business logic. And a friend of a domain object (entity, service etc.) &lt;i&gt;is a domain object&lt;/i&gt; itself. Or at least it should be.
+&lt;/p&gt;
+
+&lt;p&gt;
+OK, you might say, then what's the &lt;i&gt;right&lt;/i&gt; way to use the mediator here? I'm glad you asked. Allow me to explain myself by taking (again) a few steps back.
+&lt;/p&gt;
+
+&lt;p&gt;
+Ever since I discovered &lt;b&gt;MediatR&lt;/b&gt; I've seen it as the &lt;b&gt;great tool&lt;/b&gt; it is. I remember how, while pondering upon the examples from  MediatR documentation and how I could adapt those for my project I started running some potential usage scenarios in my head. After a short time some clustering patterns started to emerge from those usage scenarios. The patterns weren't that complicated — a handler that handles a payment registration should somehow belong together with a handler that queries the balance of an account, whereas the handler that deals with customer information should belong somewhere else.
+&lt;/p&gt;
+
+&lt;p&gt;
+These patterns are nothing else than a high degree of cohesion between each of the classes implementing the &lt;code&gt;IHandler&lt;/code&gt; interface from MediatR and to isolate them I've organized each such cluster into a separate assembly.
+&lt;/p&gt;
+
+&lt;p&gt;
+Having done that another pattern emerged from all the handlers within an assembly: each of the handlers were handling an operation of a single service.
+&lt;/p&gt;
+
+&lt;p&gt;
+Obviously, the next logical thing was to actually define the service interface which listed all the operations performed by the handlers within that assembly. And since the interface needs an implementation I've created a class for each service which calls &lt;code&gt;mediator.Send()&lt;/code&gt; with the proper parameters for the specific handler and returns the results. This is how it looks:
+&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;public interface IAccountingService
+{
+    void RegisterPayment(RegisterPaymentCommand paymentDetails);
+
+    GetAccountBalanceResponse GetAccountBalance(GetAccountBalanceRequest accountId);
+
+    GetAllPaymentsResponse GetAllPayments();
+}
+
+class AccountingService: IAccountingService
+{
+    private readonly IMediator _mediator;
+
+    public AccountingService(IMediator mediator)
+    {
+	_mediator = mediator;
+    }
+
+    public void RegisterPayment(RegisterPaymentCommand paymentDetails)
+    {
+	_mediator.Send(paymentDetails);
+    }
+
+    public GetAccountBalanceResponse GetAccountBalance(GetAccountBalanceRequest accountId)
+    {
+	return _mediator.Send(GetAccountBalanceRequest);
+    }
+
+    public GetAllPaymentsResponse GetAllPayments()
+    {
+	return _mediator.Send(new GetAllPaymentsRequest());
+    }
+}
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;
+As a result I &lt;i&gt;do have more boilerplate code&lt;/i&gt; but on the upside I have:
+&lt;/p&gt;
+&lt;ol class="org-ol"&gt;
+&lt;li&gt;A separation of the domain logic from the plumbing handled by MediatR. If I want to switch the interface implemented by each handler I can use search and replace with a regex and I'm done.&lt;/li&gt;
+&lt;li&gt;A cleaner service interface. For the service above, the handler that returns all payments should look like this:&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;public class GetAllPaymentsRequest: IRequest&amp;lt;GetAllPaymentsResponse&amp;gt;
+{
+}
+
+public class GetAllPaymentsResponse
+{
+    public IEnumerable&amp;lt;Payment&amp;gt; Payments {get; set;}
+}
+
+public GetAllPaymentsRequestHandler: RequestHandler&amp;lt;GetAllPaymentsRequest, GetAllPaymentsResponse&amp;gt;
+{
+    protected override GetAllPaymentsResponse Handle(GetAllPaymentsRequest request)
+    {
+	// ...
+    }
+}
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;
+In order to call this handler you must provide an empty instance of &lt;code&gt;GetAllPaymentsRequest&lt;/code&gt; to mediator but such restriction doesn't need to be imposed on the service interface. Thus, the consumer of &lt;code&gt;IAccountingService&lt;/code&gt; calls &lt;code&gt;GetAllPayments()&lt;/code&gt; without being forced to provide an empty instance which, from consumers' point of view, is useless.
+&lt;/p&gt;
+
+&lt;p&gt;
+However, the greatest benefit from introducing this new service is that &lt;i&gt;it is a domain service&lt;/i&gt; and does not break the Law of Demeter while abstracting away the technical details. Whichever class will have a reference to an instance of &lt;code&gt;IAccountingService&lt;/code&gt;, it will be working with something pertaining to the &lt;code&gt;Accounting&lt;/code&gt; domain thus when invoking a method from the &lt;code&gt;IAccountingService&lt;/code&gt; &lt;i&gt;it will call a friend&lt;/i&gt;.
+&lt;/p&gt;
+
+&lt;p&gt;
+This pattern also makes the code a lot more understandable. Imposing a service over the handlers that are related to each-other unifies them and makes their purpose more clear. It's easier to understand that I need to call &lt;code&gt;subscriptionsService&lt;/code&gt; to get a subscription but it becomes a little more cluttered when I call &lt;code&gt;mediator.Send(new GetSubscriptionRequest{SubscriptionId = id})&lt;/code&gt; because it raises a lot of questions. Who gives me that subscription in the end and where it resides? Is this a database call or a network call? And who the hell is this &lt;code&gt;mediator&lt;/code&gt; dude?
+&lt;/p&gt;
+
+&lt;p&gt;
+Of course, the first two questions may rise when dealing with any interface and they should be always on the mind of programmers because the implementation may affect the performance, but performance concerns aside, it's just easier to comprehend the relationships and interactions when all the details fit together. And in a class dealing with &lt;code&gt;Accounting&lt;/code&gt; domain a call to &lt;code&gt;mediator&lt;/code&gt; just doesn't fit.
+&lt;/p&gt;
+
+&lt;p&gt;
+Back to the main point, there's the question of what if I &lt;i&gt;need&lt;/i&gt; to make a request through a queue (&lt;code&gt;RabbitMq&lt;/code&gt; for example)? Let's assume I have a class which needs to get some details using a call to mediator but afterwards needs to write some data to a queue within the same business transaction. In such case, I have to either:
+&lt;/p&gt;
+&lt;ul class="org-ul"&gt;
+&lt;li&gt;inject into my class an instance that knows how to talk to the queue and an instance of mediator or&lt;/li&gt;
+&lt;li&gt;have another mediator handler which does the write and perform two separate calls to mediator.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;
+By doing this I'm polluting the application logic with entities like mediator, queue writer etc., entities which are pertaining to application infrastructure not application domain. In other words, they are tools not building blocks. And tools should be replaceable. But how do I replace them if I have references to them scattered all over the code-base? With maximum effort, as Deadpool says.
+&lt;/p&gt;
+
+&lt;p&gt;
+This is why you need to separate tools from application domain. And this is how I achieved this separation: by hiding the implementation details (i.e. tooling) behind a service interface which brings meaning to the domain. This way, when you change the tools, the meaning (i.e. intention) stays the same.
+&lt;/p&gt;
+
+
+&lt;p&gt;
+&lt;b&gt;Acknowledgments&lt;/b&gt;
+&lt;/p&gt;
+
+&lt;p&gt;
+I would like to thank my colleagues for their reviews of this blog post. Also a big thank you goes to all the members of Centric Architecture Club for starting the discussion which led to this blog post.
+&lt;/p&gt;</description><guid>https://rebeja.eu/posts/separate-tools-from-domain/</guid><pubDate>Mon, 22 Jun 2020 13:56:02 GMT</pubDate></item><item><title>Building a Python IDE with Emacs and Docker</title><link>https://rebeja.eu/posts/python-ide-with-emacs-and-docker/</link><dc:creator>Petru Rebeja</dc:creator><description>&lt;div id="outline-container-orgea6795e" class="outline-2"&gt;
 &lt;h2 id="orgea6795e"&gt;Prologue&lt;/h2&gt;
 &lt;div class="outline-text-2" id="text-orgea6795e"&gt;
 &lt;p&gt;
@@ -1116,52 +1287,4 @@ The second and by far the biggest nuisance was the lack of proper web-browsing e
 
 &lt;p&gt;
 However, when I got to analyze how much I have accomplished while working from terminal I was simply &lt;b&gt;amazed&lt;/b&gt;. Having no distraction and meaningless motion like cycling through windows and tabs had a huge impact on my productivity. I was able to fully concentrate and immerse in the code and by doing so I had &lt;b&gt;a lot&lt;/b&gt; of work done.
-&lt;/p&gt;</description><category>Emacs</category><category>Python</category><category>terminal</category><guid>https://rebeja.eu/posts/python-development-using-emacs-from-terminal/</guid><pubDate>Thu, 28 Sep 2017 22:00:00 GMT</pubDate></item><item><title>Rename multiple files with Emacs dired</title><link>https://rebeja.eu/posts/rename-multiple-files-with-emacs-dired/</link><dc:creator>Petru Rebeja</dc:creator><description>&lt;p&gt;
-While adding text files from within a folder to a project file I noticed that the files in the folder were lacking naming consistency. Namely, there were files which had the &lt;code&gt;.txt&lt;/code&gt; extension and files without extension, as shown in the image below:
-&lt;img src="https://rebeja.eu/images/emacs-dired-files-without-extension.png" alt="nil"&gt;
-&lt;/p&gt;
-
-&lt;p&gt;
-Since there were about 100 files without extension I started asking myself: &lt;b&gt;Is there a way to add .txt extension to those files without manually renaming each one&lt;/b&gt;?
-&lt;/p&gt;
-
-&lt;p&gt;
-Of course there is. Here's what I did using Emacs and &lt;code&gt;dired&lt;/code&gt;:
-&lt;/p&gt;
-&lt;ul class="org-ul"&gt;
-&lt;li&gt;&lt;code&gt;M-x dired&lt;/code&gt; to the desired directory (obviously)
-&lt;/li&gt;
-&lt;li&gt;In the &lt;code&gt;dired&lt;/code&gt; buffer enter the &lt;b&gt;edit mode&lt;/b&gt; with &lt;code&gt;C-x C-q&lt;/code&gt;
-&lt;/li&gt;
-&lt;li&gt;Go to the last file that has extension before the block of files without extension.
-&lt;/li&gt;
-&lt;li&gt;Starting from that file, place a mark and select the whole block of files without extension (the selection should include the last file with extension).
-&lt;/li&gt;
-&lt;li&gt;Narrow to the selected region using &lt;code&gt;M-x narrow-to-region&lt;/code&gt; or &lt;code&gt;C-x n n&lt;/code&gt; The buffer should look like the image below:
-&lt;img src="https://rebeja.eu/images/emacs-dired-narrowed.png" alt="nil"&gt;
-&lt;/li&gt;
-&lt;li&gt;Move to the beginning of buffer using &lt;code&gt;M-&amp;lt;&lt;/code&gt;
-&lt;/li&gt;
-&lt;li&gt;Start defining a new keyboard macro using &lt;code&gt;C-x (&lt;/code&gt;
-&lt;ul class="org-ul"&gt;
-&lt;li&gt;Move to next line using &lt;code&gt;C-n&lt;/code&gt;
-&lt;/li&gt;
-&lt;li&gt;Navigate to the end of line using &lt;code&gt;C-e&lt;/code&gt;
-&lt;/li&gt;
-&lt;li&gt;Add the &lt;code&gt;.txt&lt;/code&gt; extension
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;Save the macro with &lt;code&gt;C-x )&lt;/code&gt;
-&lt;/li&gt;
-&lt;li&gt;Now that I have a macro to add &lt;code&gt;.txt&lt;/code&gt; extension to a file name I just need to run it as many times as there are unnamed files (100 in my case). To do so just &lt;code&gt;C-u 100 F4&lt;/code&gt;. This will repeat the macro 100 times.
-&lt;/li&gt;
-&lt;li&gt;Once all the files are renamed exit the &lt;b&gt;narrow-region&lt;/b&gt; using &lt;code&gt;M-x widen&lt;/code&gt; or &lt;code&gt;C-x n w&lt;/code&gt;
-&lt;/li&gt;
-&lt;li&gt;Save changes with &lt;code&gt;C-c C-c&lt;/code&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;
-That's it!
-&lt;/p&gt;</description><category>dired</category><category>Emacs</category><category>rename multiple files</category><guid>https://rebeja.eu/posts/rename-multiple-files-with-emacs-dired/</guid><pubDate>Mon, 21 Aug 2017 22:00:00 GMT</pubDate></item></channel></rss>
+&lt;/p&gt;</description><category>Emacs</category><category>Python</category><category>terminal</category><guid>https://rebeja.eu/posts/python-development-using-emacs-from-terminal/</guid><pubDate>Thu, 28 Sep 2017 22:00:00 GMT</pubDate></item></channel></rss>
