@@ -1,16 +1,15 @@
 #+BEGIN_COMMENT
 .. title: Keep the tools separate from the domain of your application
 .. slug: separate-tools-from-domain
-.. date: 2020-05-21 10:56:02 UTC+03:00
+.. date: 2020-06-22 16:56:02 UTC+03:00
 .. tags:
 .. category:
 .. link:
 .. description:
 .. type: text
-.. status: private
 
 #+END_COMMENT
-At [[https://www.centric.eu][Centric]] we have an Architecture club where we have regular meetings to discuss issues related to the architectural decisions of various applications, be it an application developed within the company or elsewhere. One of the latest topics discussed within the architecture club was whether to use or not MediatR (and implicitly the =Mediator= pattern) in the project.
+At work we have an Architecture club where we have regular meetings to discuss issues related to the architectural decisions of various applications, be it an application developed within the company or elsewhere. One of the latest topics discussed within the architecture club was whether to use or not MediatR (and implicitly the =Mediator= pattern) in a project based on =CQRS= architecture.
 
 If you're not familiar with [[https://github.com/jbogard/MediatR][MediatR]], it's a library that relays messages to their destination in an easy to use and elegant manner in two ways: it dispatches requests to their handlers and sends notifications to subscribers.
 
@@ -19,15 +18,15 @@ The =Mediator= pattern itself is [[https://www.dofactory.com/net/mediator-design
     Define an object that encapsulates how a set of objects interact. Mediator promotes loose coupling by keeping objects from referring to each other explicitly, and it lets you vary their interaction independently.
     #+end_quote
 
-I'm going to step a bit back and give some additional context regarding this meeting. I wasn't able to attend the meetings of the club since mid February because the meetings overlapped with a class I teach. In an afternoon my colleague [[https://www.linkedin.com/in/george-patrascu-b28b523b/][George]], the founder of the club, told me that the topic of the next meeting will be whether to use or not MediatR and knowing that I use MediatR on my side project it would be nice for me to weigh-in my opinion (thank you George for that!).
+I'm going to step a bit back and give some additional context regarding this meeting. I wasn't able to attend the meetings of the club since mid February because the meetings overlapped with a class I teach. In an afternoon my colleague George, the founder of the club, told me that the topic of the next meeting will be whether to use or not MediatR and knowing that I use MediatR on my side project it would be nice for me to weigh-in my opinion.
 
-At first, I must confess, I was taken aback --- for me there was never a doubt; MediatR is a great tool and _should_ be used in a CQRS architecture (the default architecture within company). This is why I said I would really like to hear what other members have to say --- especially those opposing the use of MediatR.
+At first, I must confess, I was taken aback --- for me there was never a doubt; MediatR is a great tool and _should_ be used in a CQRS architecture. This is why I said I would really like to hear what other members have to say --- especially those opposing the use of MediatR.
 
 As the discussion went on I concluded that the problem wasn't whether to use or not to use MediatR but rather /how it was used/. And it was used as the centerpiece of the big ball of mud.
 
-The discussion started with back-referencing a presentation where the same topic was put upfront: *to use or not to use MediatR*? Afterwards, the focus of the discussion switched to a project where the mediator pattern was imposed to be used for /every/ call pertaining to business logic and even more than that --- even the calls to [[https://github.com/jbogard/automapper][=AutoMapper=]] were handled via the mediator. In other words, the vast majority of what should have been simple method calls became calls to =mediator.Send(new SomeRequest{...})=.
+The discussion started with back-referencing a presentation at a local IT event, where the same topic was put upfront: *to use or not to use MediatR*? Afterwards, the focus of the discussion switched to a project where the mediator pattern was imposed to be used for /every/ call pertaining to business logic and even more than that --- even the calls to [[https://github.com/jbogard/automapper][=AutoMapper=]] were handled via the mediator. In other words, the vast majority of what should have been simple method calls became calls to =mediator.Send(new SomeRequest{...})=.
 
-The ironically interesting part is that in order to avoid being directly coupled to =MediatR= library the architect decided to hide the original =IMediator= interface behind a custom interface (let's call it =ICustomMediator=) thus ensuring a low coupling to the original interface. The irony here is that, although the initial intention is good, the abundance of calls to the custom mediator creates a dependency of application modules upon the custom defined interface. And this is wrong.
+In order to avoid being directly coupled to =MediatR= library the project was hiding the original =IMediator= interface behind a custom interface (let's call it =ICustomMediator=) thus ensuring a low coupling to the original interface. The problem is that, although the initial intention was good, the abundance of calls to the custom mediator creates a dependency of application modules upon the custom defined interface. And this is wrong.
 
 Why is that wrong?, you may ask. After all, the =Dependency Inversion principle= explicitly states that "classes should depend on interfaces" and since in the aforementioned project classes depend on an =ICustomMediator= interface which doesn't change even when the original interface changes then it's all good, right?
 
