@@ -1,5 +1,5 @@
 #+BEGIN_COMMENT
-.. title: Tutorial on Variational Auto Encoders
+.. title: Variational Autoencoders pe înţelesul meu
 .. slug: vae-tutorial
 .. date: 2020-06-02 23:13:03 UTC+03:00
 .. tags:
@@ -7,11 +7,145 @@
 .. link:
 .. description:
 .. type: text
+.. language: ro
+.. has_math: true
 .. status: private
 #+END_COMMENT
+
 * Outline
   - The core: latent variables and latent space
   - The probabilistic perspective: $p(l|w) \rightarrow p(z|w) \wedge p(l|z)$
   - The deep learning perspective: ~ELBO loss~ and mapping function from ~z~  to ~l~.
 * About
-  This post accompanies my talk about =Variational Auto Encoders= for Iaşi AI. The slides of the talk are available ...
+  This post accompanies my talk about =Variational Autoencoders= for Iaşi AI. The slides of the talk are available
+* Motivaţie/Prolog
+  =VAE= este un subiect cu care m-am întâlnit din ce în ce mai des în ultimul timp şi vreau să-l înţeleg mai bine. Cel mai bun mod de a înţelege ceva este să explici acel ceva altor persoane şi de asta m-am decis să:
+  - Fac o [[https://iasi.ai/meetups/the-bridge-between-deep-learning-and-probabilistic-machine-learning/][prezentare despre =VAE=]] în cadrul Iaşi AI şi
+  - Să scriu acest articol pe blog, în limba română, ca material suplimentar. De ce în limba română? Pentru că traducându-l din engleză mă forţez să îl înţeleg mai bine.
+* Ce este un =Variational Autoencoder=?
+  - Înainte să discutăm despre =VAE= trebuie să vorbim despre ce este un =Autoencoder= pentru a putea vedea mai bine similarităţile şi diferenţele (pentru a face o paralelă).
+** Ce este un =Autoencoder=?
+   - O arhitectură de reţea alcătuită din două părţi codor şi decodor (=encoder= şi respectiv =decoder=) a cărui scop este să:
+     1) primească la intrare un vector $X \in R^D$
+     2) îl codifice (=encode=) într-o reprezentare $z \in R^K$, unde $K \ll D$ folosind o reţea neuronală. În termeni matematici, codificatorul (=encoder=) învaţă o funcţie $g:R^D \rightarrow R^K$
+     3) decodifice reprezentarea $z$ în $X$ original folosind o altă reţea neuronală. Altfel spus, decodorul (=decoder=) învaţă funcţia $f:R^K \rightarrow R^D$ aşa încât $f(g(X))=X$. <<lbl-autoencoder-composition>>
+   - De ce ne interesează acest mecanizm? De exemplu, pentru identificarea anomaliilor: dacă $X$ este o valoare extremă (=outlier=) atunci $f(g(X)) \neq X$.
+
+   Într-o singură imagine, arhitectura Auto Encoder arată aşa:
+   #+begin_src dot :exports none :file ../images/autoencoder-schema.png :results silent
+     digraph autoencoder
+     {
+	 graph[dpi=600];
+	 rankdir=LR;
+	 input[shape=circle; label="X"];
+	 encoder[shape=rectangle; width=0.2; height=1; label="Codor"];
+	 decoder[shape=rectangle; width=0.2; height=1; label="Decodor"];
+	 output[shape=circle; label="X"];
+	 z[shape=rectangle; width=0.2; height=0.5; label="z"; style=dashed];
+
+	 input->encoder->z->decoder->output;
+     }
+   #+end_src
+   [[img-url:/images/autoencoder-schema.png]]
+
+   Am desenat nodul $z$ cu linie întreruptă pentru că în practică el nu se mai include în model ci se conectează codorul direct la decodor.
+** =Variational Autoencoder=
+   - Privind de la un nivel înalt, un =VAE= are aceeaşi arhitectură ca un =Autoencoder=:
+     - un codor (=encoder=) care primeşte la intrare un $X$ şi în transformă în reprezentarea latentă $z$,
+     - un decodor (=decoder=) care, având reprezentarea latentă $z$, învaţă să reconstruiască $X$ original din $z$.
+   - Diferenţa este dată de detalii, aşa cum spune vorba „The devil is in the details”.
+   - De ce i-am spus /puntea de trecere dintre deep learning şi învăţare automată probabilistică/? Pe baza experienţei proprii: =VAE= este un model/arhitectură foarte cunoscută şi foloseşte ambele domenii (vom vedea mai încolo cum). Pentru mine însă, malul (metaforic desigur) probabilistic era în ceaţă şi când am păşit acolo am descoperit o lume nouă, cel puţin la fel de interesantă ca lumea celuilalt mal --- cel al reţelelor neuronale şi învăţării automate aprofundate. Totodată, un =VAE= poate fi explicat din ambele puncte de vedere, aşa cum a făcut Jaan Altosaar în articolul[fn:2] său, dar dacă îl priveşti doar dintr-o singură perspectivă imaginea este neclară şi/sau incompletă. Abia văzut din ambele perspective, modelul =VAE= ni se arată în toată splendoarea sa, ceea ce vom şi face în continuare.
+* =VAE= din perspectiva =Deep Learning=
+  Din perspectiva învăţării automate aprofundate, =VAE= este un autoencoder cu:
+  - o arhitectură mai complicată,
+  - funcţii de cost (=loss functions=) mai ciudate,
+  - două noduri de intrare, dintre care unul primeşte numere aleatorii,
+  - aplicarea a două artificii de calcul:
+    1. Se optimizează o funcţie negată (despre asta mai târziu),
+    2. Funcţia decodor primeşte ca parametru un număr aleator pentru a putea fi considerată derivabilă (şi implicit să poată fi învăţată).
+
+  Pornind de la arhitectură începem să identificăm şi diferenţele, din ce în ce mai evidente dintre un autoencoder clasic şi un =VAE=:
+  #+begin_src dot :exports none :file ../images/vae-schema.png :results silent
+    digraph vae{
+	graph[dpi=600];
+	rankdir=LR;
+	node[shape=rectangle];
+	{
+	    rank=same;
+	    mu[label=<&mu;>; width=0.3; height=0.3]
+	    sigma[label=<&sigma;>; width=0.3; height=0.3]
+	    epsilon[label=<&epsilon;>; shape="circle"; width=0.4;]
+	}
+
+	input[label="X"; shape="circle"];
+	output[label="X"; shape="circle"];
+	encoder[label="Codor"; height=1];
+	decoder[label="Decodor"; height=1];
+
+	input->encoder->{mu, sigma};
+	{mu, sigma, epsilon}->decoder->output;
+    }
+  #+end_src
+
+  <<fig-vae-schema>>
+  #+name: fig-vae-schema
+  #+caption: Arhitectura unui =Variational Autoencoder=
+  [[img-url:/images/vae-schema.png]]
+
+  Din diagramă observăm că, spre deosebire de un autoencoder clasic, un =VAE= nu învaţă să identifice direct reprezentarea codificată a lui $X$ --- $z$. Modelul de fapt învaţă următoarele:
+  - Codorul :: Învaţă să identifice parametrii care descriu distribuţia statistică a reprezentărilor latente. Cu alte cuvinte, *codorul* nu identifică o reprezentare directă a lui $X$ ci *identifică distribuţia statistică a reprezentărilor lui $X$*. Intuiţia din spatele acestui comportament este că dacă modelul va învăţa să genereze date asemănătoare celor din setul de antrenament atunci este foarte probabil să genereze date asemănătoare şi pentru celelalte date[fn:3]. Cum o distribuţie poate fi descrisă prin media ($\mu$) şi deviaţia standard ($\sigma$), aceştia sunt parametrii identificaţi de codor.
+  - Decodorul :: Învaţă de fapt două funcţii:
+    1. O funcţie care transformă un punct din distribuţia dată de $(\mu, \sigma)$ într-un punct din spaţiul /reprezentărilor latente ale lui $X$/. Cum face asta în cazul =VAE=? Simplu: învaţă o funcţie care aranjează punctele unei distribuţii date de $(\mu, \sigma)$ în forma necesară pentru $X$[fn:3].
+    2. O funcţie care transformă reprezentarea latentă în instanţa primită la intrare.
+
+    Mergând mai departe cu diferenţele, trebuie să spunem că schema din [[fig-vae-schema][        imaginea anterioară]] este simplificată. Adevărata arhitectură a unui =VAE= arată astfel:
+    #+begin_src dot :exports none :file ../images/vae-schema-complete.png :results silent
+      digraph vae{
+	  graph[dpi=600];
+	  rankdir=LR;
+	  node[shape=rectangle];
+	  {
+	      rank=same;
+	      mu[label=<&mu;>; width=0.3; height=0.3]
+	      sigma[label=<&sigma;>; width=0.3; height=0.3]
+	      epsilon[label=<&epsilon;>; shape="circle"; width=0.4;]
+	  }
+
+	  input[label="X"; shape="circle"];
+	  output[label="X"; shape="circle"];
+	  encoder[label="Codor"; height=1];
+
+	  subgraph cluster_decoder
+	  {
+	      label="Decodor";
+	      style=dotted;
+	      z[label="z"; width=0.2; style=dashed]
+	      g->z->h;
+	  }
+
+
+	  input->encoder->{mu, sigma};
+	  {mu, sigma, epsilon}->g;
+	  h->output;
+      }
+    #+end_src
+
+    [[img-url:/images/vae-schema-complete.png]]
+
+    La fel ca şi în diagrama pentru =autoencoder=, reprezentarea latentă $z$ este desenată cu linie întreruptă deoarece în practică ea nu se regăseşte în model.
+
+    Ultima diagramă, cea cu arhitectura completă, ne oferă şi imaginea clară a diferenţelor dintre un =autoencoder= clasic şi un =VAE=: în cazul =VAE= nu mai vorbim de o compunere de funcţii cum am văzut în cazul unui [[lbl-autoencoder-composition][autoencoder]].
+
+    Mai mult decât atât, un =VAE= nu este un model generativ[fn:4] ci mai degrabă modelul generativ este o componentă a unui =VAE=[fn:1] În principiu vorbim despre două componente /diferite/: (i) *modelul* propriu-zis şi *reţeaua de inferenţă*.
+* =VAE= din perspectiva probabilistică
+* O implementare elegantă[fn:1]
+
+* Footnotes
+
+[fn:4] [[http://dustintran.com/blog/variational-auto-encoders-do-not-train-complex-generative-models][Variational auto-encoders do not train complex generative models | Dustin Tran]]
+
+[fn:3] [[https://arxiv.org/abs/1606.05908][Doersch, C., Tutorial on variational autoencoders (2016)]]
+
+[fn:2] [[https://jaan.io/what-is-variational-autoencoder-vae-tutorial/][Tutorial - What is a variational autoencoder? – Jaan Altosaar]]
+
+[fn:1] [[http://louistiao.me/posts/implementing-variational-autoencoders-in-keras-beyond-the-quickstart-tutorial][Implementing Variational Autoencoders in Keras: Beyond the Quickstart Tutorial]]

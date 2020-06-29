@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Tutorial on Variational Auto Encoders | Rebeja</title>
+<title>Variational Autoencoders pe înţelesul meu | Rebeja</title>
 <link href="../../assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
 <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
 <meta name="theme-color" content="#5670d4">
@@ -12,7 +12,7 @@
 <link rel="canonical" href="https://rebeja.eu/posts/vae-tutorial/">
 <!--[if lt IE 9]><script src="../../assets/js/html5.js"></script><![endif]--><meta name="author" content="Petru Rebeja">
 <meta property="og:site_name" content="Rebeja">
-<meta property="og:title" content="Tutorial on Variational Auto Encoders">
+<meta property="og:title" content="Variational Autoencoders pe înţelesul meu">
 <meta property="og:url" content="https://rebeja.eu/posts/vae-tutorial/">
 <meta property="og:description" content="Outline
 
@@ -82,7 +82,7 @@ The deep learning perspective: ELBO loss and mapping function from z  t">
         
         
         
-<article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title" itemprop="headline name"><a href="." class="u-url">Tutorial on Variational Auto Encoders</a></h1>
+<article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title" itemprop="headline name"><a href="." class="u-url">Variational Autoencoders pe înţelesul meu</a></h1>
 
         <div class="metadata">
             <p class="byline author vcard p-author h-card"><span class="byline-name fn p-name" itemprop="author">
@@ -105,9 +105,9 @@ The deep learning perspective: ELBO loss and mapping function from z  t">
         
 
     </header><div class="e-content entry-content" itemprop="articleBody text">
-    <div id="outline-container-orgd5b0abb" class="outline-2">
-<h2 id="orgd5b0abb">Outline</h2>
-<div class="outline-text-2" id="text-orgd5b0abb">
+    <div id="outline-container-orgbab5898" class="outline-2">
+<h2 id="orgbab5898">Outline</h2>
+<div class="outline-text-2" id="text-orgbab5898">
 <ul class="org-ul">
 <li>The core: latent variables and latent space</li>
 <li>The probabilistic perspective: \(p(l|w) \rightarrow p(z|w) \wedge p(l|z)\)</li>
@@ -115,12 +115,169 @@ The deep learning perspective: ELBO loss and mapping function from z  t">
 </ul>
 </div>
 </div>
-<div id="outline-container-org7595c36" class="outline-2">
-<h2 id="org7595c36">About</h2>
-<div class="outline-text-2" id="text-org7595c36">
+<div id="outline-container-org159d016" class="outline-2">
+<h2 id="org159d016">About</h2>
+<div class="outline-text-2" id="text-org159d016">
 <p>
-This post accompanies my talk about <code>Variational Auto Encoders</code> for Iaşi AI. The slides of the talk are available …
+This post accompanies my talk about <code>Variational Autoencoders</code> for Iaşi AI. The slides of the talk are available
 </p>
+</div>
+</div>
+<div id="outline-container-org858e82c" class="outline-2">
+<h2 id="org858e82c">Motivaţie/Prolog</h2>
+<div class="outline-text-2" id="text-org858e82c">
+<p>
+<code>VAE</code> este un subiect cu care m-am întâlnit din ce în ce mai des în ultimul timp şi vreau să-l înţeleg mai bine. Cel mai bun mod de a înţelege ceva este să explici acel ceva altor persoane şi de asta m-am decis să:
+</p>
+<ul class="org-ul">
+<li>Fac o <a href="https://iasi.ai/meetups/the-bridge-between-deep-learning-and-probabilistic-machine-learning/">prezentare despre <code>VAE</code></a> în cadrul Iaşi AI şi</li>
+<li>Să scriu acest articol pe blog, în limba română, ca material suplimentar. De ce în limba română? Pentru că traducându-l din engleză mă forţez să îl înţeleg mai bine.</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org60abda5" class="outline-2">
+<h2 id="org60abda5">Ce este un <code>Variational Autoencoder</code>?</h2>
+<div class="outline-text-2" id="text-org60abda5">
+<ul class="org-ul">
+<li>Înainte să discutăm despre <code>VAE</code> trebuie să vorbim despre ce este un <code>Autoencoder</code> pentru a putea vedea mai bine similarităţile şi diferenţele (pentru a face o paralelă).</li>
+</ul>
+</div>
+<div id="outline-container-org92150df" class="outline-3">
+<h3 id="org92150df">Ce este un <code>Autoencoder</code>?</h3>
+<div class="outline-text-3" id="text-org92150df">
+<ul class="org-ul">
+<li>O arhitectură de reţea alcătuită din două părţi codor şi decodor (<code>encoder</code> şi respectiv <code>decoder</code>) a cărui scop este să:
+<ol class="org-ol">
+<li>primească la intrare un vector \(X \in R^D\)</li>
+<li>îl codifice (<code>encode</code>) într-o reprezentare \(z \in R^K\), unde \(K \ll D\) folosind o reţea neuronală. În termeni matematici, codificatorul (<code>encoder</code>) învaţă o funcţie \(g:R^D \rightarrow R^K\)</li>
+<li>decodifice reprezentarea \(z\) în \(X\) original folosind o altă reţea neuronală. Altfel spus, decodorul (<code>decoder</code>) învaţă funcţia \(f:R^K \rightarrow R^D\) aşa încât \(f(g(X))=X\). <a id="orgfa52ea6"></a>
+</li>
+</ol>
+</li>
+<li>De ce ne interesează acest mecanizm? De exemplu, pentru identificarea anomaliilor: dacă \(X\) este o valoare extremă (<code>outlier</code>) atunci \(f(g(X)) \neq X\).</li>
+</ul>
+<p>
+Într-o singură imagine, arhitectura Auto Encoder arată aşa:
+<img src="../../images/autoencoder-schema.png" alt="nil"></p>
+
+<p>
+Am desenat nodul \(z\) cu linie întreruptă pentru că în practică el nu se mai include în model ci se conectează codorul direct la decodor.
+</p>
+</div>
+</div>
+<div id="outline-container-orge70ccfc" class="outline-3">
+<h3 id="orge70ccfc"><code>Variational Autoencoder</code></h3>
+<div class="outline-text-3" id="text-orge70ccfc">
+<ul class="org-ul">
+<li>Privind de la un nivel înalt, un <code>VAE</code> are aceeaşi arhitectură ca un <code>Autoencoder</code>:
+<ul class="org-ul">
+<li>un codor (<code>encoder</code>) care primeşte la intrare un \(X\) şi în transformă în reprezentarea latentă \(z\),</li>
+<li>un decodor (<code>decoder</code>) care, având reprezentarea latentă \(z\), învaţă să reconstruiască \(X\) original din \(z\).</li>
+</ul>
+</li>
+<li>Diferenţa este dată de detalii, aşa cum spune vorba „The devil is in the details”.</li>
+<li>De ce i-am spus <i>puntea de trecere dintre deep learning şi învăţare automată probabilistică</i>? Pe baza experienţei proprii: <code>VAE</code> este un model/arhitectură foarte cunoscută şi foloseşte ambele domenii (vom vedea mai încolo cum). Pentru mine însă, malul (metaforic desigur) probabilistic era în ceaţă şi când am păşit acolo am descoperit o lume nouă, cel puţin la fel de interesantă ca lumea celuilalt mal — cel al reţelelor neuronale şi învăţării automate aprofundate. Totodată, un <code>VAE</code> poate fi explicat din ambele puncte de vedere, aşa cum a făcut Jaan Altosaar în articolul<sup><a id="fnr.1" class="footref" href="#fn.1">1</a></sup> său, dar dacă îl priveşti doar dintr-o singură perspectivă imaginea este neclară şi/sau incompletă. Abia văzut din ambele perspective, modelul <code>VAE</code> ni se arată în toată splendoarea sa, ceea ce vom şi face în continuare.</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="outline-container-org840f4ab" class="outline-2">
+<h2 id="org840f4ab">
+<code>VAE</code> din perspectiva <code>Deep Learning</code>
+</h2>
+<div class="outline-text-2" id="text-org840f4ab">
+<p>
+Din perspectiva învăţării automate aprofundate, <code>VAE</code> este un autoencoder cu:
+</p>
+<ul class="org-ul">
+<li>o arhitectură mai complicată,</li>
+<li>funcţii de cost (<code>loss functions</code>) mai ciudate,</li>
+<li>două noduri de intrare, dintre care unul primeşte numere aleatorii,</li>
+<li>aplicarea a două artificii de calcul:
+<ol class="org-ol">
+<li>Se optimizează o funcţie negată (despre asta mai târziu),</li>
+<li>Funcţia decodor primeşte ca parametru un număr aleator pentru a putea fi considerată derivabilă (şi implicit să poată fi învăţată).</li>
+</ol>
+</li>
+</ul>
+<p>
+Pornind de la arhitectură începem să identificăm şi diferenţele, din ce în ce mai evidente dintre un autoencoder clasic şi un <code>VAE</code>:
+<a id="orgfcca50f"></a>
+</p>
+<p>
+<img src="../../images/vae-schema.png" alt="nil"></p>
+
+<p>
+Din diagramă observăm că, spre deosebire de un autoencoder clasic, un <code>VAE</code> nu învaţă să identifice direct reprezentarea codificată a lui \(X\) — \(z\). Modelul de fapt învaţă următoarele:
+</p>
+<dl class="org-dl">
+<dt>Codorul</dt>
+<dd>Învaţă să identifice parametrii care descriu distribuţia statistică a reprezentărilor latente. Cu alte cuvinte, <b>codorul</b> nu identifică o reprezentare directă a lui \(X\) ci <b>identifică distribuţia statistică a reprezentărilor lui \(X\)</b>. Intuiţia din spatele acestui comportament este că dacă modelul va învăţa să genereze date asemănătoare celor din setul de antrenament atunci este foarte probabil să genereze date asemănătoare şi pentru celelalte date<sup><a id="fnr.2" class="footref" href="#fn.2">2</a></sup>. Cum o distribuţie poate fi descrisă prin media (\(\mu\)) şi deviaţia standard (\(\sigma\)), aceştia sunt parametrii identificaţi de codor.</dd>
+<dt>Decodorul</dt>
+<dd>
+<p>
+Învaţă de fapt două funcţii:
+</p>
+<ol class="org-ol">
+<li>O funcţie care transformă un punct din distribuţia dată de \((\mu, \sigma)\) într-un punct din spaţiul <i>reprezentărilor latente ale lui \(X\)</i>. Cum face asta în cazul <code>VAE</code>? Simplu: învaţă o funcţie care aranjează punctele unei distribuţii date de \((\mu, \sigma)\) în forma necesară pentru \(X\)<sup><a id="fnr.2.100" class="footref" href="#fn.2">2</a></sup>.</li>
+<li>O funcţie care transformă reprezentarea latentă în instanţa primită la intrare.</li>
+</ol>
+<p>
+Mergând mai departe cu diferenţele, trebuie să spunem că schema din <a href="#orgfcca50f">        imaginea anterioară</a> este simplificată. Adevărata arhitectură a unui <code>VAE</code> arată astfel:
+<img src="../../images/vae-schema-complete.png" alt="nil"></p>
+
+<p>
+La fel ca şi în diagrama pentru <code>autoencoder</code>, reprezentarea latentă \(z\) este desenată cu linie întreruptă deoarece în practică ea nu se regăseşte în model.
+</p>
+
+<p>
+Ultima diagramă, cea cu arhitectura completă, ne oferă şi imaginea clară a diferenţelor dintre un <code>autoencoder</code> clasic şi un <code>VAE</code>: în cazul <code>VAE</code> nu mai vorbim de o compunere de funcţii cum am văzut în cazul unui <a href="#orgfa52ea6">autoencoder</a>.
+</p>
+
+<p>
+Mai mult decât atât, un <code>VAE</code> nu este un model generativ<sup><a id="fnr.3" class="footref" href="#fn.3">3</a></sup> ci mai degrabă modelul generativ este o componentă a unui <code>VAE</code><sup><a id="fnr.4" class="footref" href="#fn.4">4</a></sup> În principiu vorbim despre două componente <i>diferite</i>: (i) <b>modelul</b> propriu-zis şi <b>reţeaua de inferenţă</b>.
+</p>
+</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-org41fc607" class="outline-2">
+<h2 id="org41fc607">
+<code>VAE</code> din perspectiva probabilistică</h2>
+</div>
+<div id="outline-container-org4de44e8" class="outline-2">
+<h2 id="org4de44e8">O implementare elegantă<sup><a id="fnr.4.100" class="footref" href="#fn.4">4</a></sup>
+</h2>
+</div>
+<div id="footnotes">
+<h2 class="footnotes">Footnotes: </h2>
+<div id="text-footnotes">
+
+<div class="footdef">
+<sup><a id="fn.1" class="footnum" href="#fnr.1">1</a></sup><div class="footpara"><p class="footpara">
+<a href="https://jaan.io/what-is-variational-autoencoder-vae-tutorial/">Tutorial - What is a variational autoencoder? – Jaan Altosaar</a>
+</p></div>
+</div>
+
+<div class="footdef">
+<sup><a id="fn.2" class="footnum" href="#fnr.2">2</a></sup><div class="footpara"><p class="footpara">
+<a href="https://arxiv.org/abs/1606.05908">Doersch, C., Tutorial on variational autoencoders (2016)</a>
+</p></div>
+</div>
+
+<div class="footdef">
+<sup><a id="fn.3" class="footnum" href="#fnr.3">3</a></sup><div class="footpara"><p class="footpara">
+<a href="http://dustintran.com/blog/variational-auto-encoders-do-not-train-complex-generative-models">Variational auto-encoders do not train complex generative models | Dustin Tran</a>
+</p></div>
+</div>
+
+<div class="footdef">
+<sup><a id="fn.4" class="footnum" href="#fnr.4">4</a></sup><div class="footpara"><p class="footpara">
+<a href="http://louistiao.me/posts/implementing-variational-autoencoders-in-keras-beyond-the-quickstart-tutorial">Implementing Variational Autoencoders in Keras: Beyond the Quickstart Tutorial</a>
+</p></div>
+</div>
+
+
 </div>
 </div>
     </div>
@@ -131,7 +288,7 @@ This post accompanies my talk about <code>Variational Auto Encoders</code> for I
         <script>
         var disqus_shortname ="rebeja",
             disqus_url="https://rebeja.eu/posts/vae-tutorial/",
-        disqus_title="Tutorial on Variational Auto Encoders",
+        disqus_title="Variational Autoencoders pe \u00een\u0163elesul meu",
         disqus_identifier="cache/posts/vae-tutorial.html",
         disqus_config = function () {
             this.language = "en";
@@ -146,7 +303,9 @@ This post accompanies my talk about <code>Variational Auto Encoders</code> for I
     <a href="https://disqus.com" class="dsq-brlink" rel="nofollow">Comments powered by <span class="logo-disqus">Disqus</span></a>
 
 
-        </section></article><script>var disqus_shortname="rebeja";(function(){var a=document.createElement("script");a.async=true;a.src="https://"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)}());</script><!--End of body content--><footer id="footer">
+        </section><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML" integrity="sha384-3lJUsx1TJHt7BA4udB5KPnDrlkO8T6J6v/op7ui0BbCjvZ9WqV4Xm6DTP6kQ/iBH" crossorigin="anonymous"></script><script type="text/x-mathjax-config">
+        MathJax.Hub.Config({tex2jax: {inlineMath: [['$latex ','$'], ['\\(','\\)']]}});
+        </script></article><script>var disqus_shortname="rebeja";(function(){var a=document.createElement("script");a.async=true;a.src="https://"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)}());</script><!--End of body content--><footer id="footer">
             Contents © 2020         <a href="mailto:petru.rebeja@gmail.com">Petru Rebeja</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
             
             
