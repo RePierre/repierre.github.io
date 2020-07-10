@@ -145,9 +145,13 @@ Pentru că traducând toate noţiunile şi conceptele din engleză mă forţez s
 
     Mai mult decât atât, un =VAE= nu este un model generativ[fn:4] ci mai degrabă modelul generativ este o componentă a unui =VAE=[fn:1] În principiu vorbim despre două componente /diferite/: (i) *modelul* propriu-zis şi *reţeaua de inferenţă*.
 * =VAE= din perspectiva probabilistică
+** Reţeaua de inferenţă
+   O reţea de inferenţă este o reţea neuronală care permite să identificăm parametrii optimi pentru aproximarea unor distribuţii[fn:5]. Avantajul unei astfel de reţele este că putem generaliza identificarea parametrilor $\mu$ şi $\sigma$ atât pentru punctele din setul de date de antrenament cât şi pentru punctele nemaîntâlnite până acum.
 * O implementare elegantă[fn:1]
 
 * Footnotes
+
+[fn:5] [[http://edwardlib.org/tutorials/inference-networks][Edward – Inference Networks]]
 
 [fn:4] [[http://dustintran.com/blog/variational-auto-encoders-do-not-train-complex-generative-models][Variational auto-encoders do not train complex generative models | Dustin Tran]]
 
