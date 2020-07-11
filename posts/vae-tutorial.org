@@ -32,11 +32,14 @@ Pentru că traducând toate noţiunile şi conceptele din engleză mă forţez s
 
   Aşadar, începem cu:
 * Ce este un =Autoencoder=?
-  - O arhitectură de reţea alcătuită din două părţi codor şi decodor (=encoder= şi respectiv =decoder=) a cărui scop este să:
+  În linii mari, un =autoencoder= este o reţea neuronală alcătuită din două părţi: /codor/ şi /decodor/ (=encoder= şi respectiv =decoder=), a cărei funcţionalitate este să:
     1) primească la intrare un vector $X \in R^D$
-    2) îl codifice (=encode=) într-o reprezentare $z \in R^K$, unde $K \ll D$ folosind o reţea neuronală. În termeni matematici, codificatorul (=encoder=) învaţă o funcţie $g:R^D \rightarrow R^K$
-    3) decodifice reprezentarea $z$ în $X$ original folosind o altă reţea neuronală. Altfel spus, decodorul (=decoder=) învaţă funcţia $f:R^K \rightarrow R^D$ aşa încât $f(g(X))=X$. <<lbl-autoencoder-composition>>
-  - De ce ne interesează acest mecanizm? De exemplu, pentru identificarea anomaliilor: dacă $X$ este o valoare extremă (=outlier=) atunci $f(g(X)) \neq X$.
+    2) îl codifice (=encode=) într-o reprezentare (un vector) $z \in R^K$ unde $K \ll D$. În termeni matematici, codorul învaţă o funcţie $g:R^D \rightarrow R^K$
+    3) decodifice vectorul $z$ în-un vector $X'$ cât mai similar posibil cu vectorul original $X$. Altfel spus, decodorul învaţă funcţia $f:R^K \rightarrow R^D$ aşa încât $f(g(X)) \approx X$. <<lbl-autoencoder-composition>>
+
+  De ce ne interesează acest mecanizm? De exemplu, pentru identificarea anomaliilor[fn:6][fn:7].
+
+  Aşa cum am spus mai sus, pentru vectori $X$ asemănători cu cei întâlniţi în setul de antrenament, codorul va învăţa să producă o reprezentare potrivită acestora iar decodorul, la rândul său, va învăţa să genereze pe baza reprezentării primite alţi vectori ( $X', X'', \ldots$ ) asemănători cu $X$. Însă dacă $X$ este o valoare extremă (=outlier=) atunci decodorul nu va putea să reconstruiască vectorul iniţial $X$ din reprezentarea acestuia $z$, adică $f(g(X)) \neq X$.
 
   Într-o singură imagine, arhitectura Auto Encoder arată aşa:
   #+begin_src dot :exports none :file ../images/autoencoder-schema.png :results silent
@@ -150,6 +153,10 @@ Pentru că traducând toate noţiunile şi conceptele din engleză mă forţez s
 * O implementare elegantă[fn:1]
 
 * Footnotes
+
+[fn:7] [[https://dl.acm.org/doi/abs/10.1145/3097983.3098052][Anomaly Detection with Robust Deep Autoencoders]]
+
+[fn:6] [[https://dl.acm.org/doi/10.1145/2689746.2689747][Anomaly Detection Using Autoencoders with Nonlinear Dimensionality Reduction]]
 
 [fn:5] [[http://edwardlib.org/tutorials/inference-networks][Edward – Inference Networks]]
 
