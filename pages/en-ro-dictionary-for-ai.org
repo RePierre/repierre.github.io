@@ -30,6 +30,10 @@ Această pagină a fost creată din iniţiativa de a avea o listă de traduceri 
 -----
   /Gold corpus/ = corpus de referință
 -----
+* I
+-----
+  /Inference network/ = reţea de inferenţă (deducţie).
+-----
 * M
 -----
   /Machine Learning/ = Învățare Automată
