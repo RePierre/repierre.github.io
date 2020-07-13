@@ -34,14 +34,16 @@ Pentru că traducând toate noţiunile şi conceptele din engleză mă forţez s
 * Ce este un =Autoencoder=?
   În linii mari, un =autoencoder= este o reţea neuronală alcătuită din două părţi: /codor/ şi /decodor/ (=encoder= şi respectiv =decoder=), a cărei funcţionalitate este să:
     1) primească la intrare un vector $X \in R^D$
-    2) îl codifice (=encode=) într-o reprezentare (un vector) $z \in R^K$ unde $K \ll D$. În termeni matematici, codorul învaţă o funcţie $g:R^D \rightarrow R^K$
+    2) îl codifice (=encode=) într-un vector $z \in R^K$ unde $K \ll D$. În termeni matematici, codorul învaţă o funcţie $g:R^D \rightarrow R^K$
     3) decodifice vectorul $z$ în-un vector $X'$ cât mai similar posibil cu vectorul original $X$. Altfel spus, decodorul învaţă funcţia $f:R^K \rightarrow R^D$ aşa încât $f(g(X)) \approx X$. <<lbl-autoencoder-composition>>
 
   De ce ne interesează acest mecanizm? De exemplu, pentru identificarea anomaliilor[fn:6][fn:7].
 
-  Aşa cum am spus mai sus, pentru vectori $X$ asemănători cu cei întâlniţi în setul de antrenament, codorul va învăţa să producă o reprezentare potrivită acestora iar decodorul, la rândul său, va învăţa să genereze pe baza reprezentării primite alţi vectori ( $X', X'', \ldots$ ) asemănători cu $X$. Însă dacă $X$ este o valoare extremă (=outlier=) atunci decodorul nu va putea să reconstruiască vectorul iniţial $X$ din reprezentarea acestuia $z$, adică $f(g(X)) \neq X$.
+  Aşa cum am spus mai sus, pentru vectori $X$ asemănători cu cei întâlniţi în setul de antrenament, codorul va învăţa să producă o codificare potrivită acestora iar decodorul, la rândul său, va învăţa să genereze pe baza codificării primite alţi vectori ( $X', X'', \ldots$ ) asemănători cu $X$. Însă dacă $X$ este o valoare extremă (=outlier=) atunci decodorul nu va putea să reconstruiască vectorul iniţial $X$ din reprezentarea acestuia $z$, adică $f(g(X)) \neq X$.
 
-  Într-o singură imagine, arhitectura Auto Encoder arată aşa:
+  Cu alte cuvinte, /cu cât rezultatul $X'$ este mai diferit de vectorul primit la intrare $X$, cu atât este mai probabil ca $X$ să fie o valoare extremă/.
+
+  Într-o singură imagine, arhitectura unui =autoencoder= arată aşa:
   #+begin_src dot :exports none :file ../images/autoencoder-schema.png :results silent
     digraph autoencoder
     {
