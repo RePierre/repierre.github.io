@@ -17,33 +17,33 @@
   - The probabilistic perspective: $p(l|w) \rightarrow p(z|w) \wedge p(l|z)$
   - The deep learning perspective: ~ELBO loss~ and mapping function from ~z~  to ~l~.
 * Prolog
-  Înainte de a începe discuţia despre subiectul propriu-zis al acestui articol vreau să răspund (mai mult pentru mine) la două întrebări:
+  Înainte de a începe discuția despre subiectul propriu-zis al acestui articol vreau să răspund (mai mult pentru mine) la două întrebări:
 - De ce mai scriu încă un articol despre =Variational Autoencoders=, pe lângă /multitudinea/ de articole deja existente pe Internet?
 
-Răspunsul este simplu. =Variational Autoencoders= este un subiect cu care m-am întâlnit din ce în ce mai des în ultimul timp şi vreau să-l înţeleg mai bine. Iar cel mai bun mod de a înţelege ceva este să explici acel ceva altor persoane. Din acest motiv m-am decis să: (i) fac o [[https://iasi.ai/meetups/the-bridge-between-deep-learning-and-probabilistic-machine-learning/][prezentare despre =VAE=]] în cadrul Iaşi AI şi (ii) să scriu acest articol pe blog, în limba română, ca material suplimentar.
+Răspunsul este simplu. =Variational Autoencoders= este un subiect cu care m-am întâlnit din ce în ce mai des în ultimul timp și vreau să-l înțeleg mai bine. Iar cel mai bun mod de a înțelege ceva este să explici acel ceva altor persoane. Din acest motiv m-am decis să: (i) fac o [[https://iasi.ai/meetups/the-bridge-between-deep-learning-and-probabilistic-machine-learning/][prezentare despre =VAE=]] în cadrul Iași AI și (ii) să scriu acest articol pe blog, în limba română, ca material suplimentar.
 
 - De ce în limba română?
 
-Pentru că traducând toate noţiunile şi conceptele din engleză mă forţez să le înţeleg mai bine. În plus, mai am ocazia să adaug termeni noi la [[https://rebeja.eu/pages/en-ro-dictionary-for-ai][lista de traduceri din engleză în română a termenilor din Inteligenţa Artificială şi Învăţarea Automată]].
+Pentru că traducând toate noțiunile și conceptele din engleză mă forțez să le înțeleg mai bine. În plus, mai am ocazia să adaug termeni noi la [[https://rebeja.eu/pages/en-ro-dictionary-for-ai][lista de traduceri din engleză în română a termenilor din Inteligenţa Artificială și Învățarea Automată]].
 
   Acestea fiind spuse, să purcedem în aventura noastră în lumea modelelor probabilistice!
 
-  Şi cum orice aventură întinsă pe un fir epic începe cu o introducere, înainte de a discuta despre ce este un =Variational Autoencoder= trebuie să vorbim mai întâi despre ce este un =Autoencoder= pentru ca, având imaginea unui =autoencoder= în minte să vedem mai apoi că, deşi sunt similare ca nume, comparat cu un =autoencoder= clasic un =variational autoencoder= este cu totul altă mâncare de peşte.
+  Și cum orice aventură întinsă pe un fir epic începe cu o introducere, înainte de a discuta despre ce este un =Variational Autoencoder= trebuie să vorbim mai întâi despre ce este un =Autoencoder= pentru ca, având imaginea unui =autoencoder= în minte să vedem mai apoi că, deși sunt similare ca nume, comparat cu un =autoencoder= clasic un =variational autoencoder= este cu totul altă mâncare de peşte.
 
-  Aşadar, începem cu:
+  Așadar, începem cu:
 * Ce este un =Autoencoder=?
-  În linii mari, un =autoencoder= este o reţea neuronală alcătuită din două părţi: /codor/ şi /decodor/ (=encoder= şi respectiv =decoder=), a cărei funcţionalitate este să:
+  În linii mari, un =autoencoder= este o rețea neuronală alcătuită din două parți: /codor/ și /decodor/ (=encoder= și respectiv =decoder=), a cărei funcționalitate este să:
     1) primească la intrare un vector $X \in R^D$
-    2) îl codifice (=encode=) într-un vector $z \in R^K$ unde $K \ll D$. În termeni matematici, codorul învaţă o funcţie $g:R^D \rightarrow R^K$
-    3) decodifice vectorul $z$ în-un vector $X'$ cât mai similar posibil cu vectorul original $X$. Altfel spus, decodorul învaţă funcţia $f:R^K \rightarrow R^D$ aşa încât $f(g(X)) \approx X$. <<lbl-autoencoder-composition>>
+    2) îl codifice (=encode=) într-un vector $z \in R^K$ unde $K \ll D$. În termeni matematici, codorul învață o funcție $g:R^D \rightarrow R^K$
+    3) decodifice vectorul $z$ în-un vector $X'$ cât mai similar posibil cu vectorul original $X$. Altfel spus, decodorul învață funcția $f:R^K \rightarrow R^D$ aşa încât $f(g(X)) \approx X$. <<lbl-autoencoder-composition>>
 
-  De ce ne interesează acest mecanizm? De exemplu, pentru identificarea anomaliilor[fn:6][fn:7].
+  De ce ne interesează acest mecanism? De exemplu, pentru identificarea anomaliilor[fn:6][fn:7].
 
-  Aşa cum am spus mai sus, pentru vectori $X$ asemănători cu cei întâlniţi în setul de antrenament, codorul va învăţa să producă o codificare potrivită acestora iar decodorul, la rândul său, va învăţa să genereze pe baza codificării primite alţi vectori ( $X', X'', \ldots$ ) asemănători cu $X$. Însă dacă $X$ este o valoare extremă (=outlier=) atunci decodorul nu va putea să reconstruiască vectorul iniţial $X$ din reprezentarea acestuia $z$, adică $f(g(X)) \neq X$.
+  Aşa cum am spus mai sus, pentru vectori $X$ asemănători cu cei întâlniți în setul de antrenament, codorul va învăța să producă o codificare potrivită acestora iar decodorul, la rândul său, va învață să genereze pe baza codificării primite alți vectori ( $X', X'', \ldots$ ) asemănători cu $X$. Însă dacă $X$ este o valoare extremă (=outlier=) atunci decodorul nu va putea să reconstruiască vectorul inițial $X$ din reprezentarea acestuia $z$, adică $f(g(X)) \neq X$.
 
   Cu alte cuvinte, /cu cât rezultatul $X'$ este mai diferit de vectorul primit la intrare $X$, cu atât este mai probabil ca $X$ să fie o valoare extremă/.
 
-  Într-o singură imagine, arhitectura unui =autoencoder= arată aşa:
+  Într-o singură imagine, arhitectura unui =autoencoder= arată așa:
   #+begin_src dot :exports none :file ../images/autoencoder-schema.png :results silent
     digraph autoencoder
     {
@@ -62,7 +62,7 @@ Pentru că traducând toate noţiunile şi conceptele din engleză mă forţez s
 
   Am desenat nodul $z$ cu linie întreruptă pentru că în practică el nu se mai include în model ci se conectează codorul direct la decodor.
 
-  Având această imagine în minte, putem să începem discuţia despre subiectul de interes pentru acest articol.
+  Având această imagine în minte, putem să începem discuția despre subiectul de interes pentru acest articol.
 * Ce este un =Variational Autoencoder=?
   Privind de la un nivel înalt, un =variational autoencoder=, pe numele său mic =VAE=, are aceeaşi arhitectură ca un =autoencoder=. Astfel şi într-un =VAE= regăsim componentele binecunoscute ale unui =autoencoder=:
     - un codor care primeşte la intrare un $X$ şi îl transformă în reprezentarea latentă $z$,
