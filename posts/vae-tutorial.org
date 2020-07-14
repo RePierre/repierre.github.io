@@ -64,20 +64,34 @@ Pentru că traducând toate noțiunile și conceptele din engleză mă forțez s
 
   Având această imagine în minte, putem să începem discuția despre subiectul de interes pentru acest articol.
 * Ce este un =Variational Autoencoder=?
-  Privind de la un nivel înalt, un =variational autoencoder=, pe numele său mic =VAE=, are aceeaşi arhitectură ca un =autoencoder=. Astfel şi într-un =VAE= regăsim componentele binecunoscute ale unui =autoencoder=:
-    - un codor care primeşte la intrare un $X$ şi îl transformă în reprezentarea latentă $z$,
-    - un decodor care, având reprezentarea latentă $z$, învaţă să reconstruiască vectorul original $X$ din $z$.
+  Privind de la un nivel înalt, un =variational autoencoder=, pe numele său mic =VAE=, are aceeași arhitectură ca un =autoencoder=. Astfel și într-un =VAE= regăsim componentele binecunoscute ale unui =autoencoder=:
+    - un codor care primește la intrare un $X$ și îl transformă în reprezentarea latentă $z$,
+    - un decodor care, având reprezentarea latentă $z$, învață să reconstruiască vectorul original $X$ din $z$.
 
-  Dar, aşa cum spune englezescul „The devil is in the detail”, la fel şi în cazul =VAE= detaliile sunt cele care fac asemănările dintre cele două arhitecturi să se termine exact aici: la nume şi la cele două componente; pentru că, pe măsură ce vom intra în detalii vom vedea cât de diferite sunt componentele de la o arhitectură la alta.
+  Dar, aşa cum spune englezescul „The devil is in the detail”, la fel și în cazul =VAE= detaliile sunt cele care fac asemănările dintre cele două arhitecturi să se termine exact aici: la nume și la cele două componente; pentru că, pe măsură ce vom intra în detalii vom vedea cât de diferite sunt componentele de la o arhitectură la alta.
 
-  Şi ca să justific introducerea proverbului de mai sus am introdus deja un detaliu subtil menit să sublinieze diferenţa dintre cele două arhitecturi. Este vorba despre vectorul $z$ care în cazul unui =autoencoder= este /o codificare/ a lui $X$ iar în cazul unui =VAE= este /reprezentarea latentă/ a lui $X$.
+  Și ca să justific întrebuințarea proverbului de mai sus am introdus deja un detaliu subtil menit să sublinieze diferența dintre cele două arhitecturi. Este vorba despre vectorul $z$ care în cazul unui =autoencoder= este /o codificare/ a lui $X$ iar în cazul unui =VAE= este /reprezentarea latentă/ a lui $X$.
 
-  Care-i diferenţa dintre /codificare/ şi /reprezentare latentă/?
-Pe scurt, codificarea este o transformare iar reprezentarea latentă este un amestec al însuşirilor/atributelor primordiale ale variabilei $X$. O altă diferenţă ar fi următoarea: codificarea este construită iar reprezentarea latentă identificată şi/sau dedusă.
+  Care-i diferența dintre /codificare/ și /reprezentare latentă/?
+Pe scurt, codificarea este o transformare iar reprezentarea latentă este un amestec al însușirilor/atributelor primordiale ale variabilei $X$. O altă diferență ar fi următoarea: codificarea este construită iar reprezentarea latentă identificată și/sau dedusă.
 
-  În acest sens, un =autoencoder= poate fi asociat cu o aplicaţie de comprimare/decomprimare care învaţă singură algoritmii necesari a.î. o funcţie care transformă vectorul $X$ în vectorul $z$ astfel încât $z$ să conţină suficientă informaţie pentru reconstruirea
+  În acest sens, un =autoencoder= poate fi asociat cu o aplicație de comprimare/decomprimare care învață singură algoritmii necesari pentru cea mai eficientă comprimare. Astfel, vectorul $X$ este transformat în vectorul $z$ astfel încât $z$ să conțină suficientă informație pentru reconstruirea lui $X$ inițial.
 
-  - De ce i-am spus /puntea de trecere dintre deep learning şi învăţare automată probabilistică/? Pe baza experienţei proprii: =VAE= este un model/arhitectură foarte cunoscută şi foloseşte ambele domenii (vom vedea mai încolo cum). Pentru mine însă, malul (metaforic desigur) probabilistic era în ceaţă şi când am păşit acolo am descoperit o lume nouă, cel puţin la fel de interesantă ca lumea celuilalt mal --- cel al reţelelor neuronale şi învăţării automate aprofundate. Totodată, un =VAE= poate fi explicat din ambele puncte de vedere, aşa cum a făcut Jaan Altosaar în articolul[fn:2] său, dar dacă îl priveşti doar dintr-o singură perspectivă imaginea este neclară şi/sau incompletă. Abia văzut din ambele perspective, modelul =VAE= ni se arată în toată splendoarea sa, ceea ce vom şi face în continuare.
+  Un =VAE= însă, dată fiind natura sa generativă, trebuie asociat cu o aplicație care primește la intrare un fișier și pe baza caracteristicilor acestuia generează fișiere asemănătoare care diferă între ele prin mici variații.
+
+  Care sunt caracteristicile unui fișier? Depinde de fișier. Pentru o imagine ar fi paleta de culori, orientarea, tipul de obiecte surprinse de camera foto și multe altele. Pentru un text acestea ar putea fi lungimea, prezența sau absența figurilor de stil, particularitățile de scriere etc. Totalitatea acestor caracteristici ascunse însumează /reprezentarea latentă/.
+
+  Evident, nu este posibil să specificăm manual aceste caracteristici de fiecare dată, iar acolo unde este posibil, costurile aferente acestui proces ar fi enorme, fie că vorbim de timp, bani, resurse umane sau oricare combinație a acestora. Aici =VAE= vine în ajutorul nostru preluând sarcina de a deduce reprezentările latente pentru intrările primite în stadiul de antrenare.
+
+  Prezența acestei părți de deducție a reprezentărilor latente merită o mențiune aparte: *=VAE= nu este un model generativ*[fn:4]. *Modelul generativ face parte din =VAE=*, mai exact, acesta este decodorul menționat la începutul acestei secțiuni dar =VAE= este mai mult decât atât.
+
+  Acestea fiind spuse, *definim un =Variational Autoencoder= ca fiind un /ansamblu/ care constă dintr-o rețea de inferență și un model generativ* [fn:4].
+
+  Definiția de mai sus, pentru mine, a fost puntea de trecere dintre învățarea automată aprofundată (=deep learning=) și învățarea automată probabilistică, ambele domenii regăsindu-se în ansamblul =VAE=. O dată ce am pășit pe acest mal metaforic al învățării automate probabilistice am descoperit o lume nouă; o lume cel puțin la fel de interesantă ca lumea celuilalt mal --- cel al rețelelor neuronale și învățării automate aprofundate.
+
+  Un =VAE= trebuie explicat din ambele puncte de vedere, așa cum a făcut Jaan Altosaar în articolul[fn:2] său, deoarece privit dintr-o singură perspectivă, imaginea a ceea ce este cu adevărat un =VAE= este neclară și/sau incompletă, așa cum s-a văzut mai sus când am menționat că un =VAE= este mai mult decât un simplu model generativ.
+
+  Abia văzut din ambele perspective, modelul =VAE= ni se arată în toată splendoarea sa, ceea ce vom și face în continuare.
 * =VAE= din perspectiva =Deep Learning=
   Din perspectiva învăţării automate aprofundate, =VAE= este un autoencoder cu:
   - o arhitectură mai complicată,
