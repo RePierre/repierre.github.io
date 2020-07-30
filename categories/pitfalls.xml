@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Rebeja (Posts about pitfalls)</title><link>https://rebeja.eu/</link><description></description><atom:link href="https://rebeja.eu/categories/pitfalls.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2020 &lt;a href="mailto:petru.rebeja@gmail.com"&gt;Petru Rebeja&lt;/a&gt; </copyright><lastBuildDate>Thu, 30 Jan 2020 15:04:11 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>The common pitfalls of ORM frameworks - RBAR</title><link>https://rebeja.eu/posts/the-common-pitfalls-of-orm-frameworks-rbar/</link><dc:creator>Petru Rebeja</dc:creator><description>&lt;p&gt;
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Rebeja (Posts about pitfalls)</title><link>https://rebeja.eu/</link><description></description><atom:link href="https://rebeja.eu/categories/pitfalls.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2020 &lt;a href="mailto:petru.rebeja@gmail.com"&gt;Petru Rebeja&lt;/a&gt; </copyright><lastBuildDate>Thu, 30 Jul 2020 14:54:23 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>The common pitfalls of ORM frameworks - RBAR</title><link>https://rebeja.eu/posts/the-common-pitfalls-of-orm-frameworks-rbar/</link><dc:creator>Petru Rebeja</dc:creator><description>&lt;p&gt;
 ORM frameworks are a great tool especially for junior developers because they allow bluring the line between the application logic and the data it crunches. Except that the aforementioned line blurring advantage may become a real production issue if not taken in consideration when writing the code.
 &lt;/p&gt;
 
@@ -25,14 +25,10 @@ where &lt;code&gt;OrderItem&lt;/code&gt; holds the data about an ordered item.
 The &lt;code&gt;PlaceOrder&lt;/code&gt; method needs to:
 &lt;/p&gt;
 &lt;ul class="org-ul"&gt;
-&lt;li&gt;Lookup the &lt;code&gt;Customer&lt;/code&gt; in the database
-&lt;/li&gt;
-&lt;li&gt;Create a new &lt;code&gt;CustomerOrder&lt;/code&gt; instance
-&lt;/li&gt;
-&lt;li&gt;Add each &lt;code&gt;Item&lt;/code&gt; to the order and decrease stock count
-&lt;/li&gt;
-&lt;li&gt;Save the &lt;code&gt;CustomerOrder&lt;/code&gt; in the database
-&lt;/li&gt;
+&lt;li&gt;Lookup the &lt;code&gt;Customer&lt;/code&gt; in the database&lt;/li&gt;
+&lt;li&gt;Create a new &lt;code&gt;CustomerOrder&lt;/code&gt; instance&lt;/li&gt;
+&lt;li&gt;Add each &lt;code&gt;Item&lt;/code&gt; to the order and decrease stock count&lt;/li&gt;
+&lt;li&gt;Save the &lt;code&gt;CustomerOrder&lt;/code&gt; in the database&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;
 Of course, since we're using an ORM framework, the classes used by the repositories - &lt;code&gt;Customer&lt;/code&gt;, &lt;code&gt;CustomerOrder&lt;/code&gt; and &lt;code&gt;Item&lt;/code&gt; - are mapped to database tables.
@@ -46,11 +42,12 @@ Given the above, someone would be tempted to implement the &lt;code&gt;PlaceOrde
     var customer = _customerRepository.Get(customerId);
     var order = new CustomerOrder(customer);
 
-    foreach(var orderedItem in orderItems)
+    foreach (var orderedItem in orderItems)
     {
 	var item = _itemRepository.Get(orderedItem.ItemId);
 	item.DecreaseStockCount(orderedItem.Quantity);
-	order.Add(item);
+	_itemRepository.Update(item);
+	order.Add(orderedItem);
     }
 
     _customerOrderRepository.Register(order);
@@ -79,7 +76,7 @@ So, let's switch the paradigm and start working with collections in our code to 
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;public void PlaceOrder(Guid customerId, IEnumerable&amp;lt;OrderItem&amp;gt; orderItems)
 {
     var customer = _customerRepository.Get(customerId);
-    var customerOrder = new CustomerOrder();
+    var customerOrder = new CustomerOrder(customer);
 
     var items = itemRepository.Items
 	.Join(orderItems,
@@ -92,6 +89,7 @@ So, let's switch the paradigm and start working with collections in our code to 
     {
 	var item  = items[orderedItem.ItemId];
 	item.DecreaseStockCount(orderedItem.Quantity);
+	_itemRepository.Update(item);
 	customerOrder.Add(item);
     }
 
@@ -132,4 +130,12 @@ And how can we do that? Exactly - with &lt;code&gt;stored procedures&lt;/code&gt
 &lt;p&gt;
 Now, of course in real life situations there won't be a customer that orders almost 1000 items with a single order and the second approach (bulk load items and iterate the collection) will do just fine.
 The important thing to keep in mind in such cases is the need to switch from a procedural mindset to a set-based one thus pruning this phenomenon of paradigm creep which can become a full-blown RBAR processing.
+&lt;/p&gt;
+
+&lt;p&gt;
+&lt;b&gt;Later edit&lt;/b&gt;
+&lt;/p&gt;
+
+&lt;p&gt;
+I have created a &lt;a href="https://github.com/RePierre/orm-rbar-example"&gt;GitHub repository&lt;/a&gt; to showcase the first two implemetations of &lt;code&gt;IOrderservice&lt;/code&gt;.
 &lt;/p&gt;</description><category>ORM</category><category>pitfalls</category><category>RBAR</category><guid>https://rebeja.eu/posts/the-common-pitfalls-of-orm-frameworks-rbar/</guid><pubDate>Wed, 17 Jan 2018 22:00:00 GMT</pubDate></item></channel></rss>
