@@ -41,11 +41,12 @@ Given the above, someone would be tempted to implement the ~PlaceOrder~ method l
       var customer = _customerRepository.Get(customerId);
       var order = new CustomerOrder(customer);
 
-      foreach(var orderedItem in orderItems)
+      foreach (var orderedItem in orderItems)
       {
 	  var item = _itemRepository.Get(orderedItem.ItemId);
 	  item.DecreaseStockCount(orderedItem.Quantity);
-	  order.Add(item);
+	  _itemRepository.Update(item);
+	  order.Add(orderedItem);
       }
 
       _customerOrderRepository.Register(order);
@@ -65,7 +66,7 @@ So, let's switch the paradigm and start working with collections in our code to 
   public void PlaceOrder(Guid customerId, IEnumerable<OrderItem> orderItems)
   {
       var customer = _customerRepository.Get(customerId);
-      var customerOrder = new CustomerOrder();
+      var customerOrder = new CustomerOrder(customer);
 
       var items = itemRepository.Items
 	  .Join(orderItems,
@@ -78,6 +79,7 @@ So, let's switch the paradigm and start working with collections in our code to 
       {
 	  var item  = items[orderedItem.ItemId];
 	  item.DecreaseStockCount(orderedItem.Quantity);
+	  _itemRepository.Update(item);
 	  customerOrder.Add(item);
       }
 
@@ -114,3 +116,7 @@ And how can we do that? Exactly - with ~stored procedures~.
 #+END_SRC
 Now, of course in real life situations there won't be a customer that orders almost 1000 items with a single order and the second approach (bulk load items and iterate the collection) will do just fine.
 The important thing to keep in mind in such cases is the need to switch from a procedural mindset to a set-based one thus pruning this phenomenon of paradigm creep which can become a full-blown RBAR processing.
+
+*Later edit*
+
+I have created a [[https://github.com/RePierre/orm-rbar-example][GitHub repository]] to showcase the first two implemetations of =IOrderservice=.
