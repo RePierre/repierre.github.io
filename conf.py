@@ -136,10 +136,14 @@ TRANSLATIONS_PATTERN = '{path}.{lang}.{ext}'
 
 NAVIGATION_LINKS = {
     DEFAULT_LANG: (
-        ("/archive.html", "Archive"),
-        ("/categories/", "Tags"),
-        ("/rss.xml", "RSS feed"),
-        ("/pages/en-ro-dictionary-for-ai", "Dicţionar EN-RO pentru IA")
+        ('/index.html', 'Home', 'fa fa-home'),
+        ('/archive.html', 'Archive', 'fa fa-folder-open'),
+        ('/categories/index.html', 'Tags', 'fa fa-tags'),
+        ('/posts/welcome/', 'About', 'fa fa-user'),
+        ('/rss.xml', 'RSS', 'fa fa-feed'),
+        ('/pages/en-ro-dictionary-for-ai', 'Dicţionar EN-RO pentru IA', 'fa fa-book'),
+        ('https://twitter.com/petrurebeja', 'My Twitter', 'fa fa-twitter'),
+        ('https://github.com/RePierre', 'My Github', 'fa fa-github')
     ),
 }
 
@@ -151,13 +155,13 @@ NAVIGATION_ALT_LINKS = {
 }
 
 # Name of the theme to use.
-THEME = "bootblog4"
+THEME = "hybrid"
 
 # Primary color of your theme. This will be used to customize your theme.
 # Must be a HEX value.
-THEME_COLOR = '#5670d4'
+# THEME_COLOR = '#5670d4'
 
-# Theme configuration. Fully theme-dependent. (translatable)
+# theme configuration. Fully theme-dependent. (translatable)
 # Examples below are for bootblog4.
 # bootblog4 supports: featured_large featured_small featured_on_mobile
 #                     featured_large_image_on_mobile featured_strip_html sidebar
