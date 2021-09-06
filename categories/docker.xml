@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Rebeja (Posts about Docker)</title><link>https://rebeja.eu/</link><description></description><atom:link href="https://rebeja.eu/categories/docker.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2020 &lt;a href="mailto:petru.rebeja@gmail.com"&gt;Petru Rebeja&lt;/a&gt; </copyright><lastBuildDate>Fri, 06 Mar 2020 04:31:56 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Building a Python IDE with Emacs and Docker</title><link>https://rebeja.eu/posts/python-ide-with-emacs-and-docker/</link><dc:creator>Petru Rebeja</dc:creator><description>&lt;div id="outline-container-orgea6795e" class="outline-2"&gt;
-&lt;h2 id="orgea6795e"&gt;Prologue&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-orgea6795e"&gt;
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Rebeja (Posts about Docker)</title><link>https://rebeja.eu/</link><description></description><atom:link href="https://rebeja.eu/categories/docker.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2020 &lt;a href="mailto:petru.rebeja@gmail.com"&gt;Petru Rebeja&lt;/a&gt; </copyright><lastBuildDate>Sat, 11 Jul 2020 02:58:55 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Building a Python IDE with Emacs and Docker</title><link>https://rebeja.eu/posts/python-ide-with-emacs-and-docker/</link><dc:creator>Petru Rebeja</dc:creator><description>&lt;div id="outline-container-org67e2a6a" class="outline-2"&gt;
+&lt;h2 id="org67e2a6a"&gt;Prologue&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org67e2a6a"&gt;
 &lt;p&gt;
 I am a fan of &lt;a href="https://en.wikipedia.org/wiki/Windows_Subsystem_for_Linux"&gt;&lt;code&gt;Windows Subsystem for Linux&lt;/code&gt;&lt;/a&gt;. It brings the power of Linux command-line tools to Windows which is something a developer cannot dislike but that isn't the main reason I'm fond of it. I like it because it allows me to run Emacs (albeit in console mode) at its full potential.
 &lt;/p&gt;
@@ -31,9 +31,9 @@ The answer is &lt;b&gt;Yes&lt;/b&gt;. If you want to see only the final &lt;code
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-org939fc12" class="outline-2"&gt;
-&lt;h2 id="org939fc12"&gt;How&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-org939fc12"&gt;
+&lt;div id="outline-container-org1068027" class="outline-2"&gt;
+&lt;h2 id="org1068027"&gt;How&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org1068027"&gt;
 &lt;p&gt;
 Since I already have been using Emacs as a Python IDE in Ubuntu Bash, replicating this setup in Docker would imply:
 &lt;/p&gt;
@@ -51,9 +51,9 @@ Luckily, Docker already has an &lt;a href="https://docs.docker.com/engine/exampl
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-org68c74bd" class="outline-2"&gt;
-&lt;h2 id="org68c74bd"&gt;Issue #1: SSHD refuses connection&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-org68c74bd"&gt;
+&lt;div id="outline-container-orge93a6b7" class="outline-2"&gt;
+&lt;h2 id="orge93a6b7"&gt;Issue #1: SSHD refuses connection&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-orge93a6b7"&gt;
 &lt;p&gt;
 This one was easy — there's a typo in the example provided by Docker. I figured it out after inspecting the contents of &lt;code&gt;sshd_config&lt;/code&gt; file.
 &lt;/p&gt;
@@ -99,9 +99,9 @@ This way, the root password isn't stored in clear text and in plain-sight anymor
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-orgab39b6e" class="outline-2"&gt;
-&lt;h2 id="orgab39b6e"&gt;Issue #2: Activating virtual environment inside container&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-orgab39b6e"&gt;
+&lt;div id="outline-container-org4707a12" class="outline-2"&gt;
+&lt;h2 id="org4707a12"&gt;Issue #2: Activating virtual environment inside container&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org4707a12"&gt;
 &lt;p&gt;
 The second item of my quest was to setup and activate a Python virtual environment. This environment will be used to install all the dependencies required for the project I'm working on.
 &lt;/p&gt;
@@ -154,9 +154,9 @@ Afterwards, just install the required packages as usual.
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-orgd908321" class="outline-2"&gt;
-&lt;h2 id="orgd908321"&gt;Issue #3: Emacs monolithic configuration file&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-orgd908321"&gt;
+&lt;div id="outline-container-org1c78a1c" class="outline-2"&gt;
+&lt;h2 id="org1c78a1c"&gt;Issue #3: Emacs monolithic configuration file&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org1c78a1c"&gt;
 &lt;p&gt;
 After setting up and activating the virtual environment, I needed to configure Emacs for python development to start working.
 &lt;/p&gt;
@@ -270,9 +270,9 @@ It does one more thing not mentioned previously: a &lt;code&gt;sed&lt;/code&gt; 
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-org6964504" class="outline-2"&gt;
-&lt;h2 id="org6964504"&gt;Issue #4: Using SSH keys to connect to GitHub&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-org6964504"&gt;
+&lt;div id="outline-container-org8f672c4" class="outline-2"&gt;
+&lt;h2 id="org8f672c4"&gt;Issue #4: Using SSH keys to connect to GitHub&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org8f672c4"&gt;
 &lt;p&gt;
 Now that I have Emacs running on Ubuntu (albeit terminal only) I can enjoy a smooth workflow without having to wait too much for Magit or other application that took forever on Cygwin to finish.
 &lt;/p&gt;
@@ -310,9 +310,9 @@ To provide the values for the keys use &lt;code&gt;--build-arg&lt;/code&gt; para
 &lt;/pre&gt;&lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-orgab08103" class="outline-2"&gt;
-&lt;h2 id="orgab08103"&gt;Issue #5: Install Emacs packages once and done&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-orgab08103"&gt;
+&lt;div id="outline-container-org70e4730" class="outline-2"&gt;
+&lt;h2 id="org70e4730"&gt;Issue #5: Install Emacs packages once and done&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org70e4730"&gt;
 &lt;p&gt;
 After another build of the Docker image I started a container from it, logged in via ssh into the container, started Emacs and noticed yet another issue.
 &lt;/p&gt;
@@ -339,9 +339,9 @@ And to my great surprise, when rebuilding the image I saw the output of Emacs pa
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-orga73c0fb" class="outline-2"&gt;
-&lt;h2 id="orga73c0fb"&gt;Issue #6: Terminal colors&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-orga73c0fb"&gt;
+&lt;div id="outline-container-orga09a739" class="outline-2"&gt;
+&lt;h2 id="orga09a739"&gt;Issue #6: Terminal colors&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-orga09a739"&gt;
 &lt;p&gt;
 Being confident that everything should work now (it's the same setup I had on &lt;code&gt;WSL&lt;/code&gt;) I started a new container to which I mounted the GitHub repo as a volume and got cracking.
 &lt;/p&gt;
@@ -361,8 +361,8 @@ And only after this, I was able to fully benefit from having the Python IDE I'm 
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-orgd03a348" class="outline-2"&gt;
-&lt;h2 id="tldr"&gt;&lt;a id="orgd03a348"&gt;&lt;/a&gt;TL;DR&lt;/h2&gt;
+&lt;div id="outline-container-org8b2e82b" class="outline-2"&gt;
+&lt;h2 id="tldr"&gt;&lt;a id="org8b2e82b"&gt;&lt;/a&gt;TL;DR&lt;/h2&gt;
 &lt;div class="outline-text-2" id="text-tldr"&gt;
 &lt;p&gt;
 The full Dockerfile described in this post is below:
@@ -436,9 +436,9 @@ To build the image use this command:
 &lt;/pre&gt;&lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-orgd485c87" class="outline-2"&gt;
-&lt;h2 id="orgd485c87"&gt;Epilogue&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-orgd485c87"&gt;
+&lt;div id="outline-container-org807da45" class="outline-2"&gt;
+&lt;h2 id="org807da45"&gt;Epilogue&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org807da45"&gt;
 &lt;p&gt;
 Looking back at this sort of quest of mine, I have nothing else to say than it was, overall, a fun experience.
 &lt;/p&gt;
@@ -452,9 +452,9 @@ But the bottom line is that it was a great deal of fun involved which luckily re
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-org34a4071" class="outline-2"&gt;
-&lt;h2 id="org34a4071"&gt;References&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-org34a4071"&gt;
+&lt;div id="outline-container-org73d8e54" class="outline-2"&gt;
+&lt;h2 id="org73d8e54"&gt;References&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org73d8e54"&gt;
 &lt;ol class="org-ol"&gt;
 &lt;li&gt;&lt;a href="https://docs.docker.com/engine/examples/running_ssh_service/"&gt;Dockerize an SSH service&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://pythonspeed.com/articles/activate-virtualenv-dockerfile/"&gt;Elegantly activating a virtualenv in a Dockerfile&lt;/a&gt;&lt;/li&gt;
@@ -463,9 +463,9 @@ But the bottom line is that it was a great deal of fun involved which luckily re
 &lt;/ol&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-orga34ea07" class="outline-2"&gt;
-&lt;h2 id="orga34ea07"&gt;Acknowledgments&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-orga34ea07"&gt;
+&lt;div id="outline-container-org3170228" class="outline-2"&gt;
+&lt;h2 id="org3170228"&gt;Acknowledgments&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org3170228"&gt;
 &lt;p&gt;
 I would like to thank my colleague &lt;a href="https://www.linkedin.com/in/ionelabarbuta/"&gt;Ionela Bărbuță&lt;/a&gt; for proofreading this post and for the tips &amp;amp; tricks she gave me in order to improve my writing.
 &lt;/p&gt;
@@ -477,110 +477,106 @@ While working on a project I had to load and process some resources from a MySQL
 &lt;p&gt;
 Instead, I decided to restore the database on a Docker image for MySQL and query the data using &lt;code&gt;mysql-client&lt;/code&gt;.
 &lt;/p&gt;
-&lt;div id="outline-container-sec-1" class="outline-2"&gt;
-&lt;h2 id="sec-1"&gt;Install &lt;code&gt;mysql-client&lt;/code&gt; locally&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-1"&gt;
+&lt;div id="outline-container-org948ac39" class="outline-2"&gt;
+&lt;h2 id="org948ac39"&gt;Install &lt;code&gt;mysql-client&lt;/code&gt; locally&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org948ac39"&gt;
 &lt;p&gt;
 This one is simple; just run:
 &lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;sudo apt-get install mysql-client
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;  sudo apt-get install mysql-client
 &lt;/pre&gt;&lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-sec-2" class="outline-2"&gt;
-&lt;h2 id="sec-2"&gt;Install Docker on Ubuntu&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-2"&gt;
+&lt;div id="outline-container-orgc641ace" class="outline-2"&gt;
+&lt;h2 id="orgc641ace"&gt;Install Docker on Ubuntu&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-orgc641ace"&gt;
 &lt;p&gt;
 The first thing to do is to head to &lt;a href="https://docs.docker.com/engine/installation/linux/ubuntu/#install-docker"&gt;Docker documentation&lt;/a&gt; for instalation instructions which I've copied here:
 &lt;/p&gt;
 &lt;ul class="org-ul"&gt;
-&lt;li&gt;Install packages to allow &lt;code&gt;apt&lt;/code&gt; to use a repository over HTTPS:
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;sudo apt-get install &lt;span class="se"&gt;\&lt;/span&gt;
-    apt-transport-https &lt;span class="se"&gt;\&lt;/span&gt;
-    ca-certificates &lt;span class="se"&gt;\&lt;/span&gt;
-    curl &lt;span class="se"&gt;\&lt;/span&gt;
-    software-properties-common
-&lt;/pre&gt;&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;Add the official GPG key for Docker
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;curl -fsSL https://download.docker.com/linux/ubuntu/gpg &lt;span class="p"&gt;|&lt;/span&gt; sudo apt-key add -
-&lt;/pre&gt;&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;Setup the &lt;b&gt;stable&lt;/b&gt; repository. Make sure to select the proper architecture; in my case it's &lt;code&gt;amd64&lt;/code&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;sudo add-apt-repository &lt;span class="se"&gt;\&lt;/span&gt;
-    &lt;span class="s2"&gt;"deb [arch=amd64] https://download.docker.com/linux/ubuntu \&lt;/span&gt;
-&lt;span class="s2"&gt;    &lt;/span&gt;&lt;span class="k"&gt;$(&lt;/span&gt;lsb_release -cs&lt;span class="k"&gt;)&lt;/span&gt;&lt;span class="s2"&gt; \&lt;/span&gt;
-&lt;span class="s2"&gt;    stable"&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;Update the package index
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;sudo apt-get update
-&lt;/pre&gt;&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;Install Docker
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;sudo apt-get install docker-ce
-&lt;/pre&gt;&lt;/div&gt;
-&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;
+Install packages to allow &lt;code&gt;apt&lt;/code&gt; to use a repository over HTTPS:
+&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;   sudo apt-get install &lt;span class="se"&gt;\&lt;/span&gt;
+       apt-transport-https &lt;span class="se"&gt;\&lt;/span&gt;
+       ca-certificates &lt;span class="se"&gt;\&lt;/span&gt;
+       curl &lt;span class="se"&gt;\&lt;/span&gt;
+       software-properties-common
+&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;
+Add the official GPG key for Docker
+&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;   curl -fsSL https://download.docker.com/linux/ubuntu/gpg &lt;span class="p"&gt;|&lt;/span&gt; sudo apt-key add -
+&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;
+Setup the &lt;b&gt;stable&lt;/b&gt; repository. Make sure to select the proper architecture; in my case it's &lt;code&gt;amd64&lt;/code&gt;
+&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;   sudo add-apt-repository &lt;span class="se"&gt;\&lt;/span&gt;
+       &lt;span class="s2"&gt;"deb [arch=amd64] https://download.docker.com/linux/ubuntu \&lt;/span&gt;
+&lt;span class="s2"&gt;       &lt;/span&gt;&lt;span class="k"&gt;$(&lt;/span&gt;lsb_release -cs&lt;span class="k"&gt;)&lt;/span&gt;&lt;span class="s2"&gt; \&lt;/span&gt;
+&lt;span class="s2"&gt;       stable"&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;
+Update the package index
+&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;   sudo apt-get update
+&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;
+Install Docker
+&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;   sudo apt-get install docker-ce
+&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-sec-3" class="outline-2"&gt;
-&lt;h2 id="sec-3"&gt;Restore MySQL database to a Docker container&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-3"&gt;
+&lt;div id="outline-container-org861a47c" class="outline-2"&gt;
+&lt;h2 id="org861a47c"&gt;Restore MySQL database to a Docker container&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org861a47c"&gt;
 &lt;ul class="org-ul"&gt;
-&lt;li&gt;Download the Docker image for &lt;code&gt;MySQL&lt;/code&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;sudo docker pull mysql
-&lt;/pre&gt;&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;Create an empty database
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;sudo docker run --name &amp;lt;container-name&amp;gt; -e &lt;span class="nv"&gt;MYSQL_ROOT_PASSWORD&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&amp;lt;password&amp;gt; -e &lt;span class="nv"&gt;MYSQL_DATABASE&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&amp;lt;db-name&amp;gt; -d mysql
+&lt;li&gt;&lt;p&gt;
+Download the Docker image for &lt;code&gt;MySQL&lt;/code&gt;
+&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;   sudo docker pull mysql
+&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;
+Create an empty database
+&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;   sudo docker run --name &amp;lt;container-name&amp;gt; -e &lt;span class="nv"&gt;MYSQL_ROOT_PASSWORD&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&amp;lt;password&amp;gt; -e &lt;span class="nv"&gt;MYSQL_DATABASE&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&amp;lt;db-name&amp;gt; -d mysql
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;
 This will create a new container with an empty database and login &lt;code&gt;root&lt;/code&gt;.
+&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;
+Restore database from dump
 &lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;Restore database from dump
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;sudo docker &lt;span class="nb"&gt;exec&lt;/span&gt; -i &amp;lt;container-name&amp;gt; mysql -u&amp;lt;user-name&amp;gt; -p&amp;lt;password&amp;gt; --database&lt;span class="o"&gt;=&lt;/span&gt;&amp;lt;db-name&amp;gt; &amp;lt; &amp;lt;path-to-sql-file&amp;gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;   sudo docker &lt;span class="nb"&gt;exec&lt;/span&gt; -i &amp;lt;container-name&amp;gt; mysql -u&amp;lt;user-name&amp;gt; -p&amp;lt;password&amp;gt; --database&lt;span class="o"&gt;=&lt;/span&gt;&amp;lt;db-name&amp;gt; &amp;lt; &amp;lt;path-to-sql-file&amp;gt;
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;
 Notes:
 &lt;/p&gt;
 &lt;ol class="org-ol"&gt;
-&lt;li&gt;Make sure that there is no space between &lt;code&gt;-u&lt;/code&gt; and &lt;code&gt;&amp;lt;user-name&amp;gt;&lt;/code&gt;, e.g. for user &lt;code&gt;root&lt;/code&gt; the option should be &lt;code&gt;-uroot&lt;/code&gt;
-&lt;/li&gt;
-&lt;li&gt;The same goes for password - e.g. if password is &lt;code&gt;my-secret&lt;/code&gt; then the option should be &lt;code&gt;-pmy-secret&lt;/code&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;path-to-sql-file&lt;/code&gt; should point to a file on host OS
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/li&gt;
+&lt;li&gt;Make sure that there is no space between &lt;code&gt;-u&lt;/code&gt; and &lt;code&gt;&amp;lt;user-name&amp;gt;&lt;/code&gt;, e.g. for user &lt;code&gt;root&lt;/code&gt; the option should be &lt;code&gt;-uroot&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;The same goes for password - e.g. if password is &lt;code&gt;my-secret&lt;/code&gt; then the option should be &lt;code&gt;-pmy-secret&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;path-to-sql-file&lt;/code&gt; should point to a file on host OS&lt;/li&gt;
+&lt;/ol&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-sec-4" class="outline-2"&gt;
-&lt;h2 id="sec-4"&gt;Connect to MySQL database running on Docker container from Emacs&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-4"&gt;
+&lt;div id="outline-container-org8a91f98" class="outline-2"&gt;
+&lt;h2 id="org8a91f98"&gt;Connect to MySQL database running on Docker container from Emacs&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org8a91f98"&gt;
 &lt;ul class="org-ul"&gt;
-&lt;li&gt;First, start the container &lt;code&gt;sudo docker start &amp;lt;container-name&amp;gt;&lt;/code&gt;
-&lt;/li&gt;
-&lt;li&gt;Get the IP Address of the container
-&lt;/li&gt;
-&lt;li&gt;Get the container configuration using &lt;code&gt;sudo docker inspect &amp;lt;container-name&amp;gt;&lt;/code&gt;
-&lt;/li&gt;
-&lt;li&gt;Copy the IP Address from the output under &lt;code&gt;NetworkSettings/IPAddress&lt;/code&gt;
-&lt;/li&gt;
+&lt;li&gt;First, start the container &lt;code&gt;sudo docker start &amp;lt;container-name&amp;gt;&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Get the IP Address of the container&lt;/li&gt;
+&lt;li&gt;Get the container configuration using &lt;code&gt;sudo docker inspect &amp;lt;container-name&amp;gt;&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Copy the IP Address from the output under &lt;code&gt;NetworkSettings/IPAddress&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;In Emacs execute &lt;code&gt;M-x sql-mysql&lt;/code&gt;
 &lt;ul class="org-ul"&gt;
-&lt;li&gt;For &lt;code&gt;User:&lt;/code&gt; enter the value for &lt;code&gt;&amp;lt;user-name&amp;gt;&lt;/code&gt; (&lt;code&gt;root&lt;/code&gt; is the default)
-&lt;/li&gt;
-&lt;li&gt;For &lt;code&gt;Password:&lt;/code&gt; enter the value for &lt;code&gt;&amp;lt;password&amp;gt;&lt;/code&gt;
-&lt;/li&gt;
-&lt;li&gt;For &lt;code&gt;Database:&lt;/code&gt; enter the value for &lt;code&gt;&amp;lt;db-name&amp;gt;&lt;/code&gt;
-&lt;/li&gt;
-&lt;li&gt;For &lt;code&gt;Server:&lt;/code&gt; enter the IP Address from 2.
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
+&lt;li&gt;For &lt;code&gt;User:&lt;/code&gt; enter the value for &lt;code&gt;&amp;lt;user-name&amp;gt;&lt;/code&gt; (&lt;code&gt;root&lt;/code&gt; is the default)&lt;/li&gt;
+&lt;li&gt;For &lt;code&gt;Password:&lt;/code&gt; enter the value for &lt;code&gt;&amp;lt;password&amp;gt;&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;For &lt;code&gt;Database:&lt;/code&gt; enter the value for &lt;code&gt;&amp;lt;db-name&amp;gt;&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;For &lt;code&gt;Server:&lt;/code&gt; enter the IP Address from 2.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;
 That's it. Happy querying!

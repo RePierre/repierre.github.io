@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Rebeja (Posts about Service Activation)</title><link>https://rebeja.eu/</link><description></description><atom:link href="https://rebeja.eu/categories/service-activation.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2020 &lt;a href="mailto:petru.rebeja@gmail.com"&gt;Petru Rebeja&lt;/a&gt; </copyright><lastBuildDate>Thu, 30 Jan 2020 15:04:10 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>ServiceActivationException when auto-starting WCF services with AutofacServiceHostFactory</title><link>https://rebeja.eu/posts/serviceactivationexception-autofacservicehostfactory/</link><dc:creator>Petru Rebeja</dc:creator><description>&lt;p&gt;
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Rebeja (Posts about Service Activation)</title><link>https://rebeja.eu/</link><description></description><atom:link href="https://rebeja.eu/categories/service-activation.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2020 &lt;a href="mailto:petru.rebeja@gmail.com"&gt;Petru Rebeja&lt;/a&gt; </copyright><lastBuildDate>Sat, 11 Jul 2020 02:58:55 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>ServiceActivationException when auto-starting WCF services with AutofacServiceHostFactory</title><link>https://rebeja.eu/posts/serviceactivationexception-autofacservicehostfactory/</link><dc:creator>Petru Rebeja</dc:creator><description>&lt;p&gt;
 I switched teams at work and as a welcome gift into the new team I got to investigate the following error:
 &lt;/p&gt;
 &lt;blockquote&gt;
@@ -21,9 +21,9 @@ Process ID: 9776
 The troublesome service is hosted in an &lt;code&gt;ASP.NET&lt;/code&gt; web application and it's preloaded with a custom implementation of &lt;a href="https://msdn.microsoft.com/en-us/library/system.web.hosting.iprocesshostpreloadclient(v=vs.110).aspx"&gt;&lt;code&gt;IProcessHostPreloadClient&lt;/code&gt;&lt;/a&gt; which more or less does what's described in &lt;a href="http://lazynreclined.blogspot.nl/2014/09/enable-autostart-in-iis-75-without.html"&gt;this blog post&lt;/a&gt;.
 Since the project hosting the service is using AutoFac as it's DI framework/library the service is setup to use &lt;code&gt;AutofacServiceHostFactory&lt;/code&gt; as the service factory:
 &lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&amp;lt;%@ ServiceHost
-  Service="AuthorizationServiceImpl, AuthorizationService"
-  Factory="Autofac.Integration.Wcf.AutofacServiceHostFactory, Autofac.Integration.Wcf" %&amp;gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;  &amp;lt;%@ ServiceHost
+    Service="AuthorizationServiceImpl, AuthorizationService"
+    Factory="Autofac.Integration.Wcf.AutofacServiceHostFactory, Autofac.Integration.Wcf" %&amp;gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;
@@ -53,12 +53,9 @@ And that's what I did. I went to to the project in Visual Studio, added a &lt;co
 So when getting the &lt;code&gt;ServiceActivationexception&lt;/code&gt; with the error message &lt;code&gt;The AutofacServiceHost.Container static property must be set before services can be instantiated&lt;/code&gt; make sure to have the following:
 &lt;/p&gt;
 &lt;ol class="org-ol"&gt;
-&lt;li&gt;The special ASP.NET folder &lt;code&gt;App_Code&lt;/code&gt;
-&lt;/li&gt;
-&lt;li&gt;A class in &lt;code&gt;App_Code&lt;/code&gt; having a method with this signature &lt;code&gt;public static void AppInitialize()&lt;/code&gt; which contains all the required initialization code
-&lt;/li&gt;
-&lt;li&gt;The build action of the file containing the above method is set to &lt;code&gt;Content&lt;/code&gt; as shown in the picture below
-&lt;/li&gt;
+&lt;li&gt;The special ASP.NET folder &lt;code&gt;App_Code&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;A class in &lt;code&gt;App_Code&lt;/code&gt; having a method with this signature &lt;code&gt;public static void AppInitialize()&lt;/code&gt; which contains all the required initialization code&lt;/li&gt;
+&lt;li&gt;The build action of the file containing the above method is set to &lt;code&gt;Content&lt;/code&gt; as shown in the picture below&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;
 &lt;img src="https://rebeja.eu/images/appinitialize.png" alt="nil"&gt;

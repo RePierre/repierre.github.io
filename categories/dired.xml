@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Rebeja (Posts about dired)</title><link>https://rebeja.eu/</link><description></description><atom:link href="https://rebeja.eu/categories/dired.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2020 &lt;a href="mailto:petru.rebeja@gmail.com"&gt;Petru Rebeja&lt;/a&gt; </copyright><lastBuildDate>Thu, 30 Jan 2020 15:04:11 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Rename multiple files with Emacs dired</title><link>https://rebeja.eu/posts/rename-multiple-files-with-emacs-dired/</link><dc:creator>Petru Rebeja</dc:creator><description>&lt;p&gt;
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Rebeja (Posts about dired)</title><link>https://rebeja.eu/</link><description></description><atom:link href="https://rebeja.eu/categories/dired.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2020 &lt;a href="mailto:petru.rebeja@gmail.com"&gt;Petru Rebeja&lt;/a&gt; </copyright><lastBuildDate>Sat, 11 Jul 2020 02:58:55 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Rename multiple files with Emacs dired</title><link>https://rebeja.eu/posts/rename-multiple-files-with-emacs-dired/</link><dc:creator>Petru Rebeja</dc:creator><description>&lt;p&gt;
 While adding text files from within a folder to a project file I noticed that the files in the folder were lacking naming consistency. Namely, there were files which had the &lt;code&gt;.txt&lt;/code&gt; extension and files without extension, as shown in the image below:
 &lt;img src="https://rebeja.eu/images/emacs-dired-files-without-extension.png" alt="nil"&gt;
 &lt;/p&gt;
@@ -12,37 +12,23 @@ Since there were about 100 files without extension I started asking myself: &lt;
 Of course there is. Here's what I did using Emacs and &lt;code&gt;dired&lt;/code&gt;:
 &lt;/p&gt;
 &lt;ul class="org-ul"&gt;
-&lt;li&gt;&lt;code&gt;M-x dired&lt;/code&gt; to the desired directory (obviously)
-&lt;/li&gt;
-&lt;li&gt;In the &lt;code&gt;dired&lt;/code&gt; buffer enter the &lt;b&gt;edit mode&lt;/b&gt; with &lt;code&gt;C-x C-q&lt;/code&gt;
-&lt;/li&gt;
-&lt;li&gt;Go to the last file that has extension before the block of files without extension.
-&lt;/li&gt;
-&lt;li&gt;Starting from that file, place a mark and select the whole block of files without extension (the selection should include the last file with extension).
-&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;M-x dired&lt;/code&gt; to the desired directory (obviously)&lt;/li&gt;
+&lt;li&gt;In the &lt;code&gt;dired&lt;/code&gt; buffer enter the &lt;b&gt;edit mode&lt;/b&gt; with &lt;code&gt;C-x C-q&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Go to the last file that has extension before the block of files without extension.&lt;/li&gt;
+&lt;li&gt;Starting from that file, place a mark and select the whole block of files without extension (the selection should include the last file with extension).&lt;/li&gt;
 &lt;li&gt;Narrow to the selected region using &lt;code&gt;M-x narrow-to-region&lt;/code&gt; or &lt;code&gt;C-x n n&lt;/code&gt; The buffer should look like the image below:
-&lt;img src="https://rebeja.eu/images/emacs-dired-narrowed.png" alt="nil"&gt;
-&lt;/li&gt;
-&lt;li&gt;Move to the beginning of buffer using &lt;code&gt;M-&amp;lt;&lt;/code&gt;
-&lt;/li&gt;
+&lt;img src="https://rebeja.eu/images/emacs-dired-narrowed.png" alt="nil"&gt;&lt;/li&gt;
+&lt;li&gt;Move to the beginning of buffer using &lt;code&gt;M-&amp;lt;&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;Start defining a new keyboard macro using &lt;code&gt;C-x (&lt;/code&gt;
 &lt;ul class="org-ul"&gt;
-&lt;li&gt;Move to next line using &lt;code&gt;C-n&lt;/code&gt;
-&lt;/li&gt;
-&lt;li&gt;Navigate to the end of line using &lt;code&gt;C-e&lt;/code&gt;
-&lt;/li&gt;
-&lt;li&gt;Add the &lt;code&gt;.txt&lt;/code&gt; extension
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;Save the macro with &lt;code&gt;C-x )&lt;/code&gt;
-&lt;/li&gt;
-&lt;li&gt;Now that I have a macro to add &lt;code&gt;.txt&lt;/code&gt; extension to a file name I just need to run it as many times as there are unnamed files (100 in my case). To do so just &lt;code&gt;C-u 100 F4&lt;/code&gt;. This will repeat the macro 100 times.
-&lt;/li&gt;
-&lt;li&gt;Once all the files are renamed exit the &lt;b&gt;narrow-region&lt;/b&gt; using &lt;code&gt;M-x widen&lt;/code&gt; or &lt;code&gt;C-x n w&lt;/code&gt;
-&lt;/li&gt;
-&lt;li&gt;Save changes with &lt;code&gt;C-c C-c&lt;/code&gt;
-&lt;/li&gt;
+&lt;li&gt;Move to next line using &lt;code&gt;C-n&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Navigate to the end of line using &lt;code&gt;C-e&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Add the &lt;code&gt;.txt&lt;/code&gt; extension&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Save the macro with &lt;code&gt;C-x )&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Now that I have a macro to add &lt;code&gt;.txt&lt;/code&gt; extension to a file name I just need to run it as many times as there are unnamed files (100 in my case). To do so just &lt;code&gt;C-u 100 F4&lt;/code&gt;. This will repeat the macro 100 times.&lt;/li&gt;
+&lt;li&gt;Once all the files are renamed exit the &lt;b&gt;narrow-region&lt;/b&gt; using &lt;code&gt;M-x widen&lt;/code&gt; or &lt;code&gt;C-x n w&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Save changes with &lt;code&gt;C-c C-c&lt;/code&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;

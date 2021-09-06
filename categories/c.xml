@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Rebeja (Posts about c#)</title><link>https://rebeja.eu/</link><description></description><atom:link href="https://rebeja.eu/categories/c.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2020 &lt;a href="mailto:petru.rebeja@gmail.com"&gt;Petru Rebeja&lt;/a&gt; </copyright><lastBuildDate>Thu, 30 Jan 2020 15:04:11 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Using enums in C#</title><link>https://rebeja.eu/posts/using-enums-in-c-sharp/</link><dc:creator>Petru Rebeja</dc:creator><description>&lt;p&gt;
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Rebeja (Posts about c#)</title><link>https://rebeja.eu/</link><description></description><atom:link href="https://rebeja.eu/categories/c.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2020 &lt;a href="mailto:petru.rebeja@gmail.com"&gt;Petru Rebeja&lt;/a&gt; </copyright><lastBuildDate>Sat, 11 Jul 2020 02:58:55 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Using enums in C#</title><link>https://rebeja.eu/posts/using-enums-in-c-sharp/</link><dc:creator>Petru Rebeja</dc:creator><description>&lt;p&gt;
 Recently Steve Smith posted an article named &lt;a href="http://ardalis.com/enum-alternatives-in-c"&gt;Enum Alternatives in C#&lt;/a&gt; where he points out that &lt;a href="https://msdn.microsoft.com/en-us/library/sbbt4032.aspx"&gt;C# enums&lt;/a&gt; are nothing more than
 &lt;/p&gt;
 &lt;blockquote&gt;
@@ -48,17 +48,15 @@ we should declare them in a &lt;code&gt;type safe&lt;/code&gt; manner like this:
 This way the &lt;a href="https://msdn.microsoft.com/en-us/library/06tc147t.aspx"&gt;&lt;code&gt;switch&lt;/code&gt;&lt;/a&gt; we all know and love (&lt;b&gt;not&lt;/b&gt;) on the values of &lt;code&gt;WeekDay&lt;/code&gt; will remain the same. Although this is a very elegant way of solving the issue of someone calling &lt;code&gt;themeSelector.GetTheme((WeekDay)13)&lt;/code&gt; without getting an error from the compiler there are some issues with &lt;code&gt;type safe enums&lt;/code&gt;:
 &lt;/p&gt;
 &lt;ul class="org-ul"&gt;
-&lt;li&gt;First of all, &lt;code&gt;type safe enums&lt;/code&gt; are &lt;code&gt;nullable&lt;/code&gt; which means that now we can call &lt;code&gt;themeSelector.GetTheme(null)&lt;/code&gt; and that would be a valid call which will most probably throw a &lt;code&gt;NullReferenceException&lt;/code&gt; when executed.
-&lt;/li&gt;
-&lt;li&gt;Second, &lt;code&gt;type safe enums&lt;/code&gt; cannot represent &lt;a href="https://msdn.microsoft.com/en-us/library/system.flagsattribute(v=vs.110).aspx#Anchor_7"&gt;flags&lt;/a&gt; easily; they &lt;i&gt;can&lt;/i&gt; by enumerating all possible values but that may not be an easy task for large &lt;code&gt;enums&lt;/code&gt;.
-&lt;/li&gt;
+&lt;li&gt;First of all, &lt;code&gt;type safe enums&lt;/code&gt; are &lt;code&gt;nullable&lt;/code&gt; which means that now we can call &lt;code&gt;themeSelector.GetTheme(null)&lt;/code&gt; and that would be a valid call which will most probably throw a &lt;code&gt;NullReferenceException&lt;/code&gt; when executed.&lt;/li&gt;
+&lt;li&gt;Second, &lt;code&gt;type safe enums&lt;/code&gt; cannot represent &lt;a href="https://msdn.microsoft.com/en-us/library/system.flagsattribute(v=vs.110).aspx#Anchor_7"&gt;flags&lt;/a&gt; easily; they &lt;i&gt;can&lt;/i&gt; by enumerating all possible values but that may not be an easy task for large &lt;code&gt;enums&lt;/code&gt;.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;
 However, the problems the article refers to are not in the lack of compiler checks for valid &lt;code&gt;enum&lt;/code&gt; values but rather how the &lt;code&gt;enum&lt;/code&gt; values are used.
 &lt;/p&gt;
-&lt;div id="outline-container-sec-1" class="outline-2"&gt;
-&lt;h2 id="sec-1"&gt;Displaying &lt;code&gt;enums&lt;/code&gt; in UI elements&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-1"&gt;
+&lt;div id="outline-container-org6905dbf" class="outline-2"&gt;
+&lt;h2 id="org6905dbf"&gt;Displaying &lt;code&gt;enums&lt;/code&gt; in UI elements&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org6905dbf"&gt;
 &lt;p&gt;
 Let's look at the simplest problem Steve mentiones - displaying &lt;code&gt;enum&lt;/code&gt; values in the UI. Indeed using the &lt;code&gt;DescriptionAttribute&lt;/code&gt; is not the best solution you can have.
 &lt;/p&gt;
@@ -70,16 +68,16 @@ The biggest grudge &lt;b&gt;I&lt;/b&gt; have with &lt;code&gt;DescriptionAttribu
 &lt;p&gt;
 The idea behind this is simple - build a &lt;code&gt;Dictionary&amp;lt;TEnum, string&amp;gt;&lt;/code&gt; where the keys are &lt;code&gt;enum&lt;/code&gt; values and values are localized strings taken from a resource file and bind the results to whatever control is used to display the &lt;code&gt;enum&lt;/code&gt;. And for that I use a single &lt;code&gt;extension method&lt;/code&gt;:
 &lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;public static class EnumUtils
-{
-    public static Dictionary&amp;lt;T, string&amp;gt; GetLocalizedEnumValues&amp;lt;T&amp;gt;(this ResourceManager resourceManager)
-    {
-	return Enum.GetValues(typeof(T))
-	    .Cast&amp;lt;T&amp;gt;()
-	    .Select(val =&amp;gt; new { Value = val, Text = resourceManager.GetString(val.ToString()) })
-	    .ToDictionary(kvp =&amp;gt; kvp.Value, kvp =&amp;gt; kvp.Text);
-    }
-}
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;  public static class EnumUtils
+  {
+      public static Dictionary&amp;lt;T, string&amp;gt; GetLocalizedEnumValues&amp;lt;T&amp;gt;(this ResourceManager resourceManager)
+      {
+	  return Enum.GetValues(typeof(T))
+	      .Cast&amp;lt;T&amp;gt;()
+	      .Select(val =&amp;gt; new { Value = val, Text = resourceManager.GetString(val.ToString()) })
+	      .ToDictionary(kvp =&amp;gt; kvp.Value, kvp =&amp;gt; kvp.Text);
+      }
+  }
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;
 Of course, this method relies on a convention that the resource file must have entries for each &lt;code&gt;enum&lt;/code&gt; value in order for it to work but when working with applications that support multiple languages there is seldom a case when something that needs to be displayed in the UI is not localized.
@@ -88,33 +86,31 @@ Of course, this method relies on a convention that the resource file must have e
 &lt;p&gt;
 And now let's look at how this method can be used to localize &lt;code&gt;enum&lt;/code&gt; values; as the example platform let's consider &lt;code&gt;ASP.NET MVC&lt;/code&gt;:
 &lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;public class ThemeController : Controller
-{
-    public ActionResult Index()
-    {
-	var viewModel = new ThemeViewModel
-	{
-	    WeekDays = Resources.ResourceManager.GetLocalizedEnumValues&amp;lt;WeekDay&amp;gt;()
-		.Select(kvp =&amp;gt; new SelectListItem { Value = kvp.Key, Text = kvp.Value})
-	};
-	return View(viewModel);
-    }
-}
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;  public class ThemeController : Controller
+  {
+      public ActionResult Index()
+      {
+	  var viewModel = new ThemeViewModel
+	  {
+	      WeekDays = Resources.ResourceManager.GetLocalizedEnumValues&amp;lt;WeekDay&amp;gt;()
+		  .Select(kvp =&amp;gt; new SelectListItem { Value = kvp.Key, Text = kvp.Value})
+	  };
+	  return View(viewModel);
+      }
+  }
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;
 Granted, it's more work to do in order to display &lt;code&gt;enums&lt;/code&gt; like this but there are advantages:
 &lt;/p&gt;
 &lt;ul class="org-ul"&gt;
-&lt;li&gt;&lt;b&gt;No magic strings&lt;/b&gt; are involved compared to using &lt;code&gt;DescriptionAttribute&lt;/code&gt;
-&lt;/li&gt;
-&lt;li&gt;You have to do &lt;b&gt;less repetitive work&lt;/b&gt;. If you declare your &lt;code&gt;enum&lt;/code&gt; in a &lt;code&gt;type safe&lt;/code&gt; manner you'll have the tedious task of pairing each &lt;code&gt;enum&lt;/code&gt; value with its (localized) description by hand; &lt;code&gt;GetlocalizedEnumValues&lt;/code&gt; method will do that automatically for all enums which have entries in the resources file.
-&lt;/li&gt;
+&lt;li&gt;&lt;b&gt;No magic strings&lt;/b&gt; are involved compared to using &lt;code&gt;DescriptionAttribute&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;You have to do &lt;b&gt;less repetitive work&lt;/b&gt;. If you declare your &lt;code&gt;enum&lt;/code&gt; in a &lt;code&gt;type safe&lt;/code&gt; manner you'll have the tedious task of pairing each &lt;code&gt;enum&lt;/code&gt; value with its (localized) description by hand; &lt;code&gt;GetlocalizedEnumValues&lt;/code&gt; method will do that automatically for all enums which have entries in the resources file.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-sec-2" class="outline-2"&gt;
-&lt;h2 id="sec-2"&gt;Use defensive coding in &lt;code&gt;switch&lt;/code&gt; statements&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-2"&gt;
+&lt;div id="outline-container-org307fd7d" class="outline-2"&gt;
+&lt;h2 id="org307fd7d"&gt;Use defensive coding in &lt;code&gt;switch&lt;/code&gt; statements&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org307fd7d"&gt;
 &lt;p&gt;
 Now, let's address the bigger issue when dealing with &lt;code&gt;enums&lt;/code&gt;, namely calling (in our case) &lt;code&gt;themeSelector.GetTheme((WeekDay)13)&lt;/code&gt;. The problem here is that a lot of developers don't use defensive programming when dealing with &lt;code&gt;enums&lt;/code&gt; (or at all).
 &lt;/p&gt;
@@ -122,28 +118,28 @@ Now, let's address the bigger issue when dealing with &lt;code&gt;enums&lt;/code
 &lt;p&gt;
 Let's consider how our &lt;code&gt;GetTheme&lt;/code&gt; method would look like in a non-defensive style and to emphasize things let's look at the worst-case scenario:
 &lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;public class ThemeSelector
-{
-    public Theme GetTheme(WeekDay weekDay)
-    {
-	switch(weekDay)
-	    case WeekDay.Monday:
-		return new Theme { Playlist = "Monday mood" };
-	    case WeekDay.Tuesday:
-		return new Theme { Playlist = "Four more days to Friday" };
-	    case WeekDay.Wednesday:
-		return new Theme { Playlist = "It's hump day already!" };
-	    case WeekDay.Thursday:
-		return new Theme { Playlist = "One more day!" };
-	    case WeekDay.Friday:
-		return new Theme { Playlist = "Friday margueritas!" };
-	    case WeekDay.Saturday:
-		return new Theme { Playlist = "Go away hangover!" };
-	    case WeekDay.Sunday:
-	    default: // BAD!!!
-		return new Theme { Playlist = "There's still time to party!" };
-    }
-}
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;  public class ThemeSelector
+  {
+      public Theme GetTheme(WeekDay weekDay)
+      {
+	  switch(weekDay)
+	      case WeekDay.Monday:
+		  return new Theme { Playlist = "Monday mood" };
+	      case WeekDay.Tuesday:
+		  return new Theme { Playlist = "Four more days to Friday" };
+	      case WeekDay.Wednesday:
+		  return new Theme { Playlist = "It's hump day already!" };
+	      case WeekDay.Thursday:
+		  return new Theme { Playlist = "One more day!" };
+	      case WeekDay.Friday:
+		  return new Theme { Playlist = "Friday margueritas!" };
+	      case WeekDay.Saturday:
+		  return new Theme { Playlist = "Go away hangover!" };
+	      case WeekDay.Sunday:
+	      default: // BAD!!!
+		  return new Theme { Playlist = "There's still time to party!" };
+      }
+  }
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;
 See the problem there? The developer &lt;b&gt;assumes that the method will always receive a valid value&lt;/b&gt; thus he/she links the &lt;code&gt;default&lt;/code&gt; case with an existing label instead of checking the value.
@@ -152,44 +148,42 @@ See the problem there? The developer &lt;b&gt;assumes that the method will alway
 &lt;p&gt;
 The simplest fix for this is below:
 &lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;public class ThemeSelector
-{
-    public Theme GetTheme(WeekDay weekDay)
-    {
-	switch(weekDay)
-	    case WeekDay.Monday:
-		return new Theme { Playlist = "Monday mood" };
-	    case WeekDay.Tuesday:
-		return new Theme { Playlist = "Four more days to Friday" };
-	    case WeekDay.Wednesday:
-		return new Theme { Playlist = "It's hump day already!" };
-	    case WeekDay.Thursday:
-		return new Theme { Playlist = "One more day!" };
-	    case WeekDay.Friday:
-		return new Theme { Playlist = "Friday margueritas!" };
-	    case WeekDay.Saturday:
-		return new Theme { Playlist = "Go away hangover!" };
-	    case WeekDay.Sunday:
-		return new Theme { Playlist = "There's still time to party!" };
-	    default:
-		throw new ArgumentException("Invalid value for WeekDay enum.");
-    }
-}
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;  public class ThemeSelector
+  {
+      public Theme GetTheme(WeekDay weekDay)
+      {
+	  switch(weekDay)
+	      case WeekDay.Monday:
+		  return new Theme { Playlist = "Monday mood" };
+	      case WeekDay.Tuesday:
+		  return new Theme { Playlist = "Four more days to Friday" };
+	      case WeekDay.Wednesday:
+		  return new Theme { Playlist = "It's hump day already!" };
+	      case WeekDay.Thursday:
+		  return new Theme { Playlist = "One more day!" };
+	      case WeekDay.Friday:
+		  return new Theme { Playlist = "Friday margueritas!" };
+	      case WeekDay.Saturday:
+		  return new Theme { Playlist = "Go away hangover!" };
+	      case WeekDay.Sunday:
+		  return new Theme { Playlist = "There's still time to party!" };
+	      default:
+		  throw new ArgumentException("Invalid value for WeekDay enum.");
+      }
+  }
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;
 Throwing the &lt;code&gt;ArgumentException&lt;/code&gt; when receiving an invalid value will crash the application but this crash gives us at least two benefits:
 &lt;/p&gt;
 &lt;ul class="org-ul"&gt;
-&lt;li&gt;The application behavior becomes predictable: &lt;code&gt;GetTheme&lt;/code&gt; method will either return a valid &lt;code&gt;Theme&lt;/code&gt; or will throw an error
-&lt;/li&gt;
-&lt;li&gt;It makes debugging &lt;b&gt;a lot&lt;/b&gt; easier; you know the point of failure, you know the reason and you have the full stack trace. When the application crashes twenty steps after receiving the invalid value there are a lot more unknows to &lt;b&gt;why&lt;/b&gt; the application crashed and it may be harder to reproduce the problem.
-&lt;/li&gt;
+&lt;li&gt;The application behavior becomes predictable: &lt;code&gt;GetTheme&lt;/code&gt; method will either return a valid &lt;code&gt;Theme&lt;/code&gt; or will throw an error&lt;/li&gt;
+&lt;li&gt;It makes debugging &lt;b&gt;a lot&lt;/b&gt; easier; you know the point of failure, you know the reason and you have the full stack trace. When the application crashes twenty steps after receiving the invalid value there are a lot more unknows to &lt;b&gt;why&lt;/b&gt; the application crashed and it may be harder to reproduce the problem.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-sec-3" class="outline-2"&gt;
-&lt;h2 id="sec-3"&gt;Use specialzed &lt;code&gt;builders&lt;/code&gt; instead of &lt;code&gt;switch&lt;/code&gt; statements&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-3"&gt;
+&lt;div id="outline-container-orgf4312b2" class="outline-2"&gt;
+&lt;h2 id="orgf4312b2"&gt;Use specialzed &lt;code&gt;builders&lt;/code&gt; instead of &lt;code&gt;switch&lt;/code&gt; statements&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-orgf4312b2"&gt;
 &lt;p&gt;
 However, the best way to use &lt;code&gt;switch&lt;/code&gt; statements is to avoid it altoghether. Why? Mainly because &lt;code&gt;switch&lt;/code&gt; statements are the main violators of &lt;a href="https://en.wikipedia.org/wiki/Open/closed_principle"&gt;Open/Closed Principle&lt;/a&gt; i.e.every time a new member of the enum is added, every &lt;code&gt;switch&lt;/code&gt; on that enum values needs to be changed in order to accomodate the new member (except for the cases that use the &lt;code&gt;default&lt;/code&gt; label).
 &lt;/p&gt;
@@ -209,69 +203,66 @@ Let's exemplify using our scenario; instead of having the &lt;code&gt;switch&lt;
 &lt;p&gt;
 Since the switch is used to build instances of &lt;code&gt;Theme&lt;/code&gt; class, let's call the interface &lt;code&gt;IThemeBuilder&lt;/code&gt;; here is it's definition:
 &lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;public interface IThemeBuilder
-{
-    WeekDay WeekDay { get; }
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;  public interface IThemeBuilder
+  {
+      WeekDay WeekDay { get; }
 
-    Theme BuildTheme();
-}
+      Theme BuildTheme();
+  }
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;
 Now an implementation of this interface for &lt;code&gt;WeekDay.Monday&lt;/code&gt; would look like this:
 &lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;public class MondayThemeBuilder
-{
-    public WeekDay WeekDay
-    {
-	get { return WeekDay.Monday; }
-    }
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;  public class MondayThemeBuilder
+  {
+      public WeekDay WeekDay
+      {
+	  get { return WeekDay.Monday; }
+      }
 
-    public Theme BuildTheme()
-    {
-	return new Theme { Playlist = "Monday mood" };
-    }
-}
+      public Theme BuildTheme()
+      {
+	  return new Theme { Playlist = "Monday mood" };
+      }
+  }
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;
 With all the implementations in place, all it remains to do is to register the implementations of &lt;code&gt;IThemeBuilder&lt;/code&gt; interface in the &lt;a href="http://en.wikipedia.org/wiki/Dependency_injection"&gt;DI&lt;/a&gt; container and inject them into the &lt;code&gt;ThemeSelector&lt;/code&gt; class. The &lt;code&gt;GetTheme&lt;/code&gt; method now becomes an iteration to find a suitable &lt;code&gt;builder&lt;/code&gt; for the argument received. If no such instance is found, an exception is thrown to signal the error.
 &lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;public class ThemeSelector
-{
-    private readonly IEnumerable&amp;lt;ThemeBuilder&amp;gt; builders;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;  public class ThemeSelector
+  {
+      private readonly IEnumerable&amp;lt;ThemeBuilder&amp;gt; builders;
 
-    public ThemeSelector(IEnumerable&amp;lt;IThemeBuilder&amp;gt; themeBuilders)
-    {
-	builders = themeBuilders;
-    }
+      public ThemeSelector(IEnumerable&amp;lt;IThemeBuilder&amp;gt; themeBuilders)
+      {
+	  builders = themeBuilders;
+      }
 
-    public Theme GetTheme(WeekDay weekDay)
-    {
-	var builder = builders.SingleOrDefault(b =&amp;gt; b.WeekDay == weekDay);
-	if( builder == null)
-	    throw new ArgumentException(String.Format("Invalid value '{0}' received for week day.", weekDay));
-	return builder.BuildTheme();
-    }
-}
+      public Theme GetTheme(WeekDay weekDay)
+      {
+	  var builder = builders.SingleOrDefault(b =&amp;gt; b.WeekDay == weekDay);
+	  if( builder == null)
+	      throw new ArgumentException(String.Format("Invalid value '{0}' received for week day.", weekDay));
+	  return builder.BuildTheme();
+      }
+  }
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;
 Now everytime a new member needs to be added to &lt;code&gt;WeekDay&lt;/code&gt; enum, although not the case here, there are at most three changes to make to accomodate the new value:
 &lt;/p&gt;
 &lt;ol class="org-ol"&gt;
-&lt;li&gt;Add the new value to the &lt;code&gt;enum&lt;/code&gt;
-&lt;/li&gt;
-&lt;li&gt;Create a new class that will implement &lt;code&gt;IThemeBuilder&lt;/code&gt; for the new value
-&lt;/li&gt;
-&lt;li&gt;Register the new class in the &lt;code&gt;DI container&lt;/code&gt;
-&lt;/li&gt;
+&lt;li&gt;Add the new value to the &lt;code&gt;enum&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Create a new class that will implement &lt;code&gt;IThemeBuilder&lt;/code&gt; for the new value&lt;/li&gt;
+&lt;li&gt;Register the new class in the &lt;code&gt;DI container&lt;/code&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;
 Depending on which &lt;code&gt;dependency injection&lt;/code&gt; library you use, there may be no change required for registering the new class in the container.
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-sec-4" class="outline-2"&gt;
-&lt;h2 id="sec-4"&gt;Conclusions&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-4"&gt;
+&lt;div id="outline-container-org7767c00" class="outline-2"&gt;
+&lt;h2 id="org7767c00"&gt;Conclusions&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org7767c00"&gt;
 &lt;p&gt;
 The main conclusion of the article is that &lt;b&gt;&lt;code&gt;enums&lt;/code&gt; aren't bad they're just improperly used&lt;/b&gt;. Sometimes creating a thick class to represent &lt;code&gt;type safe enums&lt;/code&gt; may be suitable for your scenario but most of the time it's not worth the effort. Instead, you should concentrate more on the places in code where the &lt;code&gt;enum&lt;/code&gt; is used to make them safer, more clean and elegant.
 &lt;/p&gt;

@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Rebeja (Posts about encapsulation)</title><link>https://rebeja.eu/</link><description></description><atom:link href="https://rebeja.eu/categories/encapsulation.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2020 &lt;a href="mailto:petru.rebeja@gmail.com"&gt;Petru Rebeja&lt;/a&gt; </copyright><lastBuildDate>Thu, 30 Jan 2020 15:04:10 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>FII Practic 2016</title><link>https://rebeja.eu/posts/fii-practic-2016/</link><dc:creator>Petru Rebeja</dc:creator><description>&lt;div id="outline-container-sec-1" class="outline-2"&gt;
-&lt;h2 id="sec-1"&gt;Programming principles&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-1"&gt;
-&lt;/div&gt;&lt;div id="outline-container-sec-1-1" class="outline-3"&gt;
-&lt;h3 id="sec-1-1"&gt;Chapter I - Object Oriented Programming&lt;/h3&gt;
-&lt;div class="outline-text-3" id="text-1-1"&gt;
-&lt;/div&gt;&lt;div id="outline-container-sec-1-1-1" class="outline-4"&gt;
-&lt;h4 id="sec-1-1-1"&gt;Encapsulation&lt;/h4&gt;
-&lt;div class="outline-text-4" id="text-1-1-1"&gt;
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Rebeja (Posts about encapsulation)</title><link>https://rebeja.eu/</link><description></description><atom:link href="https://rebeja.eu/categories/encapsulation.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2020 &lt;a href="mailto:petru.rebeja@gmail.com"&gt;Petru Rebeja&lt;/a&gt; </copyright><lastBuildDate>Sat, 11 Jul 2020 02:58:55 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>FII Practic 2016</title><link>https://rebeja.eu/posts/fii-practic-2016/</link><dc:creator>Petru Rebeja</dc:creator><description>&lt;div id="outline-container-orgf8c5872" class="outline-2"&gt;
+&lt;h2 id="orgf8c5872"&gt;Programming principles&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-orgf8c5872"&gt;
+&lt;/div&gt;
+&lt;div id="outline-container-orgf6cc6a2" class="outline-3"&gt;
+&lt;h3 id="orgf6cc6a2"&gt;Chapter I - Object Oriented Programming&lt;/h3&gt;
+&lt;div class="outline-text-3" id="text-orgf6cc6a2"&gt;
+&lt;/div&gt;
+&lt;div id="outline-container-org752c731" class="outline-4"&gt;
+&lt;h4 id="org752c731"&gt;Encapsulation&lt;/h4&gt;
+&lt;div class="outline-text-4" id="text-org752c731"&gt;
 &lt;blockquote&gt;
 &lt;p&gt;
-&lt;a href="https://en.wikipedia.org/wiki/Encapsulation_%2528computer_programming%2529"&gt;Encapsulation facilitates bundling of data with the method(s) operating on that data.&lt;/a&gt;
+&lt;a href="https://en.wikipedia.org/wiki/Encapsulation_%28computer_programming%29"&gt;Encapsulation facilitates bundling of data with the method(s) operating on that data.&lt;/a&gt;
 &lt;/p&gt;
 &lt;/blockquote&gt;
 
@@ -22,34 +24,31 @@ To exemplify let's consider the following requirement: &lt;b&gt;As an account ho
 To implement the requirement we consider the following:
 &lt;/p&gt;
 &lt;ul class="org-ul"&gt;
-&lt;li&gt;An &lt;code&gt;Account&lt;/code&gt; has a &lt;code&gt;Balance&lt;/code&gt;
-&lt;/li&gt;
-&lt;li&gt;A &lt;code&gt;Withdrawal&lt;/code&gt; is an operation which subtracts the &lt;code&gt;amount&lt;/code&gt; from the &lt;code&gt;Balance&lt;/code&gt;
-&lt;/li&gt;
-&lt;li&gt;A &lt;code&gt;Deposit&lt;/code&gt; is an operation which adds the &lt;code&gt;amount&lt;/code&gt; to the &lt;code&gt;Balance&lt;/code&gt;
-&lt;/li&gt;
+&lt;li&gt;An &lt;code&gt;Account&lt;/code&gt; has a &lt;code&gt;Balance&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;A &lt;code&gt;Withdrawal&lt;/code&gt; is an operation which subtracts the &lt;code&gt;amount&lt;/code&gt; from the &lt;code&gt;Balance&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;A &lt;code&gt;Deposit&lt;/code&gt; is an operation which adds the &lt;code&gt;amount&lt;/code&gt; to the &lt;code&gt;Balance&lt;/code&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;
 The code below should do it:
 &lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;public class Account
-{
-    public Money Balance { get; set; }
-
-}
-
-public class Program
-{
-    static void Main(string[] args)
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;    public class Account
     {
-	var account = new Account();
-	// Make a deposit
-	account.Balance += 50;
-	// Withdraw some cash
-	account.Balance -= 100;
+	public Money Balance { get; set; }
+
     }
-}
+
+    public class Program
+    {
+	static void Main(string[] args)
+	{
+	    var account = new Account();
+	    // Make a deposit
+	    account.Balance += 50;
+	    // Withdraw some cash
+	    account.Balance -= 100;
+	}
+    }
 &lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;
@@ -96,9 +95,9 @@ Much better! Now we are in control and we can be sure that &lt;i&gt;every&lt;/i&
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-sec-1-1-2" class="outline-4"&gt;
-&lt;h4 id="sec-1-1-2"&gt;Inheritance and Polymorphism&lt;/h4&gt;
-&lt;div class="outline-text-4" id="text-1-1-2"&gt;
+&lt;div id="outline-container-org2052f3b" class="outline-4"&gt;
+&lt;h4 id="org2052f3b"&gt;Inheritance and Polymorphism&lt;/h4&gt;
+&lt;div class="outline-text-4" id="text-org2052f3b"&gt;
 &lt;blockquote&gt;
 &lt;p&gt;
 &lt;a href="http://www.codeproject.com/Articles/22769/Introduction-to-Object-Oriented-Programming-Concep#Inheritance"&gt;Inheritance is the ability of a new class to acquire the properties of another class.&lt;/a&gt;
@@ -121,10 +120,8 @@ From the requirement we can deduct that an &lt;code&gt;Account&lt;/code&gt; can 
 Also, additional changes to the &lt;code&gt;Withdraw&lt;/code&gt; method should be applied:
 &lt;/p&gt;
 &lt;ul class="org-ul"&gt;
-&lt;li&gt;Each withdrawal calculates and subtracts a fee from the balance
-&lt;/li&gt;
-&lt;li&gt;The check for insufficient funds should also take into the consideration the fee alongside the amount
-&lt;/li&gt;
+&lt;li&gt;Each withdrawal calculates and subtracts a fee from the balance&lt;/li&gt;
+&lt;li&gt;The check for insufficient funds should also take into the consideration the fee alongside the amount&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;
@@ -174,7 +171,7 @@ public class Account
 &lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;
-Everything looks good except the &lt;a href="https://en.wikipedia.org/wiki/Magic_number_%2528programming%2529"&gt;magic numbers&lt;/a&gt;. Until we get a new requirement:
+Everything looks good except the &lt;a href="https://en.wikipedia.org/wiki/Magic_number_%28programming%29"&gt;magic numbers&lt;/a&gt;. Until we get a new requirement:
 &lt;/p&gt;
 
 &lt;p&gt;
@@ -218,35 +215,26 @@ subsequent type of account into its separate class.
 So, as before, the common traits of an account are:
 &lt;/p&gt;
 &lt;ul class="org-ul"&gt;
-&lt;li&gt;All accounts have a &lt;code&gt;Balance&lt;/code&gt; property
-&lt;/li&gt;
-&lt;li&gt;All accounts support &lt;code&gt;Withdrawal&lt;/code&gt; and &lt;code&gt;Deposit&lt;/code&gt;
-&lt;/li&gt;
-&lt;li&gt;All accounts validate available amount when a withdrawal is performed
-&lt;/li&gt;
+&lt;li&gt;All accounts have a &lt;code&gt;Balance&lt;/code&gt; property&lt;/li&gt;
+&lt;li&gt;All accounts support &lt;code&gt;Withdrawal&lt;/code&gt; and &lt;code&gt;Deposit&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;All accounts validate available amount when a withdrawal is performed&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;
 The distinct traits of the accounts are:
 &lt;/p&gt;
 &lt;ul class="org-ul"&gt;
-&lt;li&gt;Savings accounts have a withdrawal fee of 0.5% of the amount withdrawn
-&lt;/li&gt;
-&lt;li&gt;Credit accounts have a withdrawal fee of 0.7% of the amount withdrawn
-&lt;/li&gt;
-&lt;li&gt;Debit accounts don't have a withdrawal fee
-&lt;/li&gt;
+&lt;li&gt;Savings accounts have a withdrawal fee of 0.5% of the amount withdrawn&lt;/li&gt;
+&lt;li&gt;Credit accounts have a withdrawal fee of 0.7% of the amount withdrawn&lt;/li&gt;
+&lt;li&gt;Debit accounts don't have a withdrawal fee&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;
 Although we can see a clear difference between the common traits and specific features for each account type there is a certain amount of overlapping between them when performing a withdrawal.
 In other words and specifically for withdrawal operation we can say that:
 &lt;/p&gt;
 &lt;ul class="org-ul"&gt;
-&lt;li&gt;All account types support withdrawal
-&lt;/li&gt;
-&lt;li&gt;Each account type applies a specific withdrawal fee
-&lt;/li&gt;
-&lt;li&gt;All account types validate the amount against available funds
-&lt;/li&gt;
+&lt;li&gt;All account types support withdrawal&lt;/li&gt;
+&lt;li&gt;Each account type applies a specific withdrawal fee&lt;/li&gt;
+&lt;li&gt;All account types validate the amount against available funds&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;
 In order to model such kind of mixture between common and specific behavior we can make use of &lt;code&gt;polymorphism&lt;/code&gt; by defining an abstract method &lt;code&gt;CalculateWithdrawalFee&lt;/code&gt; which will be overridden
@@ -316,9 +304,9 @@ With this structure in place adding a new account type is as simple as adding a 
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-sec-1-2" class="outline-3"&gt;
-&lt;h3 id="sec-1-2"&gt;Chapter II - Structure&lt;/h3&gt;
-&lt;div class="outline-text-3" id="text-1-2"&gt;
+&lt;div id="outline-container-orge04da1e" class="outline-3"&gt;
+&lt;h3 id="orge04da1e"&gt;Chapter II - Structure&lt;/h3&gt;
+&lt;div class="outline-text-3" id="text-orge04da1e"&gt;
 &lt;p&gt;
 How you structure your code is very important in software development. A good code structure promotes &lt;b&gt;low coupling and high cohesion&lt;/b&gt; which is a must for all good software.
 &lt;/p&gt;
@@ -327,12 +315,12 @@ How you structure your code is very important in software development. A good co
 Let's take a look at what &lt;b&gt;coupling&lt;/b&gt; and &lt;b&gt;cohesion&lt;/b&gt; mean.
 &lt;/p&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-sec-1-2-1" class="outline-4"&gt;
-&lt;h4 id="sec-1-2-1"&gt;Low coupling - The case of the &lt;code&gt;Singleton&lt;/code&gt;&lt;/h4&gt;
-&lt;div class="outline-text-4" id="text-1-2-1"&gt;
+&lt;div id="outline-container-orgc4ab535" class="outline-4"&gt;
+&lt;h4 id="orgc4ab535"&gt;Low coupling - The case of the &lt;code&gt;Singleton&lt;/code&gt;&lt;/h4&gt;
+&lt;div class="outline-text-4" id="text-orgc4ab535"&gt;
 &lt;blockquote&gt;
 &lt;p&gt;
-&lt;a href="https://en.wikipedia.org/wiki/Coupling_%2528computer_programming%2529"&gt;Coupling is the manner and degree of interdependence between software modules; a measure of how closely connected two routines or modules are; the strength of the relationships between modules.&lt;/a&gt;
+&lt;a href="https://en.wikipedia.org/wiki/Coupling_%28computer_programming%29"&gt;Coupling is the manner and degree of interdependence between software modules; a measure of how closely connected two routines or modules are; the strength of the relationships between modules.&lt;/a&gt;
 &lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;
@@ -434,12 +422,12 @@ Having such code means that not only our &lt;code&gt;Explorer&lt;/code&gt; class
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-sec-1-2-2" class="outline-4"&gt;
-&lt;h4 id="sec-1-2-2"&gt;High cohesion - Why can't I have all code in &lt;code&gt;Program.cs&lt;/code&gt;?&lt;/h4&gt;
-&lt;div class="outline-text-4" id="text-1-2-2"&gt;
+&lt;div id="outline-container-org0726e3c" class="outline-4"&gt;
+&lt;h4 id="org0726e3c"&gt;High cohesion - Why can't I have all code in &lt;code&gt;Program.cs&lt;/code&gt;?&lt;/h4&gt;
+&lt;div class="outline-text-4" id="text-org0726e3c"&gt;
 &lt;blockquote&gt;
 &lt;p&gt;
-&lt;a href="https://en.wikipedia.org/wiki/Cohesion_%2528computer_science%2529"&gt;Cohesion refers to the degree to which the elements of a module belong together.&lt;/a&gt;
+&lt;a href="https://en.wikipedia.org/wiki/Cohesion_%28computer_science%29"&gt;Cohesion refers to the degree to which the elements of a module belong together.&lt;/a&gt;
 &lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;
@@ -477,12 +465,13 @@ Even small production applications have a lot of objects and that number keeps g
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-sec-1-3" class="outline-3"&gt;
-&lt;h3 id="sec-1-3"&gt;Chapter III - SOLID code&lt;/h3&gt;
-&lt;div class="outline-text-3" id="text-1-3"&gt;
-&lt;/div&gt;&lt;div id="outline-container-sec-1-3-1" class="outline-4"&gt;
-&lt;h4 id="sec-1-3-1"&gt;Single Responsibility Principle&lt;/h4&gt;
-&lt;div class="outline-text-4" id="text-1-3-1"&gt;
+&lt;div id="outline-container-org1810f13" class="outline-3"&gt;
+&lt;h3 id="org1810f13"&gt;Chapter III - SOLID code&lt;/h3&gt;
+&lt;div class="outline-text-3" id="text-org1810f13"&gt;
+&lt;/div&gt;
+&lt;div id="outline-container-org139f239" class="outline-4"&gt;
+&lt;h4 id="org139f239"&gt;Single Responsibility Principle&lt;/h4&gt;
+&lt;div class="outline-text-4" id="text-org139f239"&gt;
 &lt;blockquote&gt;
 &lt;p&gt;
 &lt;a href="https://en.wikipedia.org/wiki/Single_responsibility_principle"&gt;Every module or class should have responsibility over a single part of the functionality provided by the software, and that responsibility should be entirely encapsulated by the class.&lt;/a&gt;
@@ -518,10 +507,8 @@ Let's look again at our Account example:
 As you can see from the code, the &lt;code&gt;Withdraw&lt;/code&gt; method does more than one thing, namely:
 &lt;/p&gt;
 &lt;ul class="org-ul"&gt;
-&lt;li&gt;It calculates the withdrawal fee
-&lt;/li&gt;
-&lt;li&gt;It subtracts the amount and withdrawal fee from the balance
-&lt;/li&gt;
+&lt;li&gt;It calculates the withdrawal fee&lt;/li&gt;
+&lt;li&gt;It subtracts the amount and withdrawal fee from the balance&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;
 The purpose of this method is to withdraw the &lt;code&gt;amount&lt;/code&gt; from the available balance; calculating the withdrawal fee should be someone else's responsibility. And that &lt;i&gt;someone else&lt;/i&gt; should be a &lt;code&gt;WithdrawalAmountCalculator&lt;/code&gt;:
@@ -603,16 +590,14 @@ public class Program
 Much better! Each class does only one thing, namely:
 &lt;/p&gt;
 &lt;ul class="org-ul"&gt;
-&lt;li&gt;&lt;code&gt;WithdrawalAmountCalculator&lt;/code&gt; calculates the withdrawal amount and
-&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;Account&lt;/code&gt; handles the changes to balance.
-&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;WithdrawalAmountCalculator&lt;/code&gt; calculates the withdrawal amount and&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Account&lt;/code&gt; handles the changes to balance.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-sec-1-3-2" class="outline-4"&gt;
-&lt;h4 id="sec-1-3-2"&gt;Open/Closed principle&lt;/h4&gt;
-&lt;div class="outline-text-4" id="text-1-3-2"&gt;
+&lt;div id="outline-container-orgfee31aa" class="outline-4"&gt;
+&lt;h4 id="orgfee31aa"&gt;Open/Closed principle&lt;/h4&gt;
+&lt;div class="outline-text-4" id="text-orgfee31aa"&gt;
 &lt;blockquote&gt;
 &lt;p&gt;
 &lt;a href="https://en.wikipedia.org/wiki/Open/closed_principle"&gt;Software entities (classes, modules, functions, etc.) should be open for extension, but closed for modification&lt;/a&gt;
@@ -645,16 +630,14 @@ private Money CalculateWithdrawalFee(Money amount)
 The code from the example above is the exact opposite of &lt;b&gt;Open/Closed principle&lt;/b&gt;:
 &lt;/p&gt;
 &lt;ul class="org-ul"&gt;
-&lt;li&gt;It is &lt;i&gt;open for modification&lt;/i&gt; because every time we'll need to create a new account type we'll have to add another &lt;code&gt;case&lt;/code&gt; to the &lt;code&gt;switch&lt;/code&gt; statement within &lt;code&gt;CalculateWithdrawalAmount&lt;/code&gt; method
-&lt;/li&gt;
-&lt;li&gt;It is &lt;i&gt;closed for extension&lt;/i&gt; in the sense that even if we do create a derived type of &lt;code&gt;Account&lt;/code&gt; that type will have to &lt;b&gt;always&lt;/b&gt; take into consideration the &lt;code&gt;AccountType&lt;/code&gt; property when implementing its custom behavior.
-&lt;/li&gt;
+&lt;li&gt;It is &lt;i&gt;open for modification&lt;/i&gt; because every time we'll need to create a new account type we'll have to add another &lt;code&gt;case&lt;/code&gt; to the &lt;code&gt;switch&lt;/code&gt; statement within &lt;code&gt;CalculateWithdrawalAmount&lt;/code&gt; method&lt;/li&gt;
+&lt;li&gt;It is &lt;i&gt;closed for extension&lt;/i&gt; in the sense that even if we do create a derived type of &lt;code&gt;Account&lt;/code&gt; that type will have to &lt;b&gt;always&lt;/b&gt; take into consideration the &lt;code&gt;AccountType&lt;/code&gt; property when implementing its custom behavior.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-sec-1-3-3" class="outline-4"&gt;
-&lt;h4 id="sec-1-3-3"&gt;Liskov substitution principle&lt;/h4&gt;
-&lt;div class="outline-text-4" id="text-1-3-3"&gt;
+&lt;div id="outline-container-org1b17015" class="outline-4"&gt;
+&lt;h4 id="org1b17015"&gt;Liskov substitution principle&lt;/h4&gt;
+&lt;div class="outline-text-4" id="text-org1b17015"&gt;
 &lt;blockquote&gt;
 &lt;p&gt;
 &lt;a href="https://en.wikipedia.org/wiki/Liskov_substitution_principle"&gt;Objects in a program should be replaceable with instances of their subtypes without altering the correctness of that program.&lt;/a&gt;
@@ -741,16 +724,16 @@ This shows that although a &lt;code&gt;Square&lt;/code&gt; may have a similar st
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-sec-1-3-4" class="outline-4"&gt;
-&lt;h4 id="sec-1-3-4"&gt;Interface Segregation principle&lt;/h4&gt;
-&lt;div class="outline-text-4" id="text-1-3-4"&gt;
+&lt;div id="outline-container-org7c1fb81" class="outline-4"&gt;
+&lt;h4 id="org7c1fb81"&gt;Interface Segregation principle&lt;/h4&gt;
+&lt;div class="outline-text-4" id="text-org7c1fb81"&gt;
 &lt;blockquote&gt;
 &lt;p&gt;
 &lt;a href="https://en.wikipedia.org/wiki/Interface_segregation_principle"&gt;Many client-specific interfaces are better than one general-purpose interface.&lt;/a&gt;
 &lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;
-To exemplify this let's consider some existing types within &lt;code&gt;.NET Framework&lt;/code&gt;: &lt;a href="https://msdn.microsoft.com/en-us/library/system.web.security.membershipprovider%2528v=vs.110%2529.aspx"&gt;&lt;code&gt;MembershipProvider&lt;/code&gt;&lt;/a&gt; from &lt;code&gt;System.Web.Security&lt;/code&gt; namespace and &lt;a href="https://msdn.microsoft.com/en-us/library/dn613278%2528v=vs.108%2529.aspx"&gt;&lt;code&gt;IUserStore&lt;/code&gt;&lt;/a&gt; from &lt;code&gt;Microsoft.AspNet.Identity&lt;/code&gt; namespace:
+To exemplify this let's consider some existing types within &lt;code&gt;.NET Framework&lt;/code&gt;: &lt;a href="https://msdn.microsoft.com/en-us/library/system.web.security.membershipprovider%28v=vs.110%29.aspx"&gt;&lt;code&gt;MembershipProvider&lt;/code&gt;&lt;/a&gt; from &lt;code&gt;System.Web.Security&lt;/code&gt; namespace and &lt;a href="https://msdn.microsoft.com/en-us/library/dn613278%28v=vs.108%29.aspx"&gt;&lt;code&gt;IUserStore&lt;/code&gt;&lt;/a&gt; from &lt;code&gt;Microsoft.AspNet.Identity&lt;/code&gt; namespace:
 &lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;public abstract class MembershipProvider : ProviderBase
 {
@@ -848,9 +831,9 @@ If we would have to implement a simple authentication mechanism the functionalit
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-sec-1-3-5" class="outline-4"&gt;
-&lt;h4 id="sec-1-3-5"&gt;Dependency Inversion principle&lt;/h4&gt;
-&lt;div class="outline-text-4" id="text-1-3-5"&gt;
+&lt;div id="outline-container-org83a8922" class="outline-4"&gt;
+&lt;h4 id="org83a8922"&gt;Dependency Inversion principle&lt;/h4&gt;
+&lt;div class="outline-text-4" id="text-org83a8922"&gt;
 &lt;blockquote&gt;
 &lt;p&gt;
 &lt;a href="https://en.wikipedia.org/wiki/Dependency_inversion_principle"&gt;Depend upon Abstractions. Do not depend upon concretions.&lt;/a&gt;

@@ -1,27 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Rebeja (Posts about abstraction)</title><link>https://rebeja.eu/</link><description></description><atom:link href="https://rebeja.eu/categories/abstraction.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2020 &lt;a href="mailto:petru.rebeja@gmail.com"&gt;Petru Rebeja&lt;/a&gt; </copyright><lastBuildDate>Thu, 30 Jan 2020 15:04:11 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Abstraction is not a principle of Object Oriented Programming</title><link>https://rebeja.eu/posts/abstraction-is-not-a-principle-of-object-oriented-programming/</link><dc:creator>Petru Rebeja</dc:creator><description>&lt;div id="outline-container-sec-1" class="outline-2"&gt;
-&lt;h2 id="sec-1"&gt;TL;DR&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-1"&gt;
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Rebeja (Posts about abstraction)</title><link>https://rebeja.eu/</link><description></description><atom:link href="https://rebeja.eu/categories/abstraction.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2020 &lt;a href="mailto:petru.rebeja@gmail.com"&gt;Petru Rebeja&lt;/a&gt; </copyright><lastBuildDate>Sat, 11 Jul 2020 02:58:55 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Abstraction is not a principle of Object Oriented Programming</title><link>https://rebeja.eu/posts/abstraction-is-not-a-principle-of-object-oriented-programming/</link><dc:creator>Petru Rebeja</dc:creator><description>&lt;div id="outline-container-org788c721" class="outline-2"&gt;
+&lt;h2 id="org788c721"&gt;TL;DR&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org788c721"&gt;
 &lt;p&gt;
 &lt;code&gt;Abstraction&lt;/code&gt; is a core concept in programming and not a principle that is &lt;b&gt;solely&lt;/b&gt; applicable in OOP, because &lt;b&gt;programming is all about dealing with an abstract representation of the business model (application space)&lt;/b&gt;.
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-sec-2" class="outline-2"&gt;
-&lt;h2 id="sec-2"&gt;Abstraction is an overall programming principle&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-2"&gt;
+&lt;div id="outline-container-orgea42fce" class="outline-2"&gt;
+&lt;h2 id="orgea42fce"&gt;Abstraction is an overall programming principle&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-orgea42fce"&gt;
 &lt;p&gt;
 There are a lot of articles saying that OOP has four principles:
 &lt;/p&gt;
 &lt;ul class="org-ul"&gt;
-&lt;li&gt;&lt;code&gt;Encapsulation&lt;/code&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;Inheritance&lt;/code&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;Polymorphism&lt;/code&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;Abstraction&lt;/code&gt;
-&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Encapsulation&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Inheritance&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Polymorphism&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Abstraction&lt;/code&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;
 But if we do a web searh for &lt;i&gt;what is abstraction?&lt;/i&gt; we get more or less the same definition as the one from &lt;a href="http://whatis.techtarget.com/definition/abstraction"&gt;here&lt;/a&gt;.
@@ -40,9 +36,9 @@ Why? Because programming means modeling entities and interactions of an &lt;i&gt
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-sec-3" class="outline-2"&gt;
-&lt;h2 id="sec-3"&gt;An example of &lt;code&gt;abstraction&lt;/code&gt; in OOP&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-3"&gt;
+&lt;div id="outline-container-org04b8e2b" class="outline-2"&gt;
+&lt;h2 id="org04b8e2b"&gt;An example of &lt;code&gt;abstraction&lt;/code&gt; in OOP&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org04b8e2b"&gt;
 &lt;p&gt;
 To better clarify what &lt;code&gt;abstraction&lt;/code&gt; is (in OOP) let's consider a trivial example: A &lt;code&gt;StudentRegistrationController&lt;/code&gt; (ASP.NET MVC) needs to save the data from a registration form (&lt;code&gt;Student&lt;/code&gt;) into some sort of database represented by an instance of &lt;code&gt;IStudentDataStore&lt;/code&gt;.
 &lt;/p&gt;
@@ -50,42 +46,42 @@ To better clarify what &lt;code&gt;abstraction&lt;/code&gt; is (in OOP) let's co
 &lt;p&gt;
 For the sake of brevity let's say that &lt;code&gt;IStudentDataStore&lt;/code&gt; interface has the following definition:
 &lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;public interface IStudentDataStore
-{
-    void Save(Student student);
-}
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;  public interface IStudentDataStore
+  {
+      void Save(Student student);
+  }
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;
 With that in mind, the code for the example above would look like this:
 &lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;public class Student
-{
-    public string FirstName { get; set; }
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;  public class Student
+  {
+      public string FirstName { get; set; }
 
-    public string LastName { get; set; }
+      public string LastName { get; set; }
 
-    public DateTime DateOfBirth { get; set; }
+      public DateTime DateOfBirth { get; set; }
 
-    public Gender Gender { get; set; }
+      public Gender Gender { get; set; }
 
-    public string Email { get; set; }
+      public string Email { get; set; }
 
-    public string PhoneNumber { get; set; }
-}
+      public string PhoneNumber { get; set; }
+  }
 
-public class StudentRegistrationController : Controller
-{
-    public StudentRegistrationController(IStudentDataStore dataStore)
-    {
-	_dataStore = dataStore;
-    }
+  public class StudentRegistrationController : Controller
+  {
+      public StudentRegistrationController(IStudentDataStore dataStore)
+      {
+	  _dataStore = dataStore;
+      }
 
-    public ActionResult Save(Student viewModel)
-    {
-	// Validation ommited for brevity
-	_dataStore.Save(viewModel);
-    }
-}
+      public ActionResult Save(Student viewModel)
+      {
+	  // Validation ommited for brevity
+	  _dataStore.Save(viewModel);
+      }
+  }
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;
 As we can see from the code the &lt;code&gt;IStudentDataStore&lt;/code&gt; abstracts the details of how &lt;code&gt;Student&lt;/code&gt; data is persisted. The interface doesn't tell whether the data is persisted to a flat file, SQL Database, NoSQL database or other media. As long as we have an implementation of &lt;code&gt;IStudentDataStore&lt;/code&gt; the controller works just fine.
@@ -96,33 +92,26 @@ But is this &lt;code&gt;abstraction&lt;/code&gt; technique available &lt;i&gt;on
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-sec-4" class="outline-2"&gt;
-&lt;h2 id="sec-4"&gt;The same example of &lt;code&gt;abstraction&lt;/code&gt; in functional programming&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-4"&gt;
+&lt;div id="outline-container-org0da2756" class="outline-2"&gt;
+&lt;h2 id="org0da2756"&gt;The same example of &lt;code&gt;abstraction&lt;/code&gt; in functional programming&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org0da2756"&gt;
 &lt;p&gt;
 To see how the same thing would be written in a functional style let's first see what are the entities from the previous example and how those entities interact between them:
 &lt;/p&gt;
 &lt;ul class="org-ul"&gt;
 &lt;li&gt;&lt;code&gt;StudentRegistrationController&lt;/code&gt;
 &lt;ul class="org-ul"&gt;
-&lt;li&gt;Is the top-most entity
-&lt;/li&gt;
-&lt;li&gt;Has an &lt;code&gt;IStudentDataStore&lt;/code&gt; on which calls the &lt;code&gt;Save&lt;/code&gt; method
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
+&lt;li&gt;Is the top-most entity&lt;/li&gt;
+&lt;li&gt;Has an &lt;code&gt;IStudentDataStore&lt;/code&gt; on which calls the &lt;code&gt;Save&lt;/code&gt; method&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;IStudentDataStore&lt;/code&gt;
 &lt;ul class="org-ul"&gt;
-&lt;li&gt;Defines a contract between the controller and the underlying data store
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
+&lt;li&gt;Defines a contract between the controller and the underlying data store&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;Student&lt;/code&gt;
 &lt;ul class="org-ul"&gt;
-&lt;li&gt;Is a data contract, i.e. encapsulates all the properties of a student into a single entity
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
+&lt;li&gt;Is a data contract, i.e. encapsulates all the properties of a student into a single entity&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;
 Having the above and knowing that in functional programming &lt;i&gt;everything is a function&lt;/i&gt; we replace every &lt;i&gt;entity&lt;/i&gt; with a &lt;i&gt;function&lt;/i&gt;:
@@ -130,73 +119,69 @@ Having the above and knowing that in functional programming &lt;i&gt;everything 
 &lt;ul class="org-ul"&gt;
 &lt;li&gt;We'll create a top-level function named &lt;code&gt;save-student&lt;/code&gt;; it will have the following parameters:
 &lt;ul class="org-ul"&gt;
-&lt;li&gt;&lt;code&gt;student-info&lt;/code&gt; -&amp;gt; a hash map containing the data contract
-&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;persist-func&lt;/code&gt; -&amp;gt; a function that will be called to save the data to a data store
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;Another two functions &lt;code&gt;persist-student-info-to-file&lt;/code&gt; and &lt;code&gt;persist-student-info-in-memory&lt;/code&gt; will encapsulate the logic of persisting data to a data store.
-&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;student-info&lt;/code&gt; -&amp;gt; a hash map containing the data contract&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;persist-func&lt;/code&gt; -&amp;gt; a function that will be called to save the data to a data store&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Another two functions &lt;code&gt;persist-student-info-to-file&lt;/code&gt; and &lt;code&gt;persist-student-info-in-memory&lt;/code&gt; will encapsulate the logic of persisting data to a data store.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;
 Note that both functions have the same signature. The parameters of these functions represent the data contract.
 &lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;defun&lt;/span&gt; &lt;span class="nv"&gt;persist-student-info-to-file&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;first-name&lt;/span&gt; &lt;span class="nv"&gt;last-name&lt;/span&gt; &lt;span class="nv"&gt;dob&lt;/span&gt; &lt;span class="nv"&gt;gender&lt;/span&gt; &lt;span class="nv"&gt;email&lt;/span&gt; &lt;span class="nv"&gt;phone&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-  &lt;span class="c1"&gt;;; Writes the info as a new line into the file specified by *database-location*&lt;/span&gt;
-  &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;let&lt;/span&gt; &lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="nc"&gt;stream&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;open&lt;/span&gt; &lt;span class="vg"&gt;*database-location*&lt;/span&gt;
-	      &lt;span class="ss"&gt;:direction&lt;/span&gt; &lt;span class="ss"&gt;:output&lt;/span&gt;
-	      &lt;span class="ss"&gt;:if-exists&lt;/span&gt; &lt;span class="ss"&gt;:append&lt;/span&gt;&lt;span class="p"&gt;)))&lt;/span&gt;
-    &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;format&lt;/span&gt; &lt;span class="nc"&gt;stream&lt;/span&gt; &lt;span class="s"&gt;"~s|~s|~s|~s|~s|~s"&lt;/span&gt;
-	&lt;span class="nv"&gt;first-name&lt;/span&gt;
-	&lt;span class="nv"&gt;last-name&lt;/span&gt;
-	&lt;span class="nv"&gt;dob&lt;/span&gt;
-	&lt;span class="nv"&gt;gender&lt;/span&gt;
-	&lt;span class="nv"&gt;email&lt;/span&gt;
-	&lt;span class="nv"&gt;phone&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-    &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;close&lt;/span&gt; &lt;span class="nc"&gt;stream&lt;/span&gt;&lt;span class="p"&gt;)))&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;  &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;defun&lt;/span&gt; &lt;span class="nv"&gt;persist-student-info-to-file&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;first-name&lt;/span&gt; &lt;span class="nv"&gt;last-name&lt;/span&gt; &lt;span class="nv"&gt;dob&lt;/span&gt; &lt;span class="nv"&gt;gender&lt;/span&gt; &lt;span class="nv"&gt;email&lt;/span&gt; &lt;span class="nv"&gt;phone&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="c1"&gt;;; Writes the info as a new line into the file specified by *database-location*&lt;/span&gt;
+    &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;let&lt;/span&gt; &lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="nc"&gt;stream&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;open&lt;/span&gt; &lt;span class="vg"&gt;*database-location*&lt;/span&gt;
+		&lt;span class="ss"&gt;:direction&lt;/span&gt; &lt;span class="ss"&gt;:output&lt;/span&gt;
+		&lt;span class="ss"&gt;:if-exists&lt;/span&gt; &lt;span class="ss"&gt;:append&lt;/span&gt;&lt;span class="p"&gt;)))&lt;/span&gt;
+      &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;format&lt;/span&gt; &lt;span class="nc"&gt;stream&lt;/span&gt; &lt;span class="s"&gt;"~s|~s|~s|~s|~s|~s"&lt;/span&gt;
+	  &lt;span class="nv"&gt;first-name&lt;/span&gt;
+	  &lt;span class="nv"&gt;last-name&lt;/span&gt;
+	  &lt;span class="nv"&gt;dob&lt;/span&gt;
+	  &lt;span class="nv"&gt;gender&lt;/span&gt;
+	  &lt;span class="nv"&gt;email&lt;/span&gt;
+	  &lt;span class="nv"&gt;phone&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+      &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;close&lt;/span&gt; &lt;span class="nc"&gt;stream&lt;/span&gt;&lt;span class="p"&gt;)))&lt;/span&gt;
 
 
-&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;defun&lt;/span&gt; &lt;span class="nv"&gt;persist-student-info-in-memory&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;first-name&lt;/span&gt; &lt;span class="nv"&gt;last-name&lt;/span&gt; &lt;span class="nv"&gt;dob&lt;/span&gt; &lt;span class="nv"&gt;gender&lt;/span&gt; &lt;span class="nv"&gt;email&lt;/span&gt; &lt;span class="nv"&gt;phone&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-  &lt;span class="c1"&gt;;; Persists student data into an in-memory data store named *all-students*&lt;/span&gt;
-  &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;let&lt;/span&gt; &lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="nv"&gt;student-id&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;list-length&lt;/span&gt; &lt;span class="vg"&gt;*all-students*&lt;/span&gt;&lt;span class="p"&gt;)))&lt;/span&gt;
-    &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;setq&lt;/span&gt; &lt;span class="vg"&gt;*all-students*&lt;/span&gt;
-      &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;append&lt;/span&gt; &lt;span class="vg"&gt;*all-students*&lt;/span&gt;
-	  &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;list&lt;/span&gt; &lt;span class="nv"&gt;student-id&lt;/span&gt; &lt;span class="nv"&gt;first-name&lt;/span&gt; &lt;span class="nv"&gt;last-name&lt;/span&gt; &lt;span class="nv"&gt;dob&lt;/span&gt; &lt;span class="nv"&gt;gender&lt;/span&gt; &lt;span class="nv"&gt;email&lt;/span&gt; &lt;span class="nv"&gt;phone&lt;/span&gt;&lt;span class="p"&gt;)))))&lt;/span&gt;
+  &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;defun&lt;/span&gt; &lt;span class="nv"&gt;persist-student-info-in-memory&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;first-name&lt;/span&gt; &lt;span class="nv"&gt;last-name&lt;/span&gt; &lt;span class="nv"&gt;dob&lt;/span&gt; &lt;span class="nv"&gt;gender&lt;/span&gt; &lt;span class="nv"&gt;email&lt;/span&gt; &lt;span class="nv"&gt;phone&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="c1"&gt;;; Persists student data into an in-memory data store named *all-students*&lt;/span&gt;
+    &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;let&lt;/span&gt; &lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="nv"&gt;student-id&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;list-length&lt;/span&gt; &lt;span class="vg"&gt;*all-students*&lt;/span&gt;&lt;span class="p"&gt;)))&lt;/span&gt;
+      &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;setq&lt;/span&gt; &lt;span class="vg"&gt;*all-students*&lt;/span&gt;
+	&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;append&lt;/span&gt; &lt;span class="vg"&gt;*all-students*&lt;/span&gt;
+	    &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;list&lt;/span&gt; &lt;span class="nv"&gt;student-id&lt;/span&gt; &lt;span class="nv"&gt;first-name&lt;/span&gt; &lt;span class="nv"&gt;last-name&lt;/span&gt; &lt;span class="nv"&gt;dob&lt;/span&gt; &lt;span class="nv"&gt;gender&lt;/span&gt; &lt;span class="nv"&gt;email&lt;/span&gt; &lt;span class="nv"&gt;phone&lt;/span&gt;&lt;span class="p"&gt;)))))&lt;/span&gt;
 
-&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;defun&lt;/span&gt; &lt;span class="nv"&gt;save-student&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;student-info&lt;/span&gt; &lt;span class="nv"&gt;persist-func&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-  &lt;span class="c1"&gt;;; Saves student data to a persistent store&lt;/span&gt;
-  &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;let&lt;/span&gt; &lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="nv"&gt;first-name&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;gethash&lt;/span&gt; &lt;span class="ss"&gt;'first-name&lt;/span&gt; &lt;span class="nv"&gt;student-info&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
-	&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;last-name&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;gethash&lt;/span&gt; &lt;span class="ss"&gt;'last-name&lt;/span&gt; &lt;span class="nv"&gt;student-info&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
-	&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;dob&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;gethash&lt;/span&gt; &lt;span class="ss"&gt;'date-of-birth&lt;/span&gt; &lt;span class="nv"&gt;student-info&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
-	&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;gender&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;gethash&lt;/span&gt; &lt;span class="ss"&gt;'gender&lt;/span&gt; &lt;span class="nv"&gt;student-info&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
-	&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;email&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;gethash&lt;/span&gt; &lt;span class="ss"&gt;'email&lt;/span&gt; &lt;span class="nv"&gt;student-info&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
-	&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;phone&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;gethash&lt;/span&gt; &lt;span class="ss"&gt;'phone-number&lt;/span&gt; &lt;span class="nv"&gt;student-info&lt;/span&gt;&lt;span class="p"&gt;)))&lt;/span&gt;
-    &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;funcall&lt;/span&gt; &lt;span class="nv"&gt;persist-func&lt;/span&gt; &lt;span class="nv"&gt;first-name&lt;/span&gt; &lt;span class="nv"&gt;last-name&lt;/span&gt; &lt;span class="nv"&gt;dob&lt;/span&gt; &lt;span class="nv"&gt;gender&lt;/span&gt; &lt;span class="nv"&gt;email&lt;/span&gt; &lt;span class="nv"&gt;phone&lt;/span&gt;&lt;span class="p"&gt;)))&lt;/span&gt;
+  &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;defun&lt;/span&gt; &lt;span class="nv"&gt;save-student&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;student-info&lt;/span&gt; &lt;span class="nv"&gt;persist-func&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="c1"&gt;;; Saves student data to a persistent store&lt;/span&gt;
+    &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;let&lt;/span&gt; &lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="nv"&gt;first-name&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;gethash&lt;/span&gt; &lt;span class="ss"&gt;'first-name&lt;/span&gt; &lt;span class="nv"&gt;student-info&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+	  &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;last-name&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;gethash&lt;/span&gt; &lt;span class="ss"&gt;'last-name&lt;/span&gt; &lt;span class="nv"&gt;student-info&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+	  &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;dob&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;gethash&lt;/span&gt; &lt;span class="ss"&gt;'date-of-birth&lt;/span&gt; &lt;span class="nv"&gt;student-info&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+	  &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;gender&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;gethash&lt;/span&gt; &lt;span class="ss"&gt;'gender&lt;/span&gt; &lt;span class="nv"&gt;student-info&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+	  &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;email&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;gethash&lt;/span&gt; &lt;span class="ss"&gt;'email&lt;/span&gt; &lt;span class="nv"&gt;student-info&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+	  &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;phone&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;gethash&lt;/span&gt; &lt;span class="ss"&gt;'phone-number&lt;/span&gt; &lt;span class="nv"&gt;student-info&lt;/span&gt;&lt;span class="p"&gt;)))&lt;/span&gt;
+      &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;funcall&lt;/span&gt; &lt;span class="nv"&gt;persist-func&lt;/span&gt; &lt;span class="nv"&gt;first-name&lt;/span&gt; &lt;span class="nv"&gt;last-name&lt;/span&gt; &lt;span class="nv"&gt;dob&lt;/span&gt; &lt;span class="nv"&gt;gender&lt;/span&gt; &lt;span class="nv"&gt;email&lt;/span&gt; &lt;span class="nv"&gt;phone&lt;/span&gt;&lt;span class="p"&gt;)))&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;
 Having the definitions above we can achieve the same level of abstraction by putting everything together and defining global variables (think of it as poor mans &lt;code&gt;dependency injection&lt;/code&gt;):
 &lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;defparameter&lt;/span&gt; &lt;span class="vg"&gt;*database-location*&lt;/span&gt; &lt;span class="s"&gt;"/tmp/students"&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;defparameter&lt;/span&gt; &lt;span class="vg"&gt;*student-info*&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;make-hash-table&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;  &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;defparameter&lt;/span&gt; &lt;span class="vg"&gt;*database-location*&lt;/span&gt; &lt;span class="s"&gt;"/tmp/students"&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+  &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;defparameter&lt;/span&gt; &lt;span class="vg"&gt;*student-info*&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;make-hash-table&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
 
-&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;progn&lt;/span&gt;
-  &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;setf&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;gethash&lt;/span&gt; &lt;span class="ss"&gt;'first-name&lt;/span&gt; &lt;span class="vg"&gt;*student-info*&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="s"&gt;"John"&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-  &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;setf&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;gethash&lt;/span&gt; &lt;span class="ss"&gt;'last-name&lt;/span&gt; &lt;span class="vg"&gt;*student-info*&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="s"&gt;"Doe"&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-  &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;setf&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;gethash&lt;/span&gt; &lt;span class="ss"&gt;'date-of-birth&lt;/span&gt; &lt;span class="nv"&gt;*student-info&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="s"&gt;"2000-05-14"&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-  &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;setf&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;gethash&lt;/span&gt; &lt;span class="ss"&gt;'email&lt;/span&gt; &lt;span class="vg"&gt;*student-info*&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="s"&gt;"john.doe@example.com"&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-  &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;setf&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;gethash&lt;/span&gt; &lt;span class="ss"&gt;'phone-number&lt;/span&gt; &lt;span class="vg"&gt;*student-info*&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="s"&gt;"1234567981"&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+  &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;progn&lt;/span&gt;
+    &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;setf&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;gethash&lt;/span&gt; &lt;span class="ss"&gt;'first-name&lt;/span&gt; &lt;span class="vg"&gt;*student-info*&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="s"&gt;"John"&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;setf&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;gethash&lt;/span&gt; &lt;span class="ss"&gt;'last-name&lt;/span&gt; &lt;span class="vg"&gt;*student-info*&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="s"&gt;"Doe"&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;setf&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;gethash&lt;/span&gt; &lt;span class="ss"&gt;'date-of-birth&lt;/span&gt; &lt;span class="nv"&gt;*student-info&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="s"&gt;"2000-05-14"&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;setf&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;gethash&lt;/span&gt; &lt;span class="ss"&gt;'email&lt;/span&gt; &lt;span class="vg"&gt;*student-info*&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="s"&gt;"john.doe@example.com"&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;setf&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;gethash&lt;/span&gt; &lt;span class="ss"&gt;'phone-number&lt;/span&gt; &lt;span class="vg"&gt;*student-info*&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="s"&gt;"1234567981"&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
 
-&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;save-student&lt;/span&gt; &lt;span class="vg"&gt;*student-info*&lt;/span&gt; &lt;span class="ss"&gt;'persist-student-info-to-file&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+  &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;save-student&lt;/span&gt; &lt;span class="vg"&gt;*student-info*&lt;/span&gt; &lt;span class="ss"&gt;'persist-student-info-to-file&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;
 Et voilà! We have used &lt;code&gt;abstraction&lt;/code&gt; in a functional style to remove the details of how the data is persisted thus showing that &lt;code&gt;abstraction&lt;/code&gt; isn't a principle applicable only to object oriented programming.
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-sec-5" class="outline-2"&gt;
-&lt;h2 id="sec-5"&gt;Acknowledgments&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-5"&gt;
+&lt;div id="outline-container-org2cc3563" class="outline-2"&gt;
+&lt;h2 id="org2cc3563"&gt;Acknowledgments&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org2cc3563"&gt;
 &lt;p&gt;
 A big thank you to &lt;a href="https://be.linkedin.com/in/ion-cojocaru-81b5a230"&gt;Ion Cojocaru&lt;/a&gt; and &lt;a href="https://ro.linkedin.com/in/florin-olariu-38615126"&gt;Florin Olariu&lt;/a&gt; who reviewed this post before publication.
 &lt;/p&gt;

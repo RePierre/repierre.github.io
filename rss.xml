@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Rebeja</title><link>https://rebeja.eu/</link><description>Single threaded stories.</description><atom:link href="https://rebeja.eu/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2020 &lt;a href="mailto:petru.rebeja@gmail.com"&gt;Petru Rebeja&lt;/a&gt; </copyright><lastBuildDate>Thu, 30 Jul 2020 14:54:22 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Keep the tools separate from the domain of your application</title><link>https://rebeja.eu/posts/separate-tools-from-domain/</link><dc:creator>Petru Rebeja</dc:creator><description>&lt;p&gt;
+<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Rebeja</title><link>https://rebeja.eu/</link><description>Single threaded stories.</description><atom:link href="https://rebeja.eu/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2021 &lt;a href="mailto:petru.rebeja@gmail.com"&gt;Petru Rebeja&lt;/a&gt; </copyright><lastBuildDate>Mon, 06 Sep 2021 10:25:09 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Keep the tools separate from the domain of your application</title><link>https://rebeja.eu/posts/separate-tools-from-domain/</link><dc:creator>Petru Rebeja</dc:creator><description>&lt;p&gt;
 At work we have an Architecture club where we have regular meetings to discuss issues related to the architectural decisions of various applications, be it an application developed within the company or elsewhere. One of the latest topics discussed within the architecture club was whether to use or not MediatR (and implicitly the &lt;code&gt;Mediator&lt;/code&gt; pattern) in a project based on &lt;code&gt;CQRS&lt;/code&gt; architecture.
 &lt;/p&gt;
 
@@ -170,9 +170,9 @@ This is why you need to separate tools from application domain. And this is how 
 
 &lt;p&gt;
 I would like to thank my colleagues for their reviews of this blog post. Also a big thank you goes to all the members of Centric Architecture Club for starting the discussion which led to this blog post.
-&lt;/p&gt;</description><guid>https://rebeja.eu/posts/separate-tools-from-domain/</guid><pubDate>Mon, 22 Jun 2020 13:56:02 GMT</pubDate></item><item><title>Building a Python IDE with Emacs and Docker</title><link>https://rebeja.eu/posts/python-ide-with-emacs-and-docker/</link><dc:creator>Petru Rebeja</dc:creator><description>&lt;div id="outline-container-orgea6795e" class="outline-2"&gt;
-&lt;h2 id="orgea6795e"&gt;Prologue&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-orgea6795e"&gt;
+&lt;/p&gt;</description><guid>https://rebeja.eu/posts/separate-tools-from-domain/</guid><pubDate>Mon, 22 Jun 2020 13:56:02 GMT</pubDate></item><item><title>Building a Python IDE with Emacs and Docker</title><link>https://rebeja.eu/posts/python-ide-with-emacs-and-docker/</link><dc:creator>Petru Rebeja</dc:creator><description>&lt;div id="outline-container-org67e2a6a" class="outline-2"&gt;
+&lt;h2 id="org67e2a6a"&gt;Prologue&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org67e2a6a"&gt;
 &lt;p&gt;
 I am a fan of &lt;a href="https://en.wikipedia.org/wiki/Windows_Subsystem_for_Linux"&gt;&lt;code&gt;Windows Subsystem for Linux&lt;/code&gt;&lt;/a&gt;. It brings the power of Linux command-line tools to Windows which is something a developer cannot dislike but that isn't the main reason I'm fond of it. I like it because it allows me to run Emacs (albeit in console mode) at its full potential.
 &lt;/p&gt;
@@ -202,9 +202,9 @@ The answer is &lt;b&gt;Yes&lt;/b&gt;. If you want to see only the final &lt;code
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-org939fc12" class="outline-2"&gt;
-&lt;h2 id="org939fc12"&gt;How&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-org939fc12"&gt;
+&lt;div id="outline-container-org1068027" class="outline-2"&gt;
+&lt;h2 id="org1068027"&gt;How&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org1068027"&gt;
 &lt;p&gt;
 Since I already have been using Emacs as a Python IDE in Ubuntu Bash, replicating this setup in Docker would imply:
 &lt;/p&gt;
@@ -222,9 +222,9 @@ Luckily, Docker already has an &lt;a href="https://docs.docker.com/engine/exampl
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-org68c74bd" class="outline-2"&gt;
-&lt;h2 id="org68c74bd"&gt;Issue #1: SSHD refuses connection&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-org68c74bd"&gt;
+&lt;div id="outline-container-orge93a6b7" class="outline-2"&gt;
+&lt;h2 id="orge93a6b7"&gt;Issue #1: SSHD refuses connection&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-orge93a6b7"&gt;
 &lt;p&gt;
 This one was easy — there's a typo in the example provided by Docker. I figured it out after inspecting the contents of &lt;code&gt;sshd_config&lt;/code&gt; file.
 &lt;/p&gt;
@@ -270,9 +270,9 @@ This way, the root password isn't stored in clear text and in plain-sight anymor
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-orgab39b6e" class="outline-2"&gt;
-&lt;h2 id="orgab39b6e"&gt;Issue #2: Activating virtual environment inside container&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-orgab39b6e"&gt;
+&lt;div id="outline-container-org4707a12" class="outline-2"&gt;
+&lt;h2 id="org4707a12"&gt;Issue #2: Activating virtual environment inside container&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org4707a12"&gt;
 &lt;p&gt;
 The second item of my quest was to setup and activate a Python virtual environment. This environment will be used to install all the dependencies required for the project I'm working on.
 &lt;/p&gt;
@@ -325,9 +325,9 @@ Afterwards, just install the required packages as usual.
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-orgd908321" class="outline-2"&gt;
-&lt;h2 id="orgd908321"&gt;Issue #3: Emacs monolithic configuration file&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-orgd908321"&gt;
+&lt;div id="outline-container-org1c78a1c" class="outline-2"&gt;
+&lt;h2 id="org1c78a1c"&gt;Issue #3: Emacs monolithic configuration file&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org1c78a1c"&gt;
 &lt;p&gt;
 After setting up and activating the virtual environment, I needed to configure Emacs for python development to start working.
 &lt;/p&gt;
@@ -441,9 +441,9 @@ It does one more thing not mentioned previously: a &lt;code&gt;sed&lt;/code&gt; 
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-org6964504" class="outline-2"&gt;
-&lt;h2 id="org6964504"&gt;Issue #4: Using SSH keys to connect to GitHub&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-org6964504"&gt;
+&lt;div id="outline-container-org8f672c4" class="outline-2"&gt;
+&lt;h2 id="org8f672c4"&gt;Issue #4: Using SSH keys to connect to GitHub&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org8f672c4"&gt;
 &lt;p&gt;
 Now that I have Emacs running on Ubuntu (albeit terminal only) I can enjoy a smooth workflow without having to wait too much for Magit or other application that took forever on Cygwin to finish.
 &lt;/p&gt;
@@ -481,9 +481,9 @@ To provide the values for the keys use &lt;code&gt;--build-arg&lt;/code&gt; para
 &lt;/pre&gt;&lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-orgab08103" class="outline-2"&gt;
-&lt;h2 id="orgab08103"&gt;Issue #5: Install Emacs packages once and done&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-orgab08103"&gt;
+&lt;div id="outline-container-org70e4730" class="outline-2"&gt;
+&lt;h2 id="org70e4730"&gt;Issue #5: Install Emacs packages once and done&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org70e4730"&gt;
 &lt;p&gt;
 After another build of the Docker image I started a container from it, logged in via ssh into the container, started Emacs and noticed yet another issue.
 &lt;/p&gt;
@@ -510,9 +510,9 @@ And to my great surprise, when rebuilding the image I saw the output of Emacs pa
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-orga73c0fb" class="outline-2"&gt;
-&lt;h2 id="orga73c0fb"&gt;Issue #6: Terminal colors&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-orga73c0fb"&gt;
+&lt;div id="outline-container-orga09a739" class="outline-2"&gt;
+&lt;h2 id="orga09a739"&gt;Issue #6: Terminal colors&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-orga09a739"&gt;
 &lt;p&gt;
 Being confident that everything should work now (it's the same setup I had on &lt;code&gt;WSL&lt;/code&gt;) I started a new container to which I mounted the GitHub repo as a volume and got cracking.
 &lt;/p&gt;
@@ -532,8 +532,8 @@ And only after this, I was able to fully benefit from having the Python IDE I'm 
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-orgd03a348" class="outline-2"&gt;
-&lt;h2 id="tldr"&gt;&lt;a id="orgd03a348"&gt;&lt;/a&gt;TL;DR&lt;/h2&gt;
+&lt;div id="outline-container-org8b2e82b" class="outline-2"&gt;
+&lt;h2 id="tldr"&gt;&lt;a id="org8b2e82b"&gt;&lt;/a&gt;TL;DR&lt;/h2&gt;
 &lt;div class="outline-text-2" id="text-tldr"&gt;
 &lt;p&gt;
 The full Dockerfile described in this post is below:
@@ -607,9 +607,9 @@ To build the image use this command:
 &lt;/pre&gt;&lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-orgd485c87" class="outline-2"&gt;
-&lt;h2 id="orgd485c87"&gt;Epilogue&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-orgd485c87"&gt;
+&lt;div id="outline-container-org807da45" class="outline-2"&gt;
+&lt;h2 id="org807da45"&gt;Epilogue&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org807da45"&gt;
 &lt;p&gt;
 Looking back at this sort of quest of mine, I have nothing else to say than it was, overall, a fun experience.
 &lt;/p&gt;
@@ -623,9 +623,9 @@ But the bottom line is that it was a great deal of fun involved which luckily re
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-org34a4071" class="outline-2"&gt;
-&lt;h2 id="org34a4071"&gt;References&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-org34a4071"&gt;
+&lt;div id="outline-container-org73d8e54" class="outline-2"&gt;
+&lt;h2 id="org73d8e54"&gt;References&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org73d8e54"&gt;
 &lt;ol class="org-ol"&gt;
 &lt;li&gt;&lt;a href="https://docs.docker.com/engine/examples/running_ssh_service/"&gt;Dockerize an SSH service&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://pythonspeed.com/articles/activate-virtualenv-dockerfile/"&gt;Elegantly activating a virtualenv in a Dockerfile&lt;/a&gt;&lt;/li&gt;
@@ -634,9 +634,9 @@ But the bottom line is that it was a great deal of fun involved which luckily re
 &lt;/ol&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-orga34ea07" class="outline-2"&gt;
-&lt;h2 id="orga34ea07"&gt;Acknowledgments&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-orga34ea07"&gt;
+&lt;div id="outline-container-org3170228" class="outline-2"&gt;
+&lt;h2 id="org3170228"&gt;Acknowledgments&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org3170228"&gt;
 &lt;p&gt;
 I would like to thank my colleague &lt;a href="https://www.linkedin.com/in/ionelabarbuta/"&gt;Ionela Bărbuță&lt;/a&gt; for proofreading this post and for the tips &amp;amp; tricks she gave me in order to improve my writing.
 &lt;/p&gt;
@@ -764,20 +764,15 @@ When a part of the jury went to deliberate over which team should get which priz
 Overall it was a great experience and I'm gratefull for the opportunity to participate. And now with the school long gone, I'm reviewing/archiving the to-do-list of activities for the summer school and building the list of…
 &lt;/p&gt;
 
-&lt;div id="outline-container-sec-1" class="outline-2"&gt;
-&lt;h2 id="sec-1"&gt;Lessons learned&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-1"&gt;
+&lt;div id="outline-container-org1438299" class="outline-2"&gt;
+&lt;h2 id="org1438299"&gt;Lessons learned&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org1438299"&gt;
 &lt;dl class="org-dl"&gt;
-&lt;dt&gt; Infrastructure &lt;i&gt;is&lt;/i&gt; a problem &lt;/dt&gt;&lt;dd&gt;We learned the hard way that not everyone has high-end laptops that can run resource-heavy applications.
-&lt;/dd&gt;
-&lt;dt&gt; Murphy's law is still applicable &lt;/dt&gt;&lt;dd&gt;"Anything that can go wrong, will go wrong", Murphy's las states. And indeed, we had a participant that couldn't build the docker image for some reason but when we tried to load an already built image into docker via a USB stick, the USB port failed.
-&lt;/dd&gt;
-&lt;dt&gt; Think and tailor your workshop for the audience &lt;/dt&gt;&lt;dd&gt;Being heavily involvment into software development, Tiberiu and I made some wrong assumptions — &lt;i&gt;people will know how to install Docker on their machines&lt;/i&gt;, &lt;i&gt;the participants will know how to execute the command lines we provided&lt;/i&gt; etc. The vast majority of the participants were linguists at core and such tasks that are perceived as trivial by us are surely not trivial for them.
-&lt;/dd&gt;
-&lt;dt&gt; You learn a lot while teaching &lt;/dt&gt;&lt;dd&gt;This is something that cannot be overstated. I knew I will be learning a lot of new stuff from the collaboration with Tiberiu (I did not knew &lt;code&gt;NLP-Cube&lt;/code&gt; existed befor this summer school) but to my great suprise I also learned a great deal of stuff just by being present and helping people.
-&lt;/dd&gt;
-&lt;dt&gt; Allow yourself to fail &lt;/dt&gt;&lt;dd&gt;The dissapointing results of our endeavor to train a Machine Learning model had an impact on my morale but while discussing with the more experienced members of the committee
-&lt;/dd&gt;
+&lt;dt&gt;Infrastructure &lt;i&gt;is&lt;/i&gt; a problem&lt;/dt&gt;&lt;dd&gt;We learned the hard way that not everyone has high-end laptops that can run resource-heavy applications.&lt;/dd&gt;
+&lt;dt&gt;Murphy's law is still applicable&lt;/dt&gt;&lt;dd&gt;"Anything that can go wrong, will go wrong", Murphy's las states. And indeed, we had a participant that couldn't build the docker image for some reason but when we tried to load an already built image into docker via a USB stick, the USB port failed.&lt;/dd&gt;
+&lt;dt&gt;Think and tailor your workshop for the audience&lt;/dt&gt;&lt;dd&gt;Being heavily involvment into software development, Tiberiu and I made some wrong assumptions — &lt;i&gt;people will know how to install Docker on their machines&lt;/i&gt;, &lt;i&gt;the participants will know how to execute the command lines we provided&lt;/i&gt; etc. The vast majority of the participants were linguists at core and such tasks that are perceived as trivial by us are surely not trivial for them.&lt;/dd&gt;
+&lt;dt&gt;You learn a lot while teaching&lt;/dt&gt;&lt;dd&gt;This is something that cannot be overstated. I knew I will be learning a lot of new stuff from the collaboration with Tiberiu (I did not knew &lt;code&gt;NLP-Cube&lt;/code&gt; existed befor this summer school) but to my great suprise I also learned a great deal of stuff just by being present and helping people.&lt;/dd&gt;
+&lt;dt&gt;Allow yourself to fail&lt;/dt&gt;&lt;dd&gt;The dissapointing results of our endeavor to train a Machine Learning model had an impact on my morale but while discussing with the more experienced members of the committee (who were also in charge with feedback analysis) I found out that it wasn't as bad as I thought it was; the attendees were really happy to come in contact with Machine Learning, which, despite technical difficulties, is better than no contact at all.&lt;/dd&gt;
 &lt;/dl&gt;
 &lt;/div&gt;
 &lt;/div&gt;</description><guid>https://rebeja.eu/posts/eurolan-2019/</guid><pubDate>Fri, 24 May 2019 11:49:19 GMT</pubDate></item><item><title>2018 year in review</title><link>https://rebeja.eu/posts/2018-year-in-review/</link><dc:creator>Petru Rebeja</dc:creator><description>&lt;p&gt;
@@ -787,57 +782,57 @@ Looking back at 2018 I can say for sure that it has been a busy and thankfully f
 &lt;p&gt;
 So, without further ado here are my biggest accomplishments in 2018:
 &lt;/p&gt;
-&lt;div id="outline-container-sec-1" class="outline-2"&gt;
-&lt;h2 id="sec-1"&gt;Presentation on Big Data Analytics&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-1"&gt;
+&lt;div id="outline-container-org783922a" class="outline-2"&gt;
+&lt;h2 id="org783922a"&gt;Presentation on Big Data Analytics&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org783922a"&gt;
 &lt;p&gt;
 Being known as a &lt;i&gt;Big Data enthusiast&lt;/i&gt; at my job, I was asked if I could give a presentation on &lt;i&gt;Big Data&lt;/i&gt;. I was more than happy to do so and this way I got a glimpse at how it feels when giving a lecture - &lt;a href="https://www.facebook.com/CentricITSolutionsRomania/posts/2868690433237180"&gt;the presentation was scheduled&lt;/a&gt; in one of the big lecture rooms at the &lt;a href="http://www.feaa.uaic.ro"&gt;Faculty Of Economics and Business Administration&lt;/a&gt;; can't say I didn't liked the feeling. The &lt;a href="https://1drv.ms/p/s!AhX9uvfmpbmJnd4LKQn-eGppDHGdeg"&gt;slides&lt;/a&gt; are available from my OneDrive account.
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-sec-2" class="outline-2"&gt;
-&lt;h2 id="sec-2"&gt;Artificial Neural Networks tutorial&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-2"&gt;
+&lt;div id="outline-container-orgc96fbe9" class="outline-2"&gt;
+&lt;h2 id="orgc96fbe9"&gt;Artificial Neural Networks tutorial&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-orgc96fbe9"&gt;
 &lt;p&gt;
 A few weeks later I was &lt;a href="https://www.facebook.com/infobalti/photos/a.1888888887828977/1888889244495608/"&gt;hosting a tutorial on Artificial Neural Networks&lt;/a&gt; at &lt;a href="http://usarb.md"&gt;Alecu Russo State University&lt;/a&gt; from Bălți, Moldova. The tutorial was the first event at the &lt;a href="http://www.miti2018.usarb.md/"&gt;International Conference on Mathematics, Informatics and Information Technologies&lt;/a&gt; and also &lt;b&gt;my first academic talk&lt;/b&gt;.
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-sec-3" class="outline-2"&gt;
-&lt;h2 id="sec-3"&gt;PIN Magazine article about Artificial Intelligence&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-3"&gt;
+&lt;div id="outline-container-orgc389a46" class="outline-2"&gt;
+&lt;h2 id="orgc389a46"&gt;PIN Magazine article about Artificial Intelligence&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-orgc389a46"&gt;
 &lt;p&gt;
 In june we celebrated one year since the &lt;a href="https://iasi.ai/"&gt;Iași AI&lt;/a&gt; community was created with a cover story in &lt;a href="https://www.pinmagazine.ro/"&gt;PIN Magazine&lt;/a&gt; about Artificial Intelligence. I authored one of the cover story articles in which I expressed my opinion about how Artificial Intelligence, although it had tremendous success lately, it's still at the beginning of its evolution and we, humans, must set our expectations accordingly but still expect that AI will change our lives. You can read the whole article &lt;a href="https://issuu.com/danzaharia/docs/pinmagazine_9_cu_coperti/25"&gt;here&lt;/a&gt;.
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-sec-4" class="outline-2"&gt;
-&lt;h2 id="sec-4"&gt;Iași AI TensorFlow workshops&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-4"&gt;
+&lt;div id="outline-container-orgd18800b" class="outline-2"&gt;
+&lt;h2 id="orgd18800b"&gt;Iași AI TensorFlow workshops&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-orgd18800b"&gt;
 &lt;p&gt;
 At the end of August and in the beginning of October I co-hosted two &lt;a href="https://iasi.ai/workshops/tensorflow-workshop-iasi-ai/"&gt;TensorFlow worksops&lt;/a&gt; together with &lt;a href="https://www.linkedin.com/in/ciprian-talmacel-6b08ba4a/"&gt;Ciprian Tălmăcel&lt;/a&gt; organized by the &lt;a href="https://iasi.ai/"&gt;Iași AI&lt;/a&gt; community. This was my debut as a presenter within the community and proved to be a great experience and success. I had the opportunity to learn a lot from Ciprian and also to improve my skills through the feedback given by attendees. You can find the Jupyter Notebooks for the workshop in the &lt;a href="https://github.com/IASIAI/tensorflow-workshop"&gt;dedicated Github repository&lt;/a&gt;.
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-sec-5" class="outline-2"&gt;
-&lt;h2 id="sec-5"&gt;RNN presentation @ Iași AI&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-5"&gt;
+&lt;div id="outline-container-org9153a63" class="outline-2"&gt;
+&lt;h2 id="org9153a63"&gt;RNN presentation @ Iași AI&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org9153a63"&gt;
 &lt;p&gt;
 A month later, in November, was my second appearance within the Iași AI community, this time with a presentation about &lt;a href="https://iasi.ai/meetups/unrolling-recurrent-neural-networks/"&gt;Recurrent Neural Networks&lt;/a&gt;. The main focus of a presentation was how simple the code can be if you possess the theoretical background and how you can actually learn (to some extent) the theory behind just looking at the implementation. I have published the slides, the code and the LaTeX code for the presentation in a &lt;a href="https://github.com/RePierre/manelator"&gt;dedicated Github repository&lt;/a&gt;.
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-sec-6" class="outline-2"&gt;
-&lt;h2 id="sec-6"&gt;Other activity @ Iași AI&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-6"&gt;
+&lt;div id="outline-container-org5a47f35" class="outline-2"&gt;
+&lt;h2 id="org5a47f35"&gt;Other activity @ Iași AI&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org5a47f35"&gt;
 &lt;p&gt;
 Gladly, my activity within Iași AI community did not end with the RNN presentation; later on, I helped organize the &lt;a href="https://iasi.ai/meetups/panel-ai-opportunities/"&gt;AI opportunities panel&lt;/a&gt; which was the last official event of the community for 2018. In parallel we started puring more effort into implementing an Open Data Hub initiative for Iași; this however is a project for the upcomming year(s).
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-sec-7" class="outline-2"&gt;
-&lt;h2 id="sec-7"&gt;Promoted to Technical Lead&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-7"&gt;
+&lt;div id="outline-container-org75ffe02" class="outline-2"&gt;
+&lt;h2 id="org75ffe02"&gt;Promoted to Technical Lead&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org75ffe02"&gt;
 &lt;p&gt;
 Last but not least, I got promoted at work. In April I switched projects at work and took the switch as an opportunity to affirm myself. The efforts I've put into building solid and scalable products and also improving the existing ones have been observed by the management team and at the end of the year I got promoted to the role of Technical Lead.
 &lt;/p&gt;
@@ -869,24 +864,15 @@ My first idea was to have Emacs split into three windows to allow for both regis
 For each pair of files from the left window I would:
 &lt;/p&gt;
 &lt;ol class="org-ol"&gt;
-&lt;li&gt;Copy the name of the first file using &lt;code&gt;C-a C-SPC C-u 2 M-f M-w&lt;/code&gt;
-&lt;/li&gt;
-&lt;li&gt;Go the the top window on the right using &lt;code&gt;C-x o 2&lt;/code&gt; (I'm using &lt;code&gt;ace-window&lt;/code&gt; thus after pressing &lt;code&gt;C-x o&lt;/code&gt; I can select the window to switch to by pressing it's number key)
-&lt;/li&gt;
-&lt;li&gt;Open the file using &lt;code&gt;C-x C-f&lt;/code&gt; then navigating to the directory and yanking the file name at the end
-&lt;/li&gt;
-&lt;li&gt;Move back to the first window using &lt;code&gt;C-x o 1&lt;/code&gt;
-&lt;/li&gt;
-&lt;li&gt;Copy the name of the second file by first moving over the first comma with &lt;code&gt;C-f&lt;/code&gt; then &lt;code&gt;C-u 2 M-f M-w&lt;/code&gt;
-&lt;/li&gt;
-&lt;li&gt;Go to the bottom window on the right using &lt;code&gt;C-x o 3&lt;/code&gt;
-&lt;/li&gt;
-&lt;li&gt;Repeat step 3
-&lt;/li&gt;
-&lt;li&gt;Repeat step 4
-&lt;/li&gt;
-&lt;li&gt;Compare publications and register score in &lt;code&gt;similarity_score&lt;/code&gt; column
-&lt;/li&gt;
+&lt;li&gt;Copy the name of the first file using &lt;code&gt;C-a C-SPC C-u 2 M-f M-w&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Go the the top window on the right using &lt;code&gt;C-x o 2&lt;/code&gt; (I'm using &lt;code&gt;ace-window&lt;/code&gt; thus after pressing &lt;code&gt;C-x o&lt;/code&gt; I can select the window to switch to by pressing it's number key)&lt;/li&gt;
+&lt;li&gt;Open the file using &lt;code&gt;C-x C-f&lt;/code&gt; then navigating to the directory and yanking the file name at the end&lt;/li&gt;
+&lt;li&gt;Move back to the first window using &lt;code&gt;C-x o 1&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Copy the name of the second file by first moving over the first comma with &lt;code&gt;C-f&lt;/code&gt; then &lt;code&gt;C-u 2 M-f M-w&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Go to the bottom window on the right using &lt;code&gt;C-x o 3&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Repeat step 3&lt;/li&gt;
+&lt;li&gt;Repeat step 4&lt;/li&gt;
+&lt;li&gt;Compare publications and register score in &lt;code&gt;similarity_score&lt;/code&gt; column&lt;/li&gt;
 &lt;/ol&gt;
 
 &lt;p&gt;
@@ -936,7 +922,7 @@ This function moves the point to the beginning of the line by calling &lt;code&g
 
 &lt;p&gt;
 Having the line of text I need to:
-a) Split the line by ~,~
+a) Split the line by &lt;code&gt;,&lt;/code&gt;
 b) Store first and second parts of the line into two variables called &lt;code&gt;file-1&lt;/code&gt; and &lt;code&gt;file-2&lt;/code&gt;
 c) Move to the top-right window
 d) Concatenate the values of &lt;code&gt;*compare-publications-dir*&lt;/code&gt; and &lt;code&gt;file-1&lt;/code&gt; and pass the result to &lt;code&gt;(find-file-readonly)&lt;/code&gt; (I don't want to accidentally change the files being compared)
@@ -984,9 +970,9 @@ Process ID: 9776
 The troublesome service is hosted in an &lt;code&gt;ASP.NET&lt;/code&gt; web application and it's preloaded with a custom implementation of &lt;a href="https://msdn.microsoft.com/en-us/library/system.web.hosting.iprocesshostpreloadclient(v=vs.110).aspx"&gt;&lt;code&gt;IProcessHostPreloadClient&lt;/code&gt;&lt;/a&gt; which more or less does what's described in &lt;a href="http://lazynreclined.blogspot.nl/2014/09/enable-autostart-in-iis-75-without.html"&gt;this blog post&lt;/a&gt;.
 Since the project hosting the service is using AutoFac as it's DI framework/library the service is setup to use &lt;code&gt;AutofacServiceHostFactory&lt;/code&gt; as the service factory:
 &lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&amp;lt;%@ ServiceHost
-  Service="AuthorizationServiceImpl, AuthorizationService"
-  Factory="Autofac.Integration.Wcf.AutofacServiceHostFactory, Autofac.Integration.Wcf" %&amp;gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;  &amp;lt;%@ ServiceHost
+    Service="AuthorizationServiceImpl, AuthorizationService"
+    Factory="Autofac.Integration.Wcf.AutofacServiceHostFactory, Autofac.Integration.Wcf" %&amp;gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;
@@ -1016,12 +1002,9 @@ And that's what I did. I went to to the project in Visual Studio, added a &lt;co
 So when getting the &lt;code&gt;ServiceActivationexception&lt;/code&gt; with the error message &lt;code&gt;The AutofacServiceHost.Container static property must be set before services can be instantiated&lt;/code&gt; make sure to have the following:
 &lt;/p&gt;
 &lt;ol class="org-ol"&gt;
-&lt;li&gt;The special ASP.NET folder &lt;code&gt;App_Code&lt;/code&gt;
-&lt;/li&gt;
-&lt;li&gt;A class in &lt;code&gt;App_Code&lt;/code&gt; having a method with this signature &lt;code&gt;public static void AppInitialize()&lt;/code&gt; which contains all the required initialization code
-&lt;/li&gt;
-&lt;li&gt;The build action of the file containing the above method is set to &lt;code&gt;Content&lt;/code&gt; as shown in the picture below
-&lt;/li&gt;
+&lt;li&gt;The special ASP.NET folder &lt;code&gt;App_Code&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;A class in &lt;code&gt;App_Code&lt;/code&gt; having a method with this signature &lt;code&gt;public static void AppInitialize()&lt;/code&gt; which contains all the required initialization code&lt;/li&gt;
+&lt;li&gt;The build action of the file containing the above method is set to &lt;code&gt;Content&lt;/code&gt; as shown in the picture below&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;
 &lt;img src="https://rebeja.eu/images/appinitialize.png" alt="nil"&gt;
