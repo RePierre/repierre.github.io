@@ -11,7 +11,7 @@
  </sitemap>
  <sitemap>
   <loc>https://rebeja.eu/categories/2021.xml</loc>
-  <lastmod>2021-12-31T11:42:00Z</lastmod>
+  <lastmod>2021-12-31T15:56:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://rebeja.eu/categories/abstraction.xml</loc>
@@ -51,11 +51,7 @@
  </sitemap>
  <sitemap>
   <loc>https://rebeja.eu/categories/cat_end-of-year-review.xml</loc>
-  <lastmod>2021-12-31T11:42:00Z</lastmod>
- </sitemap>
- <sitemap>
-  <loc>https://rebeja.eu/categories/cat_eoy.xml</loc>
-  <lastmod>2021-12-31T11:41:00Z</lastmod>
+  <lastmod>2021-12-31T15:56:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://rebeja.eu/categories/cohesion.xml</loc>
@@ -179,7 +175,7 @@
  </sitemap>
  <sitemap>
   <loc>https://rebeja.eu/categories/review.xml</loc>
-  <lastmod>2021-12-31T11:42:00Z</lastmod>
+  <lastmod>2021-12-31T15:56:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://rebeja.eu/categories/service-activation.xml</loc>
@@ -215,10 +211,10 @@
  </sitemap>
  <sitemap>
   <loc>https://rebeja.eu/rss.xml</loc>
-  <lastmod>2021-12-31T11:42:00Z</lastmod>
+  <lastmod>2021-12-31T15:56:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://rebeja.eu/sitemap.xml</loc>
-  <lastmod>2021-12-31T11:42:00Z</lastmod>
+  <lastmod>2021-12-31T15:56:00Z</lastmod>
  </sitemap>
 </sitemapindex>
