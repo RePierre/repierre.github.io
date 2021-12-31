@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Rebeja (Posts about End of year review)</title><link>https://rebeja.eu/</link><description></description><atom:link href="https://rebeja.eu/categories/cat_end-of-year-review.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2021 &lt;a href="mailto:petru.rebeja@gmail.com"&gt;Petru Rebeja&lt;/a&gt; </copyright><lastBuildDate>Fri, 31 Dec 2021 15:52:52 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>2021 year in review</title><link>https://rebeja.eu/posts/2021-year-in-review/</link><dc:creator>Petru Rebeja</dc:creator><description>&lt;p&gt;
+It's been more than a year since I've written something on this blog, and since today is the end of the year, I'll pretend that I haven't skipped 2 years since my &lt;a href="https://rebeja.eu/posts/2018-year-in-review/"&gt;last year in review blog post&lt;/a&gt; and start writing the review for year 2021.
+&lt;/p&gt;
+
+&lt;p&gt;
+Although I changed jobs this year, I consider 2021 to be a year with great accomplishments in my academic career.
+&lt;/p&gt;
+
+&lt;div id="outline-container-org48bf3c9" class="outline-2"&gt;
+&lt;h2 id="org48bf3c9"&gt;DeLORo project&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org48bf3c9"&gt;
+&lt;p&gt;
+Although the &lt;a href="http://deloro.iit.academiaromana-is.ro/"&gt;&lt;code&gt;Deep Learning for Old Romanian&lt;/code&gt; project&lt;/a&gt; started in october 2020, the first months of the project were spent on &lt;del&gt;bureaucratic&lt;/del&gt; legal procedures required for starting the project.
+&lt;/p&gt;
+
+&lt;p&gt;
+Since the project started I have developed and became responsible for several areas of the project: (i) pipelines for importing corpus entries, exporting training data, (ii) project website, (iii) application for annotating corpus entries, and more.
+&lt;/p&gt;
+
+&lt;p&gt;
+With this project I officially became a collaborator (although project based) of the Iași Branch of the Romanian Academy.
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div id="outline-container-orgd226eac" class="outline-2"&gt;
+&lt;h2 id="orgd226eac"&gt;Romanian Language Processing Laboratory&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-orgd226eac"&gt;
+&lt;p&gt;
+Developed entirely by my colleague Cristian Pădurariu, the &lt;a href="http://lsplr.iit.academiaromana-is.ro/"&gt;Romanian Language Processing Laboratory&lt;/a&gt; is a platform which aims to aid (young) researchers in Romanian Natural Language Processing and host Romanian Language Resources.
+&lt;/p&gt;
+
+&lt;p&gt;
+In this project I'm responsible for the &lt;code&gt;Ops&lt;/code&gt; part of &lt;code&gt;DevOps&lt;/code&gt;: hosting the application on &lt;code&gt;Docker&lt;/code&gt; and continuous deployment via &lt;code&gt;Github Actions&lt;/code&gt;.
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div id="outline-container-org0299459" class="outline-2"&gt;
+&lt;h2 id="org0299459"&gt;LiRo Benchmark and its associated paper published in NeurIPS 2021&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org0299459"&gt;
+&lt;p&gt;
+By far the achievement that I am most proud of for this year, and during which I grew both as a developer and a researcher.
+&lt;/p&gt;
+
+&lt;p&gt;
+Together with Ștefan Dumitrescu, Beata Lorincz, Mihaela Găman, Andrei Avram, Mihai Ilie, Andrei Pruteanu, Adriana Stan, Lorena Roșia, Cristina Iacobescu, Luciana Morogan, George Dima, Gabriel Marchidan, Traian Rebedea, Mădălina Chitez, Radu Tudor Ionescu, Răzvan Pașcanu, and Viorica Pătrăucean we created &lt;a href="https://lirobenchmark.github.io/"&gt;LiRo benchmark&lt;/a&gt; — a benchmark for Romanian Language Tasks.
+&lt;/p&gt;
+
+&lt;p&gt;
+During the development of the benchmark platform we performed several experiments, created &lt;a href="https://github.com/dumitrescustefan/RO-STS"&gt;RO-STS&lt;/a&gt; (contributed by me), &lt;a href="https://github.com/deepmind/xquad"&gt;XQuAD-ro&lt;/a&gt; (created using services provided by professional translators), and &lt;a href="https://github.com/dumitrescustefan/wiki-ro"&gt;Wiki-ro&lt;/a&gt; (by Ștefan Dumitrescu) datasets.
+&lt;/p&gt;
+
+&lt;p&gt;
+The results, the benchmark platform, and the datasets are presented in the &lt;a href="https://openreview.net/forum?id=JH61CD7afTv"&gt;paper&lt;/a&gt; published in NeurIPS 2021 and co-authored with Sebastian Ruder and Dani Yogatama.
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div id="outline-container-org0795957" class="outline-2"&gt;
+&lt;h2 id="org0795957"&gt;Failed the deadline on ParlaMint-RO&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org0795957"&gt;
+&lt;p&gt;
+I'm not proud of missing the deadline for &lt;a href="https://www.clarin.eu/content/parlamint-towards-comparable-parliamentary-corpora"&gt;ParlaMint&lt;/a&gt; call for corpora but I will still put this project on the review list because failing is part of learning.
+&lt;/p&gt;
+
+&lt;p&gt;
+ParlaMint-RO is not &lt;i&gt;yet&lt;/i&gt; part of the ParlaMint corpus, but while working on this project I grew my Python development skills, got better understanding of &lt;a href="https://tei-c.org/"&gt;TEI encoding&lt;/a&gt; and picked a few tricks on working with &lt;a href="https://relaxng.org/"&gt;RELAX NG&lt;/a&gt;.
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div id="outline-container-orgbc77f37" class="outline-2"&gt;
+&lt;h2 id="orgbc77f37"&gt;Romanian AI Days 2021&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-orgbc77f37"&gt;
+&lt;p&gt;
+Towards the end of the year, I got the opportunity to get involved in the organization of &lt;a href="https://days.airomania.eu/"&gt;Romanian AI Days 2021&lt;/a&gt; and also participate in a round table session that discussed AI/ML PhD programs in Romanian universities.
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div id="outline-container-org90fdd9e" class="outline-2"&gt;
+&lt;h2 id="org90fdd9e"&gt;ConsILR 2021 and volume editor&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org90fdd9e"&gt;
+&lt;p&gt;
+Last but not least, in the middle of December I got yet another opportunity to be part of the organizing committee of &lt;a href="https://profs.info.uaic.ro/~consilr/2021/"&gt;ConsILR 2021&lt;/a&gt;, where we also submitted a paper which was accepted.
+&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;
+Looking forward to 2022, its exciting new opportunities, and work on already started projects I wish everyone a Happy New Year!
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;</description><category>2021</category><category>review</category><guid>https://rebeja.eu/posts/2021-year-in-review/</guid><pubDate>Fri, 31 Dec 2021 11:36:34 GMT</pubDate></item><item><title>2018 year in review</title><link>https://rebeja.eu/posts/2018-year-in-review/</link><dc:creator>Petru Rebeja</dc:creator><description>&lt;p&gt;
+Looking back at 2018 I can say for sure that it has been a busy and thankfully fruitfull year for me; I have managed to juggle work and community tasks while also spending time with my family.
+&lt;/p&gt;
+
+&lt;p&gt;
+So, without further ado here are my biggest accomplishments in 2018:
+&lt;/p&gt;
+&lt;div id="outline-container-orgd61a95b" class="outline-2"&gt;
+&lt;h2 id="orgd61a95b"&gt;Presentation on Big Data Analytics&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-orgd61a95b"&gt;
+&lt;p&gt;
+Being known as a &lt;i&gt;Big Data enthusiast&lt;/i&gt; at my job, I was asked if I could give a presentation on &lt;i&gt;Big Data&lt;/i&gt;. I was more than happy to do so and this way I got a glimpse at how it feels when giving a lecture - &lt;a href="https://www.facebook.com/CentricITSolutionsRomania/posts/2868690433237180"&gt;the presentation was scheduled&lt;/a&gt; in one of the big lecture rooms at the &lt;a href="http://www.feaa.uaic.ro"&gt;Faculty Of Economics and Business Administration&lt;/a&gt;; can't say I didn't liked the feeling. The &lt;a href="https://1drv.ms/p/s!AhX9uvfmpbmJnd4LKQn-eGppDHGdeg"&gt;slides&lt;/a&gt; are available from my OneDrive account.
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id="outline-container-orgb217f2a" class="outline-2"&gt;
+&lt;h2 id="orgb217f2a"&gt;Artificial Neural Networks tutorial&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-orgb217f2a"&gt;
+&lt;p&gt;
+A few weeks later I was &lt;a href="https://www.facebook.com/infobalti/photos/a.1888888887828977/1888889244495608/"&gt;hosting a tutorial on Artificial Neural Networks&lt;/a&gt; at &lt;a href="http://usarb.md"&gt;Alecu Russo State University&lt;/a&gt; from Bălți, Moldova. The tutorial was the first event at the &lt;a href="http://www.miti2018.usarb.md/"&gt;International Conference on Mathematics, Informatics and Information Technologies&lt;/a&gt; and also &lt;b&gt;my first academic talk&lt;/b&gt;.
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id="outline-container-org1866808" class="outline-2"&gt;
+&lt;h2 id="org1866808"&gt;PIN Magazine article about Artificial Intelligence&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org1866808"&gt;
+&lt;p&gt;
+In june we celebrated one year since the &lt;a href="https://iasi.ai/"&gt;Iași AI&lt;/a&gt; community was created with a cover story in &lt;a href="https://www.pinmagazine.ro/"&gt;PIN Magazine&lt;/a&gt; about Artificial Intelligence. I authored one of the cover story articles in which I expressed my opinion about how Artificial Intelligence, although it had tremendous success lately, it's still at the beginning of its evolution and we, humans, must set our expectations accordingly but still expect that AI will change our lives. You can read the whole article &lt;a href="https://issuu.com/danzaharia/docs/pinmagazine_9_cu_coperti/25"&gt;here&lt;/a&gt;.
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id="outline-container-org557f83f" class="outline-2"&gt;
+&lt;h2 id="org557f83f"&gt;Iași AI TensorFlow workshops&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org557f83f"&gt;
+&lt;p&gt;
+At the end of August and in the beginning of October I co-hosted two &lt;a href="https://iasi.ai/workshops/tensorflow-workshop-iasi-ai/"&gt;TensorFlow worksops&lt;/a&gt; together with &lt;a href="https://www.linkedin.com/in/ciprian-talmacel-6b08ba4a/"&gt;Ciprian Tălmăcel&lt;/a&gt; organized by the &lt;a href="https://iasi.ai/"&gt;Iași AI&lt;/a&gt; community. This was my debut as a presenter within the community and proved to be a great experience and success. I had the opportunity to learn a lot from Ciprian and also to improve my skills through the feedback given by attendees. You can find the Jupyter Notebooks for the workshop in the &lt;a href="https://github.com/IASIAI/tensorflow-workshop"&gt;dedicated Github repository&lt;/a&gt;.
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id="outline-container-orgd4f8337" class="outline-2"&gt;
+&lt;h2 id="orgd4f8337"&gt;RNN presentation @ Iași AI&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-orgd4f8337"&gt;
+&lt;p&gt;
+A month later, in November, was my second appearance within the Iași AI community, this time with a presentation about &lt;a href="https://iasi.ai/meetups/unrolling-recurrent-neural-networks/"&gt;Recurrent Neural Networks&lt;/a&gt;. The main focus of a presentation was how simple the code can be if you possess the theoretical background and how you can actually learn (to some extent) the theory behind just looking at the implementation. I have published the slides, the code and the LaTeX code for the presentation in a &lt;a href="https://github.com/RePierre/manelator"&gt;dedicated Github repository&lt;/a&gt;.
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id="outline-container-org01e73e5" class="outline-2"&gt;
+&lt;h2 id="org01e73e5"&gt;Other activity @ Iași AI&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org01e73e5"&gt;
+&lt;p&gt;
+Gladly, my activity within Iași AI community did not end with the RNN presentation; later on, I helped organize the &lt;a href="https://iasi.ai/meetups/panel-ai-opportunities/"&gt;AI opportunities panel&lt;/a&gt; which was the last official event of the community for 2018. In parallel we started puring more effort into implementing an Open Data Hub initiative for Iași; this however is a project for the upcomming year(s).
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id="outline-container-orgd1f783e" class="outline-2"&gt;
+&lt;h2 id="orgd1f783e"&gt;Promoted to Technical Lead&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-orgd1f783e"&gt;
+&lt;p&gt;
+Last but not least, I got promoted at work. In April I switched projects at work and took the switch as an opportunity to affirm myself. The efforts I've put into building solid and scalable products and also improving the existing ones have been observed by the management team and at the end of the year I got promoted to the role of Technical Lead.
+&lt;/p&gt;
+
+&lt;p&gt;
+It's already the start of 2019 and I'm excited to what's comming ahead - the Open Data Hub, the newly opened opportunities at work, the upcomming projects in academia and many more I don't know of. What I do know is that &lt;b&gt;I will do my best to do even better in 2019&lt;/b&gt;.
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;</description><category>2018</category><category>review</category><guid>https://rebeja.eu/posts/2018-year-in-review/</guid><pubDate>Tue, 01 Jan 2019 13:06:26 GMT</pubDate></item></channel></rss>

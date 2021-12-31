@@ -40,12 +40,84 @@
     <div class="content container" id="content">
     
 <div class="post">
-    <article class="post h-entry post-text"><header><h1 class="post-title p-name"><a href="posts/rename-multiple-files-with-emacs-dired/" class="u-url">Rename multiple files with Emacs dired</a></h1>
+    <article class="post h-entry post-text"><header><h1 class="post-title p-name"><a href="posts/python-development-using-emacs-from-terminal/" class="u-url">Python development using Emacs from terminal</a></h1>
+        <div class="metadata">
+            <p class="dateline">
+              <i class="fa fa-clock-o"></i> <time class="published dt-published" datetime="2017-09-29T00:00:00+02:00" title="2017-09-29 00:00">2017-09-29 00:00</time>
+            
+                |   <i class="fa fa-comment"></i>         <a href="posts/python-development-using-emacs-from-terminal/#disqus_thread" data-disqus-identifier="cache/posts/python-development-using-emacs-from-terminal.html">Comments</a>
+
+
+            </p>
+        </div>
+    </header><div class="e-content entry-content">
+    <p>
+A few weeks ago, while working on a hackathon project I found myself very disappointed with my progress.
+</p>
+
+<p>
+I had the impression that I can do better but something is holding me back and then I realized that I was too distracted by <code>Alt-Tab</code>-ing through all open applications, iterating through dozens of open tabs in the browser and spending too much time on websites that were of no use at that time.
+</p>
+
+<p>
+At that moment, on a whim I decided to try and eliminate all of these distractions the hard way - <b>by not using the X server at all</b> (I was working on <a href="https://kubuntu.org/">Kubuntu</a>).
+</p>
+
+<p>
+Since I was mainly working with Python code and occasionally I would need to open some file for inspection and all of these were done from Emacs I said to myself:
+</p>
+<blockquote>
+<p>
+Emacs can be opened from console so why not start working on hackathon from console?
+</p>
+</blockquote>
+<p>
+Said and done. <code>Ctrl-Alt-F1</code> and I was prompted with the TTY cursor. I logged in, started Emacs opened all the required files and started working. All good until I found myself in the situation where I needed to lookup something on the Internet. I knew I could use <code>eww</code> as a web browser so normally I did so (yeah, I'm one of those people that use Bing instead of Google):
+</p>
+<div class="highlight"><pre><span></span>M-x eww
+Enter URL or keywords: www.bing.com
+</pre></div>
+<p>
+And nothing… Oh, wait, I remember needing to enter some username and password when connecting to the Wi-Fi but I wasn't prompted for those after logging into terminal. How do I connect to the network?
+</p>
+
+<p>
+As there was no way for me to find that out without using some sort of GUI (I'm not that good with terminals) I started a new X session, connected from there to Wi-Fi and found this <a href="https://askubuntu.com/a/461831/561980">StackOverflow answer</a>. So I logged back to the terminal and from Emacs started <b>eshell</b> with <code>M-x eshell</code>. From there I issued the following command
+</p>
+<div class="highlight"><pre><span></span>nmcli c up &lt;wi-fi-name&gt;
+</pre></div>
+<p>
+which connected me to the Wi-Fi network.
+</p>
+
+<p>
+Note: I got connected because on previous sessions I opted to store the credentials for the connection; to get a prompt for username and password for the Wi-Fi use the <code>--ask</code> parameter like this:
+</p>
+<div class="highlight"><pre><span></span>nmcli --ask c up &lt;wi-fi-name&gt;
+</pre></div>
+
+<p>
+After connecting I resumed my coding and only at the end of the hackathon I stopped to ponder upon my experience; it wasn't as smooth as I expected. Although I consider a big plus the fact that I was able to issue shell commands within Emacs through <b>eshell</b> there were some hick-ups along the way.
+</p>
+
+<p>
+The first thing I noticed is that under terminal not all shortcuts that are very familiar for me are available. Namely, in <b>org-mode</b> the combination <code>M-right</code> which is used for indentation, moving columns within a table and demoting list items is not available; instead I had to use either <code>C-c C-x r</code> shortcut or explicitly invoke the command using <code>M-x org-meta-right</code>. Although I did not invoke this command frequently, without the shortcut I felt like I was pulled out of <a href="https://en.wikipedia.org/wiki/Flow_(psychology)">the flow</a> each time I had to use an alternative method of invoking the command.
+</p>
+
+<p>
+The second and by far the biggest nuisance was the lack of proper web-browsing experience. Although I most frequently landed on StackOverflow pages and although <b>eww</b> rendered them pretty good (see image below) the lack of visual experience <i>I was used to</i> gave me a sense of discomfort.
+<img src="images/eww-stackoverflow-2.png" alt="nil"></p>
+
+<p>
+However, when I got to analyze how much I have accomplished while working from terminal I was simply <b>amazed</b>. Having no distraction and meaningless motion like cycling through windows and tabs had a huge impact on my productivity. I was able to fully concentrate and immerse in the code and by doing so I had <b>a lot</b> of work done.
+</p>
+    </div>
+    </article><article class="post h-entry post-text"><header><h1 class="post-title p-name"><a href="posts/rename-multiple-files-with-emacs-dired/" class="u-url">Rename multiple files with Emacs dired</a></h1>
         <div class="metadata">
             <p class="dateline">
               <i class="fa fa-clock-o"></i> <time class="published dt-published" datetime="2017-08-22T00:00:00+02:00" title="2017-08-22 00:00">2017-08-22 00:00</time>
             
-                |   <i class="fa fa-comment"></i>             <a href="posts/rename-multiple-files-with-emacs-dired/#disqus_thread" data-disqus-identifier="cache/posts/rename-multiple-files-with-emacs-dired.html">Comments</a>
+                |   <i class="fa fa-comment"></i>         <a href="posts/rename-multiple-files-with-emacs-dired/#disqus_thread" data-disqus-identifier="cache/posts/rename-multiple-files-with-emacs-dired.html">Comments</a>
 
 
             </p>
@@ -100,7 +172,7 @@ That's it!
             <p class="dateline">
               <i class="fa fa-clock-o"></i> <time class="published dt-published" datetime="2017-07-29T00:00:00+02:00" title="2017-07-29 00:00">2017-07-29 00:00</time>
             
-                |   <i class="fa fa-comment"></i>             <a href="posts/managing-bibliography-using-emacs-org-mode-and-org-ref/#disqus_thread" data-disqus-identifier="cache/posts/managing-bibliography-using-emacs-org-mode-and-org-ref.html">Comments</a>
+                |   <i class="fa fa-comment"></i>         <a href="posts/managing-bibliography-using-emacs-org-mode-and-org-ref/#disqus_thread" data-disqus-identifier="cache/posts/managing-bibliography-using-emacs-org-mode-and-org-ref.html">Comments</a>
 
 
             </p>
@@ -294,7 +366,7 @@ That's it. Happy reading!
             <p class="dateline">
               <i class="fa fa-clock-o"></i> <time class="published dt-published" datetime="2017-06-22T00:00:00+02:00" title="2017-06-22 00:00">2017-06-22 00:00</time>
             
-                |   <i class="fa fa-comment"></i>             <a href="posts/adding-disqus-comments-to-ghost-blog-on-azure/#disqus_thread" data-disqus-identifier="cache/posts/adding-disqus-comments-to-ghost-blog-on-azure.html">Comments</a>
+                |   <i class="fa fa-comment"></i>         <a href="posts/adding-disqus-comments-to-ghost-blog-on-azure/#disqus_thread" data-disqus-identifier="cache/posts/adding-disqus-comments-to-ghost-blog-on-azure.html">Comments</a>
 
 
             </p>
@@ -338,7 +410,7 @@ Happy blogging!
             <p class="dateline">
               <i class="fa fa-clock-o"></i> <time class="published dt-published" datetime="2017-06-21T00:00:00+02:00" title="2017-06-21 00:00">2017-06-21 00:00</time>
             
-                |   <i class="fa fa-comment"></i>             <a href="posts/use-emacs-sql-mode-to-connect-to-database-on-a-docker-image/#disqus_thread" data-disqus-identifier="cache/posts/use-emacs-sql-mode-to-connect-to-database-on-a-docker-image.html">Comments</a>
+                |   <i class="fa fa-comment"></i>         <a href="posts/use-emacs-sql-mode-to-connect-to-database-on-a-docker-image/#disqus_thread" data-disqus-identifier="cache/posts/use-emacs-sql-mode-to-connect-to-database-on-a-docker-image.html">Comments</a>
 
 
             </p>
@@ -488,7 +560,7 @@ That's it. Happy querying!
             <p class="dateline">
               <i class="fa fa-clock-o"></i> <time class="published dt-published" datetime="2017-05-15T00:00:00+02:00" title="2017-05-15 00:00">2017-05-15 00:00</time>
             
-                |   <i class="fa fa-comment"></i>             <a href="posts/editing-remote-files-over-ssh-with-emacs-and-tramp-mode/#disqus_thread" data-disqus-identifier="cache/posts/editing-remote-files-over-ssh-with-emacs-and-tramp-mode.html">Comments</a>
+                |   <i class="fa fa-comment"></i>         <a href="posts/editing-remote-files-over-ssh-with-emacs-and-tramp-mode/#disqus_thread" data-disqus-identifier="cache/posts/editing-remote-files-over-ssh-with-emacs-and-tramp-mode.html">Comments</a>
 
 
             </p>
@@ -547,7 +619,7 @@ and press <code>&lt;Enter&gt;</code>.
             <p class="dateline">
               <i class="fa fa-clock-o"></i> <time class="published dt-published" datetime="2016-08-31T00:00:00+02:00" title="2016-08-31 00:00">2016-08-31 00:00</time>
             
-                |   <i class="fa fa-comment"></i>             <a href="posts/using-enums-in-c-sharp/#disqus_thread" data-disqus-identifier="cache/posts/using-enums-in-c-sharp.html">Comments</a>
+                |   <i class="fa fa-comment"></i>         <a href="posts/using-enums-in-c-sharp/#disqus_thread" data-disqus-identifier="cache/posts/using-enums-in-c-sharp.html">Comments</a>
 
 
             </p>
@@ -832,7 +904,7 @@ The main conclusion of the article is that <b><code>enums</code> aren't bad they
             <p class="dateline">
               <i class="fa fa-clock-o"></i> <time class="published dt-published" datetime="2016-07-29T00:00:00+02:00" title="2016-07-29 00:00">2016-07-29 00:00</time>
             
-                |   <i class="fa fa-comment"></i>             <a href="posts/abstraction-is-not-a-principle-of-object-oriented-programming/#disqus_thread" data-disqus-identifier="cache/posts/abstraction-is-not-a-principle-of-object-oriented-programming.html">Comments</a>
+                |   <i class="fa fa-comment"></i>         <a href="posts/abstraction-is-not-a-principle-of-object-oriented-programming/#disqus_thread" data-disqus-identifier="cache/posts/abstraction-is-not-a-principle-of-object-oriented-programming.html">Comments</a>
 
 
             </p>
@@ -1041,7 +1113,7 @@ A big thank you to <a href="https://be.linkedin.com/in/ion-cojocaru-81b5a230">Io
             <p class="dateline">
               <i class="fa fa-clock-o"></i> <time class="published dt-published" datetime="2016-04-08T00:00:00+02:00" title="2016-04-08 00:00">2016-04-08 00:00</time>
             
-                |   <i class="fa fa-comment"></i>             <a href="posts/fii-practic-2016/#disqus_thread" data-disqus-identifier="cache/posts/fii-practic-2016.html">Comments</a>
+                |   <i class="fa fa-comment"></i>         <a href="posts/fii-practic-2016/#disqus_thread" data-disqus-identifier="cache/posts/fii-practic-2016.html">Comments</a>
 
 
             </p>
@@ -1973,7 +2045,7 @@ As an additional bonus, the semantics of the <code>Singleton</code> is still in 
             <p class="dateline">
               <i class="fa fa-clock-o"></i> <time class="published dt-published" datetime="2016-02-19T00:00:00+02:00" title="2016-02-19 00:00">2016-02-19 00:00</time>
             
-                |   <i class="fa fa-comment"></i>             <a href="posts/welcome/#disqus_thread" data-disqus-identifier="cache/posts/welcome.html">Comments</a>
+                |   <i class="fa fa-comment"></i>         <a href="posts/welcome/#disqus_thread" data-disqus-identifier="cache/posts/welcome.html">Comments</a>
 
 
             </p>

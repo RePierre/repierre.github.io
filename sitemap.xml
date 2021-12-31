@@ -7,7 +7,7 @@
                         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
  <url>
   <loc>https://rebeja.eu/</loc>
-  <lastmod>2021-04-11T15:26:00Z</lastmod>
+  <lastmod>2021-12-31T11:36:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/2016/</loc>
@@ -30,12 +30,24 @@
   <lastmod>2021-04-11T15:26:00Z</lastmod>
  </url>
  <url>
+  <loc>https://rebeja.eu/2021/</loc>
+  <lastmod>2021-12-31T11:36:00Z</lastmod>
+ </url>
+ <url>
   <loc>https://rebeja.eu/archive.html</loc>
-  <lastmod>2021-09-02T13:43:00Z</lastmod>
+  <lastmod>2021-12-31T11:36:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/categories/</loc>
-  <lastmod>2021-04-11T15:26:00Z</lastmod>
+  <lastmod>2021-12-31T11:42:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://rebeja.eu/categories/2018/</loc>
+  <lastmod>2021-12-31T11:39:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://rebeja.eu/categories/2021/</loc>
+  <lastmod>2021-12-31T11:42:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/categories/abstraction/</loc>
@@ -72,6 +84,14 @@
  <url>
   <loc>https://rebeja.eu/categories/cat_emacs/</loc>
   <lastmod>2021-04-11T15:26:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://rebeja.eu/categories/cat_end-of-year-review/</loc>
+  <lastmod>2021-12-31T11:41:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://rebeja.eu/categories/cat_eoy/</loc>
+  <lastmod>2021-12-31T11:41:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/categories/cohesion/</loc>
@@ -194,6 +214,10 @@
   <lastmod>2021-04-11T15:26:00Z</lastmod>
  </url>
  <url>
+  <loc>https://rebeja.eu/categories/review/</loc>
+  <lastmod>2021-12-31T11:39:00Z</lastmod>
+ </url>
+ <url>
   <loc>https://rebeja.eu/categories/service-activation/</loc>
   <lastmod>2021-04-11T15:26:00Z</lastmod>
  </url>
@@ -227,7 +251,7 @@
  </url>
  <url>
   <loc>https://rebeja.eu/index-1.html</loc>
-  <lastmod>2021-09-02T13:43:00Z</lastmod>
+  <lastmod>2021-12-31T11:36:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/pages/en-ro-dictionary-for-ai/</loc>
@@ -236,6 +260,10 @@
  <url>
   <loc>https://rebeja.eu/posts/2018-year-in-review/</loc>
   <lastmod>2021-04-11T15:26:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://rebeja.eu/posts/2021-year-in-review/</loc>
+  <lastmod>2021-12-31T11:36:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/posts/abstraction-is-not-a-principle-of-object-oriented-programming/</loc>

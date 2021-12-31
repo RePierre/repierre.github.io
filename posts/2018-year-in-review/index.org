@@ -2,10 +2,10 @@
 .. title: 2018 year in review
 .. slug: 2018-year-in-review
 .. date: 2019-01-01 15:06:26 UTC+02:00
-.. tags:
-.. category:
+.. tags: 2018, review
+.. category: End of year review
 .. link:
-.. description:
+.. description: Review of year 2018.
 .. type: text
 
 #+END_COMMENT

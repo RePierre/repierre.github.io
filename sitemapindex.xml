@@ -6,199 +6,219 @@
     xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
                         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
  <sitemap>
+  <loc>https://rebeja.eu/categories/2018.xml</loc>
+  <lastmod>2021-12-31T11:41:00Z</lastmod>
+ </sitemap>
+ <sitemap>
+  <loc>https://rebeja.eu/categories/2021.xml</loc>
+  <lastmod>2021-12-31T11:42:00Z</lastmod>
+ </sitemap>
+ <sitemap>
   <loc>https://rebeja.eu/categories/abstraction.xml</loc>
-  <lastmod>2020-07-11T02:58:00Z</lastmod>
+  <lastmod>2021-12-31T11:22:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://rebeja.eu/categories/autofacservicehostfactory.xml</loc>
-  <lastmod>2020-07-11T02:58:00Z</lastmod>
+  <lastmod>2021-12-31T11:22:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://rebeja.eu/categories/automation.xml</loc>
-  <lastmod>2020-07-11T02:58:00Z</lastmod>
+  <lastmod>2021-12-31T11:21:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://rebeja.eu/categories/awesome.xml</loc>
-  <lastmod>2020-07-11T02:58:00Z</lastmod>
+  <lastmod>2021-12-31T11:21:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://rebeja.eu/categories/azure.xml</loc>
-  <lastmod>2020-07-11T02:58:00Z</lastmod>
+  <lastmod>2021-12-31T11:21:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://rebeja.eu/categories/bibliography.xml</loc>
-  <lastmod>2020-07-11T02:58:00Z</lastmod>
+  <lastmod>2021-12-31T11:21:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://rebeja.eu/categories/blog.xml</loc>
-  <lastmod>2020-07-11T02:58:00Z</lastmod>
+  <lastmod>2021-12-31T11:21:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://rebeja.eu/categories/c.xml</loc>
-  <lastmod>2020-07-11T02:58:00Z</lastmod>
+  <lastmod>2021-12-31T11:22:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://rebeja.eu/categories/cat_emacs.xml</loc>
-  <lastmod>2020-07-11T02:58:00Z</lastmod>
+  <lastmod>2021-12-31T11:21:00Z</lastmod>
+ </sitemap>
+ <sitemap>
+  <loc>https://rebeja.eu/categories/cat_end-of-year-review.xml</loc>
+  <lastmod>2021-12-31T11:42:00Z</lastmod>
+ </sitemap>
+ <sitemap>
+  <loc>https://rebeja.eu/categories/cat_eoy.xml</loc>
+  <lastmod>2021-12-31T11:41:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://rebeja.eu/categories/cohesion.xml</loc>
-  <lastmod>2020-07-11T02:58:00Z</lastmod>
+  <lastmod>2021-12-31T11:22:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://rebeja.eu/categories/coupling.xml</loc>
-  <lastmod>2020-07-11T02:58:00Z</lastmod>
+  <lastmod>2021-12-31T11:22:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://rebeja.eu/categories/custom-workflow.xml</loc>
-  <lastmod>2020-07-11T02:58:00Z</lastmod>
+  <lastmod>2021-12-31T11:22:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://rebeja.eu/categories/dired.xml</loc>
-  <lastmod>2020-07-11T02:58:00Z</lastmod>
+  <lastmod>2021-12-31T11:21:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://rebeja.eu/categories/disqus-comments.xml</loc>
-  <lastmod>2020-07-11T02:58:00Z</lastmod>
+  <lastmod>2021-12-31T11:21:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://rebeja.eu/categories/docker.xml</loc>
-  <lastmod>2020-07-11T02:58:00Z</lastmod>
+  <lastmod>2021-12-31T11:21:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://rebeja.eu/categories/dockerfile.xml</loc>
-  <lastmod>2020-07-11T02:58:00Z</lastmod>
+  <lastmod>2021-12-31T11:21:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://rebeja.eu/categories/emacs.xml</loc>
-  <lastmod>2020-07-11T02:58:00Z</lastmod>
+  <lastmod>2021-12-31T11:21:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://rebeja.eu/categories/encapsulation.xml</loc>
-  <lastmod>2020-07-11T02:58:00Z</lastmod>
+  <lastmod>2021-12-31T11:22:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://rebeja.eu/categories/enums.xml</loc>
-  <lastmod>2020-07-11T02:58:00Z</lastmod>
+  <lastmod>2021-12-31T11:22:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://rebeja.eu/categories/error.xml</loc>
-  <lastmod>2020-07-11T02:58:00Z</lastmod>
+  <lastmod>2021-12-31T11:22:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://rebeja.eu/categories/fii-practic.xml</loc>
-  <lastmod>2020-07-11T02:58:00Z</lastmod>
+  <lastmod>2021-12-31T11:21:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://rebeja.eu/categories/ghost.xml</loc>
-  <lastmod>2020-07-11T02:58:00Z</lastmod>
+  <lastmod>2021-12-31T11:21:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://rebeja.eu/categories/handler-not-found.xml</loc>
-  <lastmod>2020-07-11T02:58:00Z</lastmod>
+  <lastmod>2021-12-31T11:22:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://rebeja.eu/categories/ide.xml</loc>
-  <lastmod>2020-07-11T02:58:00Z</lastmod>
+  <lastmod>2021-12-31T11:21:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://rebeja.eu/categories/inheritance.xml</loc>
-  <lastmod>2020-07-11T02:58:00Z</lastmod>
+  <lastmod>2021-12-31T11:21:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://rebeja.eu/categories/mediatr.xml</loc>
-  <lastmod>2020-07-11T02:58:00Z</lastmod>
+  <lastmod>2021-12-31T11:22:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://rebeja.eu/categories/oop-principles.xml</loc>
-  <lastmod>2020-07-11T02:58:00Z</lastmod>
+  <lastmod>2021-12-31T11:22:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://rebeja.eu/categories/oop.xml</loc>
-  <lastmod>2020-07-11T02:58:00Z</lastmod>
+  <lastmod>2021-12-31T11:22:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://rebeja.eu/categories/org-ref.xml</loc>
-  <lastmod>2020-07-11T02:58:00Z</lastmod>
+  <lastmod>2021-12-31T11:21:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://rebeja.eu/categories/orm.xml</loc>
-  <lastmod>2020-09-25T08:54:00Z</lastmod>
+  <lastmod>2021-12-31T11:22:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://rebeja.eu/categories/pitfalls.xml</loc>
-  <lastmod>2020-09-25T08:54:00Z</lastmod>
+  <lastmod>2021-12-31T11:22:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://rebeja.eu/categories/polymorphism.xml</loc>
-  <lastmod>2020-07-11T02:58:00Z</lastmod>
+  <lastmod>2021-12-31T11:21:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://rebeja.eu/categories/presentation.xml</loc>
-  <lastmod>2020-07-11T02:58:00Z</lastmod>
+  <lastmod>2021-12-31T11:21:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://rebeja.eu/categories/programming-principles.xml</loc>
-  <lastmod>2020-07-11T02:58:00Z</lastmod>
+  <lastmod>2021-12-31T11:21:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://rebeja.eu/categories/python.xml</loc>
-  <lastmod>2020-07-11T02:58:00Z</lastmod>
+  <lastmod>2021-12-31T11:21:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://rebeja.eu/categories/rbar.xml</loc>
-  <lastmod>2020-09-25T08:54:00Z</lastmod>
+  <lastmod>2021-12-31T11:22:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://rebeja.eu/categories/reading-list.xml</loc>
-  <lastmod>2020-07-11T02:58:00Z</lastmod>
+  <lastmod>2021-12-31T11:21:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://rebeja.eu/categories/remote-files.xml</loc>
-  <lastmod>2020-07-11T02:58:00Z</lastmod>
+  <lastmod>2021-12-31T11:21:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://rebeja.eu/categories/rename-multiple-files.xml</loc>
-  <lastmod>2020-07-11T02:58:00Z</lastmod>
+  <lastmod>2021-12-31T11:21:00Z</lastmod>
+ </sitemap>
+ <sitemap>
+  <loc>https://rebeja.eu/categories/review.xml</loc>
+  <lastmod>2021-12-31T11:42:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://rebeja.eu/categories/service-activation.xml</loc>
-  <lastmod>2020-07-11T02:58:00Z</lastmod>
+  <lastmod>2021-12-31T11:22:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://rebeja.eu/categories/solid-principles.xml</loc>
-  <lastmod>2020-07-11T02:58:00Z</lastmod>
+  <lastmod>2021-12-31T11:21:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://rebeja.eu/categories/solid.xml</loc>
-  <lastmod>2020-07-11T02:58:00Z</lastmod>
+  <lastmod>2021-12-31T11:22:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://rebeja.eu/categories/sql-mode.xml</loc>
-  <lastmod>2020-07-11T02:58:00Z</lastmod>
+  <lastmod>2021-12-31T11:21:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://rebeja.eu/categories/ssh.xml</loc>
-  <lastmod>2020-07-11T02:58:00Z</lastmod>
+  <lastmod>2021-12-31T11:21:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://rebeja.eu/categories/terminal.xml</loc>
-  <lastmod>2020-07-11T02:58:00Z</lastmod>
+  <lastmod>2021-12-31T11:22:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://rebeja.eu/categories/tramp.xml</loc>
-  <lastmod>2020-07-11T02:58:00Z</lastmod>
+  <lastmod>2021-12-31T11:22:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://rebeja.eu/categories/wcf.xml</loc>
-  <lastmod>2020-07-11T02:58:00Z</lastmod>
+  <lastmod>2021-12-31T11:22:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://rebeja.eu/rss.xml</loc>
-  <lastmod>2020-09-25T08:54:00Z</lastmod>
+  <lastmod>2021-12-31T11:42:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://rebeja.eu/sitemap.xml</loc>
-  <lastmod>2021-09-02T13:43:00Z</lastmod>
+  <lastmod>2021-12-31T11:42:00Z</lastmod>
  </sitemap>
 </sitemapindex>
