@@ -1,0 +1,57 @@
+#+BEGIN_COMMENT
+.. title: 2021 year in review
+.. slug: 2021-year-in-review
+.. date: 2021-12-31 13:36:34 UTC+02:00
+.. tags: 2021, review
+.. category: End of year review
+.. link:
+.. description: Review of year 2021.
+.. type: text
+
+#+END_COMMENT
+
+It's been more than a year since I've written something on this blog, and since today is the end of the year, I'll pretend that I haven't skipped 2 years since my [[https://rebeja.eu/posts/2018-year-in-review/][last year in review blog post]] and start writing the review for year 2021.
+
+Although I changed jobs this year, I consider 2021 to be a year with great accomplishments in my academic career.
+
+* DeLORo project
+
+  Although the [[http://deloro.iit.academiaromana-is.ro/][=Deep Learning for Old Romanian= project]] started in october 2020, the first months of the project were spent on +bureaucratic+ legal procedures required for starting the project.
+
+  Since the project started I have developed and became responsible for several areas of the project: (i) pipelines for importing corpus entries, exporting training data, (ii) project website, (iii) application for annotating corpus entries, and more.
+
+  With this project I officially became a collaborator (although project based) of the Iași Branch of the Romanian Academy.
+
+* Romanian Language Processing Laboratory
+
+  Developed entirely by my colleague Cristian Pădurariu, the [[http://lsplr.iit.academiaromana-is.ro/][Romanian Language Processing Laboratory]] is a platform which aims to aid (young) researchers in Romanian Natural Language Processing and host Romanian Language Resources.
+
+  In this project I'm responsible for the =Ops= part of =DevOps=: hosting the application on =Docker= and continuous deployment via =Github Actions=.
+
+* LiRo Benchmark and its associated paper published in NeurIPS 2021
+
+  By far the achievement that I am most proud of for this year, and during which I grew both as a developer and a researcher.
+
+  Together with Ștefan Dumitrescu, Beata Lorincz, Mihaela Găman, Andrei Avram, Mihai Ilie, Andrei Pruteanu, Adriana Stan, Lorena Roșia, Cristina Iacobescu, Luciana Morogan, George Dima, Gabriel Marchidan, Traian Rebedea, Mădălina Chitez, Radu Tudor Ionescu, Răzvan Pașcanu, and Viorica Pătrăucean we created [[https://lirobenchmark.github.io/][LiRo benchmark]] --- a benchmark for Romanian Language Tasks.
+
+  During the development of the benchmark platform we performed several experiments, created [[https://github.com/dumitrescustefan/RO-STS][RO-STS]] (contributed by me), [[https://github.com/deepmind/xquad][XQuAD-ro]] (created using services provided by professional translators), and [[https://github.com/dumitrescustefan/wiki-ro][Wiki-ro]] (by Ștefan Dumitrescu) datasets.
+
+  The results, the benchmark platform, and the datasets are presented in the [[https://openreview.net/forum?id=JH61CD7afTv][paper]] published in NeurIPS 2021 and co-authored with Sebastian Ruder and Dani Yogatama.
+
+* Failed the deadline on ParlaMint-RO
+
+  I'm not proud of missing the deadline for [[https://www.clarin.eu/content/parlamint-towards-comparable-parliamentary-corpora][ParlaMint]] call for corpora but I will still put this project on the review list because failing is part of learning.
+
+  ParlaMint-RO is not /yet/ part of the ParlaMint corpus, but while working on this project I grew my Python development skills, got better understanding of [[https://tei-c.org/][TEI encoding]] and picked a few tricks on working with [[https://relaxng.org/][RELAX NG]].
+
+* Romanian AI Days 2021
+
+  Towards the end of the year, I got the opportunity to get involved in the organization of [[https://days.airomania.eu/][Romanian AI Days 2021]] and also participate in a round table session that discussed AI/ML PhD programs in Romanian universities.
+
+* ConsILR 2021 and volume editor
+
+  Last but not least, in the middle of December I got yet another opportunity to be part of the organizing committee of [[https://profs.info.uaic.ro/~consilr/2021/][ConsILR 2021]], where we also submitted a paper which was accepted.
+
+  -----
+
+  Looking forward to 2022, its exciting new opportunities, and work on already started projects I wish everyone a Happy New Year!
