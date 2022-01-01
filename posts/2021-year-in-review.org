@@ -16,9 +16,9 @@ Although I changed jobs this year, I consider 2021 to be a year with great accom
 
 * DeLORo project
 
-  Although the [[http://deloro.iit.academiaromana-is.ro/][=Deep Learning for Old Romanian= project]] started in october 2020, the first months of the project were spent on +bureaucratic+ legal procedures required for starting the project.
+  Actually, the [[http://deloro.iit.academiaromana-is.ro/][=Deep Learning for Old Romanian= project]] started in october 2020, but the first months of the project were spent on +bureaucratic+ legal procedures required for starting the project; as such I consider it to have begun in January 2021.
 
-  Since the project started I have developed and became responsible for several areas of the project: (i) pipelines for importing corpus entries, exporting training data, (ii) project website, (iii) application for annotating corpus entries, and more.
+  Since the project started I have developed and became responsible for several areas of the project: (i) pipelines for importing corpus entries and exporting training data, (ii) project website, (iii) application for annotating corpus entries (initially created by my colleague Cristian Pădurariu and afterwards handed-over to me), and more.
 
   With this project I officially became a collaborator (although project based) of the Iași Branch of the Romanian Academy.
 
@@ -30,7 +30,7 @@ Although I changed jobs this year, I consider 2021 to be a year with great accom
 
 * LiRo Benchmark and its associated paper published in NeurIPS 2021
 
-  By far the achievement that I am most proud of for this year, and during which I grew both as a developer and a researcher.
+  By far the achievement that I am most proud of for this year, and during which I grew both as a software developer and a researcher.
 
   Together with Ștefan Dumitrescu, Beata Lorincz, Mihaela Găman, Andrei Avram, Mihai Ilie, Andrei Pruteanu, Adriana Stan, Lorena Roșia, Cristina Iacobescu, Luciana Morogan, George Dima, Gabriel Marchidan, Traian Rebedea, Mădălina Chitez, Radu Tudor Ionescu, Răzvan Pașcanu, and Viorica Pătrăucean we created [[https://lirobenchmark.github.io/][LiRo benchmark]] --- a benchmark for Romanian Language Tasks.
 
