@@ -9,7 +9,7 @@
 .. type: text
 
 #+END_COMMENT
-At work we have an Architecture club where we have regular meetings to discuss issues related to the architectural decisions of various applications, be it an application developed within the company or elsewhere. One of the latest topics discussed within the architecture club was whether to use or not MediatR (and implicitly the =Mediator= pattern) in a project based on =CQRS= architecture.
+At my previous job we had an Architecture club where we held regular meetings to discuss issues related to the architectural decisions of various applications, be it an application developed within the company or elsewhere. One of the latest topics discussed within the architecture club was whether to use or not MediatR (and implicitly the =Mediator= pattern) in a project based on =CQRS= architecture.
 
 If you're not familiar with [[https://github.com/jbogard/MediatR][MediatR]], it's a library that relays messages to their destination in an easy to use and elegant manner in two ways: it dispatches requests to their handlers and sends notifications to subscribers.
 
