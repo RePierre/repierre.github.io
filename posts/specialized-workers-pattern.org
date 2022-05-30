@@ -79,6 +79,11 @@ As such, I am excited to introduce to the world the =Specialized Workers Pattern
      - the worker is selected based on its knowledge of the payload (workers' "expertise")
      - the caller (employer) is agnostic of the payload (or a part of it); as such, the decisions that are based on the payload are kept close to where the processing of the payload happens.
 
+** Why not use a =Factory method=?
+   - The decision on which instance to build is separated from the actual work done; from the PoV of separation of concerns this is ok, however this way the business logic is spread throughout multiple places instead of just sitting in the same class in the case of a specialized worker
+   - Less classes
+   - Unlike the =factory method=, you don't need to create an instance of the class; the creation of the class can be delegated to DI frameworks
+   - =Factory method= works better when you need to pass parameters in the constructor that are required for the specific work that needs to be done.
 ** Drawback
 
    - Since the =CanProcess()= method is called from consumer code it is recommended to guard agains invalid arguments in =DoWork()=:
