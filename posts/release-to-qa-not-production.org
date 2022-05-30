@@ -1,0 +1,30 @@
+#+BEGIN_COMMENT
+.. title: Don't release to Production, release to QA
+.. slug: release-to-qa-not-production
+.. date: 2022-05-30 15:55:25 UTC+03:00
+.. tags:
+.. category:
+.. link:
+.. description:
+.. type: text
+.. status: draft
+#+END_COMMENT
+* Introduction
+
+  - Have you ever been in this situation/Is this picture ringing any bells?
+    Friday afternoon, at the end of the sprint, a few hours before the weekend starts, the last PBI is in QA and you get a notification --- there is an issue with the application.
+    After discussing with the person responsible for testing the PBI you find out that the issue is due to some leftover data from the previous sprint/PBI.
+    You spend a few minutes to craft an SQL script that will clean the data, send it to the colleague responsible for QA, he/she runs it and then confirms that the application is "back to normal".
+    You both sigh in relief while the PBI is marked as "Done" and the weekend starts. Bliss!
+
+* The problem
+
+  Although great for team velocity, committment and other Agile buzzwords, what you just did is far from being the hero of the day --- you just sabotaged your team.
+
+* A closer look on the application environments
+
+  Let's briefly discuss the traditionial DTAP setup from the application lifecycle management:
+  - Development --- dirty
+  - Testing
+  - Acceptance
+  - Production --- the Valhalla; where each feature of each application wants to get.
