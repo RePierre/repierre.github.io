@@ -11,20 +11,39 @@
 #+END_COMMENT
 * Introduction
 
-  - Have you ever been in this situation/Is this picture ringing any bells?
-    Friday afternoon, at the end of the sprint, a few hours before the weekend starts, the last PBI is in QA and you get a notification --- there is an issue with the application.
-    After discussing with the person responsible for testing the PBI you find out that the issue is due to some leftover data from the previous sprint/PBI.
-    You spend a few minutes to craft an SQL script that will clean the data, send it to the colleague responsible for QA, he/she runs it and then confirms that the application is "back to normal".
-    You both sigh in relief while the PBI is marked as "Done" and the weekend starts. Bliss!
+  Have you ever been in this situation/Is this picture ringing any bells?
+  Friday afternoon, at the end of the sprint, a few hours before the weekend starts, the last PBI is in QA and you get a notification --- there is an issue with the application.
+  After discussing with the person responsible for testing the PBI you find out that the issue is due to some leftover data from the previous sprint/PBI.
+  You spend a few minutes to craft an SQL script that will clean the data, send it to the colleague responsible for QA, he/she runs it and then confirms that the application is "back to normal".
+  You both sigh in relief while the PBI is marked as "Done" and the weekend starts. Bliss!
 
 * The problem
 
-  Although great for team velocity, committment and other Agile buzzwords, what you just did is far from being the hero of the day --- you just sabotaged your team.
+  Although great for team velocity, committment and other Agile buzzwords, what you just did is far from being the hero of the day --- you just may have sabotaged your team.
 
 * A closer look on the application environments
 
-  Let's briefly discuss the traditionial DTAP setup from the application lifecycle management:
+  A rather traditional flow in the application lifecycle management is its journey through the so-called DTAP (Development, Testing, Acceptance, and Production) environments --- a list of successive environments each adhering to more rigor than the previous.
+
+  Let's briefly glance over those environments and discuss this journey.
+
+  Let's briefly discuss the traditionial DTAP setup from the
+  application lifecycle management:
   - Development --- dirty
   - Testing
   - Acceptance
   - Production --- the Valhalla; where each feature of each application wants to get.
+
+** Development
+
+   At the beginning there is the development environment. As with any other place where creation process is at home, this is an environment where instability abounds because there is always something in motion --- multiple developers trying to quickly validate some of the work they've done in order to be able to move forward make multiple deployments a day with half-baked features and after each deployment they usually fiddle with either the detabase or the configuration in order to get a glimpse of whether what they're working on in doing what it should and if not then /why/ it isn't doing so.
+
+   As such, there is no wonder that this environment is called dirty --- there is no guarantee that if something works now it won't break in the upcoming 5 minutes.
+
+** Testing
+
+   Although there are hard boundaries between each environment, the Testing environment is not that stable either, and furthermore, some of the dirtyness from the Development environment manages to cross the boundary into Testing. This dirtyness is the topic of this article.
+
+   In an ideal world, each new feature or bug fix is deployed and tested on its own in the Testing environment. In the real world, the QA team prefers to bundle a set of features together, deploy them to the Testing environment and start hunting for bugs.
+
+   An important aspect: whenever a bug is found, the person that found it has to spend more time in order to try to identify its root cause (why this is happening) --- is it a configuration issue, is it because the implementation is lacking some corner-case coverage, or is it other factor?
