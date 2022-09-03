@@ -70,6 +70,9 @@
 
   If a release workflow is properly (read /fully/) automated, then the difference between various environments is reduced mainly to one thing --- the group of people who have proper access rights to run the workflow on the specific environment. With today's' tools on the market the difference becomes simplified further --- it is in the group of people that are allowed to see or to push the "Deploy" button.
 
+* Tight feedback loop
+
+
 * The Snowball Effect
 
   One great thing about having a small/tight feedback loop as the one you can get when QA environment is treated as production is that it starts a [[https://en.wikipedia.org/wiki/Snowball_effect][snowball effect]] where, as mentioned before, automation is key.
@@ -77,7 +80,7 @@
   At first, you gain efficiency --- there is no checklist to go through when deploying, no time needed to spend doing the tedious steps of deployment; the computers will perform those steps as quickly as possible and /always/ in the same order without skipping any of them or making the errors that humans usually do when performing tedious work. With a click of a button, or on a certain event the deployment starts and while it runs the people from the team are free to do whatever they want in the time it takes to deploy: they can have a cup of coffee, can make small talk with a colleague, or can mind the more important business like the overall quality of the product they're working on.
   Furthermore, besides efficiency you can gain speed --- just by delegating the deployment process to computers you can gain some --- computers do tedious things faster.
 
-  With efficiency and speed comes a reduced what Martin Fowled calls [[https://martinfowler.com/articles/branching-patterns.html#integration-friction][integration friction]].
+  With efficiency and speed comes a reduced what Martin Fowler calls [[https://martinfowler.com/articles/branching-patterns.html#integration-friction][integration friction]].
 
   Less integration friction means higher integration frequency, more deployments which make the QA engineers work more with the app they're testing. And this is where the magic unravels.
 
