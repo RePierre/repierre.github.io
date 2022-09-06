@@ -72,6 +72,9 @@
 
 * Tight feedback loop
 
+  Once you automate the tasks that require the QA engineer to spend time in a mindset other than the mindset of a user, you have a two-fold gain: (i) faster execution of automated tasks (because computers do boring stuff quicker than humans), which allows for (ii) more time to be spent in the mindset of a user.
+
+  And when it takes less time for a QA engineer to get into the mindset of a user, then it takes (obviously) less time for the defects he/she finds to be reported. We have a name for such a thing --- it's called a /feedback loop/. The feedback loop is not introduced by automation --- it was long present in the project, however, what workflow automation does is that it tightens the feedback loop, which means we have to wait less time in order to get a result from the changes we introduced in our code.
 
 * The Snowball Effect
 
