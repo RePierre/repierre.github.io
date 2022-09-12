@@ -38,6 +38,12 @@
 
   How to do this? Treat the QA like a user, and enable him/her to do so by alleviating the burden of the plethora of tasks that he/she must do before shifting into the user mindset. And now we move onto how to remove that burden.
 
+* How to treat QA environment like Production?
+
+  Production and QA environments are different (/verry/ different I may add); there's no doubt about that. What makes them different, from the point of view of our topic, is the fact that when a feature is deployed in Production environment, /all/ the prerequisites are known, and all preliminary steps are executed.
+
+  On the other hand, when deploying to QA environment we don't always have this knowledge, nor do we have all the preliminary steps completed at all times. Furthermore, deploying on QA may require additional steps than on Production, e.g.: restoring the database to the last backup from Production, data anonymization etc.
+
 * Automation is key
 
   To alleviate the difference between successive environments you only need to do one thing, although I must say from the start that achieving that one thing /can be really hard/ --- *automate everything*.
