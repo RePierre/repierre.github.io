@@ -20,7 +20,7 @@
   You spend a few minutes to craft an SQL script that will clean the data, send it to the colleague responsible for QA, he/she runs it and then confirms that the application is "back to normal".
   You both sigh in relief while the PBI is marked as "Done" and the weekend starts. Bliss!
 
-* The problem
+* The root problem
 
   Although you did save the day and the sprint goal, I would argue that what you did was to fix the issue but not remove the root cause, and by not removing the root cause you perpetuate the practice of applying workarounds instead of fixing things. A consequence of this practice, as I will try to prove in the following sections, is that the evolution of the application you're working on is hindered, and this impediment affects none others than those for whom you're building the application --- its users.
 
