@@ -20,32 +20,6 @@
   You spend a few minutes to craft an SQL script that will clean the data, send it to the colleague responsible for QA, he/she runs it and then confirms that the application is "back to normal".
   You both sigh in relief while the PBI is marked as "Done" and the weekend starts. Bliss!
 
-* A closer look on the application environments                    :noexport:
-
-  A rather traditional flow in the application life-cycle management is its journey through the so-called [[https://en.wikipedia.org/wiki/Development,_testing,_acceptance_and_production][DTAP environments]] (Development, Testing, Acceptance, and Production) --- a list of successive environments where each environment is subject to more restrictions than the previous one.
-
-  Let's briefly glance over those environments and discuss this journey.
-
-  +Let's briefly discuss the traditional DTAP setup from the application life-cycle management:+
-  +- Development --- dirty+
-  +- Testing+
-  +- Acceptance+
-  +- Production --- the Valhalla; where each feature of each application wants to get.+
-
-** Development environment
-
-   At the beginning there is the development environment. As with any other place where creation process is at home, this is an environment where instability abounds because there is always something in motion --- multiple developers trying to quickly validate some of the work they've done in order to be able to move forward make multiple deployments a day with features that are in progress, and after each deployment they usually fiddle with either the database or the configuration in order to get a glimpse of whether what they're working on is doing what it should do and if not then /why/ it isn't doing so.
-
-   As such, there is no wonder that this environment is called dirty --- there is no guarantee that if something works now it won't break in the upcoming 5 minutes.
-
-** Testing/QA environment
-
-   Although there are hard boundaries between each environment, the Testing environment is not that stable either, and furthermore, some of the dirtiness from the Development environment manages to cross the boundary into Testing. This dirtiness is the topic of this article.
-
-   In an ideal world, each new feature or bug fix is deployed and tested on its own in the Testing environment. In the real world, the QA team prefers to bundle a set of features together, deploy them to the Testing environment and start hunting for bugs.
-
-   An important aspect: whenever a bug is found, the person that found it has to spend more time in order to try to identify its root cause (why this is happening) --- is it a configuration issue, is it because the implementation is lacking some corner-case coverage, or is it other factor?
-
 * The problem
 
   Although you did save the day and the sprint goal, I would argue that what you did was to fix the issue but not remove the root cause, and by not removing the root cause you perpetuate the practice of applying workarounds instead of fixing things. A consequence of this practice, as I will try to prove in the following sections, is that the evolution of the application you're working on is hindered, and this impediment affects none others than those for whom you're building the application --- its users.
