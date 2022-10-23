@@ -83,14 +83,29 @@
 
 * The Snowball Effect
 
-  One great thing about having a small/tight feedback loop as the one you can get when QA environment is treated as production is that it starts a [[https://en.wikipedia.org/wiki/Snowball_effect][snowball effect]] where, as mentioned before, automation is key.
+  Once achieved, the effects of this objective of having minimal manual intervention ripple through and start a [[https://en.wikipedia.org/wiki/Snowball_effect][snowball effect]].
 
-  At first, you gain efficiency --- there is no checklist to go through when deploying, no time needed to spend doing the tedious steps of deployment; the computers will perform those steps as quickly as possible and /always/ in the same order without skipping any of them or making the errors that humans usually do when performing tedious work. With a click of a button, or on a certain event the deployment starts and while it runs the people from the team are free to do whatever they want in the time it takes to deploy: they can have a cup of coffee, can make small talk with a colleague, or can mind the more important business like the overall quality of the product they're working on.
-  Furthermore, besides efficiency you can gain speed --- just by delegating the deployment process to computers you can gain some --- computers do tedious things faster.
+** Efficiency
 
-  With efficiency and speed comes a reduced what Martin Fowler calls [[https://martinfowler.com/articles/branching-patterns.html#integration-friction][integration friction]].
+  At first, you gain efficiency --- there is no checklist to go through when deploying, no time needed to spend doing the tedious steps of deployment; the computers will perform those steps as quickly as possible and /always/ in the same order without skipping any of them or making the errors that humans usually do when performing tedious work.
+
+  With a click of a button, or on a certain event the deployment starts and while it runs the people from the team are free to do whatever they want in the time it takes to deploy: they can have a cup of coffee, can make small talk with a colleague, or can mind the more important business like the overall quality of the product they're working on.
+
+** Speed
+
+  Furthermore, besides efficiency you can gain speed --- just by delegating the deployment process to computers you gain time because computers do boring stuff a lot quicker than humans.
+
+  With efficiency and speed comes reduced [[https://martinfowler.com/articles/branching-patterns.html#integration-friction][integration friction]].
 
   Less integration friction means higher integration frequency, more deployments which make the QA engineers work more with the app they're testing. And this is where the magic unravels.
+
+** Tight feedback loop
+
+   Once you automate the repetitive tasks you free-up the time of the QA engineer, which allows him/her to spend more time with the application(s) they are testing. In other words, automating the repetitive tasks allows the QA engineer to spend more time in the mindset of the user of the application he/she is testing.
+
+   And when the QA engineer spends more time in the mindset of a user then he/she will be able not only to spot more defects but also spot them quicker because the QA engineer /thinks like a user/.
+
+   We have a name for such a thing --- it's called a /feedback loop/. The feedback loop is not introduced by automation --- it was long present in the project, but once workflow automation is introduced it tightens the feedback loop, which means we have to wait less time to get a result from the changes we introduced in our code.
 
 * Conclusion
 
