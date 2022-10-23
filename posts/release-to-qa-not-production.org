@@ -61,6 +61,7 @@
 
   Now that the assessment of criticality is done, let's make a giant leap in this analysis and ask:
 
+* What if we treated QA environment like Production?
 
   Production and QA environments are different (/verry/ different I may add); there's no doubt about that. What makes them different, from the point of view of our topic, is the fact that when a feature is deployed in Production environment, /all/ the prerequisites are known, and all preliminary steps are executed.
 
