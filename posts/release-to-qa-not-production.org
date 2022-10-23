@@ -67,17 +67,19 @@
 
   On the other hand, when deploying to QA environment we don't always have this knowledge, nor do we have all the preliminary steps completed at all times. Furthermore, deploying on QA may require additional steps than on Production, e.g.: restoring the database to the last backup from Production, data anonymization etc.
 
+  But the difference between the number of unkowns can be compensated by the difference between number of deployments, and the fact that a failure in QA environment is not critical. In other words, what we lack in knowledge when deploying to QA environment can be compensated by multiple deployment trials, where each deployment trial gets closer and closer to success.
+
+  And when it comes to doing repetitive tasks...
+
 * Automation is key
 
-  To alleviate the difference between successive environments you only need to do one thing, although I must say from the start that achieving that one thing /can be really hard/ --- *automate everything*.
+  To alleviate the difference between (successive) environments you only need to do one thing, although I must say from the start that achieving that one thing /can be really hard/ --- *automate everything*.
 
-  If a release workflow is properly (read /fully/) automated, then the difference between various environments is reduced mainly to one thing --- the group of people who have proper access rights to run the workflow on the specific environment. With today's' tools on the market the difference becomes simplified further --- it is in the group of people that are allowed to see or to push the "Deploy" button.
+  If a release workflow is properly (read /fully/) automated, then the difference between various environments is reduced mainly to:
+  - The group of people who have proper access rights to run the workflow on the specific environment. With today's' tools on the market the difference becomes simplified further --- it is in the group of people that are allowed to see or to push the "Deploy" button.
+  - The number and order of "Deploy" buttons a person has to push for the deploy to succeed.
 
-* Tight feedback loop
-
-  Once you automate the tasks that require the QA engineer to spend time in a mindset other than the mindset of a user, you have a two-fold gain: (i) faster execution of automated tasks (because computers do boring stuff quicker than humans), which allows for (ii) more time to be spent in the mindset of a user.
-
-  And when it takes less time for a QA engineer to get into the mindset of a user, then it takes (obviously) less time for the defects he/she finds to be reported. We have a name for such a thing --- it's called a /feedback loop/. The feedback loop is not introduced by automation --- it was long present in the project, however, what workflow automation does is that it tightens the feedback loop, which means we have to wait less time in order to get a result from the changes we introduced in our code.
+  Although we strive to have our environments behave all the same, they are still inherently different. As such, it goes without saying that not everyone may have rights to deploy to Production, and --- due to some constraints --- on some environment there may be additional actions required to deploy. Nonetheless, the objective remains the same: /avoid manual intervention as much as possible/.
 
 * The Snowball Effect
 
