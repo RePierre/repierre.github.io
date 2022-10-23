@@ -36,10 +36,31 @@
 
   But our root-cause analysis is not complete yet. We can't just say "let's never apply workarounds" because workarounds are some sort of necessary evil. Let's look at why that is, shall we?
 
+* Why and when do we apply workarounds in production?
 
-  How to do this? Treat the QA like a user, and enable him/her to do so by alleviating the burden of the plethora of tasks that he/she must do before shifting into the user mindset. And now we move onto how to remove that burden.
+  In Production environment a workaround is applied /only in critical situations/ due to high risk of breaking the running system by making ad-hoc changes to it.
 
-* How to treat QA environment like Production?
+  Unlike the QA environment where, when the system breaks only a few users are affected --- namely the QA engineers, when the system halts in Production the costs of the downtime are much, much higher. An improper or forgotten =where= condition in a delete script which wipes out whole tables of data, and renders the system unusable, in the happiest case will lead only to frustrated customers that can't use the thing they paid for.
+
+  As such, in every critical situation first and foremost comes the assessment: is a workaround really needed?
+
+  When the answer is yes (i.e., there is no other way of fixing the issue now), then /usually/ there are some procedures to follow. Sticking with the database script example, the minimal procedure would be to:
+  1. create the workaround script,
+  2. have that script /reviewed and approved by at least one additional person/, and
+  3. have the script executed on Production by someone with proper access rights.
+
+  Ok, now we're settled: workarounds are necessary /in critical situations/, and are applied after /assessment/, /review/, and /approval/. Then, going back to our story, the following question arises:
+
+* Why do we apply workarounds in QA environment?
+
+  QA environment is isolated from Production environment, and by definition it has way fewer users. Furthermore, those users have a lot of technical knowledge of how the system runs, and always have something else to do (like designing/writing test cases) while the system is being brought to normal again.
+
+  Looking from this point of view, there is almost never a /critical/ situation that would require applying a workaround in QA environment.
+
+  Sure, missing the sprint goal may seem like a critical situation because commitments are important. But on the other hand, and going back to our example --- if we're applying a workaround in QA just to promote some feature towards Production, are we /really/ sure that the feature is ready?
+
+  Now that the assessment of criticality is done, let's make a giant leap in this analysis and ask:
+
 
   Production and QA environments are different (/verry/ different I may add); there's no doubt about that. What makes them different, from the point of view of our topic, is the fact that when a feature is deployed in Production environment, /all/ the prerequisites are known, and all preliminary steps are executed.
 
