@@ -22,21 +22,20 @@
 
   Both sigh in relief while the SBI is marked as "Done" and the weekend starts. Bliss!
 
-* The root problem
+* Getting to the root problem
 
-  Although you did save the day and the sprint goal, I would argue that what you did was to fix the issue but not remove the root cause, and by not removing the root cause you perpetuate the practice of applying workarounds instead of fixing things. A consequence of this practice, as I will try to prove in the following sections, is that the evolution of the application you're working on is hindered, and this impediment affects none others than those for whom you're building the application --- its users.
+  Although the day and the sprint goal were saved, I would argue that applying the cleanup script just fixed an issue but left the root problem untouched. And to get to the root problem, let's take a closer look on what happened.
 
-  The database issue stems from the fact that instead of being kept as close as possible to production data the database grew to become an entity of its own through not being kept tidy by the team. Usually, testing a PBI involves affecting the data from the database.
+  The database issue stems from the fact that instead of being kept as close as possible to production data (as the best practices suggest) the database grew to become an entity of its own through not being kept tidy by the team.
 
-  So, the goal here should be that the database is kept as close as possible to the production data; however  the paradox is that the cleanup script, although it solves the issue, is /yet another change to the data/ which doesn't actually bring the QA database closer to the production data.
+  When testing a SBI involves changing some of the data from the database, it is not very often that those changes are reverted as soon as the SBI leaves the QA environment. With each such change the two databases (production and QA) grow further and further apart, and the probability of having to apply a workaround script increases each time. However  the paradox is that the cleanup script, although it solves the issue, is /yet another change to the data/ which widens even more the gap between QA and production databases.
 
-  At this point you may argue that the solution would be to restore the database from a backup which will make it as close to production data as it ever was.
+  And there lies our problem: not within the workaround script itself, but within the practice of applying workarounds to patch the proverbial broken pipes instead of building actual deployment pipelines.
 
-  Yes, this is the solution but it is incomplete, and here's why: as with the database straying farther away from the production data with each operation applied to the data within (which is OK for testing purposes), the same goes for the QA engineer who by having to tap into the database to find answers for the problem at hand, strays further away from the real users of the application. And this brings me to the main point of this article.
+  But this problem goes one level deeper; sure, we can fix the problem at hand by restoring the database from a production backup but to solve the issue once and for all we need to change how we look at QA environment.
 
-* The QA engineer should be the user of the application
+  But our root-cause analysis is not complete yet. We can't just say "let's never apply workarounds" because workarounds are some sort of necessary evil. Let's look at why that is, shall we?
 
-  The main role of a QA engineer is to ensure that the application being tested satisfies the needs of its users. As such, the QA engineer needs to think like a user, and to act like a user. In other words, to be able to do his job, a QA engineer has to be able to (quickly) shift back and forth from the mindset of the problem analyst required by the job description, to the mindset of the application user.
 
   How to do this? Treat the QA like a user, and enable him/her to do so by alleviating the burden of the plethora of tasks that he/she must do before shifting into the user mindset. And now we move onto how to remove that burden.
 
