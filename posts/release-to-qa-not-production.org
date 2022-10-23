@@ -14,13 +14,13 @@
 
 * Introduction
 
-  It's friday afternoon, the end of the sprint, and a few hours before the weekend starts. The last Product Backlog Item (PBI) is in QA and while you wait for the feedback from QA (which you're almost sure will be positive) you sit relaxed while a vague plan for the weekend starts unfolding in your head.
+  It's friday afternoon, the end of the sprint, and a few hours before the weekend starts, and the QA engineers are performing the required tests on the last Sprint Backlog Item (SBI). The developer responsible for that item, confident that the SBI meets all acceptance criteria, is already in the weekend mood.
 
-  Suddenly, you get a notification --- there is an issue with the PBI. You jump on it to see what the problem is, and after discussing with the QA engineer you find out that the issue is due to some leftover data from the previous PBI.
+  Suddenly, a notification pops up --- there is an issue with the feature being tested. The developer jumps on it to see what the problem is, and after discussing with the QA engineer he/she finds out that the issue is caused by some leftover data from the previous SBI.
 
-  Having identified the problem, you spend a few minutes to craft a SQL script that will clean the data, and give it to the QA engineer. He/she runs the script on the QA database, starts testing the PBI from the beginning, and then confirms that the application is "back to normal".
+  Having identified the problem, the developer spends a few minutes to craft a SQL script that will clean the data, and gives it to the QA engineer. The QA engineer runs the script on the QA database, starts testing the SBI from the beginning, and then confirms that the application is "back to normal".
 
-  You both sigh in relief while the PBI is marked as "Done" and the weekend starts. Bliss!
+  Both sigh in relief while the SBI is marked as "Done" and the weekend starts. Bliss!
 
 * The root problem
 
