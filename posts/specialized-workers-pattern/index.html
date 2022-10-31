@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html prefix="
+" lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rebeja · Introducing the Specialized Workers pattern </title>
+<link href="../../assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700%7CAbril+Fatface">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.1.7/css/fork-awesome.min.css" integrity="sha256-gsmEoJAws/Kd3CjuOQzLie5Q3yshhvmo7YNtBG7aaEY=" crossorigin="anonymous">
+<meta content="#5670d4" name="theme-color">
+<link rel="alternate" type="application/rss+xml" title="RSS" href="../../rss.xml">
+<link rel="canonical" href="https://rebeja.eu/posts/specialized-workers-pattern/">
+<!--[if lt IE 9]><script src="../../assets/js/html5.js"></script><![endif]--><meta name="author" content="Petru Rebeja">
+<meta name="robots" content="noindex">
+</head>
+<body class="">
+    <a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
+    <div class="hsidebar">
+        <div class="container sidebar-sticky">
+                <nav id="menu" role="navigation" class="sidebar-nav"><a class="sidebar-nav-item" href="../../index.html" title="Home"><i class="fa fa-home"></i>Home</a>
+            <a class="sidebar-nav-item" href="../../archive.html" title="Archive"><i class="fa fa-folder-open"></i>Archive</a>
+            <a class="sidebar-nav-item" href="../../categories/index.html" title="Tags"><i class="fa fa-tags"></i>Tags</a>
+            <a class="sidebar-nav-item" href="../welcome/" title="About"><i class="fa fa-user"></i>About</a>
+            <a class="sidebar-nav-item" href="../../rss.xml" title="RSS"><i class="fa fa-feed"></i>RSS</a>
+            <a class="sidebar-nav-item" href="../../pages/en-ro-dictionary-for-ai" title="Dicţionar EN-RO pentru IA"><i class="fa fa-book"></i>Dicţionar EN-RO pentru IA</a>
+            <a class="sidebar-nav-item" href="https://twitter.com/petrurebeja" title="My Twitter"><i class="fa fa-twitter"></i>My Twitter</a>
+            <a class="sidebar-nav-item" href="https://github.com/RePierre" title="My Github"><i class="fa fa-github"></i>My Github</a>
+    
+    
+    </nav><footer id="footer"><span class="copyright">
+              Contents © 2022         <a href="mailto:petru.rebeja@gmail.com">Petru Rebeja</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+            </span>
+            
+            
+        </footer>
+</div>
+    </div>
+    <div class="content container" id="content">
+<article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><h1 class="post-title p-name"><a href="." class="u-url">Introducing the Specialized Workers pattern</a></h1>
+
+    <p class="dateline">
+      <i class="fa fa-clock-o"></i> <time class="published dt-published" datetime="2022-05-24T15:04:45+03:00" itemprop="datePublished" title="2022-05-24 15:04">2022-05-24 15:04</time>   |   <i class="fa fa-user"></i> 
+         Petru Rebeja
+      
+      
+    </p>
+    
+
+    <div class="e-content entry-content" itemprop="articleBody text">
+    <div id="outline-container-orgcb3a6c5" class="outline-2">
+<h2 id="orgcb3a6c5">Introduction</h2>
+<div class="outline-text-2" id="text-orgcb3a6c5">
+<p>
+A few years ago, in my <a href="../using-enums-in-c-sharp/">blog post about using enums in C#</a> I mentioned that I like using what I called at that time <code>specialized builders</code> to refactor the <code>switch</code> statement into a series of classes that implement a common interface and are specialized for a specific <code>case</code> of the <code>switch</code> statement.
+</p>
+
+<p>
+For the past few years I have been showing to my colleagues a slightly improved version of this approach (shown below) and they all seem to aggree that this is indeed a cleaner, and more elegant approach which, unlike the infamous <code>switch</code> statement does abide by the <a href="https://en.wikipedia.org/wiki/Open/closed_principle">Open/Closed principle</a>.
+</p>
+
+<p>
+As such, I am excited to introduce to the world the <code>Specialized Workers Pattern</code>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org3f6a5f6" class="outline-2">
+<h2 id="org3f6a5f6">Specialized Workers Pattern</h2>
+<div class="outline-text-2" id="text-org3f6a5f6">
+</div>
+<div id="outline-container-org444d8bb" class="outline-3">
+<h3 id="org444d8bb">Description and usage</h3>
+<div class="outline-text-3" id="text-org444d8bb">
+<p>
+The <code>Specialized Workers</code> pattern aims to cluster the logic for a business operation in a single place.
+</p>
+
+<p>
+Usually (at least from my experience), the decision to delegate a certain subtask was made by the unit that is in charge of delegating. In an abstract representation the code would look something like this:
+</p>
+<div class="highlight"><pre><span></span>   if(SomeCondition())
+   {
+       DoWorkForConditionAbove();
+   }
+</pre></div>
+
+<p>
+However, when the decision whether to delegate to a specific unit or not depends on the data that is to be processed, taking that decision couples the delegator to the structure of the data.
+</p>
+
+<p>
+Consider the example of an unit that has to parse an <code>HTML</code> element and has to make the following decision: if the current node is a <code>div</code> then <code>ParseDivElement()</code> should be called, if the current node is a <code>table</code> then <code>ParseTableElement()</code> should be called, and if the current element is none of the above, it should just ignore it.
+</p>
+
+<p>
+The purpose of <code>Specialized Workers</code> pattern is to:
+</p>
+<ul class="org-ul">
+<li>delegate the work to a single place</li>
+<li>enclose the knowledge about being able to perform a specific task and the knowledge to perform that task in a single place.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org4baf65b" class="outline-3">
+<h3 id="org4baf65b">Implementation</h3>
+<div class="outline-text-3" id="text-org4baf65b">
+<p>
+To implement the <code>Specialized Workers Pattern</code> you'll need to:
+</p>
+<ul class="org-ul">
+<li>
+<p>
+Define a interface for the worker exposing two methods — <code>CanProcess()</code>, and <code>DoWork()</code>:
+</p>
+<div class="highlight"><pre><span></span>     public interface ISpecializedWorker
+     {
+	 bool CanProcess(Payload payload);
+
+	 Result DoWork(Payload payload);
+     }
+</pre></div>
+</li>
+
+<li>
+<p>
+Add a class for each use-case:
+</p>
+<div class="highlight"><pre><span></span>     internal class MondayPayloadWorker: ISpecializedWorker
+     {
+	 public bool CanProcess(Payload payload)
+	 {
+	     return payload.DayOfWeek = DayOfWeek.Monday;
+	 }
+
+	 public Result DoWork(Payload payload)
+	 {
+	     return DoWorkInternal(payload);
+	 }
+     }
+</pre></div>
+</li>
+
+<li>
+<p>
+Inject workers into the calling class (the <code>Employer</code>), and delegate:
+</p>
+<div class="highlight"><pre><span></span>     internal class Employer
+     {
+	 private readonly IEnumerable&lt;ISpecializedWorker&gt; _workers;
+
+	 public Employer(IEnumerable&lt;ISpecializedWorker&gt; workers)
+	 {
+	     _workers = workers;
+	 }
+
+	 public Result Process(Payload payload)
+	 {
+	     var worker = _workers.SingleOrDefault(w =&gt; w.CanProcess(payload));
+
+	     // This is the equivalent of the default case in the switch statement
+	     if (worker == null)
+	     {
+		 throw new ArgumentException("Cannot process the provided payload.");
+	     }
+
+	     return worker.DoWork(payload);
+	 }
+</pre></div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org93b6cff" class="outline-2">
+<h2 id="org93b6cff">Discussion</h2>
+<div class="outline-text-2" id="text-org93b6cff">
+</div>
+<div id="outline-container-orga4999d7" class="outline-3">
+<h3 id="orga4999d7">How is it different from the <code>Strategy</code> pattern?</h3>
+<div class="outline-text-3" id="text-orga4999d7">
+<ul class="org-ul">
+<li>It evolves from the Strategy pattern</li>
+<li>The caller doesn't have to know explicitly which worker to employ
+<ul class="org-ul">
+<li>the worker is selected based on its knowledge of the payload (workers' "expertise")</li>
+<li>the caller (employer) is agnostic of the payload (or a part of it); as such, the decisions that are based on the payload are kept close to where the processing of the payload happens.</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org78b93e1" class="outline-3">
+<h3 id="org78b93e1">Why not use a <code>Factory method</code>?</h3>
+<div class="outline-text-3" id="text-org78b93e1">
+<ul class="org-ul">
+<li>The decision on which instance to build is separated from the actual work done; from the PoV of separation of concerns this is ok, however this way the business logic is spread throughout multiple places instead of just sitting in the same class in the case of a specialized worker</li>
+<li>Less classes</li>
+<li>Unlike the <code>factory method</code>, you don't need to create an instance of the class; the creation of the class can be delegated to DI frameworks</li>
+<li>
+<code>Factory method</code> works better when you need to pass parameters in the constructor that are required for the specific work that needs to be done.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org22aedfb" class="outline-3">
+<h3 id="org22aedfb">Drawbacks</h3>
+<div class="outline-text-3" id="text-org22aedfb">
+<ul class="org-ul">
+<li>
+<p>
+Since the <code>CanProcess()</code> method is called from consumer code it is recommended to guard agains invalid arguments in <code>DoWork()</code>:
+</p>
+<div class="highlight"><pre><span></span>     public Result DoWork(Payload payload) //
+     {
+	 Debug.Assert(CanProcess(payload));
+
+	 // Do the work
+     }
+</pre></div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org0ba3d3e" class="outline-2">
+<h2 id="org0ba3d3e">Adaptations</h2>
+<div class="outline-text-2" id="text-org0ba3d3e">
+<ul class="org-ul">
+<li>
+<p>
+For the cases when the processing is lightweight, you can combine the two methods into a single one that returns a tuple like this:
+</p>
+<div class="highlight"><pre><span></span>    public (bool canWork, Result result) DoWork(Payload payload)
+    {
+	if (!CanProcess(payload)) {
+	    return (false, default(Result));
+	}
+
+	Result result = DoWorkInternal(payload);
+	return (true, result);
+    }
+</pre></div>
+</li>
+
+<li>
+<p>
+You can have multiple workers capable of processing the payload; in this case, the caller is responsible for aggregating the results:
+</p>
+<div class="highlight"><pre><span></span>    var results = _workers.Where(w =&gt; w.CanProcess(payload))
+	.Select(w =&gt; w.Process(payload))
+	.ToArray();
+</pre></div>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org53e61e1" class="outline-2">
+<h2 id="org53e61e1">Ending thoughts</h2>
+</div>
+    </div>
+    <aside class="postpromonav"><nav></nav></aside><section class="comments hidden-print"><h2>Comments</h2>
+                    <div id="disqus_thread"></div>
+        <script>
+        var disqus_shortname ="rebeja",
+            disqus_url="https://rebeja.eu/posts/specialized-workers-pattern/",
+        disqus_title="Introducing the Specialized Workers pattern",
+        disqus_identifier="cache/posts/specialized-workers-pattern.html",
+        disqus_config = function () {
+            this.language = "en";
+        };
+        (function() {
+            var dsq = document.createElement('script'); dsq.async = true;
+            dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script><noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a>
+</noscript>
+    <a href="https://disqus.com" class="dsq-brlink" rel="nofollow">Comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+        </section></article><script>var disqus_shortname="rebeja";(function(){var a=document.createElement("script");a.async=true;a.src="https://"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)}());</script>
+</div>
+                <script src="../../assets/js/all-nocdn.js" type="text/javascript"></script><script>
+    baguetteBox.run('div#content', {
+        ignoreClass: 'islink',
+        captions: function(element) {
+            return element.getElementsByTagName('img')[0].alt;
+    }});
+    </script>
+</body>
+</html>

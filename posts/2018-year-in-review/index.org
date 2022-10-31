@@ -7,8 +7,9 @@
 .. link:
 .. description: Review of year 2018.
 .. type: text
-
+.. status: private
 #+END_COMMENT
+
 Looking back at 2018 I can say for sure that it has been a busy and thankfully fruitfull year for me; I have managed to juggle work and community tasks while also spending time with my family.
 
 So, without further ado here are my biggest accomplishments in 2018:

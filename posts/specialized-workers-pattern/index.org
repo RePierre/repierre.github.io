@@ -1,0 +1,145 @@
+#+BEGIN_COMMENT
+.. title: Introducing the Specialized Workers pattern
+.. slug: specialized-workers-pattern
+.. date: 2022-05-24 15:04:45 UTC+03:00
+.. tags:
+.. category:
+.. link:
+.. description:
+.. type: text
+.. status: draft
+#+END_COMMENT
+* Introduction
+
+A few years ago, in my [[link://slug/using-enums-in-c-sharp][blog post about using enums in C#]] I mentioned that I like using what I called at that time =specialized builders= to refactor the =switch= statement into a series of classes that implement a common interface and are specialized for a specific =case= of the =switch= statement.
+
+For the past few years I have been showing to my colleagues a slightly improved version of this approach (shown below) and they all seem to aggree that this is indeed a cleaner, and more elegant approach which, unlike the infamous =switch= statement does abide by the [[https://en.wikipedia.org/wiki/Open/closed_principle][Open/Closed principle]].
+
+As such, I am excited to introduce to the world the =Specialized Workers Pattern=.
+
+* Specialized Workers Pattern
+
+** Description and usage
+
+   The =Specialized Workers= pattern aims to cluster the logic for a business operation in a single place.
+
+   Usually (at least from my experience), the decision to delegate a certain subtask was made by the unit that is in charge of delegating. In an abstract representation the code would look something like this:
+   #+begin_src csharp
+     if(SomeCondition())
+     {
+	 DoWorkForConditionAbove();
+     }
+   #+end_src
+
+   However, when the decision whether to delegate to a specific unit or not depends on the data that is to be processed, taking that decision couples the delegator to the structure of the data.
+
+   Consider the example of an unit that has to parse an =HTML= element and has to make the following decision: if the current node is a =div= then =ParseDivElement()= should be called, if the current node is a =table= then =ParseTableElement()= should be called, and if the current element is none of the above, it should just ignore it.
+
+   The purpose of =Specialized Workers= pattern is to:
+   - delegate the work to a single place
+   - enclose the knowledge about being able to perform a specific task and the knowledge to perform that task in a single place.
+
+** Implementation
+
+   To implement the =Specialized Workers Pattern= you'll need to:
+   - Define a interface for the worker exposing two methods --- =CanProcess()=, and =DoWork()=:
+     #+begin_src csharp
+       public interface ISpecializedWorker
+       {
+	   bool CanProcess(Payload payload);
+
+	   Result DoWork(Payload payload);
+       }
+     #+end_src
+
+   - Add a class for each use-case:
+     #+begin_src csharp
+       internal class MondayPayloadWorker: ISpecializedWorker
+       {
+	   public bool CanProcess(Payload payload)
+	   {
+	       return payload.DayOfWeek = DayOfWeek.Monday;
+	   }
+
+	   public Result DoWork(Payload payload)
+	   {
+	       return DoWorkInternal(payload);
+	   }
+       }
+     #+end_src
+
+   - Inject workers into the calling class (the =Employer=), and delegate:
+     #+begin_src csharp
+       internal class Employer
+       {
+	   private readonly IEnumerable<ISpecializedWorker> _workers;
+
+	   public Employer(IEnumerable<ISpecializedWorker> workers)
+	   {
+	       _workers = workers;
+	   }
+
+	   public Result Process(Payload payload)
+	   {
+	       var worker = _workers.SingleOrDefault(w => w.CanProcess(payload));
+
+	       // This is the equivalent of the default case in the switch statement
+	       if (worker == null)
+	       {
+		   throw new ArgumentException("Cannot process the provided payload.");
+	       }
+
+	       return worker.DoWork(payload);
+	   }
+     #+end_src
+
+* Discussion
+
+** How is it different from the =Strategy= pattern?
+
+   - It evolves from the Strategy pattern
+   - The caller doesn't have to know explicitly which worker to employ
+     - the worker is selected based on its knowledge of the payload (workers' "expertise")
+     - the caller (employer) is agnostic of the payload (or a part of it); as such, the decisions that are based on the payload are kept close to where the processing of the payload happens.
+
+** Why not use a =Factory method=?
+
+   - The decision on which instance to build is separated from the actual work done; from the PoV of separation of concerns this is ok, however this way the business logic is spread throughout multiple places instead of just sitting in the same class in the case of a specialized worker
+   - Less classes
+   - Unlike the =factory method=, you don't need to create an instance of the class; the creation of the class can be delegated to DI frameworks
+   - =Factory method= works better when you need to pass parameters in the constructor that are required for the specific work that needs to be done.
+
+** Drawbacks
+
+   - Since the =CanProcess()= method is called from consumer code it is recommended to guard agains invalid arguments in =DoWork()=:
+     #+begin_src csharp
+       public Result DoWork(Payload payload) //
+       {
+	   Debug.Assert(CanProcess(payload));
+
+	   // Do the work
+       }
+     #+end_src
+
+* Adaptations
+  - For the cases when the processing is lightweight, you can combine the two methods into a single one that returns a tuple like this:
+    #+begin_src csharp
+      public (bool canWork, Result result) DoWork(Payload payload)
+      {
+	  if (!CanProcess(payload)) {
+	      return (false, default(Result));
+	  }
+
+	  Result result = DoWorkInternal(payload);
+	  return (true, result);
+      }
+    #+end_src
+
+  - You can have multiple workers capable of processing the payload; in this case, the caller is responsible for aggregating the results:
+    #+begin_src csharp
+      var results = _workers.Where(w => w.CanProcess(payload))
+	  .Select(w => w.Process(payload))
+	  .ToArray();
+    #+end_src
+
+* Ending thoughts
