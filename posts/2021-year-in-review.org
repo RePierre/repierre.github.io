@@ -7,7 +7,7 @@
 .. link:
 .. description: Review of year 2021.
 .. type: text
-
+.. status: private
 #+END_COMMENT
 
 It's been more than a year since I've written something on this blog, and since today is the end of the year, I'll pretend that I haven't skipped 2 years since my [[https://rebeja.eu/posts/2018-year-in-review/][last year in review blog post]] and start writing the review for year 2021.
