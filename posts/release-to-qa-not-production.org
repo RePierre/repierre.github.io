@@ -107,6 +107,17 @@
 
    We have a name for such a thing --- it's called a /feedback loop/. The feedback loop is not introduced by automation --- it was long present in the project, but once workflow automation is introduced it tightens the feedback loop, which means we have to wait less time to get a result from the changes we introduced in our code.
 
+** Improved user experience
+
+   Antother benefit stemming from the QA engineer being able to spend more time in the mindset of the user (i.e., spend more time with the application that he/she is testing)
+   With more time spent in the application (i.e., in the mindset of a user), the QA engineer will start striving for an improved user experience.
+
+   As such, the QA engineer starts to request improvements e.g., the ability to have custom shortcuts on the homepage. Of course, they must be  discussed with the team and approved by the PO but those who get approved move the application closer to what /every user/ wants.
+
+   The main role of a QA engineer is to ensure that the application being tested satisfies the needs of its users. As such, the QA engineer needs to think like a user, and to act like a user. In other words, to be able to do his job, a QA engineer has to be able to (quickly) shift back and forth from the mindset of the problem analyst required by the job description, to the mindset of the application user.
+
+   How to do this? Treat the QA like a user, and enable him/her to do so by alleviating the burden of the plethora of tasks that he/she must do before shifting into the user mindset. And now we move onto how to remove that burden.
+
 * Conclusion
 
   Having to see your colleague from QA as a user of the application (and thus whose word weighs a lot in the discussions about the application) is strange. After all, you both know a lot more of what's under the hood of the application for any of you to be considered a simple user of it.
