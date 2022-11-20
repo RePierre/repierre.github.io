@@ -121,10 +121,12 @@
 
    Sure, all of those changes must be  discussed with the team /and/ approved by the PO but those who get approved move the application closer to what /every user/ wants.
 
-* Conclusion
+* Allow the QA engineer to be an user of the system
 
-  Having to see your colleague from QA as a user of the application (and thus whose word weighs a lot in the discussions about the application) is strange. After all, you both know a lot more of what's under the hood of the application for any of you to be considered a simple user of it.
+   The main role of a QA engineer is to ensure that the system under test satisfies the needs of its users. As such, the QA engineer needs to think like a user, to act like a user, and to be able to quickly shift from the mindset of the user to the mindset of the problem analyst required by the job description.
 
-  But if you take from the QA engineer all the hassle of deployment and fiddling with making the application run properly in the testing environment you are freeing his/her time for working with the application just enough time to shift his/her mindset into the mindset of an actual user, and having a user of the application close by is a treasure trove for building the application in such a way that it accomplishes its purpose --- catering to users' needs.
+  But if you take from the QA engineer all the hassle of deployment and fiddling with making the system run properly in the testing environment you are unlocking more time for him/her to spend in the mindset of an actual user, and having a user of the system close by is a treasure trove for building it in such a way that the system accomplishes its purpose --- catering to the needs of his users.
 
-  And, as the saying goes, to change the world you need to start with changing yourself. This change comes when you treat QA environment as production environment and make all the efforts needed to uphold the delivery to QA to the same rigor as delivery to production. In essence, it's nothing but a shift in the mindset that was already mentioned in the title --- don't release to Production, release to QA.
+   As a developer, it may be strange to look at your colleague --- the QA engineer --- like at an user of the system you're both working on. After all, you both know a lot more of what's under the hood of that system for any of you to be considered just a simple user of it.
+
+   But it is a change worth making. And, as the saying goes, to change the world you need to start with changing yourself. This change comes when you treat QA environment as production environment and make all the efforts needed to uphold the delivery to QA to the same rigor as delivery to production. In essence, it's nothing but a shift in the mindset that was already mentioned in the title --- don't release to Production, release to QA.
