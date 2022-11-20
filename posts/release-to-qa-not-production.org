@@ -14,11 +14,11 @@
 
 * Introduction
 
-  It's friday afternoon, the end of the sprint, and a few hours before the weekend starts, and the QA engineers are performing the required tests on the last Sprint Backlog Item (SBI). The developer responsible for that item, confident that the SBI meets all acceptance criteria, is already in the weekend mood.
+  It's Friday afternoon, the end of the sprint, and a few hours before the weekend starts, and the QA engineers are performing the required tests on the last Sprint Backlog Item (SBI). The developer responsible for that item, confident that the SBI meets all acceptance criteria, is already in the weekend mood.
 
   Suddenly, a notification pops up --- there is an issue with the feature being tested. The developer jumps on it to see what the problem is, and after discussing with the QA engineer he/she finds out that the issue is caused by some leftover data from the previous SBI.
 
-  Having identified the problem, the developer spends a few minutes to craft a SQL script that will clean the data, and gives it to the QA engineer. The QA engineer runs the script on the QA database, starts testing the SBI from the beginning, and then confirms that the application is "back to normal".
+  Having identified the problem, the developer spends a few minutes to craft a SQL script that will clean the data, and gives it to the QA engineer. The QA engineer runs the script on the QA database, starts testing the SBI from the beginning, and then confirms that the system is "back to normal".
 
   Both sigh in relief while the SBI is marked as "Done" and the weekend starts. Bliss!
 
@@ -49,7 +49,7 @@
   2. have that script /reviewed and approved by at least one additional person/, and
   3. have the script executed on Production by someone with proper access rights.
 
-  Ok, now we're settled: workarounds are necessary /in critical situations/, and are applied after /assessment/, /review/, and /approval/. Then, going back to our story, the following question arises:
+  OK, now we're settled: workarounds are necessary /in critical situations/, and are applied after /assessment/, /review/, and /approval/. Then, going back to our story, the following question arises:
 
 * Why do we apply workarounds in QA environment?
 
@@ -59,15 +59,15 @@
 
   Sure, missing the sprint goal may seem like a critical situation because commitments are important. But on the other hand, and going back to our example --- if we're applying a workaround in QA just to promote some feature towards Production, are we /really/ sure that the feature is ready?
 
-  Now that the assessment of criticality is done, let's make a giant leap in this analysis and ask:
+  Now that the assessment of criticality is done, let's get back to our topic and ask:
 
 * What if we treated QA environment like Production?
 
-  Production and QA environments are different (/verry/ different I may add); there's no doubt about that. What makes them different, from the point of view of our topic, is the fact that when a feature is deployed in Production environment, /all/ the prerequisites are known, and all preliminary steps are executed.
+  Production and QA environments are different (/very/ different I may add); there's no doubt about that. What makes them different, from the point of view of our topic, is the fact that when a feature is deployed in Production environment, /all/ the prerequisites are known, and all preliminary steps are executed.
 
   On the other hand, when deploying to QA environment we don't always have this knowledge, nor do we have all the preliminary steps completed at all times. Furthermore, deploying on QA may require additional steps than on Production, e.g.: restoring the database to the last backup from Production, data anonymization etc.
 
-  But the difference between the number of unkowns can be compensated by the difference between number of deployments, and the fact that a failure in QA environment is not critical. In other words, what we lack in knowledge when deploying to QA environment can be compensated by multiple deployment trials, where each deployment trial gets closer and closer to success.
+  But the difference between the number of unknowns can be compensated by the difference between number of deployments, and the fact that a failure in QA environment is not critical. In other words, what we lack in knowledge when deploying to QA environment can be compensated by multiple deployment trials, where each deployment trial gets closer and closer to success.
 
   And when it comes to doing repetitive tasks...
 
@@ -101,7 +101,7 @@
 
 ** Tight feedback loop
 
-   Once you automate the repetitive tasks you free-up the time of the QA engineer, which allows him/her to spend more time with the application(s) they are testing. In other words, the time gained through workflow automation is invested into the actual Quality Assurance of the system under test.
+   Once you automate the repetitive tasks you free-up the time of the QA engineer, which allows him/her to spend more time with the system(s) they are testing. In other words, the time gained through workflow automation is invested into the actual Quality Assurance of the system under test.
 
    And when the QA engineer invests more time into the testing process, he/she will be able to spot more issues. With enough repetitions enabled by quick deployments, the QA engineer acquires a certain amount of skills which will enable him/her to spot defects faster. The sooner a defect is spotted, the sooner it is reported, and subsequently, the sooner it gets fixed.
 
@@ -119,7 +119,7 @@
 
    As such, the QA engineer starts suggesting some usability improvements of the system. These improvements are small --- e.g., change the order of the menu items, add the ability to have custom shortcuts on the homepage etc, but they do improve the experience of the user.
 
-   Sure, all of those changes must be  discussed with the team /and/ approved by the PO but those who get approved move the application closer to what /every user/ wants.
+   Sure, all of those changes must be  discussed with the team /and/ approved by the PO but those who get approved bring the system closer to what the /actual users/ want.
 
 * Allow the QA engineer to be an user of the system
 
