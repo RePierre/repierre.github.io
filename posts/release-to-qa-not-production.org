@@ -95,17 +95,17 @@
 
   Furthermore, besides efficiency you can gain speed --- just by delegating the deployment process to computers you gain time because computers do boring stuff a lot quicker than humans.
 
-  With efficiency and speed comes reduced [[https://martinfowler.com/articles/branching-patterns.html#integration-friction][integration friction]].
+  With efficiency and speed comes reduced [[https://martinfowler.com/articles/branching-patterns.html#integration-friction][integration friction]]. A common effect of reduced integration friction is an increase in integration frequency. High integration frequency coupled with workflow automation leads to an increase in the number of deployments that are made.
 
-  Less integration friction means higher integration frequency, more deployments which make the QA engineers work more with the app they're testing. And this is where the magic unravels.
+  And this is where the magic unravels.
 
 ** Tight feedback loop
 
-   Once you automate the repetitive tasks you free-up the time of the QA engineer, which allows him/her to spend more time with the application(s) they are testing. In other words, automating the repetitive tasks allows the QA engineer to spend more time in the mindset of the user of the application he/she is testing.
+   Once you automate the repetitive tasks you free-up the time of the QA engineer, which allows him/her to spend more time with the application(s) they are testing. In other words, the time gained through workflow automation is invested into the actual Quality Assurance of the system under test.
 
-   And when the QA engineer spends more time in the mindset of a user then he/she will be able not only to spot more defects but also spot them quicker because the QA engineer /thinks like a user/.
+   And when the QA engineer invests more time into the testing process, he/she will be able to spot more issues. With enough repetitions enabled by quick deployments, the QA engineer acquires a certain amount of skills which will enable him/her to spot defects faster. The sooner a defect is spotted, the sooner it is reported, and subsequently, the sooner it gets fixed.
 
-   We have a name for such a thing --- it's called a /feedback loop/. The feedback loop is not introduced by automation --- it was long present in the project, but once workflow automation is introduced it tightens the feedback loop, which means we have to wait less time to get a result from the changes we introduced in our code.
+   We have a name for this thing --- it's called a /feedback loop/. The feedback loop is not introduced by automation --- it was long present in the project, but once workflow automation is introduced it tightens the feedback loop, which means we, as developers, have to wait less time to see the effects of the changes we introduced into the system. In our specific case, we have to wait less because workflow automation reduces the time of the deployment to QA environment to minimum.
 
 ** Improved user experience
 
