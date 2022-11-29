@@ -7,7 +7,6 @@
 .. link:
 .. description:
 .. type: text
-.. status: private
 #+END_COMMENT
 
   *Automate your release workflow to such extent that the QA engineers from your team become the users of the application.*
