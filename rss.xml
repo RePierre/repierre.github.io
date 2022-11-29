@@ -1,5 +1,256 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Rebeja</title><link>https://rebeja.eu/</link><description>Single threaded stories.</description><atom:link href="https://rebeja.eu/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2022 &lt;a href="mailto:petru.rebeja@gmail.com"&gt;Petru Rebeja&lt;/a&gt; </copyright><lastBuildDate>Mon, 31 Oct 2022 18:10:24 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Keep the tools separate from the domain of your application</title><link>https://rebeja.eu/posts/separate-tools-from-domain/</link><dc:creator>Petru Rebeja</dc:creator><description>&lt;p&gt;
+<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Rebeja</title><link>https://rebeja.eu/</link><description>Single threaded stories.</description><atom:link href="https://rebeja.eu/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2022 &lt;a href="mailto:petru.rebeja@gmail.com"&gt;Petru Rebeja&lt;/a&gt; </copyright><lastBuildDate>Tue, 29 Nov 2022 12:20:32 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Don't release to Production, release to QA</title><link>https://rebeja.eu/posts/release-to-qa-not-production/</link><dc:creator>Petru Rebeja</dc:creator><description>&lt;p&gt;
+&lt;b&gt;Automate your release workflow to such extent that the QA engineers from your team become the users of the application.&lt;/b&gt;
+&lt;/p&gt;
+
+&lt;div id="outline-container-org64eb0f8" class="outline-2"&gt;
+&lt;h2 id="org64eb0f8"&gt;Introduction&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org64eb0f8"&gt;
+&lt;p&gt;
+It's Friday afternoon, the end of the sprint, and a few hours before the weekend starts, and the QA engineers are performing the required tests on the last Sprint Backlog Item (SBI). The developer responsible for that item, confident that the SBI meets all acceptance criteria, is already in the weekend mood.
+&lt;/p&gt;
+
+&lt;p&gt;
+Suddenly, a notification pops up — there is an issue with the feature being tested. The developer jumps on it to see what the problem is, and after discussing with the QA engineer he/she finds out that the issue is caused by some leftover data from the previous SBI.
+&lt;/p&gt;
+
+&lt;p&gt;
+Having identified the problem, the developer spends a few minutes to craft a SQL script that will clean the data, and gives it to the QA engineer. The QA engineer runs the script on the QA database, starts testing the SBI from the beginning, and then confirms that the system is "back to normal".
+&lt;/p&gt;
+
+&lt;p&gt;
+Both sigh in relief while the SBI is marked as "Done" and the weekend starts. Bliss!
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div id="outline-container-orgf744534" class="outline-2"&gt;
+&lt;h2 id="orgf744534"&gt;Getting to the root problem&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-orgf744534"&gt;
+&lt;p&gt;
+Although the day and the sprint goal were saved, I would argue that applying the cleanup script just fixed an issue but left the root problem untouched. And to get to the root problem, let's take a closer look on what happened.
+&lt;/p&gt;
+
+&lt;p&gt;
+The database issue stems from the fact that instead of being kept as close as possible to production data (as the best practices suggest) the database grew to become an entity of its own through not being kept tidy by the team.
+&lt;/p&gt;
+
+&lt;p&gt;
+When testing a SBI involves changing some of the data from the database, it is not very often that those changes are reverted as soon as the SBI leaves the QA environment. With each such change the two databases (production and QA) grow further and further apart, and the probability of having to apply a workaround script increases each time. However  the paradox is that the cleanup script, although it solves the issue, is &lt;i&gt;yet another change to the data&lt;/i&gt; which widens even more the gap between QA and production databases.
+&lt;/p&gt;
+
+&lt;p&gt;
+And there lies our problem: not within the workaround script itself, but within the practice of applying workarounds to patch the proverbial broken pipes instead of building actual deployment pipelines.
+&lt;/p&gt;
+
+&lt;p&gt;
+But this problem goes one level deeper; sure, we can fix the problem at hand by restoring the database from a production backup but to solve the issue once and for all we need to change how we look at QA environment.
+&lt;/p&gt;
+
+&lt;p&gt;
+But our root-cause analysis is not complete yet. We can't just say "let's never apply workarounds" because workarounds are some sort of necessary evil. Let's look at why that is, shall we?
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div id="outline-container-orgedd9a05" class="outline-2"&gt;
+&lt;h2 id="orgedd9a05"&gt;Why and when do we apply workarounds in production?&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-orgedd9a05"&gt;
+&lt;p&gt;
+In Production environment a workaround is applied &lt;i&gt;only in critical situations&lt;/i&gt; due to high risk of breaking the running system by making ad-hoc changes to it.
+&lt;/p&gt;
+
+&lt;p&gt;
+Unlike the QA environment where, when the system breaks only a few users are affected — namely the QA engineers, when the system halts in Production the costs of the downtime are much, much higher. An improper or forgotten &lt;code&gt;where&lt;/code&gt; condition in a delete script which wipes out whole tables of data, and renders the system unusable, in the happiest case will lead only to frustrated customers that can't use the thing they paid for.
+&lt;/p&gt;
+
+&lt;p&gt;
+As such, in every critical situation first and foremost comes the assessment: is a workaround really needed?
+&lt;/p&gt;
+
+&lt;p&gt;
+When the answer is yes (i.e., there is no other way of fixing the issue now), then &lt;i&gt;usually&lt;/i&gt; there are some procedures to follow. Sticking with the database script example, the minimal procedure would be to:
+&lt;/p&gt;
+&lt;ol class="org-ol"&gt;
+&lt;li&gt;create the workaround script,&lt;/li&gt;
+&lt;li&gt;have that script &lt;i&gt;reviewed and approved by at least one additional person&lt;/i&gt;, and&lt;/li&gt;
+&lt;li&gt;have the script executed on Production by someone with proper access rights.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;
+OK, now we're settled: workarounds are necessary &lt;i&gt;in critical situations&lt;/i&gt;, and are applied after &lt;i&gt;assessment&lt;/i&gt;, &lt;i&gt;review&lt;/i&gt;, and &lt;i&gt;approval&lt;/i&gt;. Then, going back to our story, the following question arises:
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div id="outline-container-orgead6bb1" class="outline-2"&gt;
+&lt;h2 id="orgead6bb1"&gt;Why do we apply workarounds in QA environment?&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-orgead6bb1"&gt;
+&lt;p&gt;
+QA environment is isolated from Production environment, and by definition it has way fewer users. Furthermore, those users have a lot of technical knowledge of how the system runs, and always have something else to do (like designing/writing test cases) while the system is being brought to normal again.
+&lt;/p&gt;
+
+&lt;p&gt;
+Looking from this point of view, there is almost never a &lt;i&gt;critical&lt;/i&gt; situation that would require applying a workaround in QA environment.
+&lt;/p&gt;
+
+&lt;p&gt;
+Sure, missing the sprint goal may seem like a critical situation because commitments are important. But on the other hand, and going back to our example — if we're applying a workaround in QA just to promote some feature towards Production, are we &lt;i&gt;really&lt;/i&gt; sure that the feature is ready?
+&lt;/p&gt;
+
+&lt;p&gt;
+Now that the assessment of criticality is done, let's get back to our topic and ask:
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div id="outline-container-orgf6d10d6" class="outline-2"&gt;
+&lt;h2 id="orgf6d10d6"&gt;What if we treated QA environment like Production?&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-orgf6d10d6"&gt;
+&lt;p&gt;
+Production and QA environments are different (&lt;i&gt;very&lt;/i&gt; different I may add); there's no doubt about that. What makes them different, from the point of view of our topic, is the fact that when a feature is deployed in Production environment, &lt;i&gt;all&lt;/i&gt; the prerequisites are known, and all preliminary steps are executed.
+&lt;/p&gt;
+
+&lt;p&gt;
+On the other hand, when deploying to QA environment we don't always have this knowledge, nor do we have all the preliminary steps completed at all times. Furthermore, deploying on QA may require additional steps than on Production, e.g.: restoring the database to the last backup from Production, data anonymization etc.
+&lt;/p&gt;
+
+&lt;p&gt;
+But the difference between the number of unknowns can be compensated by the difference between number of deployments, and the fact that a failure in QA environment is not critical. In other words, what we lack in knowledge when deploying to QA environment can be compensated by multiple deployment trials, where each deployment trial gets closer and closer to success.
+&lt;/p&gt;
+
+&lt;p&gt;
+And when it comes to doing repetitive tasks…
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div id="outline-container-org9977484" class="outline-2"&gt;
+&lt;h2 id="org9977484"&gt;Automation is key&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org9977484"&gt;
+&lt;p&gt;
+To alleviate the difference between (successive) environments you only need to do one thing, although I must say from the start that achieving that one thing &lt;i&gt;can be really hard&lt;/i&gt; — &lt;b&gt;automate everything&lt;/b&gt;.
+&lt;/p&gt;
+
+&lt;p&gt;
+If a release workflow is properly (read &lt;i&gt;fully&lt;/i&gt;) automated, then the difference between various environments is reduced mainly to:
+&lt;/p&gt;
+&lt;ul class="org-ul"&gt;
+&lt;li&gt;The group of people who have proper access rights to run the workflow on the specific environment. With today's' tools on the market the difference becomes simplified further — it is in the group of people that are allowed to see or to push the "Deploy" button.&lt;/li&gt;
+&lt;li&gt;The number and order of "Deploy" buttons a person has to push for the deploy to succeed.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;
+Although we strive to have our environments behave all the same, they are still inherently different. As such, it goes without saying that not everyone may have rights to deploy to Production, and — due to some constraints — on some environment there may be additional actions required to deploy. Nonetheless, the objective remains the same: &lt;i&gt;avoid manual intervention as much as possible&lt;/i&gt;.
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div id="outline-container-org9eb5e69" class="outline-2"&gt;
+&lt;h2 id="org9eb5e69"&gt;The Snowball Effect&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org9eb5e69"&gt;
+&lt;p&gt;
+Once achieved, the effects of this objective of having minimal manual intervention ripple through and start a &lt;a href="https://en.wikipedia.org/wiki/Snowball_effect"&gt;snowball effect&lt;/a&gt;.
+&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;div id="outline-container-org9721ba7" class="outline-3"&gt;
+&lt;h3 id="org9721ba7"&gt;Efficiency&lt;/h3&gt;
+&lt;div class="outline-text-3" id="text-org9721ba7"&gt;
+&lt;p&gt;
+At first, you gain efficiency — there is no checklist to go through when deploying, no time needed to spend doing the tedious steps of deployment; the computers will perform those steps as quickly as possible and &lt;i&gt;always&lt;/i&gt; in the same order without skipping any of them or making the errors that humans usually do when performing tedious work.
+&lt;/p&gt;
+
+&lt;p&gt;
+With a click of a button, or on a certain event the deployment starts and while it runs the people from the team are free to do whatever they want in the time it takes to deploy: they can have a cup of coffee, can make small talk with a colleague, or can mind the more important business like the overall quality of the product they're working on.
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div id="outline-container-org76c64ea" class="outline-3"&gt;
+&lt;h3 id="org76c64ea"&gt;Speed&lt;/h3&gt;
+&lt;div class="outline-text-3" id="text-org76c64ea"&gt;
+&lt;p&gt;
+Furthermore, besides efficiency you can gain speed — just by delegating the deployment process to computers you gain time because computers do boring stuff a lot quicker than humans.
+&lt;/p&gt;
+
+&lt;p&gt;
+With efficiency and speed comes reduced &lt;a href="https://martinfowler.com/articles/branching-patterns.html#integration-friction"&gt;integration friction&lt;/a&gt;. A common effect of reduced integration friction is an increase in integration frequency. High integration frequency coupled with workflow automation leads to an increase in the number of deployments that are made.
+&lt;/p&gt;
+
+&lt;p&gt;
+And this is where the magic unravels.
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div id="outline-container-org90bf8d4" class="outline-3"&gt;
+&lt;h3 id="org90bf8d4"&gt;Tight feedback loop&lt;/h3&gt;
+&lt;div class="outline-text-3" id="text-org90bf8d4"&gt;
+&lt;p&gt;
+Once you automate the repetitive tasks you free-up the time of the QA engineer, which allows him/her to spend more time with the system(s) they are testing. In other words, the time gained through workflow automation is invested into the actual Quality Assurance of the system under test.
+&lt;/p&gt;
+
+&lt;p&gt;
+And when the QA engineer invests more time into the testing process, he/she will be able to spot more issues. With enough repetitions enabled by quick deployments, the QA engineer acquires a certain amount of skills which will enable him/her to spot defects faster. The sooner a defect is spotted, the sooner it is reported, and subsequently, the sooner it gets fixed.
+&lt;/p&gt;
+
+&lt;p&gt;
+We have a name for this thing — it's called a &lt;i&gt;feedback loop&lt;/i&gt;. The feedback loop is not introduced by automation — it was long present in the project, but once workflow automation is introduced it tightens the feedback loop, which means we, as developers, have to wait less time to see the effects of the changes we introduced into the system. In our specific case, we have to wait less because workflow automation reduces the time of the deployment to QA environment to minimum.
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div id="outline-container-orgf030374" class="outline-3"&gt;
+&lt;h3 id="orgf030374"&gt;Improved user experience&lt;/h3&gt;
+&lt;div class="outline-text-3" id="text-orgf030374"&gt;
+&lt;p&gt;
+But wait, there's more! The time that the QA engineer gets to invest into growing his/her skills is spent using the system under test. With more time spent using the system under test, the QA engineer gets closer and closer to the mindset of the real users of the system. And while in this mindset, the QA engineer not only understands what the system does for the user but also understands what the user wants to do.
+&lt;/p&gt;
+
+&lt;p&gt;
+Of course, this understanding is bound by a certain maximum but nonetheless, the effect it has on the development process is enormous.
+&lt;/p&gt;
+
+&lt;p&gt;
+First and foremost, there is an increase in the quality of the system: when the QA engineers have a sound understanding of what the user wants to do they will make sure that the system indeed caters to the needs of its users. This in itself is a huge win for the users alone but this also benefits the entire team — the knowledge about the system gets disseminated within the whole team (including developers), and the Product Owner (PO) is not  the bottleneck anymore.
+&lt;/p&gt;
+
+&lt;p&gt;
+Furthermore, with more time spent in the mindset of a user, the QA engineer will start striving for an improved user experience because he/she, like the real users of the system, will strive to do thing faster.
+&lt;/p&gt;
+
+&lt;p&gt;
+As such, the QA engineer starts suggesting some usability improvements of the system. These improvements are small — e.g., change the order of the menu items, add the ability to have custom shortcuts on the homepage etc, but they do improve the experience of the user.
+&lt;/p&gt;
+
+&lt;p&gt;
+Sure, all of those changes must be  discussed with the team &lt;i&gt;and&lt;/i&gt; approved by the PO but those who get approved bring the system closer to what the &lt;i&gt;actual users&lt;/i&gt; want.
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div id="outline-container-org2c8e1fb" class="outline-2"&gt;
+&lt;h2 id="org2c8e1fb"&gt;Allow the QA engineer to be an user of the system&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org2c8e1fb"&gt;
+&lt;p&gt;
+The main role of a QA engineer is to ensure that the system under test satisfies the needs of its users. As such, the QA engineer needs to think like a user, to act like a user, and to be able to quickly shift from the mindset of the user to the mindset of the problem analyst required by the job description.
+&lt;/p&gt;
+
+&lt;p&gt;
+But if you take from the QA engineer all the hassle of deployment and fiddling with making the system run properly in the testing environment you are unlocking more time for him/her to spend in the mindset of an actual user, and having a user of the system close by is a treasure trove for building it in such a way that the system accomplishes its purpose — catering to the needs of his users.
+&lt;/p&gt;
+
+&lt;p&gt;
+As a developer, it may be strange to look at your colleague — the QA engineer — like at an user of the system you're both working on. After all, you both know a lot more of what's under the hood of that system for any of you to be considered just a simple user of it.
+&lt;/p&gt;
+
+&lt;p&gt;
+But it is a change worth making. And, as the saying goes, to change the world you need to start with changing yourself. This change comes when you treat QA environment as production environment and make all the efforts needed to uphold the delivery to QA to the same rigor as delivery to production. In essence, it's nothing but a shift in the mindset that was already mentioned in the title — don't release to Production, release to QA.
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;</description><guid>https://rebeja.eu/posts/release-to-qa-not-production/</guid><pubDate>Tue, 29 Nov 2022 12:14:25 GMT</pubDate></item><item><title>Keep the tools separate from the domain of your application</title><link>https://rebeja.eu/posts/separate-tools-from-domain/</link><dc:creator>Petru Rebeja</dc:creator><description>&lt;p&gt;
 At my previous job we had an Architecture club where we held regular meetings to discuss issues related to the architectural decisions of various applications, be it an application developed within the company or elsewhere. One of the latest topics discussed within the architecture club was whether to use or not MediatR (and implicitly the &lt;code&gt;Mediator&lt;/code&gt; pattern) in a project based on &lt;code&gt;CQRS&lt;/code&gt; architecture.
 &lt;/p&gt;
 
@@ -1210,38 +1461,4 @@ The second and by far the biggest nuisance was the lack of proper web-browsing e
 
 &lt;p&gt;
 However, when I got to analyze how much I have accomplished while working from terminal I was simply &lt;b&gt;amazed&lt;/b&gt;. Having no distraction and meaningless motion like cycling through windows and tabs had a huge impact on my productivity. I was able to fully concentrate and immerse in the code and by doing so I had &lt;b&gt;a lot&lt;/b&gt; of work done.
-&lt;/p&gt;</description><category>Emacs</category><category>Python</category><category>terminal</category><guid>https://rebeja.eu/posts/python-development-using-emacs-from-terminal/</guid><pubDate>Thu, 28 Sep 2017 22:00:00 GMT</pubDate></item><item><title>Rename multiple files with Emacs dired</title><link>https://rebeja.eu/posts/rename-multiple-files-with-emacs-dired/</link><dc:creator>Petru Rebeja</dc:creator><description>&lt;p&gt;
-While adding text files from within a folder to a project file I noticed that the files in the folder were lacking naming consistency. Namely, there were files which had the &lt;code&gt;.txt&lt;/code&gt; extension and files without extension, as shown in the image below:
-&lt;img src="https://rebeja.eu/images/emacs-dired-files-without-extension.png" alt="nil"&gt;
-&lt;/p&gt;
-
-&lt;p&gt;
-Since there were about 100 files without extension I started asking myself: &lt;b&gt;Is there a way to add .txt extension to those files without manually renaming each one&lt;/b&gt;?
-&lt;/p&gt;
-
-&lt;p&gt;
-Of course there is. Here's what I did using Emacs and &lt;code&gt;dired&lt;/code&gt;:
-&lt;/p&gt;
-&lt;ul class="org-ul"&gt;
-&lt;li&gt;&lt;code&gt;M-x dired&lt;/code&gt; to the desired directory (obviously)&lt;/li&gt;
-&lt;li&gt;In the &lt;code&gt;dired&lt;/code&gt; buffer enter the &lt;b&gt;edit mode&lt;/b&gt; with &lt;code&gt;C-x C-q&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;Go to the last file that has extension before the block of files without extension.&lt;/li&gt;
-&lt;li&gt;Starting from that file, place a mark and select the whole block of files without extension (the selection should include the last file with extension).&lt;/li&gt;
-&lt;li&gt;Narrow to the selected region using &lt;code&gt;M-x narrow-to-region&lt;/code&gt; or &lt;code&gt;C-x n n&lt;/code&gt; The buffer should look like the image below:
-&lt;img src="https://rebeja.eu/images/emacs-dired-narrowed.png" alt="nil"&gt;&lt;/li&gt;
-&lt;li&gt;Move to the beginning of buffer using &lt;code&gt;M-&amp;lt;&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;Start defining a new keyboard macro using &lt;code&gt;C-x (&lt;/code&gt;
-&lt;ul class="org-ul"&gt;
-&lt;li&gt;Move to next line using &lt;code&gt;C-n&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;Navigate to the end of line using &lt;code&gt;C-e&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;Add the &lt;code&gt;.txt&lt;/code&gt; extension&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-&lt;li&gt;Save the macro with &lt;code&gt;C-x )&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;Now that I have a macro to add &lt;code&gt;.txt&lt;/code&gt; extension to a file name I just need to run it as many times as there are unnamed files (100 in my case). To do so just &lt;code&gt;C-u 100 F4&lt;/code&gt;. This will repeat the macro 100 times.&lt;/li&gt;
-&lt;li&gt;Once all the files are renamed exit the &lt;b&gt;narrow-region&lt;/b&gt; using &lt;code&gt;M-x widen&lt;/code&gt; or &lt;code&gt;C-x n w&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;Save changes with &lt;code&gt;C-c C-c&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;
-That's it!
-&lt;/p&gt;</description><category>dired</category><category>Emacs</category><category>rename multiple files</category><guid>https://rebeja.eu/posts/rename-multiple-files-with-emacs-dired/</guid><pubDate>Mon, 21 Aug 2017 22:00:00 GMT</pubDate></item></channel></rss>
+&lt;/p&gt;</description><category>Emacs</category><category>Python</category><category>terminal</category><guid>https://rebeja.eu/posts/python-development-using-emacs-from-terminal/</guid><pubDate>Thu, 28 Sep 2017 22:00:00 GMT</pubDate></item></channel></rss>

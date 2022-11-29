@@ -40,7 +40,62 @@
     <div class="content container" id="content">
     
 <div class="post">
-    <article class="post h-entry post-text"><header><h1 class="post-title p-name"><a href="posts/managing-bibliography-using-emacs-org-mode-and-org-ref/" class="u-url">Managing bibliography using Emacs Org-Mode and Org-Ref</a></h1>
+    <article class="post h-entry post-text"><header><h1 class="post-title p-name"><a href="posts/rename-multiple-files-with-emacs-dired/" class="u-url">Rename multiple files with Emacs dired</a></h1>
+        <div class="metadata">
+            <p class="dateline">
+              <i class="fa fa-clock-o"></i> <time class="published dt-published" datetime="2017-08-22T00:00:00+02:00" title="2017-08-22 00:00">2017-08-22 00:00</time>
+            
+                |   <i class="fa fa-comment"></i>         <a href="posts/rename-multiple-files-with-emacs-dired/#disqus_thread" data-disqus-identifier="cache/posts/rename-multiple-files-with-emacs-dired.html">Comments</a>
+
+
+            </p>
+        </div>
+    </header><div class="e-content entry-content">
+    <p>
+While adding text files from within a folder to a project file I noticed that the files in the folder were lacking naming consistency. Namely, there were files which had the <code>.txt</code> extension and files without extension, as shown in the image below:
+<img src="images/emacs-dired-files-without-extension.png" alt="nil"></p>
+
+<p>
+Since there were about 100 files without extension I started asking myself: <b>Is there a way to add .txt extension to those files without manually renaming each one</b>?
+</p>
+
+<p>
+Of course there is. Here's what I did using Emacs and <code>dired</code>:
+</p>
+<ul class="org-ul">
+<li>
+<code>M-x dired</code> to the desired directory (obviously)</li>
+<li>In the <code>dired</code> buffer enter the <b>edit mode</b> with <code>C-x C-q</code>
+</li>
+<li>Go to the last file that has extension before the block of files without extension.</li>
+<li>Starting from that file, place a mark and select the whole block of files without extension (the selection should include the last file with extension).</li>
+<li>Narrow to the selected region using <code>M-x narrow-to-region</code> or <code>C-x n n</code> The buffer should look like the image below:
+<img src="images/emacs-dired-narrowed.png" alt="nil">
+</li>
+<li>Move to the beginning of buffer using <code>M-&lt;</code>
+</li>
+<li>Start defining a new keyboard macro using <code>C-x (</code>
+<ul class="org-ul">
+<li>Move to next line using <code>C-n</code>
+</li>
+<li>Navigate to the end of line using <code>C-e</code>
+</li>
+<li>Add the <code>.txt</code> extension</li>
+</ul>
+</li>
+<li>Save the macro with <code>C-x )</code>
+</li>
+<li>Now that I have a macro to add <code>.txt</code> extension to a file name I just need to run it as many times as there are unnamed files (100 in my case). To do so just <code>C-u 100 F4</code>. This will repeat the macro 100 times.</li>
+<li>Once all the files are renamed exit the <b>narrow-region</b> using <code>M-x widen</code> or <code>C-x n w</code>
+</li>
+<li>Save changes with <code>C-c C-c</code>
+</li>
+</ul>
+<p>
+That's it!
+</p>
+    </div>
+    </article><article class="post h-entry post-text"><header><h1 class="post-title p-name"><a href="posts/managing-bibliography-using-emacs-org-mode-and-org-ref/" class="u-url">Managing bibliography using Emacs Org-Mode and Org-Ref</a></h1>
         <div class="metadata">
             <p class="dateline">
               <i class="fa fa-clock-o"></i> <time class="published dt-published" datetime="2017-07-29T00:00:00+02:00" title="2017-07-29 00:00">2017-07-29 00:00</time>

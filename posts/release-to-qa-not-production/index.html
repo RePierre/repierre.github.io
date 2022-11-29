@@ -12,6 +12,7 @@
 <link rel="alternate" type="application/rss+xml" title="RSS" href="../../rss.xml">
 <link rel="canonical" href="https://rebeja.eu/posts/release-to-qa-not-production/">
 <!--[if lt IE 9]><script src="../../assets/js/html5.js"></script><![endif]--><meta name="author" content="Petru Rebeja">
+<link rel="prev" href="../separate-tools-from-domain/" title="Keep the tools separate from the domain of your application" type="text/html">
 </head>
 <body class="">
     <a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
@@ -51,9 +52,9 @@
 <b>Automate your release workflow to such extent that the QA engineers from your team become the users of the application.</b>
 </p>
 
-<div id="outline-container-orga35ede5" class="outline-2">
-<h2 id="orga35ede5">Introduction</h2>
-<div class="outline-text-2" id="text-orga35ede5">
+<div id="outline-container-org64eb0f8" class="outline-2">
+<h2 id="org64eb0f8">Introduction</h2>
+<div class="outline-text-2" id="text-org64eb0f8">
 <p>
 It's Friday afternoon, the end of the sprint, and a few hours before the weekend starts, and the QA engineers are performing the required tests on the last Sprint Backlog Item (SBI). The developer responsible for that item, confident that the SBI meets all acceptance criteria, is already in the weekend mood.
 </p>
@@ -72,9 +73,9 @@ Both sigh in relief while the SBI is marked as "Done" and the weekend starts. Bl
 </div>
 </div>
 
-<div id="outline-container-orgca2959e" class="outline-2">
-<h2 id="orgca2959e">Getting to the root problem</h2>
-<div class="outline-text-2" id="text-orgca2959e">
+<div id="outline-container-orgf744534" class="outline-2">
+<h2 id="orgf744534">Getting to the root problem</h2>
+<div class="outline-text-2" id="text-orgf744534">
 <p>
 Although the day and the sprint goal were saved, I would argue that applying the cleanup script just fixed an issue but left the root problem untouched. And to get to the root problem, let's take a closer look on what happened.
 </p>
@@ -101,9 +102,9 @@ But our root-cause analysis is not complete yet. We can't just say "let's never 
 </div>
 </div>
 
-<div id="outline-container-org8245365" class="outline-2">
-<h2 id="org8245365">Why and when do we apply workarounds in production?</h2>
-<div class="outline-text-2" id="text-org8245365">
+<div id="outline-container-orgedd9a05" class="outline-2">
+<h2 id="orgedd9a05">Why and when do we apply workarounds in production?</h2>
+<div class="outline-text-2" id="text-orgedd9a05">
 <p>
 In Production environment a workaround is applied <i>only in critical situations</i> due to high risk of breaking the running system by making ad-hoc changes to it.
 </p>
@@ -130,9 +131,9 @@ OK, now we're settled: workarounds are necessary <i>in critical situations</i>, 
 </div>
 </div>
 
-<div id="outline-container-org98e28bd" class="outline-2">
-<h2 id="org98e28bd">Why do we apply workarounds in QA environment?</h2>
-<div class="outline-text-2" id="text-org98e28bd">
+<div id="outline-container-orgead6bb1" class="outline-2">
+<h2 id="orgead6bb1">Why do we apply workarounds in QA environment?</h2>
+<div class="outline-text-2" id="text-orgead6bb1">
 <p>
 QA environment is isolated from Production environment, and by definition it has way fewer users. Furthermore, those users have a lot of technical knowledge of how the system runs, and always have something else to do (like designing/writing test cases) while the system is being brought to normal again.
 </p>
@@ -151,9 +152,9 @@ Now that the assessment of criticality is done, let's get back to our topic and 
 </div>
 </div>
 
-<div id="outline-container-org587d775" class="outline-2">
-<h2 id="org587d775">What if we treated QA environment like Production?</h2>
-<div class="outline-text-2" id="text-org587d775">
+<div id="outline-container-orgf6d10d6" class="outline-2">
+<h2 id="orgf6d10d6">What if we treated QA environment like Production?</h2>
+<div class="outline-text-2" id="text-orgf6d10d6">
 <p>
 Production and QA environments are different (<i>very</i> different I may add); there's no doubt about that. What makes them different, from the point of view of our topic, is the fact that when a feature is deployed in Production environment, <i>all</i> the prerequisites are known, and all preliminary steps are executed.
 </p>
@@ -172,9 +173,9 @@ And when it comes to doing repetitive tasks…
 </div>
 </div>
 
-<div id="outline-container-org09e6d67" class="outline-2">
-<h2 id="org09e6d67">Automation is key</h2>
-<div class="outline-text-2" id="text-org09e6d67">
+<div id="outline-container-org9977484" class="outline-2">
+<h2 id="org9977484">Automation is key</h2>
+<div class="outline-text-2" id="text-org9977484">
 <p>
 To alleviate the difference between (successive) environments you only need to do one thing, although I must say from the start that achieving that one thing <i>can be really hard</i> — <b>automate everything</b>.
 </p>
@@ -192,17 +193,17 @@ Although we strive to have our environments behave all the same, they are still 
 </div>
 </div>
 
-<div id="outline-container-orgf6da02b" class="outline-2">
-<h2 id="orgf6da02b">The Snowball Effect</h2>
-<div class="outline-text-2" id="text-orgf6da02b">
+<div id="outline-container-org9eb5e69" class="outline-2">
+<h2 id="org9eb5e69">The Snowball Effect</h2>
+<div class="outline-text-2" id="text-org9eb5e69">
 <p>
 Once achieved, the effects of this objective of having minimal manual intervention ripple through and start a <a href="https://en.wikipedia.org/wiki/Snowball_effect">snowball effect</a>.
 </p>
 </div>
 
-<div id="outline-container-org0568ddb" class="outline-3">
-<h3 id="org0568ddb">Efficiency</h3>
-<div class="outline-text-3" id="text-org0568ddb">
+<div id="outline-container-org9721ba7" class="outline-3">
+<h3 id="org9721ba7">Efficiency</h3>
+<div class="outline-text-3" id="text-org9721ba7">
 <p>
 At first, you gain efficiency — there is no checklist to go through when deploying, no time needed to spend doing the tedious steps of deployment; the computers will perform those steps as quickly as possible and <i>always</i> in the same order without skipping any of them or making the errors that humans usually do when performing tedious work.
 </p>
@@ -213,9 +214,9 @@ With a click of a button, or on a certain event the deployment starts and while 
 </div>
 </div>
 
-<div id="outline-container-org3221c35" class="outline-3">
-<h3 id="org3221c35">Speed</h3>
-<div class="outline-text-3" id="text-org3221c35">
+<div id="outline-container-org76c64ea" class="outline-3">
+<h3 id="org76c64ea">Speed</h3>
+<div class="outline-text-3" id="text-org76c64ea">
 <p>
 Furthermore, besides efficiency you can gain speed — just by delegating the deployment process to computers you gain time because computers do boring stuff a lot quicker than humans.
 </p>
@@ -230,9 +231,9 @@ And this is where the magic unravels.
 </div>
 </div>
 
-<div id="outline-container-orga6f5a24" class="outline-3">
-<h3 id="orga6f5a24">Tight feedback loop</h3>
-<div class="outline-text-3" id="text-orga6f5a24">
+<div id="outline-container-org90bf8d4" class="outline-3">
+<h3 id="org90bf8d4">Tight feedback loop</h3>
+<div class="outline-text-3" id="text-org90bf8d4">
 <p>
 Once you automate the repetitive tasks you free-up the time of the QA engineer, which allows him/her to spend more time with the system(s) they are testing. In other words, the time gained through workflow automation is invested into the actual Quality Assurance of the system under test.
 </p>
@@ -247,9 +248,9 @@ We have a name for this thing — it's called a <i>feedback loop</i>. The feedba
 </div>
 </div>
 
-<div id="outline-container-orga2cc77a" class="outline-3">
-<h3 id="orga2cc77a">Improved user experience</h3>
-<div class="outline-text-3" id="text-orga2cc77a">
+<div id="outline-container-orgf030374" class="outline-3">
+<h3 id="orgf030374">Improved user experience</h3>
+<div class="outline-text-3" id="text-orgf030374">
 <p>
 But wait, there's more! The time that the QA engineer gets to invest into growing his/her skills is spent using the system under test. With more time spent using the system under test, the QA engineer gets closer and closer to the mindset of the real users of the system. And while in this mindset, the QA engineer not only understands what the system does for the user but also understands what the user wants to do.
 </p>
@@ -277,9 +278,9 @@ Sure, all of those changes must be  discussed with the team <i>and</i> approved 
 </div>
 </div>
 
-<div id="outline-container-orge576625" class="outline-2">
-<h2 id="orge576625">Allow the QA engineer to be an user of the system</h2>
-<div class="outline-text-2" id="text-orge576625">
+<div id="outline-container-org2c8e1fb" class="outline-2">
+<h2 id="org2c8e1fb">Allow the QA engineer to be an user of the system</h2>
+<div class="outline-text-2" id="text-org2c8e1fb">
 <p>
 The main role of a QA engineer is to ensure that the system under test satisfies the needs of its users. As such, the QA engineer needs to think like a user, to act like a user, and to be able to quickly shift from the mindset of the user to the mindset of the problem analyst required by the job description.
 </p>
@@ -298,7 +299,22 @@ But it is a change worth making. And, as the saying goes, to change the world yo
 </div>
 </div>
     </div>
-    <aside class="postpromonav"><nav></nav></aside><section class="comments hidden-print"><h2>Comments</h2>
+    <aside class="postpromonav"><nav><div class="pager hidden-print pagination">
+
+            <span class="previous pagination-item older">
+                <a href="../separate-tools-from-domain/" rel="prev" title="Keep the tools separate from the domain of your application">
+                Previous post
+                </a>
+            </span>
+
+
+            <span class="next pagination-item newer">
+Next post
+            </span>
+
+        </div>
+
+    </nav></aside><section class="comments hidden-print"><h2>Comments</h2>
                     <div id="disqus_thread"></div>
         <script>
         var disqus_shortname ="rebeja",

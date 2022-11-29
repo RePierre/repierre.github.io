@@ -7,7 +7,7 @@
                         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
  <url>
   <loc>https://rebeja.eu/</loc>
-  <lastmod>2021-12-31T11:36:00Z</lastmod>
+  <lastmod>2022-11-29T12:20:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/2016/</loc>
@@ -30,8 +30,12 @@
   <lastmod>2021-04-11T15:26:00Z</lastmod>
  </url>
  <url>
+  <loc>https://rebeja.eu/2022/</loc>
+  <lastmod>2022-11-29T12:20:00Z</lastmod>
+ </url>
+ <url>
   <loc>https://rebeja.eu/archive.html</loc>
-  <lastmod>2022-10-31T18:10:00Z</lastmod>
+  <lastmod>2022-11-29T12:20:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/categories/</loc>
@@ -227,7 +231,7 @@
  </url>
  <url>
   <loc>https://rebeja.eu/index-1.html</loc>
-  <lastmod>2022-10-31T18:10:00Z</lastmod>
+  <lastmod>2022-11-29T12:20:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/pages/en-ro-dictionary-for-ai/</loc>
@@ -276,6 +280,10 @@
  <url>
   <loc>https://rebeja.eu/posts/python-ide-with-emacs-and-docker/</loc>
   <lastmod>2021-04-11T15:26:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://rebeja.eu/posts/release-to-qa-not-production/</loc>
+  <lastmod>2022-11-29T12:15:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/posts/rename-multiple-files-with-emacs-dired/</loc>
