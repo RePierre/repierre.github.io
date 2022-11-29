@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html prefix="
+" lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rebeja · Don't release to Production, release to QA </title>
+<link href="../../assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700%7CAbril+Fatface">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.1.7/css/fork-awesome.min.css" integrity="sha256-gsmEoJAws/Kd3CjuOQzLie5Q3yshhvmo7YNtBG7aaEY=" crossorigin="anonymous">
+<meta content="#5670d4" name="theme-color">
+<link rel="alternate" type="application/rss+xml" title="RSS" href="../../rss.xml">
+<link rel="canonical" href="https://rebeja.eu/posts/release-to-qa-not-production/">
+<!--[if lt IE 9]><script src="../../assets/js/html5.js"></script><![endif]--><meta name="author" content="Petru Rebeja">
+</head>
+<body class="">
+    <a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
+    <div class="hsidebar">
+        <div class="container sidebar-sticky">
+                <nav id="menu" role="navigation" class="sidebar-nav"><a class="sidebar-nav-item" href="../../index.html" title="Home"><i class="fa fa-home"></i>Home</a>
+            <a class="sidebar-nav-item" href="../../archive.html" title="Archive"><i class="fa fa-folder-open"></i>Archive</a>
+            <a class="sidebar-nav-item" href="../../categories/index.html" title="Tags"><i class="fa fa-tags"></i>Tags</a>
+            <a class="sidebar-nav-item" href="../welcome/" title="About"><i class="fa fa-user"></i>About</a>
+            <a class="sidebar-nav-item" href="../../rss.xml" title="RSS"><i class="fa fa-feed"></i>RSS</a>
+            <a class="sidebar-nav-item" href="../../pages/en-ro-dictionary-for-ai" title="Dicţionar EN-RO pentru IA"><i class="fa fa-book"></i>Dicţionar EN-RO pentru IA</a>
+            <a class="sidebar-nav-item" href="https://twitter.com/petrurebeja" title="My Twitter"><i class="fa fa-twitter"></i>My Twitter</a>
+            <a class="sidebar-nav-item" href="https://github.com/RePierre" title="My Github"><i class="fa fa-github"></i>My Github</a>
+    
+    
+    </nav><footer id="footer"><span class="copyright">
+              Contents © 2022         <a href="mailto:petru.rebeja@gmail.com">Petru Rebeja</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+            </span>
+            
+            
+        </footer>
+</div>
+    </div>
+    <div class="content container" id="content">
+<article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><h1 class="post-title p-name"><a href="." class="u-url">Don't release to Production, release to QA</a></h1>
+
+    <p class="dateline">
+      <i class="fa fa-clock-o"></i> <time class="published dt-published" datetime="2022-11-29T14:14:25+02:00" itemprop="datePublished" title="2022-11-29 14:14">2022-11-29 14:14</time>   |   <i class="fa fa-user"></i> 
+         Petru Rebeja
+      
+      
+    </p>
+    
+
+    <div class="e-content entry-content" itemprop="articleBody text">
+    <p>
+<b>Automate your release workflow to such extent that the QA engineers from your team become the users of the application.</b>
+</p>
+
+<div id="outline-container-orga35ede5" class="outline-2">
+<h2 id="orga35ede5">Introduction</h2>
+<div class="outline-text-2" id="text-orga35ede5">
+<p>
+It's Friday afternoon, the end of the sprint, and a few hours before the weekend starts, and the QA engineers are performing the required tests on the last Sprint Backlog Item (SBI). The developer responsible for that item, confident that the SBI meets all acceptance criteria, is already in the weekend mood.
+</p>
+
+<p>
+Suddenly, a notification pops up — there is an issue with the feature being tested. The developer jumps on it to see what the problem is, and after discussing with the QA engineer he/she finds out that the issue is caused by some leftover data from the previous SBI.
+</p>
+
+<p>
+Having identified the problem, the developer spends a few minutes to craft a SQL script that will clean the data, and gives it to the QA engineer. The QA engineer runs the script on the QA database, starts testing the SBI from the beginning, and then confirms that the system is "back to normal".
+</p>
+
+<p>
+Both sigh in relief while the SBI is marked as "Done" and the weekend starts. Bliss!
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgca2959e" class="outline-2">
+<h2 id="orgca2959e">Getting to the root problem</h2>
+<div class="outline-text-2" id="text-orgca2959e">
+<p>
+Although the day and the sprint goal were saved, I would argue that applying the cleanup script just fixed an issue but left the root problem untouched. And to get to the root problem, let's take a closer look on what happened.
+</p>
+
+<p>
+The database issue stems from the fact that instead of being kept as close as possible to production data (as the best practices suggest) the database grew to become an entity of its own through not being kept tidy by the team.
+</p>
+
+<p>
+When testing a SBI involves changing some of the data from the database, it is not very often that those changes are reverted as soon as the SBI leaves the QA environment. With each such change the two databases (production and QA) grow further and further apart, and the probability of having to apply a workaround script increases each time. However  the paradox is that the cleanup script, although it solves the issue, is <i>yet another change to the data</i> which widens even more the gap between QA and production databases.
+</p>
+
+<p>
+And there lies our problem: not within the workaround script itself, but within the practice of applying workarounds to patch the proverbial broken pipes instead of building actual deployment pipelines.
+</p>
+
+<p>
+But this problem goes one level deeper; sure, we can fix the problem at hand by restoring the database from a production backup but to solve the issue once and for all we need to change how we look at QA environment.
+</p>
+
+<p>
+But our root-cause analysis is not complete yet. We can't just say "let's never apply workarounds" because workarounds are some sort of necessary evil. Let's look at why that is, shall we?
+</p>
+</div>
+</div>
+
+<div id="outline-container-org8245365" class="outline-2">
+<h2 id="org8245365">Why and when do we apply workarounds in production?</h2>
+<div class="outline-text-2" id="text-org8245365">
+<p>
+In Production environment a workaround is applied <i>only in critical situations</i> due to high risk of breaking the running system by making ad-hoc changes to it.
+</p>
+
+<p>
+Unlike the QA environment where, when the system breaks only a few users are affected — namely the QA engineers, when the system halts in Production the costs of the downtime are much, much higher. An improper or forgotten <code>where</code> condition in a delete script which wipes out whole tables of data, and renders the system unusable, in the happiest case will lead only to frustrated customers that can't use the thing they paid for.
+</p>
+
+<p>
+As such, in every critical situation first and foremost comes the assessment: is a workaround really needed?
+</p>
+
+<p>
+When the answer is yes (i.e., there is no other way of fixing the issue now), then <i>usually</i> there are some procedures to follow. Sticking with the database script example, the minimal procedure would be to:
+</p>
+<ol class="org-ol">
+<li>create the workaround script,</li>
+<li>have that script <i>reviewed and approved by at least one additional person</i>, and</li>
+<li>have the script executed on Production by someone with proper access rights.</li>
+</ol>
+<p>
+OK, now we're settled: workarounds are necessary <i>in critical situations</i>, and are applied after <i>assessment</i>, <i>review</i>, and <i>approval</i>. Then, going back to our story, the following question arises:
+</p>
+</div>
+</div>
+
+<div id="outline-container-org98e28bd" class="outline-2">
+<h2 id="org98e28bd">Why do we apply workarounds in QA environment?</h2>
+<div class="outline-text-2" id="text-org98e28bd">
+<p>
+QA environment is isolated from Production environment, and by definition it has way fewer users. Furthermore, those users have a lot of technical knowledge of how the system runs, and always have something else to do (like designing/writing test cases) while the system is being brought to normal again.
+</p>
+
+<p>
+Looking from this point of view, there is almost never a <i>critical</i> situation that would require applying a workaround in QA environment.
+</p>
+
+<p>
+Sure, missing the sprint goal may seem like a critical situation because commitments are important. But on the other hand, and going back to our example — if we're applying a workaround in QA just to promote some feature towards Production, are we <i>really</i> sure that the feature is ready?
+</p>
+
+<p>
+Now that the assessment of criticality is done, let's get back to our topic and ask:
+</p>
+</div>
+</div>
+
+<div id="outline-container-org587d775" class="outline-2">
+<h2 id="org587d775">What if we treated QA environment like Production?</h2>
+<div class="outline-text-2" id="text-org587d775">
+<p>
+Production and QA environments are different (<i>very</i> different I may add); there's no doubt about that. What makes them different, from the point of view of our topic, is the fact that when a feature is deployed in Production environment, <i>all</i> the prerequisites are known, and all preliminary steps are executed.
+</p>
+
+<p>
+On the other hand, when deploying to QA environment we don't always have this knowledge, nor do we have all the preliminary steps completed at all times. Furthermore, deploying on QA may require additional steps than on Production, e.g.: restoring the database to the last backup from Production, data anonymization etc.
+</p>
+
+<p>
+But the difference between the number of unknowns can be compensated by the difference between number of deployments, and the fact that a failure in QA environment is not critical. In other words, what we lack in knowledge when deploying to QA environment can be compensated by multiple deployment trials, where each deployment trial gets closer and closer to success.
+</p>
+
+<p>
+And when it comes to doing repetitive tasks…
+</p>
+</div>
+</div>
+
+<div id="outline-container-org09e6d67" class="outline-2">
+<h2 id="org09e6d67">Automation is key</h2>
+<div class="outline-text-2" id="text-org09e6d67">
+<p>
+To alleviate the difference between (successive) environments you only need to do one thing, although I must say from the start that achieving that one thing <i>can be really hard</i> — <b>automate everything</b>.
+</p>
+
+<p>
+If a release workflow is properly (read <i>fully</i>) automated, then the difference between various environments is reduced mainly to:
+</p>
+<ul class="org-ul">
+<li>The group of people who have proper access rights to run the workflow on the specific environment. With today's' tools on the market the difference becomes simplified further — it is in the group of people that are allowed to see or to push the "Deploy" button.</li>
+<li>The number and order of "Deploy" buttons a person has to push for the deploy to succeed.</li>
+</ul>
+<p>
+Although we strive to have our environments behave all the same, they are still inherently different. As such, it goes without saying that not everyone may have rights to deploy to Production, and — due to some constraints — on some environment there may be additional actions required to deploy. Nonetheless, the objective remains the same: <i>avoid manual intervention as much as possible</i>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgf6da02b" class="outline-2">
+<h2 id="orgf6da02b">The Snowball Effect</h2>
+<div class="outline-text-2" id="text-orgf6da02b">
+<p>
+Once achieved, the effects of this objective of having minimal manual intervention ripple through and start a <a href="https://en.wikipedia.org/wiki/Snowball_effect">snowball effect</a>.
+</p>
+</div>
+
+<div id="outline-container-org0568ddb" class="outline-3">
+<h3 id="org0568ddb">Efficiency</h3>
+<div class="outline-text-3" id="text-org0568ddb">
+<p>
+At first, you gain efficiency — there is no checklist to go through when deploying, no time needed to spend doing the tedious steps of deployment; the computers will perform those steps as quickly as possible and <i>always</i> in the same order without skipping any of them or making the errors that humans usually do when performing tedious work.
+</p>
+
+<p>
+With a click of a button, or on a certain event the deployment starts and while it runs the people from the team are free to do whatever they want in the time it takes to deploy: they can have a cup of coffee, can make small talk with a colleague, or can mind the more important business like the overall quality of the product they're working on.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org3221c35" class="outline-3">
+<h3 id="org3221c35">Speed</h3>
+<div class="outline-text-3" id="text-org3221c35">
+<p>
+Furthermore, besides efficiency you can gain speed — just by delegating the deployment process to computers you gain time because computers do boring stuff a lot quicker than humans.
+</p>
+
+<p>
+With efficiency and speed comes reduced <a href="https://martinfowler.com/articles/branching-patterns.html#integration-friction">integration friction</a>. A common effect of reduced integration friction is an increase in integration frequency. High integration frequency coupled with workflow automation leads to an increase in the number of deployments that are made.
+</p>
+
+<p>
+And this is where the magic unravels.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orga6f5a24" class="outline-3">
+<h3 id="orga6f5a24">Tight feedback loop</h3>
+<div class="outline-text-3" id="text-orga6f5a24">
+<p>
+Once you automate the repetitive tasks you free-up the time of the QA engineer, which allows him/her to spend more time with the system(s) they are testing. In other words, the time gained through workflow automation is invested into the actual Quality Assurance of the system under test.
+</p>
+
+<p>
+And when the QA engineer invests more time into the testing process, he/she will be able to spot more issues. With enough repetitions enabled by quick deployments, the QA engineer acquires a certain amount of skills which will enable him/her to spot defects faster. The sooner a defect is spotted, the sooner it is reported, and subsequently, the sooner it gets fixed.
+</p>
+
+<p>
+We have a name for this thing — it's called a <i>feedback loop</i>. The feedback loop is not introduced by automation — it was long present in the project, but once workflow automation is introduced it tightens the feedback loop, which means we, as developers, have to wait less time to see the effects of the changes we introduced into the system. In our specific case, we have to wait less because workflow automation reduces the time of the deployment to QA environment to minimum.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orga2cc77a" class="outline-3">
+<h3 id="orga2cc77a">Improved user experience</h3>
+<div class="outline-text-3" id="text-orga2cc77a">
+<p>
+But wait, there's more! The time that the QA engineer gets to invest into growing his/her skills is spent using the system under test. With more time spent using the system under test, the QA engineer gets closer and closer to the mindset of the real users of the system. And while in this mindset, the QA engineer not only understands what the system does for the user but also understands what the user wants to do.
+</p>
+
+<p>
+Of course, this understanding is bound by a certain maximum but nonetheless, the effect it has on the development process is enormous.
+</p>
+
+<p>
+First and foremost, there is an increase in the quality of the system: when the QA engineers have a sound understanding of what the user wants to do they will make sure that the system indeed caters to the needs of its users. This in itself is a huge win for the users alone but this also benefits the entire team — the knowledge about the system gets disseminated within the whole team (including developers), and the Product Owner (PO) is not  the bottleneck anymore.
+</p>
+
+<p>
+Furthermore, with more time spent in the mindset of a user, the QA engineer will start striving for an improved user experience because he/she, like the real users of the system, will strive to do thing faster.
+</p>
+
+<p>
+As such, the QA engineer starts suggesting some usability improvements of the system. These improvements are small — e.g., change the order of the menu items, add the ability to have custom shortcuts on the homepage etc, but they do improve the experience of the user.
+</p>
+
+<p>
+Sure, all of those changes must be  discussed with the team <i>and</i> approved by the PO but those who get approved bring the system closer to what the <i>actual users</i> want.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orge576625" class="outline-2">
+<h2 id="orge576625">Allow the QA engineer to be an user of the system</h2>
+<div class="outline-text-2" id="text-orge576625">
+<p>
+The main role of a QA engineer is to ensure that the system under test satisfies the needs of its users. As such, the QA engineer needs to think like a user, to act like a user, and to be able to quickly shift from the mindset of the user to the mindset of the problem analyst required by the job description.
+</p>
+
+<p>
+But if you take from the QA engineer all the hassle of deployment and fiddling with making the system run properly in the testing environment you are unlocking more time for him/her to spend in the mindset of an actual user, and having a user of the system close by is a treasure trove for building it in such a way that the system accomplishes its purpose — catering to the needs of his users.
+</p>
+
+<p>
+As a developer, it may be strange to look at your colleague — the QA engineer — like at an user of the system you're both working on. After all, you both know a lot more of what's under the hood of that system for any of you to be considered just a simple user of it.
+</p>
+
+<p>
+But it is a change worth making. And, as the saying goes, to change the world you need to start with changing yourself. This change comes when you treat QA environment as production environment and make all the efforts needed to uphold the delivery to QA to the same rigor as delivery to production. In essence, it's nothing but a shift in the mindset that was already mentioned in the title — don't release to Production, release to QA.
+</p>
+</div>
+</div>
+    </div>
+    <aside class="postpromonav"><nav></nav></aside><section class="comments hidden-print"><h2>Comments</h2>
+                    <div id="disqus_thread"></div>
+        <script>
+        var disqus_shortname ="rebeja",
+            disqus_url="https://rebeja.eu/posts/release-to-qa-not-production/",
+        disqus_title="Don't release to Production, release to QA",
+        disqus_identifier="cache/posts/release-to-qa-not-production.html",
+        disqus_config = function () {
+            this.language = "en";
+        };
+        (function() {
+            var dsq = document.createElement('script'); dsq.async = true;
+            dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script><noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a>
+</noscript>
+    <a href="https://disqus.com" class="dsq-brlink" rel="nofollow">Comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+        </section></article><script>var disqus_shortname="rebeja";(function(){var a=document.createElement("script");a.async=true;a.src="https://"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)}());</script>
+</div>
+                <script src="../../assets/js/all-nocdn.js" type="text/javascript"></script><script>
+    baguetteBox.run('div#content', {
+        ignoreClass: 'islink',
+        captions: function(element) {
+            return element.getElementsByTagName('img')[0].alt;
+    }});
+    </script>
+</body>
+</html>
