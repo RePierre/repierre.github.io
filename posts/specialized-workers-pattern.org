@@ -127,26 +127,27 @@ where the method that contains the snippet above /delegates/ the processing to t
 	   // Do the work
        }
      #+end_src
-
+   - =CanProcess()= method should take the decision without iterating collecttions (for performance, and lazy loading reasons). If you have a heterogenous collection, you can iterate through it in delegator an call =CanProcess()= on each item in the collection. At the end, the delegator aggregates the results (see Adaptation 3).
 * Adaptations
-  - For the cases when the processing is lightweight, you can combine the two methods into a single one that returns a tuple like this:
-    #+begin_src csharp
-      public (bool canWork, Result result) DoWork(Payload payload)
-      {
-	  if (!CanProcess(payload)) {
-	      return (false, default(Result));
-	  }
+  1. For the cases when the processing is lightweight, you can combine the two methods into a single one that returns a tuple like this:
+     #+begin_src csharp
+       public (bool canWork, Result result) DoWork(Payload payload)
+       {
+	   if (!CanProcess(payload)) {
+	       return (false, default(Result));
+	   }
 
-	  Result result = DoWorkInternal(payload);
-	  return (true, result);
-      }
-    #+end_src
+	   Result result = DoWorkInternal(payload);
+	   return (true, result);
+       }
+     #+end_src
 
-  - You can have multiple workers capable of processing the payload; in this case, the caller is responsible for aggregating the results:
-    #+begin_src csharp
-      var results = _workers.Where(w => w.CanProcess(payload))
-	  .Select(w => w.Process(payload))
-	  .ToArray();
-    #+end_src
+  2. You can have multiple workers capable of processing the payload; in this case, the caller is responsible for aggregating the results:
+     #+begin_src csharp
+       var results = _workers.Where(w => w.CanProcess(payload))
+	   .Select(w => w.Process(payload))
+	   .ToArray();
+     #+end_src
+  3. As mentioned in the Drawbacks section, when you need to process collections of elements (i.e. =IEnumerable<T>=), it is wiser to iterate in the delegator and call =CanProcess()= on each item, followed by aggregation. In such case the collection is iterated only once thus avoiding any odd results due to lazy evaluation.
 
 * Ending thoughts
