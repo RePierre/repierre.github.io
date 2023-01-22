@@ -104,10 +104,10 @@ where the method that contains the snippet above /delegates/ the processing to t
 
 ** How is it different from the =Strategy= pattern?
 
-   - It evolves from the Strategy pattern
+   - It is not different; it evolves from the =Strategy= pattern
    - The caller doesn't have to know explicitly which worker to employ
      - the worker is selected based on its knowledge of the payload (workers' "expertise")
-     - the caller (employer) is agnostic of the payload (or a part of it); as such, the decisions that are based on the payload are kept close to where the processing of the payload happens.
+     - the caller (employer) is agnostic of the payload (or a part of it); as such, the decisions that are based on the payload (i.e. data structure) are kept close to where the processing of the payload happens.
 
 ** Why not use a =Factory method=?
 
