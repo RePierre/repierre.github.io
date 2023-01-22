@@ -21,7 +21,11 @@ As such, I am excited to introduce to the world the =Specialized Workers Pattern
 
 ** Description and usage
 
-   The =Specialized Workers= pattern aims to cluster the logic for a business operation in a single place.
+   The =Specialized Workers= pattern aims to distribute the logic of a business operation that requires choosing between one or multiple tasks to be executed, into a collection of specialized classes, while keeping the knowledge about the task(s) to be executed into a single place.
+
+   Under theese circumstances, each such specialized class/worker contains both the knwledge on how to  perform the task (obviously) but also the knowledge of what task it can perform. I.e. each worker knows about the data just enough to know whether it /can accomplish the task/, and /how to accomplish/ it.
+
+   +The =Specialized Workers= pattern aims to cluster the logic for a business operation in a single place.+
 
    Usually (at least from my experience), the decision to delegate a certain subtask was made by the unit that is in charge of delegating. In an abstract representation the code would look something like this:
    #+begin_src csharp
@@ -30,8 +34,11 @@ As such, I am excited to introduce to the world the =Specialized Workers Pattern
 	 DoWorkForConditionAbove();
      }
    #+end_src
+where the method that contains the snippet above /delegates/ the processing to the =DoWorkForConditionAbove()= method.
 
-   However, when the decision whether to delegate to a specific unit or not depends on the data that is to be processed, taking that decision couples the delegator to the structure of the data.
+   However, when the decision whether to delegate to a specific unit or not depends on the data that is to be processed, taking that decision couples both the delegator, and the worker unit to the structure of the data.
+
+   It is normal for the worker to be coupled to the structure of the data because it has to know the structure in order to be able to process it but the delegator which now becomes a coordinator doesn't have to know the structure of the data.
 
    Consider the example of an unit that has to parse an =HTML= element and has to make the following decision: if the current node is a =div= then =ParseDivElement()= should be called, if the current node is a =table= then =ParseTableElement()= should be called, and if the current element is none of the above, it should just ignore it.
 
