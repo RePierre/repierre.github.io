@@ -29,7 +29,7 @@
     
     
     </nav><footer id="footer"><span class="copyright">
-              Contents © 2022         <a href="mailto:petru.rebeja@gmail.com">Petru Rebeja</a> - Powered by   <a href="https://www.gnu.org/software/emacs/" rel="nofollow">GNU Emacs</a>  &amp;    <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+              Contents © 2023         <a href="mailto:petru.rebeja@gmail.com">Petru Rebeja</a> - Powered by   <a href="https://www.gnu.org/software/emacs/" rel="nofollow">GNU Emacs</a>  &amp;    <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
             </span>
             
             
@@ -48,9 +48,9 @@
     
 
     <div class="e-content entry-content" itemprop="articleBody text">
-    <div id="outline-container-orgcb3a6c5" class="outline-2">
-<h2 id="orgcb3a6c5">Introduction</h2>
-<div class="outline-text-2" id="text-orgcb3a6c5">
+    <div id="outline-container-orgf410bbf" class="outline-2">
+<h2 id="orgf410bbf">Introduction</h2>
+<div class="outline-text-2" id="text-orgf410bbf">
 <p>
 A few years ago, in my <a href="../using-enums-in-c-sharp/">blog post about using enums in C#</a> I mentioned that I like using what I called at that time <code>specialized builders</code> to refactor the <code>switch</code> statement into a series of classes that implement a common interface and are specialized for a specific <code>case</code> of the <code>switch</code> statement.
 </p>
@@ -65,15 +65,23 @@ As such, I am excited to introduce to the world the <code>Specialized Workers Pa
 </div>
 </div>
 
-<div id="outline-container-org3f6a5f6" class="outline-2">
-<h2 id="org3f6a5f6">Specialized Workers Pattern</h2>
-<div class="outline-text-2" id="text-org3f6a5f6">
+<div id="outline-container-orgfb560a0" class="outline-2">
+<h2 id="orgfb560a0">Specialized Workers Pattern</h2>
+<div class="outline-text-2" id="text-orgfb560a0">
 </div>
-<div id="outline-container-org444d8bb" class="outline-3">
-<h3 id="org444d8bb">Description and usage</h3>
-<div class="outline-text-3" id="text-org444d8bb">
+<div id="outline-container-org954f34c" class="outline-3">
+<h3 id="org954f34c">Description and usage</h3>
+<div class="outline-text-3" id="text-org954f34c">
 <p>
-The <code>Specialized Workers</code> pattern aims to cluster the logic for a business operation in a single place.
+The <code>Specialized Workers</code> pattern aims to distribute the logic of a business operation that requires choosing between one or multiple tasks to be executed, into a collection of specialized classes, while keeping the knowledge about the task(s) to be executed into a single place.
+</p>
+
+<p>
+Under theese circumstances, each such specialized class/worker contains both the knwledge on how to  perform the task (obviously) but also the knowledge of what task it can perform. I.e. each worker knows about the data just enough to know whether it <i>can accomplish the task</i>, and <i>how to accomplish</i> it.
+</p>
+
+<p>
+<del>The <code>Specialized Workers</code> pattern aims to cluster the logic for a business operation in a single place.</del>
 </p>
 
 <p>
@@ -84,9 +92,16 @@ Usually (at least from my experience), the decision to delegate a certain subtas
        DoWorkForConditionAbove();
    }
 </pre></div>
+<p>
+where the method that contains the snippet above <i>delegates</i> the processing to the <code>DoWorkForConditionAbove()</code> method.
+</p>
 
 <p>
-However, when the decision whether to delegate to a specific unit or not depends on the data that is to be processed, taking that decision couples the delegator to the structure of the data.
+However, when the decision whether to delegate to a specific unit or not depends on the data that is to be processed, taking that decision couples both the delegator, and the worker unit to the structure of the data.
+</p>
+
+<p>
+It is normal for the worker to be coupled to the structure of the data because it has to know the structure in order to be able to process it but the delegator which now becomes a coordinator doesn't have to know the structure of the data.
 </p>
 
 <p>
@@ -103,9 +118,9 @@ The purpose of <code>Specialized Workers</code> pattern is to:
 </div>
 </div>
 
-<div id="outline-container-org4baf65b" class="outline-3">
-<h3 id="org4baf65b">Implementation</h3>
-<div class="outline-text-3" id="text-org4baf65b">
+<div id="outline-container-org6ec9e90" class="outline-3">
+<h3 id="org6ec9e90">Implementation</h3>
+<div class="outline-text-3" id="text-org6ec9e90">
 <p>
 To implement the <code>Specialized Workers Pattern</code> you'll need to:
 </p>
@@ -174,28 +189,28 @@ Inject workers into the calling class (the <code>Employer</code>), and delegate:
 </div>
 </div>
 
-<div id="outline-container-org93b6cff" class="outline-2">
-<h2 id="org93b6cff">Discussion</h2>
-<div class="outline-text-2" id="text-org93b6cff">
+<div id="outline-container-org9f09d7b" class="outline-2">
+<h2 id="org9f09d7b">Discussion</h2>
+<div class="outline-text-2" id="text-org9f09d7b">
 </div>
-<div id="outline-container-orga4999d7" class="outline-3">
-<h3 id="orga4999d7">How is it different from the <code>Strategy</code> pattern?</h3>
-<div class="outline-text-3" id="text-orga4999d7">
+<div id="outline-container-orge388d0d" class="outline-3">
+<h3 id="orge388d0d">How is it different from the <code>Strategy</code> pattern?</h3>
+<div class="outline-text-3" id="text-orge388d0d">
 <ul class="org-ul">
-<li>It evolves from the Strategy pattern</li>
+<li>It is not different; it evolves from the <code>Strategy</code> pattern</li>
 <li>The caller doesn't have to know explicitly which worker to employ
 <ul class="org-ul">
 <li>the worker is selected based on its knowledge of the payload (workers' "expertise")</li>
-<li>the caller (employer) is agnostic of the payload (or a part of it); as such, the decisions that are based on the payload are kept close to where the processing of the payload happens.</li>
+<li>the caller (employer) is agnostic of the payload (or a part of it); as such, the decisions that are based on the payload (i.e. data structure) are kept close to where the processing of the payload happens.</li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org78b93e1" class="outline-3">
-<h3 id="org78b93e1">Why not use a <code>Factory method</code>?</h3>
-<div class="outline-text-3" id="text-org78b93e1">
+<div id="outline-container-org07cbf79" class="outline-3">
+<h3 id="org07cbf79">Why not use a <code>Factory method</code>?</h3>
+<div class="outline-text-3" id="text-org07cbf79">
 <ul class="org-ul">
 <li>The decision on which instance to build is separated from the actual work done; from the PoV of separation of concerns this is ok, however this way the business logic is spread throughout multiple places instead of just sitting in the same class in the case of a specialized worker</li>
 <li>Less classes</li>
@@ -206,9 +221,9 @@ Inject workers into the calling class (the <code>Employer</code>), and delegate:
 </div>
 </div>
 
-<div id="outline-container-org22aedfb" class="outline-3">
-<h3 id="org22aedfb">Drawbacks</h3>
-<div class="outline-text-3" id="text-org22aedfb">
+<div id="outline-container-orgdb99495" class="outline-3">
+<h3 id="orgdb99495">Drawbacks</h3>
+<div class="outline-text-3" id="text-orgdb99495">
 <ul class="org-ul">
 <li>
 <p>
@@ -222,28 +237,29 @@ Since the <code>CanProcess()</code> method is called from consumer code it is re
      }
 </pre></div>
 </li>
+<li>
+<code>CanProcess()</code> method should take the decision without iterating collecttions (for performance, and lazy loading reasons). If you have a heterogenous collection, you can iterate through it in delegator an call <code>CanProcess()</code> on each item in the collection. At the end, the delegator aggregates the results (see Adaptation 3).</li>
 </ul>
 </div>
 </div>
 </div>
-
-<div id="outline-container-org0ba3d3e" class="outline-2">
-<h2 id="org0ba3d3e">Adaptations</h2>
-<div class="outline-text-2" id="text-org0ba3d3e">
-<ul class="org-ul">
+<div id="outline-container-org01cd464" class="outline-2">
+<h2 id="org01cd464">Adaptations</h2>
+<div class="outline-text-2" id="text-org01cd464">
+<ol class="org-ol">
 <li>
 <p>
 For the cases when the processing is lightweight, you can combine the two methods into a single one that returns a tuple like this:
 </p>
-<div class="highlight"><pre><span></span>    public (bool canWork, Result result) DoWork(Payload payload)
-    {
-	if (!CanProcess(payload)) {
-	    return (false, default(Result));
-	}
+<div class="highlight"><pre><span></span>     public (bool canWork, Result result) DoWork(Payload payload)
+     {
+	 if (!CanProcess(payload)) {
+	     return (false, default(Result));
+	 }
 
-	Result result = DoWorkInternal(payload);
-	return (true, result);
-    }
+	 Result result = DoWorkInternal(payload);
+	 return (true, result);
+     }
 </pre></div>
 </li>
 
@@ -251,17 +267,18 @@ For the cases when the processing is lightweight, you can combine the two method
 <p>
 You can have multiple workers capable of processing the payload; in this case, the caller is responsible for aggregating the results:
 </p>
-<div class="highlight"><pre><span></span>    var results = _workers.Where(w =&gt; w.CanProcess(payload))
-	.Select(w =&gt; w.Process(payload))
-	.ToArray();
+<div class="highlight"><pre><span></span>     var results = _workers.Where(w =&gt; w.CanProcess(payload))
+	 .Select(w =&gt; w.Process(payload))
+	 .ToArray();
 </pre></div>
 </li>
-</ul>
+<li>As mentioned in the Drawbacks section, when you need to process collections of elements (i.e. <code>IEnumerable&lt;T&gt;</code>), it is wiser to iterate in the delegator and call <code>CanProcess()</code> on each item, followed by aggregation. In such case the collection is iterated only once thus avoiding any odd results due to lazy evaluation.</li>
+</ol>
 </div>
 </div>
 
-<div id="outline-container-org53e61e1" class="outline-2">
-<h2 id="org53e61e1">Ending thoughts</h2>
+<div id="outline-container-org9868b14" class="outline-2">
+<h2 id="org9868b14">Ending thoughts</h2>
 </div>
     </div>
     <aside class="postpromonav"><nav></nav></aside><section class="comments hidden-print"><h2>Comments</h2>
