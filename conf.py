@@ -141,9 +141,7 @@ NAVIGATION_LINKS = {
         ('/categories/index.html', 'Tags', 'fa fa-tags'),
         ('/posts/welcome/', 'About', 'fa fa-user'),
         ('/pages/en-ro-dictionary-for-ai', 'EN-RO 4 AI', 'fa fa-book'),
-        ('/rss.xml', 'RSS', 'fa fa-feed'),
-        ('https://twitter.com/petrurebeja', 'My Twitter', 'fa fa-twitter'),
-        ('https://github.com/RePierre', 'My Github', 'fa fa-github')
+        ('/rss.xml', 'RSS', 'fa fa-feed')
     ),
 }
 
