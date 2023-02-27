@@ -17,5 +17,7 @@ If you want to know the other (creative) part of me you can visit my other blog 
 
 Meanwhile checkout my activity on the following sites:
 + [[http://stackoverflow.com/users/844006/repierre][StackOverflow]]
-+ [[https://twitter.com/petrurebeja][Twitter]]
 + [[https://ro.linkedin.com/in/petrurebeja][LinkedIn]]
++ [[https://github.com/RePierre][Github]]
++ [[https://mastodon.social/@RePierre][Mastodon]]
++ [[https://twitter.com/petrurebeja][Twitter]]
