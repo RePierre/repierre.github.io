@@ -23,9 +23,7 @@ As such, I am excited to introduce to the world the =Specialized Workers Pattern
 
    The =Specialized Workers= pattern aims to distribute the logic of a business operation that requires choosing between one or multiple tasks to be executed, into a collection of specialized classes, while keeping the knowledge about the task(s) to be executed into a single place.
 
-   Under theese circumstances, each such specialized class/worker contains both the knwledge on how to  perform the task (obviously) but also the knowledge of what task it can perform. I.e. each worker knows about the data just enough to know whether it /can accomplish the task/, and /how to accomplish/ it.
-
-   +The =Specialized Workers= pattern aims to cluster the logic for a business operation in a single place.+
+   Under theese circumstances each worker knows about the data just enough to know whether it /can accomplish the task/, and /how to accomplish/ it.
 
    Usually (at least from my experience), the decision to delegate a certain subtask was made by the unit that is in charge of delegating. In an abstract representation the code would look something like this:
    #+begin_src csharp
@@ -34,7 +32,7 @@ As such, I am excited to introduce to the world the =Specialized Workers Pattern
 	 DoWorkForConditionAbove();
      }
    #+end_src
-where the method that contains the snippet above /delegates/ the processing to the =DoWorkForConditionAbove()= method.
+   where the method that contains the snippet above /delegates/ the processing to the =DoWorkForConditionAbove()= method.
 
    However, when the decision whether to delegate to a specific unit or not depends on the data that is to be processed, taking that decision couples both the delegator, and the worker unit to the structure of the data.
 
@@ -104,10 +102,15 @@ where the method that contains the snippet above /delegates/ the processing to t
 
 ** How is it different from the =Strategy= pattern?
 
+   At this moment you may be wondering how the =Specialized Workers= is different from the =Strategy= pattern? After all, each worker implements and applies a different strategy in processing data.
+
+   The =Specialized Workers= pattern is not different from the =Strategy= design pattern; it evolves from it.
    - It is not different; it evolves from the =Strategy= pattern
    - The caller doesn't have to know explicitly which worker to employ
      - the worker is selected based on its knowledge of the payload (workers' "expertise")
      - the caller (employer) is agnostic of the payload (or a part of it); as such, the decisions that are based on the payload (i.e. data structure) are kept close to where the processing of the payload happens.
+
+   There is however, a difference in the nomenclature: =Strategy= is a /design pattern/ whilst =Specialized Workers= is an /implementation pattern/. The difference between a design pattern and an implementation pattern deserves a dedicated post but to put it shortly, an implementation pattern tells you how you should write your code while a design pattern specifies how the application should be structured.
 
 ** Why not use a =Factory method=?
 
