@@ -60,6 +60,7 @@
     ("c" . "c")
     ("c++" . "cpp")
     ("cpp" . "cpp")
+    ("csharp" . "csharp")
     ("clojure" . "clojure")
     ("css" . "css")
     ("d" . "d")
