@@ -15,142 +15,157 @@ A few years ago, in my [[link://slug/using-enums-in-c-sharp][blog post about usi
 
 For the past few years I have been showing to my colleagues a slightly improved version of this approach (shown below) and they all seem to aggree that this is indeed a cleaner, and more elegant approach which, unlike the infamous =switch= statement does abide by the [[https://en.wikipedia.org/wiki/Open/closed_principle][Open/Closed principle]].
 
-As such, I am excited to introduce to the world the =Specialized Workers Pattern=.
+As such, I am excited to introduce to the world the =Specialized Workers= pattern.
 
 * Specialized Workers Pattern
 
 ** Description and usage
 
-   The =Specialized Workers= pattern aims to distribute the logic of a business operation that requires choosing between one or multiple tasks to be executed, into a collection of specialized classes, while keeping the knowledge about the task(s) to be executed into a single place.
+The =Specialized Workers= pattern aims to distribute the logic of a business operation that requires choosing between one or multiple tasks to be executed, into a collection of specialized classes, while keeping the knowledge about the task(s) to be executed into a single place.
 
-   Under theese circumstances each worker knows about the data just enough to know whether it /can accomplish the task/, and /how to accomplish/ it.
+Under theese circumstances each worker knows about the data just enough to know whether it /can accomplish the task/, and /how to accomplish/ it.
 
-   Usually (at least from my experience), the decision to delegate a certain subtask was made by the unit that is in charge of delegating. In an abstract representation the code would look something like this:
-   #+begin_src csharp
-     if(SomeCondition())
-     {
-	 DoWorkForConditionAbove();
-     }
-   #+end_src
-   where the method that contains the snippet above /delegates/ the processing to the =DoWorkForConditionAbove()= method.
+Usually (at least from my experience), the decision to delegate a certain subtask was made by the unit that is in charge of delegating. In an abstract representation the code would look something like this:
+#+begin_src csharp
+  if(SomeCondition())
+  {
+      DoWorkForConditionAbove();
+  }
+#+end_src
+where the method that contains the snippet above /delegates/ the processing to the =DoWorkForConditionAbove()= method.
 
-   However, when the decision whether to delegate to a specific unit or not depends on the data that is to be processed, taking that decision couples both the delegator, and the worker unit to the structure of the data.
+However, when the decision whether to delegate to a specific unit or not depends on the data that is to be processed, taking that decision couples both the delegator, and the worker unit to the structure of the data.
 
-   It is normal for the worker to be coupled to the structure of the data because it has to know the structure in order to be able to process it but the delegator which now becomes a coordinator doesn't have to know the structure of the data.
+It is normal for the worker to be coupled to the structure of the data because it has to know the structure in order to be able to process it but the delegator, which now becomes a coordinator, doesn't have to know the structure of the data.
 
-   Consider the example of an unit that has to parse an =HTML= element and has to make the following decision: if the current node is a =div= then =ParseDivElement()= should be called, if the current node is a =table= then =ParseTableElement()= should be called, and if the current element is none of the above, it should just ignore it.
+Consider the example of an unit that has to parse an =HTML= element and has to make the following decision:
+- if the current node is a =div= then =ParseDivElement()= should be called,
+- if the current node is a =table= then =ParseTableElement()= should be called, and
+- if the current element is none of the above, it should just ignore it.
 
-   The purpose of =Specialized Workers= pattern is to:
-   - delegate the work to a single place
-   - enclose the knowledge about being able to perform a specific task and the knowledge to perform that task in a single place.
+Put differently than at the beginning of this section,  the purpose of =Specialized Workers= pattern is to:
+- delegate the work to a single place, and
+- enclose in a single place /the knowledge about being able to perform a specific task/ and /the knowledge required to perform that task/.
 
 ** Implementation
 
-   To implement the =Specialized Workers Pattern= you'll need to:
-   - Define a interface for the worker exposing two methods --- =CanProcess()=, and =DoWork()=:
-     #+begin_src csharp
-       public interface ISpecializedWorker
-       {
-	   bool CanProcess(Payload payload);
+Now that we established what =Specialized Workers= pattern is, let's see how it can be implemented.
 
-	   Result DoWork(Payload payload);
-       }
-     #+end_src
+It goes without saying that when implementing this pattern, the  amount of work directly depends on how many workers the business case requires (i.e. how many =switch= cases are there) but, in broad lines, to implement the =Specialized Workers= pattern you'll need to:
+- Define a interface for the worker exposing two methods --- =CanProcess()=, and =DoWork()=:
+#+begin_src csharp
+  public interface ISpecializedWorker
+  {
+      bool CanProcess(Payload payload);
 
-   - Add a class for each use-case:
-     #+begin_src csharp
-       internal class MondayPayloadWorker: ISpecializedWorker
-       {
-	   public bool CanProcess(Payload payload)
-	   {
-	       return payload.DayOfWeek = DayOfWeek.Monday;
-	   }
+      Result DoWork(Payload payload);
+  }
+#+end_src
+- Add a class for each use-case:
+#+begin_src csharp
+  internal class MondayPayloadWorker: ISpecializedWorker
+  {
+      public bool CanProcess(Payload payload)
+      {
+          return payload.DayOfWeek = DayOfWeek.Monday;
+      }
 
-	   public Result DoWork(Payload payload)
-	   {
-	       return DoWorkInternal(payload);
-	   }
-       }
-     #+end_src
+      public Result DoWork(Payload payload)
+      {
+          return DoWorkInternal(payload);
+      }
+  }
+#+end_src
+- Inject the workers into the calling class (the =Employer=), and delegate:
+#+begin_src csharp
+  internal class Employer
+  {
+      private readonly IEnumerable<ISpecializedWorker> _workers;
 
-   - Inject workers into the calling class (the =Employer=), and delegate:
-     #+begin_src csharp
-       internal class Employer
-       {
-	   private readonly IEnumerable<ISpecializedWorker> _workers;
+      public Employer(IEnumerable<ISpecializedWorker> workers)
+      {
+          _workers = workers;
+      }
 
-	   public Employer(IEnumerable<ISpecializedWorker> workers)
-	   {
-	       _workers = workers;
-	   }
+      public Result Process(Payload payload)
+      {
+          var worker = _workers.SingleOrDefault(w => w.CanProcess(payload));
 
-	   public Result Process(Payload payload)
-	   {
-	       var worker = _workers.SingleOrDefault(w => w.CanProcess(payload));
+          // This is the equivalent of the default case in the switch statement
+          if (worker == null)
+          {
+              throw new ArgumentException("Cannot process the provided payload.");
+          }
 
-	       // This is the equivalent of the default case in the switch statement
-	       if (worker == null)
-	       {
-		   throw new ArgumentException("Cannot process the provided payload.");
-	       }
+          return worker.DoWork(payload);
+      }
+  }
+#+end_src
 
-	       return worker.DoWork(payload);
-	   }
-     #+end_src
+And that's all there is to it. Now, the =Employer= class is agnostic of how the =payload= is processed; it just delegates the processing to the worker that can handle it. If no workers that are able to process the =payload= are found, the =Employer= class can choose to signal this by either raising an exception, returning a default value or any other mechanism that is suited to the other patterns used in the codebase. More on this in section [[*Adaptations][Adaptations]]. Furthermore, the =Employer= class doesn't have to know how many workers are there; as such, the workers can be added or removed without any change to the =Employer= class, which means that the class is /decoupled/ from the workers.
+
+On the other hand, each worker class is, as the name of the pattern suggests it, /specialized/ to do one thing --- work on the specific use-case it knows all about: whether it can process it, and if yes, then it also knows how to process it.
 
 * Discussion
 
 ** How is it different from the =Strategy= pattern?
 
-   At this moment you may be wondering how the =Specialized Workers= is different from the =Strategy= pattern? After all, each worker implements and applies a different strategy in processing data.
+At this moment you may be wondering how the =Specialized Workers= is different from the =Strategy= pattern? After all, each worker implements and applies a different strategy in processing the data.
 
-   The =Specialized Workers= pattern is not different from the =Strategy= design pattern; it evolves from it.
-   - It is not different; it evolves from the =Strategy= pattern
-   - The caller doesn't have to know explicitly which worker to employ
-     - the worker is selected based on its knowledge of the payload (workers' "expertise")
-     - the caller (employer) is agnostic of the payload (or a part of it); as such, the decisions that are based on the payload (i.e. data structure) are kept close to where the processing of the payload happens.
+To put it simply, the =Specialized Workers= pattern is not different from the =Strategy= design pattern; it evolves from it, with the added behavior that the caller (coordinator --- the =Employee= class from above) doesn't have to know explicitly which worker to employ. The worker to employ is selected based on its knowledge of the payload (i.e. based on the workers' "expertise") which, as mentioned before, makes the coordinator agnostic of the payload. As such, all the knowledge that is related to how to do a specific processing is kept in the same class where the processing happens.
 
-   There is however, a difference in the nomenclature: =Strategy= is a /design pattern/ whilst =Specialized Workers= is an /implementation pattern/. The difference between a design pattern and an implementation pattern deserves a dedicated post but to put it shortly, an implementation pattern tells you how you should write your code while a design pattern specifies how the application should be structured.
+There is however, a difference in the nomenclature: =Strategy= is a /design pattern/ whilst =Specialized Workers= is an /implementation pattern/. The difference between a design pattern and an implementation pattern deserves a dedicated post but to put it shortly, an implementation pattern tells you how you should write your code while a design pattern specifies how the application should be structured.
 
 ** Why not use a =Factory method=?
 
-   - The decision on which instance to build is separated from the actual work done; from the PoV of separation of concerns this is ok, however this way the business logic is spread throughout multiple places instead of just sitting in the same class in the case of a specialized worker
-   - Less classes
-   - Unlike the =factory method=, you don't need to create an instance of the class; the creation of the class can be delegated to DI frameworks
-   - =Factory method= works better when you need to pass parameters in the constructor that are required for the specific work that needs to be done.
+Okay, you might say, then why not use a =Factory method= to build directly the worker that knows how to handle the specific use-case?
+
+Well, because this is actually one of the benefits that come with implementing the =Specialized Workers= pattern, namely that it keeps the specialized logic within the same class.
+
+When applying the =Factory method=, the decision on which instance to build is separated from the actual processing that needs to take place. From the point of view of the separation of concerns this is ok; however one might argue that, in order to decide which worker to build, the factory has to either apply some business knowledge, or be coupled to the data (by being aware of its structure). When applying the =Specialized Workers= pattern, all the business logic that is coupled to the data is in a single place, i. e. the class of the specialized worker.
+
+Furthermore, when implementing the =Specialized Workers= pattern, you don't need to create instances of workers by hand as you do with the =Factory method=; the creation of the workers can be delegated to the =Dependency Injection= frameworks.
+-----
+Another downside of using the =Factory method= to build workers is that
+
+this way the business logic is spread throughout multiple places instead of just sitting in the same class in the case of a specialized worker
+- Less classes
+- Unlike the =factory method=, you don't need to create an instance of the class
+- =Factory method= works better when you need to pass parameters in the constructor that are required for the specific work that needs to be done.
 
 ** Drawbacks
 
-   - Since the =CanProcess()= method is called from consumer code it is recommended to guard agains invalid arguments in =DoWork()=:
-     #+begin_src csharp
-       public Result DoWork(Payload payload) //
-       {
-	   Debug.Assert(CanProcess(payload));
+- Since the =CanProcess()= method is called from consumer code it is recommended to guard agains invalid arguments in =DoWork()=:
+#+begin_src csharp
+  public Result DoWork(Payload payload) //
+  {
+      Debug.Assert(CanProcess(payload));
 
-	   // Do the work
-       }
-     #+end_src
-   - =CanProcess()= method should take the decision without iterating collecttions (for performance, and lazy loading reasons). If you have a heterogenous collection, you can iterate through it in delegator an call =CanProcess()= on each item in the collection. At the end, the delegator aggregates the results (see Adaptation 3).
+      // Do the work
+  }
+#+end_src
+- =CanProcess()= method should take the decision without iterating collecttions (for performance, and lazy loading reasons). If you have a heterogenous collection, you can iterate through it in delegator an call =CanProcess()= on each item in the collection. At the end, the delegator aggregates the results (see Adaptation 3).
+
 * Adaptations
-  1. For the cases when the processing is lightweight, you can combine the two methods into a single one that returns a tuple like this:
-     #+begin_src csharp
-       public (bool canWork, Result result) DoWork(Payload payload)
-       {
-	   if (!CanProcess(payload)) {
-	       return (false, default(Result));
-	   }
+1. For the cases when the processing is lightweight, you can combine the two methods into a single one that returns a tuple like this:
+#+begin_src csharp
+  public (bool canWork, Result result) DoWork(Payload payload)
+  {
+      if (!CanProcess(payload)) {
+          return (false, default(Result));
+      }
 
-	   Result result = DoWorkInternal(payload);
-	   return (true, result);
-       }
-     #+end_src
+      Result result = DoWorkInternal(payload);
+      return (true, result);
+  }
+#+end_src
 
-  2. You can have multiple workers capable of processing the payload; in this case, the caller is responsible for aggregating the results:
-     #+begin_src csharp
-       var results = _workers.Where(w => w.CanProcess(payload))
-	   .Select(w => w.Process(payload))
-	   .ToArray();
-     #+end_src
-  3. As mentioned in the Drawbacks section, when you need to process collections of elements (i.e. =IEnumerable<T>=), it is wiser to iterate in the delegator and call =CanProcess()= on each item, followed by aggregation. In such case the collection is iterated only once thus avoiding any odd results due to lazy evaluation.
+2. You can have multiple workers capable of processing the payload; in this case, the caller is responsible for aggregating the results:
+#+begin_src csharp
+  var results = _workers.Where(w => w.CanProcess(payload))
+      .Select(w => w.Process(payload))
+      .ToArray();
+#+end_src
+3. As mentioned in the Drawbacks section, when you need to process collections of elements (i.e. =IEnumerable<T>=), it is wiser to iterate in the delegator and call =CanProcess()= on each item, followed by aggregation. In such case the collection is iterated only once thus avoiding any odd results due to lazy evaluation.
 
 * Ending thoughts
