@@ -120,20 +120,15 @@ There is however, a difference in the nomenclature: =Strategy= is a /design patt
 
 Okay, you might say, then why not use a =Factory method= to build directly the worker that knows how to handle the specific use-case?
 
-Well, because this is actually one of the benefits that come with implementing the =Specialized Workers= pattern, namely that it keeps the specialized logic within the same class.
+Well, because the answer to this question is actually one of the benefits that come with implementing the =Specialized Workers= pattern, namely that it keeps the specialized logic within the same class.
 
 When applying the =Factory method=, the decision on which instance to build is separated from the actual processing that needs to take place. From the point of view of the separation of concerns this is ok; however one might argue that, in order to decide which worker to build, the factory has to either apply some business knowledge, or be coupled to the data (by being aware of its structure). When applying the =Specialized Workers= pattern, all the business logic that is coupled to the data is in a single place, i. e. the class of the specialized worker.
 
 Furthermore, when implementing the =Specialized Workers= pattern, you don't need to create instances of workers by hand as you do with the =Factory method=; the creation of the workers can be delegated to the =Dependency Injection= frameworks.
------
-Another downside of using the =Factory method= to build workers is that
 
-this way the business logic is spread throughout multiple places instead of just sitting in the same class in the case of a specialized worker
-- Less classes
-- Unlike the =factory method=, you don't need to create an instance of the class
-- =Factory method= works better when you need to pass parameters in the constructor that are required for the specific work that needs to be done.
+However, if the instantiation of the specialized workers depends o some parameters that cannot be easily built using the =Dependency Injection= framework, you'll need to use =Factory method=. In this case you can combine these two approaches: use the =Factory method= to build the specialized workers, and then pass them to the coordinator class that needs them. Keep in mind that this approach of combining the two patterns works if building each worker is an /inexpensive/ operation; otherwise you'll end-up spending resources to create instances that may not be used.
 
-** Drawbacks
+* Drawbacks
 
 - Since the =CanProcess()= method is called from consumer code it is recommended to guard agains invalid arguments in =DoWork()=:
 #+begin_src csharp
@@ -159,7 +154,6 @@ this way the business logic is spread throughout multiple places instead of just
       return (true, result);
   }
 #+end_src
-
 2. You can have multiple workers capable of processing the payload; in this case, the caller is responsible for aggregating the results:
 #+begin_src csharp
   var results = _workers.Where(w => w.CanProcess(payload))
