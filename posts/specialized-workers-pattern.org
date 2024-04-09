@@ -130,6 +130,10 @@ However, if the instantiation of the specialized workers depends o some paramete
 
 * Drawbacks
 
+As we all know, there are no perfect solutions, especially in software development. This is also the case for the =Specialized Workers= pattern, and as such, it has a few drawbacks listed below.
+
+** No guarantee of the same parameters
+
 - Since the =CanProcess()= method is called from consumer code it is recommended to guard agains invalid arguments in =DoWork()=:
 #+begin_src csharp
   public Result DoWork(Payload payload) //
@@ -139,6 +143,8 @@ However, if the instantiation of the specialized workers depends o some paramete
       // Do the work
   }
 #+end_src
+
+** Sensitivity to collections
 - =CanProcess()= method should take the decision without iterating collecttions (for performance, and lazy loading reasons). If you have a heterogenous collection, you can iterate through it in delegator an call =CanProcess()= on each item in the collection. At the end, the delegator aggregates the results (see Adaptation 3).
 
 * Adaptations
