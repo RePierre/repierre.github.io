@@ -863,6 +863,7 @@ pre.code .c1, .code .codetable .c1, .highlight pre .c1 { color: #008800; font-st
 pre.code .cs, .code .codetable .cs, .highlight pre .cs { color: #008800; font-weight: bold } /* Comment.Special */
 pre.code .gd, .code .codetable .gd, .highlight pre .gd { color: #A00000 } /* Generic.Deleted */
 pre.code .ge, .code .codetable .ge, .highlight pre .ge { font-style: italic } /* Generic.Emph */
+pre.code .ges, .code .codetable .ges, .highlight pre .ges { font-weight: bold; font-style: italic } /* Generic.EmphStrong */
 pre.code .gr, .code .codetable .gr, .highlight pre .gr { color: #FF0000 } /* Generic.Error */
 pre.code .gh, .code .codetable .gh, .highlight pre .gh { color: #000080; font-weight: bold } /* Generic.Heading */
 pre.code .gi, .code .codetable .gi, .highlight pre .gi { color: #00A000 } /* Generic.Inserted */
@@ -1119,4 +1120,23 @@ a.sidebar-nav-item.textonly:focus {
   color: #1582ae;
 }
 
+
+body {
+  font-family: sans-serif;
+  color: #222; 
+}
+
+h1 {
+  font-size: 40px;
+}
+h2 {
+  font-size: 28px;
+}
+h3 {
+  font-size: 20px;
+}
+
+p {
+  margin: 0 0 1.15em;
+}
 

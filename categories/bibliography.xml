@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Rebeja (Posts about bibliography)</title><link>https://rebeja.eu/</link><description></description><atom:link href="https://rebeja.eu/categories/bibliography.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2021 &lt;a href="mailto:petru.rebeja@gmail.com"&gt;Petru Rebeja&lt;/a&gt; </copyright><lastBuildDate>Fri, 31 Dec 2021 11:21:59 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Managing bibliography using Emacs Org-Mode and Org-Ref</title><link>https://rebeja.eu/posts/managing-bibliography-using-emacs-org-mode-and-org-ref/</link><dc:creator>Petru Rebeja</dc:creator><description>&lt;p&gt;
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Rebeja (Posts about bibliography)</title><link>https://rebeja.eu/</link><description></description><atom:link href="https://rebeja.eu/categories/bibliography.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2024 &lt;a href="mailto:petru.rebeja@gmail.com"&gt;Petru Rebeja&lt;/a&gt; </copyright><lastBuildDate>Fri, 03 May 2024 18:22:39 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Managing bibliography using Emacs Org-Mode and Org-Ref</title><link>https://rebeja.eu/posts/managing-bibliography-using-emacs-org-mode-and-org-ref/</link><dc:creator>Petru Rebeja</dc:creator><description>&lt;p&gt;
 Since I've started to use Emacs more and more I started wondering whether I can use org-mode to keep a reading list/bibliography?
 &lt;/p&gt;
 
@@ -23,33 +23,33 @@ I did however liked the idea of using references to the papers being read and si
 &lt;p&gt;
 To handle the availability part I decided to use Dropbox which is also suggested by &lt;code&gt;org-ref&lt;/code&gt;.
 &lt;/p&gt;
-&lt;div id="outline-container-org9e8948b" class="outline-2"&gt;
-&lt;h2 id="org9e8948b"&gt;Setup org-ref&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-org9e8948b"&gt;
+&lt;div id="outline-container-orgd6ebef8" class="outline-2"&gt;
+&lt;h2 id="orgd6ebef8"&gt;Setup org-ref&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-orgd6ebef8"&gt;
 &lt;p&gt;
 &lt;code&gt;org-ref&lt;/code&gt; is available on &lt;a href="http://melpa.org/"&gt;Melpa&lt;/a&gt; so to install it just type &lt;code&gt;M-x package-install org-ref&lt;/code&gt;. Afterwards copy the code below to your init file and adjust the paths:
 &lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;  &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;setq&lt;/span&gt; &lt;span class="nv"&gt;reftex-default-bibliography&lt;/span&gt; &lt;span class="o"&gt;'&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;"~/Dropbox/bibliography/references.bib"&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
-  &lt;span class="c1"&gt;;; see org-ref for use of these variables&lt;/span&gt;
-  &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;setq&lt;/span&gt; &lt;span class="nv"&gt;org-ref-bibliography-notes&lt;/span&gt; &lt;span class="s"&gt;"~/Dropbox/bibliography/notes.org"&lt;/span&gt;
-	&lt;span class="nv"&gt;org-ref-default-bibliography&lt;/span&gt; &lt;span class="o"&gt;'&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;"~/Dropbox/bibliography/references.bib"&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-	&lt;span class="nv"&gt;org-ref-pdf-directory&lt;/span&gt; &lt;span class="s"&gt;"~/Dropbox/bibliography/bibtex-pdfs/"&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;setq&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;reftex-default-bibliography&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;'&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;"~/Dropbox/bibliography/references.bib"&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="c1"&gt;;; see org-ref for use of these variables&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;setq&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;org-ref-bibliography-notes&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;"~/Dropbox/bibliography/notes.org"&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="nv"&gt;org-ref-default-bibliography&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;'&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;"~/Dropbox/bibliography/references.bib"&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="nv"&gt;org-ref-pdf-directory&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;"~/Dropbox/bibliography/bibtex-pdfs/"&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 
-  &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;setq&lt;/span&gt; &lt;span class="nv"&gt;bibtex-completion-bibliography&lt;/span&gt; &lt;span class="s"&gt;"~/Dropbox/bibliography/references.bib"&lt;/span&gt;
-	&lt;span class="nv"&gt;bibtex-completion-library-path&lt;/span&gt; &lt;span class="s"&gt;"~/Dropbox/bibliography/bibtex-pdfs"&lt;/span&gt;
-	&lt;span class="nv"&gt;bibtex-completion-notes-path&lt;/span&gt; &lt;span class="s"&gt;"~/Dropbox/bibliography/helm-bibtex-notes"&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;setq&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;bibtex-completion-bibliography&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;"~/Dropbox/bibliography/references.bib"&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="nv"&gt;bibtex-completion-library-path&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;"~/Dropbox/bibliography/bibtex-pdfs"&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="nv"&gt;bibtex-completion-notes-path&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;"~/Dropbox/bibliography/helm-bibtex-notes"&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-orgc914e9c" class="outline-2"&gt;
-&lt;h2 id="orgc914e9c"&gt;Creating the reading list&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-orgc914e9c"&gt;
+&lt;div id="outline-container-orga0ecbcc" class="outline-2"&gt;
+&lt;h2 id="orga0ecbcc"&gt;Creating the reading list&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-orga0ecbcc"&gt;
 &lt;p&gt;
 With &lt;code&gt;org-ref&lt;/code&gt; in place, it was time to setup the reading list so I created a new file named &lt;code&gt;reading-list.org&lt;/code&gt; under &lt;code&gt;~/Dropbox/bibliography/&lt;/code&gt; with the following header:
 &lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;  &lt;span class="c1"&gt;#+TITLE: Reading list&lt;/span&gt;
-  &lt;span class="c1"&gt;#+STATUS: "Maybe" "Pending" "Reading" "Finished" ""&lt;/span&gt;
-  &lt;span class="c1"&gt;#+COLUMNS: %120ITEM %STATUS&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="c1"&gt;#+TITLE: Reading list&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="c1"&gt;#+STATUS: "Maybe" "Pending" "Reading" "Finished" ""&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="c1"&gt;#+COLUMNS: %120ITEM %STATUS&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;
 The first line obviously defines the title of the document. The second line defines the values for status where:
@@ -62,20 +62,20 @@ The first line obviously defines the title of the document. The second line defi
 &lt;/ul&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-org40aa9ca" class="outline-2"&gt;
-&lt;h2 id="org40aa9ca"&gt;Adding an entry to the list&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-org40aa9ca"&gt;
+&lt;div id="outline-container-org4943e6d" class="outline-2"&gt;
+&lt;h2 id="org4943e6d"&gt;Adding an entry to the list&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org4943e6d"&gt;
 &lt;ul class="org-ul"&gt;
 &lt;li&gt;&lt;p&gt;
 Add &lt;code&gt;bibtex&lt;/code&gt; entry in &lt;code&gt;references.bib&lt;/code&gt; file. E.g.:
 &lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;    @inproceedings&lt;span class="o"&gt;{&lt;/span&gt;le2014distributed,
-      &lt;span class="nv"&gt;title&lt;/span&gt;&lt;span class="o"&gt;={&lt;/span&gt;Distributed representations of sentences and documents&lt;span class="o"&gt;}&lt;/span&gt;,
-      &lt;span class="nv"&gt;author&lt;/span&gt;&lt;span class="o"&gt;={&lt;/span&gt;Le, Quoc and Mikolov, Tomas&lt;span class="o"&gt;}&lt;/span&gt;,
-      &lt;span class="nv"&gt;booktitle&lt;/span&gt;&lt;span class="o"&gt;={&lt;/span&gt;Proceedings of the 31st International Conference on Machine Learning &lt;span class="o"&gt;(&lt;/span&gt;ICML-14&lt;span class="o"&gt;)}&lt;/span&gt;,
-      &lt;span class="nv"&gt;pages&lt;/span&gt;&lt;span class="o"&gt;={&lt;/span&gt;&lt;span class="m"&gt;1188&lt;/span&gt;--1196&lt;span class="o"&gt;}&lt;/span&gt;,
-      &lt;span class="nv"&gt;year&lt;/span&gt;&lt;span class="o"&gt;={&lt;/span&gt;&lt;span class="m"&gt;2014&lt;/span&gt;&lt;span class="o"&gt;}&lt;/span&gt;
-    &lt;span class="o"&gt;}&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="w"&gt;    &lt;/span&gt;@inproceedings&lt;span class="o"&gt;{&lt;/span&gt;le2014distributed,
+&lt;span class="w"&gt;      &lt;/span&gt;&lt;span class="nv"&gt;title&lt;/span&gt;&lt;span class="o"&gt;={&lt;/span&gt;Distributed&lt;span class="w"&gt; &lt;/span&gt;representations&lt;span class="w"&gt; &lt;/span&gt;of&lt;span class="w"&gt; &lt;/span&gt;sentences&lt;span class="w"&gt; &lt;/span&gt;and&lt;span class="w"&gt; &lt;/span&gt;documents&lt;span class="o"&gt;}&lt;/span&gt;,
+&lt;span class="w"&gt;      &lt;/span&gt;&lt;span class="nv"&gt;author&lt;/span&gt;&lt;span class="o"&gt;={&lt;/span&gt;Le,&lt;span class="w"&gt; &lt;/span&gt;Quoc&lt;span class="w"&gt; &lt;/span&gt;and&lt;span class="w"&gt; &lt;/span&gt;Mikolov,&lt;span class="w"&gt; &lt;/span&gt;Tomas&lt;span class="o"&gt;}&lt;/span&gt;,
+&lt;span class="w"&gt;      &lt;/span&gt;&lt;span class="nv"&gt;booktitle&lt;/span&gt;&lt;span class="o"&gt;={&lt;/span&gt;Proceedings&lt;span class="w"&gt; &lt;/span&gt;of&lt;span class="w"&gt; &lt;/span&gt;the&lt;span class="w"&gt; &lt;/span&gt;31st&lt;span class="w"&gt; &lt;/span&gt;International&lt;span class="w"&gt; &lt;/span&gt;Conference&lt;span class="w"&gt; &lt;/span&gt;on&lt;span class="w"&gt; &lt;/span&gt;Machine&lt;span class="w"&gt; &lt;/span&gt;Learning&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;ICML-14&lt;span class="o"&gt;)}&lt;/span&gt;,
+&lt;span class="w"&gt;      &lt;/span&gt;&lt;span class="nv"&gt;pages&lt;/span&gt;&lt;span class="o"&gt;={&lt;/span&gt;&lt;span class="m"&gt;1188&lt;/span&gt;--1196&lt;span class="o"&gt;}&lt;/span&gt;,
+&lt;span class="w"&gt;      &lt;/span&gt;&lt;span class="nv"&gt;year&lt;/span&gt;&lt;span class="o"&gt;={&lt;/span&gt;&lt;span class="m"&gt;2014&lt;/span&gt;&lt;span class="o"&gt;}&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="o"&gt;}&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;li&gt;In the &lt;code&gt;reading-list.org&lt;/code&gt; file add the title to the list using &lt;code&gt;M-return&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;Add &lt;code&gt;Status&lt;/code&gt; and &lt;code&gt;Source&lt;/code&gt; properties
@@ -103,9 +103,9 @@ Repeat the steps above and you should end up with a list like this:
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-orge210056" class="outline-2"&gt;
-&lt;h2 id="orge210056"&gt;Change the status of an entry&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-orge210056"&gt;
+&lt;div id="outline-container-orgf7660d6" class="outline-2"&gt;
+&lt;h2 id="orgf7660d6"&gt;Change the status of an entry&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-orgf7660d6"&gt;
 &lt;p&gt;
 To change the status of an entry:
 &lt;/p&gt;
@@ -115,14 +115,14 @@ To change the status of an entry:
 &lt;/ul&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-orge6bfe94" class="outline-2"&gt;
-&lt;h2 id="orge6bfe94"&gt;Status overview&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-orge6bfe94"&gt;
+&lt;div id="outline-container-org4fbd436" class="outline-2"&gt;
+&lt;h2 id="org4fbd436"&gt;Status overview&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org4fbd436"&gt;
 &lt;p&gt;
 After creating the list you may want to have an overview of the status for each entry. This can be achieved using &lt;code&gt;Org Column View&lt;/code&gt;.
 The setup for column view is in the third line of the header
 &lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;  &lt;span class="c1"&gt;#+COLUMNS: %120ITEM %STATUS&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="c1"&gt;#+COLUMNS: %120ITEM %STATUS&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;
 which tells org-mode how to display the entries. Namely, we're defining two columns:
@@ -132,9 +132,9 @@ which tells org-mode how to display the entries. Namely, we're defining two colu
 &lt;li&gt;&lt;b&gt;Status&lt;/b&gt; which will take as much space as needed to display the status&lt;/li&gt;
 &lt;/ol&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-orgb1b9819" class="outline-3"&gt;
-&lt;h3 id="orgb1b9819"&gt;Switching to column view&lt;/h3&gt;
-&lt;div class="outline-text-3" id="text-orgb1b9819"&gt;
+&lt;div id="outline-container-org366fe2f" class="outline-3"&gt;
+&lt;h3 id="org366fe2f"&gt;Switching to column view&lt;/h3&gt;
+&lt;div class="outline-text-3" id="text-org366fe2f"&gt;
 &lt;p&gt;
 To switch to column view, place the cursor outside the headings and press &lt;code&gt;C-c C-x C-c&lt;/code&gt; (or &lt;code&gt;M-x org-columns&lt;/code&gt;). The list should look like the image below:
 &lt;img src="https://rebeja.eu/images/emacs-reading-list-column-view.png" alt="nil"&gt;
@@ -142,9 +142,9 @@ If your cursor was on a heading when pressing &lt;code&gt;C-c C-x C-c&lt;/code&g
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-orgea79002" class="outline-3"&gt;
-&lt;h3 id="orgea79002"&gt;Exiting column view&lt;/h3&gt;
-&lt;div class="outline-text-3" id="text-orgea79002"&gt;
+&lt;div id="outline-container-org548286d" class="outline-3"&gt;
+&lt;h3 id="org548286d"&gt;Exiting column view&lt;/h3&gt;
+&lt;div class="outline-text-3" id="text-org548286d"&gt;
 &lt;p&gt;
 To exit column view position the cursor on a heading that is currently in column view and press &lt;code&gt;q&lt;/code&gt;.
 &lt;/p&gt;
@@ -155,9 +155,9 @@ That's it. Happy reading!
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-orgf1de73d" class="outline-2"&gt;
-&lt;h2 id="orgf1de73d"&gt;References&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-orgf1de73d"&gt;
+&lt;div id="outline-container-orgd59d325" class="outline-2"&gt;
+&lt;h2 id="orgd59d325"&gt;References&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-orgd59d325"&gt;
 &lt;ol class="org-ol"&gt;
 &lt;li&gt;&lt;a href="https://github.com/jkitchin/org-ref/blob/master/org-ref.org#start-of-content"&gt;The org-ref manual&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://blog.modelworks.ch/managing-papers-with-org-mode-and-reftex/"&gt;Managing papers with Org-Mode and RefTex&lt;/a&gt;&lt;/li&gt;

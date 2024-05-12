@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Rebeja · Variational Autoencoders pe înţelesul meu </title>
 <link href="../../assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
-<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700%7CAbril+Fatface">
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.1.7/css/fork-awesome.min.css" integrity="sha256-gsmEoJAws/Kd3CjuOQzLie5Q3yshhvmo7YNtBG7aaEY=" crossorigin="anonymous">
 <meta content="#5670d4" name="theme-color">
 <link rel="alternate" type="application/rss+xml" title="RSS" href="../../rss.xml">
@@ -26,7 +26,7 @@
     
     
     </nav><footer id="footer"><span class="copyright">
-              Contents © 2023         <a href="mailto:petru.rebeja@gmail.com">Petru Rebeja</a> - Powered by   <a href="https://www.gnu.org/software/emacs/" rel="nofollow">GNU Emacs</a>  &amp;    <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+              Contents © 2024         <a href="mailto:petru.rebeja@gmail.com">Petru Rebeja</a> - Powered by   <a href="https://www.gnu.org/software/emacs/" rel="nofollow">GNU Emacs</a>  &amp;    <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
             </span>
             
             
@@ -45,9 +45,9 @@
     
 
     <div class="e-content entry-content" itemprop="articleBody text">
-    <div id="outline-container-org790ee13" class="outline-2">
-<h2 id="org790ee13">Outline</h2>
-<div class="outline-text-2" id="text-org790ee13">
+    <div id="outline-container-org733d0ad" class="outline-2">
+<h2 id="org733d0ad">Outline</h2>
+<div class="outline-text-2" id="text-org733d0ad">
 <ul class="org-ul">
 <li>The core: latent variables and latent space</li>
 <li>The probabilistic perspective: \(p(l|w) \rightarrow p(z|w) \wedge p(l|z)\)</li>
@@ -55,9 +55,9 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-orge0c3753" class="outline-2">
-<h2 id="orge0c3753">Prolog</h2>
-<div class="outline-text-2" id="text-orge0c3753">
+<div id="outline-container-org0a7cb68" class="outline-2">
+<h2 id="org0a7cb68">Prolog</h2>
+<div class="outline-text-2" id="text-org0a7cb68">
 <p>
 Înainte de a începe discuția despre subiectul propriu-zis al acestui articol vreau să răspund (mai mult pentru mine) la două întrebări:
 </p>
@@ -88,20 +88,20 @@ Așadar, începem cu:
 </p>
 </div>
 </div>
-<div id="outline-container-orgaaca344" class="outline-2">
-<h2 id="orgaaca344">Ce este un <code>Autoencoder</code>?</h2>
-<div class="outline-text-2" id="text-orgaaca344">
+<div id="outline-container-org91e8db0" class="outline-2">
+<h2 id="org91e8db0">Ce este un <code>Autoencoder</code>?</h2>
+<div class="outline-text-2" id="text-org91e8db0">
 <p>
 În linii mari, un <code>autoencoder</code> este o rețea neuronală alcătuită din două parți: <i>codor</i> și <i>decodor</i> (<code>encoder</code> și respectiv <code>decoder</code>), a cărei funcționalitate este să:
 </p>
 <ol class="org-ol">
 <li>primească la intrare un vector \(X \in R^D\)</li>
 <li>îl codifice (<code>encode</code>) într-un vector \(z \in R^K\) unde \(K \ll D\). În termeni matematici, codorul învață o funcție \(g:R^D \rightarrow R^K\)</li>
-<li>decodifice vectorul \(z\) în-un vector \(X'\) cât mai similar posibil cu vectorul original \(X\). Altfel spus, decodorul învață funcția \(f:R^K \rightarrow R^D\) aşa încât \(f(g(X)) \approx X\). <a id="orgd36249d"></a>
+<li>decodifice vectorul \(z\) în-un vector \(X'\) cât mai similar posibil cu vectorul original \(X\). Altfel spus, decodorul învață funcția \(f:R^K \rightarrow R^D\) aşa încât \(f(g(X)) \approx X\). <a id="org6d83c1e"></a>
 </li>
 </ol>
 <p>
-De ce ne interesează acest mecanism? De exemplu, pentru identificarea anomaliilor<sup><a id="fnr.1" class="footref" href="#fn.1">1</a></sup><sup>, </sup><sup><a id="fnr.2" class="footref" href="#fn.2">2</a></sup>.
+De ce ne interesează acest mecanism? De exemplu, pentru identificarea anomaliilor<sup><a id="fnr.1" class="footref" href="#fn.1" role="doc-backlink">1</a></sup><sup>, </sup><sup><a id="fnr.2" class="footref" href="#fn.2" role="doc-backlink">2</a></sup>.
 </p>
 
 <p>
@@ -125,11 +125,11 @@ Având această imagine în minte, putem să începem discuția despre subiectul
 </p>
 </div>
 </div>
-<div id="outline-container-org7c47c29" class="outline-2">
-<h2 id="org7c47c29">Ce este un <code>Variational Autoencoder</code>?</h2>
-<div class="outline-text-2" id="text-org7c47c29">
+<div id="outline-container-orge179df4" class="outline-2">
+<h2 id="orge179df4">Ce este un <code>Variational Autoencoder</code>?</h2>
+<div class="outline-text-2" id="text-orge179df4">
 <p>
-Privind de la un nivel înalt, un <code>variational autoencoder</code><sup><a id="fnr.3" class="footref" href="#fn.3">3</a></sup><sup>, </sup><sup><a id="fnr.4" class="footref" href="#fn.4">4</a></sup>, pe numele său mic <code>VAE</code>, are aceeași arhitectură ca un <code>autoencoder</code>. Astfel și într-un <code>VAE</code> regăsim componentele binecunoscute ale unui <code>autoencoder</code>:
+Privind de la un nivel înalt, un <code>variational autoencoder</code><sup><a id="fnr.3" class="footref" href="#fn.3" role="doc-backlink">3</a></sup><sup>, </sup><sup><a id="fnr.4" class="footref" href="#fn.4" role="doc-backlink">4</a></sup>, pe numele său mic <code>VAE</code>, are aceeași arhitectură ca un <code>autoencoder</code>. Astfel și într-un <code>VAE</code> regăsim componentele binecunoscute ale unui <code>autoencoder</code>:
 </p>
 <ul class="org-ul">
 <li>un codor care primește la intrare un \(X\) și îl transformă în reprezentarea latentă \(z\),</li>
@@ -165,11 +165,11 @@ Evident, nu este posibil să specificăm manual aceste caracteristici de fiecare
 </p>
 
 <p>
-Prezența acestei părți de deducție a reprezentărilor latente merită o mențiune aparte: <b><code>VAE</code> nu este un model generativ</b><sup><a id="fnr.5" class="footref" href="#fn.5">5</a></sup>. <b>Modelul generativ face parte din <code>VAE</code></b>, mai exact, acesta este decodorul menționat la începutul acestei secțiuni dar <code>VAE</code> este mai mult decât atât.
+Prezența acestei părți de deducție a reprezentărilor latente merită o mențiune aparte: <b><code>VAE</code> nu este un model generativ</b><sup><a id="fnr.5" class="footref" href="#fn.5" role="doc-backlink">5</a></sup>. <b>Modelul generativ face parte din <code>VAE</code></b>, mai exact, acesta este decodorul menționat la începutul acestei secțiuni dar <code>VAE</code> este mai mult decât atât.
 </p>
 
 <p>
-Acestea fiind spuse, <b>definim un <code>Variational Autoencoder</code> ca fiind un <i>ansamblu</i> care constă dintr-o rețea de inferență și un model generativ</b> <sup><a id="fnr.5.100" class="footref" href="#fn.5">5</a></sup>.
+Acestea fiind spuse, <b>definim un <code>Variational Autoencoder</code> ca fiind un <i>ansamblu</i> care constă dintr-o rețea de inferență și un model generativ</b> <sup><a id="fnr.5.100" class="footref" href="#fn.5" role="doc-backlink">5</a></sup>.
 </p>
 
 <p>
@@ -177,7 +177,7 @@ Definiția de mai sus, pentru mine, a fost puntea de trecere dintre învățarea
 </p>
 
 <p>
-Un <code>VAE</code> trebuie explicat din ambele puncte de vedere, așa cum a făcut Jaan Altosaar în articolul<sup><a id="fnr.6" class="footref" href="#fn.6">6</a></sup> său, deoarece privit dintr-o singură perspectivă, imaginea a ceea ce este cu adevărat un <code>VAE</code> este neclară și/sau incompletă, așa cum s-a văzut mai sus când am menționat că un <code>VAE</code> este mai mult decât un simplu model generativ.
+Un <code>VAE</code> trebuie explicat din ambele puncte de vedere, așa cum a făcut Jaan Altosaar în articolul<sup><a id="fnr.6" class="footref" href="#fn.6" role="doc-backlink">6</a></sup> său, deoarece privit dintr-o singură perspectivă, imaginea a ceea ce este cu adevărat un <code>VAE</code> este neclară și/sau incompletă, așa cum s-a văzut mai sus când am menționat că un <code>VAE</code> este mai mult decât un simplu model generativ.
 </p>
 
 <p>
@@ -185,11 +185,11 @@ Abia văzut din ambele perspective, modelul <code>VAE</code> ni se arată în to
 </p>
 </div>
 </div>
-<div id="outline-container-orge194383" class="outline-2">
-<h2 id="orge194383">
+<div id="outline-container-org29fcad3" class="outline-2">
+<h2 id="org29fcad3">
 <code>VAE</code> din perspectiva <code>Deep Learning</code>
 </h2>
-<div class="outline-text-2" id="text-orge194383">
+<div class="outline-text-2" id="text-org29fcad3">
 <p>
 Din perspectiva învățării automate aprofundate, <code>VAE</code> poate fi asociat cu un autoencoder care a suferit următoarele modificări:
 </p>
@@ -206,7 +206,7 @@ Din perspectiva învățării automate aprofundate, <code>VAE</code> poate fi as
 </ul>
 <p>
 Și cum o imagine face cât o mie de cuvinte, arhitectura de nivel înalt a unui <code>Variational Autoencoder</code> arată așa:
-<a id="orge911faa"></a>
+<a id="org210c3d6"></a>
 </p>
 <p>
 <img src="../../images/vae-schema.png" alt="nil"></p>
@@ -216,17 +216,17 @@ Pornind de la diagramele arhitecturale ale celor două modele, începem să iden
 </p>
 <dl class="org-dl">
 <dt>Codorul</dt>
-<dd>Învață să identifice parametrii care descriu distribuția statistică a reprezentărilor latente. Cu alte cuvinte, <b>codorul</b> nu identifică o reprezentare directă a lui \(X\) ci <b>identifică distribuția statistică a reprezentărilor lui \(X\)</b>. Intuiția din spatele acestui comportament este că dacă modelul va învăța să genereze date asemănătoare celor din setul de antrenament atunci este foarte probabil să genereze date asemănătoare și pentru celelalte date<sup><a id="fnr.7" class="footref" href="#fn.7">7</a></sup>. Cum o distribuție poate fi descrisă prin media (\(\mu\)) și deviația standard (\(\sigma\)), aceștia sunt parametrii identificați de codor.</dd>
+<dd>Învață să identifice parametrii care descriu distribuția statistică a reprezentărilor latente. Cu alte cuvinte, <b>codorul</b> nu identifică o reprezentare directă a lui \(X\) ci <b>identifică distribuția statistică a reprezentărilor lui \(X\)</b>. Intuiția din spatele acestui comportament este că dacă modelul va învăța să genereze date asemănătoare celor din setul de antrenament atunci este foarte probabil să genereze date asemănătoare și pentru celelalte date<sup><a id="fnr.7" class="footref" href="#fn.7" role="doc-backlink">7</a></sup>. Cum o distribuție poate fi descrisă prin media (\(\mu\)) și deviația standard (\(\sigma\)), aceștia sunt parametrii identificați de codor.</dd>
 <dt>Decodorul</dt>
 <dd>Învață de fapt două funcții:
 <ol class="org-ol">
-<li>O funcție care transformă un punct din distribuția dată de \((\mu, \sigma)\) într-un punct din spațiul <i>reprezentărilor latente ale lui \(X\)</i>. Cum face asta în cazul <code>VAE</code>? Simplu: învață o funcție care aranjează punctele unei distribuții date de \((\mu, \sigma)\) în forma necesară pentru \(z\)<sup><a id="fnr.7.100" class="footref" href="#fn.7">7</a></sup>.</li>
+<li>O funcție care transformă un punct din distribuția dată de \((\mu, \sigma)\) într-un punct din spațiul <i>reprezentărilor latente ale lui \(X\)</i>. Cum face asta în cazul <code>VAE</code>? Simplu: învață o funcție care aranjează punctele unei distribuții date de \((\mu, \sigma)\) în forma necesară pentru \(z\)<sup><a id="fnr.7.100" class="footref" href="#fn.7" role="doc-backlink">7</a></sup>.</li>
 <li>O funcție care transformă reprezentarea latentă \(z\) în instanța primită la intrare.</li>
 </ol>
 </dd>
 </dl>
 <p>
-Așadar, schema din <a href="#orge911faa">imaginea anterioară</a> este simplificată. Adevărata arhitectură a unui <code>VAE</code> arată astfel:
+Așadar, schema din <a href="#org210c3d6">imaginea anterioară</a> este simplificată. Adevărata arhitectură a unui <code>VAE</code> arată astfel:
   <img src="../../images/vae-schema-complete.png" alt="nil"></p>
 
 <p>
@@ -234,7 +234,7 @@ La fel ca în diagrama pentru <code>autoencoder</code>, reprezentarea latentă \
 </p>
 
 <p>
-Abia această ultimă diagramă, cea cu arhitectura completă, ne oferă imaginea clară a diferențelor dintre un <code>autoencoder</code> clasic și un <code>VAE</code>: în cazul <code>VAE</code> nu mai vorbim de o compunere de funcții cum am văzut în cazul unui <a href="#orgd36249d">autoencoder</a>. În principiu vorbim despre două <i>componente diferite</i>: (i) <b>rețeaua de inferență</b> care ne permite să aproximăm parametrii \((\mu, \sigma)\) și (ii) <b>modelul</b> propriu-zis care generează instanțe noi.
+Abia această ultimă diagramă, cea cu arhitectura completă, ne oferă imaginea clară a diferențelor dintre un <code>autoencoder</code> clasic și un <code>VAE</code>: în cazul <code>VAE</code> nu mai vorbim de o compunere de funcții cum am văzut în cazul unui <a href="#org6d83c1e">autoencoder</a>. În principiu vorbim despre două <i>componente diferite</i>: (i) <b>rețeaua de inferență</b> care ne permite să aproximăm parametrii \((\mu, \sigma)\) și (ii) <b>modelul</b> propriu-zis care generează instanțe noi.
 </p>
 
 <p>
@@ -256,24 +256,24 @@ După cum se observă deja din funcția de cost, am trecut de jumătatea podului
 </p>
 </div>
 </div>
-<div id="outline-container-org04ec11f" class="outline-2">
-<h2 id="org04ec11f">
+<div id="outline-container-orgdea9584" class="outline-2">
+<h2 id="orgdea9584">
 <code>VAE</code> din perspectiva probabilistică</h2>
-<div class="outline-text-2" id="text-org04ec11f">
+<div class="outline-text-2" id="text-orgdea9584">
 <p>
 <b>Rețeaua de inferență</b>
 </p>
 
 <p>
-O reţea de inferenţă este o reţea neuronală care permite să identificăm parametrii optimi pentru aproximarea unor distribuţii<sup><a id="fnr.8" class="footref" href="#fn.8">8</a></sup>. Avantajul unei astfel de reţele este că putem generaliza identificarea parametrilor \(\mu\) şi \(\sigma\) atât pentru punctele din setul de date de antrenament cât şi pentru punctele nemaîntâlnite până acum.
+O reţea de inferenţă este o reţea neuronală care permite să identificăm parametrii optimi pentru aproximarea unor distribuţii<sup><a id="fnr.8" class="footref" href="#fn.8" role="doc-backlink">8</a></sup>. Avantajul unei astfel de reţele este că putem generaliza identificarea parametrilor \(\mu\) şi \(\sigma\) atât pentru punctele din setul de date de antrenament cât şi pentru punctele nemaîntâlnite până acum.
 </p>
 </div>
 </div>
-<div id="outline-container-orgb17e155" class="outline-2">
-<h2 id="orgb17e155">Cum funcționează?</h2>
+<div id="outline-container-org53ed706" class="outline-2">
+<h2 id="org53ed706">Cum funcționează?</h2>
 </div>
-<div id="outline-container-org9cfcff6" class="outline-2">
-<h2 id="org9cfcff6">O implementare elegantă<sup><a id="fnr.9" class="footref" href="#fn.9">9</a></sup>
+<div id="outline-container-org280eee4" class="outline-2">
+<h2 id="org280eee4">O implementare elegantă<sup><a id="fnr.9" class="footref" href="#fn.9" role="doc-backlink">9</a></sup>
 </h2>
 </div>
 <div id="footnotes">
@@ -281,55 +281,55 @@ O reţea de inferenţă este o reţea neuronală care permite să identificăm p
 <div id="text-footnotes">
 
 <div class="footdef">
-<sup><a id="fn.1" class="footnum" href="#fnr.1">1</a></sup><div class="footpara"><p class="footpara">
+<sup><a id="fn.1" class="footnum" href="#fnr.1" role="doc-backlink">1</a></sup><div class="footpara" role="doc-footnote"><p class="footpara">
 <a href="https://dl.acm.org/doi/10.1145/2689746.2689747">Anomaly Detection Using Autoencoders with Nonlinear Dimensionality Reduction</a>
 </p></div>
 </div>
 
 <div class="footdef">
-<sup><a id="fn.2" class="footnum" href="#fnr.2">2</a></sup><div class="footpara"><p class="footpara">
+<sup><a id="fn.2" class="footnum" href="#fnr.2" role="doc-backlink">2</a></sup><div class="footpara" role="doc-footnote"><p class="footpara">
 <a href="https://dl.acm.org/doi/abs/10.1145/3097983.3098052">Anomaly Detection with Robust Deep Autoencoders</a>
 </p></div>
 </div>
 
 <div class="footdef">
-<sup><a id="fn.3" class="footnum" href="#fnr.3">3</a></sup><div class="footpara"><p class="footpara">
+<sup><a id="fn.3" class="footnum" href="#fnr.3" role="doc-backlink">3</a></sup><div class="footpara" role="doc-footnote"><p class="footpara">
 <a href="https://arxiv.org/abs/1312.6114">Kingma, D. P. and Welling M., (2014) Auto-Encoding Variational Bayes</a>
 </p></div>
 </div>
 
 <div class="footdef">
-<sup><a id="fn.4" class="footnum" href="#fnr.4">4</a></sup><div class="footpara"><p class="footpara">
+<sup><a id="fn.4" class="footnum" href="#fnr.4" role="doc-backlink">4</a></sup><div class="footpara" role="doc-footnote"><p class="footpara">
 <a href="https://arxiv.org/abs/1401.4082">Rezende, D. J., Mohamed, S., &amp; Wierstra, D. (2014). Stochastic backpropagation and approximate inference in deep generative models</a>
 </p></div>
 </div>
 
 <div class="footdef">
-<sup><a id="fn.5" class="footnum" href="#fnr.5">5</a></sup><div class="footpara"><p class="footpara">
+<sup><a id="fn.5" class="footnum" href="#fnr.5" role="doc-backlink">5</a></sup><div class="footpara" role="doc-footnote"><p class="footpara">
 <a href="http://dustintran.com/blog/variational-auto-encoders-do-not-train-complex-generative-models">Variational auto-encoders do not train complex generative models | Dustin Tran</a>
 </p></div>
 </div>
 
 <div class="footdef">
-<sup><a id="fn.6" class="footnum" href="#fnr.6">6</a></sup><div class="footpara"><p class="footpara">
+<sup><a id="fn.6" class="footnum" href="#fnr.6" role="doc-backlink">6</a></sup><div class="footpara" role="doc-footnote"><p class="footpara">
 <a href="https://jaan.io/what-is-variational-autoencoder-vae-tutorial/">Tutorial - What is a variational autoencoder? – Jaan Altosaar</a>
 </p></div>
 </div>
 
 <div class="footdef">
-<sup><a id="fn.7" class="footnum" href="#fnr.7">7</a></sup><div class="footpara"><p class="footpara">
+<sup><a id="fn.7" class="footnum" href="#fnr.7" role="doc-backlink">7</a></sup><div class="footpara" role="doc-footnote"><p class="footpara">
 <a href="https://arxiv.org/abs/1606.05908">Doersch, C., (2016) Tutorial on variational autoencoders</a>
 </p></div>
 </div>
 
 <div class="footdef">
-<sup><a id="fn.8" class="footnum" href="#fnr.8">8</a></sup><div class="footpara"><p class="footpara">
+<sup><a id="fn.8" class="footnum" href="#fnr.8" role="doc-backlink">8</a></sup><div class="footpara" role="doc-footnote"><p class="footpara">
 <a href="http://edwardlib.org/tutorials/inference-networks">Edward – Inference Networks</a>
 </p></div>
 </div>
 
 <div class="footdef">
-<sup><a id="fn.9" class="footnum" href="#fnr.9">9</a></sup><div class="footpara"><p class="footpara">
+<sup><a id="fn.9" class="footnum" href="#fnr.9" role="doc-backlink">9</a></sup><div class="footpara" role="doc-footnote"><p class="footpara">
 <a href="http://louistiao.me/posts/implementing-variational-autoencoders-in-keras-beyond-the-quickstart-tutorial">Implementing Variational Autoencoders in Keras: Beyond the Quickstart Tutorial</a>
 </p></div>
 </div>

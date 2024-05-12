@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Rebeja · Python development using Emacs from terminal </title>
 <link href="../../assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
-<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700%7CAbril+Fatface">
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.1.7/css/fork-awesome.min.css" integrity="sha256-gsmEoJAws/Kd3CjuOQzLie5Q3yshhvmo7YNtBG7aaEY=" crossorigin="anonymous">
 <meta content="#5670d4" name="theme-color">
 <link rel="alternate" type="application/rss+xml" title="RSS" href="../../rss.xml">
@@ -28,7 +28,7 @@
     
     
     </nav><footer id="footer"><span class="copyright">
-              Contents © 2023         <a href="mailto:petru.rebeja@gmail.com">Petru Rebeja</a> - Powered by   <a href="https://www.gnu.org/software/emacs/" rel="nofollow">GNU Emacs</a>  &amp;    <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+              Contents © 2024         <a href="mailto:petru.rebeja@gmail.com">Petru Rebeja</a> - Powered by   <a href="https://www.gnu.org/software/emacs/" rel="nofollow">GNU Emacs</a>  &amp;    <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
             </span>
             
             
@@ -70,8 +70,8 @@ Emacs can be opened from console so why not start working on hackathon from cons
 <p>
 Said and done. <code>Ctrl-Alt-F1</code> and I was prompted with the TTY cursor. I logged in, started Emacs opened all the required files and started working. All good until I found myself in the situation where I needed to lookup something on the Internet. I knew I could use <code>eww</code> as a web browser so normally I did so (yeah, I'm one of those people that use Bing instead of Google):
 </p>
-<div class="highlight"><pre><span></span>M-x eww
-Enter URL or keywords: www.bing.com
+<div class="highlight"><pre><span></span>M-x<span class="w"> </span>eww
+Enter<span class="w"> </span>URL<span class="w"> </span>or<span class="w"> </span>keywords:<span class="w"> </span>www.bing.com
 </pre></div>
 <p>
 And nothing… Oh, wait, I remember needing to enter some username and password when connecting to the Wi-Fi but I wasn't prompted for those after logging into terminal. How do I connect to the network?
@@ -80,7 +80,7 @@ And nothing… Oh, wait, I remember needing to enter some username and password 
 <p>
 As there was no way for me to find that out without using some sort of GUI (I'm not that good with terminals) I started a new X session, connected from there to Wi-Fi and found this <a href="https://askubuntu.com/a/461831/561980">StackOverflow answer</a>. So I logged back to the terminal and from Emacs started <b>eshell</b> with <code>M-x eshell</code>. From there I issued the following command
 </p>
-<div class="highlight"><pre><span></span>nmcli c up &lt;wi-fi-name&gt;
+<div class="highlight"><pre><span></span>nmcli<span class="w"> </span>c<span class="w"> </span>up<span class="w"> </span>&lt;wi-fi-name&gt;
 </pre></div>
 <p>
 which connected me to the Wi-Fi network.
@@ -89,7 +89,7 @@ which connected me to the Wi-Fi network.
 <p>
 Note: I got connected because on previous sessions I opted to store the credentials for the connection; to get a prompt for username and password for the Wi-Fi use the <code>--ask</code> parameter like this:
 </p>
-<div class="highlight"><pre><span></span>nmcli --ask c up &lt;wi-fi-name&gt;
+<div class="highlight"><pre><span></span>nmcli<span class="w"> </span>--ask<span class="w"> </span>c<span class="w"> </span>up<span class="w"> </span>&lt;wi-fi-name&gt;
 </pre></div>
 
 <p>

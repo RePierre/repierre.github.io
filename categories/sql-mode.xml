@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Rebeja (Posts about sql-mode)</title><link>https://rebeja.eu/</link><description></description><atom:link href="https://rebeja.eu/categories/sql-mode.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2021 &lt;a href="mailto:petru.rebeja@gmail.com"&gt;Petru Rebeja&lt;/a&gt; </copyright><lastBuildDate>Fri, 31 Dec 2021 11:21:59 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Use Emacs sql-mode to connect to database on a Docker image</title><link>https://rebeja.eu/posts/use-emacs-sql-mode-to-connect-to-database-on-a-docker-image/</link><dc:creator>Petru Rebeja</dc:creator><description>&lt;p&gt;
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Rebeja (Posts about sql-mode)</title><link>https://rebeja.eu/</link><description></description><atom:link href="https://rebeja.eu/categories/sql-mode.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2024 &lt;a href="mailto:petru.rebeja@gmail.com"&gt;Petru Rebeja&lt;/a&gt; </copyright><lastBuildDate>Fri, 03 May 2024 18:22:38 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Use Emacs sql-mode to connect to database on a Docker image</title><link>https://rebeja.eu/posts/use-emacs-sql-mode-to-connect-to-database-on-a-docker-image/</link><dc:creator>Petru Rebeja</dc:creator><description>&lt;p&gt;
 While working on a project I had to load and process some resources from a MySQL database. I had a database dump and all I needed was to &lt;code&gt;sudo apt-get install mysql&lt;/code&gt; but I decided against it because that would just bloat my OS with software used only once and drain my laptop battery with the service running in the background.
 &lt;/p&gt;
 
 &lt;p&gt;
 Instead, I decided to restore the database on a Docker image for MySQL and query the data using &lt;code&gt;mysql-client&lt;/code&gt;.
 &lt;/p&gt;
-&lt;div id="outline-container-org948ac39" class="outline-2"&gt;
-&lt;h2 id="org948ac39"&gt;Install &lt;code&gt;mysql-client&lt;/code&gt; locally&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-org948ac39"&gt;
+&lt;div id="outline-container-orge400663" class="outline-2"&gt;
+&lt;h2 id="orge400663"&gt;Install &lt;code&gt;mysql-client&lt;/code&gt; locally&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-orge400663"&gt;
 &lt;p&gt;
 This one is simple; just run:
 &lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;  sudo apt-get install mysql-client
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="w"&gt;  &lt;/span&gt;sudo&lt;span class="w"&gt; &lt;/span&gt;apt-get&lt;span class="w"&gt; &lt;/span&gt;install&lt;span class="w"&gt; &lt;/span&gt;mysql-client
 &lt;/pre&gt;&lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-orgc641ace" class="outline-2"&gt;
-&lt;h2 id="orgc641ace"&gt;Install Docker on Ubuntu&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-orgc641ace"&gt;
+&lt;div id="outline-container-org221963f" class="outline-2"&gt;
+&lt;h2 id="org221963f"&gt;Install Docker on Ubuntu&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org221963f"&gt;
 &lt;p&gt;
 The first thing to do is to head to &lt;a href="https://docs.docker.com/engine/installation/linux/ubuntu/#install-docker"&gt;Docker documentation&lt;/a&gt; for instalation instructions which I've copied here:
 &lt;/p&gt;
@@ -26,51 +26,51 @@ The first thing to do is to head to &lt;a href="https://docs.docker.com/engine/i
 &lt;li&gt;&lt;p&gt;
 Install packages to allow &lt;code&gt;apt&lt;/code&gt; to use a repository over HTTPS:
 &lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;   sudo apt-get install &lt;span class="se"&gt;\&lt;/span&gt;
-       apt-transport-https &lt;span class="se"&gt;\&lt;/span&gt;
-       ca-certificates &lt;span class="se"&gt;\&lt;/span&gt;
-       curl &lt;span class="se"&gt;\&lt;/span&gt;
-       software-properties-common
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="w"&gt;   &lt;/span&gt;sudo&lt;span class="w"&gt; &lt;/span&gt;apt-get&lt;span class="w"&gt; &lt;/span&gt;install&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="se"&gt;\&lt;/span&gt;
+&lt;span class="w"&gt;       &lt;/span&gt;apt-transport-https&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="se"&gt;\&lt;/span&gt;
+&lt;span class="w"&gt;       &lt;/span&gt;ca-certificates&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="se"&gt;\&lt;/span&gt;
+&lt;span class="w"&gt;       &lt;/span&gt;curl&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="se"&gt;\&lt;/span&gt;
+&lt;span class="w"&gt;       &lt;/span&gt;software-properties-common
 &lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;
 Add the official GPG key for Docker
 &lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;   curl -fsSL https://download.docker.com/linux/ubuntu/gpg &lt;span class="p"&gt;|&lt;/span&gt; sudo apt-key add -
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="w"&gt;   &lt;/span&gt;curl&lt;span class="w"&gt; &lt;/span&gt;-fsSL&lt;span class="w"&gt; &lt;/span&gt;https://download.docker.com/linux/ubuntu/gpg&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;|&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;sudo&lt;span class="w"&gt; &lt;/span&gt;apt-key&lt;span class="w"&gt; &lt;/span&gt;add&lt;span class="w"&gt; &lt;/span&gt;-
 &lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;
 Setup the &lt;b&gt;stable&lt;/b&gt; repository. Make sure to select the proper architecture; in my case it's &lt;code&gt;amd64&lt;/code&gt;
 &lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;   sudo add-apt-repository &lt;span class="se"&gt;\&lt;/span&gt;
-       &lt;span class="s2"&gt;"deb [arch=amd64] https://download.docker.com/linux/ubuntu \&lt;/span&gt;
-&lt;span class="s2"&gt;       &lt;/span&gt;&lt;span class="k"&gt;$(&lt;/span&gt;lsb_release -cs&lt;span class="k"&gt;)&lt;/span&gt;&lt;span class="s2"&gt; \&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="w"&gt;   &lt;/span&gt;sudo&lt;span class="w"&gt; &lt;/span&gt;add-apt-repository&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="se"&gt;\&lt;/span&gt;
+&lt;span class="w"&gt;       &lt;/span&gt;&lt;span class="s2"&gt;"deb [arch=amd64] https://download.docker.com/linux/ubuntu \&lt;/span&gt;
+&lt;span class="s2"&gt;       &lt;/span&gt;&lt;span class="k"&gt;$(&lt;/span&gt;lsb_release&lt;span class="w"&gt; &lt;/span&gt;-cs&lt;span class="k"&gt;)&lt;/span&gt;&lt;span class="s2"&gt; \&lt;/span&gt;
 &lt;span class="s2"&gt;       stable"&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;
 Update the package index
 &lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;   sudo apt-get update
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="w"&gt;   &lt;/span&gt;sudo&lt;span class="w"&gt; &lt;/span&gt;apt-get&lt;span class="w"&gt; &lt;/span&gt;update
 &lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;
 Install Docker
 &lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;   sudo apt-get install docker-ce
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="w"&gt;   &lt;/span&gt;sudo&lt;span class="w"&gt; &lt;/span&gt;apt-get&lt;span class="w"&gt; &lt;/span&gt;install&lt;span class="w"&gt; &lt;/span&gt;docker-ce
 &lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-org861a47c" class="outline-2"&gt;
-&lt;h2 id="org861a47c"&gt;Restore MySQL database to a Docker container&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-org861a47c"&gt;
+&lt;div id="outline-container-org6cb0d62" class="outline-2"&gt;
+&lt;h2 id="org6cb0d62"&gt;Restore MySQL database to a Docker container&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org6cb0d62"&gt;
 &lt;ul class="org-ul"&gt;
 &lt;li&gt;&lt;p&gt;
 Download the Docker image for &lt;code&gt;MySQL&lt;/code&gt;
 &lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;   sudo docker pull mysql
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="w"&gt;   &lt;/span&gt;sudo&lt;span class="w"&gt; &lt;/span&gt;docker&lt;span class="w"&gt; &lt;/span&gt;pull&lt;span class="w"&gt; &lt;/span&gt;mysql
 &lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;
 Create an empty database
 &lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;   sudo docker run --name &amp;lt;container-name&amp;gt; -e &lt;span class="nv"&gt;MYSQL_ROOT_PASSWORD&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&amp;lt;password&amp;gt; -e &lt;span class="nv"&gt;MYSQL_DATABASE&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&amp;lt;db-name&amp;gt; -d mysql
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="w"&gt;   &lt;/span&gt;sudo&lt;span class="w"&gt; &lt;/span&gt;docker&lt;span class="w"&gt; &lt;/span&gt;run&lt;span class="w"&gt; &lt;/span&gt;--name&lt;span class="w"&gt; &lt;/span&gt;&amp;lt;container-name&amp;gt;&lt;span class="w"&gt; &lt;/span&gt;-e&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;MYSQL_ROOT_PASSWORD&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&amp;lt;password&amp;gt;&lt;span class="w"&gt; &lt;/span&gt;-e&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;MYSQL_DATABASE&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&amp;lt;db-name&amp;gt;&lt;span class="w"&gt; &lt;/span&gt;-d&lt;span class="w"&gt; &lt;/span&gt;mysql
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;
 This will create a new container with an empty database and login &lt;code&gt;root&lt;/code&gt;.
@@ -78,7 +78,7 @@ This will create a new container with an empty database and login &lt;code&gt;ro
 &lt;li&gt;&lt;p&gt;
 Restore database from dump
 &lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;   sudo docker &lt;span class="nb"&gt;exec&lt;/span&gt; -i &amp;lt;container-name&amp;gt; mysql -u&amp;lt;user-name&amp;gt; -p&amp;lt;password&amp;gt; --database&lt;span class="o"&gt;=&lt;/span&gt;&amp;lt;db-name&amp;gt; &amp;lt; &amp;lt;path-to-sql-file&amp;gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="w"&gt;   &lt;/span&gt;sudo&lt;span class="w"&gt; &lt;/span&gt;docker&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nb"&gt;exec&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;-i&lt;span class="w"&gt; &lt;/span&gt;&amp;lt;container-name&amp;gt;&lt;span class="w"&gt; &lt;/span&gt;mysql&lt;span class="w"&gt; &lt;/span&gt;-u&amp;lt;user-name&amp;gt;&lt;span class="w"&gt; &lt;/span&gt;-p&amp;lt;password&amp;gt;&lt;span class="w"&gt; &lt;/span&gt;--database&lt;span class="o"&gt;=&lt;/span&gt;&amp;lt;db-name&amp;gt;&lt;span class="w"&gt; &lt;/span&gt;&amp;lt;&lt;span class="w"&gt; &lt;/span&gt;&amp;lt;path-to-sql-file&amp;gt;
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;
 Notes:
@@ -91,9 +91,9 @@ Notes:
 &lt;/ul&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-org8a91f98" class="outline-2"&gt;
-&lt;h2 id="org8a91f98"&gt;Connect to MySQL database running on Docker container from Emacs&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-org8a91f98"&gt;
+&lt;div id="outline-container-orgbaf1220" class="outline-2"&gt;
+&lt;h2 id="orgbaf1220"&gt;Connect to MySQL database running on Docker container from Emacs&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-orgbaf1220"&gt;
 &lt;ul class="org-ul"&gt;
 &lt;li&gt;First, start the container &lt;code&gt;sudo docker start &amp;lt;container-name&amp;gt;&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;Get the IP Address of the container&lt;/li&gt;

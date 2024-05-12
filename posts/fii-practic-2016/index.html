@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Rebeja · FII Practic 2016 </title>
 <link href="../../assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
-<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700%7CAbril+Fatface">
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.1.7/css/fork-awesome.min.css" integrity="sha256-gsmEoJAws/Kd3CjuOQzLie5Q3yshhvmo7YNtBG7aaEY=" crossorigin="anonymous">
 <meta content="#5670d4" name="theme-color">
 <link rel="alternate" type="application/rss+xml" title="RSS" href="../../rss.xml">
@@ -28,7 +28,7 @@
     
     
     </nav><footer id="footer"><span class="copyright">
-              Contents © 2023         <a href="mailto:petru.rebeja@gmail.com">Petru Rebeja</a> - Powered by   <a href="https://www.gnu.org/software/emacs/" rel="nofollow">GNU Emacs</a>  &amp;    <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+              Contents © 2024         <a href="mailto:petru.rebeja@gmail.com">Petru Rebeja</a> - Powered by   <a href="https://www.gnu.org/software/emacs/" rel="nofollow">GNU Emacs</a>  &amp;    <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
             </span>
             
             
@@ -47,20 +47,20 @@
     
 
     <div class="e-content entry-content" itemprop="articleBody text">
-    <div id="outline-container-orgf8c5872" class="outline-2">
-<h2 id="orgf8c5872">Programming principles</h2>
-<div class="outline-text-2" id="text-orgf8c5872">
+    <div id="outline-container-org100c390" class="outline-2">
+<h2 id="org100c390">Programming principles</h2>
+<div class="outline-text-2" id="text-org100c390">
 </div>
-<div id="outline-container-orgf6cc6a2" class="outline-3">
-<h3 id="orgf6cc6a2">Chapter I - Object Oriented Programming</h3>
-<div class="outline-text-3" id="text-orgf6cc6a2">
+<div id="outline-container-org8890d7f" class="outline-3">
+<h3 id="org8890d7f">Chapter I - Object Oriented Programming</h3>
+<div class="outline-text-3" id="text-org8890d7f">
 </div>
-<div id="outline-container-org752c731" class="outline-4">
-<h4 id="org752c731">Encapsulation</h4>
-<div class="outline-text-4" id="text-org752c731">
+<div id="outline-container-orgea5a353" class="outline-4">
+<h4 id="orgea5a353">Encapsulation</h4>
+<div class="outline-text-4" id="text-orgea5a353">
 <blockquote>
 <p>
-<a href="https://en.wikipedia.org/wiki/Encapsulation_%28computer_programming%29">Encapsulation facilitates bundling of data with the method(s) operating on that data.</a>
+<a href="https://en.wikipedia.org/wiki/Encapsulation_%2528computer_programming%2529">Encapsulation facilitates bundling of data with the method(s) operating on that data.</a>
 </p>
 </blockquote>
 
@@ -82,23 +82,23 @@ To implement the requirement we consider the following:
 <p>
 The code below should do it:
 </p>
-<div class="highlight"><pre><span></span>    public class Account
-    {
-	public Money Balance { get; set; }
+<div class="highlight"><pre><span></span><span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">Account</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">public</span><span class="w"> </span><span class="n">Money</span><span class="w"> </span><span class="n">Balance</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 
-    }
+<span class="w">    </span><span class="p">}</span>
 
-    public class Program
-    {
-	static void Main(string[] args)
-	{
-	    var account = new Account();
-	    // Make a deposit
-	    account.Balance += 50;
-	    // Withdraw some cash
-	    account.Balance -= 100;
-	}
-    }
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">Program</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">static</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">Main</span><span class="p">(</span><span class="kt">string</span><span class="p">[]</span><span class="w"> </span><span class="n">args</span><span class="p">)</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="kt">var</span><span class="w"> </span><span class="n">account</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Account</span><span class="p">();</span>
+<span class="w">            </span><span class="c1">// Make a deposit</span>
+<span class="w">            </span><span class="n">account</span><span class="p">.</span><span class="n">Balance</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="m">50</span><span class="p">;</span>
+<span class="w">            </span><span class="c1">// Withdraw some cash</span>
+<span class="w">            </span><span class="n">account</span><span class="p">.</span><span class="n">Balance</span><span class="w"> </span><span class="o">-=</span><span class="w"> </span><span class="m">100</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
 </pre></div>
 
 <p>
@@ -109,35 +109,35 @@ The code below should do it:
     Of course, we need to validate each withdrawal but we can't surround each <code>account.Balance -= amount</code> with an <code>if(account.Balance &gt; amount)</code> because it's time consuming, inefficient
 and we simply may not have access to the code that uses our class. What we <i>can</i> do is to <b>encapsulate</b> the withdrawal and validation into a single operation like this:
 </p>
-<div class="highlight"><pre><span></span>public class Account
-{
-    public Money Balance {get; private set; } // The balance is now read-only
+<div class="highlight"><pre><span></span><span class="k">public</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">Account</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="n">Money</span><span class="w"> </span><span class="n">Balance</span><span class="w"> </span><span class="p">{</span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">private</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="c1">// The balance is now read-only</span>
 
-    public Money Withdraw(Money amount)
-    {
-	if( Balance &lt;= amount)
-	{
-	    throw new InvalidOperationException("Insufficient funds.");
-	}
-	this.Balance -= amount;
-	return amount;
-    }
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="n">Money</span><span class="w"> </span><span class="nf">Withdraw</span><span class="p">(</span><span class="n">Money</span><span class="w"> </span><span class="n">amount</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="w"> </span><span class="n">Balance</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">amount</span><span class="p">)</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="k">throw</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nf">InvalidOperationException</span><span class="p">(</span><span class="s">"Insufficient funds."</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="n">Balance</span><span class="w"> </span><span class="o">-=</span><span class="w"> </span><span class="n">amount</span><span class="p">;</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">amount</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
 
-    public void Deposit(Money money)
-    {
-	this.Balance += money;
-    }
-}
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">Deposit</span><span class="p">(</span><span class="n">Money</span><span class="w"> </span><span class="n">money</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="n">Balance</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">money</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
 
-public class Program
-{
-    static void Main(string[] args)
-    {
-	var account = new Account();
-	account.Deposit(50);
-	account.Withdraw(100); // =&gt; InvalidOperationException.
-    }
-}
+<span class="k">public</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">Program</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">Main</span><span class="p">(</span><span class="kt">string</span><span class="p">[]</span><span class="w"> </span><span class="n">args</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">var</span><span class="w"> </span><span class="n">account</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Account</span><span class="p">();</span>
+<span class="w">        </span><span class="n">account</span><span class="p">.</span><span class="n">Deposit</span><span class="p">(</span><span class="m">50</span><span class="p">);</span>
+<span class="w">        </span><span class="n">account</span><span class="p">.</span><span class="n">Withdraw</span><span class="p">(</span><span class="m">100</span><span class="p">);</span><span class="w"> </span><span class="c1">// =&gt; InvalidOperationException.</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 
 <p>
@@ -145,9 +145,9 @@ Much better! Now we are in control and we can be sure that <i>every</i> withdraw
 </p>
 </div>
 </div>
-<div id="outline-container-org2052f3b" class="outline-4">
-<h4 id="org2052f3b">Inheritance and Polymorphism</h4>
-<div class="outline-text-4" id="text-org2052f3b">
+<div id="outline-container-orgfa64888" class="outline-4">
+<h4 id="orgfa64888">Inheritance and Polymorphism</h4>
+<div class="outline-text-4" id="text-orgfa64888">
 <blockquote>
 <p>
 <a href="http://www.codeproject.com/Articles/22769/Introduction-to-Object-Oriented-Programming-Concep#Inheritance">Inheritance is the ability of a new class to acquire the properties of another class.</a>
@@ -176,51 +176,51 @@ Also, additional changes to the <code>Withdraw</code> method should be applied:
 <p>
 Given the above, our code would look like this:
 </p>
-<div class="highlight"><pre><span></span>public enum AccountType
-{
-    Debit,
-    Savings
-}
+<div class="highlight"><pre><span></span><span class="k">public</span><span class="w"> </span><span class="k">enum</span><span class="w"> </span><span class="n">AccountType</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">Debit</span><span class="p">,</span>
+<span class="w">    </span><span class="n">Savings</span>
+<span class="p">}</span>
 
-public class Account
-{
-    private readonly AccountType _accountType;
+<span class="k">public</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">Account</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">private</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="n">AccountType</span><span class="w"> </span><span class="n">_accountType</span><span class="p">;</span>
 
-    public Account(AccountType accountType)
-    {
-	_accountType = accountType;
-    }
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="nf">Account</span><span class="p">(</span><span class="n">AccountType</span><span class="w"> </span><span class="n">accountType</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">_accountType</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">accountType</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
 
-    public AccountType AccountType { get { return _accountType; } }
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="n">AccountType</span><span class="w"> </span><span class="n">AccountType</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">_accountType</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">}</span>
 
-    public Money Balance { get; private set; }
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="n">Money</span><span class="w"> </span><span class="n">Balance</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">private</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 
-    public void Deposit(Money money)
-    {
-	this.Balance += money;
-    }
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">Deposit</span><span class="p">(</span><span class="n">Money</span><span class="w"> </span><span class="n">money</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="n">Balance</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">money</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
 
-    public Money Withdraw(Money amount)
-    {
-	var fee = CalculateWithdrawalFee(amount);
-	amount = amount + fee;
-	if( Balance &lt;= amount)
-	{
-	    throw new InvalidOperationException("Insufficient funds.");
-	}
-	this.Balance -= amount;
-    }
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="n">Money</span><span class="w"> </span><span class="nf">Withdraw</span><span class="p">(</span><span class="n">Money</span><span class="w"> </span><span class="n">amount</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">var</span><span class="w"> </span><span class="n">fee</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CalculateWithdrawalFee</span><span class="p">(</span><span class="n">amount</span><span class="p">);</span>
+<span class="w">        </span><span class="n">amount</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">amount</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">fee</span><span class="p">;</span>
+<span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="w"> </span><span class="n">Balance</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">amount</span><span class="p">)</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="k">throw</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nf">InvalidOperationException</span><span class="p">(</span><span class="s">"Insufficient funds."</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="n">Balance</span><span class="w"> </span><span class="o">-=</span><span class="w"> </span><span class="n">amount</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
 
-    private Money CalculateWithdrawalFee(Money amount)
-    {
-	var margin = _accountType == AccountType.Savings ? 0.5 : 0;
-	return amount * margin / 100;
-    }
-}
+<span class="w">    </span><span class="k">private</span><span class="w"> </span><span class="n">Money</span><span class="w"> </span><span class="nf">CalculateWithdrawalFee</span><span class="p">(</span><span class="n">Money</span><span class="w"> </span><span class="n">amount</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">var</span><span class="w"> </span><span class="n">margin</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_accountType</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">AccountType</span><span class="p">.</span><span class="n">Savings</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="m">0.5</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="m">0</span><span class="p">;</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">amount</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">margin</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="m">100</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 
 <p>
-Everything looks good except the <a href="https://en.wikipedia.org/wiki/Magic_number_%28programming%29">magic numbers</a>. Until we get a new requirement:
+Everything looks good except the <a href="https://en.wikipedia.org/wiki/Magic_number_%2528programming%2529">magic numbers</a>. Until we get a new requirement:
 </p>
 
 <p>
@@ -230,25 +230,25 @@ Everything looks good except the <a href="https://en.wikipedia.org/wiki/Magic_nu
 <p>
 To accomodate this new requirement we just have to change the <code>CalculateWithdrawalFee</code> method <b>and</b> add a new value in our <code>AccountType</code> enum:
 </p>
-<div class="highlight"><pre><span></span>public enum AccountType
-{
-    Debit,
-    Savings,
-    Credit
-}
+<div class="highlight"><pre><span></span><span class="k">public</span><span class="w"> </span><span class="k">enum</span><span class="w"> </span><span class="n">AccountType</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">Debit</span><span class="p">,</span>
+<span class="w">    </span><span class="n">Savings</span><span class="p">,</span>
+<span class="w">    </span><span class="n">Credit</span>
+<span class="p">}</span>
 
-...
+<span class="p">...</span>
 
-private Money CalculateWithdrawalFee(Money amount)
-{
-    switch( _accountType )
-	case AccountType.Savings:
-	    return amount * 0.5 / 100;
-	case AccountType.Credit:
-	    return amount * 0.7 / 100;
-	default:
-	    return 0;
-}
+<span class="k">private</span><span class="w"> </span><span class="n">Money</span><span class="w"> </span><span class="nf">CalculateWithdrawalFee</span><span class="p">(</span><span class="n">Money</span><span class="w"> </span><span class="n">amount</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">switch</span><span class="p">(</span><span class="w"> </span><span class="n">_accountType</span><span class="w"> </span><span class="p">)</span>
+<span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="n">AccountType</span><span class="p">.</span><span class="n">Savings</span><span class="p">:</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">amount</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="m">0.5</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="m">100</span><span class="p">;</span>
+<span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="n">AccountType</span><span class="p">.</span><span class="n">Credit</span><span class="p">:</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">amount</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="m">0.7</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="m">100</span><span class="p">;</span>
+<span class="w">        </span><span class="k">default</span><span class="p">:</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="m">0</span><span class="p">;</span>
+<span class="p">}</span>
 </pre></div>
 <p>
 The problem with this approach is that we had to add changes in more than one place; and the hint that this way of implementing the new requirement is not ok was given by the
@@ -298,65 +298,65 @@ in the derived classes with specific values for each account type but still keep
 <p>
 Now, with this approach let's address each requirement in the order they arrived. First, let's create the base class:
 </p>
-<div class="highlight"><pre><span></span>public abstract class Account
-{
-    public Money Balance { get; private set; }
+<div class="highlight"><pre><span></span><span class="k">public</span><span class="w"> </span><span class="k">abstract</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">Account</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="n">Money</span><span class="w"> </span><span class="n">Balance</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">private</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 
-    public void Deposit(Money money)
-    {
-	this.Balance += money;
-    }
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">Deposit</span><span class="p">(</span><span class="n">Money</span><span class="w"> </span><span class="n">money</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="n">Balance</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">money</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
 
-    public Money Withdraw(Money amount)
-    {
-	var fee = CalculateWithdrawalFee(amount);
-	amount = amount + fee;
-	if( Balance &lt;= amount)
-	{
-	    throw new InvalidOperationException("Insufficient funds.");
-	}
-	this.Balance -= amount;
-    }
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="n">Money</span><span class="w"> </span><span class="nf">Withdraw</span><span class="p">(</span><span class="n">Money</span><span class="w"> </span><span class="n">amount</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">var</span><span class="w"> </span><span class="n">fee</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CalculateWithdrawalFee</span><span class="p">(</span><span class="n">amount</span><span class="p">);</span>
+<span class="w">        </span><span class="n">amount</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">amount</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">fee</span><span class="p">;</span>
+<span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="w"> </span><span class="n">Balance</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">amount</span><span class="p">)</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="k">throw</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nf">InvalidOperationException</span><span class="p">(</span><span class="s">"Insufficient funds."</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="n">Balance</span><span class="w"> </span><span class="o">-=</span><span class="w"> </span><span class="n">amount</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
 
-    protected abstract Money CalculateWithdrawalFee(Money amount);
-}
+<span class="w">    </span><span class="k">protected</span><span class="w"> </span><span class="k">abstract</span><span class="w"> </span><span class="n">Money</span><span class="w"> </span><span class="nf">CalculateWithdrawalFee</span><span class="p">(</span><span class="n">Money</span><span class="w"> </span><span class="n">amount</span><span class="p">);</span>
+<span class="p">}</span>
 </pre></div>
 <p>
 With the base class in place, let's model the first two account types - <i>debit</i> and <i>savings</i>:
 </p>
-<div class="highlight"><pre><span></span>public class DebitAccount : Account
-{
-    protected override Money CalculateWithdrawalFee(Money amount)
-    {
-	return 0;
-    }
-}
+<div class="highlight"><pre><span></span><span class="k">public</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">DebitAccount</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">Account</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">protected</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="n">Money</span><span class="w"> </span><span class="nf">CalculateWithdrawalFee</span><span class="p">(</span><span class="n">Money</span><span class="w"> </span><span class="n">amount</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="m">0</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
 
-public class SavingsAccount : Account
-{
-    protected override Money CalculateWithdrawalFee(Money amount)
-    {
-	return amount * 0.5 / 100;
-    }
-}
+<span class="k">public</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">SavingsAccount</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">Account</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">protected</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="n">Money</span><span class="w"> </span><span class="nf">CalculateWithdrawalFee</span><span class="p">(</span><span class="n">Money</span><span class="w"> </span><span class="n">amount</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">amount</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="m">0.5</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="m">100</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 <p>
 With this structure in place adding a new account type is as simple as adding a new derived class and all edits are in a single place - the newly added file:
 </p>
-<div class="highlight"><pre><span></span>public class CreditAccount : Account
-{
-    protected override Money CalculateWithdrawalFee(Money amount)
-    {
-	return amount * 0.7 / 100;
-    }
-}
+<div class="highlight"><pre><span></span><span class="k">public</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">CreditAccount</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">Account</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">protected</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="n">Money</span><span class="w"> </span><span class="nf">CalculateWithdrawalFee</span><span class="p">(</span><span class="n">Money</span><span class="w"> </span><span class="n">amount</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">amount</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="m">0.7</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="m">100</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 </div>
 </div>
-<div id="outline-container-orge04da1e" class="outline-3">
-<h3 id="orge04da1e">Chapter II - Structure</h3>
-<div class="outline-text-3" id="text-orge04da1e">
+<div id="outline-container-orgb5b5e91" class="outline-3">
+<h3 id="orgb5b5e91">Chapter II - Structure</h3>
+<div class="outline-text-3" id="text-orgb5b5e91">
 <p>
 How you structure your code is very important in software development. A good code structure promotes <b>low coupling and high cohesion</b> which is a must for all good software.
 </p>
@@ -365,66 +365,66 @@ How you structure your code is very important in software development. A good co
 Let's take a look at what <b>coupling</b> and <b>cohesion</b> mean.
 </p>
 </div>
-<div id="outline-container-orgc4ab535" class="outline-4">
-<h4 id="orgc4ab535">Low coupling - The case of the <code>Singleton</code>
+<div id="outline-container-org02fec08" class="outline-4">
+<h4 id="org02fec08">Low coupling - The case of the <code>Singleton</code>
 </h4>
-<div class="outline-text-4" id="text-orgc4ab535">
+<div class="outline-text-4" id="text-org02fec08">
 <blockquote>
 <p>
-<a href="https://en.wikipedia.org/wiki/Coupling_%28computer_programming%29">Coupling is the manner and degree of interdependence between software modules; a measure of how closely connected two routines or modules are; the strength of the relationships between modules.</a>
+<a href="https://en.wikipedia.org/wiki/Coupling_%2528computer_programming%2529">Coupling is the manner and degree of interdependence between software modules; a measure of how closely connected two routines or modules are; the strength of the relationships between modules.</a>
 </p>
 </blockquote>
 <p>
 To exemplify what <b>low coupling</b> is and its importance let's take a look at the well-kown <code>Singleton</code> pattern:
 </p>
-<div class="highlight"><pre><span></span>public class FileSystem
-{
-    private static readonly FileSystem _root = new FileSystem();
+<div class="highlight"><pre><span></span><span class="k">public</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">FileSystem</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">private</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="n">FileSystem</span><span class="w"> </span><span class="n">_root</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">FileSystem</span><span class="p">();</span>
 
-    private FileSystem()
-    {
-    }
+<span class="w">    </span><span class="k">private</span><span class="w"> </span><span class="nf">FileSystem</span><span class="p">()</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">    </span><span class="p">}</span>
 
-    public static FileSystem Root
-    {
-	get { return _root; }
-    }
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">FileSystem</span><span class="w"> </span><span class="n">Root</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">get</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">_root</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
 
-    public string[] List(string path)
-    {
-	return Directory.EnumerateDirectories(path)
-	    .Union(Directory.EnumerateFiles(path))
-	    .ToArray();
-    }
-}
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="kt">string</span><span class="p">[]</span><span class="w"> </span><span class="nf">List</span><span class="p">(</span><span class="kt">string</span><span class="w"> </span><span class="n">path</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">Directory</span><span class="p">.</span><span class="n">EnumerateDirectories</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+<span class="w">            </span><span class="p">.</span><span class="n">Union</span><span class="p">(</span><span class="n">Directory</span><span class="p">.</span><span class="n">EnumerateFiles</span><span class="p">(</span><span class="n">path</span><span class="p">))</span>
+<span class="w">            </span><span class="p">.</span><span class="n">ToArray</span><span class="p">();</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
 
-public class Explorer
-{
-    public string CurrentDirectory { get; set; }
+<span class="k">public</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">Explorer</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="n">CurrentDirectory</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 
-    public IEnumerable&lt;string&gt; Contents { get; private set;}
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="n">IEnumerable</span><span class="o">&lt;</span><span class="kt">string</span><span class="o">&gt;</span><span class="w"> </span><span class="n">Contents</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">private</span><span class="w"> </span><span class="k">set</span><span class="p">;}</span>
 
-    public void NavigateTo(string path)
-    {
-	var contents = FileSystem.Root.List(path);
-	CurrentDirectory = path;
-	Contents = contents;
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">NavigateTo</span><span class="p">(</span><span class="kt">string</span><span class="w"> </span><span class="n">path</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">var</span><span class="w"> </span><span class="n">contents</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FileSystem</span><span class="p">.</span><span class="n">Root</span><span class="p">.</span><span class="n">List</span><span class="p">(</span><span class="n">path</span><span class="p">);</span>
+<span class="w">        </span><span class="n">CurrentDirectory</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">path</span><span class="p">;</span>
+<span class="w">        </span><span class="n">Contents</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">contents</span><span class="p">;</span>
 
-	foreach(var item in contents)
-	{
-	    Display(item);
-	}
-    }
-}
+<span class="w">        </span><span class="k">foreach</span><span class="p">(</span><span class="kt">var</span><span class="w"> </span><span class="n">item</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">contents</span><span class="p">)</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="n">Display</span><span class="p">(</span><span class="n">item</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
 
-public class Program
-{
-    static void Main(string[] args)
-    {
-	var explorer = new Explorer();
-	explorer.NavigateTo(@"c:\users\petru\Documents\");
-    }
-}
+<span class="k">public</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">Program</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">Main</span><span class="p">(</span><span class="kt">string</span><span class="p">[]</span><span class="w"> </span><span class="n">args</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">var</span><span class="w"> </span><span class="n">explorer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Explorer</span><span class="p">();</span>
+<span class="w">        </span><span class="n">explorer</span><span class="p">.</span><span class="n">NavigateTo</span><span class="p">(</span><span class="s">@"c:\users\petru\Documents\"</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 <p>
 What is wrong in the code above? <b>The <code>Explorer</code> class is tightly coupled with <code>FileSystem</code> singleton</b>, i.e. <code>Explorer</code> class is highly denendent on the <code>FileSystem</code> class and cannot be used without the <code>FileSystem</code>.
@@ -433,36 +433,36 @@ What is wrong in the code above? <b>The <code>Explorer</code> class is tightly c
 <p>
 To demonstrate this <b>tight coupling</b> let's create a test for <code>Explorer</code> class to verify that it returns proper values from a known directory:
 </p>
-<div class="highlight"><pre><span></span>public class ExplorerTests
-{
-    protected string Directory { get; set; }
+<div class="highlight"><pre><span></span><span class="k">public</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">ExplorerTests</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">protected</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="n">Directory</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 
-    protected Explorer Explorer { get; private set;}
+<span class="w">    </span><span class="k">protected</span><span class="w"> </span><span class="n">Explorer</span><span class="w"> </span><span class="n">Explorer</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">private</span><span class="w"> </span><span class="k">set</span><span class="p">;}</span>
 
-    protected void Initialize()
-    {
-	Explorer = new Explorer();
-    }
+<span class="w">    </span><span class="k">protected</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">Initialize</span><span class="p">()</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">Explorer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Explorer</span><span class="p">();</span>
+<span class="w">    </span><span class="p">}</span>
 
-    [TestClass]
-    public class WhenNavigatingToTempDirectory : ExplorerTests
-    {
-	[TestInitialize]
-	public void TestInitialize()
-	{
-	    Initialize();
-	    Directory = @"C:\Temp\";
-	}
+<span class="w">    </span><span class="na">[TestClass]</span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">WhenNavigatingToTempDirectory</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">ExplorerTests</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="na">[TestInitialize]</span>
+<span class="w">        </span><span class="k">public</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">TestInitialize</span><span class="p">()</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="n">Initialize</span><span class="p">();</span>
+<span class="w">            </span><span class="n">Directory</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">@"C:\Temp\"</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
 
-	[TestMethod]
-	public void ShouldDisplayDirectoryContents()
-	{
-	    Explorer.NavigateTo(Directory);
-	    Assert.AreEqual(Directory, Explorer.CurrentDirectory);
-	    Assert.AreEqual("C:\Temp\test.txt", Explorer.Contents.Single());
-	}
-    }
-}
+<span class="w">        </span><span class="na">[TestMethod]</span>
+<span class="w">        </span><span class="k">public</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">ShouldDisplayDirectoryContents</span><span class="p">()</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="n">Explorer</span><span class="p">.</span><span class="n">NavigateTo</span><span class="p">(</span><span class="n">Directory</span><span class="p">);</span>
+<span class="w">            </span><span class="n">Assert</span><span class="p">.</span><span class="n">AreEqual</span><span class="p">(</span><span class="n">Directory</span><span class="p">,</span><span class="w"> </span><span class="n">Explorer</span><span class="p">.</span><span class="n">CurrentDirectory</span><span class="p">);</span>
+<span class="w">            </span><span class="n">Assert</span><span class="p">.</span><span class="n">AreEqual</span><span class="p">(</span><span class="s">"C:\Temp\test.txt"</span><span class="p">,</span><span class="w"> </span><span class="n">Explorer</span><span class="p">.</span><span class="n">Contents</span><span class="p">.</span><span class="n">Single</span><span class="p">());</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 <p>
 This test may succeed on our machine because we know that there's a file named <code>text.txt</code> in our <code>C:\Temp\</code> directory because we've put it there. But what if we execute that test on another machine? Will that file be there?
@@ -473,12 +473,12 @@ Having such code means that not only our <code>Explorer</code> class is <b>tight
 </p>
 </div>
 </div>
-<div id="outline-container-org0726e3c" class="outline-4">
-<h4 id="org0726e3c">High cohesion - Why can't I have all code in <code>Program.cs</code>?</h4>
-<div class="outline-text-4" id="text-org0726e3c">
+<div id="outline-container-org43f8f8a" class="outline-4">
+<h4 id="org43f8f8a">High cohesion - Why can't I have all code in <code>Program.cs</code>?</h4>
+<div class="outline-text-4" id="text-org43f8f8a">
 <blockquote>
 <p>
-<a href="https://en.wikipedia.org/wiki/Cohesion_%28computer_science%29">Cohesion refers to the degree to which the elements of a module belong together.</a>
+<a href="https://en.wikipedia.org/wiki/Cohesion_%2528computer_science%2529">Cohesion refers to the degree to which the elements of a module belong together.</a>
 </p>
 </blockquote>
 <p>
@@ -488,23 +488,23 @@ The main reason for properly structuring your application is that <b>similar ent
 <p>
 Let's consider the previous example in a less cohesive form:
 </p>
-<div class="highlight"><pre><span></span>public class Program
-{
-    static void Main(string[] args)
-    {
-	NavigateTo(@"C:\users\petru\Documents\");
-    }
+<div class="highlight"><pre><span></span><span class="k">public</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">Program</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">Main</span><span class="p">(</span><span class="kt">string</span><span class="p">[]</span><span class="w"> </span><span class="n">args</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">NavigateTo</span><span class="p">(</span><span class="s">@"C:\users\petru\Documents\"</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
 
-    static void NavigateTo(string path)
-    {
-	var contents = Directory.EnumerateDirectories(path)
-	    .Union(Directory.EnumerateFiles(path));
-	foreach(var item in contents)
-	{
-	    Display(item);
-	}
-    }
-}
+<span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">NavigateTo</span><span class="p">(</span><span class="kt">string</span><span class="w"> </span><span class="n">path</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">var</span><span class="w"> </span><span class="n">contents</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Directory</span><span class="p">.</span><span class="n">EnumerateDirectories</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+<span class="w">            </span><span class="p">.</span><span class="n">Union</span><span class="p">(</span><span class="n">Directory</span><span class="p">.</span><span class="n">EnumerateFiles</span><span class="p">(</span><span class="n">path</span><span class="p">));</span>
+<span class="w">        </span><span class="k">foreach</span><span class="p">(</span><span class="kt">var</span><span class="w"> </span><span class="n">item</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">contents</span><span class="p">)</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="n">Display</span><span class="p">(</span><span class="n">item</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 <p>
 In this case our <code>Program</code> is nothing more than a <a href="https://en.wikipedia.org/wiki/God_object"><b>God object</b></a> - it does <i>everything</i> and this is a problem. It may not be a problem for such a trivial application but when it comes to real applications things get more complicated.
@@ -516,13 +516,13 @@ Even small production applications have a lot of objects and that number keeps g
 </div>
 </div>
 </div>
-<div id="outline-container-org1810f13" class="outline-3">
-<h3 id="org1810f13">Chapter III - SOLID code</h3>
-<div class="outline-text-3" id="text-org1810f13">
+<div id="outline-container-orgc4c1b22" class="outline-3">
+<h3 id="orgc4c1b22">Chapter III - SOLID code</h3>
+<div class="outline-text-3" id="text-orgc4c1b22">
 </div>
-<div id="outline-container-org139f239" class="outline-4">
-<h4 id="org139f239">Single Responsibility Principle</h4>
-<div class="outline-text-4" id="text-org139f239">
+<div id="outline-container-org6cf75e3" class="outline-4">
+<h4 id="org6cf75e3">Single Responsibility Principle</h4>
+<div class="outline-text-4" id="text-org6cf75e3">
 <blockquote>
 <p>
 <a href="https://en.wikipedia.org/wiki/Single_responsibility_principle">Every module or class should have responsibility over a single part of the functionality provided by the software, and that responsibility should be entirely encapsulated by the class.</a>
@@ -531,28 +531,28 @@ Even small production applications have a lot of objects and that number keeps g
 <p>
 Let's look again at our Account example:
 </p>
-<div class="highlight"><pre><span></span>public abstract class Account
-{
-    public Money Balance { get; private set; }
+<div class="highlight"><pre><span></span><span class="k">public</span><span class="w"> </span><span class="k">abstract</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">Account</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="n">Money</span><span class="w"> </span><span class="n">Balance</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">private</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 
-    public void Deposit(Money money)
-    {
-	this.Balance += money;
-    }
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">Deposit</span><span class="p">(</span><span class="n">Money</span><span class="w"> </span><span class="n">money</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="n">Balance</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">money</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
 
-    public Money Withdraw(Money amount)
-    {
-	var fee = CalculateWithdrawalFee(amount);
-	amount = amount + fee;
-	if( Balance &lt;= amount)
-	{
-	    throw new InvalidOperationException("Insufficient funds.");
-	}
-	this.Balance -= amount;
-    }
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="n">Money</span><span class="w"> </span><span class="nf">Withdraw</span><span class="p">(</span><span class="n">Money</span><span class="w"> </span><span class="n">amount</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">var</span><span class="w"> </span><span class="n">fee</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CalculateWithdrawalFee</span><span class="p">(</span><span class="n">amount</span><span class="p">);</span>
+<span class="w">        </span><span class="n">amount</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">amount</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">fee</span><span class="p">;</span>
+<span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="w"> </span><span class="n">Balance</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">amount</span><span class="p">)</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="k">throw</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nf">InvalidOperationException</span><span class="p">(</span><span class="s">"Insufficient funds."</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="n">Balance</span><span class="w"> </span><span class="o">-=</span><span class="w"> </span><span class="n">amount</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
 
-    protected abstract Money CalculateWithdrawalFee(Money amount);
-}
+<span class="w">    </span><span class="k">protected</span><span class="w"> </span><span class="k">abstract</span><span class="w"> </span><span class="n">Money</span><span class="w"> </span><span class="nf">CalculateWithdrawalFee</span><span class="p">(</span><span class="n">Money</span><span class="w"> </span><span class="n">amount</span><span class="p">);</span>
+<span class="p">}</span>
 </pre></div>
 <p>
 As you can see from the code, the <code>Withdraw</code> method does more than one thing, namely:
@@ -564,78 +564,78 @@ As you can see from the code, the <code>Withdraw</code> method does more than on
 <p>
 The purpose of this method is to withdraw the <code>amount</code> from the available balance; calculating the withdrawal fee should be someone else's responsibility. And that <i>someone else</i> should be a <code>WithdrawalAmountCalculator</code>:
 </p>
-<div class="highlight"><pre><span></span>public class WithdrawalAmountCalculator
-{
-    public Money CalculateWithdrawalAmount(Money amount, decimal percentage)
-    {
-	return amount * percentage / 100;
-    }
-}
+<div class="highlight"><pre><span></span><span class="k">public</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">WithdrawalAmountCalculator</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="n">Money</span><span class="w"> </span><span class="nf">CalculateWithdrawalAmount</span><span class="p">(</span><span class="n">Money</span><span class="w"> </span><span class="n">amount</span><span class="p">,</span><span class="w"> </span><span class="kt">decimal</span><span class="w"> </span><span class="n">percentage</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">amount</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">percentage</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="m">100</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 <p>
 Now, let's put it all together and remove the extra responsibilities from <code>Account</code> class:
 </p>
-<div class="highlight"><pre><span></span>public class WithdrawalAmountCalculator
-{
-    public Money CalculateWithdrawalAmount(Money amount, decimal feePercentage)
-    {
-	return amount * feePercentage / 100;
-    }
-}
+<div class="highlight"><pre><span></span><span class="k">public</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">WithdrawalAmountCalculator</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="n">Money</span><span class="w"> </span><span class="nf">CalculateWithdrawalAmount</span><span class="p">(</span><span class="n">Money</span><span class="w"> </span><span class="n">amount</span><span class="p">,</span><span class="w"> </span><span class="kt">decimal</span><span class="w"> </span><span class="n">feePercentage</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">amount</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">feePercentage</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="m">100</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
 
-public abstract class Account
-{
-    private readonly WithdrawalAmountCalculator _amountCalculator;
+<span class="k">public</span><span class="w"> </span><span class="k">abstract</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">Account</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">private</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="n">WithdrawalAmountCalculator</span><span class="w"> </span><span class="n">_amountCalculator</span><span class="p">;</span>
 
-    protected Account(WithdrawalFeeCalculator amountCalculator)
-    {
-	_amountCalculator = amountCalculator;
-    }
+<span class="w">    </span><span class="k">protected</span><span class="w"> </span><span class="nf">Account</span><span class="p">(</span><span class="n">WithdrawalFeeCalculator</span><span class="w"> </span><span class="n">amountCalculator</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">_amountCalculator</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">amountCalculator</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
 
-    public Money Balance { get; private set; }
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="n">Money</span><span class="w"> </span><span class="n">Balance</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">private</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 
-    public abstract decimal WithdrawalInterestRate { get; }
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">abstract</span><span class="w"> </span><span class="kt">decimal</span><span class="w"> </span><span class="n">WithdrawalInterestRate</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 
-    public void Deposit(Money money)
-    {
-	this.Balance += money;
-    }
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">Deposit</span><span class="p">(</span><span class="n">Money</span><span class="w"> </span><span class="n">money</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="n">Balance</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">money</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
 
-    public Money Withdraw(Money amount)
-    {
-	var amountToWithdraw = _amountCalculator.CalculateWithdrawalAmount(amount, WithdrawalInterestRate);
-	if( Balance &lt;= amountToWithdraw)
-	{
-	    throw new InvalidOperationException("Insufficient funds.");
-	}
-	this.Balance -= amountToWithdraw;
-	return amount;
-    }
-}
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="n">Money</span><span class="w"> </span><span class="nf">Withdraw</span><span class="p">(</span><span class="n">Money</span><span class="w"> </span><span class="n">amount</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">var</span><span class="w"> </span><span class="n">amountToWithdraw</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_amountCalculator</span><span class="p">.</span><span class="n">CalculateWithdrawalAmount</span><span class="p">(</span><span class="n">amount</span><span class="p">,</span><span class="w"> </span><span class="n">WithdrawalInterestRate</span><span class="p">);</span>
+<span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="w"> </span><span class="n">Balance</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">amountToWithdraw</span><span class="p">)</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="k">throw</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nf">InvalidOperationException</span><span class="p">(</span><span class="s">"Insufficient funds."</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="n">Balance</span><span class="w"> </span><span class="o">-=</span><span class="w"> </span><span class="n">amountToWithdraw</span><span class="p">;</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">amount</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
 
-public class DebitAccount : Account
-{
-    public DebitAccount(WithdrawalAmountCalculator amountCalculator) : base(amountCalculator)
-    {
-    }
+<span class="k">public</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">DebitAccount</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">Account</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="nf">DebitAccount</span><span class="p">(</span><span class="n">WithdrawalAmountCalculator</span><span class="w"> </span><span class="n">amountCalculator</span><span class="p">)</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="k">base</span><span class="p">(</span><span class="n">amountCalculator</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">    </span><span class="p">}</span>
 
-    public override decimal WithdrawalInterestRate
-    {
-	{ get { return 0m; }}
-    }
-}
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="kt">decimal</span><span class="w"> </span><span class="n">WithdrawalInterestRate</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="m">0</span><span class="n">m</span><span class="p">;</span><span class="w"> </span><span class="p">}}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
 
-public class Program
-{
-    static void Main(string[] args)
-    {
-	var calculator = new WithdrawalAmountCalculator();
-	var account = new DebitAccount(calculator);
-	account.Deposit(new Money(100));
+<span class="k">public</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">Program</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">Main</span><span class="p">(</span><span class="kt">string</span><span class="p">[]</span><span class="w"> </span><span class="n">args</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">var</span><span class="w"> </span><span class="n">calculator</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">WithdrawalAmountCalculator</span><span class="p">();</span>
+<span class="w">        </span><span class="kt">var</span><span class="w"> </span><span class="n">account</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">DebitAccount</span><span class="p">(</span><span class="n">calculator</span><span class="p">);</span>
+<span class="w">        </span><span class="n">account</span><span class="p">.</span><span class="n">Deposit</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">Money</span><span class="p">(</span><span class="m">100</span><span class="p">));</span>
 
-	var cash = account.Withdraw(50);
-    }
-}
+<span class="w">        </span><span class="kt">var</span><span class="w"> </span><span class="n">cash</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">account</span><span class="p">.</span><span class="n">Withdraw</span><span class="p">(</span><span class="m">50</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 <p>
 Much better! Each class does only one thing, namely:
@@ -648,9 +648,9 @@ Much better! Each class does only one thing, namely:
 </ul>
 </div>
 </div>
-<div id="outline-container-orgfee31aa" class="outline-4">
-<h4 id="orgfee31aa">Open/Closed principle</h4>
-<div class="outline-text-4" id="text-orgfee31aa">
+<div id="outline-container-org426b8f0" class="outline-4">
+<h4 id="org426b8f0">Open/Closed principle</h4>
+<div class="outline-text-4" id="text-org426b8f0">
 <blockquote>
 <p>
 <a href="https://en.wikipedia.org/wiki/Open/closed_principle">Software entities (classes, modules, functions, etc.) should be open for extension, but closed for modification</a>
@@ -659,25 +659,25 @@ Much better! Each class does only one thing, namely:
 <p>
 Let's go back again to a previous example, the one with multiple account types:
 </p>
-<div class="highlight"><pre><span></span>public enum AccountType
-{
-    Debit,
-    Savings,
-    Credit
-}
+<div class="highlight"><pre><span></span><span class="k">public</span><span class="w"> </span><span class="k">enum</span><span class="w"> </span><span class="n">AccountType</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">Debit</span><span class="p">,</span>
+<span class="w">    </span><span class="n">Savings</span><span class="p">,</span>
+<span class="w">    </span><span class="n">Credit</span>
+<span class="p">}</span>
 
-...
+<span class="p">...</span>
 
-private Money CalculateWithdrawalFee(Money amount)
-{
-    switch( _accountType )
-	case AccountType.Savings:
-	    return amount * 0.5 / 100;
-	case AccountType.Credit:
-	    return amount * 0.7 / 100;
-	default:
-	    return 0;
-}
+<span class="k">private</span><span class="w"> </span><span class="n">Money</span><span class="w"> </span><span class="nf">CalculateWithdrawalFee</span><span class="p">(</span><span class="n">Money</span><span class="w"> </span><span class="n">amount</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">switch</span><span class="p">(</span><span class="w"> </span><span class="n">_accountType</span><span class="w"> </span><span class="p">)</span>
+<span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="n">AccountType</span><span class="p">.</span><span class="n">Savings</span><span class="p">:</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">amount</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="m">0.5</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="m">100</span><span class="p">;</span>
+<span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="n">AccountType</span><span class="p">.</span><span class="n">Credit</span><span class="p">:</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">amount</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="m">0.7</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="m">100</span><span class="p">;</span>
+<span class="w">        </span><span class="k">default</span><span class="p">:</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="m">0</span><span class="p">;</span>
+<span class="p">}</span>
 </pre></div>
 <p>
 The code from the example above is the exact opposite of <b>Open/Closed principle</b>:
@@ -688,9 +688,9 @@ The code from the example above is the exact opposite of <b>Open/Closed principl
 </ul>
 </div>
 </div>
-<div id="outline-container-org1b17015" class="outline-4">
-<h4 id="org1b17015">Liskov substitution principle</h4>
-<div class="outline-text-4" id="text-org1b17015">
+<div id="outline-container-orgd337d7f" class="outline-4">
+<h4 id="orgd337d7f">Liskov substitution principle</h4>
+<div class="outline-text-4" id="text-orgd337d7f">
 <blockquote>
 <p>
 <a href="https://en.wikipedia.org/wiki/Liskov_substitution_principle">Objects in a program should be replaceable with instances of their subtypes without altering the correctness of that program.</a>
@@ -703,70 +703,70 @@ To exemplify let's consider the overused <code>Rectangle</code> and <code>Square
 <p>
 As an object hierarchy this would look like the following:
 </p>
-<div class="highlight"><pre><span></span>public class Rectangle
-{
-    protected int _width;
+<div class="highlight"><pre><span></span><span class="k">public</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">Rectangle</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">protected</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">_width</span><span class="p">;</span>
 
-    protected int _height;
+<span class="w">    </span><span class="k">protected</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">_height</span><span class="p">;</span>
 
-    public virtual int Width
-    {
-	get { return _width; }
-	set { _width = value; }
-    }
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">virtual</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">Width</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">get</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">_width</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">        </span><span class="k">set</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">_width</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">value</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
 
-    public virtual int Height
-    {
-	get { return _height; }
-	set { _height = value; }
-    }
-}
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">virtual</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">Height</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">get</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">_height</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">        </span><span class="k">set</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">_height</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">value</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
 
-public class Square : Rectangle
-{
-    public override int Width
-    {
-	get { return _width; }
-	set
-	{
-	    _width = value;
-	    _height = value;
-	}
-    }
+<span class="k">public</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">Square</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">Rectangle</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">Width</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">get</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">_width</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">        </span><span class="k">set</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="n">_width</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">value</span><span class="p">;</span>
+<span class="w">            </span><span class="n">_height</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">value</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
 
-    public override int Height
-    {
-	get { return _height; }
-	set
-	{
-	    _height = value;
-	    _width = value;
-	}
-    }
-}
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">Height</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">get</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">_height</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">        </span><span class="k">set</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="n">_height</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">value</span><span class="p">;</span>
+<span class="w">            </span><span class="n">_width</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">value</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 <p>
 Now let' think of consumer of this code: it knows it's working with a <code>Rectangle</code> and sets all the values accordingly but it is given a <code>Square</code> to work with. Let's see that in code:
 </p>
-<div class="highlight"><pre><span></span>public class Program
-{
-    private const int ImageWidth = 800;
-    private const int ImageHeight = 600;
+<div class="highlight"><pre><span></span><span class="k">public</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">Program</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">private</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">ImageWidth</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">800</span><span class="p">;</span>
+<span class="w">    </span><span class="k">private</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">ImageHeight</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">600</span><span class="p">;</span>
 
-    static void Main(string[] args)
-    {
-	var rectangle = new Square();
-	InitializeRectangle(rectangle);
-	var area = rectangle.Width * rectangle.Height;
-	Debug.Assert(area == ImageWidth * ImageHeight);
-    }
+<span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">Main</span><span class="p">(</span><span class="kt">string</span><span class="p">[]</span><span class="w"> </span><span class="n">args</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">var</span><span class="w"> </span><span class="n">rectangle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Square</span><span class="p">();</span>
+<span class="w">        </span><span class="n">InitializeRectangle</span><span class="p">(</span><span class="n">rectangle</span><span class="p">);</span>
+<span class="w">        </span><span class="kt">var</span><span class="w"> </span><span class="n">area</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rectangle</span><span class="p">.</span><span class="n">Width</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">rectangle</span><span class="p">.</span><span class="n">Height</span><span class="p">;</span>
+<span class="w">        </span><span class="n">Debug</span><span class="p">.</span><span class="n">Assert</span><span class="p">(</span><span class="n">area</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">ImageWidth</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">ImageHeight</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
 
-    void InitializeRectangle(Rectangle rectangle)
-    {
-	rectangle.Width = ImageWidth;
-	rectangle.Height = ImageHeight;
-    }
-}
+<span class="w">    </span><span class="k">void</span><span class="w"> </span><span class="nf">InitializeRectangle</span><span class="p">(</span><span class="n">Rectangle</span><span class="w"> </span><span class="n">rectangle</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">rectangle</span><span class="p">.</span><span class="n">Width</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ImageWidth</span><span class="p">;</span>
+<span class="w">        </span><span class="n">rectangle</span><span class="p">.</span><span class="n">Height</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ImageHeight</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 <p>
 The method <code>InitializeRectangle</code> will perform it's work on a <code>Rectangle</code> thus will set its <code>Width</code> and <code>Height</code> properties and the <code>Main</code> method will be expecting to have an rectangle with the area of <code>ImageWidth * ImageHeight</code> but since the <code>Square</code> overrides the <code>Width</code> when <code>Height</code> is set (and viceversa) the actual area of the rectangle will be <code>ImageHeight * ImageHeight</code>.
@@ -777,116 +777,116 @@ This shows that although a <code>Square</code> may have a similar structure with
 </p>
 </div>
 </div>
-<div id="outline-container-org7c1fb81" class="outline-4">
-<h4 id="org7c1fb81">Interface Segregation principle</h4>
-<div class="outline-text-4" id="text-org7c1fb81">
+<div id="outline-container-orga012b02" class="outline-4">
+<h4 id="orga012b02">Interface Segregation principle</h4>
+<div class="outline-text-4" id="text-orga012b02">
 <blockquote>
 <p>
 <a href="https://en.wikipedia.org/wiki/Interface_segregation_principle">Many client-specific interfaces are better than one general-purpose interface.</a>
 </p>
 </blockquote>
 <p>
-To exemplify this let's consider some existing types within <code>.NET Framework</code>: <a href="https://msdn.microsoft.com/en-us/library/system.web.security.membershipprovider%28v=vs.110%29.aspx"><code>MembershipProvider</code></a> from <code>System.Web.Security</code> namespace and <a href="https://msdn.microsoft.com/en-us/library/dn613278%28v=vs.108%29.aspx"><code>IUserStore</code></a> from <code>Microsoft.AspNet.Identity</code> namespace:
+To exemplify this let's consider some existing types within <code>.NET Framework</code>: <a href="https://msdn.microsoft.com/en-us/library/system.web.security.membershipprovider%2528v=vs.110%2529.aspx"><code>MembershipProvider</code></a> from <code>System.Web.Security</code> namespace and <a href="https://msdn.microsoft.com/en-us/library/dn613278%2528v=vs.108%2529.aspx"><code>IUserStore</code></a> from <code>Microsoft.AspNet.Identity</code> namespace:
 </p>
-<div class="highlight"><pre><span></span>public abstract class MembershipProvider : ProviderBase
-{
-    public abstract bool EnablePasswordRetrieval { get; }
+<div class="highlight"><pre><span></span><span class="k">public</span><span class="w"> </span><span class="k">abstract</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">MembershipProvider</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">ProviderBase</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">abstract</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">EnablePasswordRetrieval</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 
-    public abstract bool EnablePasswordReset { get; }
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">abstract</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">EnablePasswordReset</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 
-    public abstract bool RequiresQuestionAndAnswer { get; }
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">abstract</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">RequiresQuestionAndAnswer</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 
-    public abstract string ApplicationName { get; set; }
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">abstract</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="n">ApplicationName</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 
-    public abstract int MaxInvalidPasswordAttempts { get; }
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">abstract</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">MaxInvalidPasswordAttempts</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 
-    public abstract int PasswordAttemptWindow { get; }
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">abstract</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">PasswordAttemptWindow</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 
-    public abstract bool RequiresUniqueEmail { get; }
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">abstract</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">RequiresUniqueEmail</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 
-    public abstract MembershipPasswordFormat PasswordFormat { get; }
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">abstract</span><span class="w"> </span><span class="n">MembershipPasswordFormat</span><span class="w"> </span><span class="n">PasswordFormat</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 
-    public abstract int MinRequiredPasswordLength { get; }
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">abstract</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">MinRequiredPasswordLength</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 
-    public abstract int MinRequiredNonAlphanumericCharacters { get; }
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">abstract</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">MinRequiredNonAlphanumericCharacters</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 
-    public abstract string PasswordStrengthRegularExpression { get; }
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">abstract</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="n">PasswordStrengthRegularExpression</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 
-    public event MembershipValidatePasswordEventHandler ValidatingPassword
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">event</span><span class="w"> </span><span class="n">MembershipValidatePasswordEventHandler</span><span class="w"> </span><span class="n">ValidatingPassword</span>
 
-    public abstract MembershipUser CreateUser(string username, string password, string email, string passwordQuestion, string passwordAnswer, bool isApproved, object providerUserKey, out MembershipCreateStatus status);
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">abstract</span><span class="w"> </span><span class="n">MembershipUser</span><span class="w"> </span><span class="nf">CreateUser</span><span class="p">(</span><span class="kt">string</span><span class="w"> </span><span class="n">username</span><span class="p">,</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="n">password</span><span class="p">,</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="n">email</span><span class="p">,</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="n">passwordQuestion</span><span class="p">,</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="n">passwordAnswer</span><span class="p">,</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">isApproved</span><span class="p">,</span><span class="w"> </span><span class="kt">object</span><span class="w"> </span><span class="n">providerUserKey</span><span class="p">,</span><span class="w"> </span><span class="k">out</span><span class="w"> </span><span class="n">MembershipCreateStatus</span><span class="w"> </span><span class="n">status</span><span class="p">);</span>
 
-    public abstract bool ChangePasswordQuestionAndAnswer(string username, string password, string newPasswordQuestion, string newPasswordAnswer);
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">abstract</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="nf">ChangePasswordQuestionAndAnswer</span><span class="p">(</span><span class="kt">string</span><span class="w"> </span><span class="n">username</span><span class="p">,</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="n">password</span><span class="p">,</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="n">newPasswordQuestion</span><span class="p">,</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="n">newPasswordAnswer</span><span class="p">);</span>
 
-    public abstract string GetPassword(string username, string answer);
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">abstract</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="nf">GetPassword</span><span class="p">(</span><span class="kt">string</span><span class="w"> </span><span class="n">username</span><span class="p">,</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="n">answer</span><span class="p">);</span>
 
-    public abstract bool ChangePassword(string username, string oldPassword, string newPassword);
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">abstract</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="nf">ChangePassword</span><span class="p">(</span><span class="kt">string</span><span class="w"> </span><span class="n">username</span><span class="p">,</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="n">oldPassword</span><span class="p">,</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="n">newPassword</span><span class="p">);</span>
 
-    public abstract string ResetPassword(string username, string answer);
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">abstract</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="nf">ResetPassword</span><span class="p">(</span><span class="kt">string</span><span class="w"> </span><span class="n">username</span><span class="p">,</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="n">answer</span><span class="p">);</span>
 
-    public abstract void UpdateUser(MembershipUser user);
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">abstract</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">UpdateUser</span><span class="p">(</span><span class="n">MembershipUser</span><span class="w"> </span><span class="n">user</span><span class="p">);</span>
 
-    public abstract bool ValidateUser(string username, string password);
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">abstract</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="nf">ValidateUser</span><span class="p">(</span><span class="kt">string</span><span class="w"> </span><span class="n">username</span><span class="p">,</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="n">password</span><span class="p">);</span>
 
-    public abstract MembershipUser GetUser(object providerUserKey, bool userIsOnline);
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">abstract</span><span class="w"> </span><span class="n">MembershipUser</span><span class="w"> </span><span class="nf">GetUser</span><span class="p">(</span><span class="kt">object</span><span class="w"> </span><span class="n">providerUserKey</span><span class="p">,</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">userIsOnline</span><span class="p">);</span>
 
-    public abstract MembershipUser GetUser(string username, bool userIsOnline);
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">abstract</span><span class="w"> </span><span class="n">MembershipUser</span><span class="w"> </span><span class="nf">GetUser</span><span class="p">(</span><span class="kt">string</span><span class="w"> </span><span class="n">username</span><span class="p">,</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">userIsOnline</span><span class="p">);</span>
 
-    internal MembershipUser GetUser(string username, bool userIsOnline, bool throwOnError)
+<span class="w">    </span><span class="k">internal</span><span class="w"> </span><span class="n">MembershipUser</span><span class="w"> </span><span class="nf">GetUser</span><span class="p">(</span><span class="kt">string</span><span class="w"> </span><span class="n">username</span><span class="p">,</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">userIsOnline</span><span class="p">,</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">throwOnError</span><span class="p">)</span>
 
-    public abstract string GetUserNameByEmail(string email);
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">abstract</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="nf">GetUserNameByEmail</span><span class="p">(</span><span class="kt">string</span><span class="w"> </span><span class="n">email</span><span class="p">);</span>
 
-    public abstract bool DeleteUser(string username, bool deleteAllRelatedData);
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">abstract</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="nf">DeleteUser</span><span class="p">(</span><span class="kt">string</span><span class="w"> </span><span class="n">username</span><span class="p">,</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">deleteAllRelatedData</span><span class="p">);</span>
 
-    public abstract MembershipUserCollection GetAllUsers(int pageIndex, int pageSize, out int totalRecords);
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">abstract</span><span class="w"> </span><span class="n">MembershipUserCollection</span><span class="w"> </span><span class="nf">GetAllUsers</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">pageIndex</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">pageSize</span><span class="p">,</span><span class="w"> </span><span class="k">out</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">totalRecords</span><span class="p">);</span>
 
-    public abstract int GetNumberOfUsersOnline();
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">abstract</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">GetNumberOfUsersOnline</span><span class="p">();</span>
 
-    public abstract MembershipUserCollection FindUsersByName(string usernameToMatch, int pageIndex, int pageSize, out int totalRecords);
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">abstract</span><span class="w"> </span><span class="n">MembershipUserCollection</span><span class="w"> </span><span class="nf">FindUsersByName</span><span class="p">(</span><span class="kt">string</span><span class="w"> </span><span class="n">usernameToMatch</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">pageIndex</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">pageSize</span><span class="p">,</span><span class="w"> </span><span class="k">out</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">totalRecords</span><span class="p">);</span>
 
-    public abstract MembershipUserCollection FindUsersByEmail(string emailToMatch, int pageIndex, int pageSize, out int totalRecords);
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">abstract</span><span class="w"> </span><span class="n">MembershipUserCollection</span><span class="w"> </span><span class="nf">FindUsersByEmail</span><span class="p">(</span><span class="kt">string</span><span class="w"> </span><span class="n">emailToMatch</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">pageIndex</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">pageSize</span><span class="p">,</span><span class="w"> </span><span class="k">out</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">totalRecords</span><span class="p">);</span>
 
-    protected virtual byte[] EncryptPassword(byte[] password)
+<span class="w">    </span><span class="k">protected</span><span class="w"> </span><span class="k">virtual</span><span class="w"> </span><span class="kt">byte</span><span class="p">[]</span><span class="w"> </span><span class="nf">EncryptPassword</span><span class="p">(</span><span class="kt">byte</span><span class="p">[]</span><span class="w"> </span><span class="n">password</span><span class="p">)</span>
 
-    protected virtual byte[] EncryptPassword(byte[] password, MembershipPasswordCompatibilityMode legacyPasswordCompatibilityMode)
+<span class="w">    </span><span class="k">protected</span><span class="w"> </span><span class="k">virtual</span><span class="w"> </span><span class="kt">byte</span><span class="p">[]</span><span class="w"> </span><span class="nf">EncryptPassword</span><span class="p">(</span><span class="kt">byte</span><span class="p">[]</span><span class="w"> </span><span class="n">password</span><span class="p">,</span><span class="w"> </span><span class="n">MembershipPasswordCompatibilityMode</span><span class="w"> </span><span class="n">legacyPasswordCompatibilityMode</span><span class="p">)</span>
 
-    protected virtual byte[] DecryptPassword(byte[] encodedPassword)
+<span class="w">    </span><span class="k">protected</span><span class="w"> </span><span class="k">virtual</span><span class="w"> </span><span class="kt">byte</span><span class="p">[]</span><span class="w"> </span><span class="nf">DecryptPassword</span><span class="p">(</span><span class="kt">byte</span><span class="p">[]</span><span class="w"> </span><span class="n">encodedPassword</span><span class="p">)</span>
 
-    protected virtual void OnValidatingPassword(ValidatePasswordEventArgs e)
+<span class="w">    </span><span class="k">protected</span><span class="w"> </span><span class="k">virtual</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">OnValidatingPassword</span><span class="p">(</span><span class="n">ValidatePasswordEventArgs</span><span class="w"> </span><span class="n">e</span><span class="p">)</span>
 
-}
+<span class="p">}</span>
 
 
-public interface IUserStore&lt;TUser, in TKey&gt; : IDisposable where TUser : class, IUser&lt;TKey&gt;
-{
-    Task CreateAsync(TUser user);
+<span class="k">public</span><span class="w"> </span><span class="k">interface</span><span class="w"> </span><span class="n">IUserStore</span><span class="o">&lt;</span><span class="n">TUser</span><span class="p">,</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">TKey</span><span class="o">&gt;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">IDisposable</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">TUser</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">class</span><span class="p">,</span><span class="w"> </span><span class="n">IUser</span><span class="o">&lt;</span><span class="n">TKey</span><span class="o">&gt;</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">Task</span><span class="w"> </span><span class="nf">CreateAsync</span><span class="p">(</span><span class="n">TUser</span><span class="w"> </span><span class="n">user</span><span class="p">);</span>
 
-    Task UpdateAsync(TUser user);
+<span class="w">    </span><span class="n">Task</span><span class="w"> </span><span class="nf">UpdateAsync</span><span class="p">(</span><span class="n">TUser</span><span class="w"> </span><span class="n">user</span><span class="p">);</span>
 
-    Task DeleteAsync(TUser user);
+<span class="w">    </span><span class="n">Task</span><span class="w"> </span><span class="nf">DeleteAsync</span><span class="p">(</span><span class="n">TUser</span><span class="w"> </span><span class="n">user</span><span class="p">);</span>
 
-    Task&lt;TUser&gt; FindByIdAsync(TKey userId);
+<span class="w">    </span><span class="n">Task</span><span class="o">&lt;</span><span class="n">TUser</span><span class="o">&gt;</span><span class="w"> </span><span class="n">FindByIdAsync</span><span class="p">(</span><span class="n">TKey</span><span class="w"> </span><span class="n">userId</span><span class="p">);</span>
 
-    Task&lt;TUser&gt; FindByNameAsync(string userName);
-}
+<span class="w">    </span><span class="n">Task</span><span class="o">&lt;</span><span class="n">TUser</span><span class="o">&gt;</span><span class="w"> </span><span class="n">FindByNameAsync</span><span class="p">(</span><span class="kt">string</span><span class="w"> </span><span class="n">userName</span><span class="p">);</span>
+<span class="p">}</span>
 
- public interface IUserPasswordStore&lt;TUser, in TKey&gt; : IUserStore&lt;TUser, TKey&gt;, IDisposable where TUser : class, IUser&lt;TKey&gt;
-  {
-    Task SetPasswordHashAsync(TUser user, string passwordHash);
+<span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="k">interface</span><span class="w"> </span><span class="n">IUserPasswordStore</span><span class="o">&lt;</span><span class="n">TUser</span><span class="p">,</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">TKey</span><span class="o">&gt;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">IUserStore</span><span class="o">&lt;</span><span class="n">TUser</span><span class="p">,</span><span class="w"> </span><span class="n">TKey</span><span class="o">&gt;</span><span class="p">,</span><span class="w"> </span><span class="n">IDisposable</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">TUser</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">class</span><span class="p">,</span><span class="w"> </span><span class="n">IUser</span><span class="o">&lt;</span><span class="n">TKey</span><span class="o">&gt;</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="n">Task</span><span class="w"> </span><span class="nf">SetPasswordHashAsync</span><span class="p">(</span><span class="n">TUser</span><span class="w"> </span><span class="n">user</span><span class="p">,</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="n">passwordHash</span><span class="p">);</span>
 
-    Task&lt;string&gt; GetPasswordHashAsync(TUser user);
+<span class="w">    </span><span class="n">Task</span><span class="o">&lt;</span><span class="kt">string</span><span class="o">&gt;</span><span class="w"> </span><span class="n">GetPasswordHashAsync</span><span class="p">(</span><span class="n">TUser</span><span class="w"> </span><span class="n">user</span><span class="p">);</span>
 
-    Task&lt;bool&gt; HasPasswordAsync(TUser user);
-  }
+<span class="w">    </span><span class="n">Task</span><span class="o">&lt;</span><span class="kt">bool</span><span class="o">&gt;</span><span class="w"> </span><span class="n">HasPasswordAsync</span><span class="p">(</span><span class="n">TUser</span><span class="w"> </span><span class="n">user</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
 </pre></div>
 <p>
 If we would have to implement a simple authentication mechanism the functionality of <code>IUserStore</code> and <code>IUserPasswordStore</code> would be sufficient for our needs. Compare implementing only the functionality required for these two interfaces with the effort required to derive from the <code>MembershipProvider</code> class. Even worse, I can say from my experience that with the <code>MembershipProvider</code> you'll be writing code which will never be used.
 </p>
 </div>
 </div>
-<div id="outline-container-org83a8922" class="outline-4">
-<h4 id="org83a8922">Dependency Inversion principle</h4>
-<div class="outline-text-4" id="text-org83a8922">
+<div id="outline-container-org287c300" class="outline-4">
+<h4 id="org287c300">Dependency Inversion principle</h4>
+<div class="outline-text-4" id="text-org287c300">
 <blockquote>
 <p>
 <a href="https://en.wikipedia.org/wiki/Dependency_inversion_principle">Depend upon Abstractions. Do not depend upon concretions.</a>
@@ -899,62 +899,62 @@ Let's go back to our <code>Singleton</code> example. In the previous module we s
 <p>
 To break this dependency we need to hide the functionality of our <code>FileSystem</code> behind an abstraction and we do that using an interface <code>IFileSystem</code> which will be implemented by <code>FileSystem</code> class:
 </p>
-<div class="highlight"><pre><span></span>public interface IFileSystem
-{
-    string[] List(string path);
-}
+<div class="highlight"><pre><span></span><span class="k">public</span><span class="w"> </span><span class="k">interface</span><span class="w"> </span><span class="n">IFileSystem</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kt">string</span><span class="p">[]</span><span class="w"> </span><span class="nf">List</span><span class="p">(</span><span class="kt">string</span><span class="w"> </span><span class="n">path</span><span class="p">);</span>
+<span class="p">}</span>
 
-public class FileSystem : IFileSystem
-{
-    public string[] List(string path)
-    {
-	return Directory.EnumerateDirectories(path)
-	    .Union(Directory.EnumerateFiles(path))
-	    .ToArray();
-    }
-}
+<span class="k">public</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">FileSystem</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">IFileSystem</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="kt">string</span><span class="p">[]</span><span class="w"> </span><span class="nf">List</span><span class="p">(</span><span class="kt">string</span><span class="w"> </span><span class="n">path</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">Directory</span><span class="p">.</span><span class="n">EnumerateDirectories</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+<span class="w">            </span><span class="p">.</span><span class="n">Union</span><span class="p">(</span><span class="n">Directory</span><span class="p">.</span><span class="n">EnumerateFiles</span><span class="p">(</span><span class="n">path</span><span class="p">))</span>
+<span class="w">            </span><span class="p">.</span><span class="n">ToArray</span><span class="p">();</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 <p>
 Now we make the <code>Explorer</code> class depend upon the <code>IFileSystem</code> interface:
 </p>
-<div class="highlight"><pre><span></span>public class Explorer
-{
-    private readonly IFileSystem _fileSystem;
+<div class="highlight"><pre><span></span><span class="k">public</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">Explorer</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">private</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="n">IFileSystem</span><span class="w"> </span><span class="n">_fileSystem</span><span class="p">;</span>
 
-    public Explorer(IFileSystem fileSystem)
-    {
-	_fileSystem = fileSystem;
-    }
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="nf">Explorer</span><span class="p">(</span><span class="n">IFileSystem</span><span class="w"> </span><span class="n">fileSystem</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">_fileSystem</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fileSystem</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
 
-    public string CurrentDirectory { get; set; }
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="n">CurrentDirectory</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 
-    public IEnumerable&lt;string&gt; Contents { get; private set;}
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="n">IEnumerable</span><span class="o">&lt;</span><span class="kt">string</span><span class="o">&gt;</span><span class="w"> </span><span class="n">Contents</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">private</span><span class="w"> </span><span class="k">set</span><span class="p">;}</span>
 
-    public void NavigateTo(string path)
-    {
-	var contents = _fileSystem.Root.List(path);
-	CurrentDirectory = path;
-	Contents = contents;
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">NavigateTo</span><span class="p">(</span><span class="kt">string</span><span class="w"> </span><span class="n">path</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">var</span><span class="w"> </span><span class="n">contents</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_fileSystem</span><span class="p">.</span><span class="n">Root</span><span class="p">.</span><span class="n">List</span><span class="p">(</span><span class="n">path</span><span class="p">);</span>
+<span class="w">        </span><span class="n">CurrentDirectory</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">path</span><span class="p">;</span>
+<span class="w">        </span><span class="n">Contents</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">contents</span><span class="p">;</span>
 
-	foreach(var item in contents)
-	{
-	    Display(item);
-	}
-    }
-}
+<span class="w">        </span><span class="k">foreach</span><span class="p">(</span><span class="kt">var</span><span class="w"> </span><span class="n">item</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">contents</span><span class="p">)</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="n">Display</span><span class="p">(</span><span class="n">item</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 <p>
 Now it's up to the <code>Program</code> class to glue them together:
 </p>
-<div class="highlight"><pre><span></span>public class Program
-{
-    static void Main(string[] args)
-    {
-	var fs = new FileSystem();
-	var explorer = new Explorer(fs);
-	explorer.NavigateTo(@"c:\users\petru\Documents\");
-    }
-}
+<div class="highlight"><pre><span></span><span class="k">public</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">Program</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">Main</span><span class="p">(</span><span class="kt">string</span><span class="p">[]</span><span class="w"> </span><span class="n">args</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">var</span><span class="w"> </span><span class="n">fs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">FileSystem</span><span class="p">();</span>
+<span class="w">        </span><span class="kt">var</span><span class="w"> </span><span class="n">explorer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Explorer</span><span class="p">(</span><span class="n">fs</span><span class="p">);</span>
+<span class="w">        </span><span class="n">explorer</span><span class="p">.</span><span class="n">NavigateTo</span><span class="p">(</span><span class="s">@"c:\users\petru\Documents\"</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 <p>
 This way we can test the <code>Explorer</code> class separately from the <code>FileSystem</code> class by passing it an instance of a class that implements <code>IFileSystem</code> and returns some stub data.

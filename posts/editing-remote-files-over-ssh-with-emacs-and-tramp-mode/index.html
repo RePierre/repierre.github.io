@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Rebeja · Editing remote files over ssh with Emacs and Tramp mode </title>
 <link href="../../assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
-<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700%7CAbril+Fatface">
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.1.7/css/fork-awesome.min.css" integrity="sha256-gsmEoJAws/Kd3CjuOQzLie5Q3yshhvmo7YNtBG7aaEY=" crossorigin="anonymous">
 <meta content="#5670d4" name="theme-color">
 <link rel="alternate" type="application/rss+xml" title="RSS" href="../../rss.xml">
@@ -28,7 +28,7 @@
     
     
     </nav><footer id="footer"><span class="copyright">
-              Contents © 2023         <a href="mailto:petru.rebeja@gmail.com">Petru Rebeja</a> - Powered by   <a href="https://www.gnu.org/software/emacs/" rel="nofollow">GNU Emacs</a>  &amp;    <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+              Contents © 2024         <a href="mailto:petru.rebeja@gmail.com">Petru Rebeja</a> - Powered by   <a href="https://www.gnu.org/software/emacs/" rel="nofollow">GNU Emacs</a>  &amp;    <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
             </span>
             
             
@@ -54,17 +54,17 @@ In a discussion over a beer, a friend of mine asked whether I know a way to edit
 <p>
 This is how I do it.
 </p>
-<div id="outline-container-org7e1d539" class="outline-2">
-<h2 id="org7e1d539">Setup</h2>
-<div class="outline-text-2" id="text-org7e1d539">
+<div id="outline-container-org9ed63e2" class="outline-2">
+<h2 id="org9ed63e2">Setup</h2>
+<div class="outline-text-2" id="text-org9ed63e2">
 <p>
 I use <code>Emacs 25.2</code> on Kubuntu 17.04 and on Windows 10 using <a href="http://cygwin.com/">Cygwin</a> and when working with remote files both systems behave the same.
 </p>
 </div>
 </div>
-<div id="outline-container-orgc4697c9" class="outline-2">
-<h2 id="orgc4697c9">The flow</h2>
-<div class="outline-text-2" id="text-orgc4697c9">
+<div id="outline-container-org2db7310" class="outline-2">
+<h2 id="org2db7310">The flow</h2>
+<div class="outline-text-2" id="text-org2db7310">
 <ol class="org-ol">
 <li>Configure the remote machine to authenticate you with a key file as specified in this <a href="https://askubuntu.com/a/20921/561980">stackoverflow answer</a>
 </li>
@@ -73,13 +73,13 @@ I use <code>Emacs 25.2</code> on Kubuntu 17.04 and on Windows 10 using <a href="
 <p>
 To open the remote file for editing invoke the <code>find-file</code> command either using <code>C-x C-f</code> (<code>C = Ctrl</code>) or with <code>M-x find-file</code> (<code>M=Alt</code>) and at the file prompt specify the path in the following format:
 </p>
-<div class="highlight"><pre><span></span>  /ssh:user@ip<span class="o">[</span>:port<span class="o">]</span>:path/to/file
+<div class="highlight"><pre><span></span><span class="w">  </span>/ssh:user@ip<span class="o">[</span>:port<span class="o">]</span>:path/to/file
 </pre></div>
 </div>
 </div>
-<div id="outline-container-org0881f72" class="outline-2">
-<h2 id="org0881f72">An example</h2>
-<div class="outline-text-2" id="text-org0881f72">
+<div id="outline-container-orge0ac045" class="outline-2">
+<h2 id="orge0ac045">An example</h2>
+<div class="outline-text-2" id="text-orge0ac045">
 <p>
 To exemplify let's consider the following scenario: I have a virtual machine with the IP <code>192.168.13.13</code> to which I can connect remotely with <code>ssh</code> using the username <code>petru</code> and the default public key (<b>~/.ssh/id<sub>rsa.pub</sub></b>). On that machine I want to edit the file <code>/home/petru/src/debugutils.py</code>.
 </p>
@@ -87,7 +87,7 @@ To exemplify let's consider the following scenario: I have a virtual machine wit
 <p>
 To do so, I open the file as usually in Emacs using <code>C-x C-f</code> and at the prompt (the minibuffer) I enter the following:
 </p>
-<div class="highlight"><pre><span></span>  /ssh:petru@192.168.13.13:/home/petru/src/debugutils.py
+<div class="highlight"><pre><span></span><span class="w">  </span>/ssh:petru@192.168.13.13:/home/petru/src/debugutils.py
 </pre></div>
 <p>
 and press <code>&lt;Enter&gt;</code>.

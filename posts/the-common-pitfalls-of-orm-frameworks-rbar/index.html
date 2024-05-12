@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Rebeja · The common pitfalls of ORM frameworks - RBAR </title>
 <link href="../../assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
-<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700%7CAbril+Fatface">
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.1.7/css/fork-awesome.min.css" integrity="sha256-gsmEoJAws/Kd3CjuOQzLie5Q3yshhvmo7YNtBG7aaEY=" crossorigin="anonymous">
 <meta content="#5670d4" name="theme-color">
 <link rel="alternate" type="application/rss+xml" title="RSS" href="../../rss.xml">
@@ -28,7 +28,7 @@
     
     
     </nav><footer id="footer"><span class="copyright">
-              Contents © 2023         <a href="mailto:petru.rebeja@gmail.com">Petru Rebeja</a> - Powered by   <a href="https://www.gnu.org/software/emacs/" rel="nofollow">GNU Emacs</a>  &amp;    <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+              Contents © 2024         <a href="mailto:petru.rebeja@gmail.com">Petru Rebeja</a> - Powered by   <a href="https://www.gnu.org/software/emacs/" rel="nofollow">GNU Emacs</a>  &amp;    <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
             </span>
             
             
@@ -54,20 +54,20 @@ ORM frameworks are a great tool especially for junior developers because they al
 <p>
 Let us consider an example. Let's suppose we're working on a (what else?) e-commerce platform. Somewhere in the depts of that platform there is a <code>IOrderService</code> which exposes the following method:
 </p>
-<div class="highlight"><pre><span></span>public interface IOrderService
-{
-    void PlaceOrder(Guid customerId, IEnumerable&lt;OrderItem&gt; itemIds)
-}
+<div class="highlight"><pre><span></span><span class="k">public</span><span class="w"> </span><span class="k">interface</span><span class="w"> </span><span class="n">IOrderService</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">void</span><span class="w"> </span><span class="nf">PlaceOrder</span><span class="p">(</span><span class="n">Guid</span><span class="w"> </span><span class="n">customerId</span><span class="p">,</span><span class="w"> </span><span class="n">IEnumerable</span><span class="o">&lt;</span><span class="n">OrderItem</span><span class="o">&gt;</span><span class="w"> </span><span class="n">itemIds</span><span class="p">)</span>
+<span class="p">}</span>
 </pre></div>
 <p>
 where <code>OrderItem</code> holds the data about an ordered item.
 </p>
-<div class="highlight"><pre><span></span>public class OrderItem
-{
-    public Guid ItemId { get; set; }
+<div class="highlight"><pre><span></span><span class="k">public</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">OrderItem</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="n">Guid</span><span class="w"> </span><span class="n">ItemId</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 
-    public int Quantity { get; set; }
-}
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">Quantity</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 <p>
 The <code>PlaceOrder</code> method needs to:
@@ -85,22 +85,22 @@ Of course, since we're using an ORM framework, the classes used by the repositor
 <p>
 Given the above, someone would be tempted to implement the <code>PlaceOrder</code> method like this:
 </p>
-<div class="highlight"><pre><span></span>public void PlaceOrder(Guid customerId, IEnumerable&lt;OrderItem&gt; orderItems)
-{
-    var customer = _customerRepository.Get(customerId);
-    var order = new CustomerOrder(customer);
+<div class="highlight"><pre><span></span><span class="k">public</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">PlaceOrder</span><span class="p">(</span><span class="n">Guid</span><span class="w"> </span><span class="n">customerId</span><span class="p">,</span><span class="w"> </span><span class="n">IEnumerable</span><span class="o">&lt;</span><span class="n">OrderItem</span><span class="o">&gt;</span><span class="w"> </span><span class="n">orderItems</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kt">var</span><span class="w"> </span><span class="n">customer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_customerRepository</span><span class="p">.</span><span class="n">Get</span><span class="p">(</span><span class="n">customerId</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">var</span><span class="w"> </span><span class="n">order</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">CustomerOrder</span><span class="p">(</span><span class="n">customer</span><span class="p">);</span>
 
-    foreach (var orderedItem in orderItems)
-    {
-	var item = _itemRepository.Get(orderedItem.ItemId);
-	item.DecreaseStockCount(orderedItem.Quantity);
-	_itemRepository.Update(item);
-	order.Add(orderedItem);
-    }
+<span class="w">    </span><span class="k">foreach</span><span class="w"> </span><span class="p">(</span><span class="kt">var</span><span class="w"> </span><span class="n">orderedItem</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">orderItems</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">var</span><span class="w"> </span><span class="n">item</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_itemRepository</span><span class="p">.</span><span class="n">Get</span><span class="p">(</span><span class="n">orderedItem</span><span class="p">.</span><span class="n">ItemId</span><span class="p">);</span>
+<span class="w">        </span><span class="n">item</span><span class="p">.</span><span class="n">DecreaseStockCount</span><span class="p">(</span><span class="n">orderedItem</span><span class="p">.</span><span class="n">Quantity</span><span class="p">);</span>
+<span class="w">        </span><span class="n">_itemRepository</span><span class="p">.</span><span class="n">Update</span><span class="p">(</span><span class="n">item</span><span class="p">);</span>
+<span class="w">        </span><span class="n">order</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">orderedItem</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
 
-    _customerOrderRepository.Register(order);
-    _unitOfWork.Commit();
-}
+<span class="w">    </span><span class="n">_customerOrderRepository</span><span class="p">.</span><span class="n">Register</span><span class="p">(</span><span class="n">order</span><span class="p">);</span>
+<span class="w">    </span><span class="n">_unitOfWork</span><span class="p">.</span><span class="n">Commit</span><span class="p">();</span>
+<span class="p">}</span>
 </pre></div>
 <p>
 And why wouldn't they? It seems the most straightforward transposition of the requirements defined above. The code behaves as expected in both Dev and QA environments and afterwards it's promoted to production where lies a database with hundreds of thousands of rows in the <code>Items</code> table. There also, the behavior is as expected until one day an eager customer wants to buy 980 distinct items (because why not?).
@@ -121,29 +121,29 @@ To put it in the context of the example above - <b>it takes more time to do 980 
 <p>
 So, let's switch the paradigm and start working with collections in our code to minimize the number of operations in the database. The first thing to do is to load all items in bulk instead of loading them one by one. This will reduce the number of <code>SELECT</code> operations <b>from 980 to 1</b> (a whooping 50% of the number of operations). We still need to update the stock counts for each item individually because the ORM framework doesn't know how to translate the changes for each item into a single <code>UPDATE</code> statement but considering that we've halved the total number of operations let's give this approach a try shall we?
 </p>
-<div class="highlight"><pre><span></span>public void PlaceOrder(Guid customerId, IEnumerable&lt;OrderItem&gt; orderItems)
-{
-    var customer = _customerRepository.Get(customerId);
-    var customerOrder = new CustomerOrder(customer);
+<div class="highlight"><pre><span></span><span class="k">public</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">PlaceOrder</span><span class="p">(</span><span class="n">Guid</span><span class="w"> </span><span class="n">customerId</span><span class="p">,</span><span class="w"> </span><span class="n">IEnumerable</span><span class="o">&lt;</span><span class="n">OrderItem</span><span class="o">&gt;</span><span class="w"> </span><span class="n">orderItems</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kt">var</span><span class="w"> </span><span class="n">customer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_customerRepository</span><span class="p">.</span><span class="n">Get</span><span class="p">(</span><span class="n">customerId</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">var</span><span class="w"> </span><span class="n">customerOrder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">CustomerOrder</span><span class="p">(</span><span class="n">customer</span><span class="p">);</span>
 
-    var items = itemRepository.Items
-	.Join(orderItems,
-	      item =&gt; item.Id,
-	      orderedItem =&gt; orderedItem.ItemId,
-	      (item, _) =&gt; item)
-	.ToDictionary(i =&gt; i.Id);
+<span class="w">    </span><span class="kt">var</span><span class="w"> </span><span class="n">items</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">itemRepository</span><span class="p">.</span><span class="n">Items</span>
+<span class="w">        </span><span class="p">.</span><span class="n">Join</span><span class="p">(</span><span class="n">orderItems</span><span class="p">,</span>
+<span class="w">              </span><span class="n">item</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">item</span><span class="p">.</span><span class="n">Id</span><span class="p">,</span>
+<span class="w">              </span><span class="n">orderedItem</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">orderedItem</span><span class="p">.</span><span class="n">ItemId</span><span class="p">,</span>
+<span class="w">              </span><span class="p">(</span><span class="n">item</span><span class="p">,</span><span class="w"> </span><span class="n">_</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">item</span><span class="p">)</span>
+<span class="w">        </span><span class="p">.</span><span class="n">ToDictionary</span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">i</span><span class="p">.</span><span class="n">Id</span><span class="p">);</span>
 
-    foreach(var orderedItem in orderedItems)
-    {
-	var item  = items[orderedItem.ItemId];
-	item.DecreaseStockCount(orderedItem.Quantity);
-	_itemRepository.Update(item);
-	customerOrder.Add(item);
-    }
+<span class="w">    </span><span class="k">foreach</span><span class="p">(</span><span class="kt">var</span><span class="w"> </span><span class="n">orderedItem</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">orderedItems</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">var</span><span class="w"> </span><span class="n">item</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="n">items</span><span class="p">[</span><span class="n">orderedItem</span><span class="p">.</span><span class="n">ItemId</span><span class="p">];</span>
+<span class="w">        </span><span class="n">item</span><span class="p">.</span><span class="n">DecreaseStockCount</span><span class="p">(</span><span class="n">orderedItem</span><span class="p">.</span><span class="n">Quantity</span><span class="p">);</span>
+<span class="w">        </span><span class="n">_itemRepository</span><span class="p">.</span><span class="n">Update</span><span class="p">(</span><span class="n">item</span><span class="p">);</span>
+<span class="w">        </span><span class="n">customerOrder</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">item</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
 
-    _customerOrderRepository.Register(order);
-    _unitOfWork.Commit();
-}
+<span class="w">    </span><span class="n">_customerOrderRepository</span><span class="p">.</span><span class="n">Register</span><span class="p">(</span><span class="n">order</span><span class="p">);</span>
+<span class="w">    </span><span class="n">_unitOfWork</span><span class="p">.</span><span class="n">Commit</span><span class="p">();</span>
+<span class="p">}</span>
 </pre></div>
 <p>
 This will solve the problem with the timeout but will create another one - useless load on the system. The code loads 980 rows from the database but only uses two attributes of each row - <code>Id</code> and <code>Barcode</code>. We might say that this can be solved by projecting an <code>Item</code> into a tuple of <code>&lt;Barcode, Id&gt;</code> but this would be a partial solution because we can still place a great burden on system memory by sending an request of 10k items.
@@ -154,25 +154,25 @@ Also, there are still 980 <code>UPDATE</code> statements that need to be execute
 The best approach to this is to not load any data at all from the database and to do the processing as close to the actual data as possible.
 And how can we do that? Exactly - with <code>stored procedures</code>.
 </p>
-<div class="highlight"><pre><span></span><span class="k">declare</span> <span class="k">procedure</span> <span class="n">CreateCustomerOrder</span><span class="p">(</span>
-	<span class="o">@</span><span class="n">customerId</span> <span class="n">uniqueidentifier</span> <span class="k">not</span> <span class="k">null</span><span class="p">,</span>
-	<span class="o">@</span><span class="n">orderItems</span> <span class="n">udttorderitems</span> <span class="n">readonly</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><span class="k">declare</span><span class="w"> </span><span class="k">procedure</span><span class="w"> </span><span class="n">CreateCustomerOrder</span><span class="p">(</span>
+<span class="w">        </span><span class="o">@</span><span class="n">customerId</span><span class="w"> </span><span class="n">uniqueidentifier</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="p">,</span>
+<span class="w">        </span><span class="o">@</span><span class="n">orderItems</span><span class="w"> </span><span class="n">udttorderitems</span><span class="w"> </span><span class="n">readonly</span><span class="p">)</span>
 <span class="k">begin</span>
-    <span class="k">set</span> <span class="n">no_count</span> <span class="k">on</span>
+<span class="w">    </span><span class="k">set</span><span class="w"> </span><span class="n">no_count</span><span class="w"> </span><span class="k">on</span>
 
-    <span class="k">update</span> <span class="n">sc</span>
-    <span class="k">set</span> <span class="n">sc</span><span class="p">.</span><span class="k">Count</span> <span class="o">=</span> <span class="n">sc</span><span class="p">.</span><span class="k">Count</span> <span class="o">-</span> <span class="n">o</span><span class="p">.</span><span class="n">Quantity</span>
-    <span class="k">from</span> <span class="n">StockCounts</span> <span class="n">sc</span>
-    <span class="k">join</span> <span class="n">Items</span> <span class="n">i</span> <span class="k">on</span> <span class="n">sc</span><span class="p">.</span><span class="n">ItemId</span> <span class="o">==</span> <span class="n">i</span><span class="p">.</span><span class="n">Id</span>
-    <span class="k">join</span> <span class="o">@</span><span class="n">orderItems</span> <span class="mi">0</span> <span class="k">on</span> <span class="n">i</span><span class="p">.</span><span class="n">Id</span> <span class="o">=</span> <span class="n">o</span><span class="p">.</span><span class="n">ItemId</span>
+<span class="w">    </span><span class="k">update</span><span class="w"> </span><span class="n">sc</span>
+<span class="w">    </span><span class="k">set</span><span class="w"> </span><span class="n">sc</span><span class="p">.</span><span class="k">Count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sc</span><span class="p">.</span><span class="k">Count</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">Quantity</span>
+<span class="w">    </span><span class="k">from</span><span class="w"> </span><span class="n">StockCounts</span><span class="w"> </span><span class="n">sc</span>
+<span class="w">    </span><span class="k">join</span><span class="w"> </span><span class="n">Items</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">sc</span><span class="p">.</span><span class="n">ItemId</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">i</span><span class="p">.</span><span class="n">Id</span>
+<span class="w">    </span><span class="k">join</span><span class="w"> </span><span class="o">@</span><span class="n">orderItems</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">i</span><span class="p">.</span><span class="n">Id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">ItemId</span>
 
-    <span class="k">insert</span> <span class="k">into</span> <span class="n">CustomerOrder</span><span class="p">(</span><span class="n">CustomerId</span><span class="p">,</span> <span class="n">OrderDateTime</span><span class="p">)</span>
-    <span class="k">values</span> <span class="p">(</span><span class="o">@</span><span class="n">customerId</span><span class="p">,</span> <span class="n">GetDate</span><span class="p">())</span>
+<span class="w">    </span><span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">CustomerOrder</span><span class="p">(</span><span class="n">CustomerId</span><span class="p">,</span><span class="w"> </span><span class="n">OrderDateTime</span><span class="p">)</span>
+<span class="w">    </span><span class="k">values</span><span class="w"> </span><span class="p">(</span><span class="o">@</span><span class="n">customerId</span><span class="p">,</span><span class="w"> </span><span class="n">GetDate</span><span class="p">())</span>
 
-    <span class="k">insert</span> <span class="k">into</span> <span class="n">OrderLines</span><span class="p">(</span><span class="n">OrderId</span><span class="p">,</span> <span class="n">ItemId</span><span class="p">,</span> <span class="n">Quantity</span><span class="p">)</span>
-    <span class="k">select</span> <span class="n">scope_identity</span><span class="p">(),</span> <span class="n">i</span><span class="p">.</span><span class="n">Id</span><span class="p">,</span> <span class="n">o</span><span class="p">.</span><span class="n">Quantity</span>
-    <span class="k">from</span> <span class="n">Items</span> <span class="n">i</span>
-    <span class="k">join</span> <span class="o">@</span><span class="n">orderItems</span> <span class="n">o</span> <span class="k">on</span> <span class="n">o</span><span class="p">.</span><span class="n">ItemId</span> <span class="o">=</span> <span class="n">i</span><span class="p">.</span><span class="n">Id</span>
+<span class="w">    </span><span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">OrderLines</span><span class="p">(</span><span class="n">OrderId</span><span class="p">,</span><span class="w"> </span><span class="n">ItemId</span><span class="p">,</span><span class="w"> </span><span class="n">Quantity</span><span class="p">)</span>
+<span class="w">    </span><span class="k">select</span><span class="w"> </span><span class="n">scope_identity</span><span class="p">(),</span><span class="w"> </span><span class="n">i</span><span class="p">.</span><span class="n">Id</span><span class="p">,</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">Quantity</span>
+<span class="w">    </span><span class="k">from</span><span class="w"> </span><span class="n">Items</span><span class="w"> </span><span class="n">i</span>
+<span class="w">    </span><span class="k">join</span><span class="w"> </span><span class="o">@</span><span class="n">orderItems</span><span class="w"> </span><span class="n">o</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">ItemId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i</span><span class="p">.</span><span class="n">Id</span>
 <span class="k">end</span>
 </pre></div>
 <p>

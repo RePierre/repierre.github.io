@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Rebeja</title>
 <link href="assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
-<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700%7CAbril+Fatface">
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.1.7/css/fork-awesome.min.css" integrity="sha256-gsmEoJAws/Kd3CjuOQzLie5Q3yshhvmo7YNtBG7aaEY=" crossorigin="anonymous">
 <meta content="#5670d4" name="theme-color">
 <link rel="alternate" type="application/rss+xml" title="RSS" href="rss.xml">
@@ -28,7 +28,7 @@
     
     
     </nav><footer id="footer"><span class="copyright">
-              Contents © 2023         <a href="mailto:petru.rebeja@gmail.com">Petru Rebeja</a> - Powered by   <a href="https://www.gnu.org/software/emacs/" rel="nofollow">GNU Emacs</a>  &amp;    <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+              Contents © 2024         <a href="mailto:petru.rebeja@gmail.com">Petru Rebeja</a> - Powered by   <a href="https://www.gnu.org/software/emacs/" rel="nofollow">GNU Emacs</a>  &amp;    <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
             </span>
             
             
@@ -53,9 +53,9 @@
 <b>Automate your release workflow to such extent that the QA engineers from your team become the users of the application.</b>
 </p>
 
-<div id="outline-container-org64eb0f8" class="outline-2">
-<h2 id="org64eb0f8">Introduction</h2>
-<div class="outline-text-2" id="text-org64eb0f8">
+<div id="outline-container-orgc3b325d" class="outline-2">
+<h2 id="orgc3b325d">Introduction</h2>
+<div class="outline-text-2" id="text-orgc3b325d">
 <p>
 It's Friday afternoon, the end of the sprint, and a few hours before the weekend starts, and the QA engineers are performing the required tests on the last Sprint Backlog Item (SBI). The developer responsible for that item, confident that the SBI meets all acceptance criteria, is already in the weekend mood.
 </p>
@@ -74,9 +74,9 @@ Both sigh in relief while the SBI is marked as "Done" and the weekend starts. Bl
 </div>
 </div>
 
-<div id="outline-container-orgf744534" class="outline-2">
-<h2 id="orgf744534">Getting to the root problem</h2>
-<div class="outline-text-2" id="text-orgf744534">
+<div id="outline-container-orgab70c64" class="outline-2">
+<h2 id="orgab70c64">Getting to the root problem</h2>
+<div class="outline-text-2" id="text-orgab70c64">
 <p>
 Although the day and the sprint goal were saved, I would argue that applying the cleanup script just fixed an issue but left the root problem untouched. And to get to the root problem, let's take a closer look on what happened.
 </p>
@@ -103,9 +103,9 @@ But our root-cause analysis is not complete yet. We can't just say "let's never 
 </div>
 </div>
 
-<div id="outline-container-orgedd9a05" class="outline-2">
-<h2 id="orgedd9a05">Why and when do we apply workarounds in production?</h2>
-<div class="outline-text-2" id="text-orgedd9a05">
+<div id="outline-container-org0abdb89" class="outline-2">
+<h2 id="org0abdb89">Why and when do we apply workarounds in production?</h2>
+<div class="outline-text-2" id="text-org0abdb89">
 <p>
 In Production environment a workaround is applied <i>only in critical situations</i> due to high risk of breaking the running system by making ad-hoc changes to it.
 </p>
@@ -132,9 +132,9 @@ OK, now we're settled: workarounds are necessary <i>in critical situations</i>, 
 </div>
 </div>
 
-<div id="outline-container-orgead6bb1" class="outline-2">
-<h2 id="orgead6bb1">Why do we apply workarounds in QA environment?</h2>
-<div class="outline-text-2" id="text-orgead6bb1">
+<div id="outline-container-orgee8ac6b" class="outline-2">
+<h2 id="orgee8ac6b">Why do we apply workarounds in QA environment?</h2>
+<div class="outline-text-2" id="text-orgee8ac6b">
 <p>
 QA environment is isolated from Production environment, and by definition it has way fewer users. Furthermore, those users have a lot of technical knowledge of how the system runs, and always have something else to do (like designing/writing test cases) while the system is being brought to normal again.
 </p>
@@ -153,9 +153,9 @@ Now that the assessment of criticality is done, let's get back to our topic and 
 </div>
 </div>
 
-<div id="outline-container-orgf6d10d6" class="outline-2">
-<h2 id="orgf6d10d6">What if we treated QA environment like Production?</h2>
-<div class="outline-text-2" id="text-orgf6d10d6">
+<div id="outline-container-orgc2f1f35" class="outline-2">
+<h2 id="orgc2f1f35">What if we treated QA environment like Production?</h2>
+<div class="outline-text-2" id="text-orgc2f1f35">
 <p>
 Production and QA environments are different (<i>very</i> different I may add); there's no doubt about that. What makes them different, from the point of view of our topic, is the fact that when a feature is deployed in Production environment, <i>all</i> the prerequisites are known, and all preliminary steps are executed.
 </p>
@@ -174,9 +174,9 @@ And when it comes to doing repetitive tasks…
 </div>
 </div>
 
-<div id="outline-container-org9977484" class="outline-2">
-<h2 id="org9977484">Automation is key</h2>
-<div class="outline-text-2" id="text-org9977484">
+<div id="outline-container-org00e0b4a" class="outline-2">
+<h2 id="org00e0b4a">Automation is key</h2>
+<div class="outline-text-2" id="text-org00e0b4a">
 <p>
 To alleviate the difference between (successive) environments you only need to do one thing, although I must say from the start that achieving that one thing <i>can be really hard</i> — <b>automate everything</b>.
 </p>
@@ -194,17 +194,17 @@ Although we strive to have our environments behave all the same, they are still 
 </div>
 </div>
 
-<div id="outline-container-org9eb5e69" class="outline-2">
-<h2 id="org9eb5e69">The Snowball Effect</h2>
-<div class="outline-text-2" id="text-org9eb5e69">
+<div id="outline-container-orgcc3df78" class="outline-2">
+<h2 id="orgcc3df78">The Snowball Effect</h2>
+<div class="outline-text-2" id="text-orgcc3df78">
 <p>
 Once achieved, the effects of this objective of having minimal manual intervention ripple through and start a <a href="https://en.wikipedia.org/wiki/Snowball_effect">snowball effect</a>.
 </p>
 </div>
 
-<div id="outline-container-org9721ba7" class="outline-3">
-<h3 id="org9721ba7">Efficiency</h3>
-<div class="outline-text-3" id="text-org9721ba7">
+<div id="outline-container-orgd5dc455" class="outline-3">
+<h3 id="orgd5dc455">Efficiency</h3>
+<div class="outline-text-3" id="text-orgd5dc455">
 <p>
 At first, you gain efficiency — there is no checklist to go through when deploying, no time needed to spend doing the tedious steps of deployment; the computers will perform those steps as quickly as possible and <i>always</i> in the same order without skipping any of them or making the errors that humans usually do when performing tedious work.
 </p>
@@ -215,9 +215,9 @@ With a click of a button, or on a certain event the deployment starts and while 
 </div>
 </div>
 
-<div id="outline-container-org76c64ea" class="outline-3">
-<h3 id="org76c64ea">Speed</h3>
-<div class="outline-text-3" id="text-org76c64ea">
+<div id="outline-container-orgd722cd5" class="outline-3">
+<h3 id="orgd722cd5">Speed</h3>
+<div class="outline-text-3" id="text-orgd722cd5">
 <p>
 Furthermore, besides efficiency you can gain speed — just by delegating the deployment process to computers you gain time because computers do boring stuff a lot quicker than humans.
 </p>
@@ -232,9 +232,9 @@ And this is where the magic unravels.
 </div>
 </div>
 
-<div id="outline-container-org90bf8d4" class="outline-3">
-<h3 id="org90bf8d4">Tight feedback loop</h3>
-<div class="outline-text-3" id="text-org90bf8d4">
+<div id="outline-container-org1e03bce" class="outline-3">
+<h3 id="org1e03bce">Tight feedback loop</h3>
+<div class="outline-text-3" id="text-org1e03bce">
 <p>
 Once you automate the repetitive tasks you free-up the time of the QA engineer, which allows him/her to spend more time with the system(s) they are testing. In other words, the time gained through workflow automation is invested into the actual Quality Assurance of the system under test.
 </p>
@@ -249,9 +249,9 @@ We have a name for this thing — it's called a <i>feedback loop</i>. The feedba
 </div>
 </div>
 
-<div id="outline-container-orgf030374" class="outline-3">
-<h3 id="orgf030374">Improved user experience</h3>
-<div class="outline-text-3" id="text-orgf030374">
+<div id="outline-container-org68231a2" class="outline-3">
+<h3 id="org68231a2">Improved user experience</h3>
+<div class="outline-text-3" id="text-org68231a2">
 <p>
 But wait, there's more! The time that the QA engineer gets to invest into growing his/her skills is spent using the system under test. With more time spent using the system under test, the QA engineer gets closer and closer to the mindset of the real users of the system. And while in this mindset, the QA engineer not only understands what the system does for the user but also understands what the user wants to do.
 </p>
@@ -279,9 +279,9 @@ Sure, all of those changes must be  discussed with the team <i>and</i> approved 
 </div>
 </div>
 
-<div id="outline-container-org2c8e1fb" class="outline-2">
-<h2 id="org2c8e1fb">Allow the QA engineer to be an user of the system</h2>
-<div class="outline-text-2" id="text-org2c8e1fb">
+<div id="outline-container-orgf0e6057" class="outline-2">
+<h2 id="orgf0e6057">Allow the QA engineer to be an user of the system</h2>
+<div class="outline-text-2" id="text-orgf0e6057">
 <p>
 The main role of a QA engineer is to ensure that the system under test satisfies the needs of its users. As such, the QA engineer needs to think like a user, to act like a user, and to be able to quickly shift from the mindset of the user to the mindset of the problem analyst required by the job description.
 </p>
@@ -383,39 +383,39 @@ Having done that another pattern emerged from all the handlers within an assembl
 <p>
 Obviously, the next logical thing was to actually define the service interface which listed all the operations performed by the handlers within that assembly. And since the interface needs an implementation I've created a class for each service which calls <code>mediator.Send()</code> with the proper parameters for the specific handler and returns the results. This is how it looks:
 </p>
-<div class="highlight"><pre><span></span>public interface IAccountingService
-{
-    void RegisterPayment(RegisterPaymentCommand paymentDetails);
+<div class="highlight"><pre><span></span><span class="k">public</span><span class="w"> </span><span class="k">interface</span><span class="w"> </span><span class="n">IAccountingService</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">void</span><span class="w"> </span><span class="nf">RegisterPayment</span><span class="p">(</span><span class="n">RegisterPaymentCommand</span><span class="w"> </span><span class="n">paymentDetails</span><span class="p">);</span>
 
-    GetAccountBalanceResponse GetAccountBalance(GetAccountBalanceRequest accountId);
+<span class="w">    </span><span class="n">GetAccountBalanceResponse</span><span class="w"> </span><span class="nf">GetAccountBalance</span><span class="p">(</span><span class="n">GetAccountBalanceRequest</span><span class="w"> </span><span class="n">accountId</span><span class="p">);</span>
 
-    GetAllPaymentsResponse GetAllPayments();
-}
+<span class="w">    </span><span class="n">GetAllPaymentsResponse</span><span class="w"> </span><span class="nf">GetAllPayments</span><span class="p">();</span>
+<span class="p">}</span>
 
-class AccountingService: IAccountingService
-{
-    private readonly IMediator _mediator;
+<span class="k">class</span><span class="w"> </span><span class="nc">AccountingService</span><span class="p">:</span><span class="w"> </span><span class="n">IAccountingService</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">private</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="n">IMediator</span><span class="w"> </span><span class="n">_mediator</span><span class="p">;</span>
 
-    public AccountingService(IMediator mediator)
-    {
-	_mediator = mediator;
-    }
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="nf">AccountingService</span><span class="p">(</span><span class="n">IMediator</span><span class="w"> </span><span class="n">mediator</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">_mediator</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mediator</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
 
-    public void RegisterPayment(RegisterPaymentCommand paymentDetails)
-    {
-	_mediator.Send(paymentDetails);
-    }
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">RegisterPayment</span><span class="p">(</span><span class="n">RegisterPaymentCommand</span><span class="w"> </span><span class="n">paymentDetails</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">_mediator</span><span class="p">.</span><span class="n">Send</span><span class="p">(</span><span class="n">paymentDetails</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
 
-    public GetAccountBalanceResponse GetAccountBalance(GetAccountBalanceRequest accountId)
-    {
-	return _mediator.Send(GetAccountBalanceRequest);
-    }
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="n">GetAccountBalanceResponse</span><span class="w"> </span><span class="nf">GetAccountBalance</span><span class="p">(</span><span class="n">GetAccountBalanceRequest</span><span class="w"> </span><span class="n">accountId</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">_mediator</span><span class="p">.</span><span class="n">Send</span><span class="p">(</span><span class="n">GetAccountBalanceRequest</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
 
-    public GetAllPaymentsResponse GetAllPayments()
-    {
-	return _mediator.Send(new GetAllPaymentsRequest());
-    }
-}
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="n">GetAllPaymentsResponse</span><span class="w"> </span><span class="nf">GetAllPayments</span><span class="p">()</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">_mediator</span><span class="p">.</span><span class="n">Send</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">GetAllPaymentsRequest</span><span class="p">());</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 
 <p>
@@ -425,22 +425,22 @@ As a result I <i>do have more boilerplate code</i> but on the upside I have:
 <li>A separation of the domain logic from the plumbing handled by MediatR. If I want to switch the interface implemented by each handler I can use search and replace with a regex and I'm done.</li>
 <li>A cleaner service interface. For the service above, the handler that returns all payments should look like this:</li>
 </ol>
-<div class="highlight"><pre><span></span>public class GetAllPaymentsRequest: IRequest&lt;GetAllPaymentsResponse&gt;
-{
-}
+<div class="highlight"><pre><span></span><span class="k">public</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">GetAllPaymentsRequest</span><span class="p">:</span><span class="w"> </span><span class="n">IRequest</span><span class="o">&lt;</span><span class="n">GetAllPaymentsResponse</span><span class="o">&gt;</span>
+<span class="p">{</span>
+<span class="p">}</span>
 
-public class GetAllPaymentsResponse
-{
-    public IEnumerable&lt;Payment&gt; Payments {get; set;}
-}
+<span class="k">public</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">GetAllPaymentsResponse</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="n">IEnumerable</span><span class="o">&lt;</span><span class="n">Payment</span><span class="o">&gt;</span><span class="w"> </span><span class="n">Payments</span><span class="w"> </span><span class="p">{</span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;}</span>
+<span class="p">}</span>
 
-public GetAllPaymentsRequestHandler: RequestHandler&lt;GetAllPaymentsRequest, GetAllPaymentsResponse&gt;
-{
-    protected override GetAllPaymentsResponse Handle(GetAllPaymentsRequest request)
-    {
-	// ...
-    }
-}
+<span class="k">public</span><span class="w"> </span><span class="n">GetAllPaymentsRequestHandler</span><span class="p">:</span><span class="w"> </span><span class="n">RequestHandler</span><span class="o">&lt;</span><span class="n">GetAllPaymentsRequest</span><span class="p">,</span><span class="w"> </span><span class="n">GetAllPaymentsResponse</span><span class="o">&gt;</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">protected</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="n">GetAllPaymentsResponse</span><span class="w"> </span><span class="nf">Handle</span><span class="p">(</span><span class="n">GetAllPaymentsRequest</span><span class="w"> </span><span class="n">request</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// ...</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 
 <p>
@@ -494,9 +494,9 @@ I would like to thank my colleagues for their reviews of this blog post. Also a 
             </p>
         </div>
     </header><div class="e-content entry-content">
-    <div id="outline-container-org67e2a6a" class="outline-2">
-<h2 id="org67e2a6a">Prologue</h2>
-<div class="outline-text-2" id="text-org67e2a6a">
+    <div id="outline-container-orga0d5af6" class="outline-2">
+<h2 id="orga0d5af6">Prologue</h2>
+<div class="outline-text-2" id="text-orga0d5af6">
 <p>
 I am a fan of <a href="https://en.wikipedia.org/wiki/Windows_Subsystem_for_Linux"><code>Windows Subsystem for Linux</code></a>. It brings the power of Linux command-line tools to Windows which is something a developer cannot dislike but that isn't the main reason I'm fond of it. I like it because it allows me to run Emacs (albeit in console mode) at its full potential.
 </p>
@@ -526,9 +526,9 @@ The answer is <b>Yes</b>. If you want to see only the final <code>Dockerfile</co
 </p>
 </div>
 </div>
-<div id="outline-container-org1068027" class="outline-2">
-<h2 id="org1068027">How</h2>
-<div class="outline-text-2" id="text-org1068027">
+<div id="outline-container-org047b8ab" class="outline-2">
+<h2 id="org047b8ab">How</h2>
+<div class="outline-text-2" id="text-org047b8ab">
 <p>
 Since I already have been using Emacs as a Python IDE in Ubuntu Bash, replicating this setup in Docker would imply:
 </p>
@@ -545,9 +545,9 @@ Luckily, Docker already has an <a href="https://docs.docker.com/engine/examples/
 </p>
 </div>
 </div>
-<div id="outline-container-orge93a6b7" class="outline-2">
-<h2 id="orge93a6b7">Issue #1: SSHD refuses connection</h2>
-<div class="outline-text-2" id="text-orge93a6b7">
+<div id="outline-container-org1fbcfbb" class="outline-2">
+<h2 id="org1fbcfbb">Issue #1: SSHD refuses connection</h2>
+<div class="outline-text-2" id="text-org1fbcfbb">
 <p>
 This one was easy — there's a typo in the example provided by Docker. I figured it out after inspecting the contents of <code>sshd_config</code> file.
 </p>
@@ -563,7 +563,7 @@ Since I was connecting as <code>root</code> the <code>sshd</code> refused connec
 <p>
 The fix for this is to include the <code>#</code> in the call to <code>sed</code> as below:
 </p>
-<div class="highlight"><pre><span></span>  RUN sed -i <span class="s1">'s/#PermitRootLogin prohibit-password/PermitRootLogin yes/'</span> /etc/ssh/sshd_config
+<div class="highlight"><pre><span></span><span class="w">  </span>RUN<span class="w"> </span>sed<span class="w"> </span>-i<span class="w"> </span><span class="s1">'s/#PermitRootLogin prohibit-password/PermitRootLogin yes/'</span><span class="w"> </span>/etc/ssh/sshd_config
 </pre></div>
 
 <p>
@@ -577,25 +577,25 @@ Success.
 <p>
 Even though the <code>sshd</code> was running and accepting connections, the fact that the root password was hard-coded in plain text <i>really</i> bothered me so I made a small tweak to the <code>Dockerfile</code>:
 </p>
-<div class="highlight"><pre><span></span>  ARG password
+<div class="highlight"><pre><span></span><span class="w">  </span>ARG<span class="w"> </span>password
 
-  RUN <span class="nb">echo</span> <span class="s2">"root:</span><span class="si">${</span><span class="nv">password</span><span class="si">}</span><span class="s2">"</span> <span class="p">|</span> chpasswd
+<span class="w">  </span>RUN<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"root:</span><span class="si">${</span><span class="nv">password</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>chpasswd
 </pre></div>
 <p>
 What this does is it declares a variable <code>password</code> whose value is supplied when building the image like this:
 </p>
-<div class="highlight"><pre><span></span>  docker build -t &lt;image-tag&gt; <span class="se">\</span>
-	 --build-arg <span class="nv">password</span><span class="o">=</span>&lt;your-password-here&gt; <span class="se">\</span>
-	 .
+<div class="highlight"><pre><span></span><span class="w">  </span>docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>&lt;image-tag&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>--build-arg<span class="w"> </span><span class="nv">password</span><span class="o">=</span>&lt;your-password-here&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>.
 </pre></div>
 <p>
 This way, the root password isn't stored in clear text and in plain-sight anymore. Now I was ready to move to the next step.
 </p>
 </div>
 </div>
-<div id="outline-container-org4707a12" class="outline-2">
-<h2 id="org4707a12">Issue #2: Activating virtual environment inside container</h2>
-<div class="outline-text-2" id="text-org4707a12">
+<div id="outline-container-org9d956ba" class="outline-2">
+<h2 id="org9d956ba">Issue #2: Activating virtual environment inside container</h2>
+<div class="outline-text-2" id="text-org9d956ba">
 <p>
 The second item of my quest was to setup and activate a Python virtual environment. This environment will be used to install all the dependencies required for the project I'm working on.
 </p>
@@ -623,12 +623,12 @@ I got lucky since one of the first results was the article that led to my soluti
 <p>
 The changes pertaining to my config are the following:
 </p>
-<div class="highlight"><pre><span></span>  ENV <span class="nv">VIRTUAL_ENV</span><span class="o">=</span>/opt/venv
-  RUN python3 -m virtualenv --python<span class="o">=</span>/usr/bin/python3 <span class="nv">$VIRTUAL_ENV</span>
-  ENV <span class="nv">PATH</span><span class="o">=</span><span class="s2">"</span><span class="nv">$VIRTUAL_ENV</span><span class="s2">/bin:</span><span class="nv">$PATH</span><span class="s2">"</span>
-  RUN pip install --upgrade pip setuptools wheel <span class="o">&amp;&amp;</span> <span class="se">\</span>
-      pip install numpy tensorflow scikit-learn gensim matplotlib pyyaml matplotlib-venn <span class="o">&amp;&amp;</span> <span class="se">\</span>
-      pip install elpy jedi rope yapf importmagic flake8 autopep8 black
+<div class="highlight"><pre><span></span><span class="w">  </span>ENV<span class="w"> </span><span class="nv">VIRTUAL_ENV</span><span class="o">=</span>/opt/venv
+<span class="w">  </span>RUN<span class="w"> </span>python3<span class="w"> </span>-m<span class="w"> </span>virtualenv<span class="w"> </span>--python<span class="o">=</span>/usr/bin/python3<span class="w"> </span><span class="nv">$VIRTUAL_ENV</span>
+<span class="w">  </span>ENV<span class="w"> </span><span class="nv">PATH</span><span class="o">=</span><span class="s2">"</span><span class="nv">$VIRTUAL_ENV</span><span class="s2">/bin:</span><span class="nv">$PATH</span><span class="s2">"</span>
+<span class="w">  </span>RUN<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>pip<span class="w"> </span>setuptools<span class="w"> </span>wheel<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>pip<span class="w"> </span>install<span class="w"> </span>numpy<span class="w"> </span>tensorflow<span class="w"> </span>scikit-learn<span class="w"> </span>gensim<span class="w"> </span>matplotlib<span class="w"> </span>pyyaml<span class="w"> </span>matplotlib-venn<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>pip<span class="w"> </span>install<span class="w"> </span>elpy<span class="w"> </span>jedi<span class="w"> </span>rope<span class="w"> </span>yapf<span class="w"> </span>importmagic<span class="w"> </span>flake8<span class="w"> </span>autopep8<span class="w"> </span>black
 </pre></div>
 
 <p>
@@ -648,9 +648,9 @@ Afterwards, just install the required packages as usual.
 </p>
 </div>
 </div>
-<div id="outline-container-org1c78a1c" class="outline-2">
-<h2 id="org1c78a1c">Issue #3: Emacs monolithic configuration file</h2>
-<div class="outline-text-2" id="text-org1c78a1c">
+<div id="outline-container-orgcd9be08" class="outline-2">
+<h2 id="orgcd9be08">Issue #3: Emacs monolithic configuration file</h2>
+<div class="outline-text-2" id="text-orgcd9be08">
 <p>
 After setting up and activating the virtual environment, I needed to configure Emacs for python development to start working.
 </p>
@@ -674,21 +674,21 @@ Not willing to spend a lot of time on this (I had a deadline after all) I decide
 <p>
 So I split my <code>emacs-init.org</code> file into four files: one file for tweaks and packages that I want to have everywhere, one file for <code>org-mode</code> related stuff, one file for Python development and lastly one file for tweaks and packages that I would like when I'm using Emacs GUI. The <code>init.el</code> file looked like this:
 </p>
-<div class="highlight"><pre><span></span><span class="p">(</span><span class="nf">require</span> <span class="ss">'package</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><span class="p">(</span><span class="nf">require</span><span class="w"> </span><span class="ss">'package</span><span class="p">)</span>
 
 <span class="p">(</span><span class="nf">package-initialize</span><span class="p">)</span>
 
-<span class="p">(</span><span class="nf">org-babel-load-file</span> <span class="p">(</span><span class="nf">expand-file-name</span> <span class="s">"~/.emacs.d/common-config.org"</span><span class="p">))</span>
-<span class="p">(</span><span class="nf">org-babel-load-file</span> <span class="p">(</span><span class="nf">expand-file-name</span> <span class="s">"~/.emacs.d/python-config.org"</span><span class="p">))</span>
-<span class="p">(</span><span class="nf">org-babel-load-file</span> <span class="p">(</span><span class="nf">expand-file-name</span> <span class="s">"~/.emacs.d/org-config.org"</span><span class="p">))</span>
-<span class="p">(</span><span class="nf">org-babel-load-file</span> <span class="p">(</span><span class="nf">expand-file-name</span> <span class="s">"~/.emacs.d/emacs-init.org"</span><span class="p">))</span>
+<span class="p">(</span><span class="nf">org-babel-load-file</span><span class="w"> </span><span class="p">(</span><span class="nf">expand-file-name</span><span class="w"> </span><span class="s">"~/.emacs.d/common-config.org"</span><span class="p">))</span>
+<span class="p">(</span><span class="nf">org-babel-load-file</span><span class="w"> </span><span class="p">(</span><span class="nf">expand-file-name</span><span class="w"> </span><span class="s">"~/.emacs.d/python-config.org"</span><span class="p">))</span>
+<span class="p">(</span><span class="nf">org-babel-load-file</span><span class="w"> </span><span class="p">(</span><span class="nf">expand-file-name</span><span class="w"> </span><span class="s">"~/.emacs.d/org-config.org"</span><span class="p">))</span>
+<span class="p">(</span><span class="nf">org-babel-load-file</span><span class="w"> </span><span class="p">(</span><span class="nf">expand-file-name</span><span class="w"> </span><span class="s">"~/.emacs.d/emacs-init.org"</span><span class="p">))</span>
 </pre></div>
 
 <p>
 Now I can use <code>sed</code> on the <code>init.el</code> file to delete the lines that were loading troublesome packages:
 </p>
-<div class="highlight"><pre><span></span>sed -i <span class="s1">'/^.*emacs-init.*$/d'</span> ./.emacs.d/init.el <span class="o">&amp;&amp;</span> <span class="se">\</span>
-sed -i <span class="s1">'/^.*org-config.*$/d'</span> ./.emacs.d/init.el
+<div class="highlight"><pre><span></span>sed<span class="w"> </span>-i<span class="w"> </span><span class="s1">'/^.*emacs-init.*$/d'</span><span class="w"> </span>./.emacs.d/init.el<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+sed<span class="w"> </span>-i<span class="w"> </span><span class="s1">'/^.*org-config.*$/d'</span><span class="w"> </span>./.emacs.d/init.el
 </pre></div>
 
 <p>
@@ -718,33 +718,33 @@ The solution to this problem is quite simple: before loading configuration files
 <p>
 Thus, the resulting <code>init.el</code> looks like this (I promise to fix those names sometimes):
 </p>
-<div class="highlight"><pre><span></span>  <span class="p">(</span><span class="nf">require</span> <span class="ss">'package</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><span class="w">  </span><span class="p">(</span><span class="nf">require</span><span class="w"> </span><span class="ss">'package</span><span class="p">)</span>
 
-  <span class="p">(</span><span class="nf">package-initialize</span><span class="p">)</span>
+<span class="w">  </span><span class="p">(</span><span class="nf">package-initialize</span><span class="p">)</span>
 
-  <span class="p">(</span><span class="k">let </span><span class="p">((</span><span class="nf">file-name</span> <span class="p">(</span><span class="nf">expand-file-name</span> <span class="s">"config.el"</span> <span class="nv">user-emacs-directory</span><span class="p">)))</span>
-    <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nf">file-exists-p</span> <span class="nv">file-name</span><span class="p">)</span>
-	<span class="p">(</span><span class="nf">load-file</span> <span class="nv">file-name</span><span class="p">)))</span>
+<span class="w">  </span><span class="p">(</span><span class="k">let</span><span class="w"> </span><span class="p">((</span><span class="nf">file-name</span><span class="w"> </span><span class="p">(</span><span class="nf">expand-file-name</span><span class="w"> </span><span class="s">"config.el"</span><span class="w"> </span><span class="nv">user-emacs-directory</span><span class="p">)))</span>
+<span class="w">    </span><span class="p">(</span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nf">file-exists-p</span><span class="w"> </span><span class="nv">file-name</span><span class="p">)</span>
+<span class="w">        </span><span class="p">(</span><span class="nf">load-file</span><span class="w"> </span><span class="nv">file-name</span><span class="p">)))</span>
 
-  <span class="p">(</span><span class="nf">org-babel-load-file</span> <span class="p">(</span><span class="nf">expand-file-name</span> <span class="s">"~/.emacs.d/common-config.org"</span><span class="p">))</span>
-  <span class="p">(</span><span class="nf">org-babel-load-file</span> <span class="p">(</span><span class="nf">expand-file-name</span> <span class="s">"~/.emacs.d/python-config.org"</span><span class="p">))</span>
-  <span class="p">(</span><span class="nf">org-babel-load-file</span> <span class="p">(</span><span class="nf">expand-file-name</span> <span class="s">"~/.emacs.d/org-config.org"</span><span class="p">))</span>
-  <span class="p">(</span><span class="nf">org-babel-load-file</span> <span class="p">(</span><span class="nf">expand-file-name</span> <span class="s">"~/.emacs.d/emacs-init.org"</span><span class="p">))</span>
+<span class="w">  </span><span class="p">(</span><span class="nf">org-babel-load-file</span><span class="w"> </span><span class="p">(</span><span class="nf">expand-file-name</span><span class="w"> </span><span class="s">"~/.emacs.d/common-config.org"</span><span class="p">))</span>
+<span class="w">  </span><span class="p">(</span><span class="nf">org-babel-load-file</span><span class="w"> </span><span class="p">(</span><span class="nf">expand-file-name</span><span class="w"> </span><span class="s">"~/.emacs.d/python-config.org"</span><span class="p">))</span>
+<span class="w">  </span><span class="p">(</span><span class="nf">org-babel-load-file</span><span class="w"> </span><span class="p">(</span><span class="nf">expand-file-name</span><span class="w"> </span><span class="s">"~/.emacs.d/org-config.org"</span><span class="p">))</span>
+<span class="w">  </span><span class="p">(</span><span class="nf">org-babel-load-file</span><span class="w"> </span><span class="p">(</span><span class="nf">expand-file-name</span><span class="w"> </span><span class="s">"~/.emacs.d/emacs-init.org"</span><span class="p">))</span>
 
-  <span class="p">(</span><span class="k">let </span><span class="p">((</span><span class="nf">file-name</span> <span class="p">(</span><span class="nf">expand-file-name</span> <span class="s">"after-init.el"</span> <span class="nv">user-emacs-directory</span><span class="p">)))</span>
-    <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nf">file-exists-p</span> <span class="nv">file-name</span><span class="p">)</span>
-	<span class="p">(</span><span class="nf">load-file</span> <span class="nv">file-name</span><span class="p">)))</span>
+<span class="w">  </span><span class="p">(</span><span class="k">let</span><span class="w"> </span><span class="p">((</span><span class="nf">file-name</span><span class="w"> </span><span class="p">(</span><span class="nf">expand-file-name</span><span class="w"> </span><span class="s">"after-init.el"</span><span class="w"> </span><span class="nv">user-emacs-directory</span><span class="p">)))</span>
+<span class="w">    </span><span class="p">(</span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nf">file-exists-p</span><span class="w"> </span><span class="nv">file-name</span><span class="p">)</span>
+<span class="w">        </span><span class="p">(</span><span class="nf">load-file</span><span class="w"> </span><span class="nv">file-name</span><span class="p">)))</span>
 </pre></div>
 
 <p>
 Now I just need to create the file and apply the fix:
 </p>
-<div class="highlight"><pre><span></span><span class="nb">echo</span> <span class="s2">"(setq package-check-signature nil)"</span> &gt;&gt; ./.emacs.d/config.el
+<div class="highlight"><pre><span></span><span class="nb">echo</span><span class="w"> </span><span class="s2">"(setq package-check-signature nil)"</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>./.emacs.d/config.el
 </pre></div>
 <p>
 And since I can run custom code after loading the known configuration files I can set <code>elpy-rpc-virtualenv-path</code> variable in the same way:
 </p>
-<div class="highlight"><pre><span></span><span class="nb">echo</span> <span class="s2">"(setq elpy-rpc-virtualenv-path \"</span><span class="nv">$VIRTUAL_ENV</span><span class="s2">\")"</span> &gt;&gt; ./.emacs.d/after-init.el
+<div class="highlight"><pre><span></span><span class="nb">echo</span><span class="w"> </span><span class="s2">"(setq elpy-rpc-virtualenv-path \"</span><span class="nv">$VIRTUAL_ENV</span><span class="s2">\")"</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>./.emacs.d/after-init.el
 </pre></div>
 
 <p>
@@ -764,9 +764,9 @@ It does one more thing not mentioned previously: a <code>sed</code> call to remo
 </p>
 </div>
 </div>
-<div id="outline-container-org8f672c4" class="outline-2">
-<h2 id="org8f672c4">Issue #4: Using SSH keys to connect to GitHub</h2>
-<div class="outline-text-2" id="text-org8f672c4">
+<div id="outline-container-orgdd1f977" class="outline-2">
+<h2 id="orgdd1f977">Issue #4: Using SSH keys to connect to GitHub</h2>
+<div class="outline-text-2" id="text-orgdd1f977">
 <p>
 Now that I have Emacs running on Ubuntu (albeit terminal only) I can enjoy a smooth workflow without having to wait too much for Magit or other application that took forever on Cygwin to finish.
 </p>
@@ -786,27 +786,27 @@ Instead of generating new keys each time, I decided to reuse the keys I already 
 <p>
 I found how to do so easily: there's a StackOverflow <a href="https://stackoverflow.com/a/42125241/844006">answer</a> for that. Summing it up is that you need to declare two build arguments that will hold the values for the private and public keys and write the values to their respective files. Of course, this implies creating the proper directories and assigning proper rights to the files. As an added bonus, the <a href="https://stackoverflow.com/a/42125241/844006">answer</a> shows a way to add GitHub to the known hosts.  This is how it looks in the Dockerfile:
 </p>
-<div class="highlight"><pre><span></span>  ARG ssh_prv_key
-  ARG ssh_pub_key
+<div class="highlight"><pre><span></span><span class="w">  </span>ARG<span class="w"> </span>ssh_prv_key
+<span class="w">  </span>ARG<span class="w"> </span>ssh_pub_key
 
-  RUN mkdir -p /root/.ssh <span class="o">&amp;&amp;</span> <span class="se">\</span>
-      chmod <span class="m">0700</span> /root/.ssh <span class="o">&amp;&amp;</span> <span class="se">\</span>
-      ssh-keyscan github.com &gt; /root/.ssh/known_hosts
+<span class="w">  </span>RUN<span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </span>/root/.ssh<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>chmod<span class="w"> </span><span class="m">0700</span><span class="w"> </span>/root/.ssh<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>ssh-keyscan<span class="w"> </span>github.com<span class="w"> </span>&gt;<span class="w"> </span>/root/.ssh/known_hosts
 </pre></div>
 
 <p>
 To provide the values for the keys use <code>--build-arg</code> parameter when building your image like this:
 </p>
-<div class="highlight"><pre><span></span>  docker build -t &lt;image-tag&gt; <span class="se">\</span>
-	 --build-arg <span class="nv">ssh_prv_key</span><span class="o">=</span><span class="s2">"</span><span class="k">$(</span>cat ~/.ssh/id_rsa<span class="k">)</span><span class="s2">"</span> <span class="se">\</span>
-	 --build-arg <span class="nv">ssh_pub_key</span><span class="o">=</span><span class="s2">"</span><span class="k">$(</span>cat ~/.ssh/id_rsa.pub<span class="k">)</span><span class="s2">"</span> <span class="se">\</span>
-	 .
+<div class="highlight"><pre><span></span><span class="w">  </span>docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>&lt;image-tag&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>--build-arg<span class="w"> </span><span class="nv">ssh_prv_key</span><span class="o">=</span><span class="s2">"</span><span class="k">$(</span>cat<span class="w"> </span>~/.ssh/id_rsa<span class="k">)</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>--build-arg<span class="w"> </span><span class="nv">ssh_pub_key</span><span class="o">=</span><span class="s2">"</span><span class="k">$(</span>cat<span class="w"> </span>~/.ssh/id_rsa.pub<span class="k">)</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>.
 </pre></div>
 </div>
 </div>
-<div id="outline-container-org70e4730" class="outline-2">
-<h2 id="org70e4730">Issue #5: Install Emacs packages once and done</h2>
-<div class="outline-text-2" id="text-org70e4730">
+<div id="outline-container-orgd55fd85" class="outline-2">
+<h2 id="orgd55fd85">Issue #5: Install Emacs packages once and done</h2>
+<div class="outline-text-2" id="text-orgd55fd85">
 <p>
 After another build of the Docker image I started a container from it, logged in via ssh into the container, started Emacs and noticed yet another issue.
 </p>
@@ -826,16 +826,16 @@ This is a feature of Emacs called <a href="https://www.emacswiki.org/emacs/Emacs
 <p>
 So I changed my <code>Dockerfile</code> to start Emacs as a daemon:
 </p>
-<div class="highlight"><pre><span></span>  RUN emacs --daemon
+<div class="highlight"><pre><span></span><span class="w">  </span>RUN<span class="w"> </span>emacs<span class="w"> </span>--daemon
 </pre></div>
 <p>
 And to my great surprise, when rebuilding the image I saw the output of Emacs packages being downloaded and installed.
 </p>
 </div>
 </div>
-<div id="outline-container-orga09a739" class="outline-2">
-<h2 id="orga09a739">Issue #6: Terminal colors</h2>
-<div class="outline-text-2" id="text-orga09a739">
+<div id="outline-container-orgafa9d80" class="outline-2">
+<h2 id="orgafa9d80">Issue #6: Terminal colors</h2>
+<div class="outline-text-2" id="text-orgafa9d80">
 <p>
 Being confident that everything should work now (it's the same setup I had on <code>WSL</code>) I started a new container to which I mounted the GitHub repo as a volume and got cracking.
 </p>
@@ -847,7 +847,7 @@ Everything went swell until I decided to commit the changes and invoked <code>ma
 <p>
 At this point I just rage-quit and started looking for an answer. Fortunately, the right <a href="https://stackoverflow.com/a/64585/844006">StackOverflow answer</a> popped up quickly and I applied the fix which just sets the <code>TERM</code> environment variable:
 </p>
-<div class="highlight"><pre><span></span>  ENV <span class="nv">TERM</span><span class="o">=</span>xterm-256color
+<div class="highlight"><pre><span></span><span class="w">  </span>ENV<span class="w"> </span><span class="nv">TERM</span><span class="o">=</span>xterm-256color
 </pre></div>
 
 <p>
@@ -855,85 +855,84 @@ And only after this, I was able to fully benefit from having the Python IDE I'm 
 </p>
 </div>
 </div>
-<div id="outline-container-org8b2e82b" class="outline-2">
-<h2 id="tldr">
-<a id="org8b2e82b"></a>TL;DR</h2>
+<div id="outline-container-tldr" class="outline-2">
+<h2 id="tldr">TL;DR</h2>
 <div class="outline-text-2" id="text-tldr">
 <p>
 The full Dockerfile described in this post is below:
 </p>
-<div class="highlight"><pre><span></span>FROM ubuntu:18.04
+<div class="highlight"><pre><span></span>FROM<span class="w"> </span>ubuntu:18.04
 
-RUN apt-get update <span class="o">&amp;&amp;</span> <span class="se">\</span>
-    apt-get install -y --no-install-recommends openssh-server tmux <span class="se">\</span>
-	    emacs emacs-goodies.el curl git <span class="se">\</span>
-	    python3 python3-pip python3-virtualenv python3-dev build-essential
+RUN<span class="w"> </span>apt-get<span class="w"> </span>update<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>--no-install-recommends<span class="w"> </span>openssh-server<span class="w"> </span>tmux<span class="w"> </span><span class="se">\</span>
+<span class="w">            </span>emacs<span class="w"> </span>emacs-goodies.el<span class="w"> </span>curl<span class="w"> </span>git<span class="w"> </span><span class="se">\</span>
+<span class="w">            </span>python3<span class="w"> </span>python3-pip<span class="w"> </span>python3-virtualenv<span class="w"> </span>python3-dev<span class="w"> </span>build-essential
 
-ARG password
+ARG<span class="w"> </span>password
 
-RUN mkdir /var/run/sshd
-RUN <span class="nb">echo</span> <span class="s2">"root:</span><span class="si">${</span><span class="nv">password</span><span class="si">}</span><span class="s2">"</span> <span class="p">|</span> chpasswd
-RUN sed -i <span class="s1">'s/#PermitRootLogin prohibit-password/PermitRootLogin yes/'</span> /etc/ssh/sshd_config
+RUN<span class="w"> </span>mkdir<span class="w"> </span>/var/run/sshd
+RUN<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"root:</span><span class="si">${</span><span class="nv">password</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>chpasswd
+RUN<span class="w"> </span>sed<span class="w"> </span>-i<span class="w"> </span><span class="s1">'s/#PermitRootLogin prohibit-password/PermitRootLogin yes/'</span><span class="w"> </span>/etc/ssh/sshd_config
 
 <span class="c1"># SSH login fix. Otherwise user is kicked off after login</span>
-RUN sed <span class="s1">'s@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g'</span> -i /etc/pam.d/sshd
+RUN<span class="w"> </span>sed<span class="w"> </span><span class="s1">'s@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g'</span><span class="w"> </span>-i<span class="w"> </span>/etc/pam.d/sshd
 
-ENV NOTVISIBLE <span class="s2">"in users profile"</span>
-RUN <span class="nb">echo</span> <span class="s2">"export VISIBLE=now"</span> &gt;&gt; /etc/profile
+ENV<span class="w"> </span>NOTVISIBLE<span class="w"> </span><span class="s2">"in users profile"</span>
+RUN<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"export VISIBLE=now"</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>/etc/profile
 
 <span class="c1"># From https://pythonspeed.com/articles/activate-virtualenv-dockerfile/</span>
-ENV <span class="nv">VIRTUAL_ENV</span><span class="o">=</span>/opt/venv
-RUN python3 -m virtualenv --python<span class="o">=</span>/usr/bin/python3 <span class="nv">$VIRTUAL_ENV</span>
-ENV <span class="nv">PATH</span><span class="o">=</span><span class="s2">"</span><span class="nv">$VIRTUAL_ENV</span><span class="s2">/bin:</span><span class="nv">$PATH</span><span class="s2">"</span>
-RUN pip install --upgrade pip setuptools wheel <span class="o">&amp;&amp;</span> <span class="se">\</span>
-    pip install numpy tensorflow scikit-learn gensim matplotlib pyyaml matplotlib-venn <span class="o">&amp;&amp;</span> <span class="se">\</span>
-    pip install elpy jedi rope yapf importmagic flake8 autopep8 black
+ENV<span class="w"> </span><span class="nv">VIRTUAL_ENV</span><span class="o">=</span>/opt/venv
+RUN<span class="w"> </span>python3<span class="w"> </span>-m<span class="w"> </span>virtualenv<span class="w"> </span>--python<span class="o">=</span>/usr/bin/python3<span class="w"> </span><span class="nv">$VIRTUAL_ENV</span>
+ENV<span class="w"> </span><span class="nv">PATH</span><span class="o">=</span><span class="s2">"</span><span class="nv">$VIRTUAL_ENV</span><span class="s2">/bin:</span><span class="nv">$PATH</span><span class="s2">"</span>
+RUN<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>pip<span class="w"> </span>setuptools<span class="w"> </span>wheel<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>pip<span class="w"> </span>install<span class="w"> </span>numpy<span class="w"> </span>tensorflow<span class="w"> </span>scikit-learn<span class="w"> </span>gensim<span class="w"> </span>matplotlib<span class="w"> </span>pyyaml<span class="w"> </span>matplotlib-venn<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>pip<span class="w"> </span>install<span class="w"> </span>elpy<span class="w"> </span>jedi<span class="w"> </span>rope<span class="w"> </span>yapf<span class="w"> </span>importmagic<span class="w"> </span>flake8<span class="w"> </span>autopep8<span class="w"> </span>black
 
-RUN <span class="nb">cd</span> /root/ <span class="o">&amp;&amp;</span> <span class="se">\</span>
-    git clone https://github.com/RePierre/.emacs.d.git .emacs.d <span class="o">&amp;&amp;</span> <span class="se">\</span>
-    <span class="nb">echo</span> <span class="s2">"(setq package-check-signature nil)"</span> &gt;&gt; ./.emacs.d/config.el <span class="o">&amp;&amp;</span> <span class="se">\</span>
-    sed -i <span class="s1">'/^.*emacs-init.*$/d'</span> ./.emacs.d/init.el <span class="o">&amp;&amp;</span> <span class="se">\</span>
-    sed -i <span class="s1">'s/(shell . t)/(sh . t)/'</span> ./.emacs.d/common-config.org <span class="o">&amp;&amp;</span> <span class="se">\</span>
-    sed -i <span class="s1">'/^.*org-config.*$/d'</span> ./.emacs.d/init.el <span class="o">&amp;&amp;</span> <span class="se">\</span>
-    sed -i <span class="s1">'s/\:defer\ t//'</span> ./.emacs.d/python-config.org <span class="o">&amp;&amp;</span> <span class="se">\</span>
-    <span class="nb">echo</span> <span class="s2">"(setq elpy-rpc-virtualenv-path \"</span><span class="nv">$VIRTUAL_ENV</span><span class="s2">\")"</span> &gt;&gt; ./.emacs.d/after-init.el
+RUN<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>/root/<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/RePierre/.emacs.d.git<span class="w"> </span>.emacs.d<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"(setq package-check-signature nil)"</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>./.emacs.d/config.el<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>sed<span class="w"> </span>-i<span class="w"> </span><span class="s1">'/^.*emacs-init.*$/d'</span><span class="w"> </span>./.emacs.d/init.el<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>sed<span class="w"> </span>-i<span class="w"> </span><span class="s1">'s/(shell . t)/(sh . t)/'</span><span class="w"> </span>./.emacs.d/common-config.org<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>sed<span class="w"> </span>-i<span class="w"> </span><span class="s1">'/^.*org-config.*$/d'</span><span class="w"> </span>./.emacs.d/init.el<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>sed<span class="w"> </span>-i<span class="w"> </span><span class="s1">'s/\:defer\ t//'</span><span class="w"> </span>./.emacs.d/python-config.org<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"(setq elpy-rpc-virtualenv-path \"</span><span class="nv">$VIRTUAL_ENV</span><span class="s2">\")"</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>./.emacs.d/after-init.el
 
 <span class="c1"># From https://stackoverflow.com/a/42125241/844006</span>
-ARG ssh_prv_key
-ARG ssh_pub_key
+ARG<span class="w"> </span>ssh_prv_key
+ARG<span class="w"> </span>ssh_pub_key
 <span class="c1"># Authorize SSH Host</span>
-RUN mkdir -p /root/.ssh <span class="o">&amp;&amp;</span> <span class="se">\</span>
-    chmod <span class="m">0700</span> /root/.ssh <span class="o">&amp;&amp;</span> <span class="se">\</span>
-    ssh-keyscan github.com &gt; /root/.ssh/known_hosts
+RUN<span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </span>/root/.ssh<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>chmod<span class="w"> </span><span class="m">0700</span><span class="w"> </span>/root/.ssh<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>ssh-keyscan<span class="w"> </span>github.com<span class="w"> </span>&gt;<span class="w"> </span>/root/.ssh/known_hosts
 
 <span class="c1"># Add the keys and set permissions</span>
-RUN <span class="nb">echo</span> <span class="s2">"</span><span class="nv">$ssh_prv_key</span><span class="s2">"</span> &gt; /root/.ssh/id_rsa <span class="o">&amp;&amp;</span> <span class="se">\</span>
-    <span class="nb">echo</span> <span class="s2">"</span><span class="nv">$ssh_pub_key</span><span class="s2">"</span> &gt; /root/.ssh/id_rsa.pub <span class="o">&amp;&amp;</span> <span class="se">\</span>
-    chmod <span class="m">600</span> /root/.ssh/id_rsa <span class="o">&amp;&amp;</span> <span class="se">\</span>
-    chmod <span class="m">600</span> /root/.ssh/id_rsa.pub
+RUN<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"</span><span class="nv">$ssh_prv_key</span><span class="s2">"</span><span class="w"> </span>&gt;<span class="w"> </span>/root/.ssh/id_rsa<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"</span><span class="nv">$ssh_pub_key</span><span class="s2">"</span><span class="w"> </span>&gt;<span class="w"> </span>/root/.ssh/id_rsa.pub<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>chmod<span class="w"> </span><span class="m">600</span><span class="w"> </span>/root/.ssh/id_rsa<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>chmod<span class="w"> </span><span class="m">600</span><span class="w"> </span>/root/.ssh/id_rsa.pub
 
-RUN emacs --daemon
+RUN<span class="w"> </span>emacs<span class="w"> </span>--daemon
 
 <span class="c1"># Set terminal colors https://stackoverflow.com/a/64585/844006</span>
-ENV <span class="nv">TERM</span><span class="o">=</span>xterm-256color
+ENV<span class="w"> </span><span class="nv">TERM</span><span class="o">=</span>xterm-256color
 
-EXPOSE <span class="m">22</span>
-CMD <span class="o">[</span><span class="s2">"/usr/sbin/sshd"</span>, <span class="s2">"-D"</span><span class="o">]</span>
+EXPOSE<span class="w"> </span><span class="m">22</span>
+CMD<span class="w"> </span><span class="o">[</span><span class="s2">"/usr/sbin/sshd"</span>,<span class="w"> </span><span class="s2">"-D"</span><span class="o">]</span>
 </pre></div>
 <p>
 To build the image use this command:
 </p>
-<div class="highlight"><pre><span></span>docker build -t &lt;image-tag&gt; <span class="se">\</span>
-       --build-arg <span class="nv">ssh_prv_key</span><span class="o">=</span><span class="s2">"</span><span class="k">$(</span>cat ~/.ssh/id_rsa<span class="k">)</span><span class="s2">"</span> <span class="se">\</span>
-       --build-arg <span class="nv">ssh_pub_key</span><span class="o">=</span><span class="s2">"</span><span class="k">$(</span>cat ~/.ssh/id_rsa.pub<span class="k">)</span><span class="s2">"</span> <span class="se">\</span>
-       --build-arg <span class="nv">password</span><span class="o">=</span>&lt;your-password-here&gt; <span class="se">\</span>
-       .
+<div class="highlight"><pre><span></span>docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>&lt;image-tag&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">       </span>--build-arg<span class="w"> </span><span class="nv">ssh_prv_key</span><span class="o">=</span><span class="s2">"</span><span class="k">$(</span>cat<span class="w"> </span>~/.ssh/id_rsa<span class="k">)</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">       </span>--build-arg<span class="w"> </span><span class="nv">ssh_pub_key</span><span class="o">=</span><span class="s2">"</span><span class="k">$(</span>cat<span class="w"> </span>~/.ssh/id_rsa.pub<span class="k">)</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">       </span>--build-arg<span class="w"> </span><span class="nv">password</span><span class="o">=</span>&lt;your-password-here&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">       </span>.
 </pre></div>
 </div>
 </div>
-<div id="outline-container-org807da45" class="outline-2">
-<h2 id="org807da45">Epilogue</h2>
-<div class="outline-text-2" id="text-org807da45">
+<div id="outline-container-orgabd0741" class="outline-2">
+<h2 id="orgabd0741">Epilogue</h2>
+<div class="outline-text-2" id="text-orgabd0741">
 <p>
 Looking back at this sort of quest of mine, I have nothing else to say than it was, overall, a fun experience.
 </p>
@@ -947,9 +946,9 @@ But the bottom line is that it was a great deal of fun involved which luckily re
 </p>
 </div>
 </div>
-<div id="outline-container-org73d8e54" class="outline-2">
-<h2 id="org73d8e54">References</h2>
-<div class="outline-text-2" id="text-org73d8e54">
+<div id="outline-container-org7a41d92" class="outline-2">
+<h2 id="org7a41d92">References</h2>
+<div class="outline-text-2" id="text-org7a41d92">
 <ol class="org-ol">
 <li><a href="https://docs.docker.com/engine/examples/running_ssh_service/">Dockerize an SSH service</a></li>
 <li><a href="https://pythonspeed.com/articles/activate-virtualenv-dockerfile/">Elegantly activating a virtualenv in a Dockerfile</a></li>
@@ -958,9 +957,9 @@ But the bottom line is that it was a great deal of fun involved which luckily re
 </ol>
 </div>
 </div>
-<div id="outline-container-org3170228" class="outline-2">
-<h2 id="org3170228">Acknowledgments</h2>
-<div class="outline-text-2" id="text-org3170228">
+<div id="outline-container-orgeee239b" class="outline-2">
+<h2 id="orgeee239b">Acknowledgments</h2>
+<div class="outline-text-2" id="text-orgeee239b">
 <p>
 I would like to thank my colleague <a href="https://www.linkedin.com/in/ionelabarbuta/">Ionela Bărbuță</a> for proofreading this post and for the tips &amp; tricks she gave me in order to improve my writing.
 </p>
@@ -1114,9 +1113,9 @@ When a part of the jury went to deliberate over which team should get which priz
 Overall it was a great experience and I'm gratefull for the opportunity to participate. And now with the school long gone, I'm reviewing/archiving the to-do-list of activities for the summer school and building the list of…
 </p>
 
-<div id="outline-container-org1438299" class="outline-2">
-<h2 id="org1438299">Lessons learned</h2>
-<div class="outline-text-2" id="text-org1438299">
+<div id="outline-container-org8ff7131" class="outline-2">
+<h2 id="org8ff7131">Lessons learned</h2>
+<div class="outline-text-2" id="text-org8ff7131">
 <dl class="org-dl">
 <dt>Infrastructure <i>is</i> a problem</dt>
 <dd>We learned the hard way that not everyone has high-end laptops that can run resource-heavy applications.</dd>
@@ -1205,19 +1204,19 @@ Of course I can because <b>Emacs is awesome</b>. All I need to do is write some 
 <p>
 Fisrt things first, I declared a (global) variable to hold the full path to the directory containing the files:
 </p>
-<div class="highlight"><pre><span></span><span class="p">(</span><span class="nf">defvar</span> <span class="nv">*compare-publications-dir*</span>
-  <span class="s">"&lt;directory-path&gt;"</span>
-  <span class="s">"The location of files to compare."</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><span class="p">(</span><span class="nf">defvar</span><span class="w"> </span><span class="nv">*compare-publications-dir*</span>
+<span class="w">  </span><span class="s">"&lt;directory-path&gt;"</span>
+<span class="w">  </span><span class="s">"The location of files to compare."</span><span class="p">)</span>
 </pre></div>
 <p>
 Then I created a function to get the whole line from the <code>csv</code> file:
 </p>
-<div class="highlight"><pre><span></span><span class="p">(</span><span class="nf">defun</span> <span class="nv">get-current-line</span><span class="p">()</span>
-  <span class="p">(</span><span class="nf">progn</span>
-    <span class="p">(</span><span class="nf">beginning-of-visual-line</span><span class="p">)</span>
-    <span class="p">(</span><span class="k">let </span><span class="p">((</span><span class="nf">start</span> <span class="p">(</span><span class="nf">point</span><span class="p">)))</span>
-      <span class="p">(</span><span class="nf">end-of-visual-line</span><span class="p">)</span>
-      <span class="p">(</span><span class="nf">buffer-substring-no-properties</span> <span class="nv">start</span> <span class="p">(</span><span class="nf">point</span><span class="p">)))))</span>
+<div class="highlight"><pre><span></span><span class="p">(</span><span class="nf">defun</span><span class="w"> </span><span class="nv">get-current-line</span><span class="p">()</span>
+<span class="w">  </span><span class="p">(</span><span class="nf">progn</span>
+<span class="w">    </span><span class="p">(</span><span class="nf">beginning-of-visual-line</span><span class="p">)</span>
+<span class="w">    </span><span class="p">(</span><span class="k">let</span><span class="w"> </span><span class="p">((</span><span class="nf">start</span><span class="w"> </span><span class="p">(</span><span class="nf">point</span><span class="p">)))</span>
+<span class="w">      </span><span class="p">(</span><span class="nf">end-of-visual-line</span><span class="p">)</span>
+<span class="w">      </span><span class="p">(</span><span class="nf">buffer-substring-no-properties</span><span class="w"> </span><span class="nv">start</span><span class="w"> </span><span class="p">(</span><span class="nf">point</span><span class="p">)))))</span>
 </pre></div>
 <p>
 This function moves the point to the beginning of the line by calling <code>(beginning-of-visual-line)</code> then saves the position in a local variable <code>start</code> and moves to the end of the line via a call to <code>(end-of-visual-line)</code>. In the end it returns the substring which is between <code>start</code> position and the position returned by <code>(point)</code> function.
@@ -1237,16 +1236,16 @@ g) Return to the left window
 <p>
 This was also implemented with a function which can be called interactively via <code>M-x</code>:
 </p>
-<div class="highlight"><pre><span></span><span class="p">(</span><span class="nf">defun</span> <span class="nv">compare-publications</span><span class="p">()</span>
-  <span class="p">(</span><span class="nf">interactive</span><span class="p">)</span>
-  <span class="p">(</span><span class="k">let* </span><span class="p">((</span><span class="nf">files</span> <span class="p">(</span><span class="nf">csv-split-string</span> <span class="p">(</span><span class="nf">get-current-line</span><span class="p">)</span> <span class="s">","</span><span class="p">))</span>
-	 <span class="p">(</span><span class="nf">file-1</span> <span class="p">(</span><span class="nb">car </span><span class="nv">files</span><span class="p">))</span>
-	 <span class="p">(</span><span class="nf">file-2</span> <span class="p">(</span><span class="nb">car </span><span class="p">(</span><span class="nb">cdr </span><span class="nv">files</span><span class="p">))))</span>
-    <span class="p">(</span><span class="nf">other-window</span> <span class="mi">1</span><span class="p">)</span>
-    <span class="p">(</span><span class="nf">find-file-read-only</span> <span class="p">(</span><span class="nf">concat</span> <span class="nv">*compare-publications-dir*</span> <span class="nv">file-1</span><span class="p">))</span>
-    <span class="p">(</span><span class="nf">other-window</span> <span class="mi">1</span><span class="p">)</span>
-    <span class="p">(</span><span class="nf">find-file-read-only</span> <span class="p">(</span><span class="nf">concat</span> <span class="nv">*compare-publications-dir*</span> <span class="nv">file-2</span><span class="p">))</span>
-    <span class="p">(</span><span class="nf">other-window</span> <span class="mi">1</span><span class="p">)))</span>
+<div class="highlight"><pre><span></span><span class="p">(</span><span class="nf">defun</span><span class="w"> </span><span class="nv">compare-publications</span><span class="p">()</span>
+<span class="w">  </span><span class="p">(</span><span class="nf">interactive</span><span class="p">)</span>
+<span class="w">  </span><span class="p">(</span><span class="k">let*</span><span class="w"> </span><span class="p">((</span><span class="nf">files</span><span class="w"> </span><span class="p">(</span><span class="nf">csv-split-string</span><span class="w"> </span><span class="p">(</span><span class="nf">get-current-line</span><span class="p">)</span><span class="w"> </span><span class="s">","</span><span class="p">))</span>
+<span class="w">         </span><span class="p">(</span><span class="nf">file-1</span><span class="w"> </span><span class="p">(</span><span class="nb">car</span><span class="w"> </span><span class="nv">files</span><span class="p">))</span>
+<span class="w">         </span><span class="p">(</span><span class="nf">file-2</span><span class="w"> </span><span class="p">(</span><span class="nb">car</span><span class="w"> </span><span class="p">(</span><span class="nb">cdr</span><span class="w"> </span><span class="nv">files</span><span class="p">))))</span>
+<span class="w">    </span><span class="p">(</span><span class="nf">other-window</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span>
+<span class="w">    </span><span class="p">(</span><span class="nf">find-file-read-only</span><span class="w"> </span><span class="p">(</span><span class="nf">concat</span><span class="w"> </span><span class="nv">*compare-publications-dir*</span><span class="w"> </span><span class="nv">file-1</span><span class="p">))</span>
+<span class="w">    </span><span class="p">(</span><span class="nf">other-window</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span>
+<span class="w">    </span><span class="p">(</span><span class="nf">find-file-read-only</span><span class="w"> </span><span class="p">(</span><span class="nf">concat</span><span class="w"> </span><span class="nv">*compare-publications-dir*</span><span class="w"> </span><span class="nv">file-2</span><span class="p">))</span>
+<span class="w">    </span><span class="p">(</span><span class="nf">other-window</span><span class="w"> </span><span class="mi">1</span><span class="p">)))</span>
 </pre></div>
 
 <p>
@@ -1286,9 +1285,9 @@ Process ID: 9776
 The troublesome service is hosted in an <code>ASP.NET</code> web application and it's preloaded with a custom implementation of <a href="https://msdn.microsoft.com/en-us/library/system.web.hosting.iprocesshostpreloadclient(v=vs.110).aspx"><code>IProcessHostPreloadClient</code></a> which more or less does what's described in <a href="http://lazynreclined.blogspot.nl/2014/09/enable-autostart-in-iis-75-without.html">this blog post</a>.
 Since the project hosting the service is using AutoFac as it's DI framework/library the service is setup to use <code>AutofacServiceHostFactory</code> as the service factory:
 </p>
-<div class="highlight"><pre><span></span>  &lt;%@ ServiceHost
-    Service="AuthorizationServiceImpl, AuthorizationService"
-    Factory="Autofac.Integration.Wcf.AutofacServiceHostFactory, Autofac.Integration.Wcf" %&gt;
+<div class="highlight"><pre><span></span><span class="w">  </span><span class="o">&lt;%</span><span class="err">@</span><span class="w"> </span><span class="n">ServiceHost</span>
+<span class="w">    </span><span class="n">Service</span><span class="o">=</span><span class="s">"AuthorizationServiceImpl, AuthorizationService"</span>
+<span class="w">    </span><span class="n">Factory</span><span class="o">=</span><span class="s">"Autofac.Integration.Wcf.AutofacServiceHostFactory, Autofac.Integration.Wcf"</span><span class="w"> </span><span class="o">%&gt;</span>
 </pre></div>
 
 <p>
@@ -1364,27 +1363,27 @@ An unhandled exception of type 'System.InvalidOperationException' occurred in Me
 <p>
 The exception was popping inside the <a href="https://msdn.microsoft.com/en-us/library/system.web.http.authorizeattribute.isauthorized(v=vs.118).aspx"><code>IsAuthorized</code></a> method of a custom <a href="https://msdn.microsoft.com/en-us/library/system.web.http.authorizeattribute(v=vs.118).aspx"><code>AuthorizeAttribute</code></a>
 </p>
-<div class="highlight"><pre><span></span>protected override bool IsAuthorized(HttpActionContext actionContext)
-{
-    try
-    {
-	  var authorizationToken = new AuthorizationToken(actionContext.Request);
-	  if (String.IsNullOrEmpty(authorizationToken.Value))
-	  {
-		return false;
-	  }
-	  var request = new GetAuthorizedUserRequest
-	  {
-		AuthorizationToken = authorizationToken.Value
-	  };
-	  var user = _securityService.GetAuthorizedUser(request);
-	  return user != null;
-    }
-    catch (Exception)
-    {
-	  return false;
-    }
-}
+<div class="highlight"><pre><span></span><span class="k">protected</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="nf">IsAuthorized</span><span class="p">(</span><span class="n">HttpActionContext</span><span class="w"> </span><span class="n">actionContext</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">try</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">          </span><span class="kt">var</span><span class="w"> </span><span class="n">authorizationToken</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">AuthorizationToken</span><span class="p">(</span><span class="n">actionContext</span><span class="p">.</span><span class="n">Request</span><span class="p">);</span>
+<span class="w">          </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">String</span><span class="p">.</span><span class="n">IsNullOrEmpty</span><span class="p">(</span><span class="n">authorizationToken</span><span class="p">.</span><span class="n">Value</span><span class="p">))</span>
+<span class="w">          </span><span class="p">{</span>
+<span class="w">                </span><span class="k">return</span><span class="w"> </span><span class="k">false</span><span class="p">;</span>
+<span class="w">          </span><span class="p">}</span>
+<span class="w">          </span><span class="kt">var</span><span class="w"> </span><span class="n">request</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">GetAuthorizedUserRequest</span>
+<span class="w">          </span><span class="p">{</span>
+<span class="w">                </span><span class="n">AuthorizationToken</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">authorizationToken</span><span class="p">.</span><span class="n">Value</span>
+<span class="w">          </span><span class="p">};</span>
+<span class="w">          </span><span class="kt">var</span><span class="w"> </span><span class="n">user</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_securityService</span><span class="p">.</span><span class="n">GetAuthorizedUser</span><span class="p">(</span><span class="n">request</span><span class="p">);</span>
+<span class="w">          </span><span class="k">return</span><span class="w"> </span><span class="n">user</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="k">null</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">Exception</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">          </span><span class="k">return</span><span class="w"> </span><span class="k">false</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 <p>
 The first thing to do was to thoroughly inspect what does the IoC container (<code>StructureMap</code> in my case) has registered. After a glimpse through the output of <code>WhatDoIHave()</code> method I saw that the handler <code>GetAuthorizedUserRequestHandler</code> was indeed registered as a <code>IRequestHandler&lt;GetAuthorizedUserRequest, GetAuthorizedUserResponse&gt;</code>.
@@ -1426,20 +1425,20 @@ ORM frameworks are a great tool especially for junior developers because they al
 <p>
 Let us consider an example. Let's suppose we're working on a (what else?) e-commerce platform. Somewhere in the depts of that platform there is a <code>IOrderService</code> which exposes the following method:
 </p>
-<div class="highlight"><pre><span></span>public interface IOrderService
-{
-    void PlaceOrder(Guid customerId, IEnumerable&lt;OrderItem&gt; itemIds)
-}
+<div class="highlight"><pre><span></span><span class="k">public</span><span class="w"> </span><span class="k">interface</span><span class="w"> </span><span class="n">IOrderService</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">void</span><span class="w"> </span><span class="nf">PlaceOrder</span><span class="p">(</span><span class="n">Guid</span><span class="w"> </span><span class="n">customerId</span><span class="p">,</span><span class="w"> </span><span class="n">IEnumerable</span><span class="o">&lt;</span><span class="n">OrderItem</span><span class="o">&gt;</span><span class="w"> </span><span class="n">itemIds</span><span class="p">)</span>
+<span class="p">}</span>
 </pre></div>
 <p>
 where <code>OrderItem</code> holds the data about an ordered item.
 </p>
-<div class="highlight"><pre><span></span>public class OrderItem
-{
-    public Guid ItemId { get; set; }
+<div class="highlight"><pre><span></span><span class="k">public</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">OrderItem</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="n">Guid</span><span class="w"> </span><span class="n">ItemId</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 
-    public int Quantity { get; set; }
-}
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">Quantity</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 <p>
 The <code>PlaceOrder</code> method needs to:
@@ -1457,22 +1456,22 @@ Of course, since we're using an ORM framework, the classes used by the repositor
 <p>
 Given the above, someone would be tempted to implement the <code>PlaceOrder</code> method like this:
 </p>
-<div class="highlight"><pre><span></span>public void PlaceOrder(Guid customerId, IEnumerable&lt;OrderItem&gt; orderItems)
-{
-    var customer = _customerRepository.Get(customerId);
-    var order = new CustomerOrder(customer);
+<div class="highlight"><pre><span></span><span class="k">public</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">PlaceOrder</span><span class="p">(</span><span class="n">Guid</span><span class="w"> </span><span class="n">customerId</span><span class="p">,</span><span class="w"> </span><span class="n">IEnumerable</span><span class="o">&lt;</span><span class="n">OrderItem</span><span class="o">&gt;</span><span class="w"> </span><span class="n">orderItems</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kt">var</span><span class="w"> </span><span class="n">customer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_customerRepository</span><span class="p">.</span><span class="n">Get</span><span class="p">(</span><span class="n">customerId</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">var</span><span class="w"> </span><span class="n">order</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">CustomerOrder</span><span class="p">(</span><span class="n">customer</span><span class="p">);</span>
 
-    foreach (var orderedItem in orderItems)
-    {
-	var item = _itemRepository.Get(orderedItem.ItemId);
-	item.DecreaseStockCount(orderedItem.Quantity);
-	_itemRepository.Update(item);
-	order.Add(orderedItem);
-    }
+<span class="w">    </span><span class="k">foreach</span><span class="w"> </span><span class="p">(</span><span class="kt">var</span><span class="w"> </span><span class="n">orderedItem</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">orderItems</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">var</span><span class="w"> </span><span class="n">item</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_itemRepository</span><span class="p">.</span><span class="n">Get</span><span class="p">(</span><span class="n">orderedItem</span><span class="p">.</span><span class="n">ItemId</span><span class="p">);</span>
+<span class="w">        </span><span class="n">item</span><span class="p">.</span><span class="n">DecreaseStockCount</span><span class="p">(</span><span class="n">orderedItem</span><span class="p">.</span><span class="n">Quantity</span><span class="p">);</span>
+<span class="w">        </span><span class="n">_itemRepository</span><span class="p">.</span><span class="n">Update</span><span class="p">(</span><span class="n">item</span><span class="p">);</span>
+<span class="w">        </span><span class="n">order</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">orderedItem</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
 
-    _customerOrderRepository.Register(order);
-    _unitOfWork.Commit();
-}
+<span class="w">    </span><span class="n">_customerOrderRepository</span><span class="p">.</span><span class="n">Register</span><span class="p">(</span><span class="n">order</span><span class="p">);</span>
+<span class="w">    </span><span class="n">_unitOfWork</span><span class="p">.</span><span class="n">Commit</span><span class="p">();</span>
+<span class="p">}</span>
 </pre></div>
 <p>
 And why wouldn't they? It seems the most straightforward transposition of the requirements defined above. The code behaves as expected in both Dev and QA environments and afterwards it's promoted to production where lies a database with hundreds of thousands of rows in the <code>Items</code> table. There also, the behavior is as expected until one day an eager customer wants to buy 980 distinct items (because why not?).
@@ -1493,29 +1492,29 @@ To put it in the context of the example above - <b>it takes more time to do 980 
 <p>
 So, let's switch the paradigm and start working with collections in our code to minimize the number of operations in the database. The first thing to do is to load all items in bulk instead of loading them one by one. This will reduce the number of <code>SELECT</code> operations <b>from 980 to 1</b> (a whooping 50% of the number of operations). We still need to update the stock counts for each item individually because the ORM framework doesn't know how to translate the changes for each item into a single <code>UPDATE</code> statement but considering that we've halved the total number of operations let's give this approach a try shall we?
 </p>
-<div class="highlight"><pre><span></span>public void PlaceOrder(Guid customerId, IEnumerable&lt;OrderItem&gt; orderItems)
-{
-    var customer = _customerRepository.Get(customerId);
-    var customerOrder = new CustomerOrder(customer);
+<div class="highlight"><pre><span></span><span class="k">public</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">PlaceOrder</span><span class="p">(</span><span class="n">Guid</span><span class="w"> </span><span class="n">customerId</span><span class="p">,</span><span class="w"> </span><span class="n">IEnumerable</span><span class="o">&lt;</span><span class="n">OrderItem</span><span class="o">&gt;</span><span class="w"> </span><span class="n">orderItems</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kt">var</span><span class="w"> </span><span class="n">customer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_customerRepository</span><span class="p">.</span><span class="n">Get</span><span class="p">(</span><span class="n">customerId</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">var</span><span class="w"> </span><span class="n">customerOrder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">CustomerOrder</span><span class="p">(</span><span class="n">customer</span><span class="p">);</span>
 
-    var items = itemRepository.Items
-	.Join(orderItems,
-	      item =&gt; item.Id,
-	      orderedItem =&gt; orderedItem.ItemId,
-	      (item, _) =&gt; item)
-	.ToDictionary(i =&gt; i.Id);
+<span class="w">    </span><span class="kt">var</span><span class="w"> </span><span class="n">items</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">itemRepository</span><span class="p">.</span><span class="n">Items</span>
+<span class="w">        </span><span class="p">.</span><span class="n">Join</span><span class="p">(</span><span class="n">orderItems</span><span class="p">,</span>
+<span class="w">              </span><span class="n">item</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">item</span><span class="p">.</span><span class="n">Id</span><span class="p">,</span>
+<span class="w">              </span><span class="n">orderedItem</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">orderedItem</span><span class="p">.</span><span class="n">ItemId</span><span class="p">,</span>
+<span class="w">              </span><span class="p">(</span><span class="n">item</span><span class="p">,</span><span class="w"> </span><span class="n">_</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">item</span><span class="p">)</span>
+<span class="w">        </span><span class="p">.</span><span class="n">ToDictionary</span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">i</span><span class="p">.</span><span class="n">Id</span><span class="p">);</span>
 
-    foreach(var orderedItem in orderedItems)
-    {
-	var item  = items[orderedItem.ItemId];
-	item.DecreaseStockCount(orderedItem.Quantity);
-	_itemRepository.Update(item);
-	customerOrder.Add(item);
-    }
+<span class="w">    </span><span class="k">foreach</span><span class="p">(</span><span class="kt">var</span><span class="w"> </span><span class="n">orderedItem</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">orderedItems</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">var</span><span class="w"> </span><span class="n">item</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="n">items</span><span class="p">[</span><span class="n">orderedItem</span><span class="p">.</span><span class="n">ItemId</span><span class="p">];</span>
+<span class="w">        </span><span class="n">item</span><span class="p">.</span><span class="n">DecreaseStockCount</span><span class="p">(</span><span class="n">orderedItem</span><span class="p">.</span><span class="n">Quantity</span><span class="p">);</span>
+<span class="w">        </span><span class="n">_itemRepository</span><span class="p">.</span><span class="n">Update</span><span class="p">(</span><span class="n">item</span><span class="p">);</span>
+<span class="w">        </span><span class="n">customerOrder</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">item</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
 
-    _customerOrderRepository.Register(order);
-    _unitOfWork.Commit();
-}
+<span class="w">    </span><span class="n">_customerOrderRepository</span><span class="p">.</span><span class="n">Register</span><span class="p">(</span><span class="n">order</span><span class="p">);</span>
+<span class="w">    </span><span class="n">_unitOfWork</span><span class="p">.</span><span class="n">Commit</span><span class="p">();</span>
+<span class="p">}</span>
 </pre></div>
 <p>
 This will solve the problem with the timeout but will create another one - useless load on the system. The code loads 980 rows from the database but only uses two attributes of each row - <code>Id</code> and <code>Barcode</code>. We might say that this can be solved by projecting an <code>Item</code> into a tuple of <code>&lt;Barcode, Id&gt;</code> but this would be a partial solution because we can still place a great burden on system memory by sending an request of 10k items.
@@ -1526,25 +1525,25 @@ Also, there are still 980 <code>UPDATE</code> statements that need to be execute
 The best approach to this is to not load any data at all from the database and to do the processing as close to the actual data as possible.
 And how can we do that? Exactly - with <code>stored procedures</code>.
 </p>
-<div class="highlight"><pre><span></span><span class="k">declare</span> <span class="k">procedure</span> <span class="n">CreateCustomerOrder</span><span class="p">(</span>
-	<span class="o">@</span><span class="n">customerId</span> <span class="n">uniqueidentifier</span> <span class="k">not</span> <span class="k">null</span><span class="p">,</span>
-	<span class="o">@</span><span class="n">orderItems</span> <span class="n">udttorderitems</span> <span class="n">readonly</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><span class="k">declare</span><span class="w"> </span><span class="k">procedure</span><span class="w"> </span><span class="n">CreateCustomerOrder</span><span class="p">(</span>
+<span class="w">        </span><span class="o">@</span><span class="n">customerId</span><span class="w"> </span><span class="n">uniqueidentifier</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="p">,</span>
+<span class="w">        </span><span class="o">@</span><span class="n">orderItems</span><span class="w"> </span><span class="n">udttorderitems</span><span class="w"> </span><span class="n">readonly</span><span class="p">)</span>
 <span class="k">begin</span>
-    <span class="k">set</span> <span class="n">no_count</span> <span class="k">on</span>
+<span class="w">    </span><span class="k">set</span><span class="w"> </span><span class="n">no_count</span><span class="w"> </span><span class="k">on</span>
 
-    <span class="k">update</span> <span class="n">sc</span>
-    <span class="k">set</span> <span class="n">sc</span><span class="p">.</span><span class="k">Count</span> <span class="o">=</span> <span class="n">sc</span><span class="p">.</span><span class="k">Count</span> <span class="o">-</span> <span class="n">o</span><span class="p">.</span><span class="n">Quantity</span>
-    <span class="k">from</span> <span class="n">StockCounts</span> <span class="n">sc</span>
-    <span class="k">join</span> <span class="n">Items</span> <span class="n">i</span> <span class="k">on</span> <span class="n">sc</span><span class="p">.</span><span class="n">ItemId</span> <span class="o">==</span> <span class="n">i</span><span class="p">.</span><span class="n">Id</span>
-    <span class="k">join</span> <span class="o">@</span><span class="n">orderItems</span> <span class="mi">0</span> <span class="k">on</span> <span class="n">i</span><span class="p">.</span><span class="n">Id</span> <span class="o">=</span> <span class="n">o</span><span class="p">.</span><span class="n">ItemId</span>
+<span class="w">    </span><span class="k">update</span><span class="w"> </span><span class="n">sc</span>
+<span class="w">    </span><span class="k">set</span><span class="w"> </span><span class="n">sc</span><span class="p">.</span><span class="k">Count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sc</span><span class="p">.</span><span class="k">Count</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">Quantity</span>
+<span class="w">    </span><span class="k">from</span><span class="w"> </span><span class="n">StockCounts</span><span class="w"> </span><span class="n">sc</span>
+<span class="w">    </span><span class="k">join</span><span class="w"> </span><span class="n">Items</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">sc</span><span class="p">.</span><span class="n">ItemId</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">i</span><span class="p">.</span><span class="n">Id</span>
+<span class="w">    </span><span class="k">join</span><span class="w"> </span><span class="o">@</span><span class="n">orderItems</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">i</span><span class="p">.</span><span class="n">Id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">ItemId</span>
 
-    <span class="k">insert</span> <span class="k">into</span> <span class="n">CustomerOrder</span><span class="p">(</span><span class="n">CustomerId</span><span class="p">,</span> <span class="n">OrderDateTime</span><span class="p">)</span>
-    <span class="k">values</span> <span class="p">(</span><span class="o">@</span><span class="n">customerId</span><span class="p">,</span> <span class="n">GetDate</span><span class="p">())</span>
+<span class="w">    </span><span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">CustomerOrder</span><span class="p">(</span><span class="n">CustomerId</span><span class="p">,</span><span class="w"> </span><span class="n">OrderDateTime</span><span class="p">)</span>
+<span class="w">    </span><span class="k">values</span><span class="w"> </span><span class="p">(</span><span class="o">@</span><span class="n">customerId</span><span class="p">,</span><span class="w"> </span><span class="n">GetDate</span><span class="p">())</span>
 
-    <span class="k">insert</span> <span class="k">into</span> <span class="n">OrderLines</span><span class="p">(</span><span class="n">OrderId</span><span class="p">,</span> <span class="n">ItemId</span><span class="p">,</span> <span class="n">Quantity</span><span class="p">)</span>
-    <span class="k">select</span> <span class="n">scope_identity</span><span class="p">(),</span> <span class="n">i</span><span class="p">.</span><span class="n">Id</span><span class="p">,</span> <span class="n">o</span><span class="p">.</span><span class="n">Quantity</span>
-    <span class="k">from</span> <span class="n">Items</span> <span class="n">i</span>
-    <span class="k">join</span> <span class="o">@</span><span class="n">orderItems</span> <span class="n">o</span> <span class="k">on</span> <span class="n">o</span><span class="p">.</span><span class="n">ItemId</span> <span class="o">=</span> <span class="n">i</span><span class="p">.</span><span class="n">Id</span>
+<span class="w">    </span><span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">OrderLines</span><span class="p">(</span><span class="n">OrderId</span><span class="p">,</span><span class="w"> </span><span class="n">ItemId</span><span class="p">,</span><span class="w"> </span><span class="n">Quantity</span><span class="p">)</span>
+<span class="w">    </span><span class="k">select</span><span class="w"> </span><span class="n">scope_identity</span><span class="p">(),</span><span class="w"> </span><span class="n">i</span><span class="p">.</span><span class="n">Id</span><span class="p">,</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">Quantity</span>
+<span class="w">    </span><span class="k">from</span><span class="w"> </span><span class="n">Items</span><span class="w"> </span><span class="n">i</span>
+<span class="w">    </span><span class="k">join</span><span class="w"> </span><span class="o">@</span><span class="n">orderItems</span><span class="w"> </span><span class="n">o</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">ItemId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i</span><span class="p">.</span><span class="n">Id</span>
 <span class="k">end</span>
 </pre></div>
 <p>
@@ -1594,8 +1593,8 @@ Emacs can be opened from console so why not start working on hackathon from cons
 <p>
 Said and done. <code>Ctrl-Alt-F1</code> and I was prompted with the TTY cursor. I logged in, started Emacs opened all the required files and started working. All good until I found myself in the situation where I needed to lookup something on the Internet. I knew I could use <code>eww</code> as a web browser so normally I did so (yeah, I'm one of those people that use Bing instead of Google):
 </p>
-<div class="highlight"><pre><span></span>M-x eww
-Enter URL or keywords: www.bing.com
+<div class="highlight"><pre><span></span>M-x<span class="w"> </span>eww
+Enter<span class="w"> </span>URL<span class="w"> </span>or<span class="w"> </span>keywords:<span class="w"> </span>www.bing.com
 </pre></div>
 <p>
 And nothing… Oh, wait, I remember needing to enter some username and password when connecting to the Wi-Fi but I wasn't prompted for those after logging into terminal. How do I connect to the network?
@@ -1604,7 +1603,7 @@ And nothing… Oh, wait, I remember needing to enter some username and password 
 <p>
 As there was no way for me to find that out without using some sort of GUI (I'm not that good with terminals) I started a new X session, connected from there to Wi-Fi and found this <a href="https://askubuntu.com/a/461831/561980">StackOverflow answer</a>. So I logged back to the terminal and from Emacs started <b>eshell</b> with <code>M-x eshell</code>. From there I issued the following command
 </p>
-<div class="highlight"><pre><span></span>nmcli c up &lt;wi-fi-name&gt;
+<div class="highlight"><pre><span></span>nmcli<span class="w"> </span>c<span class="w"> </span>up<span class="w"> </span>&lt;wi-fi-name&gt;
 </pre></div>
 <p>
 which connected me to the Wi-Fi network.
@@ -1613,7 +1612,7 @@ which connected me to the Wi-Fi network.
 <p>
 Note: I got connected because on previous sessions I opted to store the credentials for the connection; to get a prompt for username and password for the Wi-Fi use the <code>--ask</code> parameter like this:
 </p>
-<div class="highlight"><pre><span></span>nmcli --ask c up &lt;wi-fi-name&gt;
+<div class="highlight"><pre><span></span>nmcli<span class="w"> </span>--ask<span class="w"> </span>c<span class="w"> </span>up<span class="w"> </span>&lt;wi-fi-name&gt;
 </pre></div>
 
 <p>

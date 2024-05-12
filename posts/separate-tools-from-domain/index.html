@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Rebeja · Keep the tools separate from the domain of your application </title>
 <link href="../../assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
-<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700%7CAbril+Fatface">
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.1.7/css/fork-awesome.min.css" integrity="sha256-gsmEoJAws/Kd3CjuOQzLie5Q3yshhvmo7YNtBG7aaEY=" crossorigin="anonymous">
 <meta content="#5670d4" name="theme-color">
 <link rel="alternate" type="application/rss+xml" title="RSS" href="../../rss.xml">
@@ -28,7 +28,7 @@
     
     
     </nav><footer id="footer"><span class="copyright">
-              Contents © 2023         <a href="mailto:petru.rebeja@gmail.com">Petru Rebeja</a> - Powered by   <a href="https://www.gnu.org/software/emacs/" rel="nofollow">GNU Emacs</a>  &amp;    <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+              Contents © 2024         <a href="mailto:petru.rebeja@gmail.com">Petru Rebeja</a> - Powered by   <a href="https://www.gnu.org/software/emacs/" rel="nofollow">GNU Emacs</a>  &amp;    <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
             </span>
             
             
@@ -119,39 +119,39 @@ Having done that another pattern emerged from all the handlers within an assembl
 <p>
 Obviously, the next logical thing was to actually define the service interface which listed all the operations performed by the handlers within that assembly. And since the interface needs an implementation I've created a class for each service which calls <code>mediator.Send()</code> with the proper parameters for the specific handler and returns the results. This is how it looks:
 </p>
-<div class="highlight"><pre><span></span>public interface IAccountingService
-{
-    void RegisterPayment(RegisterPaymentCommand paymentDetails);
+<div class="highlight"><pre><span></span><span class="k">public</span><span class="w"> </span><span class="k">interface</span><span class="w"> </span><span class="n">IAccountingService</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">void</span><span class="w"> </span><span class="nf">RegisterPayment</span><span class="p">(</span><span class="n">RegisterPaymentCommand</span><span class="w"> </span><span class="n">paymentDetails</span><span class="p">);</span>
 
-    GetAccountBalanceResponse GetAccountBalance(GetAccountBalanceRequest accountId);
+<span class="w">    </span><span class="n">GetAccountBalanceResponse</span><span class="w"> </span><span class="nf">GetAccountBalance</span><span class="p">(</span><span class="n">GetAccountBalanceRequest</span><span class="w"> </span><span class="n">accountId</span><span class="p">);</span>
 
-    GetAllPaymentsResponse GetAllPayments();
-}
+<span class="w">    </span><span class="n">GetAllPaymentsResponse</span><span class="w"> </span><span class="nf">GetAllPayments</span><span class="p">();</span>
+<span class="p">}</span>
 
-class AccountingService: IAccountingService
-{
-    private readonly IMediator _mediator;
+<span class="k">class</span><span class="w"> </span><span class="nc">AccountingService</span><span class="p">:</span><span class="w"> </span><span class="n">IAccountingService</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">private</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="n">IMediator</span><span class="w"> </span><span class="n">_mediator</span><span class="p">;</span>
 
-    public AccountingService(IMediator mediator)
-    {
-	_mediator = mediator;
-    }
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="nf">AccountingService</span><span class="p">(</span><span class="n">IMediator</span><span class="w"> </span><span class="n">mediator</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">_mediator</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mediator</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
 
-    public void RegisterPayment(RegisterPaymentCommand paymentDetails)
-    {
-	_mediator.Send(paymentDetails);
-    }
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">RegisterPayment</span><span class="p">(</span><span class="n">RegisterPaymentCommand</span><span class="w"> </span><span class="n">paymentDetails</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">_mediator</span><span class="p">.</span><span class="n">Send</span><span class="p">(</span><span class="n">paymentDetails</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
 
-    public GetAccountBalanceResponse GetAccountBalance(GetAccountBalanceRequest accountId)
-    {
-	return _mediator.Send(GetAccountBalanceRequest);
-    }
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="n">GetAccountBalanceResponse</span><span class="w"> </span><span class="nf">GetAccountBalance</span><span class="p">(</span><span class="n">GetAccountBalanceRequest</span><span class="w"> </span><span class="n">accountId</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">_mediator</span><span class="p">.</span><span class="n">Send</span><span class="p">(</span><span class="n">GetAccountBalanceRequest</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
 
-    public GetAllPaymentsResponse GetAllPayments()
-    {
-	return _mediator.Send(new GetAllPaymentsRequest());
-    }
-}
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="n">GetAllPaymentsResponse</span><span class="w"> </span><span class="nf">GetAllPayments</span><span class="p">()</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">_mediator</span><span class="p">.</span><span class="n">Send</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">GetAllPaymentsRequest</span><span class="p">());</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 
 <p>
@@ -161,22 +161,22 @@ As a result I <i>do have more boilerplate code</i> but on the upside I have:
 <li>A separation of the domain logic from the plumbing handled by MediatR. If I want to switch the interface implemented by each handler I can use search and replace with a regex and I'm done.</li>
 <li>A cleaner service interface. For the service above, the handler that returns all payments should look like this:</li>
 </ol>
-<div class="highlight"><pre><span></span>public class GetAllPaymentsRequest: IRequest&lt;GetAllPaymentsResponse&gt;
-{
-}
+<div class="highlight"><pre><span></span><span class="k">public</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">GetAllPaymentsRequest</span><span class="p">:</span><span class="w"> </span><span class="n">IRequest</span><span class="o">&lt;</span><span class="n">GetAllPaymentsResponse</span><span class="o">&gt;</span>
+<span class="p">{</span>
+<span class="p">}</span>
 
-public class GetAllPaymentsResponse
-{
-    public IEnumerable&lt;Payment&gt; Payments {get; set;}
-}
+<span class="k">public</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">GetAllPaymentsResponse</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="n">IEnumerable</span><span class="o">&lt;</span><span class="n">Payment</span><span class="o">&gt;</span><span class="w"> </span><span class="n">Payments</span><span class="w"> </span><span class="p">{</span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;}</span>
+<span class="p">}</span>
 
-public GetAllPaymentsRequestHandler: RequestHandler&lt;GetAllPaymentsRequest, GetAllPaymentsResponse&gt;
-{
-    protected override GetAllPaymentsResponse Handle(GetAllPaymentsRequest request)
-    {
-	// ...
-    }
-}
+<span class="k">public</span><span class="w"> </span><span class="n">GetAllPaymentsRequestHandler</span><span class="p">:</span><span class="w"> </span><span class="n">RequestHandler</span><span class="o">&lt;</span><span class="n">GetAllPaymentsRequest</span><span class="p">,</span><span class="w"> </span><span class="n">GetAllPaymentsResponse</span><span class="o">&gt;</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">protected</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="n">GetAllPaymentsResponse</span><span class="w"> </span><span class="nf">Handle</span><span class="p">(</span><span class="n">GetAllPaymentsRequest</span><span class="w"> </span><span class="n">request</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// ...</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 
 <p>

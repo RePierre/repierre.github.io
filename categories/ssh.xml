@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Rebeja (Posts about ssh)</title><link>https://rebeja.eu/</link><description></description><atom:link href="https://rebeja.eu/categories/ssh.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2021 &lt;a href="mailto:petru.rebeja@gmail.com"&gt;Petru Rebeja&lt;/a&gt; </copyright><lastBuildDate>Fri, 31 Dec 2021 11:21:59 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Building a Python IDE with Emacs and Docker</title><link>https://rebeja.eu/posts/python-ide-with-emacs-and-docker/</link><dc:creator>Petru Rebeja</dc:creator><description>&lt;div id="outline-container-org67e2a6a" class="outline-2"&gt;
-&lt;h2 id="org67e2a6a"&gt;Prologue&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-org67e2a6a"&gt;
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Rebeja (Posts about ssh)</title><link>https://rebeja.eu/</link><description></description><atom:link href="https://rebeja.eu/categories/ssh.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2024 &lt;a href="mailto:petru.rebeja@gmail.com"&gt;Petru Rebeja&lt;/a&gt; </copyright><lastBuildDate>Fri, 03 May 2024 18:22:38 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Building a Python IDE with Emacs and Docker</title><link>https://rebeja.eu/posts/python-ide-with-emacs-and-docker/</link><dc:creator>Petru Rebeja</dc:creator><description>&lt;div id="outline-container-orga0d5af6" class="outline-2"&gt;
+&lt;h2 id="orga0d5af6"&gt;Prologue&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-orga0d5af6"&gt;
 &lt;p&gt;
 I am a fan of &lt;a href="https://en.wikipedia.org/wiki/Windows_Subsystem_for_Linux"&gt;&lt;code&gt;Windows Subsystem for Linux&lt;/code&gt;&lt;/a&gt;. It brings the power of Linux command-line tools to Windows which is something a developer cannot dislike but that isn't the main reason I'm fond of it. I like it because it allows me to run Emacs (albeit in console mode) at its full potential.
 &lt;/p&gt;
@@ -31,9 +31,9 @@ The answer is &lt;b&gt;Yes&lt;/b&gt;. If you want to see only the final &lt;code
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-org1068027" class="outline-2"&gt;
-&lt;h2 id="org1068027"&gt;How&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-org1068027"&gt;
+&lt;div id="outline-container-org047b8ab" class="outline-2"&gt;
+&lt;h2 id="org047b8ab"&gt;How&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org047b8ab"&gt;
 &lt;p&gt;
 Since I already have been using Emacs as a Python IDE in Ubuntu Bash, replicating this setup in Docker would imply:
 &lt;/p&gt;
@@ -51,9 +51,9 @@ Luckily, Docker already has an &lt;a href="https://docs.docker.com/engine/exampl
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-orge93a6b7" class="outline-2"&gt;
-&lt;h2 id="orge93a6b7"&gt;Issue #1: SSHD refuses connection&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-orge93a6b7"&gt;
+&lt;div id="outline-container-org1fbcfbb" class="outline-2"&gt;
+&lt;h2 id="org1fbcfbb"&gt;Issue #1: SSHD refuses connection&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org1fbcfbb"&gt;
 &lt;p&gt;
 This one was easy — there's a typo in the example provided by Docker. I figured it out after inspecting the contents of &lt;code&gt;sshd_config&lt;/code&gt; file.
 &lt;/p&gt;
@@ -69,7 +69,7 @@ Since I was connecting as &lt;code&gt;root&lt;/code&gt; the &lt;code&gt;sshd&lt;
 &lt;p&gt;
 The fix for this is to include the &lt;code&gt;#&lt;/code&gt; in the call to &lt;code&gt;sed&lt;/code&gt; as below:
 &lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;  RUN sed -i &lt;span class="s1"&gt;'s/#PermitRootLogin prohibit-password/PermitRootLogin yes/'&lt;/span&gt; /etc/ssh/sshd_config
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="w"&gt;  &lt;/span&gt;RUN&lt;span class="w"&gt; &lt;/span&gt;sed&lt;span class="w"&gt; &lt;/span&gt;-i&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s1"&gt;'s/#PermitRootLogin prohibit-password/PermitRootLogin yes/'&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;/etc/ssh/sshd_config
 &lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;
@@ -83,25 +83,25 @@ Success.
 &lt;p&gt;
 Even though the &lt;code&gt;sshd&lt;/code&gt; was running and accepting connections, the fact that the root password was hard-coded in plain text &lt;i&gt;really&lt;/i&gt; bothered me so I made a small tweak to the &lt;code&gt;Dockerfile&lt;/code&gt;:
 &lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;  ARG password
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="w"&gt;  &lt;/span&gt;ARG&lt;span class="w"&gt; &lt;/span&gt;password
 
-  RUN &lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;"root:&lt;/span&gt;&lt;span class="si"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;password&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt; &lt;span class="p"&gt;|&lt;/span&gt; chpasswd
+&lt;span class="w"&gt;  &lt;/span&gt;RUN&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nb"&gt;echo&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;"root:&lt;/span&gt;&lt;span class="si"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;password&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;|&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;chpasswd
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;
 What this does is it declares a variable &lt;code&gt;password&lt;/code&gt; whose value is supplied when building the image like this:
 &lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;  docker build -t &amp;lt;image-tag&amp;gt; &lt;span class="se"&gt;\&lt;/span&gt;
-	 --build-arg &lt;span class="nv"&gt;password&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&amp;lt;your-password-here&amp;gt; &lt;span class="se"&gt;\&lt;/span&gt;
-	 .
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="w"&gt;  &lt;/span&gt;docker&lt;span class="w"&gt; &lt;/span&gt;build&lt;span class="w"&gt; &lt;/span&gt;-t&lt;span class="w"&gt; &lt;/span&gt;&amp;lt;image-tag&amp;gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="se"&gt;\&lt;/span&gt;
+&lt;span class="w"&gt;         &lt;/span&gt;--build-arg&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;password&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&amp;lt;your-password-here&amp;gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="se"&gt;\&lt;/span&gt;
+&lt;span class="w"&gt;         &lt;/span&gt;.
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;
 This way, the root password isn't stored in clear text and in plain-sight anymore. Now I was ready to move to the next step.
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-org4707a12" class="outline-2"&gt;
-&lt;h2 id="org4707a12"&gt;Issue #2: Activating virtual environment inside container&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-org4707a12"&gt;
+&lt;div id="outline-container-org9d956ba" class="outline-2"&gt;
+&lt;h2 id="org9d956ba"&gt;Issue #2: Activating virtual environment inside container&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org9d956ba"&gt;
 &lt;p&gt;
 The second item of my quest was to setup and activate a Python virtual environment. This environment will be used to install all the dependencies required for the project I'm working on.
 &lt;/p&gt;
@@ -129,12 +129,12 @@ I got lucky since one of the first results was the article that led to my soluti
 &lt;p&gt;
 The changes pertaining to my config are the following:
 &lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;  ENV &lt;span class="nv"&gt;VIRTUAL_ENV&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;/opt/venv
-  RUN python3 -m virtualenv --python&lt;span class="o"&gt;=&lt;/span&gt;/usr/bin/python3 &lt;span class="nv"&gt;$VIRTUAL_ENV&lt;/span&gt;
-  ENV &lt;span class="nv"&gt;PATH&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="nv"&gt;$VIRTUAL_ENV&lt;/span&gt;&lt;span class="s2"&gt;/bin:&lt;/span&gt;&lt;span class="nv"&gt;$PATH&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;
-  RUN pip install --upgrade pip setuptools wheel &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="se"&gt;\&lt;/span&gt;
-      pip install numpy tensorflow scikit-learn gensim matplotlib pyyaml matplotlib-venn &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="se"&gt;\&lt;/span&gt;
-      pip install elpy jedi rope yapf importmagic flake8 autopep8 black
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="w"&gt;  &lt;/span&gt;ENV&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;VIRTUAL_ENV&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;/opt/venv
+&lt;span class="w"&gt;  &lt;/span&gt;RUN&lt;span class="w"&gt; &lt;/span&gt;python3&lt;span class="w"&gt; &lt;/span&gt;-m&lt;span class="w"&gt; &lt;/span&gt;virtualenv&lt;span class="w"&gt; &lt;/span&gt;--python&lt;span class="o"&gt;=&lt;/span&gt;/usr/bin/python3&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;$VIRTUAL_ENV&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;ENV&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;PATH&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="nv"&gt;$VIRTUAL_ENV&lt;/span&gt;&lt;span class="s2"&gt;/bin:&lt;/span&gt;&lt;span class="nv"&gt;$PATH&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;RUN&lt;span class="w"&gt; &lt;/span&gt;pip&lt;span class="w"&gt; &lt;/span&gt;install&lt;span class="w"&gt; &lt;/span&gt;--upgrade&lt;span class="w"&gt; &lt;/span&gt;pip&lt;span class="w"&gt; &lt;/span&gt;setuptools&lt;span class="w"&gt; &lt;/span&gt;wheel&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="se"&gt;\&lt;/span&gt;
+&lt;span class="w"&gt;      &lt;/span&gt;pip&lt;span class="w"&gt; &lt;/span&gt;install&lt;span class="w"&gt; &lt;/span&gt;numpy&lt;span class="w"&gt; &lt;/span&gt;tensorflow&lt;span class="w"&gt; &lt;/span&gt;scikit-learn&lt;span class="w"&gt; &lt;/span&gt;gensim&lt;span class="w"&gt; &lt;/span&gt;matplotlib&lt;span class="w"&gt; &lt;/span&gt;pyyaml&lt;span class="w"&gt; &lt;/span&gt;matplotlib-venn&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="se"&gt;\&lt;/span&gt;
+&lt;span class="w"&gt;      &lt;/span&gt;pip&lt;span class="w"&gt; &lt;/span&gt;install&lt;span class="w"&gt; &lt;/span&gt;elpy&lt;span class="w"&gt; &lt;/span&gt;jedi&lt;span class="w"&gt; &lt;/span&gt;rope&lt;span class="w"&gt; &lt;/span&gt;yapf&lt;span class="w"&gt; &lt;/span&gt;importmagic&lt;span class="w"&gt; &lt;/span&gt;flake8&lt;span class="w"&gt; &lt;/span&gt;autopep8&lt;span class="w"&gt; &lt;/span&gt;black
 &lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;
@@ -154,9 +154,9 @@ Afterwards, just install the required packages as usual.
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-org1c78a1c" class="outline-2"&gt;
-&lt;h2 id="org1c78a1c"&gt;Issue #3: Emacs monolithic configuration file&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-org1c78a1c"&gt;
+&lt;div id="outline-container-orgcd9be08" class="outline-2"&gt;
+&lt;h2 id="orgcd9be08"&gt;Issue #3: Emacs monolithic configuration file&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-orgcd9be08"&gt;
 &lt;p&gt;
 After setting up and activating the virtual environment, I needed to configure Emacs for python development to start working.
 &lt;/p&gt;
@@ -180,21 +180,21 @@ Not willing to spend a lot of time on this (I had a deadline after all) I decide
 &lt;p&gt;
 So I split my &lt;code&gt;emacs-init.org&lt;/code&gt; file into four files: one file for tweaks and packages that I want to have everywhere, one file for &lt;code&gt;org-mode&lt;/code&gt; related stuff, one file for Python development and lastly one file for tweaks and packages that I would like when I'm using Emacs GUI. The &lt;code&gt;init.el&lt;/code&gt; file looked like this:
 &lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;require&lt;/span&gt; &lt;span class="ss"&gt;'package&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;require&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="ss"&gt;'package&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 
 &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;package-initialize&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 
-&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;org-babel-load-file&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;expand-file-name&lt;/span&gt; &lt;span class="s"&gt;"~/.emacs.d/common-config.org"&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
-&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;org-babel-load-file&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;expand-file-name&lt;/span&gt; &lt;span class="s"&gt;"~/.emacs.d/python-config.org"&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
-&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;org-babel-load-file&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;expand-file-name&lt;/span&gt; &lt;span class="s"&gt;"~/.emacs.d/org-config.org"&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
-&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;org-babel-load-file&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;expand-file-name&lt;/span&gt; &lt;span class="s"&gt;"~/.emacs.d/emacs-init.org"&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;org-babel-load-file&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;expand-file-name&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;"~/.emacs.d/common-config.org"&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;org-babel-load-file&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;expand-file-name&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;"~/.emacs.d/python-config.org"&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;org-babel-load-file&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;expand-file-name&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;"~/.emacs.d/org-config.org"&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;org-babel-load-file&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;expand-file-name&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;"~/.emacs.d/emacs-init.org"&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;
 Now I can use &lt;code&gt;sed&lt;/code&gt; on the &lt;code&gt;init.el&lt;/code&gt; file to delete the lines that were loading troublesome packages:
 &lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;sed -i &lt;span class="s1"&gt;'/^.*emacs-init.*$/d'&lt;/span&gt; ./.emacs.d/init.el &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="se"&gt;\&lt;/span&gt;
-sed -i &lt;span class="s1"&gt;'/^.*org-config.*$/d'&lt;/span&gt; ./.emacs.d/init.el
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;sed&lt;span class="w"&gt; &lt;/span&gt;-i&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s1"&gt;'/^.*emacs-init.*$/d'&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;./.emacs.d/init.el&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="se"&gt;\&lt;/span&gt;
+sed&lt;span class="w"&gt; &lt;/span&gt;-i&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s1"&gt;'/^.*org-config.*$/d'&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;./.emacs.d/init.el
 &lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;
@@ -224,33 +224,33 @@ The solution to this problem is quite simple: before loading configuration files
 &lt;p&gt;
 Thus, the resulting &lt;code&gt;init.el&lt;/code&gt; looks like this (I promise to fix those names sometimes):
 &lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;  &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;require&lt;/span&gt; &lt;span class="ss"&gt;'package&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;require&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="ss"&gt;'package&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 
-  &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;package-initialize&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;package-initialize&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 
-  &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;let &lt;/span&gt;&lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="nf"&gt;file-name&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;expand-file-name&lt;/span&gt; &lt;span class="s"&gt;"config.el"&lt;/span&gt; &lt;span class="nv"&gt;user-emacs-directory&lt;/span&gt;&lt;span class="p"&gt;)))&lt;/span&gt;
-    &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;if &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;file-exists-p&lt;/span&gt; &lt;span class="nv"&gt;file-name&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-	&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;load-file&lt;/span&gt; &lt;span class="nv"&gt;file-name&lt;/span&gt;&lt;span class="p"&gt;)))&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;let&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="nf"&gt;file-name&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;expand-file-name&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;"config.el"&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;user-emacs-directory&lt;/span&gt;&lt;span class="p"&gt;)))&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;file-exists-p&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;file-name&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;load-file&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;file-name&lt;/span&gt;&lt;span class="p"&gt;)))&lt;/span&gt;
 
-  &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;org-babel-load-file&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;expand-file-name&lt;/span&gt; &lt;span class="s"&gt;"~/.emacs.d/common-config.org"&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
-  &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;org-babel-load-file&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;expand-file-name&lt;/span&gt; &lt;span class="s"&gt;"~/.emacs.d/python-config.org"&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
-  &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;org-babel-load-file&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;expand-file-name&lt;/span&gt; &lt;span class="s"&gt;"~/.emacs.d/org-config.org"&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
-  &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;org-babel-load-file&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;expand-file-name&lt;/span&gt; &lt;span class="s"&gt;"~/.emacs.d/emacs-init.org"&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;org-babel-load-file&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;expand-file-name&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;"~/.emacs.d/common-config.org"&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;org-babel-load-file&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;expand-file-name&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;"~/.emacs.d/python-config.org"&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;org-babel-load-file&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;expand-file-name&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;"~/.emacs.d/org-config.org"&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;org-babel-load-file&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;expand-file-name&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;"~/.emacs.d/emacs-init.org"&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
 
-  &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;let &lt;/span&gt;&lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="nf"&gt;file-name&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;expand-file-name&lt;/span&gt; &lt;span class="s"&gt;"after-init.el"&lt;/span&gt; &lt;span class="nv"&gt;user-emacs-directory&lt;/span&gt;&lt;span class="p"&gt;)))&lt;/span&gt;
-    &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;if &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;file-exists-p&lt;/span&gt; &lt;span class="nv"&gt;file-name&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-	&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;load-file&lt;/span&gt; &lt;span class="nv"&gt;file-name&lt;/span&gt;&lt;span class="p"&gt;)))&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;let&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="nf"&gt;file-name&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;expand-file-name&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;"after-init.el"&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;user-emacs-directory&lt;/span&gt;&lt;span class="p"&gt;)))&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;file-exists-p&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;file-name&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;load-file&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;file-name&lt;/span&gt;&lt;span class="p"&gt;)))&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;
 Now I just need to create the file and apply the fix:
 &lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;"(setq package-check-signature nil)"&lt;/span&gt; &amp;gt;&amp;gt; ./.emacs.d/config.el
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nb"&gt;echo&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;"(setq package-check-signature nil)"&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&amp;gt;&amp;gt;&lt;span class="w"&gt; &lt;/span&gt;./.emacs.d/config.el
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;
 And since I can run custom code after loading the known configuration files I can set &lt;code&gt;elpy-rpc-virtualenv-path&lt;/code&gt; variable in the same way:
 &lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;"(setq elpy-rpc-virtualenv-path \"&lt;/span&gt;&lt;span class="nv"&gt;$VIRTUAL_ENV&lt;/span&gt;&lt;span class="s2"&gt;\")"&lt;/span&gt; &amp;gt;&amp;gt; ./.emacs.d/after-init.el
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nb"&gt;echo&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;"(setq elpy-rpc-virtualenv-path \"&lt;/span&gt;&lt;span class="nv"&gt;$VIRTUAL_ENV&lt;/span&gt;&lt;span class="s2"&gt;\")"&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&amp;gt;&amp;gt;&lt;span class="w"&gt; &lt;/span&gt;./.emacs.d/after-init.el
 &lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;
@@ -270,9 +270,9 @@ It does one more thing not mentioned previously: a &lt;code&gt;sed&lt;/code&gt; 
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-org8f672c4" class="outline-2"&gt;
-&lt;h2 id="org8f672c4"&gt;Issue #4: Using SSH keys to connect to GitHub&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-org8f672c4"&gt;
+&lt;div id="outline-container-orgdd1f977" class="outline-2"&gt;
+&lt;h2 id="orgdd1f977"&gt;Issue #4: Using SSH keys to connect to GitHub&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-orgdd1f977"&gt;
 &lt;p&gt;
 Now that I have Emacs running on Ubuntu (albeit terminal only) I can enjoy a smooth workflow without having to wait too much for Magit or other application that took forever on Cygwin to finish.
 &lt;/p&gt;
@@ -292,27 +292,27 @@ Instead of generating new keys each time, I decided to reuse the keys I already 
 &lt;p&gt;
 I found how to do so easily: there's a StackOverflow &lt;a href="https://stackoverflow.com/a/42125241/844006"&gt;answer&lt;/a&gt; for that. Summing it up is that you need to declare two build arguments that will hold the values for the private and public keys and write the values to their respective files. Of course, this implies creating the proper directories and assigning proper rights to the files. As an added bonus, the &lt;a href="https://stackoverflow.com/a/42125241/844006"&gt;answer&lt;/a&gt; shows a way to add GitHub to the known hosts.  This is how it looks in the Dockerfile:
 &lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;  ARG ssh_prv_key
-  ARG ssh_pub_key
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="w"&gt;  &lt;/span&gt;ARG&lt;span class="w"&gt; &lt;/span&gt;ssh_prv_key
+&lt;span class="w"&gt;  &lt;/span&gt;ARG&lt;span class="w"&gt; &lt;/span&gt;ssh_pub_key
 
-  RUN mkdir -p /root/.ssh &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="se"&gt;\&lt;/span&gt;
-      chmod &lt;span class="m"&gt;0700&lt;/span&gt; /root/.ssh &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="se"&gt;\&lt;/span&gt;
-      ssh-keyscan github.com &amp;gt; /root/.ssh/known_hosts
+&lt;span class="w"&gt;  &lt;/span&gt;RUN&lt;span class="w"&gt; &lt;/span&gt;mkdir&lt;span class="w"&gt; &lt;/span&gt;-p&lt;span class="w"&gt; &lt;/span&gt;/root/.ssh&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="se"&gt;\&lt;/span&gt;
+&lt;span class="w"&gt;      &lt;/span&gt;chmod&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;0700&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;/root/.ssh&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="se"&gt;\&lt;/span&gt;
+&lt;span class="w"&gt;      &lt;/span&gt;ssh-keyscan&lt;span class="w"&gt; &lt;/span&gt;github.com&lt;span class="w"&gt; &lt;/span&gt;&amp;gt;&lt;span class="w"&gt; &lt;/span&gt;/root/.ssh/known_hosts
 &lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;
 To provide the values for the keys use &lt;code&gt;--build-arg&lt;/code&gt; parameter when building your image like this:
 &lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;  docker build -t &amp;lt;image-tag&amp;gt; &lt;span class="se"&gt;\&lt;/span&gt;
-	 --build-arg &lt;span class="nv"&gt;ssh_prv_key&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="k"&gt;$(&lt;/span&gt;cat ~/.ssh/id_rsa&lt;span class="k"&gt;)&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt; &lt;span class="se"&gt;\&lt;/span&gt;
-	 --build-arg &lt;span class="nv"&gt;ssh_pub_key&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="k"&gt;$(&lt;/span&gt;cat ~/.ssh/id_rsa.pub&lt;span class="k"&gt;)&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt; &lt;span class="se"&gt;\&lt;/span&gt;
-	 .
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="w"&gt;  &lt;/span&gt;docker&lt;span class="w"&gt; &lt;/span&gt;build&lt;span class="w"&gt; &lt;/span&gt;-t&lt;span class="w"&gt; &lt;/span&gt;&amp;lt;image-tag&amp;gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="se"&gt;\&lt;/span&gt;
+&lt;span class="w"&gt;         &lt;/span&gt;--build-arg&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;ssh_prv_key&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="k"&gt;$(&lt;/span&gt;cat&lt;span class="w"&gt; &lt;/span&gt;~/.ssh/id_rsa&lt;span class="k"&gt;)&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="se"&gt;\&lt;/span&gt;
+&lt;span class="w"&gt;         &lt;/span&gt;--build-arg&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;ssh_pub_key&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="k"&gt;$(&lt;/span&gt;cat&lt;span class="w"&gt; &lt;/span&gt;~/.ssh/id_rsa.pub&lt;span class="k"&gt;)&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="se"&gt;\&lt;/span&gt;
+&lt;span class="w"&gt;         &lt;/span&gt;.
 &lt;/pre&gt;&lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-org70e4730" class="outline-2"&gt;
-&lt;h2 id="org70e4730"&gt;Issue #5: Install Emacs packages once and done&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-org70e4730"&gt;
+&lt;div id="outline-container-orgd55fd85" class="outline-2"&gt;
+&lt;h2 id="orgd55fd85"&gt;Issue #5: Install Emacs packages once and done&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-orgd55fd85"&gt;
 &lt;p&gt;
 After another build of the Docker image I started a container from it, logged in via ssh into the container, started Emacs and noticed yet another issue.
 &lt;/p&gt;
@@ -332,16 +332,16 @@ This is a feature of Emacs called &lt;a href="https://www.emacswiki.org/emacs/Em
 &lt;p&gt;
 So I changed my &lt;code&gt;Dockerfile&lt;/code&gt; to start Emacs as a daemon:
 &lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;  RUN emacs --daemon
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="w"&gt;  &lt;/span&gt;RUN&lt;span class="w"&gt; &lt;/span&gt;emacs&lt;span class="w"&gt; &lt;/span&gt;--daemon
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;
 And to my great surprise, when rebuilding the image I saw the output of Emacs packages being downloaded and installed.
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-orga09a739" class="outline-2"&gt;
-&lt;h2 id="orga09a739"&gt;Issue #6: Terminal colors&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-orga09a739"&gt;
+&lt;div id="outline-container-orgafa9d80" class="outline-2"&gt;
+&lt;h2 id="orgafa9d80"&gt;Issue #6: Terminal colors&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-orgafa9d80"&gt;
 &lt;p&gt;
 Being confident that everything should work now (it's the same setup I had on &lt;code&gt;WSL&lt;/code&gt;) I started a new container to which I mounted the GitHub repo as a volume and got cracking.
 &lt;/p&gt;
@@ -353,7 +353,7 @@ Everything went swell until I decided to commit the changes and invoked &lt;code
 &lt;p&gt;
 At this point I just rage-quit and started looking for an answer. Fortunately, the right &lt;a href="https://stackoverflow.com/a/64585/844006"&gt;StackOverflow answer&lt;/a&gt; popped up quickly and I applied the fix which just sets the &lt;code&gt;TERM&lt;/code&gt; environment variable:
 &lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;  ENV &lt;span class="nv"&gt;TERM&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;xterm-256color
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="w"&gt;  &lt;/span&gt;ENV&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;TERM&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;xterm-256color
 &lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;
@@ -361,84 +361,84 @@ And only after this, I was able to fully benefit from having the Python IDE I'm 
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-org8b2e82b" class="outline-2"&gt;
-&lt;h2 id="tldr"&gt;&lt;a id="org8b2e82b"&gt;&lt;/a&gt;TL;DR&lt;/h2&gt;
+&lt;div id="outline-container-tldr" class="outline-2"&gt;
+&lt;h2 id="tldr"&gt;TL;DR&lt;/h2&gt;
 &lt;div class="outline-text-2" id="text-tldr"&gt;
 &lt;p&gt;
 The full Dockerfile described in this post is below:
 &lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;FROM ubuntu:18.04
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;FROM&lt;span class="w"&gt; &lt;/span&gt;ubuntu:18.04
 
-RUN apt-get update &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="se"&gt;\&lt;/span&gt;
-    apt-get install -y --no-install-recommends openssh-server tmux &lt;span class="se"&gt;\&lt;/span&gt;
-	    emacs emacs-goodies.el curl git &lt;span class="se"&gt;\&lt;/span&gt;
-	    python3 python3-pip python3-virtualenv python3-dev build-essential
+RUN&lt;span class="w"&gt; &lt;/span&gt;apt-get&lt;span class="w"&gt; &lt;/span&gt;update&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="se"&gt;\&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;apt-get&lt;span class="w"&gt; &lt;/span&gt;install&lt;span class="w"&gt; &lt;/span&gt;-y&lt;span class="w"&gt; &lt;/span&gt;--no-install-recommends&lt;span class="w"&gt; &lt;/span&gt;openssh-server&lt;span class="w"&gt; &lt;/span&gt;tmux&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="se"&gt;\&lt;/span&gt;
+&lt;span class="w"&gt;            &lt;/span&gt;emacs&lt;span class="w"&gt; &lt;/span&gt;emacs-goodies.el&lt;span class="w"&gt; &lt;/span&gt;curl&lt;span class="w"&gt; &lt;/span&gt;git&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="se"&gt;\&lt;/span&gt;
+&lt;span class="w"&gt;            &lt;/span&gt;python3&lt;span class="w"&gt; &lt;/span&gt;python3-pip&lt;span class="w"&gt; &lt;/span&gt;python3-virtualenv&lt;span class="w"&gt; &lt;/span&gt;python3-dev&lt;span class="w"&gt; &lt;/span&gt;build-essential
 
-ARG password
+ARG&lt;span class="w"&gt; &lt;/span&gt;password
 
-RUN mkdir /var/run/sshd
-RUN &lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;"root:&lt;/span&gt;&lt;span class="si"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;password&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt; &lt;span class="p"&gt;|&lt;/span&gt; chpasswd
-RUN sed -i &lt;span class="s1"&gt;'s/#PermitRootLogin prohibit-password/PermitRootLogin yes/'&lt;/span&gt; /etc/ssh/sshd_config
+RUN&lt;span class="w"&gt; &lt;/span&gt;mkdir&lt;span class="w"&gt; &lt;/span&gt;/var/run/sshd
+RUN&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nb"&gt;echo&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;"root:&lt;/span&gt;&lt;span class="si"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;password&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;|&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;chpasswd
+RUN&lt;span class="w"&gt; &lt;/span&gt;sed&lt;span class="w"&gt; &lt;/span&gt;-i&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s1"&gt;'s/#PermitRootLogin prohibit-password/PermitRootLogin yes/'&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;/etc/ssh/sshd_config
 
 &lt;span class="c1"&gt;# SSH login fix. Otherwise user is kicked off after login&lt;/span&gt;
-RUN sed &lt;span class="s1"&gt;'s@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g'&lt;/span&gt; -i /etc/pam.d/sshd
+RUN&lt;span class="w"&gt; &lt;/span&gt;sed&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s1"&gt;'s@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g'&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;-i&lt;span class="w"&gt; &lt;/span&gt;/etc/pam.d/sshd
 
-ENV NOTVISIBLE &lt;span class="s2"&gt;"in users profile"&lt;/span&gt;
-RUN &lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;"export VISIBLE=now"&lt;/span&gt; &amp;gt;&amp;gt; /etc/profile
+ENV&lt;span class="w"&gt; &lt;/span&gt;NOTVISIBLE&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;"in users profile"&lt;/span&gt;
+RUN&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nb"&gt;echo&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;"export VISIBLE=now"&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&amp;gt;&amp;gt;&lt;span class="w"&gt; &lt;/span&gt;/etc/profile
 
 &lt;span class="c1"&gt;# From https://pythonspeed.com/articles/activate-virtualenv-dockerfile/&lt;/span&gt;
-ENV &lt;span class="nv"&gt;VIRTUAL_ENV&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;/opt/venv
-RUN python3 -m virtualenv --python&lt;span class="o"&gt;=&lt;/span&gt;/usr/bin/python3 &lt;span class="nv"&gt;$VIRTUAL_ENV&lt;/span&gt;
-ENV &lt;span class="nv"&gt;PATH&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="nv"&gt;$VIRTUAL_ENV&lt;/span&gt;&lt;span class="s2"&gt;/bin:&lt;/span&gt;&lt;span class="nv"&gt;$PATH&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;
-RUN pip install --upgrade pip setuptools wheel &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="se"&gt;\&lt;/span&gt;
-    pip install numpy tensorflow scikit-learn gensim matplotlib pyyaml matplotlib-venn &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="se"&gt;\&lt;/span&gt;
-    pip install elpy jedi rope yapf importmagic flake8 autopep8 black
+ENV&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;VIRTUAL_ENV&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;/opt/venv
+RUN&lt;span class="w"&gt; &lt;/span&gt;python3&lt;span class="w"&gt; &lt;/span&gt;-m&lt;span class="w"&gt; &lt;/span&gt;virtualenv&lt;span class="w"&gt; &lt;/span&gt;--python&lt;span class="o"&gt;=&lt;/span&gt;/usr/bin/python3&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;$VIRTUAL_ENV&lt;/span&gt;
+ENV&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;PATH&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="nv"&gt;$VIRTUAL_ENV&lt;/span&gt;&lt;span class="s2"&gt;/bin:&lt;/span&gt;&lt;span class="nv"&gt;$PATH&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;
+RUN&lt;span class="w"&gt; &lt;/span&gt;pip&lt;span class="w"&gt; &lt;/span&gt;install&lt;span class="w"&gt; &lt;/span&gt;--upgrade&lt;span class="w"&gt; &lt;/span&gt;pip&lt;span class="w"&gt; &lt;/span&gt;setuptools&lt;span class="w"&gt; &lt;/span&gt;wheel&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="se"&gt;\&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;pip&lt;span class="w"&gt; &lt;/span&gt;install&lt;span class="w"&gt; &lt;/span&gt;numpy&lt;span class="w"&gt; &lt;/span&gt;tensorflow&lt;span class="w"&gt; &lt;/span&gt;scikit-learn&lt;span class="w"&gt; &lt;/span&gt;gensim&lt;span class="w"&gt; &lt;/span&gt;matplotlib&lt;span class="w"&gt; &lt;/span&gt;pyyaml&lt;span class="w"&gt; &lt;/span&gt;matplotlib-venn&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="se"&gt;\&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;pip&lt;span class="w"&gt; &lt;/span&gt;install&lt;span class="w"&gt; &lt;/span&gt;elpy&lt;span class="w"&gt; &lt;/span&gt;jedi&lt;span class="w"&gt; &lt;/span&gt;rope&lt;span class="w"&gt; &lt;/span&gt;yapf&lt;span class="w"&gt; &lt;/span&gt;importmagic&lt;span class="w"&gt; &lt;/span&gt;flake8&lt;span class="w"&gt; &lt;/span&gt;autopep8&lt;span class="w"&gt; &lt;/span&gt;black
 
-RUN &lt;span class="nb"&gt;cd&lt;/span&gt; /root/ &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="se"&gt;\&lt;/span&gt;
-    git clone https://github.com/RePierre/.emacs.d.git .emacs.d &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="se"&gt;\&lt;/span&gt;
-    &lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;"(setq package-check-signature nil)"&lt;/span&gt; &amp;gt;&amp;gt; ./.emacs.d/config.el &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="se"&gt;\&lt;/span&gt;
-    sed -i &lt;span class="s1"&gt;'/^.*emacs-init.*$/d'&lt;/span&gt; ./.emacs.d/init.el &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="se"&gt;\&lt;/span&gt;
-    sed -i &lt;span class="s1"&gt;'s/(shell . t)/(sh . t)/'&lt;/span&gt; ./.emacs.d/common-config.org &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="se"&gt;\&lt;/span&gt;
-    sed -i &lt;span class="s1"&gt;'/^.*org-config.*$/d'&lt;/span&gt; ./.emacs.d/init.el &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="se"&gt;\&lt;/span&gt;
-    sed -i &lt;span class="s1"&gt;'s/\:defer\ t//'&lt;/span&gt; ./.emacs.d/python-config.org &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="se"&gt;\&lt;/span&gt;
-    &lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;"(setq elpy-rpc-virtualenv-path \"&lt;/span&gt;&lt;span class="nv"&gt;$VIRTUAL_ENV&lt;/span&gt;&lt;span class="s2"&gt;\")"&lt;/span&gt; &amp;gt;&amp;gt; ./.emacs.d/after-init.el
+RUN&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nb"&gt;cd&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;/root/&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="se"&gt;\&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;git&lt;span class="w"&gt; &lt;/span&gt;clone&lt;span class="w"&gt; &lt;/span&gt;https://github.com/RePierre/.emacs.d.git&lt;span class="w"&gt; &lt;/span&gt;.emacs.d&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="se"&gt;\&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="nb"&gt;echo&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;"(setq package-check-signature nil)"&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&amp;gt;&amp;gt;&lt;span class="w"&gt; &lt;/span&gt;./.emacs.d/config.el&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="se"&gt;\&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;sed&lt;span class="w"&gt; &lt;/span&gt;-i&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s1"&gt;'/^.*emacs-init.*$/d'&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;./.emacs.d/init.el&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="se"&gt;\&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;sed&lt;span class="w"&gt; &lt;/span&gt;-i&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s1"&gt;'s/(shell . t)/(sh . t)/'&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;./.emacs.d/common-config.org&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="se"&gt;\&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;sed&lt;span class="w"&gt; &lt;/span&gt;-i&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s1"&gt;'/^.*org-config.*$/d'&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;./.emacs.d/init.el&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="se"&gt;\&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;sed&lt;span class="w"&gt; &lt;/span&gt;-i&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s1"&gt;'s/\:defer\ t//'&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;./.emacs.d/python-config.org&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="se"&gt;\&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="nb"&gt;echo&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;"(setq elpy-rpc-virtualenv-path \"&lt;/span&gt;&lt;span class="nv"&gt;$VIRTUAL_ENV&lt;/span&gt;&lt;span class="s2"&gt;\")"&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&amp;gt;&amp;gt;&lt;span class="w"&gt; &lt;/span&gt;./.emacs.d/after-init.el
 
 &lt;span class="c1"&gt;# From https://stackoverflow.com/a/42125241/844006&lt;/span&gt;
-ARG ssh_prv_key
-ARG ssh_pub_key
+ARG&lt;span class="w"&gt; &lt;/span&gt;ssh_prv_key
+ARG&lt;span class="w"&gt; &lt;/span&gt;ssh_pub_key
 &lt;span class="c1"&gt;# Authorize SSH Host&lt;/span&gt;
-RUN mkdir -p /root/.ssh &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="se"&gt;\&lt;/span&gt;
-    chmod &lt;span class="m"&gt;0700&lt;/span&gt; /root/.ssh &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="se"&gt;\&lt;/span&gt;
-    ssh-keyscan github.com &amp;gt; /root/.ssh/known_hosts
+RUN&lt;span class="w"&gt; &lt;/span&gt;mkdir&lt;span class="w"&gt; &lt;/span&gt;-p&lt;span class="w"&gt; &lt;/span&gt;/root/.ssh&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="se"&gt;\&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;chmod&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;0700&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;/root/.ssh&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="se"&gt;\&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;ssh-keyscan&lt;span class="w"&gt; &lt;/span&gt;github.com&lt;span class="w"&gt; &lt;/span&gt;&amp;gt;&lt;span class="w"&gt; &lt;/span&gt;/root/.ssh/known_hosts
 
 &lt;span class="c1"&gt;# Add the keys and set permissions&lt;/span&gt;
-RUN &lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="nv"&gt;$ssh_prv_key&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt; &amp;gt; /root/.ssh/id_rsa &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="se"&gt;\&lt;/span&gt;
-    &lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="nv"&gt;$ssh_pub_key&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt; &amp;gt; /root/.ssh/id_rsa.pub &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="se"&gt;\&lt;/span&gt;
-    chmod &lt;span class="m"&gt;600&lt;/span&gt; /root/.ssh/id_rsa &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="se"&gt;\&lt;/span&gt;
-    chmod &lt;span class="m"&gt;600&lt;/span&gt; /root/.ssh/id_rsa.pub
+RUN&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nb"&gt;echo&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="nv"&gt;$ssh_prv_key&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&amp;gt;&lt;span class="w"&gt; &lt;/span&gt;/root/.ssh/id_rsa&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="se"&gt;\&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="nb"&gt;echo&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="nv"&gt;$ssh_pub_key&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&amp;gt;&lt;span class="w"&gt; &lt;/span&gt;/root/.ssh/id_rsa.pub&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="se"&gt;\&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;chmod&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;600&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;/root/.ssh/id_rsa&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="se"&gt;\&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;chmod&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;600&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;/root/.ssh/id_rsa.pub
 
-RUN emacs --daemon
+RUN&lt;span class="w"&gt; &lt;/span&gt;emacs&lt;span class="w"&gt; &lt;/span&gt;--daemon
 
 &lt;span class="c1"&gt;# Set terminal colors https://stackoverflow.com/a/64585/844006&lt;/span&gt;
-ENV &lt;span class="nv"&gt;TERM&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;xterm-256color
+ENV&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;TERM&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;xterm-256color
 
-EXPOSE &lt;span class="m"&gt;22&lt;/span&gt;
-CMD &lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="s2"&gt;"/usr/sbin/sshd"&lt;/span&gt;, &lt;span class="s2"&gt;"-D"&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt;
+EXPOSE&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;22&lt;/span&gt;
+CMD&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="s2"&gt;"/usr/sbin/sshd"&lt;/span&gt;,&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;"-D"&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;
 To build the image use this command:
 &lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;docker build -t &amp;lt;image-tag&amp;gt; &lt;span class="se"&gt;\&lt;/span&gt;
-       --build-arg &lt;span class="nv"&gt;ssh_prv_key&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="k"&gt;$(&lt;/span&gt;cat ~/.ssh/id_rsa&lt;span class="k"&gt;)&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt; &lt;span class="se"&gt;\&lt;/span&gt;
-       --build-arg &lt;span class="nv"&gt;ssh_pub_key&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="k"&gt;$(&lt;/span&gt;cat ~/.ssh/id_rsa.pub&lt;span class="k"&gt;)&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt; &lt;span class="se"&gt;\&lt;/span&gt;
-       --build-arg &lt;span class="nv"&gt;password&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&amp;lt;your-password-here&amp;gt; &lt;span class="se"&gt;\&lt;/span&gt;
-       .
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;docker&lt;span class="w"&gt; &lt;/span&gt;build&lt;span class="w"&gt; &lt;/span&gt;-t&lt;span class="w"&gt; &lt;/span&gt;&amp;lt;image-tag&amp;gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="se"&gt;\&lt;/span&gt;
+&lt;span class="w"&gt;       &lt;/span&gt;--build-arg&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;ssh_prv_key&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="k"&gt;$(&lt;/span&gt;cat&lt;span class="w"&gt; &lt;/span&gt;~/.ssh/id_rsa&lt;span class="k"&gt;)&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="se"&gt;\&lt;/span&gt;
+&lt;span class="w"&gt;       &lt;/span&gt;--build-arg&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;ssh_pub_key&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="k"&gt;$(&lt;/span&gt;cat&lt;span class="w"&gt; &lt;/span&gt;~/.ssh/id_rsa.pub&lt;span class="k"&gt;)&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="se"&gt;\&lt;/span&gt;
+&lt;span class="w"&gt;       &lt;/span&gt;--build-arg&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;password&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&amp;lt;your-password-here&amp;gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="se"&gt;\&lt;/span&gt;
+&lt;span class="w"&gt;       &lt;/span&gt;.
 &lt;/pre&gt;&lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-org807da45" class="outline-2"&gt;
-&lt;h2 id="org807da45"&gt;Epilogue&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-org807da45"&gt;
+&lt;div id="outline-container-orgabd0741" class="outline-2"&gt;
+&lt;h2 id="orgabd0741"&gt;Epilogue&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-orgabd0741"&gt;
 &lt;p&gt;
 Looking back at this sort of quest of mine, I have nothing else to say than it was, overall, a fun experience.
 &lt;/p&gt;
@@ -452,9 +452,9 @@ But the bottom line is that it was a great deal of fun involved which luckily re
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-org73d8e54" class="outline-2"&gt;
-&lt;h2 id="org73d8e54"&gt;References&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-org73d8e54"&gt;
+&lt;div id="outline-container-org7a41d92" class="outline-2"&gt;
+&lt;h2 id="org7a41d92"&gt;References&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org7a41d92"&gt;
 &lt;ol class="org-ol"&gt;
 &lt;li&gt;&lt;a href="https://docs.docker.com/engine/examples/running_ssh_service/"&gt;Dockerize an SSH service&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://pythonspeed.com/articles/activate-virtualenv-dockerfile/"&gt;Elegantly activating a virtualenv in a Dockerfile&lt;/a&gt;&lt;/li&gt;
@@ -463,9 +463,9 @@ But the bottom line is that it was a great deal of fun involved which luckily re
 &lt;/ol&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-org3170228" class="outline-2"&gt;
-&lt;h2 id="org3170228"&gt;Acknowledgments&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-org3170228"&gt;
+&lt;div id="outline-container-orgeee239b" class="outline-2"&gt;
+&lt;h2 id="orgeee239b"&gt;Acknowledgments&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-orgeee239b"&gt;
 &lt;p&gt;
 I would like to thank my colleague &lt;a href="https://www.linkedin.com/in/ionelabarbuta/"&gt;Ionela Bărbuță&lt;/a&gt; for proofreading this post and for the tips &amp;amp; tricks she gave me in order to improve my writing.
 &lt;/p&gt;
@@ -477,17 +477,17 @@ In a discussion over a beer, a friend of mine asked whether I know a way to edit
 &lt;p&gt;
 This is how I do it.
 &lt;/p&gt;
-&lt;div id="outline-container-org7e1d539" class="outline-2"&gt;
-&lt;h2 id="org7e1d539"&gt;Setup&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-org7e1d539"&gt;
+&lt;div id="outline-container-org9ed63e2" class="outline-2"&gt;
+&lt;h2 id="org9ed63e2"&gt;Setup&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org9ed63e2"&gt;
 &lt;p&gt;
 I use &lt;code&gt;Emacs 25.2&lt;/code&gt; on Kubuntu 17.04 and on Windows 10 using &lt;a href="http://cygwin.com/"&gt;Cygwin&lt;/a&gt; and when working with remote files both systems behave the same.
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-orgc4697c9" class="outline-2"&gt;
-&lt;h2 id="orgc4697c9"&gt;The flow&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-orgc4697c9"&gt;
+&lt;div id="outline-container-org2db7310" class="outline-2"&gt;
+&lt;h2 id="org2db7310"&gt;The flow&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org2db7310"&gt;
 &lt;ol class="org-ol"&gt;
 &lt;li&gt;Configure the remote machine to authenticate you with a key file as specified in this &lt;a href="https://askubuntu.com/a/20921/561980"&gt;stackoverflow answer&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;Start Emacs&lt;/li&gt;
@@ -495,13 +495,13 @@ I use &lt;code&gt;Emacs 25.2&lt;/code&gt; on Kubuntu 17.04 and on Windows 10 usi
 &lt;p&gt;
 To open the remote file for editing invoke the &lt;code&gt;find-file&lt;/code&gt; command either using &lt;code&gt;C-x C-f&lt;/code&gt; (&lt;code&gt;C = Ctrl&lt;/code&gt;) or with &lt;code&gt;M-x find-file&lt;/code&gt; (&lt;code&gt;M=Alt&lt;/code&gt;) and at the file prompt specify the path in the following format:
 &lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;  /ssh:user@ip&lt;span class="o"&gt;[&lt;/span&gt;:port&lt;span class="o"&gt;]&lt;/span&gt;:path/to/file
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="w"&gt;  &lt;/span&gt;/ssh:user@ip&lt;span class="o"&gt;[&lt;/span&gt;:port&lt;span class="o"&gt;]&lt;/span&gt;:path/to/file
 &lt;/pre&gt;&lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-org0881f72" class="outline-2"&gt;
-&lt;h2 id="org0881f72"&gt;An example&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-org0881f72"&gt;
+&lt;div id="outline-container-orge0ac045" class="outline-2"&gt;
+&lt;h2 id="orge0ac045"&gt;An example&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-orge0ac045"&gt;
 &lt;p&gt;
 To exemplify let's consider the following scenario: I have a virtual machine with the IP &lt;code&gt;192.168.13.13&lt;/code&gt; to which I can connect remotely with &lt;code&gt;ssh&lt;/code&gt; using the username &lt;code&gt;petru&lt;/code&gt; and the default public key (&lt;b&gt;~/.ssh/id&lt;sub&gt;rsa.pub&lt;/sub&gt;&lt;/b&gt;). On that machine I want to edit the file &lt;code&gt;/home/petru/src/debugutils.py&lt;/code&gt;.
 &lt;/p&gt;
@@ -509,7 +509,7 @@ To exemplify let's consider the following scenario: I have a virtual machine wit
 &lt;p&gt;
 To do so, I open the file as usually in Emacs using &lt;code&gt;C-x C-f&lt;/code&gt; and at the prompt (the minibuffer) I enter the following:
 &lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;  /ssh:petru@192.168.13.13:/home/petru/src/debugutils.py
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="w"&gt;  &lt;/span&gt;/ssh:petru@192.168.13.13:/home/petru/src/debugutils.py
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;
 and press &lt;code&gt;&amp;lt;Enter&amp;gt;&lt;/code&gt;.

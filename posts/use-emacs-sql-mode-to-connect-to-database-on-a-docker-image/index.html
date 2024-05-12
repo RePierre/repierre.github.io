@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Rebeja · Use Emacs sql-mode to connect to database on a Docker image </title>
 <link href="../../assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
-<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700%7CAbril+Fatface">
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.1.7/css/fork-awesome.min.css" integrity="sha256-gsmEoJAws/Kd3CjuOQzLie5Q3yshhvmo7YNtBG7aaEY=" crossorigin="anonymous">
 <meta content="#5670d4" name="theme-color">
 <link rel="alternate" type="application/rss+xml" title="RSS" href="../../rss.xml">
@@ -28,7 +28,7 @@
     
     
     </nav><footer id="footer"><span class="copyright">
-              Contents © 2023         <a href="mailto:petru.rebeja@gmail.com">Petru Rebeja</a> - Powered by   <a href="https://www.gnu.org/software/emacs/" rel="nofollow">GNU Emacs</a>  &amp;    <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+              Contents © 2024         <a href="mailto:petru.rebeja@gmail.com">Petru Rebeja</a> - Powered by   <a href="https://www.gnu.org/software/emacs/" rel="nofollow">GNU Emacs</a>  &amp;    <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
             </span>
             
             
@@ -54,19 +54,19 @@ While working on a project I had to load and process some resources from a MySQL
 <p>
 Instead, I decided to restore the database on a Docker image for MySQL and query the data using <code>mysql-client</code>.
 </p>
-<div id="outline-container-org948ac39" class="outline-2">
-<h2 id="org948ac39">Install <code>mysql-client</code> locally</h2>
-<div class="outline-text-2" id="text-org948ac39">
+<div id="outline-container-orge400663" class="outline-2">
+<h2 id="orge400663">Install <code>mysql-client</code> locally</h2>
+<div class="outline-text-2" id="text-orge400663">
 <p>
 This one is simple; just run:
 </p>
-<div class="highlight"><pre><span></span>  sudo apt-get install mysql-client
+<div class="highlight"><pre><span></span><span class="w">  </span>sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>mysql-client
 </pre></div>
 </div>
 </div>
-<div id="outline-container-orgc641ace" class="outline-2">
-<h2 id="orgc641ace">Install Docker on Ubuntu</h2>
-<div class="outline-text-2" id="text-orgc641ace">
+<div id="outline-container-org221963f" class="outline-2">
+<h2 id="org221963f">Install Docker on Ubuntu</h2>
+<div class="outline-text-2" id="text-org221963f">
 <p>
 The first thing to do is to head to <a href="https://docs.docker.com/engine/installation/linux/ubuntu/#install-docker">Docker documentation</a> for instalation instructions which I've copied here:
 </p>
@@ -75,27 +75,27 @@ The first thing to do is to head to <a href="https://docs.docker.com/engine/inst
 <p>
 Install packages to allow <code>apt</code> to use a repository over HTTPS:
 </p>
-<div class="highlight"><pre><span></span>   sudo apt-get install <span class="se">\</span>
-       apt-transport-https <span class="se">\</span>
-       ca-certificates <span class="se">\</span>
-       curl <span class="se">\</span>
-       software-properties-common
+<div class="highlight"><pre><span></span><span class="w">   </span>sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span><span class="se">\</span>
+<span class="w">       </span>apt-transport-https<span class="w"> </span><span class="se">\</span>
+<span class="w">       </span>ca-certificates<span class="w"> </span><span class="se">\</span>
+<span class="w">       </span>curl<span class="w"> </span><span class="se">\</span>
+<span class="w">       </span>software-properties-common
 </pre></div>
 </li>
 <li>
 <p>
 Add the official GPG key for Docker
 </p>
-<div class="highlight"><pre><span></span>   curl -fsSL https://download.docker.com/linux/ubuntu/gpg <span class="p">|</span> sudo apt-key add -
+<div class="highlight"><pre><span></span><span class="w">   </span>curl<span class="w"> </span>-fsSL<span class="w"> </span>https://download.docker.com/linux/ubuntu/gpg<span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>apt-key<span class="w"> </span>add<span class="w"> </span>-
 </pre></div>
 </li>
 <li>
 <p>
 Setup the <b>stable</b> repository. Make sure to select the proper architecture; in my case it's <code>amd64</code>
 </p>
-<div class="highlight"><pre><span></span>   sudo add-apt-repository <span class="se">\</span>
-       <span class="s2">"deb [arch=amd64] https://download.docker.com/linux/ubuntu \</span>
-<span class="s2">       </span><span class="k">$(</span>lsb_release -cs<span class="k">)</span><span class="s2"> \</span>
+<div class="highlight"><pre><span></span><span class="w">   </span>sudo<span class="w"> </span>add-apt-repository<span class="w"> </span><span class="se">\</span>
+<span class="w">       </span><span class="s2">"deb [arch=amd64] https://download.docker.com/linux/ubuntu \</span>
+<span class="s2">       </span><span class="k">$(</span>lsb_release<span class="w"> </span>-cs<span class="k">)</span><span class="s2"> \</span>
 <span class="s2">       stable"</span>
 </pre></div>
 </li>
@@ -103,35 +103,35 @@ Setup the <b>stable</b> repository. Make sure to select the proper architecture;
 <p>
 Update the package index
 </p>
-<div class="highlight"><pre><span></span>   sudo apt-get update
+<div class="highlight"><pre><span></span><span class="w">   </span>sudo<span class="w"> </span>apt-get<span class="w"> </span>update
 </pre></div>
 </li>
 <li>
 <p>
 Install Docker
 </p>
-<div class="highlight"><pre><span></span>   sudo apt-get install docker-ce
+<div class="highlight"><pre><span></span><span class="w">   </span>sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>docker-ce
 </pre></div>
 </li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org861a47c" class="outline-2">
-<h2 id="org861a47c">Restore MySQL database to a Docker container</h2>
-<div class="outline-text-2" id="text-org861a47c">
+<div id="outline-container-org6cb0d62" class="outline-2">
+<h2 id="org6cb0d62">Restore MySQL database to a Docker container</h2>
+<div class="outline-text-2" id="text-org6cb0d62">
 <ul class="org-ul">
 <li>
 <p>
 Download the Docker image for <code>MySQL</code>
 </p>
-<div class="highlight"><pre><span></span>   sudo docker pull mysql
+<div class="highlight"><pre><span></span><span class="w">   </span>sudo<span class="w"> </span>docker<span class="w"> </span>pull<span class="w"> </span>mysql
 </pre></div>
 </li>
 <li>
 <p>
 Create an empty database
 </p>
-<div class="highlight"><pre><span></span>   sudo docker run --name &lt;container-name&gt; -e <span class="nv">MYSQL_ROOT_PASSWORD</span><span class="o">=</span>&lt;password&gt; -e <span class="nv">MYSQL_DATABASE</span><span class="o">=</span>&lt;db-name&gt; -d mysql
+<div class="highlight"><pre><span></span><span class="w">   </span>sudo<span class="w"> </span>docker<span class="w"> </span>run<span class="w"> </span>--name<span class="w"> </span>&lt;container-name&gt;<span class="w"> </span>-e<span class="w"> </span><span class="nv">MYSQL_ROOT_PASSWORD</span><span class="o">=</span>&lt;password&gt;<span class="w"> </span>-e<span class="w"> </span><span class="nv">MYSQL_DATABASE</span><span class="o">=</span>&lt;db-name&gt;<span class="w"> </span>-d<span class="w"> </span>mysql
 </pre></div>
 <p>
 This will create a new container with an empty database and login <code>root</code>.
@@ -141,7 +141,7 @@ This will create a new container with an empty database and login <code>root</co
 <p>
 Restore database from dump
 </p>
-<div class="highlight"><pre><span></span>   sudo docker <span class="nb">exec</span> -i &lt;container-name&gt; mysql -u&lt;user-name&gt; -p&lt;password&gt; --database<span class="o">=</span>&lt;db-name&gt; &lt; &lt;path-to-sql-file&gt;
+<div class="highlight"><pre><span></span><span class="w">   </span>sudo<span class="w"> </span>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-i<span class="w"> </span>&lt;container-name&gt;<span class="w"> </span>mysql<span class="w"> </span>-u&lt;user-name&gt;<span class="w"> </span>-p&lt;password&gt;<span class="w"> </span>--database<span class="o">=</span>&lt;db-name&gt;<span class="w"> </span>&lt;<span class="w"> </span>&lt;path-to-sql-file&gt;
 </pre></div>
 <p>
 Notes:
@@ -158,9 +158,9 @@ Notes:
 </ul>
 </div>
 </div>
-<div id="outline-container-org8a91f98" class="outline-2">
-<h2 id="org8a91f98">Connect to MySQL database running on Docker container from Emacs</h2>
-<div class="outline-text-2" id="text-org8a91f98">
+<div id="outline-container-orgbaf1220" class="outline-2">
+<h2 id="orgbaf1220">Connect to MySQL database running on Docker container from Emacs</h2>
+<div class="outline-text-2" id="text-orgbaf1220">
 <ul class="org-ul">
 <li>First, start the container <code>sudo docker start &lt;container-name&gt;</code>
 </li>

@@ -1,0 +1,15 @@
+#+BEGIN_COMMENT
+.. title: Automatic update of concurrency tokens in Entity Framework Core
+.. slug: automatic-update-of-concurrency-tokens-in-entity-framework-core
+.. date: 2024-01-16 15:43:13 UTC+02:00
+.. tags:
+.. category:
+.. link:
+.. description:
+.. type: text
+.. status: draft
+#+END_COMMENT
+
+Entity Framework Core has a built-in mechanism for [[https://learn.microsoft.com/en-us/ef/core/saving/concurrency][handling concurrency]] which works seamlesly out of the box for when you are using SQL Server as the database server and the =RowVersion= type in the table columns.
+
+However, when the database of choise is not SQL Server, and the column type is not

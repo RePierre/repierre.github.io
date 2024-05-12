@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Rebeja · Automating custom workflow in Emacs </title>
 <link href="../../assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
-<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700%7CAbril+Fatface">
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.1.7/css/fork-awesome.min.css" integrity="sha256-gsmEoJAws/Kd3CjuOQzLie5Q3yshhvmo7YNtBG7aaEY=" crossorigin="anonymous">
 <meta content="#5670d4" name="theme-color">
 <link rel="alternate" type="application/rss+xml" title="RSS" href="../../rss.xml">
@@ -28,7 +28,7 @@
     
     
     </nav><footer id="footer"><span class="copyright">
-              Contents © 2023         <a href="mailto:petru.rebeja@gmail.com">Petru Rebeja</a> - Powered by   <a href="https://www.gnu.org/software/emacs/" rel="nofollow">GNU Emacs</a>  &amp;    <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+              Contents © 2024         <a href="mailto:petru.rebeja@gmail.com">Petru Rebeja</a> - Powered by   <a href="https://www.gnu.org/software/emacs/" rel="nofollow">GNU Emacs</a>  &amp;    <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
             </span>
             
             
@@ -109,19 +109,19 @@ Of course I can because <b>Emacs is awesome</b>. All I need to do is write some 
 <p>
 Fisrt things first, I declared a (global) variable to hold the full path to the directory containing the files:
 </p>
-<div class="highlight"><pre><span></span><span class="p">(</span><span class="nf">defvar</span> <span class="nv">*compare-publications-dir*</span>
-  <span class="s">"&lt;directory-path&gt;"</span>
-  <span class="s">"The location of files to compare."</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><span class="p">(</span><span class="nf">defvar</span><span class="w"> </span><span class="nv">*compare-publications-dir*</span>
+<span class="w">  </span><span class="s">"&lt;directory-path&gt;"</span>
+<span class="w">  </span><span class="s">"The location of files to compare."</span><span class="p">)</span>
 </pre></div>
 <p>
 Then I created a function to get the whole line from the <code>csv</code> file:
 </p>
-<div class="highlight"><pre><span></span><span class="p">(</span><span class="nf">defun</span> <span class="nv">get-current-line</span><span class="p">()</span>
-  <span class="p">(</span><span class="nf">progn</span>
-    <span class="p">(</span><span class="nf">beginning-of-visual-line</span><span class="p">)</span>
-    <span class="p">(</span><span class="k">let </span><span class="p">((</span><span class="nf">start</span> <span class="p">(</span><span class="nf">point</span><span class="p">)))</span>
-      <span class="p">(</span><span class="nf">end-of-visual-line</span><span class="p">)</span>
-      <span class="p">(</span><span class="nf">buffer-substring-no-properties</span> <span class="nv">start</span> <span class="p">(</span><span class="nf">point</span><span class="p">)))))</span>
+<div class="highlight"><pre><span></span><span class="p">(</span><span class="nf">defun</span><span class="w"> </span><span class="nv">get-current-line</span><span class="p">()</span>
+<span class="w">  </span><span class="p">(</span><span class="nf">progn</span>
+<span class="w">    </span><span class="p">(</span><span class="nf">beginning-of-visual-line</span><span class="p">)</span>
+<span class="w">    </span><span class="p">(</span><span class="k">let</span><span class="w"> </span><span class="p">((</span><span class="nf">start</span><span class="w"> </span><span class="p">(</span><span class="nf">point</span><span class="p">)))</span>
+<span class="w">      </span><span class="p">(</span><span class="nf">end-of-visual-line</span><span class="p">)</span>
+<span class="w">      </span><span class="p">(</span><span class="nf">buffer-substring-no-properties</span><span class="w"> </span><span class="nv">start</span><span class="w"> </span><span class="p">(</span><span class="nf">point</span><span class="p">)))))</span>
 </pre></div>
 <p>
 This function moves the point to the beginning of the line by calling <code>(beginning-of-visual-line)</code> then saves the position in a local variable <code>start</code> and moves to the end of the line via a call to <code>(end-of-visual-line)</code>. In the end it returns the substring which is between <code>start</code> position and the position returned by <code>(point)</code> function.
@@ -141,16 +141,16 @@ g) Return to the left window
 <p>
 This was also implemented with a function which can be called interactively via <code>M-x</code>:
 </p>
-<div class="highlight"><pre><span></span><span class="p">(</span><span class="nf">defun</span> <span class="nv">compare-publications</span><span class="p">()</span>
-  <span class="p">(</span><span class="nf">interactive</span><span class="p">)</span>
-  <span class="p">(</span><span class="k">let* </span><span class="p">((</span><span class="nf">files</span> <span class="p">(</span><span class="nf">csv-split-string</span> <span class="p">(</span><span class="nf">get-current-line</span><span class="p">)</span> <span class="s">","</span><span class="p">))</span>
-	 <span class="p">(</span><span class="nf">file-1</span> <span class="p">(</span><span class="nb">car </span><span class="nv">files</span><span class="p">))</span>
-	 <span class="p">(</span><span class="nf">file-2</span> <span class="p">(</span><span class="nb">car </span><span class="p">(</span><span class="nb">cdr </span><span class="nv">files</span><span class="p">))))</span>
-    <span class="p">(</span><span class="nf">other-window</span> <span class="mi">1</span><span class="p">)</span>
-    <span class="p">(</span><span class="nf">find-file-read-only</span> <span class="p">(</span><span class="nf">concat</span> <span class="nv">*compare-publications-dir*</span> <span class="nv">file-1</span><span class="p">))</span>
-    <span class="p">(</span><span class="nf">other-window</span> <span class="mi">1</span><span class="p">)</span>
-    <span class="p">(</span><span class="nf">find-file-read-only</span> <span class="p">(</span><span class="nf">concat</span> <span class="nv">*compare-publications-dir*</span> <span class="nv">file-2</span><span class="p">))</span>
-    <span class="p">(</span><span class="nf">other-window</span> <span class="mi">1</span><span class="p">)))</span>
+<div class="highlight"><pre><span></span><span class="p">(</span><span class="nf">defun</span><span class="w"> </span><span class="nv">compare-publications</span><span class="p">()</span>
+<span class="w">  </span><span class="p">(</span><span class="nf">interactive</span><span class="p">)</span>
+<span class="w">  </span><span class="p">(</span><span class="k">let*</span><span class="w"> </span><span class="p">((</span><span class="nf">files</span><span class="w"> </span><span class="p">(</span><span class="nf">csv-split-string</span><span class="w"> </span><span class="p">(</span><span class="nf">get-current-line</span><span class="p">)</span><span class="w"> </span><span class="s">","</span><span class="p">))</span>
+<span class="w">         </span><span class="p">(</span><span class="nf">file-1</span><span class="w"> </span><span class="p">(</span><span class="nb">car</span><span class="w"> </span><span class="nv">files</span><span class="p">))</span>
+<span class="w">         </span><span class="p">(</span><span class="nf">file-2</span><span class="w"> </span><span class="p">(</span><span class="nb">car</span><span class="w"> </span><span class="p">(</span><span class="nb">cdr</span><span class="w"> </span><span class="nv">files</span><span class="p">))))</span>
+<span class="w">    </span><span class="p">(</span><span class="nf">other-window</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span>
+<span class="w">    </span><span class="p">(</span><span class="nf">find-file-read-only</span><span class="w"> </span><span class="p">(</span><span class="nf">concat</span><span class="w"> </span><span class="nv">*compare-publications-dir*</span><span class="w"> </span><span class="nv">file-1</span><span class="p">))</span>
+<span class="w">    </span><span class="p">(</span><span class="nf">other-window</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span>
+<span class="w">    </span><span class="p">(</span><span class="nf">find-file-read-only</span><span class="w"> </span><span class="p">(</span><span class="nf">concat</span><span class="w"> </span><span class="nv">*compare-publications-dir*</span><span class="w"> </span><span class="nv">file-2</span><span class="p">))</span>
+<span class="w">    </span><span class="p">(</span><span class="nf">other-window</span><span class="w"> </span><span class="mi">1</span><span class="p">)))</span>
 </pre></div>
 
 <p>

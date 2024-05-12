@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Rebeja · MediatR - Handler not found error when the DataContext couldn't be initialized </title>
 <link href="../../assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
-<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700%7CAbril+Fatface">
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.1.7/css/fork-awesome.min.css" integrity="sha256-gsmEoJAws/Kd3CjuOQzLie5Q3yshhvmo7YNtBG7aaEY=" crossorigin="anonymous">
 <meta content="#5670d4" name="theme-color">
 <link rel="alternate" type="application/rss+xml" title="RSS" href="../../rss.xml">
@@ -28,7 +28,7 @@
     
     
     </nav><footer id="footer"><span class="copyright">
-              Contents © 2023         <a href="mailto:petru.rebeja@gmail.com">Petru Rebeja</a> - Powered by   <a href="https://www.gnu.org/software/emacs/" rel="nofollow">GNU Emacs</a>  &amp;    <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+              Contents © 2024         <a href="mailto:petru.rebeja@gmail.com">Petru Rebeja</a> - Powered by   <a href="https://www.gnu.org/software/emacs/" rel="nofollow">GNU Emacs</a>  &amp;    <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
             </span>
             
             
@@ -74,27 +74,27 @@ An unhandled exception of type 'System.InvalidOperationException' occurred in Me
 <p>
 The exception was popping inside the <a href="https://msdn.microsoft.com/en-us/library/system.web.http.authorizeattribute.isauthorized(v=vs.118).aspx"><code>IsAuthorized</code></a> method of a custom <a href="https://msdn.microsoft.com/en-us/library/system.web.http.authorizeattribute(v=vs.118).aspx"><code>AuthorizeAttribute</code></a>
 </p>
-<div class="highlight"><pre><span></span>protected override bool IsAuthorized(HttpActionContext actionContext)
-{
-    try
-    {
-	  var authorizationToken = new AuthorizationToken(actionContext.Request);
-	  if (String.IsNullOrEmpty(authorizationToken.Value))
-	  {
-		return false;
-	  }
-	  var request = new GetAuthorizedUserRequest
-	  {
-		AuthorizationToken = authorizationToken.Value
-	  };
-	  var user = _securityService.GetAuthorizedUser(request);
-	  return user != null;
-    }
-    catch (Exception)
-    {
-	  return false;
-    }
-}
+<div class="highlight"><pre><span></span><span class="k">protected</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="nf">IsAuthorized</span><span class="p">(</span><span class="n">HttpActionContext</span><span class="w"> </span><span class="n">actionContext</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">try</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">          </span><span class="kt">var</span><span class="w"> </span><span class="n">authorizationToken</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">AuthorizationToken</span><span class="p">(</span><span class="n">actionContext</span><span class="p">.</span><span class="n">Request</span><span class="p">);</span>
+<span class="w">          </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">String</span><span class="p">.</span><span class="n">IsNullOrEmpty</span><span class="p">(</span><span class="n">authorizationToken</span><span class="p">.</span><span class="n">Value</span><span class="p">))</span>
+<span class="w">          </span><span class="p">{</span>
+<span class="w">                </span><span class="k">return</span><span class="w"> </span><span class="k">false</span><span class="p">;</span>
+<span class="w">          </span><span class="p">}</span>
+<span class="w">          </span><span class="kt">var</span><span class="w"> </span><span class="n">request</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">GetAuthorizedUserRequest</span>
+<span class="w">          </span><span class="p">{</span>
+<span class="w">                </span><span class="n">AuthorizationToken</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">authorizationToken</span><span class="p">.</span><span class="n">Value</span>
+<span class="w">          </span><span class="p">};</span>
+<span class="w">          </span><span class="kt">var</span><span class="w"> </span><span class="n">user</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_securityService</span><span class="p">.</span><span class="n">GetAuthorizedUser</span><span class="p">(</span><span class="n">request</span><span class="p">);</span>
+<span class="w">          </span><span class="k">return</span><span class="w"> </span><span class="n">user</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="k">null</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">Exception</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">          </span><span class="k">return</span><span class="w"> </span><span class="k">false</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 <p>
 The first thing to do was to thoroughly inspect what does the IoC container (<code>StructureMap</code> in my case) has registered. After a glimpse through the output of <code>WhatDoIHave()</code> method I saw that the handler <code>GetAuthorizedUserRequestHandler</code> was indeed registered as a <code>IRequestHandler&lt;GetAuthorizedUserRequest, GetAuthorizedUserResponse&gt;</code>.

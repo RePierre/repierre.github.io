@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Rebeja · Abstraction is not a principle of Object Oriented Programming </title>
 <link href="../../assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
-<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700%7CAbril+Fatface">
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.1.7/css/fork-awesome.min.css" integrity="sha256-gsmEoJAws/Kd3CjuOQzLie5Q3yshhvmo7YNtBG7aaEY=" crossorigin="anonymous">
 <meta content="#5670d4" name="theme-color">
 <link rel="alternate" type="application/rss+xml" title="RSS" href="../../rss.xml">
@@ -28,7 +28,7 @@
     
     
     </nav><footer id="footer"><span class="copyright">
-              Contents © 2023         <a href="mailto:petru.rebeja@gmail.com">Petru Rebeja</a> - Powered by   <a href="https://www.gnu.org/software/emacs/" rel="nofollow">GNU Emacs</a>  &amp;    <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+              Contents © 2024         <a href="mailto:petru.rebeja@gmail.com">Petru Rebeja</a> - Powered by   <a href="https://www.gnu.org/software/emacs/" rel="nofollow">GNU Emacs</a>  &amp;    <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
             </span>
             
             
@@ -47,17 +47,17 @@
     
 
     <div class="e-content entry-content" itemprop="articleBody text">
-    <div id="outline-container-org788c721" class="outline-2">
-<h2 id="org788c721">TL;DR</h2>
-<div class="outline-text-2" id="text-org788c721">
+    <div id="outline-container-orgaf4a635" class="outline-2">
+<h2 id="orgaf4a635">TL;DR</h2>
+<div class="outline-text-2" id="text-orgaf4a635">
 <p>
 <code>Abstraction</code> is a core concept in programming and not a principle that is <b>solely</b> applicable in OOP, because <b>programming is all about dealing with an abstract representation of the business model (application space)</b>.
 </p>
 </div>
 </div>
-<div id="outline-container-orgea42fce" class="outline-2">
-<h2 id="orgea42fce">Abstraction is an overall programming principle</h2>
-<div class="outline-text-2" id="text-orgea42fce">
+<div id="outline-container-orgc88c579" class="outline-2">
+<h2 id="orgc88c579">Abstraction is an overall programming principle</h2>
+<div class="outline-text-2" id="text-orgc88c579">
 <p>
 There are a lot of articles saying that OOP has four principles:
 </p>
@@ -84,9 +84,9 @@ Why? Because programming means modeling entities and interactions of an <i>abstr
 </p>
 </div>
 </div>
-<div id="outline-container-org04b8e2b" class="outline-2">
-<h2 id="org04b8e2b">An example of <code>abstraction</code> in OOP</h2>
-<div class="outline-text-2" id="text-org04b8e2b">
+<div id="outline-container-org4449dd5" class="outline-2">
+<h2 id="org4449dd5">An example of <code>abstraction</code> in OOP</h2>
+<div class="outline-text-2" id="text-org4449dd5">
 <p>
 To better clarify what <code>abstraction</code> is (in OOP) let's consider a trivial example: A <code>StudentRegistrationController</code> (ASP.NET MVC) needs to save the data from a registration form (<code>Student</code>) into some sort of database represented by an instance of <code>IStudentDataStore</code>.
 </p>
@@ -94,42 +94,42 @@ To better clarify what <code>abstraction</code> is (in OOP) let's consider a tri
 <p>
 For the sake of brevity let's say that <code>IStudentDataStore</code> interface has the following definition:
 </p>
-<div class="highlight"><pre><span></span>  public interface IStudentDataStore
-  {
-      void Save(Student student);
-  }
+<div class="highlight"><pre><span></span><span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="k">interface</span><span class="w"> </span><span class="n">IStudentDataStore</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">      </span><span class="k">void</span><span class="w"> </span><span class="nf">Save</span><span class="p">(</span><span class="n">Student</span><span class="w"> </span><span class="n">student</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
 </pre></div>
 <p>
 With that in mind, the code for the example above would look like this:
 </p>
-<div class="highlight"><pre><span></span>  public class Student
-  {
-      public string FirstName { get; set; }
+<div class="highlight"><pre><span></span><span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">Student</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">      </span><span class="k">public</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="n">FirstName</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 
-      public string LastName { get; set; }
+<span class="w">      </span><span class="k">public</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="n">LastName</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 
-      public DateTime DateOfBirth { get; set; }
+<span class="w">      </span><span class="k">public</span><span class="w"> </span><span class="n">DateTime</span><span class="w"> </span><span class="n">DateOfBirth</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 
-      public Gender Gender { get; set; }
+<span class="w">      </span><span class="k">public</span><span class="w"> </span><span class="n">Gender</span><span class="w"> </span><span class="n">Gender</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 
-      public string Email { get; set; }
+<span class="w">      </span><span class="k">public</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="n">Email</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 
-      public string PhoneNumber { get; set; }
-  }
+<span class="w">      </span><span class="k">public</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="n">PhoneNumber</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
 
-  public class StudentRegistrationController : Controller
-  {
-      public StudentRegistrationController(IStudentDataStore dataStore)
-      {
-	  _dataStore = dataStore;
-      }
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">StudentRegistrationController</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">Controller</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">      </span><span class="k">public</span><span class="w"> </span><span class="nf">StudentRegistrationController</span><span class="p">(</span><span class="n">IStudentDataStore</span><span class="w"> </span><span class="n">dataStore</span><span class="p">)</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">          </span><span class="n">_dataStore</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dataStore</span><span class="p">;</span>
+<span class="w">      </span><span class="p">}</span>
 
-      public ActionResult Save(Student viewModel)
-      {
-	  // Validation ommited for brevity
-	  _dataStore.Save(viewModel);
-      }
-  }
+<span class="w">      </span><span class="k">public</span><span class="w"> </span><span class="n">ActionResult</span><span class="w"> </span><span class="nf">Save</span><span class="p">(</span><span class="n">Student</span><span class="w"> </span><span class="n">viewModel</span><span class="p">)</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">          </span><span class="c1">// Validation ommited for brevity</span>
+<span class="w">          </span><span class="n">_dataStore</span><span class="p">.</span><span class="n">Save</span><span class="p">(</span><span class="n">viewModel</span><span class="p">);</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
 </pre></div>
 <p>
 As we can see from the code the <code>IStudentDataStore</code> abstracts the details of how <code>Student</code> data is persisted. The interface doesn't tell whether the data is persisted to a flat file, SQL Database, NoSQL database or other media. As long as we have an implementation of <code>IStudentDataStore</code> the controller works just fine.
@@ -140,9 +140,9 @@ But is this <code>abstraction</code> technique available <i>only</i> in OOP para
 </p>
 </div>
 </div>
-<div id="outline-container-org0da2756" class="outline-2">
-<h2 id="org0da2756">The same example of <code>abstraction</code> in functional programming</h2>
-<div class="outline-text-2" id="text-org0da2756">
+<div id="outline-container-org70a40b8" class="outline-2">
+<h2 id="org70a40b8">The same example of <code>abstraction</code> in functional programming</h2>
+<div class="outline-text-2" id="text-org70a40b8">
 <p>
 To see how the same thing would be written in a functional style let's first see what are the entities from the previous example and how those entities interact between them:
 </p>
@@ -184,61 +184,61 @@ Having the above and knowing that in functional programming <i>everything is a f
 <p>
 Note that both functions have the same signature. The parameters of these functions represent the data contract.
 </p>
-<div class="highlight"><pre><span></span>  <span class="p">(</span><span class="nb">defun</span> <span class="nv">persist-student-info-to-file</span> <span class="p">(</span><span class="nv">first-name</span> <span class="nv">last-name</span> <span class="nv">dob</span> <span class="nv">gender</span> <span class="nv">email</span> <span class="nv">phone</span><span class="p">)</span>
-    <span class="c1">;; Writes the info as a new line into the file specified by *database-location*</span>
-    <span class="p">(</span><span class="k">let</span> <span class="p">((</span><span class="nc">stream</span> <span class="p">(</span><span class="nb">open</span> <span class="vg">*database-location*</span>
-		<span class="ss">:direction</span> <span class="ss">:output</span>
-		<span class="ss">:if-exists</span> <span class="ss">:append</span><span class="p">)))</span>
-      <span class="p">(</span><span class="nb">format</span> <span class="nc">stream</span> <span class="s">"~s|~s|~s|~s|~s|~s"</span>
-	  <span class="nv">first-name</span>
-	  <span class="nv">last-name</span>
-	  <span class="nv">dob</span>
-	  <span class="nv">gender</span>
-	  <span class="nv">email</span>
-	  <span class="nv">phone</span><span class="p">)</span>
-      <span class="p">(</span><span class="nb">close</span> <span class="nc">stream</span><span class="p">)))</span>
+<div class="highlight"><pre><span></span><span class="w">  </span><span class="p">(</span><span class="nb">defun</span><span class="w"> </span><span class="nv">persist-student-info-to-file</span><span class="w"> </span><span class="p">(</span><span class="nv">first-name</span><span class="w"> </span><span class="nv">last-name</span><span class="w"> </span><span class="nv">dob</span><span class="w"> </span><span class="nv">gender</span><span class="w"> </span><span class="nv">email</span><span class="w"> </span><span class="nv">phone</span><span class="p">)</span>
+<span class="w">    </span><span class="c1">;; Writes the info as a new line into the file specified by *database-location*</span>
+<span class="w">    </span><span class="p">(</span><span class="k">let</span><span class="w"> </span><span class="p">((</span><span class="nc">stream</span><span class="w"> </span><span class="p">(</span><span class="nb">open</span><span class="w"> </span><span class="vg">*database-location*</span>
+<span class="w">                </span><span class="ss">:direction</span><span class="w"> </span><span class="ss">:output</span>
+<span class="w">                </span><span class="ss">:if-exists</span><span class="w"> </span><span class="ss">:append</span><span class="p">)))</span>
+<span class="w">      </span><span class="p">(</span><span class="nb">format</span><span class="w"> </span><span class="nc">stream</span><span class="w"> </span><span class="s">"~s|~s|~s|~s|~s|~s"</span>
+<span class="w">          </span><span class="nv">first-name</span>
+<span class="w">          </span><span class="nv">last-name</span>
+<span class="w">          </span><span class="nv">dob</span>
+<span class="w">          </span><span class="nv">gender</span>
+<span class="w">          </span><span class="nv">email</span>
+<span class="w">          </span><span class="nv">phone</span><span class="p">)</span>
+<span class="w">      </span><span class="p">(</span><span class="nb">close</span><span class="w"> </span><span class="nc">stream</span><span class="p">)))</span>
 
 
-  <span class="p">(</span><span class="nb">defun</span> <span class="nv">persist-student-info-in-memory</span> <span class="p">(</span><span class="nv">first-name</span> <span class="nv">last-name</span> <span class="nv">dob</span> <span class="nv">gender</span> <span class="nv">email</span> <span class="nv">phone</span><span class="p">)</span>
-    <span class="c1">;; Persists student data into an in-memory data store named *all-students*</span>
-    <span class="p">(</span><span class="k">let</span> <span class="p">((</span><span class="nv">student-id</span> <span class="p">(</span><span class="nb">list-length</span> <span class="vg">*all-students*</span><span class="p">)))</span>
-      <span class="p">(</span><span class="k">setq</span> <span class="vg">*all-students*</span>
-	<span class="p">(</span><span class="nb">append</span> <span class="vg">*all-students*</span>
-	    <span class="p">(</span><span class="nb">list</span> <span class="nv">student-id</span> <span class="nv">first-name</span> <span class="nv">last-name</span> <span class="nv">dob</span> <span class="nv">gender</span> <span class="nv">email</span> <span class="nv">phone</span><span class="p">)))))</span>
+<span class="w">  </span><span class="p">(</span><span class="nb">defun</span><span class="w"> </span><span class="nv">persist-student-info-in-memory</span><span class="w"> </span><span class="p">(</span><span class="nv">first-name</span><span class="w"> </span><span class="nv">last-name</span><span class="w"> </span><span class="nv">dob</span><span class="w"> </span><span class="nv">gender</span><span class="w"> </span><span class="nv">email</span><span class="w"> </span><span class="nv">phone</span><span class="p">)</span>
+<span class="w">    </span><span class="c1">;; Persists student data into an in-memory data store named *all-students*</span>
+<span class="w">    </span><span class="p">(</span><span class="k">let</span><span class="w"> </span><span class="p">((</span><span class="nv">student-id</span><span class="w"> </span><span class="p">(</span><span class="nb">list-length</span><span class="w"> </span><span class="vg">*all-students*</span><span class="p">)))</span>
+<span class="w">      </span><span class="p">(</span><span class="k">setq</span><span class="w"> </span><span class="vg">*all-students*</span>
+<span class="w">        </span><span class="p">(</span><span class="nb">append</span><span class="w"> </span><span class="vg">*all-students*</span>
+<span class="w">            </span><span class="p">(</span><span class="nb">list</span><span class="w"> </span><span class="nv">student-id</span><span class="w"> </span><span class="nv">first-name</span><span class="w"> </span><span class="nv">last-name</span><span class="w"> </span><span class="nv">dob</span><span class="w"> </span><span class="nv">gender</span><span class="w"> </span><span class="nv">email</span><span class="w"> </span><span class="nv">phone</span><span class="p">)))))</span>
 
-  <span class="p">(</span><span class="nb">defun</span> <span class="nv">save-student</span> <span class="p">(</span><span class="nv">student-info</span> <span class="nv">persist-func</span><span class="p">)</span>
-    <span class="c1">;; Saves student data to a persistent store</span>
-    <span class="p">(</span><span class="k">let</span> <span class="p">((</span><span class="nv">first-name</span> <span class="p">(</span><span class="nb">gethash</span> <span class="ss">'first-name</span> <span class="nv">student-info</span><span class="p">))</span>
-	  <span class="p">(</span><span class="nv">last-name</span> <span class="p">(</span><span class="nb">gethash</span> <span class="ss">'last-name</span> <span class="nv">student-info</span><span class="p">))</span>
-	  <span class="p">(</span><span class="nv">dob</span> <span class="p">(</span><span class="nb">gethash</span> <span class="ss">'date-of-birth</span> <span class="nv">student-info</span><span class="p">))</span>
-	  <span class="p">(</span><span class="nv">gender</span> <span class="p">(</span><span class="nb">gethash</span> <span class="ss">'gender</span> <span class="nv">student-info</span><span class="p">))</span>
-	  <span class="p">(</span><span class="nv">email</span> <span class="p">(</span><span class="nb">gethash</span> <span class="ss">'email</span> <span class="nv">student-info</span><span class="p">))</span>
-	  <span class="p">(</span><span class="nv">phone</span> <span class="p">(</span><span class="nb">gethash</span> <span class="ss">'phone-number</span> <span class="nv">student-info</span><span class="p">)))</span>
-      <span class="p">(</span><span class="nb">funcall</span> <span class="nv">persist-func</span> <span class="nv">first-name</span> <span class="nv">last-name</span> <span class="nv">dob</span> <span class="nv">gender</span> <span class="nv">email</span> <span class="nv">phone</span><span class="p">)))</span>
+<span class="w">  </span><span class="p">(</span><span class="nb">defun</span><span class="w"> </span><span class="nv">save-student</span><span class="w"> </span><span class="p">(</span><span class="nv">student-info</span><span class="w"> </span><span class="nv">persist-func</span><span class="p">)</span>
+<span class="w">    </span><span class="c1">;; Saves student data to a persistent store</span>
+<span class="w">    </span><span class="p">(</span><span class="k">let</span><span class="w"> </span><span class="p">((</span><span class="nv">first-name</span><span class="w"> </span><span class="p">(</span><span class="nb">gethash</span><span class="w"> </span><span class="ss">'first-name</span><span class="w"> </span><span class="nv">student-info</span><span class="p">))</span>
+<span class="w">          </span><span class="p">(</span><span class="nv">last-name</span><span class="w"> </span><span class="p">(</span><span class="nb">gethash</span><span class="w"> </span><span class="ss">'last-name</span><span class="w"> </span><span class="nv">student-info</span><span class="p">))</span>
+<span class="w">          </span><span class="p">(</span><span class="nv">dob</span><span class="w"> </span><span class="p">(</span><span class="nb">gethash</span><span class="w"> </span><span class="ss">'date-of-birth</span><span class="w"> </span><span class="nv">student-info</span><span class="p">))</span>
+<span class="w">          </span><span class="p">(</span><span class="nv">gender</span><span class="w"> </span><span class="p">(</span><span class="nb">gethash</span><span class="w"> </span><span class="ss">'gender</span><span class="w"> </span><span class="nv">student-info</span><span class="p">))</span>
+<span class="w">          </span><span class="p">(</span><span class="nv">email</span><span class="w"> </span><span class="p">(</span><span class="nb">gethash</span><span class="w"> </span><span class="ss">'email</span><span class="w"> </span><span class="nv">student-info</span><span class="p">))</span>
+<span class="w">          </span><span class="p">(</span><span class="nv">phone</span><span class="w"> </span><span class="p">(</span><span class="nb">gethash</span><span class="w"> </span><span class="ss">'phone-number</span><span class="w"> </span><span class="nv">student-info</span><span class="p">)))</span>
+<span class="w">      </span><span class="p">(</span><span class="nb">funcall</span><span class="w"> </span><span class="nv">persist-func</span><span class="w"> </span><span class="nv">first-name</span><span class="w"> </span><span class="nv">last-name</span><span class="w"> </span><span class="nv">dob</span><span class="w"> </span><span class="nv">gender</span><span class="w"> </span><span class="nv">email</span><span class="w"> </span><span class="nv">phone</span><span class="p">)))</span>
 </pre></div>
 <p>
 Having the definitions above we can achieve the same level of abstraction by putting everything together and defining global variables (think of it as poor mans <code>dependency injection</code>):
 </p>
-<div class="highlight"><pre><span></span>  <span class="p">(</span><span class="nb">defparameter</span> <span class="vg">*database-location*</span> <span class="s">"/tmp/students"</span><span class="p">)</span>
-  <span class="p">(</span><span class="nb">defparameter</span> <span class="vg">*student-info*</span> <span class="p">(</span><span class="nb">make-hash-table</span><span class="p">))</span>
+<div class="highlight"><pre><span></span><span class="w">  </span><span class="p">(</span><span class="nb">defparameter</span><span class="w"> </span><span class="vg">*database-location*</span><span class="w"> </span><span class="s">"/tmp/students"</span><span class="p">)</span>
+<span class="w">  </span><span class="p">(</span><span class="nb">defparameter</span><span class="w"> </span><span class="vg">*student-info*</span><span class="w"> </span><span class="p">(</span><span class="nb">make-hash-table</span><span class="p">))</span>
 
-  <span class="p">(</span><span class="k">progn</span>
-    <span class="p">(</span><span class="nb">setf</span> <span class="p">(</span><span class="nb">gethash</span> <span class="ss">'first-name</span> <span class="vg">*student-info*</span><span class="p">)</span> <span class="s">"John"</span><span class="p">)</span>
-    <span class="p">(</span><span class="nb">setf</span> <span class="p">(</span><span class="nb">gethash</span> <span class="ss">'last-name</span> <span class="vg">*student-info*</span><span class="p">)</span> <span class="s">"Doe"</span><span class="p">)</span>
-    <span class="p">(</span><span class="nb">setf</span> <span class="p">(</span><span class="nb">gethash</span> <span class="ss">'date-of-birth</span> <span class="nv">*student-info</span><span class="p">)</span> <span class="s">"2000-05-14"</span><span class="p">)</span>
-    <span class="p">(</span><span class="nb">setf</span> <span class="p">(</span><span class="nb">gethash</span> <span class="ss">'email</span> <span class="vg">*student-info*</span><span class="p">)</span> <span class="s">"john.doe@example.com"</span><span class="p">)</span>
-    <span class="p">(</span><span class="nb">setf</span> <span class="p">(</span><span class="nb">gethash</span> <span class="ss">'phone-number</span> <span class="vg">*student-info*</span><span class="p">)</span> <span class="s">"1234567981"</span><span class="p">))</span>
+<span class="w">  </span><span class="p">(</span><span class="k">progn</span>
+<span class="w">    </span><span class="p">(</span><span class="nb">setf</span><span class="w"> </span><span class="p">(</span><span class="nb">gethash</span><span class="w"> </span><span class="ss">'first-name</span><span class="w"> </span><span class="vg">*student-info*</span><span class="p">)</span><span class="w"> </span><span class="s">"John"</span><span class="p">)</span>
+<span class="w">    </span><span class="p">(</span><span class="nb">setf</span><span class="w"> </span><span class="p">(</span><span class="nb">gethash</span><span class="w"> </span><span class="ss">'last-name</span><span class="w"> </span><span class="vg">*student-info*</span><span class="p">)</span><span class="w"> </span><span class="s">"Doe"</span><span class="p">)</span>
+<span class="w">    </span><span class="p">(</span><span class="nb">setf</span><span class="w"> </span><span class="p">(</span><span class="nb">gethash</span><span class="w"> </span><span class="ss">'date-of-birth</span><span class="w"> </span><span class="nv">*student-info</span><span class="p">)</span><span class="w"> </span><span class="s">"2000-05-14"</span><span class="p">)</span>
+<span class="w">    </span><span class="p">(</span><span class="nb">setf</span><span class="w"> </span><span class="p">(</span><span class="nb">gethash</span><span class="w"> </span><span class="ss">'email</span><span class="w"> </span><span class="vg">*student-info*</span><span class="p">)</span><span class="w"> </span><span class="s">"john.doe@example.com"</span><span class="p">)</span>
+<span class="w">    </span><span class="p">(</span><span class="nb">setf</span><span class="w"> </span><span class="p">(</span><span class="nb">gethash</span><span class="w"> </span><span class="ss">'phone-number</span><span class="w"> </span><span class="vg">*student-info*</span><span class="p">)</span><span class="w"> </span><span class="s">"1234567981"</span><span class="p">))</span>
 
-  <span class="p">(</span><span class="nv">save-student</span> <span class="vg">*student-info*</span> <span class="ss">'persist-student-info-to-file</span><span class="p">)</span>
+<span class="w">  </span><span class="p">(</span><span class="nv">save-student</span><span class="w"> </span><span class="vg">*student-info*</span><span class="w"> </span><span class="ss">'persist-student-info-to-file</span><span class="p">)</span>
 </pre></div>
 <p>
 Et voilà! We have used <code>abstraction</code> in a functional style to remove the details of how the data is persisted thus showing that <code>abstraction</code> isn't a principle applicable only to object oriented programming.
 </p>
 </div>
 </div>
-<div id="outline-container-org2cc3563" class="outline-2">
-<h2 id="org2cc3563">Acknowledgments</h2>
-<div class="outline-text-2" id="text-org2cc3563">
+<div id="outline-container-org950b8b4" class="outline-2">
+<h2 id="org950b8b4">Acknowledgments</h2>
+<div class="outline-text-2" id="text-org950b8b4">
 <p>
 A big thank you to <a href="https://be.linkedin.com/in/ion-cojocaru-81b5a230">Ion Cojocaru</a> and <a href="https://ro.linkedin.com/in/florin-olariu-38615126">Florin Olariu</a> who reviewed this post before publication.
 </p>

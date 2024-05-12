@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Rebeja (Posts about terminal)</title><link>https://rebeja.eu/</link><description></description><atom:link href="https://rebeja.eu/categories/terminal.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2021 &lt;a href="mailto:petru.rebeja@gmail.com"&gt;Petru Rebeja&lt;/a&gt; </copyright><lastBuildDate>Fri, 31 Dec 2021 11:22:00 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Python development using Emacs from terminal</title><link>https://rebeja.eu/posts/python-development-using-emacs-from-terminal/</link><dc:creator>Petru Rebeja</dc:creator><description>&lt;p&gt;
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Rebeja (Posts about terminal)</title><link>https://rebeja.eu/</link><description></description><atom:link href="https://rebeja.eu/categories/terminal.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2024 &lt;a href="mailto:petru.rebeja@gmail.com"&gt;Petru Rebeja&lt;/a&gt; </copyright><lastBuildDate>Fri, 03 May 2024 18:22:39 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Python development using Emacs from terminal</title><link>https://rebeja.eu/posts/python-development-using-emacs-from-terminal/</link><dc:creator>Petru Rebeja</dc:creator><description>&lt;p&gt;
 A few weeks ago, while working on a hackathon project I found myself very disappointed with my progress.
 &lt;/p&gt;
 
@@ -22,8 +22,8 @@ Emacs can be opened from console so why not start working on hackathon from cons
 &lt;p&gt;
 Said and done. &lt;code&gt;Ctrl-Alt-F1&lt;/code&gt; and I was prompted with the TTY cursor. I logged in, started Emacs opened all the required files and started working. All good until I found myself in the situation where I needed to lookup something on the Internet. I knew I could use &lt;code&gt;eww&lt;/code&gt; as a web browser so normally I did so (yeah, I'm one of those people that use Bing instead of Google):
 &lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;M-x eww
-Enter URL or keywords: www.bing.com
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;M-x&lt;span class="w"&gt; &lt;/span&gt;eww
+Enter&lt;span class="w"&gt; &lt;/span&gt;URL&lt;span class="w"&gt; &lt;/span&gt;or&lt;span class="w"&gt; &lt;/span&gt;keywords:&lt;span class="w"&gt; &lt;/span&gt;www.bing.com
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;
 And nothing… Oh, wait, I remember needing to enter some username and password when connecting to the Wi-Fi but I wasn't prompted for those after logging into terminal. How do I connect to the network?
@@ -32,7 +32,7 @@ And nothing… Oh, wait, I remember needing to enter some username and password 
 &lt;p&gt;
 As there was no way for me to find that out without using some sort of GUI (I'm not that good with terminals) I started a new X session, connected from there to Wi-Fi and found this &lt;a href="https://askubuntu.com/a/461831/561980"&gt;StackOverflow answer&lt;/a&gt;. So I logged back to the terminal and from Emacs started &lt;b&gt;eshell&lt;/b&gt; with &lt;code&gt;M-x eshell&lt;/code&gt;. From there I issued the following command
 &lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;nmcli c up &amp;lt;wi-fi-name&amp;gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;nmcli&lt;span class="w"&gt; &lt;/span&gt;c&lt;span class="w"&gt; &lt;/span&gt;up&lt;span class="w"&gt; &lt;/span&gt;&amp;lt;wi-fi-name&amp;gt;
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;
 which connected me to the Wi-Fi network.
@@ -41,7 +41,7 @@ which connected me to the Wi-Fi network.
 &lt;p&gt;
 Note: I got connected because on previous sessions I opted to store the credentials for the connection; to get a prompt for username and password for the Wi-Fi use the &lt;code&gt;--ask&lt;/code&gt; parameter like this:
 &lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;nmcli --ask c up &amp;lt;wi-fi-name&amp;gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;nmcli&lt;span class="w"&gt; &lt;/span&gt;--ask&lt;span class="w"&gt; &lt;/span&gt;c&lt;span class="w"&gt; &lt;/span&gt;up&lt;span class="w"&gt; &lt;/span&gt;&amp;lt;wi-fi-name&amp;gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;
