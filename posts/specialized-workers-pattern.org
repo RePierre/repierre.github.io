@@ -2,7 +2,7 @@
 .. title: Introducing the Specialized Workers pattern
 .. slug: specialized-workers-pattern
 .. date: 2024-05-12 11:09:45 UTC+03:00
-.. tags:
+.. tags: specialized workers, pattern, implementation, c#
 .. category:
 .. link:
 .. description:
