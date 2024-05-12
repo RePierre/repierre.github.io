@@ -11,9 +11,9 @@
 #+END_COMMENT
 * Introduction
 
-A few years ago, in my [[link://slug/using-enums-in-c-sharp][blog post about using enums in C#]] I mentioned that I like using what I called at that time =specialized builders= to refactor the =switch= statement into a series of classes that implement a common interface and are specialized for a specific =case= of the =switch= statement.
+Some years ago, in my [[link://slug/using-enums-in-c-sharp][blog post about using enums in C#]] I mentioned that I like using what I called at that time =specialized builders= to refactor the =switch= statement into a series of classes that implement a common interface and are specialized for a specific =case= of the =switch= statement.
 
-For the past few years I have been showing to my colleagues a slightly improved version of this approach (shown below) and they all seem to aggree that this is indeed a cleaner, and more elegant approach which, unlike the infamous =switch= statement does abide by the [[https://en.wikipedia.org/wiki/Open/closed_principle][Open/Closed principle]].
+For the past few years I have been showing to my colleagues a slightly improved version of this approach (the topic of this post) and they all seem to agree that this is indeed a cleaner, and more elegant approach which, unlike the infamous =switch= statement does abide by the [[https://en.wikipedia.org/wiki/Open/closed_principle][Open/Closed principle]].
 
 As such, I am excited to introduce to the world the =Specialized Workers= pattern.
 
@@ -23,9 +23,9 @@ As such, I am excited to introduce to the world the =Specialized Workers= patter
 
 The =Specialized Workers= pattern aims to distribute the logic of a business operation that requires choosing between one or multiple tasks to be executed, into a collection of specialized classes, while keeping the knowledge about the task(s) to be executed into a single place.
 
-Under theese circumstances each worker knows about the data just enough to know whether it /can accomplish the task/, and /how to accomplish/ it.
+Under these circumstances each worker knows about the data just enough to know whether it /can accomplish the task/, and /how to accomplish/ it.
 
-Usually (at least from my experience), the decision to delegate a certain subtask was made by the unit that is in charge of delegating. In an abstract representation the code would look something like this:
+Usually (at least from my experience), the decision to delegate a certain sub task was made by the unit that is in charge of delegating. In an abstract representation the code would look something like this:
 #+begin_src csharp
   if(SomeCondition())
   {
@@ -48,17 +48,20 @@ Put differently than at the beginning of this section,  the purpose of =Speciali
 - enclose in a single place /the knowledge about being able to perform a specific task/ and /the knowledge required to perform that task/.
 
 ** Implementation
+:PROPERTIES:
+:CUSTOM_ID: implementation
+:END:
 
 Now that we established what =Specialized Workers= pattern is, let's see how it can be implemented.
 
 It goes without saying that when implementing this pattern, the  amount of work directly depends on how many workers the business case requires (i.e. how many =switch= cases are there) but, in broad lines, to implement the =Specialized Workers= pattern you'll need to:
-- Define a interface for the worker exposing two methods --- =CanProcess()=, and =DoWork()=:
+- Define a interface for the worker exposing two methods --- =CanProcess()=, and =Process()=:
 #+begin_src csharp
   public interface ISpecializedWorker
   {
       bool CanProcess(Payload payload);
 
-      Result DoWork(Payload payload);
+      Result Process(Payload payload);
   }
 #+end_src
 - Add a class for each use-case:
@@ -70,9 +73,9 @@ It goes without saying that when implementing this pattern, the  amount of work 
           return payload.DayOfWeek = DayOfWeek.Monday;
       }
 
-      public Result DoWork(Payload payload)
+      public Result Process(Payload payload)
       {
-          return DoWorkInternal(payload);
+          return ProcessInternal(payload);
       }
   }
 #+end_src
@@ -89,20 +92,23 @@ It goes without saying that when implementing this pattern, the  amount of work 
 
       public Result Process(Payload payload)
       {
-          var worker = _workers.SingleOrDefault(w => w.CanProcess(payload));
+          var worker = _workers.SingleOrDefault(
+              w => w.CanProcess(payload));
 
-          // This is the equivalent of the default case in the switch statement
+          // This is the equivalent of the default case
+          // in the switch statement.
           if (worker == null)
           {
-              throw new ArgumentException("Cannot process the provided payload.");
+              throw new ArgumentException(
+                  "Cannot process the provided payload.");
           }
 
-          return worker.DoWork(payload);
+          return worker.Process(payload);
       }
   }
 #+end_src
 
-And that's all there is to it. Now, the =Employer= class is agnostic of how the =payload= is processed; it just delegates the processing to the worker that can handle it. If no workers that are able to process the =payload= are found, the =Employer= class can choose to signal this by either raising an exception, returning a default value or any other mechanism that is suited to the other patterns used in the codebase. More on this in section [[*Adaptations][Adaptations]]. Furthermore, the =Employer= class doesn't have to know how many workers are there; as such, the workers can be added or removed without any change to the =Employer= class, which means that the class is /decoupled/ from the workers.
+And that's all there is to it. Now, the =Employer= class is agnostic of how the =payload= is processed; it just delegates the processing to the worker that can handle it. If no workers that are able to process the =payload= are found, the =Employer= class can choose to signal this by either raising an exception, returning a default value or any other mechanism that is suited to the other patterns used in the code-base. More on this in section [[*Adaptations][Adaptations]]. Furthermore, the =Employer= class doesn't have to know how many workers are there; as such, the workers can be added or removed without any change to the =Employer= class, which means that the class is /decoupled/ from the workers.
 
 On the other hand, each worker class is, as the name of the pattern suggests it, /specialized/ to do one thing --- work on the specific use-case it knows all about: whether it can process it, and if yes, then it also knows how to process it.
 
@@ -110,7 +116,7 @@ On the other hand, each worker class is, as the name of the pattern suggests it,
 
 ** How is it different from the =Strategy= pattern?
 
-At this moment you may be wondering how the =Specialized Workers= is different from the =Strategy= pattern? After all, each worker implements and applies a different strategy in processing the data.
+At this moment you may be wondering how the =Specialized Workers= is different from the =Strategy= pattern? After all, each worker implements and applies a different strategy in the processing of the data.
 
 To put it simply, the =Specialized Workers= pattern is not different from the =Strategy= design pattern; it evolves from it, with the added behavior that the caller (coordinator --- the =Employee= class from above) doesn't have to know explicitly which worker to employ. The worker to employ is selected based on its knowledge of the payload (i.e. based on the workers' "expertise") which, as mentioned before, makes the coordinator agnostic of the payload. As such, all the knowledge that is related to how to do a specific processing is kept in the same class where the processing happens.
 
@@ -122,7 +128,7 @@ Okay, you might say, then why not use a =Factory method= to build directly the w
 
 Well, because the answer to this question is actually one of the benefits that come with implementing the =Specialized Workers= pattern, namely that it keeps the specialized logic within the same class.
 
-When applying the =Factory method=, the decision on which instance to build is separated from the actual processing that needs to take place. From the point of view of the separation of concerns this is ok; however one might argue that, in order to decide which worker to build, the factory has to either apply some business knowledge, or be coupled to the data (by being aware of its structure). When applying the =Specialized Workers= pattern, all the business logic that is coupled to the data is in a single place, i. e. the class of the specialized worker.
+When applying the =Factory method=, the decision on which instance to build is separated from the actual processing that needs to take place. From the point of view of the separation of concerns this is OK; however one might argue that, in order to decide which worker to build, the factory has to either apply some business knowledge, or be coupled to the data (by being aware of its structure). When applying the =Specialized Workers= pattern, all the business logic that is coupled to the data is in a single place, i. e. the class of the specialized worker.
 
 Furthermore, when implementing the =Specialized Workers= pattern, you don't need to create instances of workers by hand as you do with the =Factory method=; the creation of the workers can be delegated to the =Dependency Injection= frameworks.
 
@@ -140,11 +146,11 @@ As we all know, there are no perfect solutions, especially in software developme
 :CUSTOM_ID: no-guarantee-of-the-same-parameters
 :END:
 
-The first drawback of the =Specialized Workers= pattern stems from what you already noticed, namely that the methods =CanProcess()=, and =DoWork()= are not constrained in any way to be called in the specific order they are meant to be called. Furthermore, there is also no guarantee whatsoever that theese methods are called with the same parameter. The lack of constraints on the order of the calls, and on the parameters means that the caller may choose to ignore the results of the =CanProcess()= method, or not call it at all, and then invoke the =DoWork()= method.
+The first drawback of the =Specialized Workers= pattern stems from the fact that the methods =CanProcess()=, and =Process()= are not constrained in any way to be called in the specific order they are meant to be called. Furthermore, there is also no guarantee whatsoever that these methods are called with the same parameter. The lack of constraints on the order of the calls, and on the parameters means that the caller may choose to ignore the results of the =CanProcess()= method, or not call it at all, and then invoke the =Process()= method.
 
 There are (at least) two ways to work around this misuse: to combine the two methods into a single one, as presented in sub-section [[*Using a single method][Using a single method]], and to simply  guard against invalid arguments using =Debug.Assert()= or any of its equivalents:
 #+begin_src csharp
-  public Result DoWork(Payload payload) //
+  public Result Process(Payload payload) //
   {
       Debug.Assert(CanProcess(payload));
 
@@ -159,14 +165,40 @@ There are (at least) two ways to work around this misuse: to combine the two met
 
 While using the =Specialized Workers= pattern, you should be cautions when calling =CanProcess()= on collections. Ideally, the method =CanProcess()= should take the decision without iterating any collection of items. There are two intertwined reasons for that:  performance, and lazy loading.
 
-If you have a heterogenous collection, you can iterate through it in the delegator and call =CanProcess()= on each item in the collection. At the end, the delegator aggregates the results (see sub-section [[*Processing collections][Processing collections]]).
+If you have a heterogeneous collection, you can iterate through it in the delegator and call =CanProcess()= on each item in the collection. At the end, the delegator aggregates the results.
+#+begin_src csharp
+  class Employer
+  {
+      private readonly IEnumerable<ISpecializedWorker> _workers;
+
+      public Employer(IEnumerable<ISpecializedWorker> workers)
+      {
+          _workers = workers;
+      }
+
+      public Result ProcessCollection(IEnumerable<Item> collection)
+      {
+          var partialResults = new List<Result>();
+          foreach(var item in collection)
+          {
+              var itemResults = _workers
+                  .Where(w => w.CanProcess(item))
+                  .Select(w => w.Process(item));
+              partialResults.AddRange(itemResults);
+          }
+
+          return partialResults.Aggregate(/*...*/);
+      }
+  }
+#+end_src
+This ensures that the collection is iterated only once thus avoiding any odd results due to lazy evaluation.
 
 * Adaptations
 :PROPERTIES:
 :CUSTOM_ID: adaptations
 :END:
 
-Despite its drawbacks, the =Specialized Workers= pattern is quite flexible in its implementation. As such, it can be adapted for some specific scenarios discussed below.
+Despite its drawbacks, the =Specialized Workers= pattern is quite flexible in its implementation. As such, it can be adapted for some specific scenarios discussed below. Of course, it goes without saying that the list is not exclusive.
 
 ** Using a single method
 :PROPERTIES:
@@ -175,13 +207,13 @@ Despite its drawbacks, the =Specialized Workers= pattern is quite flexible in it
 
 For the cases when the processing is lightweight, you can combine the two methods into a single one that returns a tuple like this:
 #+begin_src csharp
-  public (bool canProcess, Result result) DoWork(Payload payload)
+  public (bool canProcess, Result result) Process(Payload payload)
   {
       if (!CanProcess(payload)) {
           return (false, default(Result));
       }
 
-      Result result = DoWorkInternal(payload);
+      Result result = ProcessInternal(payload);
       return (true, result);
   }
 
@@ -190,27 +222,20 @@ For the cases when the processing is lightweight, you can combine the two method
       // take decision here
   }
 #+end_src
-As mentioned in the sub-section [[#no-guarantee-of-the-same-parameters][No guarantee of the same parameters]] from the [[*Drawbacks][Drawbacks]] section, combining the two methods into a single one guards against calling the =CanProcess()= and =DoWork()= methods in the opposite order or with different parameters.
+As mentioned in the sub-section [[#no-guarantee-of-the-same-parameters][No guarantee of the same parameters]], combining the two methods into a single one guards against calling the =CanProcess()= and =Process()= methods in the opposite order or with different parameters.
 
 ** Non-exclusive workers
 :PROPERTIES:
 :CUSTOM_ID: non-exclusive-workers
 :END:
 
-You can have multiple workers capable of processing the payload; in this case, the caller (the delagator) is responsible for aggregating the results:
+You can have multiple workers capable of processing the same payload; in this case, the caller (the delegator) is responsible for aggregating the results:
 #+begin_src csharp
   var results = _workers.Where(w => w.CanProcess(payload))
       .Select(w => w.Process(payload))
       .ToArray();
 #+end_src
 
-** Processing collections
-:PROPERTIES:
-:DESCRIPTION: processing-collections
-:END:
-
-3. As mentioned in the Drawbacks section, when you need to process collections of elements (i.e. =IEnumerable<T>=), it is wiser to iterate in the delegator and call =CanProcess()= on each item, followed by aggregation. In such case the collection is iterated only once thus avoiding any odd results due to lazy evaluation.
-
 * Ending thoughts
 
-There are multiple way of implementing the =Specialized Workers= pattern; some are presented in the Adaptations. However, it is my /subjective/ opinion that the original form of this pattern bears the biggest amount of elegance. But, as the saying goes "The customer is always right in matters of taste" so use it however it suits you.
+As you can see from this quite lengthy post, the =Specialized Workers= pattern, provides both a way to cluster business logic into specialized classes, and a good degree of flexibility in order to adapt the implementation to different situations. Despite its flexibility however, it is my /subjective/ opinion that the original form of the pattern (the one shown in the [[#implementation][Implementation]] section) is the most elegant and eloquent, which is why I use that version most of the time. But, especially as a software developer, I am aware that each person has its own preferences in regards to how something should be done or implemented. As such, I hope you find this pattern useful, and if so, feel free to apply it in whichever way suits you best.
