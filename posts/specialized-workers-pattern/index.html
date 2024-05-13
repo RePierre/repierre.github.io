@@ -12,7 +12,7 @@
 <link rel="alternate" type="application/rss+xml" title="RSS" href="../../rss.xml">
 <link rel="canonical" href="https://rebeja.eu/posts/specialized-workers-pattern/">
 <!--[if lt IE 9]><script src="../../assets/js/html5.js"></script><![endif]--><meta name="author" content="Petru Rebeja">
-<meta name="robots" content="noindex">
+<link rel="prev" href="../release-to-qa-not-production/" title="Don't release to Production, release to QA" type="text/html">
 </head>
 <body class="">
     <a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
@@ -46,9 +46,9 @@
     
 
     <div class="e-content entry-content" itemprop="articleBody text">
-    <div id="outline-container-org1871acb" class="outline-2">
-<h2 id="org1871acb">Introduction</h2>
-<div class="outline-text-2" id="text-org1871acb">
+    <div id="outline-container-org927d365" class="outline-2">
+<h2 id="org927d365">Introduction</h2>
+<div class="outline-text-2" id="text-org927d365">
 <p>
 Some years ago, in my <a href="../using-enums-in-c-sharp/">blog post about using enums in C#</a> I mentioned that I like using what I called at that time <code>specialized builders</code> to refactor the <code>switch</code> statement into a series of classes that implement a common interface and are specialized for a specific <code>case</code> of the <code>switch</code> statement.
 </p>
@@ -63,13 +63,13 @@ As such, I am excited to introduce to the world the <code>Specialized Workers</c
 </div>
 </div>
 
-<div id="outline-container-org6467105" class="outline-2">
-<h2 id="org6467105">Specialized Workers Pattern</h2>
-<div class="outline-text-2" id="text-org6467105">
+<div id="outline-container-orgd9e74a4" class="outline-2">
+<h2 id="orgd9e74a4">Specialized Workers Pattern</h2>
+<div class="outline-text-2" id="text-orgd9e74a4">
 </div>
-<div id="outline-container-org42352ca" class="outline-3">
-<h3 id="org42352ca">Description and usage</h3>
-<div class="outline-text-3" id="text-org42352ca">
+<div id="outline-container-orgb62e316" class="outline-3">
+<h3 id="orgb62e316">Description and usage</h3>
+<div class="outline-text-3" id="text-orgb62e316">
 <p>
 The <code>Specialized Workers</code> pattern aims to distribute the logic of a business operation that requires choosing between one or multiple tasks to be executed, into a collection of specialized classes, while keeping the knowledge about the task(s) to be executed into a single place.
 </p>
@@ -193,13 +193,13 @@ On the other hand, each worker class is, as the name of the pattern suggests it,
 </div>
 </div>
 
-<div id="outline-container-orge82f378" class="outline-2">
-<h2 id="orge82f378">Discussion</h2>
-<div class="outline-text-2" id="text-orge82f378">
+<div id="outline-container-orgea836ee" class="outline-2">
+<h2 id="orgea836ee">Discussion</h2>
+<div class="outline-text-2" id="text-orgea836ee">
 </div>
-<div id="outline-container-orgdf7bb2b" class="outline-3">
-<h3 id="orgdf7bb2b">How is it different from the <code>Strategy</code> pattern?</h3>
-<div class="outline-text-3" id="text-orgdf7bb2b">
+<div id="outline-container-orgb6f228c" class="outline-3">
+<h3 id="orgb6f228c">How is it different from the <code>Strategy</code> pattern?</h3>
+<div class="outline-text-3" id="text-orgb6f228c">
 <p>
 At this moment you may be wondering how the <code>Specialized Workers</code> is different from the <code>Strategy</code> pattern? After all, each worker implements and applies a different strategy in the processing of the data.
 </p>
@@ -214,9 +214,9 @@ There is however, a difference in the nomenclature: <code>Strategy</code> is a <
 </div>
 </div>
 
-<div id="outline-container-org2ee0e22" class="outline-3">
-<h3 id="org2ee0e22">Why not use a <code>Factory method</code>?</h3>
-<div class="outline-text-3" id="text-org2ee0e22">
+<div id="outline-container-org0354635" class="outline-3">
+<h3 id="org0354635">Why not use a <code>Factory method</code>?</h3>
+<div class="outline-text-3" id="text-org0354635">
 <p>
 Okay, you might say, then why not use a <code>Factory method</code> to build directly the worker that knows how to handle the specific use-case?
 </p>
@@ -358,9 +358,9 @@ You can have multiple workers capable of processing the same payload; in this ca
 </div>
 </div>
 
-<div id="outline-container-org2f8df92" class="outline-2">
-<h2 id="org2f8df92">Ending thoughts</h2>
-<div class="outline-text-2" id="text-org2f8df92">
+<div id="outline-container-orga65a08b" class="outline-2">
+<h2 id="orga65a08b">Ending thoughts</h2>
+<div class="outline-text-2" id="text-orga65a08b">
 <p>
 As you can see from this quite lengthy post, the <code>Specialized Workers</code> pattern, provides both a way to cluster business logic into specialized classes, and a good degree of flexibility in order to adapt the implementation to different situations. Despite its flexibility however, it is my <i>subjective</i> opinion that the original form of the pattern (the one shown in the <a href="#implementation">Implementation</a> section) is the most elegant and eloquent, which is why I use that version most of the time. But, especially as a software developer, I am aware that each person has its own preferences in regards to how something should be done or implemented. As such, I hope you find this pattern useful, and if so, feel free to apply it in whichever way suits you best.
 </p>
@@ -374,7 +374,21 @@ As you can see from this quite lengthy post, the <code>Specialized Workers</code
             <span class="tag"><a class="p-category" href="../../categories/specialized-workers/" rel="tag">specialized workers</a></span>
       </p>
 
-    
+            <div class="pager hidden-print pagination">
+
+            <span class="previous pagination-item older">
+                <a href="../release-to-qa-not-production/" rel="prev" title="Don't release to Production, release to QA">
+                Previous post
+                </a>
+            </span>
+
+
+            <span class="next pagination-item newer">
+Next post
+            </span>
+
+        </div>
+
     </nav></aside><section class="comments hidden-print"><h2>Comments</h2>
                     <div id="disqus_thread"></div>
         <script>

@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Rebeja (Posts about implementation)</title><link>https://rebeja.eu/</link><description></description><atom:link href="https://rebeja.eu/categories/implementation.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2024 &lt;a href="mailto:petru.rebeja@gmail.com"&gt;Petru Rebeja&lt;/a&gt; </copyright><lastBuildDate>Mon, 13 May 2024 11:50:44 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Introducing the Specialized Workers pattern</title><link>https://rebeja.eu/posts/specialized-workers-pattern/</link><dc:creator>Petru Rebeja</dc:creator><description>&lt;div id="outline-container-org927d365" class="outline-2"&gt;
+&lt;h2 id="org927d365"&gt;Introduction&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org927d365"&gt;
+&lt;p&gt;
+Some years ago, in my &lt;a href="https://rebeja.eu/posts/using-enums-in-c-sharp/"&gt;blog post about using enums in C#&lt;/a&gt; I mentioned that I like using what I called at that time &lt;code&gt;specialized builders&lt;/code&gt; to refactor the &lt;code&gt;switch&lt;/code&gt; statement into a series of classes that implement a common interface and are specialized for a specific &lt;code&gt;case&lt;/code&gt; of the &lt;code&gt;switch&lt;/code&gt; statement.
+&lt;/p&gt;
+
+&lt;p&gt;
+For the past few years I have been showing to my colleagues a slightly improved version of this approach (the topic of this post) and they all seem to agree that this is indeed a cleaner, and more elegant approach which, unlike the infamous &lt;code&gt;switch&lt;/code&gt; statement does abide by the &lt;a href="https://en.wikipedia.org/wiki/Open/closed_principle"&gt;Open/Closed principle&lt;/a&gt;.
+&lt;/p&gt;
+
+&lt;p&gt;
+As such, I am excited to introduce to the world the &lt;code&gt;Specialized Workers&lt;/code&gt; pattern.
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div id="outline-container-orgd9e74a4" class="outline-2"&gt;
+&lt;h2 id="orgd9e74a4"&gt;Specialized Workers Pattern&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-orgd9e74a4"&gt;
+&lt;/div&gt;
+&lt;div id="outline-container-orgb62e316" class="outline-3"&gt;
+&lt;h3 id="orgb62e316"&gt;Description and usage&lt;/h3&gt;
+&lt;div class="outline-text-3" id="text-orgb62e316"&gt;
+&lt;p&gt;
+The &lt;code&gt;Specialized Workers&lt;/code&gt; pattern aims to distribute the logic of a business operation that requires choosing between one or multiple tasks to be executed, into a collection of specialized classes, while keeping the knowledge about the task(s) to be executed into a single place.
+&lt;/p&gt;
+
+&lt;p&gt;
+Under these circumstances each worker knows about the data just enough to know whether it &lt;i&gt;can accomplish the task&lt;/i&gt;, and &lt;i&gt;how to accomplish&lt;/i&gt; it.
+&lt;/p&gt;
+
+&lt;p&gt;
+Usually (at least from my experience), the decision to delegate a certain sub task was made by the unit that is in charge of delegating. In an abstract representation the code would look something like this:
+&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;SomeCondition&lt;/span&gt;&lt;span class="p"&gt;())&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="n"&gt;DoWorkForConditionAbove&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;
+where the method that contains the snippet above &lt;i&gt;delegates&lt;/i&gt; the processing to the &lt;code&gt;DoWorkForConditionAbove()&lt;/code&gt; method.
+&lt;/p&gt;
+
+&lt;p&gt;
+However, when the decision whether to delegate to a specific unit or not depends on the data that is to be processed, taking that decision couples both the delegator, and the worker unit to the structure of the data.
+&lt;/p&gt;
+
+&lt;p&gt;
+It is normal for the worker to be coupled to the structure of the data because it has to know the structure in order to be able to process it but the delegator, which now becomes a coordinator, doesn't have to know the structure of the data.
+&lt;/p&gt;
+
+&lt;p&gt;
+Consider the example of an unit that has to parse an &lt;code&gt;HTML&lt;/code&gt; element and has to make the following decision:
+&lt;/p&gt;
+&lt;ul class="org-ul"&gt;
+&lt;li&gt;if the current node is a &lt;code&gt;div&lt;/code&gt; then &lt;code&gt;ParseDivElement()&lt;/code&gt; should be called,&lt;/li&gt;
+&lt;li&gt;if the current node is a &lt;code&gt;table&lt;/code&gt; then &lt;code&gt;ParseTableElement()&lt;/code&gt; should be called, and&lt;/li&gt;
+&lt;li&gt;if the current element is none of the above, it should just ignore it.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;
+Put differently than at the beginning of this section,  the purpose of &lt;code&gt;Specialized Workers&lt;/code&gt; pattern is to:
+&lt;/p&gt;
+&lt;ul class="org-ul"&gt;
+&lt;li&gt;delegate the work to a single place, and&lt;/li&gt;
+&lt;li&gt;enclose in a single place &lt;i&gt;the knowledge about being able to perform a specific task&lt;/i&gt; and &lt;i&gt;the knowledge required to perform that task&lt;/i&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div id="outline-container-implementation" class="outline-3"&gt;
+&lt;h3 id="implementation"&gt;Implementation&lt;/h3&gt;
+&lt;div class="outline-text-3" id="text-implementation"&gt;
+&lt;p&gt;
+Now that we established what &lt;code&gt;Specialized Workers&lt;/code&gt; pattern is, let's see how it can be implemented.
+&lt;/p&gt;
+
+&lt;p&gt;
+It goes without saying that when implementing this pattern, the  amount of work directly depends on how many workers the business case requires (i.e. how many &lt;code&gt;switch&lt;/code&gt; cases are there) but, in broad lines, to implement the &lt;code&gt;Specialized Workers&lt;/code&gt; pattern you'll need to:
+&lt;/p&gt;
+&lt;ul class="org-ul"&gt;
+&lt;li&gt;Define a interface for the worker exposing two methods — &lt;code&gt;CanProcess()&lt;/code&gt;, and &lt;code&gt;Process()&lt;/code&gt;:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;public&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;interface&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;ISpecializedWorker&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="kt"&gt;bool&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nf"&gt;CanProcess&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Payload&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;payload&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="n"&gt;Result&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nf"&gt;Process&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Payload&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;payload&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;ul class="org-ul"&gt;
+&lt;li&gt;Add a class for each use-case:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;internal&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;class&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nc"&gt;MondayPayloadWorker&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;ISpecializedWorker&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="k"&gt;public&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kt"&gt;bool&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nf"&gt;CanProcess&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Payload&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;payload&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="k"&gt;return&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;payload&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;DayOfWeek&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;DayOfWeek&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Monday&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="k"&gt;public&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;Result&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nf"&gt;Process&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Payload&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;payload&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="k"&gt;return&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nf"&gt;ProcessInternal&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;payload&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;ul class="org-ul"&gt;
+&lt;li&gt;Inject the workers into the calling class (the &lt;code&gt;Employer&lt;/code&gt;), and delegate:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;internal&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;class&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nc"&gt;Employer&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="k"&gt;private&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;readonly&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;IEnumerable&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;ISpecializedWorker&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;_workers&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="k"&gt;public&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nf"&gt;Employer&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;IEnumerable&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;ISpecializedWorker&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;workers&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="n"&gt;_workers&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;workers&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="k"&gt;public&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;Result&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nf"&gt;Process&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Payload&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;payload&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="kt"&gt;var&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;worker&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;_workers&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;SingleOrDefault&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;
+&lt;span class="w"&gt;            &lt;/span&gt;&lt;span class="n"&gt;w&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&amp;gt;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;w&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;CanProcess&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;payload&lt;/span&gt;&lt;span class="p"&gt;));&lt;/span&gt;
+
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="c1"&gt;// This is the equivalent of the default case&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="c1"&gt;// in the switch statement.&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;worker&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;==&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;null&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;            &lt;/span&gt;&lt;span class="k"&gt;throw&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;new&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nf"&gt;ArgumentException&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;
+&lt;span class="w"&gt;                &lt;/span&gt;&lt;span class="s"&gt;"Cannot process the provided payload."&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="k"&gt;return&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;worker&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Process&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;payload&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;
+And that's all there is to it. Now, the &lt;code&gt;Employer&lt;/code&gt; class is agnostic of how the &lt;code&gt;payload&lt;/code&gt; is processed; it just delegates the processing to the worker that can handle it. If no workers that are able to process the &lt;code&gt;payload&lt;/code&gt; are found, the &lt;code&gt;Employer&lt;/code&gt; class can choose to signal this by either raising an exception, returning a default value or any other mechanism that is suited to the other patterns used in the code-base. More on this in section &lt;a href="https://rebeja.eu/posts/specialized-workers-pattern/#adaptations"&gt;Adaptations&lt;/a&gt;. Furthermore, the &lt;code&gt;Employer&lt;/code&gt; class doesn't have to know how many workers are there; as such, the workers can be added or removed without any change to the &lt;code&gt;Employer&lt;/code&gt; class, which means that the class is &lt;i&gt;decoupled&lt;/i&gt; from the workers.
+&lt;/p&gt;
+
+&lt;p&gt;
+On the other hand, each worker class is, as the name of the pattern suggests it, &lt;i&gt;specialized&lt;/i&gt; to do one thing — work on the specific use-case it knows all about: whether it can process it, and if yes, then it also knows how to process it.
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div id="outline-container-orgea836ee" class="outline-2"&gt;
+&lt;h2 id="orgea836ee"&gt;Discussion&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-orgea836ee"&gt;
+&lt;/div&gt;
+&lt;div id="outline-container-orgb6f228c" class="outline-3"&gt;
+&lt;h3 id="orgb6f228c"&gt;How is it different from the &lt;code&gt;Strategy&lt;/code&gt; pattern?&lt;/h3&gt;
+&lt;div class="outline-text-3" id="text-orgb6f228c"&gt;
+&lt;p&gt;
+At this moment you may be wondering how the &lt;code&gt;Specialized Workers&lt;/code&gt; is different from the &lt;code&gt;Strategy&lt;/code&gt; pattern? After all, each worker implements and applies a different strategy in the processing of the data.
+&lt;/p&gt;
+
+&lt;p&gt;
+To put it simply, the &lt;code&gt;Specialized Workers&lt;/code&gt; pattern is not different from the &lt;code&gt;Strategy&lt;/code&gt; design pattern; it evolves from it, with the added behavior that the caller (coordinator — the &lt;code&gt;Employee&lt;/code&gt; class from above) doesn't have to know explicitly which worker to employ. The worker to employ is selected based on its knowledge of the payload (i.e. based on the workers' "expertise") which, as mentioned before, makes the coordinator agnostic of the payload. As such, all the knowledge that is related to how to do a specific processing is kept in the same class where the processing happens.
+&lt;/p&gt;
+
+&lt;p&gt;
+There is however, a difference in the nomenclature: &lt;code&gt;Strategy&lt;/code&gt; is a &lt;i&gt;design pattern&lt;/i&gt; whilst &lt;code&gt;Specialized Workers&lt;/code&gt; is an &lt;i&gt;implementation pattern&lt;/i&gt;. The difference between a design pattern and an implementation pattern deserves a dedicated post but to put it shortly, an implementation pattern tells you how you should write your code while a design pattern specifies how the application should be structured.
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div id="outline-container-org0354635" class="outline-3"&gt;
+&lt;h3 id="org0354635"&gt;Why not use a &lt;code&gt;Factory method&lt;/code&gt;?&lt;/h3&gt;
+&lt;div class="outline-text-3" id="text-org0354635"&gt;
+&lt;p&gt;
+Okay, you might say, then why not use a &lt;code&gt;Factory method&lt;/code&gt; to build directly the worker that knows how to handle the specific use-case?
+&lt;/p&gt;
+
+&lt;p&gt;
+Well, because the answer to this question is actually one of the benefits that come with implementing the &lt;code&gt;Specialized Workers&lt;/code&gt; pattern, namely that it keeps the specialized logic within the same class.
+&lt;/p&gt;
+
+&lt;p&gt;
+When applying the &lt;code&gt;Factory method&lt;/code&gt;, the decision on which instance to build is separated from the actual processing that needs to take place. From the point of view of the separation of concerns this is OK; however one might argue that, in order to decide which worker to build, the factory has to either apply some business knowledge, or be coupled to the data (by being aware of its structure). When applying the &lt;code&gt;Specialized Workers&lt;/code&gt; pattern, all the business logic that is coupled to the data is in a single place, i. e. the class of the specialized worker.
+&lt;/p&gt;
+
+&lt;p&gt;
+Furthermore, when implementing the &lt;code&gt;Specialized Workers&lt;/code&gt; pattern, you don't need to create instances of workers by hand as you do with the &lt;code&gt;Factory method&lt;/code&gt;; the creation of the workers can be delegated to the &lt;code&gt;Dependency Injection&lt;/code&gt; frameworks.
+&lt;/p&gt;
+
+&lt;p&gt;
+However, if the instantiation of the specialized workers depends o some parameters that cannot be easily built using the &lt;code&gt;Dependency Injection&lt;/code&gt; framework, you'll need to use &lt;code&gt;Factory method&lt;/code&gt;. In this case you can combine these two approaches: use the &lt;code&gt;Factory method&lt;/code&gt; to build the specialized workers, and then pass them to the coordinator class that needs them. Keep in mind that this approach of combining the two patterns works if building each worker is an &lt;i&gt;inexpensive&lt;/i&gt; operation; otherwise you'll end-up spending resources to create instances that may not be used.
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div id="outline-container-drawbacks" class="outline-2"&gt;
+&lt;h2 id="drawbacks"&gt;Drawbacks&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-drawbacks"&gt;
+&lt;p&gt;
+As we all know, there are no perfect solutions, especially in software development. This is also the case for the &lt;code&gt;Specialized Workers&lt;/code&gt; pattern, and as such, it has a few drawbacks listed below.
+&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;div id="outline-container-no-guarantee-of-the-same-parameters" class="outline-3"&gt;
+&lt;h3 id="no-guarantee-of-the-same-parameters"&gt;No guarantee of the same parameters&lt;/h3&gt;
+&lt;div class="outline-text-3" id="text-no-guarantee-of-the-same-parameters"&gt;
+&lt;p&gt;
+The first drawback of the &lt;code&gt;Specialized Workers&lt;/code&gt; pattern stems from the fact that the methods &lt;code&gt;CanProcess()&lt;/code&gt;, and &lt;code&gt;Process()&lt;/code&gt; are not constrained in any way to be called in the specific order they are meant to be called. Furthermore, there is also no guarantee whatsoever that these methods are called with the same parameter. The lack of constraints on the order of the calls, and on the parameters means that the caller may choose to ignore the results of the &lt;code&gt;CanProcess()&lt;/code&gt; method, or not call it at all, and then invoke the &lt;code&gt;Process()&lt;/code&gt; method.
+&lt;/p&gt;
+
+&lt;p&gt;
+There are (at least) two ways to work around this misuse: to combine the two methods into a single one, as presented in sub-section &lt;a href="https://rebeja.eu/posts/specialized-workers-pattern/#using-a-single-method"&gt;Using a single method&lt;/a&gt;, and to simply  guard against invalid arguments using &lt;code&gt;Debug.Assert()&lt;/code&gt; or any of its equivalents:
+&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;public&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;Result&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nf"&gt;Process&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Payload&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;payload&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c1"&gt;//&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="n"&gt;Debug&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Assert&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;CanProcess&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;payload&lt;/span&gt;&lt;span class="p"&gt;));&lt;/span&gt;
+
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="c1"&gt;// Do the work&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div id="outline-container-sensitivity-to-collections" class="outline-3"&gt;
+&lt;h3 id="sensitivity-to-collections"&gt;Sensitivity to collections&lt;/h3&gt;
+&lt;div class="outline-text-3" id="text-sensitivity-to-collections"&gt;
+&lt;p&gt;
+While using the &lt;code&gt;Specialized Workers&lt;/code&gt; pattern, you should be cautions when calling &lt;code&gt;CanProcess()&lt;/code&gt; on collections. Ideally, the method &lt;code&gt;CanProcess()&lt;/code&gt; should take the decision without iterating any collection of items. There are two intertwined reasons for that:  performance, and lazy loading.
+&lt;/p&gt;
+
+&lt;p&gt;
+If you have a heterogeneous collection, you can iterate through it in the delegator and call &lt;code&gt;CanProcess()&lt;/code&gt; on each item in the collection. At the end, the delegator aggregates the results.
+&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;class&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nc"&gt;Employer&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="k"&gt;private&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;readonly&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;IEnumerable&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;ISpecializedWorker&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;_workers&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="k"&gt;public&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nf"&gt;Employer&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;IEnumerable&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;ISpecializedWorker&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;workers&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="n"&gt;_workers&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;workers&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="k"&gt;public&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;Result&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nf"&gt;ProcessCollection&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;IEnumerable&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;Item&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;collection&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="kt"&gt;var&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;partialResults&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;new&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;List&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;Result&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="k"&gt;foreach&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;var&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;item&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;in&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;collection&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;            &lt;/span&gt;&lt;span class="kt"&gt;var&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;itemResults&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;_workers&lt;/span&gt;
+&lt;span class="w"&gt;                &lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Where&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;w&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&amp;gt;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;w&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;CanProcess&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;item&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+&lt;span class="w"&gt;                &lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Select&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;w&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&amp;gt;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;w&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Process&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;item&lt;/span&gt;&lt;span class="p"&gt;));&lt;/span&gt;
+&lt;span class="w"&gt;            &lt;/span&gt;&lt;span class="n"&gt;partialResults&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;AddRange&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;itemResults&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="k"&gt;return&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;partialResults&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Aggregate&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="cm"&gt;/*...*/&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;
+This ensures that the collection is iterated only once thus avoiding any odd results due to lazy evaluation.
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div id="outline-container-adaptations" class="outline-2"&gt;
+&lt;h2 id="adaptations"&gt;Adaptations&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-adaptations"&gt;
+&lt;p&gt;
+Despite its drawbacks, the &lt;code&gt;Specialized Workers&lt;/code&gt; pattern is quite flexible in its implementation. As such, it can be adapted for some specific scenarios discussed below. Of course, it goes without saying that the list is not exclusive.
+&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;div id="outline-container-using-a-single-method" class="outline-3"&gt;
+&lt;h3 id="using-a-single-method"&gt;Using a single method&lt;/h3&gt;
+&lt;div class="outline-text-3" id="text-using-a-single-method"&gt;
+&lt;p&gt;
+For the cases when the processing is lightweight, you can combine the two methods into a single one that returns a tuple like this:
+&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;public&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;bool&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;canProcess&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;Result&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;result&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;Process&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Payload&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;payload&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;!&lt;/span&gt;&lt;span class="n"&gt;CanProcess&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;payload&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="k"&gt;return&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;false&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;default&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Result&lt;/span&gt;&lt;span class="p"&gt;));&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="n"&gt;Result&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;result&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;ProcessInternal&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;payload&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="k"&gt;return&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;true&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;result&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="k"&gt;private&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kt"&gt;bool&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nf"&gt;CanProcess&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Payload&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;payload&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="c1"&gt;// take decision here&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;
+As mentioned in the sub-section &lt;a href="https://rebeja.eu/posts/specialized-workers-pattern/#no-guarantee-of-the-same-parameters"&gt;No guarantee of the same parameters&lt;/a&gt;, combining the two methods into a single one guards against calling the &lt;code&gt;CanProcess()&lt;/code&gt; and &lt;code&gt;Process()&lt;/code&gt; methods in the opposite order or with different parameters.
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div id="outline-container-non-exclusive-workers" class="outline-3"&gt;
+&lt;h3 id="non-exclusive-workers"&gt;Non-exclusive workers&lt;/h3&gt;
+&lt;div class="outline-text-3" id="text-non-exclusive-workers"&gt;
+&lt;p&gt;
+You can have multiple workers capable of processing the same payload; in this case, the caller (the delegator) is responsible for aggregating the results:
+&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kt"&gt;var&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;results&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;_workers&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Where&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;w&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&amp;gt;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;w&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;CanProcess&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;payload&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Select&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;w&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&amp;gt;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;w&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Process&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;payload&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ToArray&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div id="outline-container-orga65a08b" class="outline-2"&gt;
+&lt;h2 id="orga65a08b"&gt;Ending thoughts&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-orga65a08b"&gt;
+&lt;p&gt;
+As you can see from this quite lengthy post, the &lt;code&gt;Specialized Workers&lt;/code&gt; pattern, provides both a way to cluster business logic into specialized classes, and a good degree of flexibility in order to adapt the implementation to different situations. Despite its flexibility however, it is my &lt;i&gt;subjective&lt;/i&gt; opinion that the original form of the pattern (the one shown in the &lt;a href="https://rebeja.eu/posts/specialized-workers-pattern/#implementation"&gt;Implementation&lt;/a&gt; section) is the most elegant and eloquent, which is why I use that version most of the time. But, especially as a software developer, I am aware that each person has its own preferences in regards to how something should be done or implemented. As such, I hope you find this pattern useful, and if so, feel free to apply it in whichever way suits you best.
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;</description><category>c#</category><category>implementation</category><category>pattern</category><category>specialized workers</category><guid>https://rebeja.eu/posts/specialized-workers-pattern/</guid><pubDate>Sun, 12 May 2024 08:09:45 GMT</pubDate></item></channel></rss>

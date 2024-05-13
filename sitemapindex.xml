@@ -35,7 +35,7 @@
  </sitemap>
  <sitemap>
   <loc>https://rebeja.eu/categories/c.xml</loc>
-  <lastmod>2024-05-03T18:22:00Z</lastmod>
+  <lastmod>2024-05-13T11:50:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://rebeja.eu/categories/cat_emacs.xml</loc>
@@ -102,6 +102,10 @@
   <lastmod>2024-05-03T18:22:00Z</lastmod>
  </sitemap>
  <sitemap>
+  <loc>https://rebeja.eu/categories/implementation.xml</loc>
+  <lastmod>2024-05-13T11:50:00Z</lastmod>
+ </sitemap>
+ <sitemap>
   <loc>https://rebeja.eu/categories/inheritance.xml</loc>
   <lastmod>2024-05-03T18:22:00Z</lastmod>
  </sitemap>
@@ -124,6 +128,10 @@
  <sitemap>
   <loc>https://rebeja.eu/categories/orm.xml</loc>
   <lastmod>2024-05-03T18:22:00Z</lastmod>
+ </sitemap>
+ <sitemap>
+  <loc>https://rebeja.eu/categories/pattern.xml</loc>
+  <lastmod>2024-05-13T11:50:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://rebeja.eu/categories/pitfalls.xml</loc>
@@ -174,6 +182,10 @@
   <lastmod>2024-05-03T18:22:00Z</lastmod>
  </sitemap>
  <sitemap>
+  <loc>https://rebeja.eu/categories/specialized-workers.xml</loc>
+  <lastmod>2024-05-13T11:50:00Z</lastmod>
+ </sitemap>
+ <sitemap>
   <loc>https://rebeja.eu/categories/sql-mode.xml</loc>
   <lastmod>2024-05-03T18:22:00Z</lastmod>
  </sitemap>
@@ -195,10 +207,10 @@
  </sitemap>
  <sitemap>
   <loc>https://rebeja.eu/rss.xml</loc>
-  <lastmod>2024-05-03T18:22:00Z</lastmod>
+  <lastmod>2024-05-13T11:50:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://rebeja.eu/sitemap.xml</loc>
-  <lastmod>2024-05-12T04:56:00Z</lastmod>
+  <lastmod>2024-05-13T11:50:00Z</lastmod>
  </sitemap>
 </sitemapindex>

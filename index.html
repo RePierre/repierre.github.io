@@ -13,7 +13,7 @@
 <link rel="alternate" type="application/rss+xml" title="RSS" href="rss.xml">
 <link rel="canonical" href="https://rebeja.eu/">
 <link rel="next" href="index-1.html" type="text/html">
-<!--[if lt IE 9]><script src="assets/js/html5.js"></script><![endif]--><link rel="prefetch" href="posts/release-to-qa-not-production/" type="text/html">
+<!--[if lt IE 9]><script src="assets/js/html5.js"></script><![endif]--><link rel="prefetch" href="posts/specialized-workers-pattern/" type="text/html">
 </head>
 <body class="">
     <a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
@@ -38,7 +38,339 @@
     <div class="content container" id="content">
     
 <div class="post">
-    <article class="post h-entry post-text"><header><h1 class="post-title p-name"><a href="posts/release-to-qa-not-production/" class="u-url">Don't release to Production, release to QA</a></h1>
+    <article class="post h-entry post-text"><header><h1 class="post-title p-name"><a href="posts/specialized-workers-pattern/" class="u-url">Introducing the Specialized Workers pattern</a></h1>
+        <div class="metadata">
+            <p class="dateline">
+              <i class="fa fa-clock-o"></i> <time class="published dt-published" datetime="2024-05-12T11:09:45+03:00" title="2024-05-12 11:09">2024-05-12 11:09</time>
+            
+                |   <i class="fa fa-comment"></i>         <a href="posts/specialized-workers-pattern/#disqus_thread" data-disqus-identifier="cache/posts/specialized-workers-pattern.html">Comments</a>
+
+
+            </p>
+        </div>
+    </header><div class="e-content entry-content">
+    <div id="outline-container-org927d365" class="outline-2">
+<h2 id="org927d365">Introduction</h2>
+<div class="outline-text-2" id="text-org927d365">
+<p>
+Some years ago, in my <a href="posts/using-enums-in-c-sharp/">blog post about using enums in C#</a> I mentioned that I like using what I called at that time <code>specialized builders</code> to refactor the <code>switch</code> statement into a series of classes that implement a common interface and are specialized for a specific <code>case</code> of the <code>switch</code> statement.
+</p>
+
+<p>
+For the past few years I have been showing to my colleagues a slightly improved version of this approach (the topic of this post) and they all seem to agree that this is indeed a cleaner, and more elegant approach which, unlike the infamous <code>switch</code> statement does abide by the <a href="https://en.wikipedia.org/wiki/Open/closed_principle">Open/Closed principle</a>.
+</p>
+
+<p>
+As such, I am excited to introduce to the world the <code>Specialized Workers</code> pattern.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgd9e74a4" class="outline-2">
+<h2 id="orgd9e74a4">Specialized Workers Pattern</h2>
+<div class="outline-text-2" id="text-orgd9e74a4">
+</div>
+<div id="outline-container-orgb62e316" class="outline-3">
+<h3 id="orgb62e316">Description and usage</h3>
+<div class="outline-text-3" id="text-orgb62e316">
+<p>
+The <code>Specialized Workers</code> pattern aims to distribute the logic of a business operation that requires choosing between one or multiple tasks to be executed, into a collection of specialized classes, while keeping the knowledge about the task(s) to be executed into a single place.
+</p>
+
+<p>
+Under these circumstances each worker knows about the data just enough to know whether it <i>can accomplish the task</i>, and <i>how to accomplish</i> it.
+</p>
+
+<p>
+Usually (at least from my experience), the decision to delegate a certain sub task was made by the unit that is in charge of delegating. In an abstract representation the code would look something like this:
+</p>
+<div class="highlight"><pre><span></span><span class="k">if</span><span class="p">(</span><span class="n">SomeCondition</span><span class="p">())</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">DoWorkForConditionAbove</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+<p>
+where the method that contains the snippet above <i>delegates</i> the processing to the <code>DoWorkForConditionAbove()</code> method.
+</p>
+
+<p>
+However, when the decision whether to delegate to a specific unit or not depends on the data that is to be processed, taking that decision couples both the delegator, and the worker unit to the structure of the data.
+</p>
+
+<p>
+It is normal for the worker to be coupled to the structure of the data because it has to know the structure in order to be able to process it but the delegator, which now becomes a coordinator, doesn't have to know the structure of the data.
+</p>
+
+<p>
+Consider the example of an unit that has to parse an <code>HTML</code> element and has to make the following decision:
+</p>
+<ul class="org-ul">
+<li>if the current node is a <code>div</code> then <code>ParseDivElement()</code> should be called,</li>
+<li>if the current node is a <code>table</code> then <code>ParseTableElement()</code> should be called, and</li>
+<li>if the current element is none of the above, it should just ignore it.</li>
+</ul>
+<p>
+Put differently than at the beginning of this section,  the purpose of <code>Specialized Workers</code> pattern is to:
+</p>
+<ul class="org-ul">
+<li>delegate the work to a single place, and</li>
+<li>enclose in a single place <i>the knowledge about being able to perform a specific task</i> and <i>the knowledge required to perform that task</i>.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-implementation" class="outline-3">
+<h3 id="implementation">Implementation</h3>
+<div class="outline-text-3" id="text-implementation">
+<p>
+Now that we established what <code>Specialized Workers</code> pattern is, let's see how it can be implemented.
+</p>
+
+<p>
+It goes without saying that when implementing this pattern, the  amount of work directly depends on how many workers the business case requires (i.e. how many <code>switch</code> cases are there) but, in broad lines, to implement the <code>Specialized Workers</code> pattern you'll need to:
+</p>
+<ul class="org-ul">
+<li>Define a interface for the worker exposing two methods — <code>CanProcess()</code>, and <code>Process()</code>:</li>
+</ul>
+<div class="highlight"><pre><span></span><span class="k">public</span><span class="w"> </span><span class="k">interface</span><span class="w"> </span><span class="n">ISpecializedWorker</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="nf">CanProcess</span><span class="p">(</span><span class="n">Payload</span><span class="w"> </span><span class="n">payload</span><span class="p">);</span>
+
+<span class="w">    </span><span class="n">Result</span><span class="w"> </span><span class="nf">Process</span><span class="p">(</span><span class="n">Payload</span><span class="w"> </span><span class="n">payload</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+<ul class="org-ul">
+<li>Add a class for each use-case:</li>
+</ul>
+<div class="highlight"><pre><span></span><span class="k">internal</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">MondayPayloadWorker</span><span class="p">:</span><span class="w"> </span><span class="n">ISpecializedWorker</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="nf">CanProcess</span><span class="p">(</span><span class="n">Payload</span><span class="w"> </span><span class="n">payload</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">payload</span><span class="p">.</span><span class="n">DayOfWeek</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">DayOfWeek</span><span class="p">.</span><span class="n">Monday</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="n">Result</span><span class="w"> </span><span class="nf">Process</span><span class="p">(</span><span class="n">Payload</span><span class="w"> </span><span class="n">payload</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nf">ProcessInternal</span><span class="p">(</span><span class="n">payload</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<ul class="org-ul">
+<li>Inject the workers into the calling class (the <code>Employer</code>), and delegate:</li>
+</ul>
+<div class="highlight"><pre><span></span><span class="k">internal</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">Employer</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">private</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="n">IEnumerable</span><span class="o">&lt;</span><span class="n">ISpecializedWorker</span><span class="o">&gt;</span><span class="w"> </span><span class="n">_workers</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="nf">Employer</span><span class="p">(</span><span class="n">IEnumerable</span><span class="o">&lt;</span><span class="n">ISpecializedWorker</span><span class="o">&gt;</span><span class="w"> </span><span class="n">workers</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">_workers</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">workers</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="n">Result</span><span class="w"> </span><span class="nf">Process</span><span class="p">(</span><span class="n">Payload</span><span class="w"> </span><span class="n">payload</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">var</span><span class="w"> </span><span class="n">worker</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_workers</span><span class="p">.</span><span class="n">SingleOrDefault</span><span class="p">(</span>
+<span class="w">            </span><span class="n">w</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">w</span><span class="p">.</span><span class="n">CanProcess</span><span class="p">(</span><span class="n">payload</span><span class="p">));</span>
+
+<span class="w">        </span><span class="c1">// This is the equivalent of the default case</span>
+<span class="w">        </span><span class="c1">// in the switch statement.</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">worker</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="k">null</span><span class="p">)</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="k">throw</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nf">ArgumentException</span><span class="p">(</span>
+<span class="w">                </span><span class="s">"Cannot process the provided payload."</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">worker</span><span class="p">.</span><span class="n">Process</span><span class="p">(</span><span class="n">payload</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>
+And that's all there is to it. Now, the <code>Employer</code> class is agnostic of how the <code>payload</code> is processed; it just delegates the processing to the worker that can handle it. If no workers that are able to process the <code>payload</code> are found, the <code>Employer</code> class can choose to signal this by either raising an exception, returning a default value or any other mechanism that is suited to the other patterns used in the code-base. More on this in section <a href="posts/specialized-workers-pattern/#adaptations">Adaptations</a>. Furthermore, the <code>Employer</code> class doesn't have to know how many workers are there; as such, the workers can be added or removed without any change to the <code>Employer</code> class, which means that the class is <i>decoupled</i> from the workers.
+</p>
+
+<p>
+On the other hand, each worker class is, as the name of the pattern suggests it, <i>specialized</i> to do one thing — work on the specific use-case it knows all about: whether it can process it, and if yes, then it also knows how to process it.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgea836ee" class="outline-2">
+<h2 id="orgea836ee">Discussion</h2>
+<div class="outline-text-2" id="text-orgea836ee">
+</div>
+<div id="outline-container-orgb6f228c" class="outline-3">
+<h3 id="orgb6f228c">How is it different from the <code>Strategy</code> pattern?</h3>
+<div class="outline-text-3" id="text-orgb6f228c">
+<p>
+At this moment you may be wondering how the <code>Specialized Workers</code> is different from the <code>Strategy</code> pattern? After all, each worker implements and applies a different strategy in the processing of the data.
+</p>
+
+<p>
+To put it simply, the <code>Specialized Workers</code> pattern is not different from the <code>Strategy</code> design pattern; it evolves from it, with the added behavior that the caller (coordinator — the <code>Employee</code> class from above) doesn't have to know explicitly which worker to employ. The worker to employ is selected based on its knowledge of the payload (i.e. based on the workers' "expertise") which, as mentioned before, makes the coordinator agnostic of the payload. As such, all the knowledge that is related to how to do a specific processing is kept in the same class where the processing happens.
+</p>
+
+<p>
+There is however, a difference in the nomenclature: <code>Strategy</code> is a <i>design pattern</i> whilst <code>Specialized Workers</code> is an <i>implementation pattern</i>. The difference between a design pattern and an implementation pattern deserves a dedicated post but to put it shortly, an implementation pattern tells you how you should write your code while a design pattern specifies how the application should be structured.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org0354635" class="outline-3">
+<h3 id="org0354635">Why not use a <code>Factory method</code>?</h3>
+<div class="outline-text-3" id="text-org0354635">
+<p>
+Okay, you might say, then why not use a <code>Factory method</code> to build directly the worker that knows how to handle the specific use-case?
+</p>
+
+<p>
+Well, because the answer to this question is actually one of the benefits that come with implementing the <code>Specialized Workers</code> pattern, namely that it keeps the specialized logic within the same class.
+</p>
+
+<p>
+When applying the <code>Factory method</code>, the decision on which instance to build is separated from the actual processing that needs to take place. From the point of view of the separation of concerns this is OK; however one might argue that, in order to decide which worker to build, the factory has to either apply some business knowledge, or be coupled to the data (by being aware of its structure). When applying the <code>Specialized Workers</code> pattern, all the business logic that is coupled to the data is in a single place, i. e. the class of the specialized worker.
+</p>
+
+<p>
+Furthermore, when implementing the <code>Specialized Workers</code> pattern, you don't need to create instances of workers by hand as you do with the <code>Factory method</code>; the creation of the workers can be delegated to the <code>Dependency Injection</code> frameworks.
+</p>
+
+<p>
+However, if the instantiation of the specialized workers depends o some parameters that cannot be easily built using the <code>Dependency Injection</code> framework, you'll need to use <code>Factory method</code>. In this case you can combine these two approaches: use the <code>Factory method</code> to build the specialized workers, and then pass them to the coordinator class that needs them. Keep in mind that this approach of combining the two patterns works if building each worker is an <i>inexpensive</i> operation; otherwise you'll end-up spending resources to create instances that may not be used.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-drawbacks" class="outline-2">
+<h2 id="drawbacks">Drawbacks</h2>
+<div class="outline-text-2" id="text-drawbacks">
+<p>
+As we all know, there are no perfect solutions, especially in software development. This is also the case for the <code>Specialized Workers</code> pattern, and as such, it has a few drawbacks listed below.
+</p>
+</div>
+
+<div id="outline-container-no-guarantee-of-the-same-parameters" class="outline-3">
+<h3 id="no-guarantee-of-the-same-parameters">No guarantee of the same parameters</h3>
+<div class="outline-text-3" id="text-no-guarantee-of-the-same-parameters">
+<p>
+The first drawback of the <code>Specialized Workers</code> pattern stems from the fact that the methods <code>CanProcess()</code>, and <code>Process()</code> are not constrained in any way to be called in the specific order they are meant to be called. Furthermore, there is also no guarantee whatsoever that these methods are called with the same parameter. The lack of constraints on the order of the calls, and on the parameters means that the caller may choose to ignore the results of the <code>CanProcess()</code> method, or not call it at all, and then invoke the <code>Process()</code> method.
+</p>
+
+<p>
+There are (at least) two ways to work around this misuse: to combine the two methods into a single one, as presented in sub-section <a href="posts/specialized-workers-pattern/#using-a-single-method">Using a single method</a>, and to simply  guard against invalid arguments using <code>Debug.Assert()</code> or any of its equivalents:
+</p>
+<div class="highlight"><pre><span></span><span class="k">public</span><span class="w"> </span><span class="n">Result</span><span class="w"> </span><span class="nf">Process</span><span class="p">(</span><span class="n">Payload</span><span class="w"> </span><span class="n">payload</span><span class="p">)</span><span class="w"> </span><span class="c1">//</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">Debug</span><span class="p">.</span><span class="n">Assert</span><span class="p">(</span><span class="n">CanProcess</span><span class="p">(</span><span class="n">payload</span><span class="p">));</span>
+
+<span class="w">    </span><span class="c1">// Do the work</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+
+<div id="outline-container-sensitivity-to-collections" class="outline-3">
+<h3 id="sensitivity-to-collections">Sensitivity to collections</h3>
+<div class="outline-text-3" id="text-sensitivity-to-collections">
+<p>
+While using the <code>Specialized Workers</code> pattern, you should be cautions when calling <code>CanProcess()</code> on collections. Ideally, the method <code>CanProcess()</code> should take the decision without iterating any collection of items. There are two intertwined reasons for that:  performance, and lazy loading.
+</p>
+
+<p>
+If you have a heterogeneous collection, you can iterate through it in the delegator and call <code>CanProcess()</code> on each item in the collection. At the end, the delegator aggregates the results.
+</p>
+<div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">Employer</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">private</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="n">IEnumerable</span><span class="o">&lt;</span><span class="n">ISpecializedWorker</span><span class="o">&gt;</span><span class="w"> </span><span class="n">_workers</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="nf">Employer</span><span class="p">(</span><span class="n">IEnumerable</span><span class="o">&lt;</span><span class="n">ISpecializedWorker</span><span class="o">&gt;</span><span class="w"> </span><span class="n">workers</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">_workers</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">workers</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="n">Result</span><span class="w"> </span><span class="nf">ProcessCollection</span><span class="p">(</span><span class="n">IEnumerable</span><span class="o">&lt;</span><span class="n">Item</span><span class="o">&gt;</span><span class="w"> </span><span class="n">collection</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">var</span><span class="w"> </span><span class="n">partialResults</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">Result</span><span class="o">&gt;</span><span class="p">();</span>
+<span class="w">        </span><span class="k">foreach</span><span class="p">(</span><span class="kt">var</span><span class="w"> </span><span class="n">item</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">collection</span><span class="p">)</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="kt">var</span><span class="w"> </span><span class="n">itemResults</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_workers</span>
+<span class="w">                </span><span class="p">.</span><span class="n">Where</span><span class="p">(</span><span class="n">w</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">w</span><span class="p">.</span><span class="n">CanProcess</span><span class="p">(</span><span class="n">item</span><span class="p">))</span>
+<span class="w">                </span><span class="p">.</span><span class="n">Select</span><span class="p">(</span><span class="n">w</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">w</span><span class="p">.</span><span class="n">Process</span><span class="p">(</span><span class="n">item</span><span class="p">));</span>
+<span class="w">            </span><span class="n">partialResults</span><span class="p">.</span><span class="n">AddRange</span><span class="p">(</span><span class="n">itemResults</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">partialResults</span><span class="p">.</span><span class="n">Aggregate</span><span class="p">(</span><span class="cm">/*...*/</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<p>
+This ensures that the collection is iterated only once thus avoiding any odd results due to lazy evaluation.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-adaptations" class="outline-2">
+<h2 id="adaptations">Adaptations</h2>
+<div class="outline-text-2" id="text-adaptations">
+<p>
+Despite its drawbacks, the <code>Specialized Workers</code> pattern is quite flexible in its implementation. As such, it can be adapted for some specific scenarios discussed below. Of course, it goes without saying that the list is not exclusive.
+</p>
+</div>
+
+<div id="outline-container-using-a-single-method" class="outline-3">
+<h3 id="using-a-single-method">Using a single method</h3>
+<div class="outline-text-3" id="text-using-a-single-method">
+<p>
+For the cases when the processing is lightweight, you can combine the two methods into a single one that returns a tuple like this:
+</p>
+<div class="highlight"><pre><span></span><span class="k">public</span><span class="w"> </span><span class="p">(</span><span class="kt">bool</span><span class="w"> </span><span class="n">canProcess</span><span class="p">,</span><span class="w"> </span><span class="n">Result</span><span class="w"> </span><span class="n">result</span><span class="p">)</span><span class="w"> </span><span class="n">Process</span><span class="p">(</span><span class="n">Payload</span><span class="w"> </span><span class="n">payload</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">CanProcess</span><span class="p">(</span><span class="n">payload</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="p">(</span><span class="k">false</span><span class="p">,</span><span class="w"> </span><span class="k">default</span><span class="p">(</span><span class="n">Result</span><span class="p">));</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">Result</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ProcessInternal</span><span class="p">(</span><span class="n">payload</span><span class="p">);</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">(</span><span class="k">true</span><span class="p">,</span><span class="w"> </span><span class="n">result</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">private</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="nf">CanProcess</span><span class="p">(</span><span class="n">Payload</span><span class="w"> </span><span class="n">payload</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="c1">// take decision here</span>
+<span class="p">}</span>
+</pre></div>
+<p>
+As mentioned in the sub-section <a href="posts/specialized-workers-pattern/#no-guarantee-of-the-same-parameters">No guarantee of the same parameters</a>, combining the two methods into a single one guards against calling the <code>CanProcess()</code> and <code>Process()</code> methods in the opposite order or with different parameters.
+</p>
+</div>
+</div>
+
+<div id="outline-container-non-exclusive-workers" class="outline-3">
+<h3 id="non-exclusive-workers">Non-exclusive workers</h3>
+<div class="outline-text-3" id="text-non-exclusive-workers">
+<p>
+You can have multiple workers capable of processing the same payload; in this case, the caller (the delegator) is responsible for aggregating the results:
+</p>
+<div class="highlight"><pre><span></span><span class="kt">var</span><span class="w"> </span><span class="n">results</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_workers</span><span class="p">.</span><span class="n">Where</span><span class="p">(</span><span class="n">w</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">w</span><span class="p">.</span><span class="n">CanProcess</span><span class="p">(</span><span class="n">payload</span><span class="p">))</span>
+<span class="w">    </span><span class="p">.</span><span class="n">Select</span><span class="p">(</span><span class="n">w</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">w</span><span class="p">.</span><span class="n">Process</span><span class="p">(</span><span class="n">payload</span><span class="p">))</span>
+<span class="w">    </span><span class="p">.</span><span class="n">ToArray</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orga65a08b" class="outline-2">
+<h2 id="orga65a08b">Ending thoughts</h2>
+<div class="outline-text-2" id="text-orga65a08b">
+<p>
+As you can see from this quite lengthy post, the <code>Specialized Workers</code> pattern, provides both a way to cluster business logic into specialized classes, and a good degree of flexibility in order to adapt the implementation to different situations. Despite its flexibility however, it is my <i>subjective</i> opinion that the original form of the pattern (the one shown in the <a href="posts/specialized-workers-pattern/#implementation">Implementation</a> section) is the most elegant and eloquent, which is why I use that version most of the time. But, especially as a software developer, I am aware that each person has its own preferences in regards to how something should be done or implemented. As such, I hope you find this pattern useful, and if so, feel free to apply it in whichever way suits you best.
+</p>
+</div>
+</div>
+    </div>
+    </article><article class="post h-entry post-text"><header><h1 class="post-title p-name"><a href="posts/release-to-qa-not-production/" class="u-url">Don't release to Production, release to QA</a></h1>
         <div class="metadata">
             <p class="dateline">
               <i class="fa fa-clock-o"></i> <time class="published dt-published" datetime="2022-11-29T14:14:25+02:00" title="2022-11-29 14:14">2022-11-29 14:14</time>
@@ -1557,78 +1889,6 @@ The important thing to keep in mind in such cases is the need to switch from a p
 
 <p>
 I have created a <a href="https://github.com/RePierre/orm-rbar-example">GitHub repository</a> to showcase the first two implemetations of <code>IOrderservice</code>.
-</p>
-    </div>
-    </article><article class="post h-entry post-text"><header><h1 class="post-title p-name"><a href="posts/python-development-using-emacs-from-terminal/" class="u-url">Python development using Emacs from terminal</a></h1>
-        <div class="metadata">
-            <p class="dateline">
-              <i class="fa fa-clock-o"></i> <time class="published dt-published" datetime="2017-09-29T00:00:00+02:00" title="2017-09-29 00:00">2017-09-29 00:00</time>
-            
-                |   <i class="fa fa-comment"></i>         <a href="posts/python-development-using-emacs-from-terminal/#disqus_thread" data-disqus-identifier="cache/posts/python-development-using-emacs-from-terminal.html">Comments</a>
-
-
-            </p>
-        </div>
-    </header><div class="e-content entry-content">
-    <p>
-A few weeks ago, while working on a hackathon project I found myself very disappointed with my progress.
-</p>
-
-<p>
-I had the impression that I can do better but something is holding me back and then I realized that I was too distracted by <code>Alt-Tab</code>-ing through all open applications, iterating through dozens of open tabs in the browser and spending too much time on websites that were of no use at that time.
-</p>
-
-<p>
-At that moment, on a whim I decided to try and eliminate all of these distractions the hard way - <b>by not using the X server at all</b> (I was working on <a href="https://kubuntu.org/">Kubuntu</a>).
-</p>
-
-<p>
-Since I was mainly working with Python code and occasionally I would need to open some file for inspection and all of these were done from Emacs I said to myself:
-</p>
-<blockquote>
-<p>
-Emacs can be opened from console so why not start working on hackathon from console?
-</p>
-</blockquote>
-<p>
-Said and done. <code>Ctrl-Alt-F1</code> and I was prompted with the TTY cursor. I logged in, started Emacs opened all the required files and started working. All good until I found myself in the situation where I needed to lookup something on the Internet. I knew I could use <code>eww</code> as a web browser so normally I did so (yeah, I'm one of those people that use Bing instead of Google):
-</p>
-<div class="highlight"><pre><span></span>M-x<span class="w"> </span>eww
-Enter<span class="w"> </span>URL<span class="w"> </span>or<span class="w"> </span>keywords:<span class="w"> </span>www.bing.com
-</pre></div>
-<p>
-And nothing… Oh, wait, I remember needing to enter some username and password when connecting to the Wi-Fi but I wasn't prompted for those after logging into terminal. How do I connect to the network?
-</p>
-
-<p>
-As there was no way for me to find that out without using some sort of GUI (I'm not that good with terminals) I started a new X session, connected from there to Wi-Fi and found this <a href="https://askubuntu.com/a/461831/561980">StackOverflow answer</a>. So I logged back to the terminal and from Emacs started <b>eshell</b> with <code>M-x eshell</code>. From there I issued the following command
-</p>
-<div class="highlight"><pre><span></span>nmcli<span class="w"> </span>c<span class="w"> </span>up<span class="w"> </span>&lt;wi-fi-name&gt;
-</pre></div>
-<p>
-which connected me to the Wi-Fi network.
-</p>
-
-<p>
-Note: I got connected because on previous sessions I opted to store the credentials for the connection; to get a prompt for username and password for the Wi-Fi use the <code>--ask</code> parameter like this:
-</p>
-<div class="highlight"><pre><span></span>nmcli<span class="w"> </span>--ask<span class="w"> </span>c<span class="w"> </span>up<span class="w"> </span>&lt;wi-fi-name&gt;
-</pre></div>
-
-<p>
-After connecting I resumed my coding and only at the end of the hackathon I stopped to ponder upon my experience; it wasn't as smooth as I expected. Although I consider a big plus the fact that I was able to issue shell commands within Emacs through <b>eshell</b> there were some hick-ups along the way.
-</p>
-
-<p>
-The first thing I noticed is that under terminal not all shortcuts that are very familiar for me are available. Namely, in <b>org-mode</b> the combination <code>M-right</code> which is used for indentation, moving columns within a table and demoting list items is not available; instead I had to use either <code>C-c C-x r</code> shortcut or explicitly invoke the command using <code>M-x org-meta-right</code>. Although I did not invoke this command frequently, without the shortcut I felt like I was pulled out of <a href="https://en.wikipedia.org/wiki/Flow_(psychology)">the flow</a> each time I had to use an alternative method of invoking the command.
-</p>
-
-<p>
-The second and by far the biggest nuisance was the lack of proper web-browsing experience. Although I most frequently landed on StackOverflow pages and although <b>eww</b> rendered them pretty good (see image below) the lack of visual experience <i>I was used to</i> gave me a sense of discomfort.
-<img src="images/eww-stackoverflow-2.png" alt="nil"></p>
-
-<p>
-However, when I got to analyze how much I have accomplished while working from terminal I was simply <b>amazed</b>. Having no distraction and meaningless motion like cycling through windows and tabs had a huge impact on my productivity. I was able to fully concentrate and immerse in the code and by doing so I had <b>a lot</b> of work done.
 </p>
     </div>
     </article>
