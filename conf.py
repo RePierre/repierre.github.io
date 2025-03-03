@@ -140,6 +140,7 @@ NAVIGATION_LINKS = {
         ('/archive.html', 'Archive', 'fa fa-folder-open'),
         ('/categories/index.html', 'Tags', 'fa fa-tags'),
         ('/pages/welcome/', 'About', 'fa fa-user'),
+        ('/tehnologii-web/', 'Teaching', 'fa fa-graduation-cap'),
         ('/pages/en-ro-dictionary-for-ai', 'EN-RO 4 AI', 'fa fa-book'),
         ('/rss.xml', 'RSS', 'fa fa-feed')
     ),
