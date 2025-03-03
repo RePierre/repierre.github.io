@@ -2,12 +2,21 @@
 VENV           = $(HOME)/.venv/nikola
 VENV_BIN       = $(VENV)/bin
 VENV_PYTHON    = $(VENV_BIN)/python
+VENV_PIP       = $(VENV_BIN)/pip
 
 # Recipes
 
 # Define the default recipe
-.PHONY: default
 default: auto ;
+
+# Make the virtual environment
+.PHONY:	 venv
+venv:
+	rm -rf "$(VENV)";
+	mkdir -p $(HOME)/.venv/;
+	python -m venv $(VENV);
+	$(VENV_PIP) install -U pip setuptools wheel;
+	$(VENV_PIP) install -U "Nikola[extras]";
 
 # Run nikola auto
 .PHONY: auto
@@ -29,3 +38,7 @@ serve: build
 .PHONY: deploy
 deploy: build
 	$(VENV_PYTHON) $(VENV_BIN)/nikola github_deploy;
+
+.PHONY: clean
+clean:
+	$(VENV_PYTHON) $(VENV_BIN)/nikola clean;
