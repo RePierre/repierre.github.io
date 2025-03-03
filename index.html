@@ -22,13 +22,14 @@
                 <nav id="menu" role="navigation" class="sidebar-nav"><a class="sidebar-nav-item" href="#" title="Home"><i class="fa fa-home"></i>Home</a>
             <a class="sidebar-nav-item" href="archive.html" title="Archive"><i class="fa fa-folder-open"></i>Archive</a>
             <a class="sidebar-nav-item" href="categories/index.html" title="Tags"><i class="fa fa-tags"></i>Tags</a>
-            <a class="sidebar-nav-item" href="posts/welcome/" title="About"><i class="fa fa-user"></i>About</a>
+            <a class="sidebar-nav-item" href="pages/welcome/" title="About"><i class="fa fa-user"></i>About</a>
+            <a class="sidebar-nav-item" href="tehnologii-web/" title="Teaching"><i class="fa fa-graduation-cap"></i>Teaching</a>
             <a class="sidebar-nav-item" href="pages/en-ro-dictionary-for-ai" title="EN-RO 4 AI"><i class="fa fa-book"></i>EN-RO 4 AI</a>
             <a class="sidebar-nav-item" href="rss.xml" title="RSS"><i class="fa fa-feed"></i>RSS</a>
     
     
     </nav><footer id="footer"><span class="copyright">
-              Contents © 2024         <a href="mailto:petru.rebeja@gmail.com">Petru Rebeja</a> - Powered by   <a href="https://www.gnu.org/software/emacs/" rel="nofollow">GNU Emacs</a>  &amp;    <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+              Contents © 2025         <a href="mailto:petru.rebeja@gmail.com">Petru Rebeja</a> - Powered by   <a href="https://www.gnu.org/software/emacs/" rel="nofollow">GNU Emacs</a>  &amp;    <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
             </span>
             
             
@@ -49,9 +50,9 @@
             </p>
         </div>
     </header><div class="e-content entry-content">
-    <div id="outline-container-org927d365" class="outline-2">
-<h2 id="org927d365">Introduction</h2>
-<div class="outline-text-2" id="text-org927d365">
+    <div id="outline-container-org3e3fc1c" class="outline-2">
+<h2 id="org3e3fc1c">Introduction</h2>
+<div class="outline-text-2" id="text-org3e3fc1c">
 <p>
 Some years ago, in my <a href="posts/using-enums-in-c-sharp/">blog post about using enums in C#</a> I mentioned that I like using what I called at that time <code>specialized builders</code> to refactor the <code>switch</code> statement into a series of classes that implement a common interface and are specialized for a specific <code>case</code> of the <code>switch</code> statement.
 </p>
@@ -66,13 +67,13 @@ As such, I am excited to introduce to the world the <code>Specialized Workers</c
 </div>
 </div>
 
-<div id="outline-container-orgd9e74a4" class="outline-2">
-<h2 id="orgd9e74a4">Specialized Workers Pattern</h2>
-<div class="outline-text-2" id="text-orgd9e74a4">
+<div id="outline-container-orgdc5a2de" class="outline-2">
+<h2 id="orgdc5a2de">Specialized Workers Pattern</h2>
+<div class="outline-text-2" id="text-orgdc5a2de">
 </div>
-<div id="outline-container-orgb62e316" class="outline-3">
-<h3 id="orgb62e316">Description and usage</h3>
-<div class="outline-text-3" id="text-orgb62e316">
+<div id="outline-container-org99d1329" class="outline-3">
+<h3 id="org99d1329">Description and usage</h3>
+<div class="outline-text-3" id="text-org99d1329">
 <p>
 The <code>Specialized Workers</code> pattern aims to distribute the logic of a business operation that requires choosing between one or multiple tasks to be executed, into a collection of specialized classes, while keeping the knowledge about the task(s) to be executed into a single place.
 </p>
@@ -196,13 +197,13 @@ On the other hand, each worker class is, as the name of the pattern suggests it,
 </div>
 </div>
 
-<div id="outline-container-orgea836ee" class="outline-2">
-<h2 id="orgea836ee">Discussion</h2>
-<div class="outline-text-2" id="text-orgea836ee">
+<div id="outline-container-orgcdd5cda" class="outline-2">
+<h2 id="orgcdd5cda">Discussion</h2>
+<div class="outline-text-2" id="text-orgcdd5cda">
 </div>
-<div id="outline-container-orgb6f228c" class="outline-3">
-<h3 id="orgb6f228c">How is it different from the <code>Strategy</code> pattern?</h3>
-<div class="outline-text-3" id="text-orgb6f228c">
+<div id="outline-container-orge09cf18" class="outline-3">
+<h3 id="orge09cf18">How is it different from the <code>Strategy</code> pattern?</h3>
+<div class="outline-text-3" id="text-orge09cf18">
 <p>
 At this moment you may be wondering how the <code>Specialized Workers</code> is different from the <code>Strategy</code> pattern? After all, each worker implements and applies a different strategy in the processing of the data.
 </p>
@@ -217,9 +218,9 @@ There is however, a difference in the nomenclature: <code>Strategy</code> is a <
 </div>
 </div>
 
-<div id="outline-container-org0354635" class="outline-3">
-<h3 id="org0354635">Why not use a <code>Factory method</code>?</h3>
-<div class="outline-text-3" id="text-org0354635">
+<div id="outline-container-org0b50983" class="outline-3">
+<h3 id="org0b50983">Why not use a <code>Factory method</code>?</h3>
+<div class="outline-text-3" id="text-org0b50983">
 <p>
 Okay, you might say, then why not use a <code>Factory method</code> to build directly the worker that knows how to handle the specific use-case?
 </p>
@@ -361,9 +362,9 @@ You can have multiple workers capable of processing the same payload; in this ca
 </div>
 </div>
 
-<div id="outline-container-orga65a08b" class="outline-2">
-<h2 id="orga65a08b">Ending thoughts</h2>
-<div class="outline-text-2" id="text-orga65a08b">
+<div id="outline-container-orge9840f9" class="outline-2">
+<h2 id="orge9840f9">Ending thoughts</h2>
+<div class="outline-text-2" id="text-orge9840f9">
 <p>
 As you can see from this quite lengthy post, the <code>Specialized Workers</code> pattern, provides both a way to cluster business logic into specialized classes, and a good degree of flexibility in order to adapt the implementation to different situations. Despite its flexibility however, it is my <i>subjective</i> opinion that the original form of the pattern (the one shown in the <a href="posts/specialized-workers-pattern/#implementation">Implementation</a> section) is the most elegant and eloquent, which is why I use that version most of the time. But, especially as a software developer, I am aware that each person has its own preferences in regards to how something should be done or implemented. As such, I hope you find this pattern useful, and if so, feel free to apply it in whichever way suits you best.
 </p>
@@ -385,9 +386,9 @@ As you can see from this quite lengthy post, the <code>Specialized Workers</code
 <b>Automate your release workflow to such extent that the QA engineers from your team become the users of the application.</b>
 </p>
 
-<div id="outline-container-orgc3b325d" class="outline-2">
-<h2 id="orgc3b325d">Introduction</h2>
-<div class="outline-text-2" id="text-orgc3b325d">
+<div id="outline-container-org20ee48c" class="outline-2">
+<h2 id="org20ee48c">Introduction</h2>
+<div class="outline-text-2" id="text-org20ee48c">
 <p>
 It's Friday afternoon, the end of the sprint, and a few hours before the weekend starts, and the QA engineers are performing the required tests on the last Sprint Backlog Item (SBI). The developer responsible for that item, confident that the SBI meets all acceptance criteria, is already in the weekend mood.
 </p>
@@ -406,9 +407,9 @@ Both sigh in relief while the SBI is marked as "Done" and the weekend starts. Bl
 </div>
 </div>
 
-<div id="outline-container-orgab70c64" class="outline-2">
-<h2 id="orgab70c64">Getting to the root problem</h2>
-<div class="outline-text-2" id="text-orgab70c64">
+<div id="outline-container-orgf828b8c" class="outline-2">
+<h2 id="orgf828b8c">Getting to the root problem</h2>
+<div class="outline-text-2" id="text-orgf828b8c">
 <p>
 Although the day and the sprint goal were saved, I would argue that applying the cleanup script just fixed an issue but left the root problem untouched. And to get to the root problem, let's take a closer look on what happened.
 </p>
@@ -435,9 +436,9 @@ But our root-cause analysis is not complete yet. We can't just say "let's never 
 </div>
 </div>
 
-<div id="outline-container-org0abdb89" class="outline-2">
-<h2 id="org0abdb89">Why and when do we apply workarounds in production?</h2>
-<div class="outline-text-2" id="text-org0abdb89">
+<div id="outline-container-orge8deafd" class="outline-2">
+<h2 id="orge8deafd">Why and when do we apply workarounds in production?</h2>
+<div class="outline-text-2" id="text-orge8deafd">
 <p>
 In Production environment a workaround is applied <i>only in critical situations</i> due to high risk of breaking the running system by making ad-hoc changes to it.
 </p>
@@ -464,9 +465,9 @@ OK, now we're settled: workarounds are necessary <i>in critical situations</i>, 
 </div>
 </div>
 
-<div id="outline-container-orgee8ac6b" class="outline-2">
-<h2 id="orgee8ac6b">Why do we apply workarounds in QA environment?</h2>
-<div class="outline-text-2" id="text-orgee8ac6b">
+<div id="outline-container-orge307b12" class="outline-2">
+<h2 id="orge307b12">Why do we apply workarounds in QA environment?</h2>
+<div class="outline-text-2" id="text-orge307b12">
 <p>
 QA environment is isolated from Production environment, and by definition it has way fewer users. Furthermore, those users have a lot of technical knowledge of how the system runs, and always have something else to do (like designing/writing test cases) while the system is being brought to normal again.
 </p>
@@ -485,9 +486,9 @@ Now that the assessment of criticality is done, let's get back to our topic and 
 </div>
 </div>
 
-<div id="outline-container-orgc2f1f35" class="outline-2">
-<h2 id="orgc2f1f35">What if we treated QA environment like Production?</h2>
-<div class="outline-text-2" id="text-orgc2f1f35">
+<div id="outline-container-org2f1ffd1" class="outline-2">
+<h2 id="org2f1ffd1">What if we treated QA environment like Production?</h2>
+<div class="outline-text-2" id="text-org2f1ffd1">
 <p>
 Production and QA environments are different (<i>very</i> different I may add); there's no doubt about that. What makes them different, from the point of view of our topic, is the fact that when a feature is deployed in Production environment, <i>all</i> the prerequisites are known, and all preliminary steps are executed.
 </p>
@@ -506,9 +507,9 @@ And when it comes to doing repetitive tasks…
 </div>
 </div>
 
-<div id="outline-container-org00e0b4a" class="outline-2">
-<h2 id="org00e0b4a">Automation is key</h2>
-<div class="outline-text-2" id="text-org00e0b4a">
+<div id="outline-container-org29aff0a" class="outline-2">
+<h2 id="org29aff0a">Automation is key</h2>
+<div class="outline-text-2" id="text-org29aff0a">
 <p>
 To alleviate the difference between (successive) environments you only need to do one thing, although I must say from the start that achieving that one thing <i>can be really hard</i> — <b>automate everything</b>.
 </p>
@@ -526,17 +527,17 @@ Although we strive to have our environments behave all the same, they are still 
 </div>
 </div>
 
-<div id="outline-container-orgcc3df78" class="outline-2">
-<h2 id="orgcc3df78">The Snowball Effect</h2>
-<div class="outline-text-2" id="text-orgcc3df78">
+<div id="outline-container-org8d6284c" class="outline-2">
+<h2 id="org8d6284c">The Snowball Effect</h2>
+<div class="outline-text-2" id="text-org8d6284c">
 <p>
 Once achieved, the effects of this objective of having minimal manual intervention ripple through and start a <a href="https://en.wikipedia.org/wiki/Snowball_effect">snowball effect</a>.
 </p>
 </div>
 
-<div id="outline-container-orgd5dc455" class="outline-3">
-<h3 id="orgd5dc455">Efficiency</h3>
-<div class="outline-text-3" id="text-orgd5dc455">
+<div id="outline-container-orgeb17bbb" class="outline-3">
+<h3 id="orgeb17bbb">Efficiency</h3>
+<div class="outline-text-3" id="text-orgeb17bbb">
 <p>
 At first, you gain efficiency — there is no checklist to go through when deploying, no time needed to spend doing the tedious steps of deployment; the computers will perform those steps as quickly as possible and <i>always</i> in the same order without skipping any of them or making the errors that humans usually do when performing tedious work.
 </p>
@@ -547,9 +548,9 @@ With a click of a button, or on a certain event the deployment starts and while 
 </div>
 </div>
 
-<div id="outline-container-orgd722cd5" class="outline-3">
-<h3 id="orgd722cd5">Speed</h3>
-<div class="outline-text-3" id="text-orgd722cd5">
+<div id="outline-container-orga37fa72" class="outline-3">
+<h3 id="orga37fa72">Speed</h3>
+<div class="outline-text-3" id="text-orga37fa72">
 <p>
 Furthermore, besides efficiency you can gain speed — just by delegating the deployment process to computers you gain time because computers do boring stuff a lot quicker than humans.
 </p>
@@ -564,9 +565,9 @@ And this is where the magic unravels.
 </div>
 </div>
 
-<div id="outline-container-org1e03bce" class="outline-3">
-<h3 id="org1e03bce">Tight feedback loop</h3>
-<div class="outline-text-3" id="text-org1e03bce">
+<div id="outline-container-org7d787f7" class="outline-3">
+<h3 id="org7d787f7">Tight feedback loop</h3>
+<div class="outline-text-3" id="text-org7d787f7">
 <p>
 Once you automate the repetitive tasks you free-up the time of the QA engineer, which allows him/her to spend more time with the system(s) they are testing. In other words, the time gained through workflow automation is invested into the actual Quality Assurance of the system under test.
 </p>
@@ -581,9 +582,9 @@ We have a name for this thing — it's called a <i>feedback loop</i>. The feedba
 </div>
 </div>
 
-<div id="outline-container-org68231a2" class="outline-3">
-<h3 id="org68231a2">Improved user experience</h3>
-<div class="outline-text-3" id="text-org68231a2">
+<div id="outline-container-org110c008" class="outline-3">
+<h3 id="org110c008">Improved user experience</h3>
+<div class="outline-text-3" id="text-org110c008">
 <p>
 But wait, there's more! The time that the QA engineer gets to invest into growing his/her skills is spent using the system under test. With more time spent using the system under test, the QA engineer gets closer and closer to the mindset of the real users of the system. And while in this mindset, the QA engineer not only understands what the system does for the user but also understands what the user wants to do.
 </p>
@@ -611,9 +612,9 @@ Sure, all of those changes must be  discussed with the team <i>and</i> approved 
 </div>
 </div>
 
-<div id="outline-container-orgf0e6057" class="outline-2">
-<h2 id="orgf0e6057">Allow the QA engineer to be an user of the system</h2>
-<div class="outline-text-2" id="text-orgf0e6057">
+<div id="outline-container-org191d7ab" class="outline-2">
+<h2 id="org191d7ab">Allow the QA engineer to be an user of the system</h2>
+<div class="outline-text-2" id="text-org191d7ab">
 <p>
 The main role of a QA engineer is to ensure that the system under test satisfies the needs of its users. As such, the QA engineer needs to think like a user, to act like a user, and to be able to quickly shift from the mindset of the user to the mindset of the problem analyst required by the job description.
 </p>
@@ -826,9 +827,9 @@ I would like to thank my colleagues for their reviews of this blog post. Also a 
             </p>
         </div>
     </header><div class="e-content entry-content">
-    <div id="outline-container-orga0d5af6" class="outline-2">
-<h2 id="orga0d5af6">Prologue</h2>
-<div class="outline-text-2" id="text-orga0d5af6">
+    <div id="outline-container-orgbe84892" class="outline-2">
+<h2 id="orgbe84892">Prologue</h2>
+<div class="outline-text-2" id="text-orgbe84892">
 <p>
 I am a fan of <a href="https://en.wikipedia.org/wiki/Windows_Subsystem_for_Linux"><code>Windows Subsystem for Linux</code></a>. It brings the power of Linux command-line tools to Windows which is something a developer cannot dislike but that isn't the main reason I'm fond of it. I like it because it allows me to run Emacs (albeit in console mode) at its full potential.
 </p>
@@ -858,9 +859,9 @@ The answer is <b>Yes</b>. If you want to see only the final <code>Dockerfile</co
 </p>
 </div>
 </div>
-<div id="outline-container-org047b8ab" class="outline-2">
-<h2 id="org047b8ab">How</h2>
-<div class="outline-text-2" id="text-org047b8ab">
+<div id="outline-container-org412b0e6" class="outline-2">
+<h2 id="org412b0e6">How</h2>
+<div class="outline-text-2" id="text-org412b0e6">
 <p>
 Since I already have been using Emacs as a Python IDE in Ubuntu Bash, replicating this setup in Docker would imply:
 </p>
@@ -877,9 +878,9 @@ Luckily, Docker already has an <a href="https://docs.docker.com/engine/examples/
 </p>
 </div>
 </div>
-<div id="outline-container-org1fbcfbb" class="outline-2">
-<h2 id="org1fbcfbb">Issue #1: SSHD refuses connection</h2>
-<div class="outline-text-2" id="text-org1fbcfbb">
+<div id="outline-container-orgb1392e2" class="outline-2">
+<h2 id="orgb1392e2">Issue #1: SSHD refuses connection</h2>
+<div class="outline-text-2" id="text-orgb1392e2">
 <p>
 This one was easy — there's a typo in the example provided by Docker. I figured it out after inspecting the contents of <code>sshd_config</code> file.
 </p>
@@ -925,9 +926,9 @@ This way, the root password isn't stored in clear text and in plain-sight anymor
 </p>
 </div>
 </div>
-<div id="outline-container-org9d956ba" class="outline-2">
-<h2 id="org9d956ba">Issue #2: Activating virtual environment inside container</h2>
-<div class="outline-text-2" id="text-org9d956ba">
+<div id="outline-container-orgfdb6593" class="outline-2">
+<h2 id="orgfdb6593">Issue #2: Activating virtual environment inside container</h2>
+<div class="outline-text-2" id="text-orgfdb6593">
 <p>
 The second item of my quest was to setup and activate a Python virtual environment. This environment will be used to install all the dependencies required for the project I'm working on.
 </p>
@@ -980,9 +981,9 @@ Afterwards, just install the required packages as usual.
 </p>
 </div>
 </div>
-<div id="outline-container-orgcd9be08" class="outline-2">
-<h2 id="orgcd9be08">Issue #3: Emacs monolithic configuration file</h2>
-<div class="outline-text-2" id="text-orgcd9be08">
+<div id="outline-container-orgc86ece8" class="outline-2">
+<h2 id="orgc86ece8">Issue #3: Emacs monolithic configuration file</h2>
+<div class="outline-text-2" id="text-orgc86ece8">
 <p>
 After setting up and activating the virtual environment, I needed to configure Emacs for python development to start working.
 </p>
@@ -1096,9 +1097,9 @@ It does one more thing not mentioned previously: a <code>sed</code> call to remo
 </p>
 </div>
 </div>
-<div id="outline-container-orgdd1f977" class="outline-2">
-<h2 id="orgdd1f977">Issue #4: Using SSH keys to connect to GitHub</h2>
-<div class="outline-text-2" id="text-orgdd1f977">
+<div id="outline-container-org1c0bc74" class="outline-2">
+<h2 id="org1c0bc74">Issue #4: Using SSH keys to connect to GitHub</h2>
+<div class="outline-text-2" id="text-org1c0bc74">
 <p>
 Now that I have Emacs running on Ubuntu (albeit terminal only) I can enjoy a smooth workflow without having to wait too much for Magit or other application that took forever on Cygwin to finish.
 </p>
@@ -1136,9 +1137,9 @@ To provide the values for the keys use <code>--build-arg</code> parameter when b
 </pre></div>
 </div>
 </div>
-<div id="outline-container-orgd55fd85" class="outline-2">
-<h2 id="orgd55fd85">Issue #5: Install Emacs packages once and done</h2>
-<div class="outline-text-2" id="text-orgd55fd85">
+<div id="outline-container-orgf067b89" class="outline-2">
+<h2 id="orgf067b89">Issue #5: Install Emacs packages once and done</h2>
+<div class="outline-text-2" id="text-orgf067b89">
 <p>
 After another build of the Docker image I started a container from it, logged in via ssh into the container, started Emacs and noticed yet another issue.
 </p>
@@ -1165,9 +1166,9 @@ And to my great surprise, when rebuilding the image I saw the output of Emacs pa
 </p>
 </div>
 </div>
-<div id="outline-container-orgafa9d80" class="outline-2">
-<h2 id="orgafa9d80">Issue #6: Terminal colors</h2>
-<div class="outline-text-2" id="text-orgafa9d80">
+<div id="outline-container-orgf400a6d" class="outline-2">
+<h2 id="orgf400a6d">Issue #6: Terminal colors</h2>
+<div class="outline-text-2" id="text-orgf400a6d">
 <p>
 Being confident that everything should work now (it's the same setup I had on <code>WSL</code>) I started a new container to which I mounted the GitHub repo as a volume and got cracking.
 </p>
@@ -1262,9 +1263,9 @@ To build the image use this command:
 </pre></div>
 </div>
 </div>
-<div id="outline-container-orgabd0741" class="outline-2">
-<h2 id="orgabd0741">Epilogue</h2>
-<div class="outline-text-2" id="text-orgabd0741">
+<div id="outline-container-org33f8426" class="outline-2">
+<h2 id="org33f8426">Epilogue</h2>
+<div class="outline-text-2" id="text-org33f8426">
 <p>
 Looking back at this sort of quest of mine, I have nothing else to say than it was, overall, a fun experience.
 </p>
@@ -1278,9 +1279,9 @@ But the bottom line is that it was a great deal of fun involved which luckily re
 </p>
 </div>
 </div>
-<div id="outline-container-org7a41d92" class="outline-2">
-<h2 id="org7a41d92">References</h2>
-<div class="outline-text-2" id="text-org7a41d92">
+<div id="outline-container-orgbd0e82d" class="outline-2">
+<h2 id="orgbd0e82d">References</h2>
+<div class="outline-text-2" id="text-orgbd0e82d">
 <ol class="org-ol">
 <li><a href="https://docs.docker.com/engine/examples/running_ssh_service/">Dockerize an SSH service</a></li>
 <li><a href="https://pythonspeed.com/articles/activate-virtualenv-dockerfile/">Elegantly activating a virtualenv in a Dockerfile</a></li>
@@ -1289,9 +1290,9 @@ But the bottom line is that it was a great deal of fun involved which luckily re
 </ol>
 </div>
 </div>
-<div id="outline-container-orgeee239b" class="outline-2">
-<h2 id="orgeee239b">Acknowledgments</h2>
-<div class="outline-text-2" id="text-orgeee239b">
+<div id="outline-container-org57aa837" class="outline-2">
+<h2 id="org57aa837">Acknowledgments</h2>
+<div class="outline-text-2" id="text-org57aa837">
 <p>
 I would like to thank my colleague <a href="https://www.linkedin.com/in/ionelabarbuta/">Ionela Bărbuță</a> for proofreading this post and for the tips &amp; tricks she gave me in order to improve my writing.
 </p>
@@ -1445,9 +1446,9 @@ When a part of the jury went to deliberate over which team should get which priz
 Overall it was a great experience and I'm gratefull for the opportunity to participate. And now with the school long gone, I'm reviewing/archiving the to-do-list of activities for the summer school and building the list of…
 </p>
 
-<div id="outline-container-org8ff7131" class="outline-2">
-<h2 id="org8ff7131">Lessons learned</h2>
-<div class="outline-text-2" id="text-org8ff7131">
+<div id="outline-container-orgd49c898" class="outline-2">
+<h2 id="orgd49c898">Lessons learned</h2>
+<div class="outline-text-2" id="text-orgd49c898">
 <dl class="org-dl">
 <dt>Infrastructure <i>is</i> a problem</dt>
 <dd>We learned the hard way that not everyone has high-end laptops that can run resource-heavy applications.</dd>

@@ -20,13 +20,14 @@
                 <nav id="menu" role="navigation" class="sidebar-nav"><a class="sidebar-nav-item" href="../../index.html" title="Home"><i class="fa fa-home"></i>Home</a>
             <a class="sidebar-nav-item" href="../../archive.html" title="Archive"><i class="fa fa-folder-open"></i>Archive</a>
             <a class="sidebar-nav-item" href="../../categories/index.html" title="Tags"><i class="fa fa-tags"></i>Tags</a>
-            <a class="sidebar-nav-item" href="../welcome/" title="About"><i class="fa fa-user"></i>About</a>
+            <a class="sidebar-nav-item" href="../../pages/welcome/" title="About"><i class="fa fa-user"></i>About</a>
+            <a class="sidebar-nav-item" href="../../tehnologii-web/" title="Teaching"><i class="fa fa-graduation-cap"></i>Teaching</a>
             <a class="sidebar-nav-item" href="../../pages/en-ro-dictionary-for-ai" title="EN-RO 4 AI"><i class="fa fa-book"></i>EN-RO 4 AI</a>
             <a class="sidebar-nav-item" href="../../rss.xml" title="RSS"><i class="fa fa-feed"></i>RSS</a>
     
     
     </nav><footer id="footer"><span class="copyright">
-              Contents © 2024         <a href="mailto:petru.rebeja@gmail.com">Petru Rebeja</a> - Powered by   <a href="https://www.gnu.org/software/emacs/" rel="nofollow">GNU Emacs</a>  &amp;    <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+              Contents © 2025         <a href="mailto:petru.rebeja@gmail.com">Petru Rebeja</a> - Powered by   <a href="https://www.gnu.org/software/emacs/" rel="nofollow">GNU Emacs</a>  &amp;    <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
             </span>
             
             
@@ -45,9 +46,9 @@
     
 
     <div class="e-content entry-content" itemprop="articleBody text">
-    <div id="outline-container-org733d0ad" class="outline-2">
-<h2 id="org733d0ad">Outline</h2>
-<div class="outline-text-2" id="text-org733d0ad">
+    <div id="outline-container-orgd011989" class="outline-2">
+<h2 id="orgd011989">Outline</h2>
+<div class="outline-text-2" id="text-orgd011989">
 <ul class="org-ul">
 <li>The core: latent variables and latent space</li>
 <li>The probabilistic perspective: \(p(l|w) \rightarrow p(z|w) \wedge p(l|z)\)</li>
@@ -55,9 +56,9 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-org0a7cb68" class="outline-2">
-<h2 id="org0a7cb68">Prolog</h2>
-<div class="outline-text-2" id="text-org0a7cb68">
+<div id="outline-container-org9a5cf90" class="outline-2">
+<h2 id="org9a5cf90">Prolog</h2>
+<div class="outline-text-2" id="text-org9a5cf90">
 <p>
 Înainte de a începe discuția despre subiectul propriu-zis al acestui articol vreau să răspund (mai mult pentru mine) la două întrebări:
 </p>
@@ -88,16 +89,16 @@ Așadar, începem cu:
 </p>
 </div>
 </div>
-<div id="outline-container-org91e8db0" class="outline-2">
-<h2 id="org91e8db0">Ce este un <code>Autoencoder</code>?</h2>
-<div class="outline-text-2" id="text-org91e8db0">
+<div id="outline-container-orge538a3e" class="outline-2">
+<h2 id="orge538a3e">Ce este un <code>Autoencoder</code>?</h2>
+<div class="outline-text-2" id="text-orge538a3e">
 <p>
 În linii mari, un <code>autoencoder</code> este o rețea neuronală alcătuită din două parți: <i>codor</i> și <i>decodor</i> (<code>encoder</code> și respectiv <code>decoder</code>), a cărei funcționalitate este să:
 </p>
 <ol class="org-ol">
 <li>primească la intrare un vector \(X \in R^D\)</li>
 <li>îl codifice (<code>encode</code>) într-un vector \(z \in R^K\) unde \(K \ll D\). În termeni matematici, codorul învață o funcție \(g:R^D \rightarrow R^K\)</li>
-<li>decodifice vectorul \(z\) în-un vector \(X'\) cât mai similar posibil cu vectorul original \(X\). Altfel spus, decodorul învață funcția \(f:R^K \rightarrow R^D\) aşa încât \(f(g(X)) \approx X\). <a id="org6d83c1e"></a>
+<li>decodifice vectorul \(z\) în-un vector \(X'\) cât mai similar posibil cu vectorul original \(X\). Altfel spus, decodorul învață funcția \(f:R^K \rightarrow R^D\) aşa încât \(f(g(X)) \approx X\). <a id="org50d012b"></a>
 </li>
 </ol>
 <p>
@@ -125,9 +126,9 @@ Având această imagine în minte, putem să începem discuția despre subiectul
 </p>
 </div>
 </div>
-<div id="outline-container-orge179df4" class="outline-2">
-<h2 id="orge179df4">Ce este un <code>Variational Autoencoder</code>?</h2>
-<div class="outline-text-2" id="text-orge179df4">
+<div id="outline-container-orgf223f97" class="outline-2">
+<h2 id="orgf223f97">Ce este un <code>Variational Autoencoder</code>?</h2>
+<div class="outline-text-2" id="text-orgf223f97">
 <p>
 Privind de la un nivel înalt, un <code>variational autoencoder</code><sup><a id="fnr.3" class="footref" href="#fn.3" role="doc-backlink">3</a></sup><sup>, </sup><sup><a id="fnr.4" class="footref" href="#fn.4" role="doc-backlink">4</a></sup>, pe numele său mic <code>VAE</code>, are aceeași arhitectură ca un <code>autoencoder</code>. Astfel și într-un <code>VAE</code> regăsim componentele binecunoscute ale unui <code>autoencoder</code>:
 </p>
@@ -185,11 +186,11 @@ Abia văzut din ambele perspective, modelul <code>VAE</code> ni se arată în to
 </p>
 </div>
 </div>
-<div id="outline-container-org29fcad3" class="outline-2">
-<h2 id="org29fcad3">
+<div id="outline-container-org665146a" class="outline-2">
+<h2 id="org665146a">
 <code>VAE</code> din perspectiva <code>Deep Learning</code>
 </h2>
-<div class="outline-text-2" id="text-org29fcad3">
+<div class="outline-text-2" id="text-org665146a">
 <p>
 Din perspectiva învățării automate aprofundate, <code>VAE</code> poate fi asociat cu un autoencoder care a suferit următoarele modificări:
 </p>
@@ -206,7 +207,7 @@ Din perspectiva învățării automate aprofundate, <code>VAE</code> poate fi as
 </ul>
 <p>
 Și cum o imagine face cât o mie de cuvinte, arhitectura de nivel înalt a unui <code>Variational Autoencoder</code> arată așa:
-<a id="org210c3d6"></a>
+<a id="org209fc8d"></a>
 </p>
 <p>
 <img src="../../images/vae-schema.png" alt="nil"></p>
@@ -226,7 +227,7 @@ Pornind de la diagramele arhitecturale ale celor două modele, începem să iden
 </dd>
 </dl>
 <p>
-Așadar, schema din <a href="#org210c3d6">imaginea anterioară</a> este simplificată. Adevărata arhitectură a unui <code>VAE</code> arată astfel:
+Așadar, schema din <a href="#org209fc8d">imaginea anterioară</a> este simplificată. Adevărata arhitectură a unui <code>VAE</code> arată astfel:
   <img src="../../images/vae-schema-complete.png" alt="nil"></p>
 
 <p>
@@ -234,7 +235,7 @@ La fel ca în diagrama pentru <code>autoencoder</code>, reprezentarea latentă \
 </p>
 
 <p>
-Abia această ultimă diagramă, cea cu arhitectura completă, ne oferă imaginea clară a diferențelor dintre un <code>autoencoder</code> clasic și un <code>VAE</code>: în cazul <code>VAE</code> nu mai vorbim de o compunere de funcții cum am văzut în cazul unui <a href="#org6d83c1e">autoencoder</a>. În principiu vorbim despre două <i>componente diferite</i>: (i) <b>rețeaua de inferență</b> care ne permite să aproximăm parametrii \((\mu, \sigma)\) și (ii) <b>modelul</b> propriu-zis care generează instanțe noi.
+Abia această ultimă diagramă, cea cu arhitectura completă, ne oferă imaginea clară a diferențelor dintre un <code>autoencoder</code> clasic și un <code>VAE</code>: în cazul <code>VAE</code> nu mai vorbim de o compunere de funcții cum am văzut în cazul unui <a href="#org50d012b">autoencoder</a>. În principiu vorbim despre două <i>componente diferite</i>: (i) <b>rețeaua de inferență</b> care ne permite să aproximăm parametrii \((\mu, \sigma)\) și (ii) <b>modelul</b> propriu-zis care generează instanțe noi.
 </p>
 
 <p>
@@ -256,10 +257,10 @@ După cum se observă deja din funcția de cost, am trecut de jumătatea podului
 </p>
 </div>
 </div>
-<div id="outline-container-orgdea9584" class="outline-2">
-<h2 id="orgdea9584">
+<div id="outline-container-orgadc8407" class="outline-2">
+<h2 id="orgadc8407">
 <code>VAE</code> din perspectiva probabilistică</h2>
-<div class="outline-text-2" id="text-orgdea9584">
+<div class="outline-text-2" id="text-orgadc8407">
 <p>
 <b>Rețeaua de inferență</b>
 </p>
@@ -269,11 +270,11 @@ O reţea de inferenţă este o reţea neuronală care permite să identificăm p
 </p>
 </div>
 </div>
-<div id="outline-container-org53ed706" class="outline-2">
-<h2 id="org53ed706">Cum funcționează?</h2>
+<div id="outline-container-org6cd0d62" class="outline-2">
+<h2 id="org6cd0d62">Cum funcționează?</h2>
 </div>
-<div id="outline-container-org280eee4" class="outline-2">
-<h2 id="org280eee4">O implementare elegantă<sup><a id="fnr.9" class="footref" href="#fn.9" role="doc-backlink">9</a></sup>
+<div id="outline-container-org49f2d84" class="outline-2">
+<h2 id="org49f2d84">O implementare elegantă<sup><a id="fnr.9" class="footref" href="#fn.9" role="doc-backlink">9</a></sup>
 </h2>
 </div>
 <div id="footnotes">

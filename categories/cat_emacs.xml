@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Rebeja (Posts about Emacs)</title><link>https://rebeja.eu/</link><description></description><atom:link href="https://rebeja.eu/categories/cat_emacs.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2024 &lt;a href="mailto:petru.rebeja@gmail.com"&gt;Petru Rebeja&lt;/a&gt; </copyright><lastBuildDate>Fri, 03 May 2024 18:22:39 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Building a Python IDE with Emacs and Docker</title><link>https://rebeja.eu/posts/python-ide-with-emacs-and-docker/</link><dc:creator>Petru Rebeja</dc:creator><description>&lt;div id="outline-container-orga0d5af6" class="outline-2"&gt;
-&lt;h2 id="orga0d5af6"&gt;Prologue&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-orga0d5af6"&gt;
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Rebeja (Posts about Emacs)</title><link>https://rebeja.eu/</link><description></description><atom:link href="https://rebeja.eu/categories/cat_emacs.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2025 &lt;a href="mailto:petru.rebeja@gmail.com"&gt;Petru Rebeja&lt;/a&gt; </copyright><lastBuildDate>Mon, 03 Mar 2025 19:48:18 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Building a Python IDE with Emacs and Docker</title><link>https://rebeja.eu/posts/python-ide-with-emacs-and-docker/</link><dc:creator>Petru Rebeja</dc:creator><description>&lt;div id="outline-container-orgbe84892" class="outline-2"&gt;
+&lt;h2 id="orgbe84892"&gt;Prologue&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-orgbe84892"&gt;
 &lt;p&gt;
 I am a fan of &lt;a href="https://en.wikipedia.org/wiki/Windows_Subsystem_for_Linux"&gt;&lt;code&gt;Windows Subsystem for Linux&lt;/code&gt;&lt;/a&gt;. It brings the power of Linux command-line tools to Windows which is something a developer cannot dislike but that isn't the main reason I'm fond of it. I like it because it allows me to run Emacs (albeit in console mode) at its full potential.
 &lt;/p&gt;
@@ -31,9 +31,9 @@ The answer is &lt;b&gt;Yes&lt;/b&gt;. If you want to see only the final &lt;code
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-org047b8ab" class="outline-2"&gt;
-&lt;h2 id="org047b8ab"&gt;How&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-org047b8ab"&gt;
+&lt;div id="outline-container-org412b0e6" class="outline-2"&gt;
+&lt;h2 id="org412b0e6"&gt;How&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org412b0e6"&gt;
 &lt;p&gt;
 Since I already have been using Emacs as a Python IDE in Ubuntu Bash, replicating this setup in Docker would imply:
 &lt;/p&gt;
@@ -51,9 +51,9 @@ Luckily, Docker already has an &lt;a href="https://docs.docker.com/engine/exampl
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-org1fbcfbb" class="outline-2"&gt;
-&lt;h2 id="org1fbcfbb"&gt;Issue #1: SSHD refuses connection&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-org1fbcfbb"&gt;
+&lt;div id="outline-container-orgb1392e2" class="outline-2"&gt;
+&lt;h2 id="orgb1392e2"&gt;Issue #1: SSHD refuses connection&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-orgb1392e2"&gt;
 &lt;p&gt;
 This one was easy — there's a typo in the example provided by Docker. I figured it out after inspecting the contents of &lt;code&gt;sshd_config&lt;/code&gt; file.
 &lt;/p&gt;
@@ -99,9 +99,9 @@ This way, the root password isn't stored in clear text and in plain-sight anymor
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-org9d956ba" class="outline-2"&gt;
-&lt;h2 id="org9d956ba"&gt;Issue #2: Activating virtual environment inside container&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-org9d956ba"&gt;
+&lt;div id="outline-container-orgfdb6593" class="outline-2"&gt;
+&lt;h2 id="orgfdb6593"&gt;Issue #2: Activating virtual environment inside container&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-orgfdb6593"&gt;
 &lt;p&gt;
 The second item of my quest was to setup and activate a Python virtual environment. This environment will be used to install all the dependencies required for the project I'm working on.
 &lt;/p&gt;
@@ -154,9 +154,9 @@ Afterwards, just install the required packages as usual.
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-orgcd9be08" class="outline-2"&gt;
-&lt;h2 id="orgcd9be08"&gt;Issue #3: Emacs monolithic configuration file&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-orgcd9be08"&gt;
+&lt;div id="outline-container-orgc86ece8" class="outline-2"&gt;
+&lt;h2 id="orgc86ece8"&gt;Issue #3: Emacs monolithic configuration file&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-orgc86ece8"&gt;
 &lt;p&gt;
 After setting up and activating the virtual environment, I needed to configure Emacs for python development to start working.
 &lt;/p&gt;
@@ -270,9 +270,9 @@ It does one more thing not mentioned previously: a &lt;code&gt;sed&lt;/code&gt; 
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-orgdd1f977" class="outline-2"&gt;
-&lt;h2 id="orgdd1f977"&gt;Issue #4: Using SSH keys to connect to GitHub&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-orgdd1f977"&gt;
+&lt;div id="outline-container-org1c0bc74" class="outline-2"&gt;
+&lt;h2 id="org1c0bc74"&gt;Issue #4: Using SSH keys to connect to GitHub&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org1c0bc74"&gt;
 &lt;p&gt;
 Now that I have Emacs running on Ubuntu (albeit terminal only) I can enjoy a smooth workflow without having to wait too much for Magit or other application that took forever on Cygwin to finish.
 &lt;/p&gt;
@@ -310,9 +310,9 @@ To provide the values for the keys use &lt;code&gt;--build-arg&lt;/code&gt; para
 &lt;/pre&gt;&lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-orgd55fd85" class="outline-2"&gt;
-&lt;h2 id="orgd55fd85"&gt;Issue #5: Install Emacs packages once and done&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-orgd55fd85"&gt;
+&lt;div id="outline-container-orgf067b89" class="outline-2"&gt;
+&lt;h2 id="orgf067b89"&gt;Issue #5: Install Emacs packages once and done&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-orgf067b89"&gt;
 &lt;p&gt;
 After another build of the Docker image I started a container from it, logged in via ssh into the container, started Emacs and noticed yet another issue.
 &lt;/p&gt;
@@ -339,9 +339,9 @@ And to my great surprise, when rebuilding the image I saw the output of Emacs pa
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-orgafa9d80" class="outline-2"&gt;
-&lt;h2 id="orgafa9d80"&gt;Issue #6: Terminal colors&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-orgafa9d80"&gt;
+&lt;div id="outline-container-orgf400a6d" class="outline-2"&gt;
+&lt;h2 id="orgf400a6d"&gt;Issue #6: Terminal colors&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-orgf400a6d"&gt;
 &lt;p&gt;
 Being confident that everything should work now (it's the same setup I had on &lt;code&gt;WSL&lt;/code&gt;) I started a new container to which I mounted the GitHub repo as a volume and got cracking.
 &lt;/p&gt;
@@ -436,9 +436,9 @@ To build the image use this command:
 &lt;/pre&gt;&lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-orgabd0741" class="outline-2"&gt;
-&lt;h2 id="orgabd0741"&gt;Epilogue&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-orgabd0741"&gt;
+&lt;div id="outline-container-org33f8426" class="outline-2"&gt;
+&lt;h2 id="org33f8426"&gt;Epilogue&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org33f8426"&gt;
 &lt;p&gt;
 Looking back at this sort of quest of mine, I have nothing else to say than it was, overall, a fun experience.
 &lt;/p&gt;
@@ -452,9 +452,9 @@ But the bottom line is that it was a great deal of fun involved which luckily re
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-org7a41d92" class="outline-2"&gt;
-&lt;h2 id="org7a41d92"&gt;References&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-org7a41d92"&gt;
+&lt;div id="outline-container-orgbd0e82d" class="outline-2"&gt;
+&lt;h2 id="orgbd0e82d"&gt;References&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-orgbd0e82d"&gt;
 &lt;ol class="org-ol"&gt;
 &lt;li&gt;&lt;a href="https://docs.docker.com/engine/examples/running_ssh_service/"&gt;Dockerize an SSH service&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://pythonspeed.com/articles/activate-virtualenv-dockerfile/"&gt;Elegantly activating a virtualenv in a Dockerfile&lt;/a&gt;&lt;/li&gt;
@@ -463,9 +463,9 @@ But the bottom line is that it was a great deal of fun involved which luckily re
 &lt;/ol&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-orgeee239b" class="outline-2"&gt;
-&lt;h2 id="orgeee239b"&gt;Acknowledgments&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-orgeee239b"&gt;
+&lt;div id="outline-container-org57aa837" class="outline-2"&gt;
+&lt;h2 id="org57aa837"&gt;Acknowledgments&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org57aa837"&gt;
 &lt;p&gt;
 I would like to thank my colleague &lt;a href="https://www.linkedin.com/in/ionelabarbuta/"&gt;Ionela Bărbuță&lt;/a&gt; for proofreading this post and for the tips &amp;amp; tricks she gave me in order to improve my writing.
 &lt;/p&gt;
@@ -695,9 +695,9 @@ I did however liked the idea of using references to the papers being read and si
 &lt;p&gt;
 To handle the availability part I decided to use Dropbox which is also suggested by &lt;code&gt;org-ref&lt;/code&gt;.
 &lt;/p&gt;
-&lt;div id="outline-container-orgd6ebef8" class="outline-2"&gt;
-&lt;h2 id="orgd6ebef8"&gt;Setup org-ref&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-orgd6ebef8"&gt;
+&lt;div id="outline-container-orgbd7d5bf" class="outline-2"&gt;
+&lt;h2 id="orgbd7d5bf"&gt;Setup org-ref&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-orgbd7d5bf"&gt;
 &lt;p&gt;
 &lt;code&gt;org-ref&lt;/code&gt; is available on &lt;a href="http://melpa.org/"&gt;Melpa&lt;/a&gt; so to install it just type &lt;code&gt;M-x package-install org-ref&lt;/code&gt;. Afterwards copy the code below to your init file and adjust the paths:
 &lt;/p&gt;
@@ -713,9 +713,9 @@ To handle the availability part I decided to use Dropbox which is also suggested
 &lt;/pre&gt;&lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-orga0ecbcc" class="outline-2"&gt;
-&lt;h2 id="orga0ecbcc"&gt;Creating the reading list&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-orga0ecbcc"&gt;
+&lt;div id="outline-container-org0dd4d4f" class="outline-2"&gt;
+&lt;h2 id="org0dd4d4f"&gt;Creating the reading list&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org0dd4d4f"&gt;
 &lt;p&gt;
 With &lt;code&gt;org-ref&lt;/code&gt; in place, it was time to setup the reading list so I created a new file named &lt;code&gt;reading-list.org&lt;/code&gt; under &lt;code&gt;~/Dropbox/bibliography/&lt;/code&gt; with the following header:
 &lt;/p&gt;
@@ -734,9 +734,9 @@ The first line obviously defines the title of the document. The second line defi
 &lt;/ul&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-org4943e6d" class="outline-2"&gt;
-&lt;h2 id="org4943e6d"&gt;Adding an entry to the list&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-org4943e6d"&gt;
+&lt;div id="outline-container-orgb2976a9" class="outline-2"&gt;
+&lt;h2 id="orgb2976a9"&gt;Adding an entry to the list&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-orgb2976a9"&gt;
 &lt;ul class="org-ul"&gt;
 &lt;li&gt;&lt;p&gt;
 Add &lt;code&gt;bibtex&lt;/code&gt; entry in &lt;code&gt;references.bib&lt;/code&gt; file. E.g.:
@@ -775,9 +775,9 @@ Repeat the steps above and you should end up with a list like this:
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-orgf7660d6" class="outline-2"&gt;
-&lt;h2 id="orgf7660d6"&gt;Change the status of an entry&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-orgf7660d6"&gt;
+&lt;div id="outline-container-org478c003" class="outline-2"&gt;
+&lt;h2 id="org478c003"&gt;Change the status of an entry&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org478c003"&gt;
 &lt;p&gt;
 To change the status of an entry:
 &lt;/p&gt;
@@ -787,9 +787,9 @@ To change the status of an entry:
 &lt;/ul&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-org4fbd436" class="outline-2"&gt;
-&lt;h2 id="org4fbd436"&gt;Status overview&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-org4fbd436"&gt;
+&lt;div id="outline-container-orga4aafd8" class="outline-2"&gt;
+&lt;h2 id="orga4aafd8"&gt;Status overview&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-orga4aafd8"&gt;
 &lt;p&gt;
 After creating the list you may want to have an overview of the status for each entry. This can be achieved using &lt;code&gt;Org Column View&lt;/code&gt;.
 The setup for column view is in the third line of the header
@@ -804,9 +804,9 @@ which tells org-mode how to display the entries. Namely, we're defining two colu
 &lt;li&gt;&lt;b&gt;Status&lt;/b&gt; which will take as much space as needed to display the status&lt;/li&gt;
 &lt;/ol&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-org366fe2f" class="outline-3"&gt;
-&lt;h3 id="org366fe2f"&gt;Switching to column view&lt;/h3&gt;
-&lt;div class="outline-text-3" id="text-org366fe2f"&gt;
+&lt;div id="outline-container-orgd90e79b" class="outline-3"&gt;
+&lt;h3 id="orgd90e79b"&gt;Switching to column view&lt;/h3&gt;
+&lt;div class="outline-text-3" id="text-orgd90e79b"&gt;
 &lt;p&gt;
 To switch to column view, place the cursor outside the headings and press &lt;code&gt;C-c C-x C-c&lt;/code&gt; (or &lt;code&gt;M-x org-columns&lt;/code&gt;). The list should look like the image below:
 &lt;img src="https://rebeja.eu/images/emacs-reading-list-column-view.png" alt="nil"&gt;
@@ -814,9 +814,9 @@ If your cursor was on a heading when pressing &lt;code&gt;C-c C-x C-c&lt;/code&g
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-org548286d" class="outline-3"&gt;
-&lt;h3 id="org548286d"&gt;Exiting column view&lt;/h3&gt;
-&lt;div class="outline-text-3" id="text-org548286d"&gt;
+&lt;div id="outline-container-org76f320d" class="outline-3"&gt;
+&lt;h3 id="org76f320d"&gt;Exiting column view&lt;/h3&gt;
+&lt;div class="outline-text-3" id="text-org76f320d"&gt;
 &lt;p&gt;
 To exit column view position the cursor on a heading that is currently in column view and press &lt;code&gt;q&lt;/code&gt;.
 &lt;/p&gt;
@@ -827,9 +827,9 @@ That's it. Happy reading!
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-orgd59d325" class="outline-2"&gt;
-&lt;h2 id="orgd59d325"&gt;References&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-orgd59d325"&gt;
+&lt;div id="outline-container-orgba8b63d" class="outline-2"&gt;
+&lt;h2 id="orgba8b63d"&gt;References&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-orgba8b63d"&gt;
 &lt;ol class="org-ol"&gt;
 &lt;li&gt;&lt;a href="https://github.com/jkitchin/org-ref/blob/master/org-ref.org#start-of-content"&gt;The org-ref manual&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://blog.modelworks.ch/managing-papers-with-org-mode-and-reftex/"&gt;Managing papers with Org-Mode and RefTex&lt;/a&gt;&lt;/li&gt;
@@ -843,9 +843,9 @@ While working on a project I had to load and process some resources from a MySQL
 &lt;p&gt;
 Instead, I decided to restore the database on a Docker image for MySQL and query the data using &lt;code&gt;mysql-client&lt;/code&gt;.
 &lt;/p&gt;
-&lt;div id="outline-container-orge400663" class="outline-2"&gt;
-&lt;h2 id="orge400663"&gt;Install &lt;code&gt;mysql-client&lt;/code&gt; locally&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-orge400663"&gt;
+&lt;div id="outline-container-org9f89060" class="outline-2"&gt;
+&lt;h2 id="org9f89060"&gt;Install &lt;code&gt;mysql-client&lt;/code&gt; locally&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org9f89060"&gt;
 &lt;p&gt;
 This one is simple; just run:
 &lt;/p&gt;
@@ -853,9 +853,9 @@ This one is simple; just run:
 &lt;/pre&gt;&lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-org221963f" class="outline-2"&gt;
-&lt;h2 id="org221963f"&gt;Install Docker on Ubuntu&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-org221963f"&gt;
+&lt;div id="outline-container-org65c78e0" class="outline-2"&gt;
+&lt;h2 id="org65c78e0"&gt;Install Docker on Ubuntu&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org65c78e0"&gt;
 &lt;p&gt;
 The first thing to do is to head to &lt;a href="https://docs.docker.com/engine/installation/linux/ubuntu/#install-docker"&gt;Docker documentation&lt;/a&gt; for instalation instructions which I've copied here:
 &lt;/p&gt;
@@ -895,9 +895,9 @@ Install Docker
 &lt;/ul&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-org6cb0d62" class="outline-2"&gt;
-&lt;h2 id="org6cb0d62"&gt;Restore MySQL database to a Docker container&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-org6cb0d62"&gt;
+&lt;div id="outline-container-org12bc59c" class="outline-2"&gt;
+&lt;h2 id="org12bc59c"&gt;Restore MySQL database to a Docker container&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org12bc59c"&gt;
 &lt;ul class="org-ul"&gt;
 &lt;li&gt;&lt;p&gt;
 Download the Docker image for &lt;code&gt;MySQL&lt;/code&gt;
@@ -928,9 +928,9 @@ Notes:
 &lt;/ul&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-orgbaf1220" class="outline-2"&gt;
-&lt;h2 id="orgbaf1220"&gt;Connect to MySQL database running on Docker container from Emacs&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-orgbaf1220"&gt;
+&lt;div id="outline-container-org1096016" class="outline-2"&gt;
+&lt;h2 id="org1096016"&gt;Connect to MySQL database running on Docker container from Emacs&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org1096016"&gt;
 &lt;ul class="org-ul"&gt;
 &lt;li&gt;First, start the container &lt;code&gt;sudo docker start &amp;lt;container-name&amp;gt;&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;Get the IP Address of the container&lt;/li&gt;
@@ -955,17 +955,17 @@ In a discussion over a beer, a friend of mine asked whether I know a way to edit
 &lt;p&gt;
 This is how I do it.
 &lt;/p&gt;
-&lt;div id="outline-container-org9ed63e2" class="outline-2"&gt;
-&lt;h2 id="org9ed63e2"&gt;Setup&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-org9ed63e2"&gt;
+&lt;div id="outline-container-org35abd41" class="outline-2"&gt;
+&lt;h2 id="org35abd41"&gt;Setup&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org35abd41"&gt;
 &lt;p&gt;
 I use &lt;code&gt;Emacs 25.2&lt;/code&gt; on Kubuntu 17.04 and on Windows 10 using &lt;a href="http://cygwin.com/"&gt;Cygwin&lt;/a&gt; and when working with remote files both systems behave the same.
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-org2db7310" class="outline-2"&gt;
-&lt;h2 id="org2db7310"&gt;The flow&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-org2db7310"&gt;
+&lt;div id="outline-container-orgfb58270" class="outline-2"&gt;
+&lt;h2 id="orgfb58270"&gt;The flow&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-orgfb58270"&gt;
 &lt;ol class="org-ol"&gt;
 &lt;li&gt;Configure the remote machine to authenticate you with a key file as specified in this &lt;a href="https://askubuntu.com/a/20921/561980"&gt;stackoverflow answer&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;Start Emacs&lt;/li&gt;
@@ -977,9 +977,9 @@ To open the remote file for editing invoke the &lt;code&gt;find-file&lt;/code&gt
 &lt;/pre&gt;&lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-orge0ac045" class="outline-2"&gt;
-&lt;h2 id="orge0ac045"&gt;An example&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-orge0ac045"&gt;
+&lt;div id="outline-container-org52daca5" class="outline-2"&gt;
+&lt;h2 id="org52daca5"&gt;An example&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org52daca5"&gt;
 &lt;p&gt;
 To exemplify let's consider the following scenario: I have a virtual machine with the IP &lt;code&gt;192.168.13.13&lt;/code&gt; to which I can connect remotely with &lt;code&gt;ssh&lt;/code&gt; using the username &lt;code&gt;petru&lt;/code&gt; and the default public key (&lt;b&gt;~/.ssh/id&lt;sub&gt;rsa.pub&lt;/sub&gt;&lt;/b&gt;). On that machine I want to edit the file &lt;code&gt;/home/petru/src/debugutils.py&lt;/code&gt;.
 &lt;/p&gt;

@@ -7,327 +7,331 @@
                         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
  <url>
   <loc>https://rebeja.eu/</loc>
-  <lastmod>2024-05-13T11:50:00Z</lastmod>
+  <lastmod>2025-03-03T19:48:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/2016/</loc>
-  <lastmod>2024-05-10T09:46:00Z</lastmod>
+  <lastmod>2025-03-03T19:48:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/2017/</loc>
-  <lastmod>2024-05-10T09:46:00Z</lastmod>
+  <lastmod>2025-03-03T19:48:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/2018/</loc>
-  <lastmod>2024-05-10T09:46:00Z</lastmod>
+  <lastmod>2025-03-03T19:48:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/2019/</loc>
-  <lastmod>2024-05-10T09:46:00Z</lastmod>
+  <lastmod>2025-03-03T19:48:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/2020/</loc>
-  <lastmod>2024-05-10T09:46:00Z</lastmod>
+  <lastmod>2025-03-03T19:48:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/2022/</loc>
-  <lastmod>2024-05-10T09:46:00Z</lastmod>
+  <lastmod>2025-03-03T19:48:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/2024/</loc>
-  <lastmod>2024-05-13T11:50:00Z</lastmod>
+  <lastmod>2025-03-03T19:48:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/archive.html</loc>
-  <lastmod>2024-05-13T11:50:00Z</lastmod>
+  <lastmod>2025-03-03T20:01:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/categories/</loc>
-  <lastmod>2024-05-13T11:50:00Z</lastmod>
+  <lastmod>2025-03-03T19:48:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/categories/abstraction/</loc>
-  <lastmod>2024-05-03T18:22:00Z</lastmod>
+  <lastmod>2025-03-03T19:48:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/categories/autofacservicehostfactory/</loc>
-  <lastmod>2024-05-03T18:22:00Z</lastmod>
+  <lastmod>2025-03-03T19:48:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/categories/automation/</loc>
-  <lastmod>2024-05-03T18:22:00Z</lastmod>
+  <lastmod>2025-03-03T19:48:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/categories/awesome/</loc>
-  <lastmod>2024-05-03T18:22:00Z</lastmod>
+  <lastmod>2025-03-03T19:48:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/categories/azure/</loc>
-  <lastmod>2024-05-03T18:22:00Z</lastmod>
+  <lastmod>2025-03-03T19:48:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/categories/bibliography/</loc>
-  <lastmod>2024-05-03T18:22:00Z</lastmod>
+  <lastmod>2025-03-03T19:48:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/categories/blog/</loc>
-  <lastmod>2024-05-03T18:22:00Z</lastmod>
+  <lastmod>2025-03-03T19:48:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/categories/c/</loc>
-  <lastmod>2024-05-03T18:22:00Z</lastmod>
+  <lastmod>2025-03-03T19:48:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/categories/cat_emacs/</loc>
-  <lastmod>2024-05-03T18:22:00Z</lastmod>
+  <lastmod>2025-03-03T19:48:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/categories/cohesion/</loc>
-  <lastmod>2024-05-03T18:22:00Z</lastmod>
+  <lastmod>2025-03-03T19:48:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/categories/coupling/</loc>
-  <lastmod>2024-05-03T18:22:00Z</lastmod>
+  <lastmod>2025-03-03T19:48:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/categories/custom-workflow/</loc>
-  <lastmod>2024-05-03T18:22:00Z</lastmod>
+  <lastmod>2025-03-03T19:48:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/categories/dired/</loc>
-  <lastmod>2024-05-03T18:22:00Z</lastmod>
+  <lastmod>2025-03-03T19:48:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/categories/disqus-comments/</loc>
-  <lastmod>2024-05-03T18:22:00Z</lastmod>
+  <lastmod>2025-03-03T19:48:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/categories/docker/</loc>
-  <lastmod>2024-05-03T18:22:00Z</lastmod>
+  <lastmod>2025-03-03T19:48:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/categories/dockerfile/</loc>
-  <lastmod>2024-05-03T18:22:00Z</lastmod>
+  <lastmod>2025-03-03T19:48:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/categories/emacs/</loc>
-  <lastmod>2024-05-03T18:22:00Z</lastmod>
+  <lastmod>2025-03-03T19:48:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/categories/encapsulation/</loc>
-  <lastmod>2024-05-03T18:22:00Z</lastmod>
+  <lastmod>2025-03-03T19:48:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/categories/enums/</loc>
-  <lastmod>2024-05-03T18:22:00Z</lastmod>
+  <lastmod>2025-03-03T19:48:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/categories/error/</loc>
-  <lastmod>2024-05-03T18:22:00Z</lastmod>
+  <lastmod>2025-03-03T19:48:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/categories/fii-practic/</loc>
-  <lastmod>2024-05-03T18:22:00Z</lastmod>
+  <lastmod>2025-03-03T19:48:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/categories/ghost/</loc>
-  <lastmod>2024-05-03T18:22:00Z</lastmod>
+  <lastmod>2025-03-03T19:48:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/categories/handler-not-found/</loc>
-  <lastmod>2024-05-03T18:22:00Z</lastmod>
+  <lastmod>2025-03-03T19:48:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/categories/ide/</loc>
-  <lastmod>2024-05-03T18:22:00Z</lastmod>
+  <lastmod>2025-03-03T19:48:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/categories/implementation/</loc>
-  <lastmod>2024-05-13T11:50:00Z</lastmod>
+  <lastmod>2025-03-03T19:48:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/categories/inheritance/</loc>
-  <lastmod>2024-05-03T18:22:00Z</lastmod>
+  <lastmod>2025-03-03T19:48:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/categories/mediatr/</loc>
-  <lastmod>2024-05-03T18:22:00Z</lastmod>
+  <lastmod>2025-03-03T19:48:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/categories/oop-principles/</loc>
-  <lastmod>2024-05-03T18:22:00Z</lastmod>
+  <lastmod>2025-03-03T19:48:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/categories/oop/</loc>
-  <lastmod>2024-05-03T18:22:00Z</lastmod>
+  <lastmod>2025-03-03T19:48:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/categories/org-ref/</loc>
-  <lastmod>2024-05-03T18:22:00Z</lastmod>
+  <lastmod>2025-03-03T19:48:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/categories/orm/</loc>
-  <lastmod>2024-05-03T18:22:00Z</lastmod>
+  <lastmod>2025-03-03T19:48:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/categories/pattern/</loc>
-  <lastmod>2024-05-13T11:50:00Z</lastmod>
+  <lastmod>2025-03-03T19:48:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/categories/pitfalls/</loc>
-  <lastmod>2024-05-03T18:22:00Z</lastmod>
+  <lastmod>2025-03-03T19:48:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/categories/polymorphism/</loc>
-  <lastmod>2024-05-03T18:22:00Z</lastmod>
+  <lastmod>2025-03-03T19:48:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/categories/presentation/</loc>
-  <lastmod>2024-05-03T18:22:00Z</lastmod>
+  <lastmod>2025-03-03T19:48:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/categories/programming-principles/</loc>
-  <lastmod>2024-05-03T18:22:00Z</lastmod>
+  <lastmod>2025-03-03T19:48:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/categories/python/</loc>
-  <lastmod>2024-05-03T18:22:00Z</lastmod>
+  <lastmod>2025-03-03T19:48:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/categories/rbar/</loc>
-  <lastmod>2024-05-03T18:22:00Z</lastmod>
+  <lastmod>2025-03-03T19:48:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/categories/reading-list/</loc>
-  <lastmod>2024-05-03T18:22:00Z</lastmod>
+  <lastmod>2025-03-03T19:48:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/categories/remote-files/</loc>
-  <lastmod>2024-05-03T18:22:00Z</lastmod>
+  <lastmod>2025-03-03T19:48:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/categories/rename-multiple-files/</loc>
-  <lastmod>2024-05-03T18:22:00Z</lastmod>
+  <lastmod>2025-03-03T19:48:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/categories/service-activation/</loc>
-  <lastmod>2024-05-03T18:22:00Z</lastmod>
+  <lastmod>2025-03-03T19:48:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/categories/solid-principles/</loc>
-  <lastmod>2024-05-03T18:22:00Z</lastmod>
+  <lastmod>2025-03-03T19:48:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/categories/solid/</loc>
-  <lastmod>2024-05-03T18:22:00Z</lastmod>
+  <lastmod>2025-03-03T19:48:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/categories/specialized-workers/</loc>
-  <lastmod>2024-05-13T11:50:00Z</lastmod>
+  <lastmod>2025-03-03T19:48:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/categories/sql-mode/</loc>
-  <lastmod>2024-05-03T18:22:00Z</lastmod>
+  <lastmod>2025-03-03T19:48:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/categories/ssh/</loc>
-  <lastmod>2024-05-03T18:22:00Z</lastmod>
+  <lastmod>2025-03-03T19:48:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/categories/terminal/</loc>
-  <lastmod>2024-05-03T18:22:00Z</lastmod>
+  <lastmod>2025-03-03T19:48:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/categories/tramp/</loc>
-  <lastmod>2024-05-03T18:22:00Z</lastmod>
+  <lastmod>2025-03-03T19:48:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/categories/wcf/</loc>
-  <lastmod>2024-05-03T18:22:00Z</lastmod>
+  <lastmod>2025-03-03T19:48:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/index-1.html</loc>
-  <lastmod>2024-05-13T11:50:00Z</lastmod>
+  <lastmod>2025-03-03T20:01:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/pages/en-ro-dictionary-for-ai/</loc>
-  <lastmod>2024-05-10T09:46:00Z</lastmod>
+  <lastmod>2025-03-03T19:48:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://rebeja.eu/pages/welcome/</loc>
+  <lastmod>2025-03-03T19:48:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/posts/abstraction-is-not-a-principle-of-object-oriented-programming/</loc>
-  <lastmod>2024-05-10T09:46:00Z</lastmod>
+  <lastmod>2025-03-03T19:48:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/posts/adding-disqus-comments-to-ghost-blog-on-azure/</loc>
-  <lastmod>2024-05-10T09:46:00Z</lastmod>
+  <lastmod>2025-03-03T19:48:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/posts/automating-custom-workflow-in-emacs/</loc>
-  <lastmod>2024-05-10T09:46:00Z</lastmod>
+  <lastmod>2025-03-03T19:48:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/posts/declutter-the-way-of-working/</loc>
-  <lastmod>2024-05-10T09:46:00Z</lastmod>
+  <lastmod>2025-03-03T19:48:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/posts/editing-remote-files-over-ssh-with-emacs-and-tramp-mode/</loc>
-  <lastmod>2024-05-10T09:46:00Z</lastmod>
+  <lastmod>2025-03-03T19:48:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/posts/eurolan-2019/</loc>
-  <lastmod>2024-05-10T09:46:00Z</lastmod>
+  <lastmod>2025-03-03T19:48:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/posts/fii-practic-2016/</loc>
-  <lastmod>2024-05-10T09:46:00Z</lastmod>
+  <lastmod>2025-03-03T19:48:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/posts/managing-bibliography-using-emacs-org-mode-and-org-ref/</loc>
-  <lastmod>2024-05-10T09:46:00Z</lastmod>
+  <lastmod>2025-03-03T19:48:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/posts/mediatr-handler-not-found-error-when-the-datacontext-couldnt-be-initialized/</loc>
-  <lastmod>2024-05-10T09:46:00Z</lastmod>
+  <lastmod>2025-03-03T19:48:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/posts/python-development-using-emacs-from-terminal/</loc>
-  <lastmod>2024-05-10T09:46:00Z</lastmod>
+  <lastmod>2025-03-03T19:48:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/posts/python-ide-with-emacs-and-docker/</loc>
-  <lastmod>2024-05-10T09:46:00Z</lastmod>
+  <lastmod>2025-03-03T19:48:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/posts/release-to-qa-not-production/</loc>
-  <lastmod>2024-05-10T09:46:00Z</lastmod>
+  <lastmod>2025-03-03T19:48:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/posts/rename-multiple-files-with-emacs-dired/</loc>
-  <lastmod>2024-05-10T09:46:00Z</lastmod>
+  <lastmod>2025-03-03T19:48:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/posts/separate-tools-from-domain/</loc>
-  <lastmod>2024-05-10T09:46:00Z</lastmod>
+  <lastmod>2025-03-03T19:48:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/posts/serviceactivationexception-autofacservicehostfactory/</loc>
-  <lastmod>2024-05-10T09:46:00Z</lastmod>
+  <lastmod>2025-03-03T19:48:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/posts/specialized-workers-pattern/</loc>
-  <lastmod>2024-05-10T09:46:00Z</lastmod>
+  <lastmod>2025-03-03T19:48:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/posts/the-common-pitfalls-of-orm-frameworks-rbar/</loc>
-  <lastmod>2024-05-10T09:46:00Z</lastmod>
+  <lastmod>2025-03-03T19:48:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/posts/use-emacs-sql-mode-to-connect-to-database-on-a-docker-image/</loc>
-  <lastmod>2024-05-10T09:46:00Z</lastmod>
+  <lastmod>2025-03-03T19:48:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/posts/using-enums-in-c-sharp/</loc>
-  <lastmod>2024-05-10T09:46:00Z</lastmod>
+  <lastmod>2025-03-03T19:48:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/posts/welcome/</loc>

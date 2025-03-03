@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Rebeja (Posts about bibliography)</title><link>https://rebeja.eu/</link><description></description><atom:link href="https://rebeja.eu/categories/bibliography.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2024 &lt;a href="mailto:petru.rebeja@gmail.com"&gt;Petru Rebeja&lt;/a&gt; </copyright><lastBuildDate>Fri, 03 May 2024 18:22:39 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Managing bibliography using Emacs Org-Mode and Org-Ref</title><link>https://rebeja.eu/posts/managing-bibliography-using-emacs-org-mode-and-org-ref/</link><dc:creator>Petru Rebeja</dc:creator><description>&lt;p&gt;
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Rebeja (Posts about bibliography)</title><link>https://rebeja.eu/</link><description></description><atom:link href="https://rebeja.eu/categories/bibliography.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2025 &lt;a href="mailto:petru.rebeja@gmail.com"&gt;Petru Rebeja&lt;/a&gt; </copyright><lastBuildDate>Mon, 03 Mar 2025 19:48:19 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Managing bibliography using Emacs Org-Mode and Org-Ref</title><link>https://rebeja.eu/posts/managing-bibliography-using-emacs-org-mode-and-org-ref/</link><dc:creator>Petru Rebeja</dc:creator><description>&lt;p&gt;
 Since I've started to use Emacs more and more I started wondering whether I can use org-mode to keep a reading list/bibliography?
 &lt;/p&gt;
 
@@ -23,9 +23,9 @@ I did however liked the idea of using references to the papers being read and si
 &lt;p&gt;
 To handle the availability part I decided to use Dropbox which is also suggested by &lt;code&gt;org-ref&lt;/code&gt;.
 &lt;/p&gt;
-&lt;div id="outline-container-orgd6ebef8" class="outline-2"&gt;
-&lt;h2 id="orgd6ebef8"&gt;Setup org-ref&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-orgd6ebef8"&gt;
+&lt;div id="outline-container-orgbd7d5bf" class="outline-2"&gt;
+&lt;h2 id="orgbd7d5bf"&gt;Setup org-ref&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-orgbd7d5bf"&gt;
 &lt;p&gt;
 &lt;code&gt;org-ref&lt;/code&gt; is available on &lt;a href="http://melpa.org/"&gt;Melpa&lt;/a&gt; so to install it just type &lt;code&gt;M-x package-install org-ref&lt;/code&gt;. Afterwards copy the code below to your init file and adjust the paths:
 &lt;/p&gt;
@@ -41,9 +41,9 @@ To handle the availability part I decided to use Dropbox which is also suggested
 &lt;/pre&gt;&lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-orga0ecbcc" class="outline-2"&gt;
-&lt;h2 id="orga0ecbcc"&gt;Creating the reading list&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-orga0ecbcc"&gt;
+&lt;div id="outline-container-org0dd4d4f" class="outline-2"&gt;
+&lt;h2 id="org0dd4d4f"&gt;Creating the reading list&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org0dd4d4f"&gt;
 &lt;p&gt;
 With &lt;code&gt;org-ref&lt;/code&gt; in place, it was time to setup the reading list so I created a new file named &lt;code&gt;reading-list.org&lt;/code&gt; under &lt;code&gt;~/Dropbox/bibliography/&lt;/code&gt; with the following header:
 &lt;/p&gt;
@@ -62,9 +62,9 @@ The first line obviously defines the title of the document. The second line defi
 &lt;/ul&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-org4943e6d" class="outline-2"&gt;
-&lt;h2 id="org4943e6d"&gt;Adding an entry to the list&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-org4943e6d"&gt;
+&lt;div id="outline-container-orgb2976a9" class="outline-2"&gt;
+&lt;h2 id="orgb2976a9"&gt;Adding an entry to the list&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-orgb2976a9"&gt;
 &lt;ul class="org-ul"&gt;
 &lt;li&gt;&lt;p&gt;
 Add &lt;code&gt;bibtex&lt;/code&gt; entry in &lt;code&gt;references.bib&lt;/code&gt; file. E.g.:
@@ -103,9 +103,9 @@ Repeat the steps above and you should end up with a list like this:
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-orgf7660d6" class="outline-2"&gt;
-&lt;h2 id="orgf7660d6"&gt;Change the status of an entry&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-orgf7660d6"&gt;
+&lt;div id="outline-container-org478c003" class="outline-2"&gt;
+&lt;h2 id="org478c003"&gt;Change the status of an entry&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org478c003"&gt;
 &lt;p&gt;
 To change the status of an entry:
 &lt;/p&gt;
@@ -115,9 +115,9 @@ To change the status of an entry:
 &lt;/ul&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-org4fbd436" class="outline-2"&gt;
-&lt;h2 id="org4fbd436"&gt;Status overview&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-org4fbd436"&gt;
+&lt;div id="outline-container-orga4aafd8" class="outline-2"&gt;
+&lt;h2 id="orga4aafd8"&gt;Status overview&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-orga4aafd8"&gt;
 &lt;p&gt;
 After creating the list you may want to have an overview of the status for each entry. This can be achieved using &lt;code&gt;Org Column View&lt;/code&gt;.
 The setup for column view is in the third line of the header
@@ -132,9 +132,9 @@ which tells org-mode how to display the entries. Namely, we're defining two colu
 &lt;li&gt;&lt;b&gt;Status&lt;/b&gt; which will take as much space as needed to display the status&lt;/li&gt;
 &lt;/ol&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-org366fe2f" class="outline-3"&gt;
-&lt;h3 id="org366fe2f"&gt;Switching to column view&lt;/h3&gt;
-&lt;div class="outline-text-3" id="text-org366fe2f"&gt;
+&lt;div id="outline-container-orgd90e79b" class="outline-3"&gt;
+&lt;h3 id="orgd90e79b"&gt;Switching to column view&lt;/h3&gt;
+&lt;div class="outline-text-3" id="text-orgd90e79b"&gt;
 &lt;p&gt;
 To switch to column view, place the cursor outside the headings and press &lt;code&gt;C-c C-x C-c&lt;/code&gt; (or &lt;code&gt;M-x org-columns&lt;/code&gt;). The list should look like the image below:
 &lt;img src="https://rebeja.eu/images/emacs-reading-list-column-view.png" alt="nil"&gt;
@@ -142,9 +142,9 @@ If your cursor was on a heading when pressing &lt;code&gt;C-c C-x C-c&lt;/code&g
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-org548286d" class="outline-3"&gt;
-&lt;h3 id="org548286d"&gt;Exiting column view&lt;/h3&gt;
-&lt;div class="outline-text-3" id="text-org548286d"&gt;
+&lt;div id="outline-container-org76f320d" class="outline-3"&gt;
+&lt;h3 id="org76f320d"&gt;Exiting column view&lt;/h3&gt;
+&lt;div class="outline-text-3" id="text-org76f320d"&gt;
 &lt;p&gt;
 To exit column view position the cursor on a heading that is currently in column view and press &lt;code&gt;q&lt;/code&gt;.
 &lt;/p&gt;
@@ -155,9 +155,9 @@ That's it. Happy reading!
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-orgd59d325" class="outline-2"&gt;
-&lt;h2 id="orgd59d325"&gt;References&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-orgd59d325"&gt;
+&lt;div id="outline-container-orgba8b63d" class="outline-2"&gt;
+&lt;h2 id="orgba8b63d"&gt;References&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-orgba8b63d"&gt;
 &lt;ol class="org-ol"&gt;
 &lt;li&gt;&lt;a href="https://github.com/jkitchin/org-ref/blob/master/org-ref.org#start-of-content"&gt;The org-ref manual&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://blog.modelworks.ch/managing-papers-with-org-mode-and-reftex/"&gt;Managing papers with Org-Mode and RefTex&lt;/a&gt;&lt;/li&gt;

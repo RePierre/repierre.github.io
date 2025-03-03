@@ -22,13 +22,14 @@
                 <nav id="menu" role="navigation" class="sidebar-nav"><a class="sidebar-nav-item" href="../../index.html" title="Home"><i class="fa fa-home"></i>Home</a>
             <a class="sidebar-nav-item" href="../../archive.html" title="Archive"><i class="fa fa-folder-open"></i>Archive</a>
             <a class="sidebar-nav-item" href="../../categories/index.html" title="Tags"><i class="fa fa-tags"></i>Tags</a>
-            <a class="sidebar-nav-item" href="../welcome/" title="About"><i class="fa fa-user"></i>About</a>
+            <a class="sidebar-nav-item" href="../../pages/welcome/" title="About"><i class="fa fa-user"></i>About</a>
+            <a class="sidebar-nav-item" href="../../tehnologii-web/" title="Teaching"><i class="fa fa-graduation-cap"></i>Teaching</a>
             <a class="sidebar-nav-item" href="../../pages/en-ro-dictionary-for-ai" title="EN-RO 4 AI"><i class="fa fa-book"></i>EN-RO 4 AI</a>
             <a class="sidebar-nav-item" href="../../rss.xml" title="RSS"><i class="fa fa-feed"></i>RSS</a>
     
     
     </nav><footer id="footer"><span class="copyright">
-              Contents © 2024         <a href="mailto:petru.rebeja@gmail.com">Petru Rebeja</a> - Powered by   <a href="https://www.gnu.org/software/emacs/" rel="nofollow">GNU Emacs</a>  &amp;    <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+              Contents © 2025         <a href="mailto:petru.rebeja@gmail.com">Petru Rebeja</a> - Powered by   <a href="https://www.gnu.org/software/emacs/" rel="nofollow">GNU Emacs</a>  &amp;    <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
             </span>
             
             
@@ -47,9 +48,9 @@
     
 
     <div class="e-content entry-content" itemprop="articleBody text">
-    <div id="outline-container-orga0d5af6" class="outline-2">
-<h2 id="orga0d5af6">Prologue</h2>
-<div class="outline-text-2" id="text-orga0d5af6">
+    <div id="outline-container-orgbe84892" class="outline-2">
+<h2 id="orgbe84892">Prologue</h2>
+<div class="outline-text-2" id="text-orgbe84892">
 <p>
 I am a fan of <a href="https://en.wikipedia.org/wiki/Windows_Subsystem_for_Linux"><code>Windows Subsystem for Linux</code></a>. It brings the power of Linux command-line tools to Windows which is something a developer cannot dislike but that isn't the main reason I'm fond of it. I like it because it allows me to run Emacs (albeit in console mode) at its full potential.
 </p>
@@ -79,9 +80,9 @@ The answer is <b>Yes</b>. If you want to see only the final <code>Dockerfile</co
 </p>
 </div>
 </div>
-<div id="outline-container-org047b8ab" class="outline-2">
-<h2 id="org047b8ab">How</h2>
-<div class="outline-text-2" id="text-org047b8ab">
+<div id="outline-container-org412b0e6" class="outline-2">
+<h2 id="org412b0e6">How</h2>
+<div class="outline-text-2" id="text-org412b0e6">
 <p>
 Since I already have been using Emacs as a Python IDE in Ubuntu Bash, replicating this setup in Docker would imply:
 </p>
@@ -98,9 +99,9 @@ Luckily, Docker already has an <a href="https://docs.docker.com/engine/examples/
 </p>
 </div>
 </div>
-<div id="outline-container-org1fbcfbb" class="outline-2">
-<h2 id="org1fbcfbb">Issue #1: SSHD refuses connection</h2>
-<div class="outline-text-2" id="text-org1fbcfbb">
+<div id="outline-container-orgb1392e2" class="outline-2">
+<h2 id="orgb1392e2">Issue #1: SSHD refuses connection</h2>
+<div class="outline-text-2" id="text-orgb1392e2">
 <p>
 This one was easy — there's a typo in the example provided by Docker. I figured it out after inspecting the contents of <code>sshd_config</code> file.
 </p>
@@ -146,9 +147,9 @@ This way, the root password isn't stored in clear text and in plain-sight anymor
 </p>
 </div>
 </div>
-<div id="outline-container-org9d956ba" class="outline-2">
-<h2 id="org9d956ba">Issue #2: Activating virtual environment inside container</h2>
-<div class="outline-text-2" id="text-org9d956ba">
+<div id="outline-container-orgfdb6593" class="outline-2">
+<h2 id="orgfdb6593">Issue #2: Activating virtual environment inside container</h2>
+<div class="outline-text-2" id="text-orgfdb6593">
 <p>
 The second item of my quest was to setup and activate a Python virtual environment. This environment will be used to install all the dependencies required for the project I'm working on.
 </p>
@@ -201,9 +202,9 @@ Afterwards, just install the required packages as usual.
 </p>
 </div>
 </div>
-<div id="outline-container-orgcd9be08" class="outline-2">
-<h2 id="orgcd9be08">Issue #3: Emacs monolithic configuration file</h2>
-<div class="outline-text-2" id="text-orgcd9be08">
+<div id="outline-container-orgc86ece8" class="outline-2">
+<h2 id="orgc86ece8">Issue #3: Emacs monolithic configuration file</h2>
+<div class="outline-text-2" id="text-orgc86ece8">
 <p>
 After setting up and activating the virtual environment, I needed to configure Emacs for python development to start working.
 </p>
@@ -317,9 +318,9 @@ It does one more thing not mentioned previously: a <code>sed</code> call to remo
 </p>
 </div>
 </div>
-<div id="outline-container-orgdd1f977" class="outline-2">
-<h2 id="orgdd1f977">Issue #4: Using SSH keys to connect to GitHub</h2>
-<div class="outline-text-2" id="text-orgdd1f977">
+<div id="outline-container-org1c0bc74" class="outline-2">
+<h2 id="org1c0bc74">Issue #4: Using SSH keys to connect to GitHub</h2>
+<div class="outline-text-2" id="text-org1c0bc74">
 <p>
 Now that I have Emacs running on Ubuntu (albeit terminal only) I can enjoy a smooth workflow without having to wait too much for Magit or other application that took forever on Cygwin to finish.
 </p>
@@ -357,9 +358,9 @@ To provide the values for the keys use <code>--build-arg</code> parameter when b
 </pre></div>
 </div>
 </div>
-<div id="outline-container-orgd55fd85" class="outline-2">
-<h2 id="orgd55fd85">Issue #5: Install Emacs packages once and done</h2>
-<div class="outline-text-2" id="text-orgd55fd85">
+<div id="outline-container-orgf067b89" class="outline-2">
+<h2 id="orgf067b89">Issue #5: Install Emacs packages once and done</h2>
+<div class="outline-text-2" id="text-orgf067b89">
 <p>
 After another build of the Docker image I started a container from it, logged in via ssh into the container, started Emacs and noticed yet another issue.
 </p>
@@ -386,9 +387,9 @@ And to my great surprise, when rebuilding the image I saw the output of Emacs pa
 </p>
 </div>
 </div>
-<div id="outline-container-orgafa9d80" class="outline-2">
-<h2 id="orgafa9d80">Issue #6: Terminal colors</h2>
-<div class="outline-text-2" id="text-orgafa9d80">
+<div id="outline-container-orgf400a6d" class="outline-2">
+<h2 id="orgf400a6d">Issue #6: Terminal colors</h2>
+<div class="outline-text-2" id="text-orgf400a6d">
 <p>
 Being confident that everything should work now (it's the same setup I had on <code>WSL</code>) I started a new container to which I mounted the GitHub repo as a volume and got cracking.
 </p>
@@ -483,9 +484,9 @@ To build the image use this command:
 </pre></div>
 </div>
 </div>
-<div id="outline-container-orgabd0741" class="outline-2">
-<h2 id="orgabd0741">Epilogue</h2>
-<div class="outline-text-2" id="text-orgabd0741">
+<div id="outline-container-org33f8426" class="outline-2">
+<h2 id="org33f8426">Epilogue</h2>
+<div class="outline-text-2" id="text-org33f8426">
 <p>
 Looking back at this sort of quest of mine, I have nothing else to say than it was, overall, a fun experience.
 </p>
@@ -499,9 +500,9 @@ But the bottom line is that it was a great deal of fun involved which luckily re
 </p>
 </div>
 </div>
-<div id="outline-container-org7a41d92" class="outline-2">
-<h2 id="org7a41d92">References</h2>
-<div class="outline-text-2" id="text-org7a41d92">
+<div id="outline-container-orgbd0e82d" class="outline-2">
+<h2 id="orgbd0e82d">References</h2>
+<div class="outline-text-2" id="text-orgbd0e82d">
 <ol class="org-ol">
 <li><a href="https://docs.docker.com/engine/examples/running_ssh_service/">Dockerize an SSH service</a></li>
 <li><a href="https://pythonspeed.com/articles/activate-virtualenv-dockerfile/">Elegantly activating a virtualenv in a Dockerfile</a></li>
@@ -510,9 +511,9 @@ But the bottom line is that it was a great deal of fun involved which luckily re
 </ol>
 </div>
 </div>
-<div id="outline-container-orgeee239b" class="outline-2">
-<h2 id="orgeee239b">Acknowledgments</h2>
-<div class="outline-text-2" id="text-orgeee239b">
+<div id="outline-container-org57aa837" class="outline-2">
+<h2 id="org57aa837">Acknowledgments</h2>
+<div class="outline-text-2" id="text-org57aa837">
 <p>
 I would like to thank my colleague <a href="https://www.linkedin.com/in/ionelabarbuta/">Ionela Bărbuță</a> for proofreading this post and for the tips &amp; tricks she gave me in order to improve my writing.
 </p>

@@ -12,7 +12,6 @@
 <link rel="alternate" type="application/rss+xml" title="RSS" href="../../rss.xml">
 <link rel="canonical" href="https://rebeja.eu/posts/fii-practic-2016/">
 <!--[if lt IE 9]><script src="../../assets/js/html5.js"></script><![endif]--><meta name="author" content="Petru Rebeja">
-<link rel="prev" href="../welcome/" title="Welcome" type="text/html">
 <link rel="next" href="../abstraction-is-not-a-principle-of-object-oriented-programming/" title="Abstraction is not a principle of Object Oriented Programming" type="text/html">
 </head>
 <body class="">
@@ -22,13 +21,14 @@
                 <nav id="menu" role="navigation" class="sidebar-nav"><a class="sidebar-nav-item" href="../../index.html" title="Home"><i class="fa fa-home"></i>Home</a>
             <a class="sidebar-nav-item" href="../../archive.html" title="Archive"><i class="fa fa-folder-open"></i>Archive</a>
             <a class="sidebar-nav-item" href="../../categories/index.html" title="Tags"><i class="fa fa-tags"></i>Tags</a>
-            <a class="sidebar-nav-item" href="../welcome/" title="About"><i class="fa fa-user"></i>About</a>
+            <a class="sidebar-nav-item" href="../../pages/welcome/" title="About"><i class="fa fa-user"></i>About</a>
+            <a class="sidebar-nav-item" href="../../tehnologii-web/" title="Teaching"><i class="fa fa-graduation-cap"></i>Teaching</a>
             <a class="sidebar-nav-item" href="../../pages/en-ro-dictionary-for-ai" title="EN-RO 4 AI"><i class="fa fa-book"></i>EN-RO 4 AI</a>
             <a class="sidebar-nav-item" href="../../rss.xml" title="RSS"><i class="fa fa-feed"></i>RSS</a>
     
     
     </nav><footer id="footer"><span class="copyright">
-              Contents © 2024         <a href="mailto:petru.rebeja@gmail.com">Petru Rebeja</a> - Powered by   <a href="https://www.gnu.org/software/emacs/" rel="nofollow">GNU Emacs</a>  &amp;    <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+              Contents © 2025         <a href="mailto:petru.rebeja@gmail.com">Petru Rebeja</a> - Powered by   <a href="https://www.gnu.org/software/emacs/" rel="nofollow">GNU Emacs</a>  &amp;    <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
             </span>
             
             
@@ -47,17 +47,17 @@
     
 
     <div class="e-content entry-content" itemprop="articleBody text">
-    <div id="outline-container-org100c390" class="outline-2">
-<h2 id="org100c390">Programming principles</h2>
-<div class="outline-text-2" id="text-org100c390">
+    <div id="outline-container-org348975c" class="outline-2">
+<h2 id="org348975c">Programming principles</h2>
+<div class="outline-text-2" id="text-org348975c">
 </div>
-<div id="outline-container-org8890d7f" class="outline-3">
-<h3 id="org8890d7f">Chapter I - Object Oriented Programming</h3>
-<div class="outline-text-3" id="text-org8890d7f">
+<div id="outline-container-orgefa6310" class="outline-3">
+<h3 id="orgefa6310">Chapter I - Object Oriented Programming</h3>
+<div class="outline-text-3" id="text-orgefa6310">
 </div>
-<div id="outline-container-orgea5a353" class="outline-4">
-<h4 id="orgea5a353">Encapsulation</h4>
-<div class="outline-text-4" id="text-orgea5a353">
+<div id="outline-container-org209146d" class="outline-4">
+<h4 id="org209146d">Encapsulation</h4>
+<div class="outline-text-4" id="text-org209146d">
 <blockquote>
 <p>
 <a href="https://en.wikipedia.org/wiki/Encapsulation_%2528computer_programming%2529">Encapsulation facilitates bundling of data with the method(s) operating on that data.</a>
@@ -94,9 +94,9 @@ The code below should do it:
 <span class="w">        </span><span class="p">{</span>
 <span class="w">            </span><span class="kt">var</span><span class="w"> </span><span class="n">account</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Account</span><span class="p">();</span>
 <span class="w">            </span><span class="c1">// Make a deposit</span>
-<span class="w">            </span><span class="n">account</span><span class="p">.</span><span class="n">Balance</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="m">50</span><span class="p">;</span>
+<span class="w">            </span><span class="n">account</span><span class="p">.</span><span class="n">Balance</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mi">50</span><span class="p">;</span>
 <span class="w">            </span><span class="c1">// Withdraw some cash</span>
-<span class="w">            </span><span class="n">account</span><span class="p">.</span><span class="n">Balance</span><span class="w"> </span><span class="o">-=</span><span class="w"> </span><span class="m">100</span><span class="p">;</span>
+<span class="w">            </span><span class="n">account</span><span class="p">.</span><span class="n">Balance</span><span class="w"> </span><span class="o">-=</span><span class="w"> </span><span class="mi">100</span><span class="p">;</span>
 <span class="w">        </span><span class="p">}</span>
 <span class="w">    </span><span class="p">}</span>
 </pre></div>
@@ -134,8 +134,8 @@ and we simply may not have access to the code that uses our class. What we <i>ca
 <span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">Main</span><span class="p">(</span><span class="kt">string</span><span class="p">[]</span><span class="w"> </span><span class="n">args</span><span class="p">)</span>
 <span class="w">    </span><span class="p">{</span>
 <span class="w">        </span><span class="kt">var</span><span class="w"> </span><span class="n">account</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Account</span><span class="p">();</span>
-<span class="w">        </span><span class="n">account</span><span class="p">.</span><span class="n">Deposit</span><span class="p">(</span><span class="m">50</span><span class="p">);</span>
-<span class="w">        </span><span class="n">account</span><span class="p">.</span><span class="n">Withdraw</span><span class="p">(</span><span class="m">100</span><span class="p">);</span><span class="w"> </span><span class="c1">// =&gt; InvalidOperationException.</span>
+<span class="w">        </span><span class="n">account</span><span class="p">.</span><span class="n">Deposit</span><span class="p">(</span><span class="mi">50</span><span class="p">);</span>
+<span class="w">        </span><span class="n">account</span><span class="p">.</span><span class="n">Withdraw</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span><span class="w"> </span><span class="c1">// =&gt; InvalidOperationException.</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
@@ -145,9 +145,9 @@ Much better! Now we are in control and we can be sure that <i>every</i> withdraw
 </p>
 </div>
 </div>
-<div id="outline-container-orgfa64888" class="outline-4">
-<h4 id="orgfa64888">Inheritance and Polymorphism</h4>
-<div class="outline-text-4" id="text-orgfa64888">
+<div id="outline-container-orgefea58e" class="outline-4">
+<h4 id="orgefea58e">Inheritance and Polymorphism</h4>
+<div class="outline-text-4" id="text-orgefea58e">
 <blockquote>
 <p>
 <a href="http://www.codeproject.com/Articles/22769/Introduction-to-Object-Oriented-Programming-Concep#Inheritance">Inheritance is the ability of a new class to acquire the properties of another class.</a>
@@ -213,8 +213,8 @@ Given the above, our code would look like this:
 
 <span class="w">    </span><span class="k">private</span><span class="w"> </span><span class="n">Money</span><span class="w"> </span><span class="nf">CalculateWithdrawalFee</span><span class="p">(</span><span class="n">Money</span><span class="w"> </span><span class="n">amount</span><span class="p">)</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">        </span><span class="kt">var</span><span class="w"> </span><span class="n">margin</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_accountType</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">AccountType</span><span class="p">.</span><span class="n">Savings</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="m">0.5</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="m">0</span><span class="p">;</span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">amount</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">margin</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="m">100</span><span class="p">;</span>
+<span class="w">        </span><span class="kt">var</span><span class="w"> </span><span class="n">margin</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_accountType</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">AccountType</span><span class="p">.</span><span class="n">Savings</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="mf">0.5</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">amount</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">margin</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">100</span><span class="p">;</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
@@ -243,11 +243,11 @@ To accomodate this new requirement we just have to change the <code>CalculateWit
 <span class="p">{</span>
 <span class="w">    </span><span class="k">switch</span><span class="p">(</span><span class="w"> </span><span class="n">_accountType</span><span class="w"> </span><span class="p">)</span>
 <span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="n">AccountType</span><span class="p">.</span><span class="n">Savings</span><span class="p">:</span>
-<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">amount</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="m">0.5</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="m">100</span><span class="p">;</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">amount</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">0.5</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">100</span><span class="p">;</span>
 <span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="n">AccountType</span><span class="p">.</span><span class="n">Credit</span><span class="p">:</span>
-<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">amount</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="m">0.7</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="m">100</span><span class="p">;</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">amount</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">0.7</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">100</span><span class="p">;</span>
 <span class="w">        </span><span class="k">default</span><span class="p">:</span>
-<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="m">0</span><span class="p">;</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 <span class="p">}</span>
 </pre></div>
 <p>
@@ -328,7 +328,7 @@ With the base class in place, let's model the first two account types - <i>debit
 <span class="p">{</span>
 <span class="w">    </span><span class="k">protected</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="n">Money</span><span class="w"> </span><span class="nf">CalculateWithdrawalFee</span><span class="p">(</span><span class="n">Money</span><span class="w"> </span><span class="n">amount</span><span class="p">)</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="m">0</span><span class="p">;</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 
@@ -336,7 +336,7 @@ With the base class in place, let's model the first two account types - <i>debit
 <span class="p">{</span>
 <span class="w">    </span><span class="k">protected</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="n">Money</span><span class="w"> </span><span class="nf">CalculateWithdrawalFee</span><span class="p">(</span><span class="n">Money</span><span class="w"> </span><span class="n">amount</span><span class="p">)</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">amount</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="m">0.5</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="m">100</span><span class="p">;</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">amount</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">0.5</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">100</span><span class="p">;</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
@@ -347,16 +347,16 @@ With this structure in place adding a new account type is as simple as adding a 
 <span class="p">{</span>
 <span class="w">    </span><span class="k">protected</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="n">Money</span><span class="w"> </span><span class="nf">CalculateWithdrawalFee</span><span class="p">(</span><span class="n">Money</span><span class="w"> </span><span class="n">amount</span><span class="p">)</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">amount</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="m">0.7</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="m">100</span><span class="p">;</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">amount</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">0.7</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">100</span><span class="p">;</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 </div>
 </div>
 </div>
-<div id="outline-container-orgb5b5e91" class="outline-3">
-<h3 id="orgb5b5e91">Chapter II - Structure</h3>
-<div class="outline-text-3" id="text-orgb5b5e91">
+<div id="outline-container-org2949a0c" class="outline-3">
+<h3 id="org2949a0c">Chapter II - Structure</h3>
+<div class="outline-text-3" id="text-org2949a0c">
 <p>
 How you structure your code is very important in software development. A good code structure promotes <b>low coupling and high cohesion</b> which is a must for all good software.
 </p>
@@ -365,10 +365,10 @@ How you structure your code is very important in software development. A good co
 Let's take a look at what <b>coupling</b> and <b>cohesion</b> mean.
 </p>
 </div>
-<div id="outline-container-org02fec08" class="outline-4">
-<h4 id="org02fec08">Low coupling - The case of the <code>Singleton</code>
+<div id="outline-container-org04fb82c" class="outline-4">
+<h4 id="org04fb82c">Low coupling - The case of the <code>Singleton</code>
 </h4>
-<div class="outline-text-4" id="text-org02fec08">
+<div class="outline-text-4" id="text-org04fb82c">
 <blockquote>
 <p>
 <a href="https://en.wikipedia.org/wiki/Coupling_%2528computer_programming%2529">Coupling is the manner and degree of interdependence between software modules; a measure of how closely connected two routines or modules are; the strength of the relationships between modules.</a>
@@ -473,9 +473,9 @@ Having such code means that not only our <code>Explorer</code> class is <b>tight
 </p>
 </div>
 </div>
-<div id="outline-container-org43f8f8a" class="outline-4">
-<h4 id="org43f8f8a">High cohesion - Why can't I have all code in <code>Program.cs</code>?</h4>
-<div class="outline-text-4" id="text-org43f8f8a">
+<div id="outline-container-org1e14f08" class="outline-4">
+<h4 id="org1e14f08">High cohesion - Why can't I have all code in <code>Program.cs</code>?</h4>
+<div class="outline-text-4" id="text-org1e14f08">
 <blockquote>
 <p>
 <a href="https://en.wikipedia.org/wiki/Cohesion_%2528computer_science%2529">Cohesion refers to the degree to which the elements of a module belong together.</a>
@@ -516,13 +516,13 @@ Even small production applications have a lot of objects and that number keeps g
 </div>
 </div>
 </div>
-<div id="outline-container-orgc4c1b22" class="outline-3">
-<h3 id="orgc4c1b22">Chapter III - SOLID code</h3>
-<div class="outline-text-3" id="text-orgc4c1b22">
+<div id="outline-container-org1ce4451" class="outline-3">
+<h3 id="org1ce4451">Chapter III - SOLID code</h3>
+<div class="outline-text-3" id="text-org1ce4451">
 </div>
-<div id="outline-container-org6cf75e3" class="outline-4">
-<h4 id="org6cf75e3">Single Responsibility Principle</h4>
-<div class="outline-text-4" id="text-org6cf75e3">
+<div id="outline-container-org822fc08" class="outline-4">
+<h4 id="org822fc08">Single Responsibility Principle</h4>
+<div class="outline-text-4" id="text-org822fc08">
 <blockquote>
 <p>
 <a href="https://en.wikipedia.org/wiki/Single_responsibility_principle">Every module or class should have responsibility over a single part of the functionality provided by the software, and that responsibility should be entirely encapsulated by the class.</a>
@@ -568,7 +568,7 @@ The purpose of this method is to withdraw the <code>amount</code> from the avail
 <span class="p">{</span>
 <span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="n">Money</span><span class="w"> </span><span class="nf">CalculateWithdrawalAmount</span><span class="p">(</span><span class="n">Money</span><span class="w"> </span><span class="n">amount</span><span class="p">,</span><span class="w"> </span><span class="kt">decimal</span><span class="w"> </span><span class="n">percentage</span><span class="p">)</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">amount</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">percentage</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="m">100</span><span class="p">;</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">amount</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">percentage</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">100</span><span class="p">;</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
@@ -579,7 +579,7 @@ Now, let's put it all together and remove the extra responsibilities from <code>
 <span class="p">{</span>
 <span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="n">Money</span><span class="w"> </span><span class="nf">CalculateWithdrawalAmount</span><span class="p">(</span><span class="n">Money</span><span class="w"> </span><span class="n">amount</span><span class="p">,</span><span class="w"> </span><span class="kt">decimal</span><span class="w"> </span><span class="n">feePercentage</span><span class="p">)</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">amount</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">feePercentage</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="m">100</span><span class="p">;</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">amount</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">feePercentage</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">100</span><span class="p">;</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 
@@ -621,7 +621,7 @@ Now, let's put it all together and remove the extra responsibilities from <code>
 
 <span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="kt">decimal</span><span class="w"> </span><span class="n">WithdrawalInterestRate</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="m">0</span><span class="n">m</span><span class="p">;</span><span class="w"> </span><span class="p">}}</span>
+<span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="mf">0m</span><span class="p">;</span><span class="w"> </span><span class="p">}}</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 
@@ -631,9 +631,9 @@ Now, let's put it all together and remove the extra responsibilities from <code>
 <span class="w">    </span><span class="p">{</span>
 <span class="w">        </span><span class="kt">var</span><span class="w"> </span><span class="n">calculator</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">WithdrawalAmountCalculator</span><span class="p">();</span>
 <span class="w">        </span><span class="kt">var</span><span class="w"> </span><span class="n">account</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">DebitAccount</span><span class="p">(</span><span class="n">calculator</span><span class="p">);</span>
-<span class="w">        </span><span class="n">account</span><span class="p">.</span><span class="n">Deposit</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">Money</span><span class="p">(</span><span class="m">100</span><span class="p">));</span>
+<span class="w">        </span><span class="n">account</span><span class="p">.</span><span class="n">Deposit</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">Money</span><span class="p">(</span><span class="mi">100</span><span class="p">));</span>
 
-<span class="w">        </span><span class="kt">var</span><span class="w"> </span><span class="n">cash</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">account</span><span class="p">.</span><span class="n">Withdraw</span><span class="p">(</span><span class="m">50</span><span class="p">);</span>
+<span class="w">        </span><span class="kt">var</span><span class="w"> </span><span class="n">cash</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">account</span><span class="p">.</span><span class="n">Withdraw</span><span class="p">(</span><span class="mi">50</span><span class="p">);</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
@@ -648,9 +648,9 @@ Much better! Each class does only one thing, namely:
 </ul>
 </div>
 </div>
-<div id="outline-container-org426b8f0" class="outline-4">
-<h4 id="org426b8f0">Open/Closed principle</h4>
-<div class="outline-text-4" id="text-org426b8f0">
+<div id="outline-container-org6336762" class="outline-4">
+<h4 id="org6336762">Open/Closed principle</h4>
+<div class="outline-text-4" id="text-org6336762">
 <blockquote>
 <p>
 <a href="https://en.wikipedia.org/wiki/Open/closed_principle">Software entities (classes, modules, functions, etc.) should be open for extension, but closed for modification</a>
@@ -672,11 +672,11 @@ Let's go back again to a previous example, the one with multiple account types:
 <span class="p">{</span>
 <span class="w">    </span><span class="k">switch</span><span class="p">(</span><span class="w"> </span><span class="n">_accountType</span><span class="w"> </span><span class="p">)</span>
 <span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="n">AccountType</span><span class="p">.</span><span class="n">Savings</span><span class="p">:</span>
-<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">amount</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="m">0.5</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="m">100</span><span class="p">;</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">amount</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">0.5</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">100</span><span class="p">;</span>
 <span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="n">AccountType</span><span class="p">.</span><span class="n">Credit</span><span class="p">:</span>
-<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">amount</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="m">0.7</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="m">100</span><span class="p">;</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">amount</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">0.7</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">100</span><span class="p">;</span>
 <span class="w">        </span><span class="k">default</span><span class="p">:</span>
-<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="m">0</span><span class="p">;</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 <span class="p">}</span>
 </pre></div>
 <p>
@@ -688,9 +688,9 @@ The code from the example above is the exact opposite of <b>Open/Closed principl
 </ul>
 </div>
 </div>
-<div id="outline-container-orgd337d7f" class="outline-4">
-<h4 id="orgd337d7f">Liskov substitution principle</h4>
-<div class="outline-text-4" id="text-orgd337d7f">
+<div id="outline-container-org21de9c9" class="outline-4">
+<h4 id="org21de9c9">Liskov substitution principle</h4>
+<div class="outline-text-4" id="text-org21de9c9">
 <blockquote>
 <p>
 <a href="https://en.wikipedia.org/wiki/Liskov_substitution_principle">Objects in a program should be replaceable with instances of their subtypes without altering the correctness of that program.</a>
@@ -750,8 +750,8 @@ Now let' think of consumer of this code: it knows it's working with a <code>Rect
 </p>
 <div class="highlight"><pre><span></span><span class="k">public</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">Program</span>
 <span class="p">{</span>
-<span class="w">    </span><span class="k">private</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">ImageWidth</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">800</span><span class="p">;</span>
-<span class="w">    </span><span class="k">private</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">ImageHeight</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">600</span><span class="p">;</span>
+<span class="w">    </span><span class="k">private</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">ImageWidth</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">800</span><span class="p">;</span>
+<span class="w">    </span><span class="k">private</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">ImageHeight</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">600</span><span class="p">;</span>
 
 <span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">Main</span><span class="p">(</span><span class="kt">string</span><span class="p">[]</span><span class="w"> </span><span class="n">args</span><span class="p">)</span>
 <span class="w">    </span><span class="p">{</span>
@@ -777,9 +777,9 @@ This shows that although a <code>Square</code> may have a similar structure with
 </p>
 </div>
 </div>
-<div id="outline-container-orga012b02" class="outline-4">
-<h4 id="orga012b02">Interface Segregation principle</h4>
-<div class="outline-text-4" id="text-orga012b02">
+<div id="outline-container-orgf5f1ef4" class="outline-4">
+<h4 id="orgf5f1ef4">Interface Segregation principle</h4>
+<div class="outline-text-4" id="text-orgf5f1ef4">
 <blockquote>
 <p>
 <a href="https://en.wikipedia.org/wiki/Interface_segregation_principle">Many client-specific interfaces are better than one general-purpose interface.</a>
@@ -884,9 +884,9 @@ If we would have to implement a simple authentication mechanism the functionalit
 </p>
 </div>
 </div>
-<div id="outline-container-org287c300" class="outline-4">
-<h4 id="org287c300">Dependency Inversion principle</h4>
-<div class="outline-text-4" id="text-org287c300">
+<div id="outline-container-orge94fda2" class="outline-4">
+<h4 id="orge94fda2">Dependency Inversion principle</h4>
+<div class="outline-text-4" id="text-orge94fda2">
 <blockquote>
 <p>
 <a href="https://en.wikipedia.org/wiki/Dependency_inversion_principle">Depend upon Abstractions. Do not depend upon concretions.</a>
@@ -984,9 +984,7 @@ As an additional bonus, the semantics of the <code>Singleton</code> is still in 
             <div class="pager hidden-print pagination">
 
             <span class="previous pagination-item older">
-                <a href="../welcome/" rel="prev" title="Welcome">
                 Previous post
-                </a>
             </span>
 
 

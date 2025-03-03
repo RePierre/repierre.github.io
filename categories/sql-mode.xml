@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Rebeja (Posts about sql-mode)</title><link>https://rebeja.eu/</link><description></description><atom:link href="https://rebeja.eu/categories/sql-mode.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2024 &lt;a href="mailto:petru.rebeja@gmail.com"&gt;Petru Rebeja&lt;/a&gt; </copyright><lastBuildDate>Fri, 03 May 2024 18:22:38 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Use Emacs sql-mode to connect to database on a Docker image</title><link>https://rebeja.eu/posts/use-emacs-sql-mode-to-connect-to-database-on-a-docker-image/</link><dc:creator>Petru Rebeja</dc:creator><description>&lt;p&gt;
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Rebeja (Posts about sql-mode)</title><link>https://rebeja.eu/</link><description></description><atom:link href="https://rebeja.eu/categories/sql-mode.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2025 &lt;a href="mailto:petru.rebeja@gmail.com"&gt;Petru Rebeja&lt;/a&gt; </copyright><lastBuildDate>Mon, 03 Mar 2025 19:48:19 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Use Emacs sql-mode to connect to database on a Docker image</title><link>https://rebeja.eu/posts/use-emacs-sql-mode-to-connect-to-database-on-a-docker-image/</link><dc:creator>Petru Rebeja</dc:creator><description>&lt;p&gt;
 While working on a project I had to load and process some resources from a MySQL database. I had a database dump and all I needed was to &lt;code&gt;sudo apt-get install mysql&lt;/code&gt; but I decided against it because that would just bloat my OS with software used only once and drain my laptop battery with the service running in the background.
 &lt;/p&gt;
 
 &lt;p&gt;
 Instead, I decided to restore the database on a Docker image for MySQL and query the data using &lt;code&gt;mysql-client&lt;/code&gt;.
 &lt;/p&gt;
-&lt;div id="outline-container-orge400663" class="outline-2"&gt;
-&lt;h2 id="orge400663"&gt;Install &lt;code&gt;mysql-client&lt;/code&gt; locally&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-orge400663"&gt;
+&lt;div id="outline-container-org9f89060" class="outline-2"&gt;
+&lt;h2 id="org9f89060"&gt;Install &lt;code&gt;mysql-client&lt;/code&gt; locally&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org9f89060"&gt;
 &lt;p&gt;
 This one is simple; just run:
 &lt;/p&gt;
@@ -16,9 +16,9 @@ This one is simple; just run:
 &lt;/pre&gt;&lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-org221963f" class="outline-2"&gt;
-&lt;h2 id="org221963f"&gt;Install Docker on Ubuntu&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-org221963f"&gt;
+&lt;div id="outline-container-org65c78e0" class="outline-2"&gt;
+&lt;h2 id="org65c78e0"&gt;Install Docker on Ubuntu&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org65c78e0"&gt;
 &lt;p&gt;
 The first thing to do is to head to &lt;a href="https://docs.docker.com/engine/installation/linux/ubuntu/#install-docker"&gt;Docker documentation&lt;/a&gt; for instalation instructions which I've copied here:
 &lt;/p&gt;
@@ -58,9 +58,9 @@ Install Docker
 &lt;/ul&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-org6cb0d62" class="outline-2"&gt;
-&lt;h2 id="org6cb0d62"&gt;Restore MySQL database to a Docker container&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-org6cb0d62"&gt;
+&lt;div id="outline-container-org12bc59c" class="outline-2"&gt;
+&lt;h2 id="org12bc59c"&gt;Restore MySQL database to a Docker container&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org12bc59c"&gt;
 &lt;ul class="org-ul"&gt;
 &lt;li&gt;&lt;p&gt;
 Download the Docker image for &lt;code&gt;MySQL&lt;/code&gt;
@@ -91,9 +91,9 @@ Notes:
 &lt;/ul&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-orgbaf1220" class="outline-2"&gt;
-&lt;h2 id="orgbaf1220"&gt;Connect to MySQL database running on Docker container from Emacs&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-orgbaf1220"&gt;
+&lt;div id="outline-container-org1096016" class="outline-2"&gt;
+&lt;h2 id="org1096016"&gt;Connect to MySQL database running on Docker container from Emacs&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org1096016"&gt;
 &lt;ul class="org-ul"&gt;
 &lt;li&gt;First, start the container &lt;code&gt;sudo docker start &amp;lt;container-name&amp;gt;&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;Get the IP Address of the container&lt;/li&gt;

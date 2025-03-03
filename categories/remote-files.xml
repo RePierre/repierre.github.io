@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Rebeja (Posts about remote files)</title><link>https://rebeja.eu/</link><description></description><atom:link href="https://rebeja.eu/categories/remote-files.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2024 &lt;a href="mailto:petru.rebeja@gmail.com"&gt;Petru Rebeja&lt;/a&gt; </copyright><lastBuildDate>Fri, 03 May 2024 18:22:38 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Editing remote files over ssh with Emacs and Tramp mode</title><link>https://rebeja.eu/posts/editing-remote-files-over-ssh-with-emacs-and-tramp-mode/</link><dc:creator>Petru Rebeja</dc:creator><description>&lt;p&gt;
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Rebeja (Posts about remote files)</title><link>https://rebeja.eu/</link><description></description><atom:link href="https://rebeja.eu/categories/remote-files.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2025 &lt;a href="mailto:petru.rebeja@gmail.com"&gt;Petru Rebeja&lt;/a&gt; </copyright><lastBuildDate>Mon, 03 Mar 2025 19:48:19 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Editing remote files over ssh with Emacs and Tramp mode</title><link>https://rebeja.eu/posts/editing-remote-files-over-ssh-with-emacs-and-tramp-mode/</link><dc:creator>Petru Rebeja</dc:creator><description>&lt;p&gt;
 In a discussion over a beer, a friend of mine asked whether I know a way to edit remote files over &lt;code&gt;ssh&lt;/code&gt;? It was then that I realized that my long time obsession with Emacs is starting to pay off and I gave him the only way I know how to do that: &lt;b&gt;Emacs and &lt;a href="https://www.emacswiki.org/emacs/TrampMode"&gt;Tramp Mode&lt;/a&gt;&lt;/b&gt;.
 &lt;/p&gt;
 
 &lt;p&gt;
 This is how I do it.
 &lt;/p&gt;
-&lt;div id="outline-container-org9ed63e2" class="outline-2"&gt;
-&lt;h2 id="org9ed63e2"&gt;Setup&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-org9ed63e2"&gt;
+&lt;div id="outline-container-org35abd41" class="outline-2"&gt;
+&lt;h2 id="org35abd41"&gt;Setup&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org35abd41"&gt;
 &lt;p&gt;
 I use &lt;code&gt;Emacs 25.2&lt;/code&gt; on Kubuntu 17.04 and on Windows 10 using &lt;a href="http://cygwin.com/"&gt;Cygwin&lt;/a&gt; and when working with remote files both systems behave the same.
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-org2db7310" class="outline-2"&gt;
-&lt;h2 id="org2db7310"&gt;The flow&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-org2db7310"&gt;
+&lt;div id="outline-container-orgfb58270" class="outline-2"&gt;
+&lt;h2 id="orgfb58270"&gt;The flow&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-orgfb58270"&gt;
 &lt;ol class="org-ol"&gt;
 &lt;li&gt;Configure the remote machine to authenticate you with a key file as specified in this &lt;a href="https://askubuntu.com/a/20921/561980"&gt;stackoverflow answer&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;Start Emacs&lt;/li&gt;
@@ -28,9 +28,9 @@ To open the remote file for editing invoke the &lt;code&gt;find-file&lt;/code&gt
 &lt;/pre&gt;&lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-orge0ac045" class="outline-2"&gt;
-&lt;h2 id="orge0ac045"&gt;An example&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-orge0ac045"&gt;
+&lt;div id="outline-container-org52daca5" class="outline-2"&gt;
+&lt;h2 id="org52daca5"&gt;An example&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org52daca5"&gt;
 &lt;p&gt;
 To exemplify let's consider the following scenario: I have a virtual machine with the IP &lt;code&gt;192.168.13.13&lt;/code&gt; to which I can connect remotely with &lt;code&gt;ssh&lt;/code&gt; using the username &lt;code&gt;petru&lt;/code&gt; and the default public key (&lt;b&gt;~/.ssh/id&lt;sub&gt;rsa.pub&lt;/sub&gt;&lt;/b&gt;). On that machine I want to edit the file &lt;code&gt;/home/petru/src/debugutils.py&lt;/code&gt;.
 &lt;/p&gt;

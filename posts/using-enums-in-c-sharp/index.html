@@ -22,13 +22,14 @@
                 <nav id="menu" role="navigation" class="sidebar-nav"><a class="sidebar-nav-item" href="../../index.html" title="Home"><i class="fa fa-home"></i>Home</a>
             <a class="sidebar-nav-item" href="../../archive.html" title="Archive"><i class="fa fa-folder-open"></i>Archive</a>
             <a class="sidebar-nav-item" href="../../categories/index.html" title="Tags"><i class="fa fa-tags"></i>Tags</a>
-            <a class="sidebar-nav-item" href="../welcome/" title="About"><i class="fa fa-user"></i>About</a>
+            <a class="sidebar-nav-item" href="../../pages/welcome/" title="About"><i class="fa fa-user"></i>About</a>
+            <a class="sidebar-nav-item" href="../../tehnologii-web/" title="Teaching"><i class="fa fa-graduation-cap"></i>Teaching</a>
             <a class="sidebar-nav-item" href="../../pages/en-ro-dictionary-for-ai" title="EN-RO 4 AI"><i class="fa fa-book"></i>EN-RO 4 AI</a>
             <a class="sidebar-nav-item" href="../../rss.xml" title="RSS"><i class="fa fa-feed"></i>RSS</a>
     
     
     </nav><footer id="footer"><span class="copyright">
-              Contents © 2024         <a href="mailto:petru.rebeja@gmail.com">Petru Rebeja</a> - Powered by   <a href="https://www.gnu.org/software/emacs/" rel="nofollow">GNU Emacs</a>  &amp;    <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+              Contents © 2025         <a href="mailto:petru.rebeja@gmail.com">Petru Rebeja</a> - Powered by   <a href="https://www.gnu.org/software/emacs/" rel="nofollow">GNU Emacs</a>  &amp;    <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
             </span>
             
             
@@ -74,13 +75,13 @@ we should declare them in a <code>type safe</code> manner like this:
 </p>
 <div class="highlight"><pre><span></span><span class="k">public</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">WeekDay</span>
 <span class="p">{</span>
-<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">WeekDay</span><span class="w"> </span><span class="n">Monday</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">WeekDay</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="n">Resources</span><span class="p">.</span><span class="n">Monday</span><span class="p">);</span>
-<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">WeekDay</span><span class="w"> </span><span class="n">Tuesday</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">WeekDay</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">Resources</span><span class="p">.</span><span class="n">Tuesday</span><span class="p">);</span>
-<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">WeekDay</span><span class="w"> </span><span class="n">Wednesday</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">WeekDay</span><span class="p">(</span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="n">Resources</span><span class="p">.</span><span class="n">Wednesday</span><span class="p">);</span>
-<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">WeekDay</span><span class="w"> </span><span class="n">Thursday</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">WeekDay</span><span class="p">(</span><span class="m">3</span><span class="p">,</span><span class="w"> </span><span class="n">Resources</span><span class="p">.</span><span class="n">Thursday</span><span class="p">);</span>
-<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">WeekDay</span><span class="w"> </span><span class="n">Friday</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">WeekDay</span><span class="p">(</span><span class="m">4</span><span class="p">,</span><span class="w"> </span><span class="n">Resources</span><span class="p">.</span><span class="n">Friday</span><span class="p">);</span>
-<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">WeekDay</span><span class="w"> </span><span class="n">Saturday</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">WeekDay</span><span class="p">(</span><span class="m">5</span><span class="p">,</span><span class="w"> </span><span class="n">Resources</span><span class="p">.</span><span class="n">Saturday</span><span class="p">);</span>
-<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">WeekDay</span><span class="w"> </span><span class="n">Sunday</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">WeekDay</span><span class="p">(</span><span class="m">6</span><span class="p">,</span><span class="w"> </span><span class="n">Resources</span><span class="p">.</span><span class="n">Sunday</span><span class="p">);</span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">WeekDay</span><span class="w"> </span><span class="n">Monday</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">WeekDay</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">Resources</span><span class="p">.</span><span class="n">Monday</span><span class="p">);</span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">WeekDay</span><span class="w"> </span><span class="n">Tuesday</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">WeekDay</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">Resources</span><span class="p">.</span><span class="n">Tuesday</span><span class="p">);</span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">WeekDay</span><span class="w"> </span><span class="n">Wednesday</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">WeekDay</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="n">Resources</span><span class="p">.</span><span class="n">Wednesday</span><span class="p">);</span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">WeekDay</span><span class="w"> </span><span class="n">Thursday</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">WeekDay</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="n">Resources</span><span class="p">.</span><span class="n">Thursday</span><span class="p">);</span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">WeekDay</span><span class="w"> </span><span class="n">Friday</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">WeekDay</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="n">Resources</span><span class="p">.</span><span class="n">Friday</span><span class="p">);</span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">WeekDay</span><span class="w"> </span><span class="n">Saturday</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">WeekDay</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="n">Resources</span><span class="p">.</span><span class="n">Saturday</span><span class="p">);</span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">WeekDay</span><span class="w"> </span><span class="n">Sunday</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">WeekDay</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="w"> </span><span class="n">Resources</span><span class="p">.</span><span class="n">Sunday</span><span class="p">);</span>
 
 <span class="w">    </span><span class="k">private</span><span class="w"> </span><span class="nf">WeekDay</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="k">value</span><span class="p">,</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="n">name</span><span class="p">)</span>
 <span class="w">    </span><span class="p">{</span>
@@ -102,9 +103,9 @@ This way the <a href="https://msdn.microsoft.com/en-us/library/06tc147t.aspx"><c
 <p>
 However, the problems the article refers to are not in the lack of compiler checks for valid <code>enum</code> values but rather how the <code>enum</code> values are used.
 </p>
-<div id="outline-container-org0b72b20" class="outline-2">
-<h2 id="org0b72b20">Displaying <code>enums</code> in UI elements</h2>
-<div class="outline-text-2" id="text-org0b72b20">
+<div id="outline-container-orgd321cd8" class="outline-2">
+<h2 id="orgd321cd8">Displaying <code>enums</code> in UI elements</h2>
+<div class="outline-text-2" id="text-orgd321cd8">
 <p>
 Let's look at the simplest problem Steve mentiones - displaying <code>enum</code> values in the UI. Indeed using the <code>DescriptionAttribute</code> is not the best solution you can have.
 </p>
@@ -158,9 +159,9 @@ Granted, it's more work to do in order to display <code>enums</code> like this b
 </ul>
 </div>
 </div>
-<div id="outline-container-org69c1f74" class="outline-2">
-<h2 id="org69c1f74">Use defensive coding in <code>switch</code> statements</h2>
-<div class="outline-text-2" id="text-org69c1f74">
+<div id="outline-container-org24137e8" class="outline-2">
+<h2 id="org24137e8">Use defensive coding in <code>switch</code> statements</h2>
+<div class="outline-text-2" id="text-org24137e8">
 <p>
 Now, let's address the bigger issue when dealing with <code>enums</code>, namely calling (in our case) <code>themeSelector.GetTheme((WeekDay)13)</code>. The problem here is that a lot of developers don't use defensive programming when dealing with <code>enums</code> (or at all).
 </p>
@@ -231,9 +232,9 @@ Throwing the <code>ArgumentException</code> when receiving an invalid value will
 </ul>
 </div>
 </div>
-<div id="outline-container-org4634b2c" class="outline-2">
-<h2 id="org4634b2c">Use specialzed <code>builders</code> instead of <code>switch</code> statements</h2>
-<div class="outline-text-2" id="text-org4634b2c">
+<div id="outline-container-orgaea7954" class="outline-2">
+<h2 id="orgaea7954">Use specialzed <code>builders</code> instead of <code>switch</code> statements</h2>
+<div class="outline-text-2" id="text-orgaea7954">
 <p>
 However, the best way to use <code>switch</code> statements is to avoid it altoghether. Why? Mainly because <code>switch</code> statements are the main violators of <a href="https://en.wikipedia.org/wiki/Open/closed_principle">Open/Closed Principle</a> i.e.every time a new member of the enum is added, every <code>switch</code> on that enum values needs to be changed in order to accomodate the new member (except for the cases that use the <code>default</code> label).
 </p>
@@ -312,9 +313,9 @@ Depending on which <code>dependency injection</code> library you use, there may 
 </p>
 </div>
 </div>
-<div id="outline-container-orgaa2f633" class="outline-2">
-<h2 id="orgaa2f633">Conclusions</h2>
-<div class="outline-text-2" id="text-orgaa2f633">
+<div id="outline-container-org4d1f290" class="outline-2">
+<h2 id="org4d1f290">Conclusions</h2>
+<div class="outline-text-2" id="text-org4d1f290">
 <p>
 The main conclusion of the article is that <b><code>enums</code> aren't bad they're just improperly used</b>. Sometimes creating a thick class to represent <code>type safe enums</code> may be suitable for your scenario but most of the time it's not worth the effort. Instead, you should concentrate more on the places in code where the <code>enum</code> is used to make them safer, more clean and elegant.
 </p>

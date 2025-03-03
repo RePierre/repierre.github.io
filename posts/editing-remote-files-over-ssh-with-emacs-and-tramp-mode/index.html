@@ -22,13 +22,14 @@
                 <nav id="menu" role="navigation" class="sidebar-nav"><a class="sidebar-nav-item" href="../../index.html" title="Home"><i class="fa fa-home"></i>Home</a>
             <a class="sidebar-nav-item" href="../../archive.html" title="Archive"><i class="fa fa-folder-open"></i>Archive</a>
             <a class="sidebar-nav-item" href="../../categories/index.html" title="Tags"><i class="fa fa-tags"></i>Tags</a>
-            <a class="sidebar-nav-item" href="../welcome/" title="About"><i class="fa fa-user"></i>About</a>
+            <a class="sidebar-nav-item" href="../../pages/welcome/" title="About"><i class="fa fa-user"></i>About</a>
+            <a class="sidebar-nav-item" href="../../tehnologii-web/" title="Teaching"><i class="fa fa-graduation-cap"></i>Teaching</a>
             <a class="sidebar-nav-item" href="../../pages/en-ro-dictionary-for-ai" title="EN-RO 4 AI"><i class="fa fa-book"></i>EN-RO 4 AI</a>
             <a class="sidebar-nav-item" href="../../rss.xml" title="RSS"><i class="fa fa-feed"></i>RSS</a>
     
     
     </nav><footer id="footer"><span class="copyright">
-              Contents © 2024         <a href="mailto:petru.rebeja@gmail.com">Petru Rebeja</a> - Powered by   <a href="https://www.gnu.org/software/emacs/" rel="nofollow">GNU Emacs</a>  &amp;    <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+              Contents © 2025         <a href="mailto:petru.rebeja@gmail.com">Petru Rebeja</a> - Powered by   <a href="https://www.gnu.org/software/emacs/" rel="nofollow">GNU Emacs</a>  &amp;    <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
             </span>
             
             
@@ -54,17 +55,17 @@ In a discussion over a beer, a friend of mine asked whether I know a way to edit
 <p>
 This is how I do it.
 </p>
-<div id="outline-container-org9ed63e2" class="outline-2">
-<h2 id="org9ed63e2">Setup</h2>
-<div class="outline-text-2" id="text-org9ed63e2">
+<div id="outline-container-org35abd41" class="outline-2">
+<h2 id="org35abd41">Setup</h2>
+<div class="outline-text-2" id="text-org35abd41">
 <p>
 I use <code>Emacs 25.2</code> on Kubuntu 17.04 and on Windows 10 using <a href="http://cygwin.com/">Cygwin</a> and when working with remote files both systems behave the same.
 </p>
 </div>
 </div>
-<div id="outline-container-org2db7310" class="outline-2">
-<h2 id="org2db7310">The flow</h2>
-<div class="outline-text-2" id="text-org2db7310">
+<div id="outline-container-orgfb58270" class="outline-2">
+<h2 id="orgfb58270">The flow</h2>
+<div class="outline-text-2" id="text-orgfb58270">
 <ol class="org-ol">
 <li>Configure the remote machine to authenticate you with a key file as specified in this <a href="https://askubuntu.com/a/20921/561980">stackoverflow answer</a>
 </li>
@@ -77,9 +78,9 @@ To open the remote file for editing invoke the <code>find-file</code> command ei
 </pre></div>
 </div>
 </div>
-<div id="outline-container-orge0ac045" class="outline-2">
-<h2 id="orge0ac045">An example</h2>
-<div class="outline-text-2" id="text-orge0ac045">
+<div id="outline-container-org52daca5" class="outline-2">
+<h2 id="org52daca5">An example</h2>
+<div class="outline-text-2" id="text-org52daca5">
 <p>
 To exemplify let's consider the following scenario: I have a virtual machine with the IP <code>192.168.13.13</code> to which I can connect remotely with <code>ssh</code> using the username <code>petru</code> and the default public key (<b>~/.ssh/id<sub>rsa.pub</sub></b>). On that machine I want to edit the file <code>/home/petru/src/debugutils.py</code>.
 </p>

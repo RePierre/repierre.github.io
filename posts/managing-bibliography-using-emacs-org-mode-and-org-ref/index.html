@@ -22,13 +22,14 @@
                 <nav id="menu" role="navigation" class="sidebar-nav"><a class="sidebar-nav-item" href="../../index.html" title="Home"><i class="fa fa-home"></i>Home</a>
             <a class="sidebar-nav-item" href="../../archive.html" title="Archive"><i class="fa fa-folder-open"></i>Archive</a>
             <a class="sidebar-nav-item" href="../../categories/index.html" title="Tags"><i class="fa fa-tags"></i>Tags</a>
-            <a class="sidebar-nav-item" href="../welcome/" title="About"><i class="fa fa-user"></i>About</a>
+            <a class="sidebar-nav-item" href="../../pages/welcome/" title="About"><i class="fa fa-user"></i>About</a>
+            <a class="sidebar-nav-item" href="../../tehnologii-web/" title="Teaching"><i class="fa fa-graduation-cap"></i>Teaching</a>
             <a class="sidebar-nav-item" href="../../pages/en-ro-dictionary-for-ai" title="EN-RO 4 AI"><i class="fa fa-book"></i>EN-RO 4 AI</a>
             <a class="sidebar-nav-item" href="../../rss.xml" title="RSS"><i class="fa fa-feed"></i>RSS</a>
     
     
     </nav><footer id="footer"><span class="copyright">
-              Contents © 2024         <a href="mailto:petru.rebeja@gmail.com">Petru Rebeja</a> - Powered by   <a href="https://www.gnu.org/software/emacs/" rel="nofollow">GNU Emacs</a>  &amp;    <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+              Contents © 2025         <a href="mailto:petru.rebeja@gmail.com">Petru Rebeja</a> - Powered by   <a href="https://www.gnu.org/software/emacs/" rel="nofollow">GNU Emacs</a>  &amp;    <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
             </span>
             
             
@@ -71,9 +72,9 @@ I did however liked the idea of using references to the papers being read and si
 <p>
 To handle the availability part I decided to use Dropbox which is also suggested by <code>org-ref</code>.
 </p>
-<div id="outline-container-orgd6ebef8" class="outline-2">
-<h2 id="orgd6ebef8">Setup org-ref</h2>
-<div class="outline-text-2" id="text-orgd6ebef8">
+<div id="outline-container-orgbd7d5bf" class="outline-2">
+<h2 id="orgbd7d5bf">Setup org-ref</h2>
+<div class="outline-text-2" id="text-orgbd7d5bf">
 <p>
 <code>org-ref</code> is available on <a href="http://melpa.org/">Melpa</a> so to install it just type <code>M-x package-install org-ref</code>. Afterwards copy the code below to your init file and adjust the paths:
 </p>
@@ -89,9 +90,9 @@ To handle the availability part I decided to use Dropbox which is also suggested
 </pre></div>
 </div>
 </div>
-<div id="outline-container-orga0ecbcc" class="outline-2">
-<h2 id="orga0ecbcc">Creating the reading list</h2>
-<div class="outline-text-2" id="text-orga0ecbcc">
+<div id="outline-container-org0dd4d4f" class="outline-2">
+<h2 id="org0dd4d4f">Creating the reading list</h2>
+<div class="outline-text-2" id="text-org0dd4d4f">
 <p>
 With <code>org-ref</code> in place, it was time to setup the reading list so I created a new file named <code>reading-list.org</code> under <code>~/Dropbox/bibliography/</code> with the following header:
 </p>
@@ -114,9 +115,9 @@ The first line obviously defines the title of the document. The second line defi
 </ul>
 </div>
 </div>
-<div id="outline-container-org4943e6d" class="outline-2">
-<h2 id="org4943e6d">Adding an entry to the list</h2>
-<div class="outline-text-2" id="text-org4943e6d">
+<div id="outline-container-orgb2976a9" class="outline-2">
+<h2 id="orgb2976a9">Adding an entry to the list</h2>
+<div class="outline-text-2" id="text-orgb2976a9">
 <ul class="org-ul">
 <li>
 <p>
@@ -164,9 +165,9 @@ Repeat the steps above and you should end up with a list like this:
 <img src="../../images/emacs-reading-list.png" alt="nil"></p>
 </div>
 </div>
-<div id="outline-container-orgf7660d6" class="outline-2">
-<h2 id="orgf7660d6">Change the status of an entry</h2>
-<div class="outline-text-2" id="text-orgf7660d6">
+<div id="outline-container-org478c003" class="outline-2">
+<h2 id="org478c003">Change the status of an entry</h2>
+<div class="outline-text-2" id="text-org478c003">
 <p>
 To change the status of an entry:
 </p>
@@ -177,9 +178,9 @@ To change the status of an entry:
 </ul>
 </div>
 </div>
-<div id="outline-container-org4fbd436" class="outline-2">
-<h2 id="org4fbd436">Status overview</h2>
-<div class="outline-text-2" id="text-org4fbd436">
+<div id="outline-container-orga4aafd8" class="outline-2">
+<h2 id="orga4aafd8">Status overview</h2>
+<div class="outline-text-2" id="text-orga4aafd8">
 <p>
 After creating the list you may want to have an overview of the status for each entry. This can be achieved using <code>Org Column View</code>.
 The setup for column view is in the third line of the header
@@ -196,9 +197,9 @@ which tells org-mode how to display the entries. Namely, we're defining two colu
 <b>Status</b> which will take as much space as needed to display the status</li>
 </ol>
 </div>
-<div id="outline-container-org366fe2f" class="outline-3">
-<h3 id="org366fe2f">Switching to column view</h3>
-<div class="outline-text-3" id="text-org366fe2f">
+<div id="outline-container-orgd90e79b" class="outline-3">
+<h3 id="orgd90e79b">Switching to column view</h3>
+<div class="outline-text-3" id="text-orgd90e79b">
 <p>
 To switch to column view, place the cursor outside the headings and press <code>C-c C-x C-c</code> (or <code>M-x org-columns</code>). The list should look like the image below:
 <img src="../../images/emacs-reading-list-column-view.png" alt="nil">
@@ -206,9 +207,9 @@ If your cursor was on a heading when pressing <code>C-c C-x C-c</code> (invoking
 </p>
 </div>
 </div>
-<div id="outline-container-org548286d" class="outline-3">
-<h3 id="org548286d">Exiting column view</h3>
-<div class="outline-text-3" id="text-org548286d">
+<div id="outline-container-org76f320d" class="outline-3">
+<h3 id="org76f320d">Exiting column view</h3>
+<div class="outline-text-3" id="text-org76f320d">
 <p>
 To exit column view position the cursor on a heading that is currently in column view and press <code>q</code>.
 </p>
@@ -219,9 +220,9 @@ That's it. Happy reading!
 </div>
 </div>
 </div>
-<div id="outline-container-orgd59d325" class="outline-2">
-<h2 id="orgd59d325">References</h2>
-<div class="outline-text-2" id="text-orgd59d325">
+<div id="outline-container-orgba8b63d" class="outline-2">
+<h2 id="orgba8b63d">References</h2>
+<div class="outline-text-2" id="text-orgba8b63d">
 <ol class="org-ol">
 <li><a href="https://github.com/jkitchin/org-ref/blob/master/org-ref.org#start-of-content">The org-ref manual</a></li>
 <li><a href="http://blog.modelworks.ch/managing-papers-with-org-mode-and-reftex/">Managing papers with Org-Mode and RefTex</a></li>

@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Rebeja (Posts about abstraction)</title><link>https://rebeja.eu/</link><description></description><atom:link href="https://rebeja.eu/categories/abstraction.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2024 &lt;a href="mailto:petru.rebeja@gmail.com"&gt;Petru Rebeja&lt;/a&gt; </copyright><lastBuildDate>Fri, 03 May 2024 18:22:38 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Abstraction is not a principle of Object Oriented Programming</title><link>https://rebeja.eu/posts/abstraction-is-not-a-principle-of-object-oriented-programming/</link><dc:creator>Petru Rebeja</dc:creator><description>&lt;div id="outline-container-orgaf4a635" class="outline-2"&gt;
-&lt;h2 id="orgaf4a635"&gt;TL;DR&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-orgaf4a635"&gt;
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Rebeja (Posts about abstraction)</title><link>https://rebeja.eu/</link><description></description><atom:link href="https://rebeja.eu/categories/abstraction.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2025 &lt;a href="mailto:petru.rebeja@gmail.com"&gt;Petru Rebeja&lt;/a&gt; </copyright><lastBuildDate>Mon, 03 Mar 2025 19:48:18 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Abstraction is not a principle of Object Oriented Programming</title><link>https://rebeja.eu/posts/abstraction-is-not-a-principle-of-object-oriented-programming/</link><dc:creator>Petru Rebeja</dc:creator><description>&lt;div id="outline-container-orgc80827b" class="outline-2"&gt;
+&lt;h2 id="orgc80827b"&gt;TL;DR&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-orgc80827b"&gt;
 &lt;p&gt;
 &lt;code&gt;Abstraction&lt;/code&gt; is a core concept in programming and not a principle that is &lt;b&gt;solely&lt;/b&gt; applicable in OOP, because &lt;b&gt;programming is all about dealing with an abstract representation of the business model (application space)&lt;/b&gt;.
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-orgc88c579" class="outline-2"&gt;
-&lt;h2 id="orgc88c579"&gt;Abstraction is an overall programming principle&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-orgc88c579"&gt;
+&lt;div id="outline-container-org8ee4809" class="outline-2"&gt;
+&lt;h2 id="org8ee4809"&gt;Abstraction is an overall programming principle&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org8ee4809"&gt;
 &lt;p&gt;
 There are a lot of articles saying that OOP has four principles:
 &lt;/p&gt;
@@ -36,9 +36,9 @@ Why? Because programming means modeling entities and interactions of an &lt;i&gt
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-org4449dd5" class="outline-2"&gt;
-&lt;h2 id="org4449dd5"&gt;An example of &lt;code&gt;abstraction&lt;/code&gt; in OOP&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-org4449dd5"&gt;
+&lt;div id="outline-container-orgc93faba" class="outline-2"&gt;
+&lt;h2 id="orgc93faba"&gt;An example of &lt;code&gt;abstraction&lt;/code&gt; in OOP&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-orgc93faba"&gt;
 &lt;p&gt;
 To better clarify what &lt;code&gt;abstraction&lt;/code&gt; is (in OOP) let's consider a trivial example: A &lt;code&gt;StudentRegistrationController&lt;/code&gt; (ASP.NET MVC) needs to save the data from a registration form (&lt;code&gt;Student&lt;/code&gt;) into some sort of database represented by an instance of &lt;code&gt;IStudentDataStore&lt;/code&gt;.
 &lt;/p&gt;
@@ -92,9 +92,9 @@ But is this &lt;code&gt;abstraction&lt;/code&gt; technique available &lt;i&gt;on
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-org70a40b8" class="outline-2"&gt;
-&lt;h2 id="org70a40b8"&gt;The same example of &lt;code&gt;abstraction&lt;/code&gt; in functional programming&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-org70a40b8"&gt;
+&lt;div id="outline-container-orgf63fc95" class="outline-2"&gt;
+&lt;h2 id="orgf63fc95"&gt;The same example of &lt;code&gt;abstraction&lt;/code&gt; in functional programming&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-orgf63fc95"&gt;
 &lt;p&gt;
 To see how the same thing would be written in a functional style let's first see what are the entities from the previous example and how those entities interact between them:
 &lt;/p&gt;
@@ -179,9 +179,9 @@ Et voilà! We have used &lt;code&gt;abstraction&lt;/code&gt; in a functional sty
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-org950b8b4" class="outline-2"&gt;
-&lt;h2 id="org950b8b4"&gt;Acknowledgments&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-org950b8b4"&gt;
+&lt;div id="outline-container-org6de851c" class="outline-2"&gt;
+&lt;h2 id="org6de851c"&gt;Acknowledgments&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org6de851c"&gt;
 &lt;p&gt;
 A big thank you to &lt;a href="https://be.linkedin.com/in/ion-cojocaru-81b5a230"&gt;Ion Cojocaru&lt;/a&gt; and &lt;a href="https://ro.linkedin.com/in/florin-olariu-38615126"&gt;Florin Olariu&lt;/a&gt; who reviewed this post before publication.
 &lt;/p&gt;
