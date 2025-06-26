@@ -35,11 +35,11 @@
  </sitemap>
  <sitemap>
   <loc>https://rebeja.eu/categories/c.xml</loc>
-  <lastmod>2025-06-26T06:14:00Z</lastmod>
+  <lastmod>2025-06-26T06:21:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://rebeja.eu/categories/cat_dotnet.xml</loc>
-  <lastmod>2025-06-26T06:14:00Z</lastmod>
+  <lastmod>2025-06-26T06:21:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://rebeja.eu/categories/cat_emacs.xml</loc>
@@ -95,7 +95,7 @@
  </sitemap>
  <sitemap>
   <loc>https://rebeja.eu/categories/error.xml</loc>
-  <lastmod>2025-03-03T19:48:00Z</lastmod>
+  <lastmod>2025-06-26T06:21:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://rebeja.eu/categories/fii-practic.xml</loc>
@@ -107,7 +107,7 @@
  </sitemap>
  <sitemap>
   <loc>https://rebeja.eu/categories/handler-not-found.xml</loc>
-  <lastmod>2025-03-03T19:48:00Z</lastmod>
+  <lastmod>2025-06-26T06:21:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://rebeja.eu/categories/ide.xml</loc>
@@ -115,7 +115,7 @@
  </sitemap>
  <sitemap>
   <loc>https://rebeja.eu/categories/implementation.xml</loc>
-  <lastmod>2025-06-26T06:11:00Z</lastmod>
+  <lastmod>2025-06-26T06:21:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://rebeja.eu/categories/inheritance.xml</loc>
@@ -127,7 +127,7 @@
  </sitemap>
  <sitemap>
   <loc>https://rebeja.eu/categories/mediatr.xml</loc>
-  <lastmod>2025-03-03T19:48:00Z</lastmod>
+  <lastmod>2025-06-26T06:21:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://rebeja.eu/categories/oop-principles.xml</loc>
@@ -147,7 +147,7 @@
  </sitemap>
  <sitemap>
   <loc>https://rebeja.eu/categories/pattern.xml</loc>
-  <lastmod>2025-06-26T06:11:00Z</lastmod>
+  <lastmod>2025-06-26T06:21:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://rebeja.eu/categories/pitfalls.xml</loc>
@@ -199,7 +199,7 @@
  </sitemap>
  <sitemap>
   <loc>https://rebeja.eu/categories/specialized-workers.xml</loc>
-  <lastmod>2025-06-26T06:11:00Z</lastmod>
+  <lastmod>2025-06-26T06:21:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://rebeja.eu/categories/sql-mode.xml</loc>
@@ -223,10 +223,10 @@
  </sitemap>
  <sitemap>
   <loc>https://rebeja.eu/rss.xml</loc>
-  <lastmod>2025-06-26T06:14:00Z</lastmod>
+  <lastmod>2025-06-26T06:21:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://rebeja.eu/sitemap.xml</loc>
-  <lastmod>2025-06-26T06:14:00Z</lastmod>
+  <lastmod>2025-06-26T06:21:00Z</lastmod>
  </sitemap>
 </sitemapindex>

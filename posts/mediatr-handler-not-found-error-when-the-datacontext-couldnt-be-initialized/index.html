@@ -79,21 +79,21 @@ The exception was popping inside the <a href="https://msdn.microsoft.com/en-us/l
 <span class="p">{</span>
 <span class="w">    </span><span class="k">try</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">          </span><span class="kt">var</span><span class="w"> </span><span class="n">authorizationToken</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">AuthorizationToken</span><span class="p">(</span><span class="n">actionContext</span><span class="p">.</span><span class="n">Request</span><span class="p">);</span>
-<span class="w">          </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">String</span><span class="p">.</span><span class="n">IsNullOrEmpty</span><span class="p">(</span><span class="n">authorizationToken</span><span class="p">.</span><span class="n">Value</span><span class="p">))</span>
-<span class="w">          </span><span class="p">{</span>
-<span class="w">                </span><span class="k">return</span><span class="w"> </span><span class="k">false</span><span class="p">;</span>
-<span class="w">          </span><span class="p">}</span>
-<span class="w">          </span><span class="kt">var</span><span class="w"> </span><span class="n">request</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">GetAuthorizedUserRequest</span>
-<span class="w">          </span><span class="p">{</span>
-<span class="w">                </span><span class="n">AuthorizationToken</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">authorizationToken</span><span class="p">.</span><span class="n">Value</span>
-<span class="w">          </span><span class="p">};</span>
-<span class="w">          </span><span class="kt">var</span><span class="w"> </span><span class="n">user</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_securityService</span><span class="p">.</span><span class="n">GetAuthorizedUser</span><span class="p">(</span><span class="n">request</span><span class="p">);</span>
-<span class="w">          </span><span class="k">return</span><span class="w"> </span><span class="n">user</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="k">null</span><span class="p">;</span>
+<span class="w">            </span><span class="kt">var</span><span class="w"> </span><span class="n">authorizationToken</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">AuthorizationToken</span><span class="p">(</span><span class="n">actionContext</span><span class="p">.</span><span class="n">Request</span><span class="p">);</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">String</span><span class="p">.</span><span class="n">IsNullOrEmpty</span><span class="p">(</span><span class="n">authorizationToken</span><span class="p">.</span><span class="n">Value</span><span class="p">))</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">                  </span><span class="k">return</span><span class="w"> </span><span class="k">false</span><span class="p">;</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">            </span><span class="kt">var</span><span class="w"> </span><span class="n">request</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">GetAuthorizedUserRequest</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">                  </span><span class="n">AuthorizationToken</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">authorizationToken</span><span class="p">.</span><span class="n">Value</span>
+<span class="w">            </span><span class="p">};</span>
+<span class="w">            </span><span class="kt">var</span><span class="w"> </span><span class="n">user</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_securityService</span><span class="p">.</span><span class="n">GetAuthorizedUser</span><span class="p">(</span><span class="n">request</span><span class="p">);</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">user</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="k">null</span><span class="p">;</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">    </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">Exception</span><span class="p">)</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">          </span><span class="k">return</span><span class="w"> </span><span class="k">false</span><span class="p">;</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="k">false</span><span class="p">;</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 </pre></div>

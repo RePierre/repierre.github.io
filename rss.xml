@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Rebeja</title><link>https://rebeja.eu/</link><description>Single threaded stories.</description><atom:link href="https://rebeja.eu/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2025 &lt;a href="mailto:petru.rebeja@gmail.com"&gt;Petru Rebeja&lt;/a&gt; </copyright><lastBuildDate>Thu, 26 Jun 2025 06:14:52 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Handling automatic update of concurrency tokens in Entity Framework Core</title><link>https://rebeja.eu/posts/handling-automatic-update-of-concurrency-tokens-in-entity-framework-core/</link><dc:creator>Petru Rebeja</dc:creator><description>&lt;div id="outline-container-org29c7e9b" class="outline-2"&gt;
+<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Rebeja</title><link>https://rebeja.eu/</link><description>Single threaded stories.</description><atom:link href="https://rebeja.eu/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2025 &lt;a href="mailto:petru.rebeja@gmail.com"&gt;Petru Rebeja&lt;/a&gt; </copyright><lastBuildDate>Thu, 26 Jun 2025 06:21:24 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Handling automatic update of concurrency tokens in Entity Framework Core</title><link>https://rebeja.eu/posts/handling-automatic-update-of-concurrency-tokens-in-entity-framework-core/</link><dc:creator>Petru Rebeja</dc:creator><description>&lt;div id="outline-container-org29c7e9b" class="outline-2"&gt;
 &lt;h2 id="org29c7e9b"&gt;Introduction&lt;/h2&gt;
 &lt;div class="outline-text-2" id="text-org29c7e9b"&gt;
 &lt;p&gt;
@@ -265,9 +265,9 @@ Entity Framework Core has a built-in mechanism for handling concurrency that wor
 But once you stray off the beaten path, things become more complicated as this post shows while trying to provide a guide on how to automatically update the value of the concurrency tokens in non-default scenarios. Fortunately, the concurrency handling mechanism from Entity Framework Core is designed to accommodate a wide range of use-cases, and with a slight adjustment through a custom interceptor that updates the value of concurrency tokens when saving entities to the database, we can ensure the conflict handling mechanism operates as originally intended
 &lt;/p&gt;
 &lt;/div&gt;
-&lt;/div&gt;</description><category>c#</category><category>concurrency</category><category>Entity Framework Core</category><category>interceptor</category><guid>https://rebeja.eu/posts/handling-automatic-update-of-concurrency-tokens-in-entity-framework-core/</guid><pubDate>Thu, 26 Jun 2025 05:57:09 GMT</pubDate></item><item><title>Introducing the Specialized Workers pattern</title><link>https://rebeja.eu/posts/specialized-workers-pattern/</link><dc:creator>Petru Rebeja</dc:creator><description>&lt;div id="outline-container-org90f6d67" class="outline-2"&gt;
-&lt;h2 id="org90f6d67"&gt;Introduction&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-org90f6d67"&gt;
+&lt;/div&gt;</description><category>c#</category><category>concurrency</category><category>Entity Framework Core</category><category>interceptor</category><guid>https://rebeja.eu/posts/handling-automatic-update-of-concurrency-tokens-in-entity-framework-core/</guid><pubDate>Thu, 26 Jun 2025 05:57:09 GMT</pubDate></item><item><title>Introducing the Specialized Workers pattern</title><link>https://rebeja.eu/posts/specialized-workers-pattern/</link><dc:creator>Petru Rebeja</dc:creator><description>&lt;div id="outline-container-org773b09b" class="outline-2"&gt;
+&lt;h2 id="org773b09b"&gt;Introduction&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org773b09b"&gt;
 &lt;p&gt;
 Some years ago, in my &lt;a href="https://rebeja.eu/posts/using-enums-in-c-sharp/"&gt;blog post about using enums in C#&lt;/a&gt; I mentioned that I like using what I called at that time &lt;code&gt;specialized builders&lt;/code&gt; to refactor the &lt;code&gt;switch&lt;/code&gt; statement into a series of classes that implement a common interface and are specialized for a specific &lt;code&gt;case&lt;/code&gt; of the &lt;code&gt;switch&lt;/code&gt; statement.
 &lt;/p&gt;
@@ -281,13 +281,13 @@ As such, I am excited to introduce to the world the &lt;code&gt;Specialized Work
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-org3c6e38d" class="outline-2"&gt;
-&lt;h2 id="org3c6e38d"&gt;Specialized Workers Pattern&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-org3c6e38d"&gt;
+&lt;div id="outline-container-org7ebd1c3" class="outline-2"&gt;
+&lt;h2 id="org7ebd1c3"&gt;Specialized Workers Pattern&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org7ebd1c3"&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-org62b9ef9" class="outline-3"&gt;
-&lt;h3 id="org62b9ef9"&gt;Description and usage&lt;/h3&gt;
-&lt;div class="outline-text-3" id="text-org62b9ef9"&gt;
+&lt;div id="outline-container-org2459499" class="outline-3"&gt;
+&lt;h3 id="org2459499"&gt;Description and usage&lt;/h3&gt;
+&lt;div class="outline-text-3" id="text-org2459499"&gt;
 &lt;p&gt;
 The &lt;code&gt;Specialized Workers&lt;/code&gt; pattern aims to distribute the logic of a business operation that requires choosing between one or multiple tasks to be executed, into a collection of specialized classes, while keeping the knowledge about the task(s) to be executed into a single place.
 &lt;/p&gt;
@@ -410,13 +410,13 @@ On the other hand, each worker class is, as the name of the pattern suggests it,
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-org63bf0a6" class="outline-2"&gt;
-&lt;h2 id="org63bf0a6"&gt;Discussion&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-org63bf0a6"&gt;
+&lt;div id="outline-container-org3a3a10d" class="outline-2"&gt;
+&lt;h2 id="org3a3a10d"&gt;Discussion&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org3a3a10d"&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-org87b1483" class="outline-3"&gt;
-&lt;h3 id="org87b1483"&gt;How is it different from the &lt;code&gt;Strategy&lt;/code&gt; pattern?&lt;/h3&gt;
-&lt;div class="outline-text-3" id="text-org87b1483"&gt;
+&lt;div id="outline-container-orga533269" class="outline-3"&gt;
+&lt;h3 id="orga533269"&gt;How is it different from the &lt;code&gt;Strategy&lt;/code&gt; pattern?&lt;/h3&gt;
+&lt;div class="outline-text-3" id="text-orga533269"&gt;
 &lt;p&gt;
 At this moment you may be wondering how the &lt;code&gt;Specialized Workers&lt;/code&gt; is different from the &lt;code&gt;Strategy&lt;/code&gt; pattern? After all, each worker implements and applies a different strategy in the processing of the data.
 &lt;/p&gt;
@@ -430,9 +430,9 @@ There is however, a difference in the nomenclature: &lt;code&gt;Strategy&lt;/cod
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-org5033d56" class="outline-3"&gt;
-&lt;h3 id="org5033d56"&gt;Why not use a &lt;code&gt;Factory method&lt;/code&gt;?&lt;/h3&gt;
-&lt;div class="outline-text-3" id="text-org5033d56"&gt;
+&lt;div id="outline-container-org5edcb28" class="outline-3"&gt;
+&lt;h3 id="org5edcb28"&gt;Why not use a &lt;code&gt;Factory method&lt;/code&gt;?&lt;/h3&gt;
+&lt;div class="outline-text-3" id="text-org5edcb28"&gt;
 &lt;p&gt;
 Okay, you might say, then why not use a &lt;code&gt;Factory method&lt;/code&gt; to build directly the worker that knows how to handle the specific use-case?
 &lt;/p&gt;
@@ -567,9 +567,9 @@ You can have multiple workers capable of processing the same payload; in this ca
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-org2ca291d" class="outline-2"&gt;
-&lt;h2 id="org2ca291d"&gt;Ending thoughts&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-org2ca291d"&gt;
+&lt;div id="outline-container-orgccea844" class="outline-2"&gt;
+&lt;h2 id="orgccea844"&gt;Ending thoughts&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-orgccea844"&gt;
 &lt;p&gt;
 As you can see from this quite lengthy post, the &lt;code&gt;Specialized Workers&lt;/code&gt; pattern, provides both a way to cluster business logic into specialized classes, and a good degree of flexibility in order to adapt the implementation to different situations. Despite its flexibility however, it is my &lt;i&gt;subjective&lt;/i&gt; opinion that the original form of the pattern (the one shown in the &lt;a href="https://rebeja.eu/posts/specialized-workers-pattern/#implementation"&gt;Implementation&lt;/a&gt; section) is the most elegant and eloquent, which is why I use that version most of the time. But, especially as a software developer, I am aware that each person has its own preferences in regards to how something should be done or implemented. As such, I hope you find this pattern useful, and if so, feel free to apply it in whichever way suits you best.
 &lt;/p&gt;
@@ -1799,21 +1799,21 @@ The exception was popping inside the &lt;a href="https://msdn.microsoft.com/en-u
 &lt;span class="p"&gt;{&lt;/span&gt;
 &lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="k"&gt;try&lt;/span&gt;
 &lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
-&lt;span class="w"&gt;          &lt;/span&gt;&lt;span class="kt"&gt;var&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;authorizationToken&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;new&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;AuthorizationToken&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;actionContext&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Request&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-&lt;span class="w"&gt;          &lt;/span&gt;&lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;String&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;IsNullOrEmpty&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;authorizationToken&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Value&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
-&lt;span class="w"&gt;          &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
-&lt;span class="w"&gt;                &lt;/span&gt;&lt;span class="k"&gt;return&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;false&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-&lt;span class="w"&gt;          &lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;
-&lt;span class="w"&gt;          &lt;/span&gt;&lt;span class="kt"&gt;var&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;request&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;new&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;GetAuthorizedUserRequest&lt;/span&gt;
-&lt;span class="w"&gt;          &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
-&lt;span class="w"&gt;                &lt;/span&gt;&lt;span class="n"&gt;AuthorizationToken&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;authorizationToken&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Value&lt;/span&gt;
-&lt;span class="w"&gt;          &lt;/span&gt;&lt;span class="p"&gt;};&lt;/span&gt;
-&lt;span class="w"&gt;          &lt;/span&gt;&lt;span class="kt"&gt;var&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;user&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;_securityService&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;GetAuthorizedUser&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;request&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-&lt;span class="w"&gt;          &lt;/span&gt;&lt;span class="k"&gt;return&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;user&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;!=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;null&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="w"&gt;            &lt;/span&gt;&lt;span class="kt"&gt;var&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;authorizationToken&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;new&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;AuthorizationToken&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;actionContext&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Request&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="w"&gt;            &lt;/span&gt;&lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;String&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;IsNullOrEmpty&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;authorizationToken&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Value&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+&lt;span class="w"&gt;            &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;                  &lt;/span&gt;&lt;span class="k"&gt;return&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;false&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="w"&gt;            &lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="w"&gt;            &lt;/span&gt;&lt;span class="kt"&gt;var&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;request&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;new&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;GetAuthorizedUserRequest&lt;/span&gt;
+&lt;span class="w"&gt;            &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;                  &lt;/span&gt;&lt;span class="n"&gt;AuthorizationToken&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;authorizationToken&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Value&lt;/span&gt;
+&lt;span class="w"&gt;            &lt;/span&gt;&lt;span class="p"&gt;};&lt;/span&gt;
+&lt;span class="w"&gt;            &lt;/span&gt;&lt;span class="kt"&gt;var&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;user&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;_securityService&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;GetAuthorizedUser&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;request&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="w"&gt;            &lt;/span&gt;&lt;span class="k"&gt;return&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;user&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;!=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;null&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;
 &lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="k"&gt;catch&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Exception&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
-&lt;span class="w"&gt;          &lt;/span&gt;&lt;span class="k"&gt;return&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;false&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="w"&gt;            &lt;/span&gt;&lt;span class="k"&gt;return&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;false&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
