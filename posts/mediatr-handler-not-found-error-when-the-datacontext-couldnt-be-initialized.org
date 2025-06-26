@@ -3,7 +3,7 @@
 .. slug: mediatr-handler-not-found-error-when-the-datacontext-couldnt-be-initialized
 .. date: 2018-02-02 00:00:00 UTC+02:00
 .. tags: MediatR, handler not found, error
-.. category:
+.. category: dotnet
 .. link:
 .. description:
 .. type: text
