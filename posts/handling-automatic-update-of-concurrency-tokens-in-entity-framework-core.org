@@ -1,0 +1,214 @@
+#+BEGIN_COMMENT
+.. title: Handling automatic update of concurrency tokens in Entity Framework Core
+.. slug: handling-automatic-update-of-concurrency-tokens-in-entity-framework-core
+.. date: 2025-06-26 08:57:09 UTC+03:00
+.. tags: c#, Entity Framework Core, concurrency, interceptor
+.. category: dotnet
+.. link:
+.. description:
+.. type: text
+
+#+END_COMMENT
+
+* Introduction
+
+If your application uses [[https://learn.microsoft.com/en-us/ef/core/][Entity Framework Core]] and has a business logic that is of medium or higher complexity, at some point, you may want to bake into that business logic some mechanism for [[https://learn.microsoft.com/en-us/ef/core/saving/concurrency][handling concurrency]] when persisting the data into the database.
+
+If your software uses SQL Server as the database management system  then things are really simple. All you need to do in to implement the following steps:
+
+1. Create a =RowVersion= property in your entities,
+2. Configure that property as a concurrency token  in the entity configuration, and
+3. Run the migration scripts.
+
+Once all of the above are done the concurrency management works out of the box.
+
+However, in any other circumstances the things get complicated. This post is about one of those other circumstances, namely when the database management system is Oracle Server, and the version property is an integer value.
+
+* Automatic update of concurrency tokens
+
+The hint on how to approach such use-case lies buried in the [[https://learn.microsoft.com/en-us/ef/core/saving/concurrency][documentation]], behind a simple link, which contains the keyword for the actual solution: *[[https://learn.microsoft.com/en-us/ef/core/logging-events-diagnostics/interceptors#savechanges-interception][use an interceptor when saving changes]] to automatically update the value of the property that holds the concurrency token*. And since that documentation suffers from too much obscurity for my taste, below are the steps on how to achieve the same goal.
+
+** Prerequisites
+
+Let's say we have an entity named =Person= in our code-base with the following structure:
+
+#+begin_src csharp
+  public class Person
+  {
+      public long Id { get; set; }
+      public string FirstName { get; set; }
+      public string LastName { get; set; }
+      public int Version { get; set; }
+  }
+#+end_src
+
+where we want the property =Version= to act as a concurrency token which will be updated automatically each time the data of the entity is updated.
+
+If we have more than one entity for which we want to implement the automatic update of concurrency tokens we can extract an interface to define the concurrency token property:
+
+#+begin_src csharp
+  public interface IConcurrencyAwareEntity
+  {
+      int Version { get; set; }
+  }
+#+end_src
+
+After defining the interface, we use it to mark all desired entities as being concurrency aware:
+
+#+begin_src csharp
+  public class Person : IConcurrencyAwareEntity
+  {
+      public long Id { get; set; }
+      public string FirstName { get; set; }
+      public string LastName { get; set; }
+      public int Version { get; set; }
+  }
+#+end_src
+
+** Entity configuration
+
+We need to tell Entity Framework Core to enable the concurrency checking mechanism for the =Person= entity by specifying that the =Version= property is a concurrency token in the entity configuration:
+
+#+begin_src csharp
+  internal class PersonEntityConfiguration
+      : IEntityTypeConfiguration<Person>
+  {
+      public void Configure(EntityTypeBuilder<Person> builder)
+      {
+  	// ...
+  	builder.Property(p => p.Version)
+  	    .HasColumnName("VERSION")
+  	    .HasColumnType("NUMBER")
+  	    .IsConcurrencyToken();
+      }
+  }
+#+end_src
+
+** Interceptor implementation
+
+With the entity properly configured, it is time to implement the interceptor that will increment the value of the =Version= property automatically when the entity is saved into the database.
+
+To do so, we need to create a class that derives from the [[https://learn.microsoft.com/en-us/dotnet/api/microsoft.entityframeworkcore.diagnostics.savechangesinterceptor?view=efcore-9.0][=SaveChangesInterceptor=]] class. This class will override the =SavingChanges=, and =SavingChangesAsync= methods in order to:
+- iterate through all updated or inserted items from the change tracker of the database context,
+- for each entity, check if it implements the =IConcurrencyAwareEntity= interface
+- if yes --- increment the =Version= property.
+
+#+begin_src csharp
+  internal class ConcurrencyEntitySaveChangesInterceptor
+      : SaveChangesInterceptor
+  {
+      public override InterceptionResult<int> SavingChanges(
+  	DbContextEventData eventData,
+  	InterceptionResult<int> result)
+      {
+  	this.IncrementVersionOfConcurrencyAwareEntities(
+  	    eventData.Context);
+  	return base.SavingChanges(eventData, result);
+      }
+
+      public override ValueTask<InterceptionResult<int>>
+  	SavingChangesAsync(
+  	    DbContextEventData eventData,
+  	    InterceptionResult<int> result,
+  	    CancellationToken cancellationToken = default)
+      {
+  	this.IncrementVersionOfConcurrencyAwareEntities(
+  	    eventData.Context);
+  	return base.SavingChangesAsync(
+  	    eventData,
+  	    result,
+  	    cancellationToken);
+      }
+
+      private void IncrementVersionOfConcurrencyAwareEntities(
+  	DbContext context)
+      {
+  	foreach(var entry in GetEntriesToUpdate(context))
+  	{
+  	    var entity = entry.Entity as IConcurrencyAwareEntity;
+  	    if(entry.State is EntityState.Added)
+  	    {
+  		entity.Version = 1;
+  		continue;
+  	    }
+
+  	    var version = entry.Property(nameof(entity.Version));
+  	    version.OriginalValue = entity.Version;
+  	    entity.Version++;
+  	}
+      }
+
+      private IEnumerable<EntityEntry> GetEntriesToUpdate(
+  	DbContext context) =>
+  	    context.ChangeTracker.Entries()
+  	        .Where(e => e.Entity is IConcurrencyAwareEntity)
+  	        .Where(e => e.State == EntityState.Added ||
+  		            e.State == EntityState.Modified);
+
+  }
+#+end_src
+
+While the method =GetEntriesToUpdate()= from above is self-explanatory, the method =IncrementVersionOfConcurrencyAwareEntities()= requires a bit of commentary on what it does to each =EntityEntry= instance.
+
+If the entity does not exist in the database (i. e. when the corresponding entry has the state =EntityState.Added=) we just need to set the value of the property =Version= to 1, and nothing else because when the entity will be persisted Entity Framework Core will issue an =INSERT= statement.
+
+However, when an entity that has concurrency handling enabled needs to be persisted, and it exists in the database already, when issuing the =UPDATE= statement Entity Framework Core will include in the =WHERE= clause a condition on the value of the concurrency token alongside the primary key of the entity. In the case of the =Person= entity declared above, the =UPDATE= statement would look like this:
+#+begin_src sql
+  update persons
+     set first_name = 'John',
+         last_name = 'Doe',
+         version = 3
+   where id = 42
+     and version = 2
+#+end_src
+
+The value =2= in the example above is the value that the =Version= property had when the entity was loaded from the database. This is the reason why the method =IncrementVersionOfConcurrencyAwareEntities= contains these two lines:
+#+begin_src csharp
+  var version = entry.Property(nameof(entity.Version));
+  version.OriginalValue = entity.Version;
+#+end_src
+These lines signal Entity Framework Core that it should update the row that has the value of the =Version= property equal to the value it had /before incrementing it/.
+
+** Add the interceptor to the =DbContext=
+
+Now that we have an interceptor to automatically increment the value of the =Version= property, all we need to do is to add it to the database context. This is done quite easily:
+1. Register your interceptor class in the dependency injection framework
+2. Inject the interceptor into your =DbContext= class
+   #+begin_src csharp
+     public PersonsDbContext(
+         ConcurrencyEntitySaveChangesInterceptor interceptor)
+     {
+         this.interceptor = interceptor;
+     }
+   #+end_src
+3. Add the interceptor to the context class in =OnConfiguring= method
+   #+begin_src csharp
+     protected override void OnConfiguring(
+         DbContextOptionsBuilder optionsBuilder)
+     {
+         base.OnConfiguring(optionsBuilder);
+
+         optionsBuilder.AddInterceptors(this.interceptor);
+     }
+   #+end_src
+
+Once the interceptor is registered, you should see the value of the =Version= property increase automatically each time an entity marked with =IConcurrencyAwareEntity= interface is updated.
+
+* Concurency handling
+
+At this point concurrency handling kicks-in out of the box thanks to the two aforementioned lines from the =IncrementVersionOfConcurrencyAwareEntities= method:
+
+#+begin_src csharp
+  var version = entry.Property(nameof(entity.Version));
+  version.OriginalValue = entity.Version;
+#+end_src
+
+The lines above encapsulate the essence of the concurrency handling mechanism. They signal Entity Framework (in a bit of a contrived way admittedly) that we want to update the entity /if and only if/ the entity in the database has the value of the concurrency token (=Version= property in our case) equal to the original value of the property when the entity was loaded, i.e. the value of the =Version= property before incrementing it.
+
+If there is no row in the database table that satisfies the condition above, then no rows are updated, and subsequently Entity Framework Core throws a =DbUpdateConcurrencyException= which, as its name tells, signals that the row we are trying to update was changed in the meanwhile.
+
+* Conclusion
+
+Entity Framework Core has a built-in mechanism for handling concurrency that works great out of the box when the application uses the default types for concurency tokens, and SQL Server as the database management system. This mechanism relies on comparing the values of the concurrency token for each database operation; if the value supplied by the application is not the same as the value from the database this is considered to be a concurrency conflict.
+
+But once you stray off the beaten path, things become more complicated as this post shows while trying to provide a guide on how to automatically update the value of the concurrency tokens in non-default scenarios. Fortunately, the concurrency handling mechanism from Entity Framework Core is designed to accommodate a wide range of use-cases, and with a slight adjustment through a custom interceptor that updates the value of concurrency tokens when saving entities to the database, we can ensure the conflict handling mechanism operates as originally intended
