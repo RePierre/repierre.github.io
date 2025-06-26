@@ -39,7 +39,159 @@
     <div class="content container" id="content">
     
 <div class="post">
-    <article class="post h-entry post-text"><header><h1 class="post-title p-name"><a href="posts/python-development-using-emacs-from-terminal/" class="u-url">Python development using Emacs from terminal</a></h1>
+    <article class="post h-entry post-text"><header><h1 class="post-title p-name"><a href="posts/the-common-pitfalls-of-orm-frameworks-rbar/" class="u-url">The common pitfalls of ORM frameworks - RBAR</a></h1>
+        <div class="metadata">
+            <p class="dateline">
+              <i class="fa fa-clock-o"></i> <time class="published dt-published" datetime="2018-01-18T00:00:00+02:00" title="2018-01-18 00:00">2018-01-18 00:00</time>
+            
+                |   <i class="fa fa-comment"></i>         <a href="posts/the-common-pitfalls-of-orm-frameworks-rbar/#disqus_thread" data-disqus-identifier="cache/posts/the-common-pitfalls-of-orm-frameworks-rbar.html">Comments</a>
+
+
+            </p>
+        </div>
+    </header><div class="e-content entry-content">
+    <p>
+ORM frameworks are a great tool especially for junior developers because they allow bluring the line between the application logic and the data it crunches. Except that the aforementioned line blurring advantage may become a real production issue if not taken in consideration when writing the code.
+</p>
+
+<p>
+Let us consider an example. Let's suppose we're working on a (what else?) e-commerce platform. Somewhere in the depts of that platform there is a <code>IOrderService</code> which exposes the following method:
+</p>
+<div class="highlight"><pre><span></span><span class="k">public</span><span class="w"> </span><span class="k">interface</span><span class="w"> </span><span class="n">IOrderService</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">void</span><span class="w"> </span><span class="nf">PlaceOrder</span><span class="p">(</span><span class="n">Guid</span><span class="w"> </span><span class="n">customerId</span><span class="p">,</span><span class="w"> </span><span class="n">IEnumerable</span><span class="o">&lt;</span><span class="n">OrderItem</span><span class="o">&gt;</span><span class="w"> </span><span class="n">itemIds</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+<p>
+where <code>OrderItem</code> holds the data about an ordered item.
+</p>
+<div class="highlight"><pre><span></span><span class="k">public</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">OrderItem</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="n">Guid</span><span class="w"> </span><span class="n">ItemId</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">Quantity</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<p>
+The <code>PlaceOrder</code> method needs to:
+</p>
+<ul class="org-ul">
+<li>Lookup the <code>Customer</code> in the database</li>
+<li>Create a new <code>CustomerOrder</code> instance</li>
+<li>Add each <code>Item</code> to the order and decrease stock count</li>
+<li>Save the <code>CustomerOrder</code> in the database</li>
+</ul>
+<p>
+Of course, since we're using an ORM framework, the classes used by the repositories - <code>Customer</code>, <code>CustomerOrder</code> and <code>Item</code> - are mapped to database tables.
+</p>
+
+<p>
+Given the above, someone would be tempted to implement the <code>PlaceOrder</code> method like this:
+</p>
+<div class="highlight"><pre><span></span><span class="k">public</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">PlaceOrder</span><span class="p">(</span><span class="n">Guid</span><span class="w"> </span><span class="n">customerId</span><span class="p">,</span><span class="w"> </span><span class="n">IEnumerable</span><span class="o">&lt;</span><span class="n">OrderItem</span><span class="o">&gt;</span><span class="w"> </span><span class="n">orderItems</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kt">var</span><span class="w"> </span><span class="n">customer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_customerRepository</span><span class="p">.</span><span class="n">Get</span><span class="p">(</span><span class="n">customerId</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">var</span><span class="w"> </span><span class="n">order</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">CustomerOrder</span><span class="p">(</span><span class="n">customer</span><span class="p">);</span>
+
+<span class="w">    </span><span class="k">foreach</span><span class="w"> </span><span class="p">(</span><span class="kt">var</span><span class="w"> </span><span class="n">orderedItem</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">orderItems</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">var</span><span class="w"> </span><span class="n">item</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_itemRepository</span><span class="p">.</span><span class="n">Get</span><span class="p">(</span><span class="n">orderedItem</span><span class="p">.</span><span class="n">ItemId</span><span class="p">);</span>
+<span class="w">        </span><span class="n">item</span><span class="p">.</span><span class="n">DecreaseStockCount</span><span class="p">(</span><span class="n">orderedItem</span><span class="p">.</span><span class="n">Quantity</span><span class="p">);</span>
+<span class="w">        </span><span class="n">_itemRepository</span><span class="p">.</span><span class="n">Update</span><span class="p">(</span><span class="n">item</span><span class="p">);</span>
+<span class="w">        </span><span class="n">order</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">orderedItem</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">_customerOrderRepository</span><span class="p">.</span><span class="n">Register</span><span class="p">(</span><span class="n">order</span><span class="p">);</span>
+<span class="w">    </span><span class="n">_unitOfWork</span><span class="p">.</span><span class="n">Commit</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+<p>
+And why wouldn't they? It seems the most straightforward transposition of the requirements defined above. The code behaves as expected in both Dev and QA environments and afterwards it's promoted to production where lies a database with hundreds of thousands of rows in the <code>Items</code> table. There also, the behavior is as expected until one day an eager customer wants to buy 980 distinct items (because why not?).
+</p>
+
+<p>
+What happens with the code above? It <i>still</i> works well but the database command times out and the customer cannot place a <b>significant</b> order.
+</p>
+
+<p>
+So what is the problem? Why it times out? Well, because the aforementioned line between application logic and database is blurred enough for the iterative paradigm to creep into the set-based one. In the SQL community this paradigm creep has a name - <a href="https://www.red-gate.com/simple-talk/sql/t-sql-programming/rbar--row-by-agonizing-row/">Row By Agonizing Row</a>.
+</p>
+
+<p>
+To put it in the context of the example above - <b>it takes more time to do 980 pairs of <code>SELECT</code> and <code>UPDATE</code> operations than to do one <code>SELECT</code> which returns 980 rows followed by one <code>UPDATE</code> which alters 980 rows</b>.
+</p>
+
+<p>
+So, let's switch the paradigm and start working with collections in our code to minimize the number of operations in the database. The first thing to do is to load all items in bulk instead of loading them one by one. This will reduce the number of <code>SELECT</code> operations <b>from 980 to 1</b> (a whooping 50% of the number of operations). We still need to update the stock counts for each item individually because the ORM framework doesn't know how to translate the changes for each item into a single <code>UPDATE</code> statement but considering that we've halved the total number of operations let's give this approach a try shall we?
+</p>
+<div class="highlight"><pre><span></span><span class="k">public</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">PlaceOrder</span><span class="p">(</span><span class="n">Guid</span><span class="w"> </span><span class="n">customerId</span><span class="p">,</span><span class="w"> </span><span class="n">IEnumerable</span><span class="o">&lt;</span><span class="n">OrderItem</span><span class="o">&gt;</span><span class="w"> </span><span class="n">orderItems</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kt">var</span><span class="w"> </span><span class="n">customer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_customerRepository</span><span class="p">.</span><span class="n">Get</span><span class="p">(</span><span class="n">customerId</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">var</span><span class="w"> </span><span class="n">customerOrder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">CustomerOrder</span><span class="p">(</span><span class="n">customer</span><span class="p">);</span>
+
+<span class="w">    </span><span class="kt">var</span><span class="w"> </span><span class="n">items</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">itemRepository</span><span class="p">.</span><span class="n">Items</span>
+<span class="w">        </span><span class="p">.</span><span class="n">Join</span><span class="p">(</span><span class="n">orderItems</span><span class="p">,</span>
+<span class="w">              </span><span class="n">item</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">item</span><span class="p">.</span><span class="n">Id</span><span class="p">,</span>
+<span class="w">              </span><span class="n">orderedItem</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">orderedItem</span><span class="p">.</span><span class="n">ItemId</span><span class="p">,</span>
+<span class="w">              </span><span class="p">(</span><span class="n">item</span><span class="p">,</span><span class="w"> </span><span class="n">_</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">item</span><span class="p">)</span>
+<span class="w">        </span><span class="p">.</span><span class="n">ToDictionary</span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">i</span><span class="p">.</span><span class="n">Id</span><span class="p">);</span>
+
+<span class="w">    </span><span class="k">foreach</span><span class="p">(</span><span class="kt">var</span><span class="w"> </span><span class="n">orderedItem</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">orderedItems</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">var</span><span class="w"> </span><span class="n">item</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="n">items</span><span class="p">[</span><span class="n">orderedItem</span><span class="p">.</span><span class="n">ItemId</span><span class="p">];</span>
+<span class="w">        </span><span class="n">item</span><span class="p">.</span><span class="n">DecreaseStockCount</span><span class="p">(</span><span class="n">orderedItem</span><span class="p">.</span><span class="n">Quantity</span><span class="p">);</span>
+<span class="w">        </span><span class="n">_itemRepository</span><span class="p">.</span><span class="n">Update</span><span class="p">(</span><span class="n">item</span><span class="p">);</span>
+<span class="w">        </span><span class="n">customerOrder</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">item</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">_customerOrderRepository</span><span class="p">.</span><span class="n">Register</span><span class="p">(</span><span class="n">order</span><span class="p">);</span>
+<span class="w">    </span><span class="n">_unitOfWork</span><span class="p">.</span><span class="n">Commit</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+<p>
+This will solve the problem with the timeout but will create another one - useless load on the system. The code loads 980 rows from the database but only uses two attributes of each row - <code>Id</code> and <code>Barcode</code>. We might say that this can be solved by projecting an <code>Item</code> into a tuple of <code>&lt;Barcode, Id&gt;</code> but this would be a partial solution because we can still place a great burden on system memory by sending an request of 10k items.
+Also, there are still 980 <code>UPDATE</code> statements that need to be executed which is still <b>a lot</b>.
+</p>
+
+<p>
+The best approach to this is to not load any data at all from the database and to do the processing as close to the actual data as possible.
+And how can we do that? Exactly - with <code>stored procedures</code>.
+</p>
+<div class="highlight"><pre><span></span><span class="k">declare</span><span class="w"> </span><span class="k">procedure</span><span class="w"> </span><span class="n">CreateCustomerOrder</span><span class="p">(</span>
+<span class="w">        </span><span class="o">@</span><span class="n">customerId</span><span class="w"> </span><span class="n">uniqueidentifier</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="p">,</span>
+<span class="w">        </span><span class="o">@</span><span class="n">orderItems</span><span class="w"> </span><span class="n">udttorderitems</span><span class="w"> </span><span class="n">readonly</span><span class="p">)</span>
+<span class="k">begin</span>
+<span class="w">    </span><span class="k">set</span><span class="w"> </span><span class="n">no_count</span><span class="w"> </span><span class="k">on</span>
+
+<span class="w">    </span><span class="k">update</span><span class="w"> </span><span class="n">sc</span>
+<span class="w">    </span><span class="k">set</span><span class="w"> </span><span class="n">sc</span><span class="p">.</span><span class="k">Count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sc</span><span class="p">.</span><span class="k">Count</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">Quantity</span>
+<span class="w">    </span><span class="k">from</span><span class="w"> </span><span class="n">StockCounts</span><span class="w"> </span><span class="n">sc</span>
+<span class="w">    </span><span class="k">join</span><span class="w"> </span><span class="n">Items</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">sc</span><span class="p">.</span><span class="n">ItemId</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">i</span><span class="p">.</span><span class="n">Id</span>
+<span class="w">    </span><span class="k">join</span><span class="w"> </span><span class="o">@</span><span class="n">orderItems</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">i</span><span class="p">.</span><span class="n">Id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">ItemId</span>
+
+<span class="w">    </span><span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">CustomerOrder</span><span class="p">(</span><span class="n">CustomerId</span><span class="p">,</span><span class="w"> </span><span class="n">OrderDateTime</span><span class="p">)</span>
+<span class="w">    </span><span class="k">values</span><span class="w"> </span><span class="p">(</span><span class="o">@</span><span class="n">customerId</span><span class="p">,</span><span class="w"> </span><span class="n">GetDate</span><span class="p">())</span>
+
+<span class="w">    </span><span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">OrderLines</span><span class="p">(</span><span class="n">OrderId</span><span class="p">,</span><span class="w"> </span><span class="n">ItemId</span><span class="p">,</span><span class="w"> </span><span class="n">Quantity</span><span class="p">)</span>
+<span class="w">    </span><span class="k">select</span><span class="w"> </span><span class="n">scope_identity</span><span class="p">(),</span><span class="w"> </span><span class="n">i</span><span class="p">.</span><span class="n">Id</span><span class="p">,</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">Quantity</span>
+<span class="w">    </span><span class="k">from</span><span class="w"> </span><span class="n">Items</span><span class="w"> </span><span class="n">i</span>
+<span class="w">    </span><span class="k">join</span><span class="w"> </span><span class="o">@</span><span class="n">orderItems</span><span class="w"> </span><span class="n">o</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">ItemId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i</span><span class="p">.</span><span class="n">Id</span>
+<span class="k">end</span>
+</pre></div>
+<p>
+Now, of course in real life situations there won't be a customer that orders almost 1000 items with a single order and the second approach (bulk load items and iterate the collection) will do just fine.
+The important thing to keep in mind in such cases is the need to switch from a procedural mindset to a set-based one thus pruning this phenomenon of paradigm creep which can become a full-blown RBAR processing.
+</p>
+
+<p>
+<b>Later edit</b>
+</p>
+
+<p>
+I have created a <a href="https://github.com/RePierre/orm-rbar-example">GitHub repository</a> to showcase the first two implemetations of <code>IOrderservice</code>.
+</p>
+    </div>
+    </article><article class="post h-entry post-text"><header><h1 class="post-title p-name"><a href="posts/python-development-using-emacs-from-terminal/" class="u-url">Python development using Emacs from terminal</a></h1>
         <div class="metadata">
             <p class="dateline">
               <i class="fa fa-clock-o"></i> <time class="published dt-published" datetime="2017-09-29T00:00:00+02:00" title="2017-09-29 00:00">2017-09-29 00:00</time>

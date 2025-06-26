@@ -1,7 +1,273 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Rebeja (Posts about c#)</title><link>https://rebeja.eu/</link><description></description><atom:link href="https://rebeja.eu/categories/c.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2025 &lt;a href="mailto:petru.rebeja@gmail.com"&gt;Petru Rebeja&lt;/a&gt; </copyright><lastBuildDate>Mon, 03 Mar 2025 19:48:18 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Introducing the Specialized Workers pattern</title><link>https://rebeja.eu/posts/specialized-workers-pattern/</link><dc:creator>Petru Rebeja</dc:creator><description>&lt;div id="outline-container-org3e3fc1c" class="outline-2"&gt;
-&lt;h2 id="org3e3fc1c"&gt;Introduction&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-org3e3fc1c"&gt;
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Rebeja (Posts about c#)</title><link>https://rebeja.eu/</link><description></description><atom:link href="https://rebeja.eu/categories/c.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2025 &lt;a href="mailto:petru.rebeja@gmail.com"&gt;Petru Rebeja&lt;/a&gt; </copyright><lastBuildDate>Thu, 26 Jun 2025 06:14:52 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Handling automatic update of concurrency tokens in Entity Framework Core</title><link>https://rebeja.eu/posts/handling-automatic-update-of-concurrency-tokens-in-entity-framework-core/</link><dc:creator>Petru Rebeja</dc:creator><description>&lt;div id="outline-container-org29c7e9b" class="outline-2"&gt;
+&lt;h2 id="org29c7e9b"&gt;Introduction&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org29c7e9b"&gt;
+&lt;p&gt;
+If your application uses &lt;a href="https://learn.microsoft.com/en-us/ef/core/"&gt;Entity Framework Core&lt;/a&gt; and has a business logic that is of medium or higher complexity, at some point, you may want to bake into that business logic some mechanism for &lt;a href="https://learn.microsoft.com/en-us/ef/core/saving/concurrency"&gt;handling concurrency&lt;/a&gt; when persisting the data into the database.
+&lt;/p&gt;
+
+&lt;p&gt;
+If your software uses SQL Server as the database management system  then things are really simple. All you need to do in to implement the following steps:
+&lt;/p&gt;
+
+&lt;ol class="org-ol"&gt;
+&lt;li&gt;Create a &lt;code&gt;RowVersion&lt;/code&gt; property in your entities,&lt;/li&gt;
+&lt;li&gt;Configure that property as a concurrency token  in the entity configuration, and&lt;/li&gt;
+&lt;li&gt;Run the migration scripts.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;
+Once all of the above are done the concurrency management works out of the box.
+&lt;/p&gt;
+
+&lt;p&gt;
+However, in any other circumstances the things get complicated. This post is about one of those other circumstances, namely when the database management system is Oracle Server, and the version property is an integer value.
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id="outline-container-orgee90d17" class="outline-2"&gt;
+&lt;h2 id="orgee90d17"&gt;Automatic update of concurrency tokens&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-orgee90d17"&gt;
+&lt;p&gt;
+The hint on how to approach such use-case lies buried in the &lt;a href="https://learn.microsoft.com/en-us/ef/core/saving/concurrency"&gt;documentation&lt;/a&gt;, behind a simple link, which contains the keyword for the actual solution: &lt;b&gt;&lt;a href="https://learn.microsoft.com/en-us/ef/core/logging-events-diagnostics/interceptors#savechanges-interception"&gt;use an interceptor when saving changes&lt;/a&gt; to automatically update the value of the property that holds the concurrency token&lt;/b&gt;. And since that documentation suffers from too much obscurity for my taste, below are the steps on how to achieve the same goal.
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id="outline-container-org292528b" class="outline-3"&gt;
+&lt;h3 id="org292528b"&gt;Prerequisites&lt;/h3&gt;
+&lt;div class="outline-text-3" id="text-org292528b"&gt;
+&lt;p&gt;
+Let's say we have an entity named &lt;code&gt;Person&lt;/code&gt; in our code-base with the following structure:
+&lt;/p&gt;
+
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;public&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;class&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nc"&gt;Person&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="k"&gt;public&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kt"&gt;long&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;Id&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;get&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;set&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="k"&gt;public&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kt"&gt;string&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;FirstName&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;get&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;set&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="k"&gt;public&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kt"&gt;string&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;LastName&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;get&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;set&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="k"&gt;public&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;Version&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;get&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;set&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;
+where we want the property &lt;code&gt;Version&lt;/code&gt; to act as a concurrency token which will be updated automatically each time the data of the entity is updated.
+&lt;/p&gt;
+
+&lt;p&gt;
+If we have more than one entity for which we want to implement the automatic update of concurrency tokens we can extract an interface to define the concurrency token property:
+&lt;/p&gt;
+
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;public&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;interface&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;IConcurrencyAwareEntity&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;Version&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;get&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;set&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;
+After defining the interface, we use it to mark all desired entities as being concurrency aware:
+&lt;/p&gt;
+
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;public&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;class&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nc"&gt;Person&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;IConcurrencyAwareEntity&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="k"&gt;public&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kt"&gt;long&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;Id&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;get&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;set&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="k"&gt;public&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kt"&gt;string&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;FirstName&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;get&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;set&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="k"&gt;public&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kt"&gt;string&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;LastName&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;get&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;set&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="k"&gt;public&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;Version&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;get&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;set&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id="outline-container-org088d89f" class="outline-3"&gt;
+&lt;h3 id="org088d89f"&gt;Entity configuration&lt;/h3&gt;
+&lt;div class="outline-text-3" id="text-org088d89f"&gt;
+&lt;p&gt;
+We need to tell Entity Framework Core to enable the concurrency checking mechanism for the &lt;code&gt;Person&lt;/code&gt; entity by specifying that the &lt;code&gt;Version&lt;/code&gt; property is a concurrency token in the entity configuration:
+&lt;/p&gt;
+
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;internal&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;class&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nc"&gt;PersonEntityConfiguration&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;IEntityTypeConfiguration&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;Person&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="k"&gt;public&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;void&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nf"&gt;Configure&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;EntityTypeBuilder&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;Person&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;builder&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="c1"&gt;// ...&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="n"&gt;builder&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Property&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;p&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&amp;gt;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;p&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Version&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="w"&gt;            &lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;HasColumnName&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;"VERSION"&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="w"&gt;            &lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;HasColumnType&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;"NUMBER"&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="w"&gt;            &lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;IsConcurrencyToken&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id="outline-container-org35550b4" class="outline-3"&gt;
+&lt;h3 id="org35550b4"&gt;Interceptor implementation&lt;/h3&gt;
+&lt;div class="outline-text-3" id="text-org35550b4"&gt;
+&lt;p&gt;
+With the entity properly configured, it is time to implement the interceptor that will increment the value of the &lt;code&gt;Version&lt;/code&gt; property automatically when the entity is saved into the database.
+&lt;/p&gt;
+
+&lt;p&gt;
+To do so, we need to create a class that derives from the &lt;a href="https://learn.microsoft.com/en-us/dotnet/api/microsoft.entityframeworkcore.diagnostics.savechangesinterceptor?view=efcore-9.0"&gt;&lt;code&gt;SaveChangesInterceptor&lt;/code&gt;&lt;/a&gt; class. This class will override the &lt;code&gt;SavingChanges&lt;/code&gt;, and &lt;code&gt;SavingChangesAsync&lt;/code&gt; methods in order to:
+&lt;/p&gt;
+&lt;ul class="org-ul"&gt;
+&lt;li&gt;iterate through all updated or inserted items from the change tracker of the database context,&lt;/li&gt;
+&lt;li&gt;for each entity, check if it implements the &lt;code&gt;IConcurrencyAwareEntity&lt;/code&gt; interface&lt;/li&gt;
+&lt;li&gt;if yes — increment the &lt;code&gt;Version&lt;/code&gt; property.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;internal&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;class&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nc"&gt;ConcurrencyEntitySaveChangesInterceptor&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;SaveChangesInterceptor&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="k"&gt;public&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;override&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;InterceptionResult&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;SavingChanges&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="n"&gt;DbContextEventData&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;eventData&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="n"&gt;InterceptionResult&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;result&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="k"&gt;this&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;IncrementVersionOfConcurrencyAwareEntities&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;
+&lt;span class="w"&gt;            &lt;/span&gt;&lt;span class="n"&gt;eventData&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Context&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="k"&gt;return&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;base&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;SavingChanges&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;eventData&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;result&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="k"&gt;public&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;override&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;ValueTask&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;InterceptionResult&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&amp;gt;&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="n"&gt;SavingChangesAsync&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;
+&lt;span class="w"&gt;            &lt;/span&gt;&lt;span class="n"&gt;DbContextEventData&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;eventData&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;span class="w"&gt;            &lt;/span&gt;&lt;span class="n"&gt;InterceptionResult&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;result&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;span class="w"&gt;            &lt;/span&gt;&lt;span class="n"&gt;CancellationToken&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;cancellationToken&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;default&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="k"&gt;this&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;IncrementVersionOfConcurrencyAwareEntities&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;
+&lt;span class="w"&gt;            &lt;/span&gt;&lt;span class="n"&gt;eventData&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Context&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="k"&gt;return&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;base&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;SavingChangesAsync&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;
+&lt;span class="w"&gt;            &lt;/span&gt;&lt;span class="n"&gt;eventData&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;span class="w"&gt;            &lt;/span&gt;&lt;span class="n"&gt;result&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;span class="w"&gt;            &lt;/span&gt;&lt;span class="n"&gt;cancellationToken&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="k"&gt;private&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;void&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nf"&gt;IncrementVersionOfConcurrencyAwareEntities&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="n"&gt;DbContext&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;context&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="k"&gt;foreach&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;var&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;entry&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;in&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;GetEntriesToUpdate&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;context&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;            &lt;/span&gt;&lt;span class="kt"&gt;var&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;entity&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;entry&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Entity&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;as&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;IConcurrencyAwareEntity&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="w"&gt;            &lt;/span&gt;&lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;entry&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;State&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;is&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;EntityState&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Added&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="w"&gt;            &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;                &lt;/span&gt;&lt;span class="n"&gt;entity&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Version&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="w"&gt;                &lt;/span&gt;&lt;span class="k"&gt;continue&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="w"&gt;            &lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="w"&gt;            &lt;/span&gt;&lt;span class="kt"&gt;var&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;version&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;entry&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Property&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;nameof&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;entity&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Version&lt;/span&gt;&lt;span class="p"&gt;));&lt;/span&gt;
+&lt;span class="w"&gt;            &lt;/span&gt;&lt;span class="n"&gt;version&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;OriginalValue&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;entity&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Version&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="w"&gt;            &lt;/span&gt;&lt;span class="n"&gt;entity&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Version&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="k"&gt;private&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;IEnumerable&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;EntityEntry&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;GetEntriesToUpdate&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="n"&gt;DbContext&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;context&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&amp;gt;&lt;/span&gt;
+&lt;span class="w"&gt;            &lt;/span&gt;&lt;span class="n"&gt;context&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ChangeTracker&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Entries&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;span class="w"&gt;                &lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Where&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;e&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&amp;gt;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;e&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Entity&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;is&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;IConcurrencyAwareEntity&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="w"&gt;                &lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Where&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;e&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&amp;gt;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;e&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;State&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;==&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;EntityState&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Added&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;||&lt;/span&gt;
+&lt;span class="w"&gt;                            &lt;/span&gt;&lt;span class="n"&gt;e&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;State&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;==&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;EntityState&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Modified&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;
+While the method &lt;code&gt;GetEntriesToUpdate()&lt;/code&gt; from above is self-explanatory, the method &lt;code&gt;IncrementVersionOfConcurrencyAwareEntities()&lt;/code&gt; requires a bit of commentary on what it does to each &lt;code&gt;EntityEntry&lt;/code&gt; instance.
+&lt;/p&gt;
+
+&lt;p&gt;
+If the entity does not exist in the database (i. e. when the corresponding entry has the state &lt;code&gt;EntityState.Added&lt;/code&gt;) we just need to set the value of the property &lt;code&gt;Version&lt;/code&gt; to 1, and nothing else because when the entity will be persisted Entity Framework Core will issue an &lt;code&gt;INSERT&lt;/code&gt; statement.
+&lt;/p&gt;
+
+&lt;p&gt;
+However, when an entity that has concurrency handling enabled needs to be persisted, and it exists in the database already, when issuing the &lt;code&gt;UPDATE&lt;/code&gt; statement Entity Framework Core will include in the &lt;code&gt;WHERE&lt;/code&gt; clause a condition on the value of the concurrency token alongside the primary key of the entity. In the case of the &lt;code&gt;Person&lt;/code&gt; entity declared above, the &lt;code&gt;UPDATE&lt;/code&gt; statement would look like this:
+&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;update&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;persons&lt;/span&gt;
+&lt;span class="w"&gt;   &lt;/span&gt;&lt;span class="k"&gt;set&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;first_name&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s1"&gt;'John'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;span class="w"&gt;       &lt;/span&gt;&lt;span class="n"&gt;last_name&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s1"&gt;'Doe'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;span class="w"&gt;       &lt;/span&gt;&lt;span class="k"&gt;version&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;
+&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;where&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;id&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;42&lt;/span&gt;
+&lt;span class="w"&gt;   &lt;/span&gt;&lt;span class="k"&gt;and&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;version&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;
+The value &lt;code&gt;2&lt;/code&gt; in the example above is the value that the &lt;code&gt;Version&lt;/code&gt; property had when the entity was loaded from the database. This is the reason why the method &lt;code&gt;IncrementVersionOfConcurrencyAwareEntities&lt;/code&gt; contains these two lines:
+&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kt"&gt;var&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;version&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;entry&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Property&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;nameof&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;entity&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Version&lt;/span&gt;&lt;span class="p"&gt;));&lt;/span&gt;
+&lt;span class="n"&gt;version&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;OriginalValue&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;entity&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Version&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;
+These lines signal Entity Framework Core that it should update the row that has the value of the &lt;code&gt;Version&lt;/code&gt; property equal to the value it had &lt;i&gt;before incrementing it&lt;/i&gt;.
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id="outline-container-orgf2504e7" class="outline-3"&gt;
+&lt;h3 id="orgf2504e7"&gt;Add the interceptor to the &lt;code&gt;DbContext&lt;/code&gt;&lt;/h3&gt;
+&lt;div class="outline-text-3" id="text-orgf2504e7"&gt;
+&lt;p&gt;
+Now that we have an interceptor to automatically increment the value of the &lt;code&gt;Version&lt;/code&gt; property, all we need to do is to add it to the database context. This is done quite easily:
+&lt;/p&gt;
+&lt;ol class="org-ol"&gt;
+&lt;li&gt;Register your interceptor class in the dependency injection framework&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;
+Inject the interceptor into your &lt;code&gt;DbContext&lt;/code&gt; class
+&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="w"&gt;   &lt;/span&gt;&lt;span class="k"&gt;public&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nf"&gt;PersonsDbContext&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;
+&lt;span class="w"&gt;       &lt;/span&gt;&lt;span class="n"&gt;ConcurrencyEntitySaveChangesInterceptor&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;interceptor&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="w"&gt;   &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;       &lt;/span&gt;&lt;span class="k"&gt;this&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;interceptor&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;interceptor&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="w"&gt;   &lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;
+Add the interceptor to the context class in &lt;code&gt;OnConfiguring&lt;/code&gt; method
+&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="w"&gt;   &lt;/span&gt;&lt;span class="k"&gt;protected&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;override&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;void&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nf"&gt;OnConfiguring&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;
+&lt;span class="w"&gt;       &lt;/span&gt;&lt;span class="n"&gt;DbContextOptionsBuilder&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;optionsBuilder&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="w"&gt;   &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;       &lt;/span&gt;&lt;span class="k"&gt;base&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;OnConfiguring&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;optionsBuilder&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+&lt;span class="w"&gt;       &lt;/span&gt;&lt;span class="n"&gt;optionsBuilder&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;AddInterceptors&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;this&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;interceptor&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="w"&gt;   &lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;
+Once the interceptor is registered, you should see the value of the &lt;code&gt;Version&lt;/code&gt; property increase automatically each time an entity marked with &lt;code&gt;IConcurrencyAwareEntity&lt;/code&gt; interface is updated.
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id="outline-container-org420c485" class="outline-2"&gt;
+&lt;h2 id="org420c485"&gt;Concurency handling&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org420c485"&gt;
+&lt;p&gt;
+At this point concurrency handling kicks-in out of the box thanks to the two aforementioned lines from the &lt;code&gt;IncrementVersionOfConcurrencyAwareEntities&lt;/code&gt; method:
+&lt;/p&gt;
+
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kt"&gt;var&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;version&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;entry&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Property&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;nameof&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;entity&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Version&lt;/span&gt;&lt;span class="p"&gt;));&lt;/span&gt;
+&lt;span class="n"&gt;version&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;OriginalValue&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;entity&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Version&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;
+The lines above encapsulate the essence of the concurrency handling mechanism. They signal Entity Framework (in a bit of a contrived way admittedly) that we want to update the entity &lt;i&gt;if and only if&lt;/i&gt; the entity in the database has the value of the concurrency token (&lt;code&gt;Version&lt;/code&gt; property in our case) equal to the original value of the property when the entity was loaded, i.e. the value of the &lt;code&gt;Version&lt;/code&gt; property before incrementing it.
+&lt;/p&gt;
+
+&lt;p&gt;
+If there is no row in the database table that satisfies the condition above, then no rows are updated, and subsequently Entity Framework Core throws a &lt;code&gt;DbUpdateConcurrencyException&lt;/code&gt; which, as its name tells, signals that the row we are trying to update was changed in the meanwhile.
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id="outline-container-org0c9e0b3" class="outline-2"&gt;
+&lt;h2 id="org0c9e0b3"&gt;Conclusion&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org0c9e0b3"&gt;
+&lt;p&gt;
+Entity Framework Core has a built-in mechanism for handling concurrency that works great out of the box when the application uses the default types for concurency tokens, and SQL Server as the database management system. This mechanism relies on comparing the values of the concurrency token for each database operation; if the value supplied by the application is not the same as the value from the database this is considered to be a concurrency conflict.
+&lt;/p&gt;
+
+&lt;p&gt;
+But once you stray off the beaten path, things become more complicated as this post shows while trying to provide a guide on how to automatically update the value of the concurrency tokens in non-default scenarios. Fortunately, the concurrency handling mechanism from Entity Framework Core is designed to accommodate a wide range of use-cases, and with a slight adjustment through a custom interceptor that updates the value of concurrency tokens when saving entities to the database, we can ensure the conflict handling mechanism operates as originally intended
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;</description><category>c#</category><category>concurrency</category><category>Entity Framework Core</category><category>interceptor</category><guid>https://rebeja.eu/posts/handling-automatic-update-of-concurrency-tokens-in-entity-framework-core/</guid><pubDate>Thu, 26 Jun 2025 05:57:09 GMT</pubDate></item><item><title>Introducing the Specialized Workers pattern</title><link>https://rebeja.eu/posts/specialized-workers-pattern/</link><dc:creator>Petru Rebeja</dc:creator><description>&lt;div id="outline-container-org90f6d67" class="outline-2"&gt;
+&lt;h2 id="org90f6d67"&gt;Introduction&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org90f6d67"&gt;
 &lt;p&gt;
 Some years ago, in my &lt;a href="https://rebeja.eu/posts/using-enums-in-c-sharp/"&gt;blog post about using enums in C#&lt;/a&gt; I mentioned that I like using what I called at that time &lt;code&gt;specialized builders&lt;/code&gt; to refactor the &lt;code&gt;switch&lt;/code&gt; statement into a series of classes that implement a common interface and are specialized for a specific &lt;code&gt;case&lt;/code&gt; of the &lt;code&gt;switch&lt;/code&gt; statement.
 &lt;/p&gt;
@@ -15,14 +281,13 @@ As such, I am excited to introduce to the world the &lt;code&gt;Specialized Work
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-
-&lt;div id="outline-container-orgdc5a2de" class="outline-2"&gt;
-&lt;h2 id="orgdc5a2de"&gt;Specialized Workers Pattern&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-orgdc5a2de"&gt;
+&lt;div id="outline-container-org3c6e38d" class="outline-2"&gt;
+&lt;h2 id="org3c6e38d"&gt;Specialized Workers Pattern&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org3c6e38d"&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-org99d1329" class="outline-3"&gt;
-&lt;h3 id="org99d1329"&gt;Description and usage&lt;/h3&gt;
-&lt;div class="outline-text-3" id="text-org99d1329"&gt;
+&lt;div id="outline-container-org62b9ef9" class="outline-3"&gt;
+&lt;h3 id="org62b9ef9"&gt;Description and usage&lt;/h3&gt;
+&lt;div class="outline-text-3" id="text-org62b9ef9"&gt;
 &lt;p&gt;
 The &lt;code&gt;Specialized Workers&lt;/code&gt; pattern aims to distribute the logic of a business operation that requires choosing between one or multiple tasks to be executed, into a collection of specialized classes, while keeping the knowledge about the task(s) to be executed into a single place.
 &lt;/p&gt;
@@ -69,7 +334,6 @@ Put differently than at the beginning of this section,  the purpose of &lt;code&
 &lt;/ul&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-
 &lt;div id="outline-container-implementation" class="outline-3"&gt;
 &lt;h3 id="implementation"&gt;Implementation&lt;/h3&gt;
 &lt;div class="outline-text-3" id="text-implementation"&gt;
@@ -146,14 +410,13 @@ On the other hand, each worker class is, as the name of the pattern suggests it,
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-
-&lt;div id="outline-container-orgcdd5cda" class="outline-2"&gt;
-&lt;h2 id="orgcdd5cda"&gt;Discussion&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-orgcdd5cda"&gt;
+&lt;div id="outline-container-org63bf0a6" class="outline-2"&gt;
+&lt;h2 id="org63bf0a6"&gt;Discussion&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org63bf0a6"&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-orge09cf18" class="outline-3"&gt;
-&lt;h3 id="orge09cf18"&gt;How is it different from the &lt;code&gt;Strategy&lt;/code&gt; pattern?&lt;/h3&gt;
-&lt;div class="outline-text-3" id="text-orge09cf18"&gt;
+&lt;div id="outline-container-org87b1483" class="outline-3"&gt;
+&lt;h3 id="org87b1483"&gt;How is it different from the &lt;code&gt;Strategy&lt;/code&gt; pattern?&lt;/h3&gt;
+&lt;div class="outline-text-3" id="text-org87b1483"&gt;
 &lt;p&gt;
 At this moment you may be wondering how the &lt;code&gt;Specialized Workers&lt;/code&gt; is different from the &lt;code&gt;Strategy&lt;/code&gt; pattern? After all, each worker implements and applies a different strategy in the processing of the data.
 &lt;/p&gt;
@@ -167,10 +430,9 @@ There is however, a difference in the nomenclature: &lt;code&gt;Strategy&lt;/cod
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-
-&lt;div id="outline-container-org0b50983" class="outline-3"&gt;
-&lt;h3 id="org0b50983"&gt;Why not use a &lt;code&gt;Factory method&lt;/code&gt;?&lt;/h3&gt;
-&lt;div class="outline-text-3" id="text-org0b50983"&gt;
+&lt;div id="outline-container-org5033d56" class="outline-3"&gt;
+&lt;h3 id="org5033d56"&gt;Why not use a &lt;code&gt;Factory method&lt;/code&gt;?&lt;/h3&gt;
+&lt;div class="outline-text-3" id="text-org5033d56"&gt;
 &lt;p&gt;
 Okay, you might say, then why not use a &lt;code&gt;Factory method&lt;/code&gt; to build directly the worker that knows how to handle the specific use-case?
 &lt;/p&gt;
@@ -193,7 +455,6 @@ However, if the instantiation of the specialized workers depends o some paramete
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-
 &lt;div id="outline-container-drawbacks" class="outline-2"&gt;
 &lt;h2 id="drawbacks"&gt;Drawbacks&lt;/h2&gt;
 &lt;div class="outline-text-2" id="text-drawbacks"&gt;
@@ -201,7 +462,6 @@ However, if the instantiation of the specialized workers depends o some paramete
 As we all know, there are no perfect solutions, especially in software development. This is also the case for the &lt;code&gt;Specialized Workers&lt;/code&gt; pattern, and as such, it has a few drawbacks listed below.
 &lt;/p&gt;
 &lt;/div&gt;
-
 &lt;div id="outline-container-no-guarantee-of-the-same-parameters" class="outline-3"&gt;
 &lt;h3 id="no-guarantee-of-the-same-parameters"&gt;No guarantee of the same parameters&lt;/h3&gt;
 &lt;div class="outline-text-3" id="text-no-guarantee-of-the-same-parameters"&gt;
@@ -221,7 +481,6 @@ There are (at least) two ways to work around this misuse: to combine the two met
 &lt;/pre&gt;&lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-
 &lt;div id="outline-container-sensitivity-to-collections" class="outline-3"&gt;
 &lt;h3 id="sensitivity-to-collections"&gt;Sensitivity to collections&lt;/h3&gt;
 &lt;div class="outline-text-3" id="text-sensitivity-to-collections"&gt;
@@ -262,7 +521,6 @@ This ensures that the collection is iterated only once thus avoiding any odd res
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-
 &lt;div id="outline-container-adaptations" class="outline-2"&gt;
 &lt;h2 id="adaptations"&gt;Adaptations&lt;/h2&gt;
 &lt;div class="outline-text-2" id="text-adaptations"&gt;
@@ -270,7 +528,6 @@ This ensures that the collection is iterated only once thus avoiding any odd res
 Despite its drawbacks, the &lt;code&gt;Specialized Workers&lt;/code&gt; pattern is quite flexible in its implementation. As such, it can be adapted for some specific scenarios discussed below. Of course, it goes without saying that the list is not exclusive.
 &lt;/p&gt;
 &lt;/div&gt;
-
 &lt;div id="outline-container-using-a-single-method" class="outline-3"&gt;
 &lt;h3 id="using-a-single-method"&gt;Using a single method&lt;/h3&gt;
 &lt;div class="outline-text-3" id="text-using-a-single-method"&gt;
@@ -297,7 +554,6 @@ As mentioned in the sub-section &lt;a href="https://rebeja.eu/posts/specialized-
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-
 &lt;div id="outline-container-non-exclusive-workers" class="outline-3"&gt;
 &lt;h3 id="non-exclusive-workers"&gt;Non-exclusive workers&lt;/h3&gt;
 &lt;div class="outline-text-3" id="text-non-exclusive-workers"&gt;
@@ -311,10 +567,9 @@ You can have multiple workers capable of processing the same payload; in this ca
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-
-&lt;div id="outline-container-orge9840f9" class="outline-2"&gt;
-&lt;h2 id="orge9840f9"&gt;Ending thoughts&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-orge9840f9"&gt;
+&lt;div id="outline-container-org2ca291d" class="outline-2"&gt;
+&lt;h2 id="org2ca291d"&gt;Ending thoughts&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org2ca291d"&gt;
 &lt;p&gt;
 As you can see from this quite lengthy post, the &lt;code&gt;Specialized Workers&lt;/code&gt; pattern, provides both a way to cluster business logic into specialized classes, and a good degree of flexibility in order to adapt the implementation to different situations. Despite its flexibility however, it is my &lt;i&gt;subjective&lt;/i&gt; opinion that the original form of the pattern (the one shown in the &lt;a href="https://rebeja.eu/posts/specialized-workers-pattern/#implementation"&gt;Implementation&lt;/a&gt; section) is the most elegant and eloquent, which is why I use that version most of the time. But, especially as a software developer, I am aware that each person has its own preferences in regards to how something should be done or implemented. As such, I hope you find this pattern useful, and if so, feel free to apply it in whichever way suits you best.
 &lt;/p&gt;

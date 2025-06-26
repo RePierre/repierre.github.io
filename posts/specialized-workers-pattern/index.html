@@ -13,6 +13,7 @@
 <link rel="canonical" href="https://rebeja.eu/posts/specialized-workers-pattern/">
 <!--[if lt IE 9]><script src="../../assets/js/html5.js"></script><![endif]--><meta name="author" content="Petru Rebeja">
 <link rel="prev" href="../release-to-qa-not-production/" title="Don't release to Production, release to QA" type="text/html">
+<link rel="next" href="../handling-automatic-update-of-concurrency-tokens-in-entity-framework-core/" title="Handling automatic update of concurrency tokens in Entity Framework Core" type="text/html">
 </head>
 <body class="">
     <a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
@@ -47,9 +48,9 @@
     
 
     <div class="e-content entry-content" itemprop="articleBody text">
-    <div id="outline-container-org3e3fc1c" class="outline-2">
-<h2 id="org3e3fc1c">Introduction</h2>
-<div class="outline-text-2" id="text-org3e3fc1c">
+    <div id="outline-container-org90f6d67" class="outline-2">
+<h2 id="org90f6d67">Introduction</h2>
+<div class="outline-text-2" id="text-org90f6d67">
 <p>
 Some years ago, in my <a href="../using-enums-in-c-sharp/">blog post about using enums in C#</a> I mentioned that I like using what I called at that time <code>specialized builders</code> to refactor the <code>switch</code> statement into a series of classes that implement a common interface and are specialized for a specific <code>case</code> of the <code>switch</code> statement.
 </p>
@@ -63,14 +64,13 @@ As such, I am excited to introduce to the world the <code>Specialized Workers</c
 </p>
 </div>
 </div>
-
-<div id="outline-container-orgdc5a2de" class="outline-2">
-<h2 id="orgdc5a2de">Specialized Workers Pattern</h2>
-<div class="outline-text-2" id="text-orgdc5a2de">
+<div id="outline-container-org3c6e38d" class="outline-2">
+<h2 id="org3c6e38d">Specialized Workers Pattern</h2>
+<div class="outline-text-2" id="text-org3c6e38d">
 </div>
-<div id="outline-container-org99d1329" class="outline-3">
-<h3 id="org99d1329">Description and usage</h3>
-<div class="outline-text-3" id="text-org99d1329">
+<div id="outline-container-org62b9ef9" class="outline-3">
+<h3 id="org62b9ef9">Description and usage</h3>
+<div class="outline-text-3" id="text-org62b9ef9">
 <p>
 The <code>Specialized Workers</code> pattern aims to distribute the logic of a business operation that requires choosing between one or multiple tasks to be executed, into a collection of specialized classes, while keeping the knowledge about the task(s) to be executed into a single place.
 </p>
@@ -116,7 +116,6 @@ Put differently than at the beginning of this section,  the purpose of <code>Spe
 </ul>
 </div>
 </div>
-
 <div id="outline-container-implementation" class="outline-3">
 <h3 id="implementation">Implementation</h3>
 <div class="outline-text-3" id="text-implementation">
@@ -193,14 +192,13 @@ On the other hand, each worker class is, as the name of the pattern suggests it,
 </div>
 </div>
 </div>
-
-<div id="outline-container-orgcdd5cda" class="outline-2">
-<h2 id="orgcdd5cda">Discussion</h2>
-<div class="outline-text-2" id="text-orgcdd5cda">
+<div id="outline-container-org63bf0a6" class="outline-2">
+<h2 id="org63bf0a6">Discussion</h2>
+<div class="outline-text-2" id="text-org63bf0a6">
 </div>
-<div id="outline-container-orge09cf18" class="outline-3">
-<h3 id="orge09cf18">How is it different from the <code>Strategy</code> pattern?</h3>
-<div class="outline-text-3" id="text-orge09cf18">
+<div id="outline-container-org87b1483" class="outline-3">
+<h3 id="org87b1483">How is it different from the <code>Strategy</code> pattern?</h3>
+<div class="outline-text-3" id="text-org87b1483">
 <p>
 At this moment you may be wondering how the <code>Specialized Workers</code> is different from the <code>Strategy</code> pattern? After all, each worker implements and applies a different strategy in the processing of the data.
 </p>
@@ -214,10 +212,9 @@ There is however, a difference in the nomenclature: <code>Strategy</code> is a <
 </p>
 </div>
 </div>
-
-<div id="outline-container-org0b50983" class="outline-3">
-<h3 id="org0b50983">Why not use a <code>Factory method</code>?</h3>
-<div class="outline-text-3" id="text-org0b50983">
+<div id="outline-container-org5033d56" class="outline-3">
+<h3 id="org5033d56">Why not use a <code>Factory method</code>?</h3>
+<div class="outline-text-3" id="text-org5033d56">
 <p>
 Okay, you might say, then why not use a <code>Factory method</code> to build directly the worker that knows how to handle the specific use-case?
 </p>
@@ -240,7 +237,6 @@ However, if the instantiation of the specialized workers depends o some paramete
 </div>
 </div>
 </div>
-
 <div id="outline-container-drawbacks" class="outline-2">
 <h2 id="drawbacks">Drawbacks</h2>
 <div class="outline-text-2" id="text-drawbacks">
@@ -248,7 +244,6 @@ However, if the instantiation of the specialized workers depends o some paramete
 As we all know, there are no perfect solutions, especially in software development. This is also the case for the <code>Specialized Workers</code> pattern, and as such, it has a few drawbacks listed below.
 </p>
 </div>
-
 <div id="outline-container-no-guarantee-of-the-same-parameters" class="outline-3">
 <h3 id="no-guarantee-of-the-same-parameters">No guarantee of the same parameters</h3>
 <div class="outline-text-3" id="text-no-guarantee-of-the-same-parameters">
@@ -268,7 +263,6 @@ There are (at least) two ways to work around this misuse: to combine the two met
 </pre></div>
 </div>
 </div>
-
 <div id="outline-container-sensitivity-to-collections" class="outline-3">
 <h3 id="sensitivity-to-collections">Sensitivity to collections</h3>
 <div class="outline-text-3" id="text-sensitivity-to-collections">
@@ -309,7 +303,6 @@ This ensures that the collection is iterated only once thus avoiding any odd res
 </div>
 </div>
 </div>
-
 <div id="outline-container-adaptations" class="outline-2">
 <h2 id="adaptations">Adaptations</h2>
 <div class="outline-text-2" id="text-adaptations">
@@ -317,7 +310,6 @@ This ensures that the collection is iterated only once thus avoiding any odd res
 Despite its drawbacks, the <code>Specialized Workers</code> pattern is quite flexible in its implementation. As such, it can be adapted for some specific scenarios discussed below. Of course, it goes without saying that the list is not exclusive.
 </p>
 </div>
-
 <div id="outline-container-using-a-single-method" class="outline-3">
 <h3 id="using-a-single-method">Using a single method</h3>
 <div class="outline-text-3" id="text-using-a-single-method">
@@ -344,7 +336,6 @@ As mentioned in the sub-section <a href="#no-guarantee-of-the-same-parameters">N
 </p>
 </div>
 </div>
-
 <div id="outline-container-non-exclusive-workers" class="outline-3">
 <h3 id="non-exclusive-workers">Non-exclusive workers</h3>
 <div class="outline-text-3" id="text-non-exclusive-workers">
@@ -358,10 +349,9 @@ You can have multiple workers capable of processing the same payload; in this ca
 </div>
 </div>
 </div>
-
-<div id="outline-container-orge9840f9" class="outline-2">
-<h2 id="orge9840f9">Ending thoughts</h2>
-<div class="outline-text-2" id="text-orge9840f9">
+<div id="outline-container-org2ca291d" class="outline-2">
+<h2 id="org2ca291d">Ending thoughts</h2>
+<div class="outline-text-2" id="text-org2ca291d">
 <p>
 As you can see from this quite lengthy post, the <code>Specialized Workers</code> pattern, provides both a way to cluster business logic into specialized classes, and a good degree of flexibility in order to adapt the implementation to different situations. Despite its flexibility however, it is my <i>subjective</i> opinion that the original form of the pattern (the one shown in the <a href="#implementation">Implementation</a> section) is the most elegant and eloquent, which is why I use that version most of the time. But, especially as a software developer, I am aware that each person has its own preferences in regards to how something should be done or implemented. As such, I hope you find this pattern useful, and if so, feel free to apply it in whichever way suits you best.
 </p>
@@ -385,7 +375,9 @@ As you can see from this quite lengthy post, the <code>Specialized Workers</code
 
 
             <span class="next pagination-item newer">
+                <a href="../handling-automatic-update-of-concurrency-tokens-in-entity-framework-core/" rel="next" title="Handling automatic update of concurrency tokens in Entity Framework Core">
 Next post
+              </a>
             </span>
 
         </div>

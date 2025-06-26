@@ -13,7 +13,7 @@
 <link rel="alternate" type="application/rss+xml" title="RSS" href="rss.xml">
 <link rel="canonical" href="https://rebeja.eu/">
 <link rel="next" href="index-1.html" type="text/html">
-<!--[if lt IE 9]><script src="assets/js/html5.js"></script><![endif]--><link rel="prefetch" href="posts/specialized-workers-pattern/" type="text/html">
+<!--[if lt IE 9]><script src="assets/js/html5.js"></script><![endif]--><link rel="prefetch" href="posts/handling-automatic-update-of-concurrency-tokens-in-entity-framework-core/" type="text/html">
 </head>
 <body class="">
     <a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
@@ -39,7 +39,288 @@
     <div class="content container" id="content">
     
 <div class="post">
-    <article class="post h-entry post-text"><header><h1 class="post-title p-name"><a href="posts/specialized-workers-pattern/" class="u-url">Introducing the Specialized Workers pattern</a></h1>
+    <article class="post h-entry post-text"><header><h1 class="post-title p-name"><a href="posts/handling-automatic-update-of-concurrency-tokens-in-entity-framework-core/" class="u-url">Handling automatic update of concurrency tokens in Entity Framework Core</a></h1>
+        <div class="metadata">
+            <p class="dateline">
+              <i class="fa fa-clock-o"></i> <time class="published dt-published" datetime="2025-06-26T08:57:09+03:00" title="2025-06-26 08:57">2025-06-26 08:57</time>
+            
+                |   <i class="fa fa-comment"></i>         <a href="posts/handling-automatic-update-of-concurrency-tokens-in-entity-framework-core/#disqus_thread" data-disqus-identifier="cache/posts/handling-automatic-update-of-concurrency-tokens-in-entity-framework-core.html">Comments</a>
+
+
+            </p>
+        </div>
+    </header><div class="e-content entry-content">
+    <div id="outline-container-org29c7e9b" class="outline-2">
+<h2 id="org29c7e9b">Introduction</h2>
+<div class="outline-text-2" id="text-org29c7e9b">
+<p>
+If your application uses <a href="https://learn.microsoft.com/en-us/ef/core/">Entity Framework Core</a> and has a business logic that is of medium or higher complexity, at some point, you may want to bake into that business logic some mechanism for <a href="https://learn.microsoft.com/en-us/ef/core/saving/concurrency">handling concurrency</a> when persisting the data into the database.
+</p>
+
+<p>
+If your software uses SQL Server as the database management system  then things are really simple. All you need to do in to implement the following steps:
+</p>
+
+<ol class="org-ol">
+<li>Create a <code>RowVersion</code> property in your entities,</li>
+<li>Configure that property as a concurrency token  in the entity configuration, and</li>
+<li>Run the migration scripts.</li>
+</ol>
+<p>
+Once all of the above are done the concurrency management works out of the box.
+</p>
+
+<p>
+However, in any other circumstances the things get complicated. This post is about one of those other circumstances, namely when the database management system is Oracle Server, and the version property is an integer value.
+</p>
+</div>
+</div>
+<div id="outline-container-orgee90d17" class="outline-2">
+<h2 id="orgee90d17">Automatic update of concurrency tokens</h2>
+<div class="outline-text-2" id="text-orgee90d17">
+<p>
+The hint on how to approach such use-case lies buried in the <a href="https://learn.microsoft.com/en-us/ef/core/saving/concurrency">documentation</a>, behind a simple link, which contains the keyword for the actual solution: <b><a href="https://learn.microsoft.com/en-us/ef/core/logging-events-diagnostics/interceptors#savechanges-interception">use an interceptor when saving changes</a> to automatically update the value of the property that holds the concurrency token</b>. And since that documentation suffers from too much obscurity for my taste, below are the steps on how to achieve the same goal.
+</p>
+</div>
+<div id="outline-container-org292528b" class="outline-3">
+<h3 id="org292528b">Prerequisites</h3>
+<div class="outline-text-3" id="text-org292528b">
+<p>
+Let's say we have an entity named <code>Person</code> in our code-base with the following structure:
+</p>
+
+<div class="highlight"><pre><span></span><span class="k">public</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">Person</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">Id</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="n">FirstName</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="n">LastName</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">Version</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>
+where we want the property <code>Version</code> to act as a concurrency token which will be updated automatically each time the data of the entity is updated.
+</p>
+
+<p>
+If we have more than one entity for which we want to implement the automatic update of concurrency tokens we can extract an interface to define the concurrency token property:
+</p>
+
+<div class="highlight"><pre><span></span><span class="k">public</span><span class="w"> </span><span class="k">interface</span><span class="w"> </span><span class="n">IConcurrencyAwareEntity</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">Version</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>
+After defining the interface, we use it to mark all desired entities as being concurrency aware:
+</p>
+
+<div class="highlight"><pre><span></span><span class="k">public</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">Person</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">IConcurrencyAwareEntity</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">Id</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="n">FirstName</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="n">LastName</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">Version</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div id="outline-container-org088d89f" class="outline-3">
+<h3 id="org088d89f">Entity configuration</h3>
+<div class="outline-text-3" id="text-org088d89f">
+<p>
+We need to tell Entity Framework Core to enable the concurrency checking mechanism for the <code>Person</code> entity by specifying that the <code>Version</code> property is a concurrency token in the entity configuration:
+</p>
+
+<div class="highlight"><pre><span></span><span class="k">internal</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">PersonEntityConfiguration</span>
+<span class="w">    </span><span class="p">:</span><span class="w"> </span><span class="n">IEntityTypeConfiguration</span><span class="o">&lt;</span><span class="n">Person</span><span class="o">&gt;</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">Configure</span><span class="p">(</span><span class="n">EntityTypeBuilder</span><span class="o">&lt;</span><span class="n">Person</span><span class="o">&gt;</span><span class="w"> </span><span class="n">builder</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// ...</span>
+<span class="w">        </span><span class="n">builder</span><span class="p">.</span><span class="n">Property</span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Version</span><span class="p">)</span>
+<span class="w">            </span><span class="p">.</span><span class="n">HasColumnName</span><span class="p">(</span><span class="s">"VERSION"</span><span class="p">)</span>
+<span class="w">            </span><span class="p">.</span><span class="n">HasColumnType</span><span class="p">(</span><span class="s">"NUMBER"</span><span class="p">)</span>
+<span class="w">            </span><span class="p">.</span><span class="n">IsConcurrencyToken</span><span class="p">();</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div id="outline-container-org35550b4" class="outline-3">
+<h3 id="org35550b4">Interceptor implementation</h3>
+<div class="outline-text-3" id="text-org35550b4">
+<p>
+With the entity properly configured, it is time to implement the interceptor that will increment the value of the <code>Version</code> property automatically when the entity is saved into the database.
+</p>
+
+<p>
+To do so, we need to create a class that derives from the <a href="https://learn.microsoft.com/en-us/dotnet/api/microsoft.entityframeworkcore.diagnostics.savechangesinterceptor?view=efcore-9.0"><code>SaveChangesInterceptor</code></a> class. This class will override the <code>SavingChanges</code>, and <code>SavingChangesAsync</code> methods in order to:
+</p>
+<ul class="org-ul">
+<li>iterate through all updated or inserted items from the change tracker of the database context,</li>
+<li>for each entity, check if it implements the <code>IConcurrencyAwareEntity</code> interface</li>
+<li>if yes — increment the <code>Version</code> property.</li>
+</ul>
+<div class="highlight"><pre><span></span><span class="k">internal</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">ConcurrencyEntitySaveChangesInterceptor</span>
+<span class="w">    </span><span class="p">:</span><span class="w"> </span><span class="n">SaveChangesInterceptor</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="n">InterceptionResult</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">SavingChanges</span><span class="p">(</span>
+<span class="w">        </span><span class="n">DbContextEventData</span><span class="w"> </span><span class="n">eventData</span><span class="p">,</span>
+<span class="w">        </span><span class="n">InterceptionResult</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">result</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="n">IncrementVersionOfConcurrencyAwareEntities</span><span class="p">(</span>
+<span class="w">            </span><span class="n">eventData</span><span class="p">.</span><span class="n">Context</span><span class="p">);</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="k">base</span><span class="p">.</span><span class="n">SavingChanges</span><span class="p">(</span><span class="n">eventData</span><span class="p">,</span><span class="w"> </span><span class="n">result</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="n">ValueTask</span><span class="o">&lt;</span><span class="n">InterceptionResult</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span>
+<span class="w">        </span><span class="n">SavingChangesAsync</span><span class="p">(</span>
+<span class="w">            </span><span class="n">DbContextEventData</span><span class="w"> </span><span class="n">eventData</span><span class="p">,</span>
+<span class="w">            </span><span class="n">InterceptionResult</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">result</span><span class="p">,</span>
+<span class="w">            </span><span class="n">CancellationToken</span><span class="w"> </span><span class="n">cancellationToken</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">default</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="n">IncrementVersionOfConcurrencyAwareEntities</span><span class="p">(</span>
+<span class="w">            </span><span class="n">eventData</span><span class="p">.</span><span class="n">Context</span><span class="p">);</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="k">base</span><span class="p">.</span><span class="n">SavingChangesAsync</span><span class="p">(</span>
+<span class="w">            </span><span class="n">eventData</span><span class="p">,</span>
+<span class="w">            </span><span class="n">result</span><span class="p">,</span>
+<span class="w">            </span><span class="n">cancellationToken</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">private</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">IncrementVersionOfConcurrencyAwareEntities</span><span class="p">(</span>
+<span class="w">        </span><span class="n">DbContext</span><span class="w"> </span><span class="n">context</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">foreach</span><span class="p">(</span><span class="kt">var</span><span class="w"> </span><span class="n">entry</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">GetEntriesToUpdate</span><span class="p">(</span><span class="n">context</span><span class="p">))</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="kt">var</span><span class="w"> </span><span class="n">entity</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">entry</span><span class="p">.</span><span class="n">Entity</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">IConcurrencyAwareEntity</span><span class="p">;</span>
+<span class="w">            </span><span class="k">if</span><span class="p">(</span><span class="n">entry</span><span class="p">.</span><span class="n">State</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">EntityState</span><span class="p">.</span><span class="n">Added</span><span class="p">)</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">                </span><span class="n">entity</span><span class="p">.</span><span class="n">Version</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">                </span><span class="k">continue</span><span class="p">;</span>
+<span class="w">            </span><span class="p">}</span>
+
+<span class="w">            </span><span class="kt">var</span><span class="w"> </span><span class="n">version</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">entry</span><span class="p">.</span><span class="n">Property</span><span class="p">(</span><span class="k">nameof</span><span class="p">(</span><span class="n">entity</span><span class="p">.</span><span class="n">Version</span><span class="p">));</span>
+<span class="w">            </span><span class="n">version</span><span class="p">.</span><span class="n">OriginalValue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">entity</span><span class="p">.</span><span class="n">Version</span><span class="p">;</span>
+<span class="w">            </span><span class="n">entity</span><span class="p">.</span><span class="n">Version</span><span class="o">++</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">private</span><span class="w"> </span><span class="n">IEnumerable</span><span class="o">&lt;</span><span class="n">EntityEntry</span><span class="o">&gt;</span><span class="w"> </span><span class="n">GetEntriesToUpdate</span><span class="p">(</span>
+<span class="w">        </span><span class="n">DbContext</span><span class="w"> </span><span class="n">context</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span>
+<span class="w">            </span><span class="n">context</span><span class="p">.</span><span class="n">ChangeTracker</span><span class="p">.</span><span class="n">Entries</span><span class="p">()</span>
+<span class="w">                </span><span class="p">.</span><span class="n">Where</span><span class="p">(</span><span class="n">e</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">Entity</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">IConcurrencyAwareEntity</span><span class="p">)</span>
+<span class="w">                </span><span class="p">.</span><span class="n">Where</span><span class="p">(</span><span class="n">e</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">State</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">EntityState</span><span class="p">.</span><span class="n">Added</span><span class="w"> </span><span class="o">||</span>
+<span class="w">                            </span><span class="n">e</span><span class="p">.</span><span class="n">State</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">EntityState</span><span class="p">.</span><span class="n">Modified</span><span class="p">);</span>
+
+<span class="p">}</span>
+</pre></div>
+
+<p>
+While the method <code>GetEntriesToUpdate()</code> from above is self-explanatory, the method <code>IncrementVersionOfConcurrencyAwareEntities()</code> requires a bit of commentary on what it does to each <code>EntityEntry</code> instance.
+</p>
+
+<p>
+If the entity does not exist in the database (i. e. when the corresponding entry has the state <code>EntityState.Added</code>) we just need to set the value of the property <code>Version</code> to 1, and nothing else because when the entity will be persisted Entity Framework Core will issue an <code>INSERT</code> statement.
+</p>
+
+<p>
+However, when an entity that has concurrency handling enabled needs to be persisted, and it exists in the database already, when issuing the <code>UPDATE</code> statement Entity Framework Core will include in the <code>WHERE</code> clause a condition on the value of the concurrency token alongside the primary key of the entity. In the case of the <code>Person</code> entity declared above, the <code>UPDATE</code> statement would look like this:
+</p>
+<div class="highlight"><pre><span></span><span class="k">update</span><span class="w"> </span><span class="n">persons</span>
+<span class="w">   </span><span class="k">set</span><span class="w"> </span><span class="n">first_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'John'</span><span class="p">,</span>
+<span class="w">       </span><span class="n">last_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'Doe'</span><span class="p">,</span>
+<span class="w">       </span><span class="k">version</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span>
+<span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">42</span>
+<span class="w">   </span><span class="k">and</span><span class="w"> </span><span class="k">version</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span>
+</pre></div>
+
+<p>
+The value <code>2</code> in the example above is the value that the <code>Version</code> property had when the entity was loaded from the database. This is the reason why the method <code>IncrementVersionOfConcurrencyAwareEntities</code> contains these two lines:
+</p>
+<div class="highlight"><pre><span></span><span class="kt">var</span><span class="w"> </span><span class="n">version</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">entry</span><span class="p">.</span><span class="n">Property</span><span class="p">(</span><span class="k">nameof</span><span class="p">(</span><span class="n">entity</span><span class="p">.</span><span class="n">Version</span><span class="p">));</span>
+<span class="n">version</span><span class="p">.</span><span class="n">OriginalValue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">entity</span><span class="p">.</span><span class="n">Version</span><span class="p">;</span>
+</pre></div>
+<p>
+These lines signal Entity Framework Core that it should update the row that has the value of the <code>Version</code> property equal to the value it had <i>before incrementing it</i>.
+</p>
+</div>
+</div>
+<div id="outline-container-orgf2504e7" class="outline-3">
+<h3 id="orgf2504e7">Add the interceptor to the <code>DbContext</code>
+</h3>
+<div class="outline-text-3" id="text-orgf2504e7">
+<p>
+Now that we have an interceptor to automatically increment the value of the <code>Version</code> property, all we need to do is to add it to the database context. This is done quite easily:
+</p>
+<ol class="org-ol">
+<li>Register your interceptor class in the dependency injection framework</li>
+<li>
+<p>
+Inject the interceptor into your <code>DbContext</code> class
+</p>
+<div class="highlight"><pre><span></span><span class="w">   </span><span class="k">public</span><span class="w"> </span><span class="nf">PersonsDbContext</span><span class="p">(</span>
+<span class="w">       </span><span class="n">ConcurrencyEntitySaveChangesInterceptor</span><span class="w"> </span><span class="n">interceptor</span><span class="p">)</span>
+<span class="w">   </span><span class="p">{</span>
+<span class="w">       </span><span class="k">this</span><span class="p">.</span><span class="n">interceptor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">interceptor</span><span class="p">;</span>
+<span class="w">   </span><span class="p">}</span>
+</pre></div>
+</li>
+<li>
+<p>
+Add the interceptor to the context class in <code>OnConfiguring</code> method
+</p>
+<div class="highlight"><pre><span></span><span class="w">   </span><span class="k">protected</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">OnConfiguring</span><span class="p">(</span>
+<span class="w">       </span><span class="n">DbContextOptionsBuilder</span><span class="w"> </span><span class="n">optionsBuilder</span><span class="p">)</span>
+<span class="w">   </span><span class="p">{</span>
+<span class="w">       </span><span class="k">base</span><span class="p">.</span><span class="n">OnConfiguring</span><span class="p">(</span><span class="n">optionsBuilder</span><span class="p">);</span>
+
+<span class="w">       </span><span class="n">optionsBuilder</span><span class="p">.</span><span class="n">AddInterceptors</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="n">interceptor</span><span class="p">);</span>
+<span class="w">   </span><span class="p">}</span>
+</pre></div>
+</li>
+</ol>
+<p>
+Once the interceptor is registered, you should see the value of the <code>Version</code> property increase automatically each time an entity marked with <code>IConcurrencyAwareEntity</code> interface is updated.
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-org420c485" class="outline-2">
+<h2 id="org420c485">Concurency handling</h2>
+<div class="outline-text-2" id="text-org420c485">
+<p>
+At this point concurrency handling kicks-in out of the box thanks to the two aforementioned lines from the <code>IncrementVersionOfConcurrencyAwareEntities</code> method:
+</p>
+
+<div class="highlight"><pre><span></span><span class="kt">var</span><span class="w"> </span><span class="n">version</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">entry</span><span class="p">.</span><span class="n">Property</span><span class="p">(</span><span class="k">nameof</span><span class="p">(</span><span class="n">entity</span><span class="p">.</span><span class="n">Version</span><span class="p">));</span>
+<span class="n">version</span><span class="p">.</span><span class="n">OriginalValue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">entity</span><span class="p">.</span><span class="n">Version</span><span class="p">;</span>
+</pre></div>
+
+<p>
+The lines above encapsulate the essence of the concurrency handling mechanism. They signal Entity Framework (in a bit of a contrived way admittedly) that we want to update the entity <i>if and only if</i> the entity in the database has the value of the concurrency token (<code>Version</code> property in our case) equal to the original value of the property when the entity was loaded, i.e. the value of the <code>Version</code> property before incrementing it.
+</p>
+
+<p>
+If there is no row in the database table that satisfies the condition above, then no rows are updated, and subsequently Entity Framework Core throws a <code>DbUpdateConcurrencyException</code> which, as its name tells, signals that the row we are trying to update was changed in the meanwhile.
+</p>
+</div>
+</div>
+<div id="outline-container-org0c9e0b3" class="outline-2">
+<h2 id="org0c9e0b3">Conclusion</h2>
+<div class="outline-text-2" id="text-org0c9e0b3">
+<p>
+Entity Framework Core has a built-in mechanism for handling concurrency that works great out of the box when the application uses the default types for concurency tokens, and SQL Server as the database management system. This mechanism relies on comparing the values of the concurrency token for each database operation; if the value supplied by the application is not the same as the value from the database this is considered to be a concurrency conflict.
+</p>
+
+<p>
+But once you stray off the beaten path, things become more complicated as this post shows while trying to provide a guide on how to automatically update the value of the concurrency tokens in non-default scenarios. Fortunately, the concurrency handling mechanism from Entity Framework Core is designed to accommodate a wide range of use-cases, and with a slight adjustment through a custom interceptor that updates the value of concurrency tokens when saving entities to the database, we can ensure the conflict handling mechanism operates as originally intended
+</p>
+</div>
+</div>
+    </div>
+    </article><article class="post h-entry post-text"><header><h1 class="post-title p-name"><a href="posts/specialized-workers-pattern/" class="u-url">Introducing the Specialized Workers pattern</a></h1>
         <div class="metadata">
             <p class="dateline">
               <i class="fa fa-clock-o"></i> <time class="published dt-published" datetime="2024-05-12T11:09:45+03:00" title="2024-05-12 11:09">2024-05-12 11:09</time>
@@ -50,9 +331,9 @@
             </p>
         </div>
     </header><div class="e-content entry-content">
-    <div id="outline-container-org3e3fc1c" class="outline-2">
-<h2 id="org3e3fc1c">Introduction</h2>
-<div class="outline-text-2" id="text-org3e3fc1c">
+    <div id="outline-container-org90f6d67" class="outline-2">
+<h2 id="org90f6d67">Introduction</h2>
+<div class="outline-text-2" id="text-org90f6d67">
 <p>
 Some years ago, in my <a href="posts/using-enums-in-c-sharp/">blog post about using enums in C#</a> I mentioned that I like using what I called at that time <code>specialized builders</code> to refactor the <code>switch</code> statement into a series of classes that implement a common interface and are specialized for a specific <code>case</code> of the <code>switch</code> statement.
 </p>
@@ -66,14 +347,13 @@ As such, I am excited to introduce to the world the <code>Specialized Workers</c
 </p>
 </div>
 </div>
-
-<div id="outline-container-orgdc5a2de" class="outline-2">
-<h2 id="orgdc5a2de">Specialized Workers Pattern</h2>
-<div class="outline-text-2" id="text-orgdc5a2de">
+<div id="outline-container-org3c6e38d" class="outline-2">
+<h2 id="org3c6e38d">Specialized Workers Pattern</h2>
+<div class="outline-text-2" id="text-org3c6e38d">
 </div>
-<div id="outline-container-org99d1329" class="outline-3">
-<h3 id="org99d1329">Description and usage</h3>
-<div class="outline-text-3" id="text-org99d1329">
+<div id="outline-container-org62b9ef9" class="outline-3">
+<h3 id="org62b9ef9">Description and usage</h3>
+<div class="outline-text-3" id="text-org62b9ef9">
 <p>
 The <code>Specialized Workers</code> pattern aims to distribute the logic of a business operation that requires choosing between one or multiple tasks to be executed, into a collection of specialized classes, while keeping the knowledge about the task(s) to be executed into a single place.
 </p>
@@ -119,7 +399,6 @@ Put differently than at the beginning of this section,  the purpose of <code>Spe
 </ul>
 </div>
 </div>
-
 <div id="outline-container-implementation" class="outline-3">
 <h3 id="implementation">Implementation</h3>
 <div class="outline-text-3" id="text-implementation">
@@ -196,14 +475,13 @@ On the other hand, each worker class is, as the name of the pattern suggests it,
 </div>
 </div>
 </div>
-
-<div id="outline-container-orgcdd5cda" class="outline-2">
-<h2 id="orgcdd5cda">Discussion</h2>
-<div class="outline-text-2" id="text-orgcdd5cda">
+<div id="outline-container-org63bf0a6" class="outline-2">
+<h2 id="org63bf0a6">Discussion</h2>
+<div class="outline-text-2" id="text-org63bf0a6">
 </div>
-<div id="outline-container-orge09cf18" class="outline-3">
-<h3 id="orge09cf18">How is it different from the <code>Strategy</code> pattern?</h3>
-<div class="outline-text-3" id="text-orge09cf18">
+<div id="outline-container-org87b1483" class="outline-3">
+<h3 id="org87b1483">How is it different from the <code>Strategy</code> pattern?</h3>
+<div class="outline-text-3" id="text-org87b1483">
 <p>
 At this moment you may be wondering how the <code>Specialized Workers</code> is different from the <code>Strategy</code> pattern? After all, each worker implements and applies a different strategy in the processing of the data.
 </p>
@@ -217,10 +495,9 @@ There is however, a difference in the nomenclature: <code>Strategy</code> is a <
 </p>
 </div>
 </div>
-
-<div id="outline-container-org0b50983" class="outline-3">
-<h3 id="org0b50983">Why not use a <code>Factory method</code>?</h3>
-<div class="outline-text-3" id="text-org0b50983">
+<div id="outline-container-org5033d56" class="outline-3">
+<h3 id="org5033d56">Why not use a <code>Factory method</code>?</h3>
+<div class="outline-text-3" id="text-org5033d56">
 <p>
 Okay, you might say, then why not use a <code>Factory method</code> to build directly the worker that knows how to handle the specific use-case?
 </p>
@@ -243,7 +520,6 @@ However, if the instantiation of the specialized workers depends o some paramete
 </div>
 </div>
 </div>
-
 <div id="outline-container-drawbacks" class="outline-2">
 <h2 id="drawbacks">Drawbacks</h2>
 <div class="outline-text-2" id="text-drawbacks">
@@ -251,7 +527,6 @@ However, if the instantiation of the specialized workers depends o some paramete
 As we all know, there are no perfect solutions, especially in software development. This is also the case for the <code>Specialized Workers</code> pattern, and as such, it has a few drawbacks listed below.
 </p>
 </div>
-
 <div id="outline-container-no-guarantee-of-the-same-parameters" class="outline-3">
 <h3 id="no-guarantee-of-the-same-parameters">No guarantee of the same parameters</h3>
 <div class="outline-text-3" id="text-no-guarantee-of-the-same-parameters">
@@ -271,7 +546,6 @@ There are (at least) two ways to work around this misuse: to combine the two met
 </pre></div>
 </div>
 </div>
-
 <div id="outline-container-sensitivity-to-collections" class="outline-3">
 <h3 id="sensitivity-to-collections">Sensitivity to collections</h3>
 <div class="outline-text-3" id="text-sensitivity-to-collections">
@@ -312,7 +586,6 @@ This ensures that the collection is iterated only once thus avoiding any odd res
 </div>
 </div>
 </div>
-
 <div id="outline-container-adaptations" class="outline-2">
 <h2 id="adaptations">Adaptations</h2>
 <div class="outline-text-2" id="text-adaptations">
@@ -320,7 +593,6 @@ This ensures that the collection is iterated only once thus avoiding any odd res
 Despite its drawbacks, the <code>Specialized Workers</code> pattern is quite flexible in its implementation. As such, it can be adapted for some specific scenarios discussed below. Of course, it goes without saying that the list is not exclusive.
 </p>
 </div>
-
 <div id="outline-container-using-a-single-method" class="outline-3">
 <h3 id="using-a-single-method">Using a single method</h3>
 <div class="outline-text-3" id="text-using-a-single-method">
@@ -347,7 +619,6 @@ As mentioned in the sub-section <a href="posts/specialized-workers-pattern/#no-g
 </p>
 </div>
 </div>
-
 <div id="outline-container-non-exclusive-workers" class="outline-3">
 <h3 id="non-exclusive-workers">Non-exclusive workers</h3>
 <div class="outline-text-3" id="text-non-exclusive-workers">
@@ -361,10 +632,9 @@ You can have multiple workers capable of processing the same payload; in this ca
 </div>
 </div>
 </div>
-
-<div id="outline-container-orge9840f9" class="outline-2">
-<h2 id="orge9840f9">Ending thoughts</h2>
-<div class="outline-text-2" id="text-orge9840f9">
+<div id="outline-container-org2ca291d" class="outline-2">
+<h2 id="org2ca291d">Ending thoughts</h2>
+<div class="outline-text-2" id="text-org2ca291d">
 <p>
 As you can see from this quite lengthy post, the <code>Specialized Workers</code> pattern, provides both a way to cluster business logic into specialized classes, and a good degree of flexibility in order to adapt the implementation to different situations. Despite its flexibility however, it is my <i>subjective</i> opinion that the original form of the pattern (the one shown in the <a href="posts/specialized-workers-pattern/#implementation">Implementation</a> section) is the most elegant and eloquent, which is why I use that version most of the time. But, especially as a software developer, I am aware that each person has its own preferences in regards to how something should be done or implemented. As such, I hope you find this pattern useful, and if so, feel free to apply it in whichever way suits you best.
 </p>
@@ -1738,158 +2008,6 @@ Sure enough - when I put a breakpoint in the constructor of my <code>DataContext
 <p>
 Then, I remembered that the latest code update also came with an update of Entity Framework NuGet package and it dawned upon me why the MediatR was failing. As I said in the beginning, the Web API application is hosted under the main Web Application. This means that the <code>&lt;entityFramework&gt;</code> configuration element in the child application is inherited from the parent one so the <code>Web.config</code> file of the child application did not contain any section related to Entity Framework.
 When I did the upgrade of the NuGet package the installer added the configuration section with default values. Those default and wrong values were read by the <code>DbContext</code> class constructor and since the values were wrong the constructor failed. After deleting the <code>&lt;entityFramework&gt;</code> configuration element the application went back online.
-</p>
-    </div>
-    </article><article class="post h-entry post-text"><header><h1 class="post-title p-name"><a href="posts/the-common-pitfalls-of-orm-frameworks-rbar/" class="u-url">The common pitfalls of ORM frameworks - RBAR</a></h1>
-        <div class="metadata">
-            <p class="dateline">
-              <i class="fa fa-clock-o"></i> <time class="published dt-published" datetime="2018-01-18T00:00:00+02:00" title="2018-01-18 00:00">2018-01-18 00:00</time>
-            
-                |   <i class="fa fa-comment"></i>         <a href="posts/the-common-pitfalls-of-orm-frameworks-rbar/#disqus_thread" data-disqus-identifier="cache/posts/the-common-pitfalls-of-orm-frameworks-rbar.html">Comments</a>
-
-
-            </p>
-        </div>
-    </header><div class="e-content entry-content">
-    <p>
-ORM frameworks are a great tool especially for junior developers because they allow bluring the line between the application logic and the data it crunches. Except that the aforementioned line blurring advantage may become a real production issue if not taken in consideration when writing the code.
-</p>
-
-<p>
-Let us consider an example. Let's suppose we're working on a (what else?) e-commerce platform. Somewhere in the depts of that platform there is a <code>IOrderService</code> which exposes the following method:
-</p>
-<div class="highlight"><pre><span></span><span class="k">public</span><span class="w"> </span><span class="k">interface</span><span class="w"> </span><span class="n">IOrderService</span>
-<span class="p">{</span>
-<span class="w">    </span><span class="k">void</span><span class="w"> </span><span class="nf">PlaceOrder</span><span class="p">(</span><span class="n">Guid</span><span class="w"> </span><span class="n">customerId</span><span class="p">,</span><span class="w"> </span><span class="n">IEnumerable</span><span class="o">&lt;</span><span class="n">OrderItem</span><span class="o">&gt;</span><span class="w"> </span><span class="n">itemIds</span><span class="p">)</span>
-<span class="p">}</span>
-</pre></div>
-<p>
-where <code>OrderItem</code> holds the data about an ordered item.
-</p>
-<div class="highlight"><pre><span></span><span class="k">public</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">OrderItem</span>
-<span class="p">{</span>
-<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="n">Guid</span><span class="w"> </span><span class="n">ItemId</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
-
-<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">Quantity</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
-<span class="p">}</span>
-</pre></div>
-<p>
-The <code>PlaceOrder</code> method needs to:
-</p>
-<ul class="org-ul">
-<li>Lookup the <code>Customer</code> in the database</li>
-<li>Create a new <code>CustomerOrder</code> instance</li>
-<li>Add each <code>Item</code> to the order and decrease stock count</li>
-<li>Save the <code>CustomerOrder</code> in the database</li>
-</ul>
-<p>
-Of course, since we're using an ORM framework, the classes used by the repositories - <code>Customer</code>, <code>CustomerOrder</code> and <code>Item</code> - are mapped to database tables.
-</p>
-
-<p>
-Given the above, someone would be tempted to implement the <code>PlaceOrder</code> method like this:
-</p>
-<div class="highlight"><pre><span></span><span class="k">public</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">PlaceOrder</span><span class="p">(</span><span class="n">Guid</span><span class="w"> </span><span class="n">customerId</span><span class="p">,</span><span class="w"> </span><span class="n">IEnumerable</span><span class="o">&lt;</span><span class="n">OrderItem</span><span class="o">&gt;</span><span class="w"> </span><span class="n">orderItems</span><span class="p">)</span>
-<span class="p">{</span>
-<span class="w">    </span><span class="kt">var</span><span class="w"> </span><span class="n">customer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_customerRepository</span><span class="p">.</span><span class="n">Get</span><span class="p">(</span><span class="n">customerId</span><span class="p">);</span>
-<span class="w">    </span><span class="kt">var</span><span class="w"> </span><span class="n">order</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">CustomerOrder</span><span class="p">(</span><span class="n">customer</span><span class="p">);</span>
-
-<span class="w">    </span><span class="k">foreach</span><span class="w"> </span><span class="p">(</span><span class="kt">var</span><span class="w"> </span><span class="n">orderedItem</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">orderItems</span><span class="p">)</span>
-<span class="w">    </span><span class="p">{</span>
-<span class="w">        </span><span class="kt">var</span><span class="w"> </span><span class="n">item</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_itemRepository</span><span class="p">.</span><span class="n">Get</span><span class="p">(</span><span class="n">orderedItem</span><span class="p">.</span><span class="n">ItemId</span><span class="p">);</span>
-<span class="w">        </span><span class="n">item</span><span class="p">.</span><span class="n">DecreaseStockCount</span><span class="p">(</span><span class="n">orderedItem</span><span class="p">.</span><span class="n">Quantity</span><span class="p">);</span>
-<span class="w">        </span><span class="n">_itemRepository</span><span class="p">.</span><span class="n">Update</span><span class="p">(</span><span class="n">item</span><span class="p">);</span>
-<span class="w">        </span><span class="n">order</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">orderedItem</span><span class="p">);</span>
-<span class="w">    </span><span class="p">}</span>
-
-<span class="w">    </span><span class="n">_customerOrderRepository</span><span class="p">.</span><span class="n">Register</span><span class="p">(</span><span class="n">order</span><span class="p">);</span>
-<span class="w">    </span><span class="n">_unitOfWork</span><span class="p">.</span><span class="n">Commit</span><span class="p">();</span>
-<span class="p">}</span>
-</pre></div>
-<p>
-And why wouldn't they? It seems the most straightforward transposition of the requirements defined above. The code behaves as expected in both Dev and QA environments and afterwards it's promoted to production where lies a database with hundreds of thousands of rows in the <code>Items</code> table. There also, the behavior is as expected until one day an eager customer wants to buy 980 distinct items (because why not?).
-</p>
-
-<p>
-What happens with the code above? It <i>still</i> works well but the database command times out and the customer cannot place a <b>significant</b> order.
-</p>
-
-<p>
-So what is the problem? Why it times out? Well, because the aforementioned line between application logic and database is blurred enough for the iterative paradigm to creep into the set-based one. In the SQL community this paradigm creep has a name - <a href="https://www.red-gate.com/simple-talk/sql/t-sql-programming/rbar--row-by-agonizing-row/">Row By Agonizing Row</a>.
-</p>
-
-<p>
-To put it in the context of the example above - <b>it takes more time to do 980 pairs of <code>SELECT</code> and <code>UPDATE</code> operations than to do one <code>SELECT</code> which returns 980 rows followed by one <code>UPDATE</code> which alters 980 rows</b>.
-</p>
-
-<p>
-So, let's switch the paradigm and start working with collections in our code to minimize the number of operations in the database. The first thing to do is to load all items in bulk instead of loading them one by one. This will reduce the number of <code>SELECT</code> operations <b>from 980 to 1</b> (a whooping 50% of the number of operations). We still need to update the stock counts for each item individually because the ORM framework doesn't know how to translate the changes for each item into a single <code>UPDATE</code> statement but considering that we've halved the total number of operations let's give this approach a try shall we?
-</p>
-<div class="highlight"><pre><span></span><span class="k">public</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">PlaceOrder</span><span class="p">(</span><span class="n">Guid</span><span class="w"> </span><span class="n">customerId</span><span class="p">,</span><span class="w"> </span><span class="n">IEnumerable</span><span class="o">&lt;</span><span class="n">OrderItem</span><span class="o">&gt;</span><span class="w"> </span><span class="n">orderItems</span><span class="p">)</span>
-<span class="p">{</span>
-<span class="w">    </span><span class="kt">var</span><span class="w"> </span><span class="n">customer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_customerRepository</span><span class="p">.</span><span class="n">Get</span><span class="p">(</span><span class="n">customerId</span><span class="p">);</span>
-<span class="w">    </span><span class="kt">var</span><span class="w"> </span><span class="n">customerOrder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">CustomerOrder</span><span class="p">(</span><span class="n">customer</span><span class="p">);</span>
-
-<span class="w">    </span><span class="kt">var</span><span class="w"> </span><span class="n">items</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">itemRepository</span><span class="p">.</span><span class="n">Items</span>
-<span class="w">        </span><span class="p">.</span><span class="n">Join</span><span class="p">(</span><span class="n">orderItems</span><span class="p">,</span>
-<span class="w">              </span><span class="n">item</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">item</span><span class="p">.</span><span class="n">Id</span><span class="p">,</span>
-<span class="w">              </span><span class="n">orderedItem</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">orderedItem</span><span class="p">.</span><span class="n">ItemId</span><span class="p">,</span>
-<span class="w">              </span><span class="p">(</span><span class="n">item</span><span class="p">,</span><span class="w"> </span><span class="n">_</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">item</span><span class="p">)</span>
-<span class="w">        </span><span class="p">.</span><span class="n">ToDictionary</span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">i</span><span class="p">.</span><span class="n">Id</span><span class="p">);</span>
-
-<span class="w">    </span><span class="k">foreach</span><span class="p">(</span><span class="kt">var</span><span class="w"> </span><span class="n">orderedItem</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">orderedItems</span><span class="p">)</span>
-<span class="w">    </span><span class="p">{</span>
-<span class="w">        </span><span class="kt">var</span><span class="w"> </span><span class="n">item</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="n">items</span><span class="p">[</span><span class="n">orderedItem</span><span class="p">.</span><span class="n">ItemId</span><span class="p">];</span>
-<span class="w">        </span><span class="n">item</span><span class="p">.</span><span class="n">DecreaseStockCount</span><span class="p">(</span><span class="n">orderedItem</span><span class="p">.</span><span class="n">Quantity</span><span class="p">);</span>
-<span class="w">        </span><span class="n">_itemRepository</span><span class="p">.</span><span class="n">Update</span><span class="p">(</span><span class="n">item</span><span class="p">);</span>
-<span class="w">        </span><span class="n">customerOrder</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">item</span><span class="p">);</span>
-<span class="w">    </span><span class="p">}</span>
-
-<span class="w">    </span><span class="n">_customerOrderRepository</span><span class="p">.</span><span class="n">Register</span><span class="p">(</span><span class="n">order</span><span class="p">);</span>
-<span class="w">    </span><span class="n">_unitOfWork</span><span class="p">.</span><span class="n">Commit</span><span class="p">();</span>
-<span class="p">}</span>
-</pre></div>
-<p>
-This will solve the problem with the timeout but will create another one - useless load on the system. The code loads 980 rows from the database but only uses two attributes of each row - <code>Id</code> and <code>Barcode</code>. We might say that this can be solved by projecting an <code>Item</code> into a tuple of <code>&lt;Barcode, Id&gt;</code> but this would be a partial solution because we can still place a great burden on system memory by sending an request of 10k items.
-Also, there are still 980 <code>UPDATE</code> statements that need to be executed which is still <b>a lot</b>.
-</p>
-
-<p>
-The best approach to this is to not load any data at all from the database and to do the processing as close to the actual data as possible.
-And how can we do that? Exactly - with <code>stored procedures</code>.
-</p>
-<div class="highlight"><pre><span></span><span class="k">declare</span><span class="w"> </span><span class="k">procedure</span><span class="w"> </span><span class="n">CreateCustomerOrder</span><span class="p">(</span>
-<span class="w">        </span><span class="o">@</span><span class="n">customerId</span><span class="w"> </span><span class="n">uniqueidentifier</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="p">,</span>
-<span class="w">        </span><span class="o">@</span><span class="n">orderItems</span><span class="w"> </span><span class="n">udttorderitems</span><span class="w"> </span><span class="n">readonly</span><span class="p">)</span>
-<span class="k">begin</span>
-<span class="w">    </span><span class="k">set</span><span class="w"> </span><span class="n">no_count</span><span class="w"> </span><span class="k">on</span>
-
-<span class="w">    </span><span class="k">update</span><span class="w"> </span><span class="n">sc</span>
-<span class="w">    </span><span class="k">set</span><span class="w"> </span><span class="n">sc</span><span class="p">.</span><span class="k">Count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sc</span><span class="p">.</span><span class="k">Count</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">Quantity</span>
-<span class="w">    </span><span class="k">from</span><span class="w"> </span><span class="n">StockCounts</span><span class="w"> </span><span class="n">sc</span>
-<span class="w">    </span><span class="k">join</span><span class="w"> </span><span class="n">Items</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">sc</span><span class="p">.</span><span class="n">ItemId</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">i</span><span class="p">.</span><span class="n">Id</span>
-<span class="w">    </span><span class="k">join</span><span class="w"> </span><span class="o">@</span><span class="n">orderItems</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">i</span><span class="p">.</span><span class="n">Id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">ItemId</span>
-
-<span class="w">    </span><span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">CustomerOrder</span><span class="p">(</span><span class="n">CustomerId</span><span class="p">,</span><span class="w"> </span><span class="n">OrderDateTime</span><span class="p">)</span>
-<span class="w">    </span><span class="k">values</span><span class="w"> </span><span class="p">(</span><span class="o">@</span><span class="n">customerId</span><span class="p">,</span><span class="w"> </span><span class="n">GetDate</span><span class="p">())</span>
-
-<span class="w">    </span><span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">OrderLines</span><span class="p">(</span><span class="n">OrderId</span><span class="p">,</span><span class="w"> </span><span class="n">ItemId</span><span class="p">,</span><span class="w"> </span><span class="n">Quantity</span><span class="p">)</span>
-<span class="w">    </span><span class="k">select</span><span class="w"> </span><span class="n">scope_identity</span><span class="p">(),</span><span class="w"> </span><span class="n">i</span><span class="p">.</span><span class="n">Id</span><span class="p">,</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">Quantity</span>
-<span class="w">    </span><span class="k">from</span><span class="w"> </span><span class="n">Items</span><span class="w"> </span><span class="n">i</span>
-<span class="w">    </span><span class="k">join</span><span class="w"> </span><span class="o">@</span><span class="n">orderItems</span><span class="w"> </span><span class="n">o</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">ItemId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i</span><span class="p">.</span><span class="n">Id</span>
-<span class="k">end</span>
-</pre></div>
-<p>
-Now, of course in real life situations there won't be a customer that orders almost 1000 items with a single order and the second approach (bulk load items and iterate the collection) will do just fine.
-The important thing to keep in mind in such cases is the need to switch from a procedural mindset to a set-based one thus pruning this phenomenon of paradigm creep which can become a full-blown RBAR processing.
-</p>
-
-<p>
-<b>Later edit</b>
-</p>
-
-<p>
-I have created a <a href="https://github.com/RePierre/orm-rbar-example">GitHub repository</a> to showcase the first two implemetations of <code>IOrderservice</code>.
 </p>
     </div>
     </article>

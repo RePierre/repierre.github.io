@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Rebeja (Posts about specialized workers)</title><link>https://rebeja.eu/</link><description></description><atom:link href="https://rebeja.eu/categories/specialized-workers.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2025 &lt;a href="mailto:petru.rebeja@gmail.com"&gt;Petru Rebeja&lt;/a&gt; </copyright><lastBuildDate>Mon, 03 Mar 2025 19:48:19 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Introducing the Specialized Workers pattern</title><link>https://rebeja.eu/posts/specialized-workers-pattern/</link><dc:creator>Petru Rebeja</dc:creator><description>&lt;div id="outline-container-org3e3fc1c" class="outline-2"&gt;
-&lt;h2 id="org3e3fc1c"&gt;Introduction&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-org3e3fc1c"&gt;
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Rebeja (Posts about specialized workers)</title><link>https://rebeja.eu/</link><description></description><atom:link href="https://rebeja.eu/categories/specialized-workers.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2025 &lt;a href="mailto:petru.rebeja@gmail.com"&gt;Petru Rebeja&lt;/a&gt; </copyright><lastBuildDate>Thu, 26 Jun 2025 06:11:58 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Introducing the Specialized Workers pattern</title><link>https://rebeja.eu/posts/specialized-workers-pattern/</link><dc:creator>Petru Rebeja</dc:creator><description>&lt;div id="outline-container-org90f6d67" class="outline-2"&gt;
+&lt;h2 id="org90f6d67"&gt;Introduction&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org90f6d67"&gt;
 &lt;p&gt;
 Some years ago, in my &lt;a href="https://rebeja.eu/posts/using-enums-in-c-sharp/"&gt;blog post about using enums in C#&lt;/a&gt; I mentioned that I like using what I called at that time &lt;code&gt;specialized builders&lt;/code&gt; to refactor the &lt;code&gt;switch&lt;/code&gt; statement into a series of classes that implement a common interface and are specialized for a specific &lt;code&gt;case&lt;/code&gt; of the &lt;code&gt;switch&lt;/code&gt; statement.
 &lt;/p&gt;
@@ -15,14 +15,13 @@ As such, I am excited to introduce to the world the &lt;code&gt;Specialized Work
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-
-&lt;div id="outline-container-orgdc5a2de" class="outline-2"&gt;
-&lt;h2 id="orgdc5a2de"&gt;Specialized Workers Pattern&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-orgdc5a2de"&gt;
+&lt;div id="outline-container-org3c6e38d" class="outline-2"&gt;
+&lt;h2 id="org3c6e38d"&gt;Specialized Workers Pattern&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org3c6e38d"&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-org99d1329" class="outline-3"&gt;
-&lt;h3 id="org99d1329"&gt;Description and usage&lt;/h3&gt;
-&lt;div class="outline-text-3" id="text-org99d1329"&gt;
+&lt;div id="outline-container-org62b9ef9" class="outline-3"&gt;
+&lt;h3 id="org62b9ef9"&gt;Description and usage&lt;/h3&gt;
+&lt;div class="outline-text-3" id="text-org62b9ef9"&gt;
 &lt;p&gt;
 The &lt;code&gt;Specialized Workers&lt;/code&gt; pattern aims to distribute the logic of a business operation that requires choosing between one or multiple tasks to be executed, into a collection of specialized classes, while keeping the knowledge about the task(s) to be executed into a single place.
 &lt;/p&gt;
@@ -69,7 +68,6 @@ Put differently than at the beginning of this section,  the purpose of &lt;code&
 &lt;/ul&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-
 &lt;div id="outline-container-implementation" class="outline-3"&gt;
 &lt;h3 id="implementation"&gt;Implementation&lt;/h3&gt;
 &lt;div class="outline-text-3" id="text-implementation"&gt;
@@ -146,14 +144,13 @@ On the other hand, each worker class is, as the name of the pattern suggests it,
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-
-&lt;div id="outline-container-orgcdd5cda" class="outline-2"&gt;
-&lt;h2 id="orgcdd5cda"&gt;Discussion&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-orgcdd5cda"&gt;
+&lt;div id="outline-container-org63bf0a6" class="outline-2"&gt;
+&lt;h2 id="org63bf0a6"&gt;Discussion&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org63bf0a6"&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-orge09cf18" class="outline-3"&gt;
-&lt;h3 id="orge09cf18"&gt;How is it different from the &lt;code&gt;Strategy&lt;/code&gt; pattern?&lt;/h3&gt;
-&lt;div class="outline-text-3" id="text-orge09cf18"&gt;
+&lt;div id="outline-container-org87b1483" class="outline-3"&gt;
+&lt;h3 id="org87b1483"&gt;How is it different from the &lt;code&gt;Strategy&lt;/code&gt; pattern?&lt;/h3&gt;
+&lt;div class="outline-text-3" id="text-org87b1483"&gt;
 &lt;p&gt;
 At this moment you may be wondering how the &lt;code&gt;Specialized Workers&lt;/code&gt; is different from the &lt;code&gt;Strategy&lt;/code&gt; pattern? After all, each worker implements and applies a different strategy in the processing of the data.
 &lt;/p&gt;
@@ -167,10 +164,9 @@ There is however, a difference in the nomenclature: &lt;code&gt;Strategy&lt;/cod
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-
-&lt;div id="outline-container-org0b50983" class="outline-3"&gt;
-&lt;h3 id="org0b50983"&gt;Why not use a &lt;code&gt;Factory method&lt;/code&gt;?&lt;/h3&gt;
-&lt;div class="outline-text-3" id="text-org0b50983"&gt;
+&lt;div id="outline-container-org5033d56" class="outline-3"&gt;
+&lt;h3 id="org5033d56"&gt;Why not use a &lt;code&gt;Factory method&lt;/code&gt;?&lt;/h3&gt;
+&lt;div class="outline-text-3" id="text-org5033d56"&gt;
 &lt;p&gt;
 Okay, you might say, then why not use a &lt;code&gt;Factory method&lt;/code&gt; to build directly the worker that knows how to handle the specific use-case?
 &lt;/p&gt;
@@ -193,7 +189,6 @@ However, if the instantiation of the specialized workers depends o some paramete
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-
 &lt;div id="outline-container-drawbacks" class="outline-2"&gt;
 &lt;h2 id="drawbacks"&gt;Drawbacks&lt;/h2&gt;
 &lt;div class="outline-text-2" id="text-drawbacks"&gt;
@@ -201,7 +196,6 @@ However, if the instantiation of the specialized workers depends o some paramete
 As we all know, there are no perfect solutions, especially in software development. This is also the case for the &lt;code&gt;Specialized Workers&lt;/code&gt; pattern, and as such, it has a few drawbacks listed below.
 &lt;/p&gt;
 &lt;/div&gt;
-
 &lt;div id="outline-container-no-guarantee-of-the-same-parameters" class="outline-3"&gt;
 &lt;h3 id="no-guarantee-of-the-same-parameters"&gt;No guarantee of the same parameters&lt;/h3&gt;
 &lt;div class="outline-text-3" id="text-no-guarantee-of-the-same-parameters"&gt;
@@ -221,7 +215,6 @@ There are (at least) two ways to work around this misuse: to combine the two met
 &lt;/pre&gt;&lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-
 &lt;div id="outline-container-sensitivity-to-collections" class="outline-3"&gt;
 &lt;h3 id="sensitivity-to-collections"&gt;Sensitivity to collections&lt;/h3&gt;
 &lt;div class="outline-text-3" id="text-sensitivity-to-collections"&gt;
@@ -262,7 +255,6 @@ This ensures that the collection is iterated only once thus avoiding any odd res
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-
 &lt;div id="outline-container-adaptations" class="outline-2"&gt;
 &lt;h2 id="adaptations"&gt;Adaptations&lt;/h2&gt;
 &lt;div class="outline-text-2" id="text-adaptations"&gt;
@@ -270,7 +262,6 @@ This ensures that the collection is iterated only once thus avoiding any odd res
 Despite its drawbacks, the &lt;code&gt;Specialized Workers&lt;/code&gt; pattern is quite flexible in its implementation. As such, it can be adapted for some specific scenarios discussed below. Of course, it goes without saying that the list is not exclusive.
 &lt;/p&gt;
 &lt;/div&gt;
-
 &lt;div id="outline-container-using-a-single-method" class="outline-3"&gt;
 &lt;h3 id="using-a-single-method"&gt;Using a single method&lt;/h3&gt;
 &lt;div class="outline-text-3" id="text-using-a-single-method"&gt;
@@ -297,7 +288,6 @@ As mentioned in the sub-section &lt;a href="https://rebeja.eu/posts/specialized-
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-
 &lt;div id="outline-container-non-exclusive-workers" class="outline-3"&gt;
 &lt;h3 id="non-exclusive-workers"&gt;Non-exclusive workers&lt;/h3&gt;
 &lt;div class="outline-text-3" id="text-non-exclusive-workers"&gt;
@@ -311,10 +301,9 @@ You can have multiple workers capable of processing the same payload; in this ca
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-
-&lt;div id="outline-container-orge9840f9" class="outline-2"&gt;
-&lt;h2 id="orge9840f9"&gt;Ending thoughts&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-orge9840f9"&gt;
+&lt;div id="outline-container-org2ca291d" class="outline-2"&gt;
+&lt;h2 id="org2ca291d"&gt;Ending thoughts&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org2ca291d"&gt;
 &lt;p&gt;
 As you can see from this quite lengthy post, the &lt;code&gt;Specialized Workers&lt;/code&gt; pattern, provides both a way to cluster business logic into specialized classes, and a good degree of flexibility in order to adapt the implementation to different situations. Despite its flexibility however, it is my &lt;i&gt;subjective&lt;/i&gt; opinion that the original form of the pattern (the one shown in the &lt;a href="https://rebeja.eu/posts/specialized-workers-pattern/#implementation"&gt;Implementation&lt;/a&gt; section) is the most elegant and eloquent, which is why I use that version most of the time. But, especially as a software developer, I am aware that each person has its own preferences in regards to how something should be done or implemented. As such, I hope you find this pattern useful, and if so, feel free to apply it in whichever way suits you best.
 &lt;/p&gt;
