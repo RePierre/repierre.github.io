@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html prefix="
+" lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rebeja · How I use Emacs to keep a developer journal </title>
+<link href="../../assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.1.7/css/fork-awesome.min.css" integrity="sha256-gsmEoJAws/Kd3CjuOQzLie5Q3yshhvmo7YNtBG7aaEY=" crossorigin="anonymous">
+<meta content="#5670d4" name="theme-color">
+<link rel="alternate" type="application/rss+xml" title="RSS" href="../../rss.xml">
+<link rel="canonical" href="https://rebeja.eu/posts/how-i-use-emacs-to-keep-a-developer-journal/">
+<!--[if lt IE 9]><script src="../../assets/js/html5.js"></script><![endif]--><meta name="author" content="Petru Rebeja">
+<link rel="prev" href="../handling-automatic-update-of-concurrency-tokens-in-entity-framework-core/" title="Handling automatic update of concurrency tokens in Entity Framework Core" type="text/html">
+</head>
+<body class="">
+    <a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
+    <div class="hsidebar">
+        <div class="container sidebar-sticky">
+                <nav id="menu" role="navigation" class="sidebar-nav"><a class="sidebar-nav-item" href="../../index.html" title="Home"><i class="fa fa-home"></i>Home</a>
+            <a class="sidebar-nav-item" href="../../archive.html" title="Archive"><i class="fa fa-folder-open"></i>Archive</a>
+            <a class="sidebar-nav-item" href="../../categories/index.html" title="Tags"><i class="fa fa-tags"></i>Tags</a>
+            <a class="sidebar-nav-item" href="../../pages/welcome/" title="About"><i class="fa fa-user"></i>About</a>
+            <a class="sidebar-nav-item" href="../../tehnologii-web/" title="Teaching"><i class="fa fa-graduation-cap"></i>Teaching</a>
+            <a class="sidebar-nav-item" href="../../pages/en-ro-dictionary-for-ai" title="EN-RO 4 AI"><i class="fa fa-book"></i>EN-RO 4 AI</a>
+            <a class="sidebar-nav-item" href="../../rss.xml" title="RSS"><i class="fa fa-feed"></i>RSS</a>
+    
+    
+    </nav><footer id="footer"><span class="copyright">
+              Contents © 2025         <a href="mailto:petru.rebeja@gmail.com">Petru Rebeja</a> - Powered by   <a href="https://www.gnu.org/software/emacs/" rel="nofollow">GNU Emacs</a>  &amp;    <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+            </span>
+            
+            
+        </footer>
+</div>
+    </div>
+    <div class="content container" id="content">
+<article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><h1 class="post-title p-name"><a href="." class="u-url">How I use Emacs to keep a developer journal</a></h1>
+
+    <p class="dateline">
+      <i class="fa fa-clock-o"></i> <time class="published dt-published" datetime="2025-07-31T16:10:32+03:00" itemprop="datePublished" title="2025-07-31 16:10">2025-07-31 16:10</time>   |   <i class="fa fa-user"></i> 
+         Petru Rebeja
+      
+      
+    </p>
+    
+
+    <div class="e-content entry-content" itemprop="articleBody text">
+    <div id="outline-container-org32ba8e8" class="outline-2">
+<h2 id="org32ba8e8">Why keep a developer journal?</h2>
+<div class="outline-text-2" id="text-org32ba8e8">
+<p>
+I won't expand on what a developer journal is, or on what the benefits of keeping a developer journal are; there are plenty of resources for that online (<a href="https://blog.invidelabs.com/what-is-a-developer-diary/">What is a Developer Diary</a>, <a href="https://opensource.com/article/19/4/what-developer-journal">What is a developer journal?</a>, <a href="https://stackoverflow.blog/2024/12/24/you-should-keep-a-developer-s-journal/">You should keep a developer’s journal</a>, <a href="https://www.youtube.com/watch?v=Xw3SkhB4dMk">Everything Starts with a Note-taking System</a>). But let me tell you what made me start keeping a developer journal.
+</p>
+
+<p>
+You see, I am one of those people that like to start each day from a blank page. This means that at the end of the work day I shut down my computer such that at the beginning of the next day I can start anew. The problem with starting anew each day is that <i>you don't always get to finish everything by the end of the day</i>. And in this case, starting anew the next day is, so to say, nothing else than loading state onto blank memory (I know; I am a nerd).
+</p>
+
+<p>
+This is where keeping a developer journal shines for me. I log in my developer journal all the useful snippets that I employ whilst working on a task, be it a SQL query, an URL which references some documentation, a milestone, a summary of a conversation with a colleague, an Eureka! moment, or a small progress — anything that can help me restore the context at the current moment in the future. And the great part is that when I say future I don't necessarily mean tomorrow, or Monday — I mean months into the future.
+</p>
+
+<p>
+Be aware however, that I am limiting the time frame to months only. As years go by, time takes its toll and it is harder and harder to recall the <i>exact</i> context of a specific task, regardless of how detailed the journal logs are.
+</p>
+</div>
+</div>
+<div id="outline-container-orgffef9b7" class="outline-2">
+<h2 id="orgffef9b7">Why Emacs?</h2>
+<div class="outline-text-2" id="text-orgffef9b7">
+<p>
+For some time already I have been using <code>org-agenda</code> to track the time I spend on each of my tasks in the most simple way possible: I add each task to a file from which <code>org-agenda</code> reads its data, call <code>org-clock-in</code> on that task when I start working on it, and call <code>org-clock-out</code> when I am not working on that task anymore.
+</p>
+
+<p>
+Naturally, I wanted to build up from there. Also, I wanted to start with something simple that would allow me to do what I want and improve the workflow afterwards. In other words, and as cliché it may sound, I wanted to be agile in setup — start small and let it evolve in the right direction. And, to the best of my knowledge, Emacs is the only piece of software that provides this flexibility.
+</p>
+</div>
+</div>
+<div id="outline-container-org9fc13db" class="outline-2">
+<h2 id="org9fc13db">The setup</h2>
+<div class="outline-text-2" id="text-org9fc13db">
+<p>
+I do use <code>org-roam</code> which would have fit the requirements for a developer journal setup. However, I refrained from using it for a few reasons:
+</p>
+<ol class="org-ol">
+<li>I wanted to keep everything in a single file because I liked the idea of how <code>org-capture</code> can file entries under a <a href="https://orgmode.org/manual/Template-elements.html#FOOT84">date tree</a>.</li>
+<li>I would have polluted my Zettelkasten because I may need to create multiple entries for a single task which would not have been linked to the rest of the knowledge graph.</li>
+<li>I wanted to keep my developer journal separated from the Zettelkasten.</li>
+</ol>
+<p>
+As such, once I excluded <code>org-roam</code> from the list of candidates, I got back to the basics — an <code>org-capture</code> template. But a simple capture template was not enough. During a work day I can switch between multiple tasks, and before switching from one task to another I would log the latest state of affairs for the current task into my developer journal. As such, I would need a way to distinguish between which tasks are referenced in my logs.
+</p>
+
+<p>
+After digging a bit through the documentation, I found a simple solution to this problem — store a link to the current development task, and use that link in the capture template.
+</p>
+
+<p>
+The <code>org</code> package already provides a function for this — <code>org-store-link</code>; so all I had to do was to add a key-binding to it — <code>C-c l</code> in my case:
+</p>
+<div class="highlight"><pre><span></span><span class="p">(</span><span class="nf">use-package</span><span class="w"> </span><span class="nv">org</span>
+<span class="w">  </span><span class="nv">:defer</span><span class="w"> </span><span class="nv">t</span>
+<span class="w">  </span><span class="nv">:bind</span><span class="w"> </span><span class="p">(</span><span class="nf">:map</span><span class="w"> </span><span class="nv">global-map</span>
+<span class="w">              </span><span class="p">(</span><span class="s">"C-c c"</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="nv">org-capture</span><span class="p">)</span>
+<span class="w">              </span><span class="p">(</span><span class="s">"C-c a"</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="nv">org-agenda</span><span class="p">)</span>
+<span class="w">              </span><span class="nv">:map</span><span class="w"> </span><span class="nv">org-mode-map</span>
+<span class="w">              </span><span class="p">(</span><span class="s">"C-c l"</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="nv">org-store-link</span><span class="p">)</span>
+<span class="w">              </span><span class="nv">:map</span><span class="w"> </span><span class="nv">org-agenda-mode-map</span>
+<span class="w">              </span><span class="p">(</span><span class="s">"C-c l"</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="nv">org-store-link</span><span class="p">)))</span>
+</pre></div>
+<p>
+Unbeknownst to me, this solution proved to be a really good fit into my workflow, but more on this in the next section.
+</p>
+
+<p>
+At this point, my setup was ready; after storing a link to the task I was currently working on, I was able to capture whatever bits of information I considered relevant for the task at hand. However, there were some nuisances in how the capture environment presented itself so, after digging through the documentation again I found out that I can provide a function to setup the environment before starting the capture. So I created the following function to do just that — configure the capture environment as I like it:
+</p>
+<ul class="org-ul">
+<li>start <code>olivetti-mode</code> with a body width of 120 to avoid line wrap in source code blocks,</li>
+<li>change the dictionary to US English, and start <code>flyspell-mode</code> (I try to have as little spelling mistakes as I can)</li>
+<li>last but not least, delete other windows to avoid clutter.</li>
+</ul>
+<div class="highlight"><pre><span></span><span class="p">(</span><span class="nf">defun</span><span class="w"> </span><span class="nv">rp/setup-work-journal-capture</span><span class="p">()</span>
+<span class="w">  </span><span class="s">"Prepare an environment for capturing work journal entries."</span>
+<span class="w">  </span><span class="p">(</span><span class="nf">progn</span>
+<span class="w">    </span><span class="p">(</span><span class="nf">olivetti-mode</span><span class="p">)</span>
+<span class="w">    </span><span class="p">(</span><span class="nf">setq-local</span><span class="w"> </span><span class="nv">olivetti-body-width</span><span class="w"> </span><span class="mi">120</span><span class="p">)</span>
+<span class="w">    </span><span class="p">(</span><span class="nf">ispell-change-dictionary</span><span class="w"> </span><span class="s">"en_US"</span><span class="p">)</span>
+<span class="w">    </span><span class="p">(</span><span class="nf">flyspell-mode</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span>
+<span class="w">    </span><span class="p">(</span><span class="nf">delete-other-windows</span><span class="p">)))</span>
+</pre></div>
+
+<p>
+With all the above in place, this is how my final capture template looks like:
+</p>
+<div class="highlight"><pre><span></span><span class="p">(</span><span class="nf">add-to-list</span>
+<span class="w"> </span><span class="nv">org-capture-templates</span>
+<span class="w"> </span><span class="o">'</span><span class="p">((</span><span class="s">"w"</span><span class="w"> </span><span class="s">"Work related items"</span><span class="p">)</span>
+<span class="w">   </span><span class="p">(</span><span class="s">"wj"</span><span class="w"> </span><span class="s">"Journal entry"</span>
+<span class="w">    </span><span class="nv">entry</span>
+<span class="w">    </span><span class="p">(</span><span class="nf">file+olp+datetree</span><span class="w"> </span><span class="s">"~/org/gtd/work.org"</span><span class="w"> </span><span class="s">"Journal"</span><span class="p">)</span>
+<span class="w">    </span><span class="s">"* %a </span><span class="se">\n</span><span class="s">%U</span><span class="se">\n\n</span><span class="s">%?"</span>
+<span class="w">    </span><span class="nv">:hook</span><span class="w"> </span><span class="nv">rp/setup-work-journal-capture</span><span class="p">)))</span>
+</pre></div>
+</div>
+</div>
+<div id="outline-container-orgdc92920" class="outline-2">
+<h2 id="orgdc92920">The workflow</h2>
+<div class="outline-text-2" id="text-orgdc92920">
+<p>
+As I mentioned in the previous section, this setup proved to be a really good fit for my workflow, and became a seamless extension to it because I was using <code>org-agenda</code> and <code>org-clock</code> to schedule my tasks and track the time spent on each of them.
+</p>
+
+<p>
+While my previous workflow was: add the task to <code>org-agenda</code>, schedule it, and use <code>org-clock-in</code> and <code>org-clock-out</code> to track the time, the new workflow is as follows:
+</p>
+<ol class="org-ol">
+<li>Add the task to <code>org-agenda</code> and schedule it properly using a capture template</li>
+<li>Call <code>org-clock-in</code> when starting to work on a task (bound to <code>I</code> in the <code>*Org Agenda*</code> buffer)</li>
+<li>When I want to add a new developer entry for that task, I:
+<ul class="org-ul">
+<li>switch to the <code>*Org Agenda*</code> buffer using <code>C-x b</code> (or <code>M-x switch-to-buffer</code>)</li>
+<li>in the agenda buffer I call <code>org-clock-go-to</code> by pressing <code>C-c C-x C-j</code>, then:
+<ul class="org-ul">
+<li>
+<code>C-l</code> to store the link to the current item</li>
+<li>
+<code>C-c c</code> to start <code>org-capture</code>
+</li>
+<li>
+<code>w j</code> to select the developer journal capture template</li>
+<li>input all the important information</li>
+<li>
+<code>C-c C-c</code> to finalize the capture.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<p>
+Although it may seem complicated at first, I felt no resistance in internalizing this workflow because it became a natural extension of the previous workflow. And yes, there are a lot of keys to press. But for someone who types a lot (as all developers do), pressing all those keys takes a very small amount of time but the benefit it brings is <i>huge</i>.
+</p>
+</div>
+</div>
+<div id="outline-container-org4b75ff4" class="outline-2">
+<h2 id="org4b75ff4">My developer journal</h2>
+<div class="outline-text-2" id="text-org4b75ff4">
+<p>
+I write several entries per day in my developer journal and after keeping it for a year already I can say for sure that this habit improved my life as a developer in several ways. Besides being able to quickly start each day from a blank page, it forces me to think beforehand instead of just diving head-first into the implementation. As a result of this, my implementation has less kludge and is easier to modify/maintain. Furthermore, my developer journal helps the entire team because I am able to extract from it information that goes into the project wiki. Last but not least, <i>I feel</i> that my writing skills have improved as a result of keeping a developer journal.
+</p>
+
+
+<p>
+The excerpt is from a blog post about how the author uses Emacs to keep a developer journal. They explain why they find it helpful to keep a developer journal and why they chose to use Emacs for this purpose. They also describe their Emacs setup for keeping a developer journal, including the key bindings and functions they use. They conclude by discussing the benefits of keeping a developer journal.
+</p>
+</div>
+</div>
+    </div>
+    <aside class="postpromonav"><nav><p itemprop="keywords" class="tags">
+            <span class="tag"><a class="p-category" href="../../categories/developer-journal/" rel="tag">developer journal</a></span>
+            <span class="tag"><a class="p-category" href="../../categories/emacs/" rel="tag">Emacs</a></span>
+            <span class="tag"><a class="p-category" href="../../categories/productivity/" rel="tag">productivity</a></span>
+      </p>
+
+            <div class="pager hidden-print pagination">
+
+            <span class="previous pagination-item older">
+                <a href="../handling-automatic-update-of-concurrency-tokens-in-entity-framework-core/" rel="prev" title="Handling automatic update of concurrency tokens in Entity Framework Core">
+                Previous post
+                </a>
+            </span>
+
+
+            <span class="next pagination-item newer">
+Next post
+            </span>
+
+        </div>
+
+    </nav></aside><section class="comments hidden-print"><h2>Comments</h2>
+                    <div id="disqus_thread"></div>
+        <script>
+        var disqus_shortname ="rebeja",
+            disqus_url="https://rebeja.eu/posts/how-i-use-emacs-to-keep-a-developer-journal/",
+        disqus_title="How I use Emacs to keep a developer journal",
+        disqus_identifier="cache/posts/how-i-use-emacs-to-keep-a-developer-journal.html",
+        disqus_config = function () {
+            this.language = "en";
+        };
+        (function() {
+            var dsq = document.createElement('script'); dsq.async = true;
+            dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script><noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a>
+</noscript>
+    <a href="https://disqus.com" class="dsq-brlink" rel="nofollow">Comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+        </section></article><script>var disqus_shortname="rebeja";(function(){var a=document.createElement("script");a.async=true;a.src="https://"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)}());</script>
+</div>
+                <script src="../../assets/js/all-nocdn.js" type="text/javascript"></script><script>
+    baguetteBox.run('div#content', {
+        ignoreClass: 'islink',
+        captions: function(element) {
+            return element.getElementsByTagName('img')[0].alt;
+    }});
+    </script>
+</body>
+</html>

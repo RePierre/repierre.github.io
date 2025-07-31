@@ -43,7 +43,7 @@
  </sitemap>
  <sitemap>
   <loc>https://rebeja.eu/categories/cat_emacs.xml</loc>
-  <lastmod>2025-03-03T19:48:00Z</lastmod>
+  <lastmod>2025-07-31T13:20:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://rebeja.eu/categories/cohesion.xml</loc>
@@ -60,6 +60,10 @@
  <sitemap>
   <loc>https://rebeja.eu/categories/custom-workflow.xml</loc>
   <lastmod>2025-03-03T19:48:00Z</lastmod>
+ </sitemap>
+ <sitemap>
+  <loc>https://rebeja.eu/categories/developer-journal.xml</loc>
+  <lastmod>2025-07-31T13:20:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://rebeja.eu/categories/dired.xml</loc>
@@ -79,7 +83,7 @@
  </sitemap>
  <sitemap>
   <loc>https://rebeja.eu/categories/emacs.xml</loc>
-  <lastmod>2025-03-03T19:48:00Z</lastmod>
+  <lastmod>2025-07-31T13:20:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://rebeja.eu/categories/encapsulation.xml</loc>
@@ -162,6 +166,10 @@
   <lastmod>2025-03-03T19:48:00Z</lastmod>
  </sitemap>
  <sitemap>
+  <loc>https://rebeja.eu/categories/productivity.xml</loc>
+  <lastmod>2025-07-31T13:20:00Z</lastmod>
+ </sitemap>
+ <sitemap>
   <loc>https://rebeja.eu/categories/programming-principles.xml</loc>
   <lastmod>2025-03-03T19:48:00Z</lastmod>
  </sitemap>
@@ -223,10 +231,10 @@
  </sitemap>
  <sitemap>
   <loc>https://rebeja.eu/rss.xml</loc>
-  <lastmod>2025-06-26T06:21:00Z</lastmod>
+  <lastmod>2025-07-31T13:20:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://rebeja.eu/sitemap.xml</loc>
-  <lastmod>2025-06-26T06:21:00Z</lastmod>
+  <lastmod>2025-07-31T13:20:00Z</lastmod>
  </sitemap>
 </sitemapindex>

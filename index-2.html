@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html prefix="
+" lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="description" content="Single threaded stories.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rebeja · Rebeja (old posts, page 2) </title>
+<link href="assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.1.7/css/fork-awesome.min.css" integrity="sha256-gsmEoJAws/Kd3CjuOQzLie5Q3yshhvmo7YNtBG7aaEY=" crossorigin="anonymous">
+<meta content="#5670d4" name="theme-color">
+<link rel="alternate" type="application/rss+xml" title="RSS" href="rss.xml">
+<link rel="canonical" href="https://rebeja.eu/index-2.html">
+<link rel="prev" href="." type="text/html">
+<link rel="next" href="index-1.html" type="text/html">
+<!--[if lt IE 9]><script src="assets/js/html5.js"></script><![endif]-->
+</head>
+<body class="">
+    <a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
+    <div class="hsidebar">
+        <div class="container sidebar-sticky">
+                <nav id="menu" role="navigation" class="sidebar-nav"><a class="sidebar-nav-item" href="index.html" title="Home"><i class="fa fa-home"></i>Home</a>
+            <a class="sidebar-nav-item" href="archive.html" title="Archive"><i class="fa fa-folder-open"></i>Archive</a>
+            <a class="sidebar-nav-item" href="categories/index.html" title="Tags"><i class="fa fa-tags"></i>Tags</a>
+            <a class="sidebar-nav-item" href="pages/welcome/" title="About"><i class="fa fa-user"></i>About</a>
+            <a class="sidebar-nav-item" href="tehnologii-web/" title="Teaching"><i class="fa fa-graduation-cap"></i>Teaching</a>
+            <a class="sidebar-nav-item" href="pages/en-ro-dictionary-for-ai" title="EN-RO 4 AI"><i class="fa fa-book"></i>EN-RO 4 AI</a>
+            <a class="sidebar-nav-item" href="rss.xml" title="RSS"><i class="fa fa-feed"></i>RSS</a>
+    
+    
+    </nav><footer id="footer"><span class="copyright">
+              Contents © 2025         <a href="mailto:petru.rebeja@gmail.com">Petru Rebeja</a> - Powered by   <a href="https://www.gnu.org/software/emacs/" rel="nofollow">GNU Emacs</a>  &amp;    <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+            </span>
+            
+            
+        </footer>
+</div>
+    </div>
+    <div class="content container" id="content">
+    
+<div class="post">
+    <article class="post h-entry post-text"><header><h1 class="post-title p-name"><a href="posts/mediatr-handler-not-found-error-when-the-datacontext-couldnt-be-initialized/" class="u-url">MediatR - Handler not found error when the DataContext couldn't be initialized</a></h1>
+        <div class="metadata">
+            <p class="dateline">
+              <i class="fa fa-clock-o"></i> <time class="published dt-published" datetime="2018-02-02T00:00:00+02:00" title="2018-02-02 00:00">2018-02-02 00:00</time>
+            
+                |   <i class="fa fa-comment"></i>         <a href="posts/mediatr-handler-not-found-error-when-the-datacontext-couldnt-be-initialized/#disqus_thread" data-disqus-identifier="cache/posts/mediatr-handler-not-found-error-when-the-datacontext-couldnt-be-initialized.html">Comments</a>
+
+
+            </p>
+        </div>
+    </header><div class="e-content entry-content">
+    <p>
+<b>TL;DR</b>
+</p>
+<blockquote>
+<p>
+If you use MediatR package and it suddenly it fails with <code>Handler was not found for request of type &lt;type&gt;</code> inspect the dependencies of the handler it fails to create/invoke. One or more of those dependencies (a <code>DbContext</code> in my case) throws an error when instantiated and the error is making MediatR fail.
+</p>
+</blockquote>
+<p>
+<a href="https://jimmybogard.com/">Jimmy Bogard</a>s' <a href="https://github.com/jbogard/MediatR">MediatR</a> is a little gem of a package I like using because it enables a good separation of business logic from the boilerplate code and provides a clean and structured enforcement of the <a href="https://en.wikipedia.org/wiki/Single_responsibility_principle">Single Responsibility Principle</a>.
+</p>
+
+<p>
+I use this package extensively in <a href="https://rise-tv.net">one of my outside work projects</a> (I'm proud to say that it's not a pet project anymore) to delegate requests/commands to their respective request/command handlers. The project itself consists of two parts - an ASP.NET MVC application for public access and back office management and a WebAPI application used for registering payments. In order to keep both Web Application and Web API URLs consistent (and pretty) I have hosted the Web API application as a virtual directory inside the main Web Application.
+</p>
+
+<p>
+Recently, after an update of the application the payment module went down (giving me a tiny heart attack). As expected I dove into the application logs and after some thorough search I found the culprit with the following error message:
+</p>
+<blockquote>
+<p>
+An unhandled exception of type 'System.InvalidOperationException' occurred in MediatR.dll Additional information: Handler was not found for request of type GetAuthorizedUserRequest. Container or service locator not configured properly or handlers not registered with your container.
+</p>
+</blockquote>
+<p>
+The exception was popping inside the <a href="https://msdn.microsoft.com/en-us/library/system.web.http.authorizeattribute.isauthorized(v=vs.118).aspx"><code>IsAuthorized</code></a> method of a custom <a href="https://msdn.microsoft.com/en-us/library/system.web.http.authorizeattribute(v=vs.118).aspx"><code>AuthorizeAttribute</code></a>
+</p>
+<div class="highlight"><pre><span></span><span class="k">protected</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="nf">IsAuthorized</span><span class="p">(</span><span class="n">HttpActionContext</span><span class="w"> </span><span class="n">actionContext</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">try</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">            </span><span class="kt">var</span><span class="w"> </span><span class="n">authorizationToken</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">AuthorizationToken</span><span class="p">(</span><span class="n">actionContext</span><span class="p">.</span><span class="n">Request</span><span class="p">);</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">String</span><span class="p">.</span><span class="n">IsNullOrEmpty</span><span class="p">(</span><span class="n">authorizationToken</span><span class="p">.</span><span class="n">Value</span><span class="p">))</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">                  </span><span class="k">return</span><span class="w"> </span><span class="k">false</span><span class="p">;</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">            </span><span class="kt">var</span><span class="w"> </span><span class="n">request</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">GetAuthorizedUserRequest</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">                  </span><span class="n">AuthorizationToken</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">authorizationToken</span><span class="p">.</span><span class="n">Value</span>
+<span class="w">            </span><span class="p">};</span>
+<span class="w">            </span><span class="kt">var</span><span class="w"> </span><span class="n">user</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_securityService</span><span class="p">.</span><span class="n">GetAuthorizedUser</span><span class="p">(</span><span class="n">request</span><span class="p">);</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">user</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="k">null</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">Exception</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="k">false</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<p>
+The first thing to do was to thoroughly inspect what does the IoC container (<code>StructureMap</code> in my case) has registered. After a glimpse through the output of <code>WhatDoIHave()</code> method I saw that the handler <code>GetAuthorizedUserRequestHandler</code> was indeed registered as a <code>IRequestHandler&lt;GetAuthorizedUserRequest, GetAuthorizedUserResponse&gt;</code>.
+</p>
+
+<p>
+So, what is the problem then? The <code>InnerException</code> property of the exception that was caught was <code>null</code> and I was stuck.
+</p>
+
+<p>
+On the dawn of divine inspiration I decided to comment out the existing constructor of the request handler and create a default one (also return a dummy user). It worked - the exception wasn't thrown and the user got authenticated.
+</p>
+
+<p>
+However, the next request (dispatched through MediatR) that had to query something in the database failed which gave me the idea that there must be some issues with the <code>DbContext</code> initialization (I use Entity Framework).
+Sure enough - when I put a breakpoint in the constructor of my <code>DataContext</code> class (derived from <code>DbContext</code>) I got an exception mentioning that the key "mssqllocaldb" is missing from <code>&lt;connectionStrings&gt;</code> section.
+</p>
+
+<p>
+Then, I remembered that the latest code update also came with an update of Entity Framework NuGet package and it dawned upon me why the MediatR was failing. As I said in the beginning, the Web API application is hosted under the main Web Application. This means that the <code>&lt;entityFramework&gt;</code> configuration element in the child application is inherited from the parent one so the <code>Web.config</code> file of the child application did not contain any section related to Entity Framework.
+When I did the upgrade of the NuGet package the installer added the configuration section with default values. Those default and wrong values were read by the <code>DbContext</code> class constructor and since the values were wrong the constructor failed. After deleting the <code>&lt;entityFramework&gt;</code> configuration element the application went back online.
+</p>
+    </div>
+    </article>
+</div>
+        <nav class="postindexpager"><ul class="pager">
+<li class="previous">
+                <a href="." rel="prev">Newer posts</a>
+            </li>
+            <li class="next">
+                <a href="index-1.html" rel="next">Older posts</a>
+            </li>
+        </ul></nav><script>var disqus_shortname="rebeja";(function(){var a=document.createElement("script");a.async=true;a.src="https://"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)}());</script>
+</div>
+                <script src="assets/js/all-nocdn.js" type="text/javascript"></script><script>
+    baguetteBox.run('div#content', {
+        ignoreClass: 'islink',
+        captions: function(element) {
+            return element.getElementsByTagName('img')[0].alt;
+    }});
+    </script>
+</body>
+</html>

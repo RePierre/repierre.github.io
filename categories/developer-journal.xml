@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Rebeja (Posts about developer journal)</title><link>https://rebeja.eu/</link><description></description><atom:link href="https://rebeja.eu/categories/developer-journal.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2025 &lt;a href="mailto:petru.rebeja@gmail.com"&gt;Petru Rebeja&lt;/a&gt; </copyright><lastBuildDate>Thu, 31 Jul 2025 13:20:43 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>How I use Emacs to keep a developer journal</title><link>https://rebeja.eu/posts/how-i-use-emacs-to-keep-a-developer-journal/</link><dc:creator>Petru Rebeja</dc:creator><description>&lt;div id="outline-container-org32ba8e8" class="outline-2"&gt;
+&lt;h2 id="org32ba8e8"&gt;Why keep a developer journal?&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org32ba8e8"&gt;
+&lt;p&gt;
+I won't expand on what a developer journal is, or on what the benefits of keeping a developer journal are; there are plenty of resources for that online (&lt;a href="https://blog.invidelabs.com/what-is-a-developer-diary/"&gt;What is a Developer Diary&lt;/a&gt;, &lt;a href="https://opensource.com/article/19/4/what-developer-journal"&gt;What is a developer journal?&lt;/a&gt;, &lt;a href="https://stackoverflow.blog/2024/12/24/you-should-keep-a-developer-s-journal/"&gt;You should keep a developer’s journal&lt;/a&gt;, &lt;a href="https://www.youtube.com/watch?v=Xw3SkhB4dMk"&gt;Everything Starts with a Note-taking System&lt;/a&gt;). But let me tell you what made me start keeping a developer journal.
+&lt;/p&gt;
+
+&lt;p&gt;
+You see, I am one of those people that like to start each day from a blank page. This means that at the end of the work day I shut down my computer such that at the beginning of the next day I can start anew. The problem with starting anew each day is that &lt;i&gt;you don't always get to finish everything by the end of the day&lt;/i&gt;. And in this case, starting anew the next day is, so to say, nothing else than loading state onto blank memory (I know; I am a nerd).
+&lt;/p&gt;
+
+&lt;p&gt;
+This is where keeping a developer journal shines for me. I log in my developer journal all the useful snippets that I employ whilst working on a task, be it a SQL query, an URL which references some documentation, a milestone, a summary of a conversation with a colleague, an Eureka! moment, or a small progress — anything that can help me restore the context at the current moment in the future. And the great part is that when I say future I don't necessarily mean tomorrow, or Monday — I mean months into the future.
+&lt;/p&gt;
+
+&lt;p&gt;
+Be aware however, that I am limiting the time frame to months only. As years go by, time takes its toll and it is harder and harder to recall the &lt;i&gt;exact&lt;/i&gt; context of a specific task, regardless of how detailed the journal logs are.
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id="outline-container-orgffef9b7" class="outline-2"&gt;
+&lt;h2 id="orgffef9b7"&gt;Why Emacs?&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-orgffef9b7"&gt;
+&lt;p&gt;
+For some time already I have been using &lt;code&gt;org-agenda&lt;/code&gt; to track the time I spend on each of my tasks in the most simple way possible: I add each task to a file from which &lt;code&gt;org-agenda&lt;/code&gt; reads its data, call &lt;code&gt;org-clock-in&lt;/code&gt; on that task when I start working on it, and call &lt;code&gt;org-clock-out&lt;/code&gt; when I am not working on that task anymore.
+&lt;/p&gt;
+
+&lt;p&gt;
+Naturally, I wanted to build up from there. Also, I wanted to start with something simple that would allow me to do what I want and improve the workflow afterwards. In other words, and as cliché it may sound, I wanted to be agile in setup — start small and let it evolve in the right direction. And, to the best of my knowledge, Emacs is the only piece of software that provides this flexibility.
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id="outline-container-org9fc13db" class="outline-2"&gt;
+&lt;h2 id="org9fc13db"&gt;The setup&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org9fc13db"&gt;
+&lt;p&gt;
+I do use &lt;code&gt;org-roam&lt;/code&gt; which would have fit the requirements for a developer journal setup. However, I refrained from using it for a few reasons:
+&lt;/p&gt;
+&lt;ol class="org-ol"&gt;
+&lt;li&gt;I wanted to keep everything in a single file because I liked the idea of how &lt;code&gt;org-capture&lt;/code&gt; can file entries under a &lt;a href="https://orgmode.org/manual/Template-elements.html#FOOT84"&gt;date tree&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;I would have polluted my Zettelkasten because I may need to create multiple entries for a single task which would not have been linked to the rest of the knowledge graph.&lt;/li&gt;
+&lt;li&gt;I wanted to keep my developer journal separated from the Zettelkasten.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;
+As such, once I excluded &lt;code&gt;org-roam&lt;/code&gt; from the list of candidates, I got back to the basics — an &lt;code&gt;org-capture&lt;/code&gt; template. But a simple capture template was not enough. During a work day I can switch between multiple tasks, and before switching from one task to another I would log the latest state of affairs for the current task into my developer journal. As such, I would need a way to distinguish between which tasks are referenced in my logs.
+&lt;/p&gt;
+
+&lt;p&gt;
+After digging a bit through the documentation, I found a simple solution to this problem — store a link to the current development task, and use that link in the capture template.
+&lt;/p&gt;
+
+&lt;p&gt;
+The &lt;code&gt;org&lt;/code&gt; package already provides a function for this — &lt;code&gt;org-store-link&lt;/code&gt;; so all I had to do was to add a key-binding to it — &lt;code&gt;C-c l&lt;/code&gt; in my case:
+&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;use-package&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;org&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="nv"&gt;:defer&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;t&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="nv"&gt;:bind&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;:map&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;global-map&lt;/span&gt;
+&lt;span class="w"&gt;              &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;"C-c c"&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;org-capture&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="w"&gt;              &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;"C-c a"&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;org-agenda&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="w"&gt;              &lt;/span&gt;&lt;span class="nv"&gt;:map&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;org-mode-map&lt;/span&gt;
+&lt;span class="w"&gt;              &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;"C-c l"&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;org-store-link&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="w"&gt;              &lt;/span&gt;&lt;span class="nv"&gt;:map&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;org-agenda-mode-map&lt;/span&gt;
+&lt;span class="w"&gt;              &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;"C-c l"&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;org-store-link&lt;/span&gt;&lt;span class="p"&gt;)))&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;
+Unbeknownst to me, this solution proved to be a really good fit into my workflow, but more on this in the next section.
+&lt;/p&gt;
+
+&lt;p&gt;
+At this point, my setup was ready; after storing a link to the task I was currently working on, I was able to capture whatever bits of information I considered relevant for the task at hand. However, there were some nuisances in how the capture environment presented itself so, after digging through the documentation again I found out that I can provide a function to setup the environment before starting the capture. So I created the following function to do just that — configure the capture environment as I like it:
+&lt;/p&gt;
+&lt;ul class="org-ul"&gt;
+&lt;li&gt;start &lt;code&gt;olivetti-mode&lt;/code&gt; with a body width of 120 to avoid line wrap in source code blocks,&lt;/li&gt;
+&lt;li&gt;change the dictionary to US English, and start &lt;code&gt;flyspell-mode&lt;/code&gt; (I try to have as little spelling mistakes as I can)&lt;/li&gt;
+&lt;li&gt;last but not least, delete other windows to avoid clutter.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;defun&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;rp/setup-work-journal-capture&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="s"&gt;"Prepare an environment for capturing work journal entries."&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;progn&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;olivetti-mode&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;setq-local&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;olivetti-body-width&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;120&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;ispell-change-dictionary&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;"en_US"&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;flyspell-mode&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;delete-other-windows&lt;/span&gt;&lt;span class="p"&gt;)))&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;
+With all the above in place, this is how my final capture template looks like:
+&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;add-to-list&lt;/span&gt;
+&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;org-capture-templates&lt;/span&gt;
+&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;'&lt;/span&gt;&lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="s"&gt;"w"&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;"Work related items"&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="w"&gt;   &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;"wj"&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;"Journal entry"&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="nv"&gt;entry&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;file+olp+datetree&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;"~/org/gtd/work.org"&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;"Journal"&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="s"&gt;"* %a &lt;/span&gt;&lt;span class="se"&gt;\n&lt;/span&gt;&lt;span class="s"&gt;%U&lt;/span&gt;&lt;span class="se"&gt;\n\n&lt;/span&gt;&lt;span class="s"&gt;%?"&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="nv"&gt;:hook&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;rp/setup-work-journal-capture&lt;/span&gt;&lt;span class="p"&gt;)))&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id="outline-container-orgdc92920" class="outline-2"&gt;
+&lt;h2 id="orgdc92920"&gt;The workflow&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-orgdc92920"&gt;
+&lt;p&gt;
+As I mentioned in the previous section, this setup proved to be a really good fit for my workflow, and became a seamless extension to it because I was using &lt;code&gt;org-agenda&lt;/code&gt; and &lt;code&gt;org-clock&lt;/code&gt; to schedule my tasks and track the time spent on each of them.
+&lt;/p&gt;
+
+&lt;p&gt;
+While my previous workflow was: add the task to &lt;code&gt;org-agenda&lt;/code&gt;, schedule it, and use &lt;code&gt;org-clock-in&lt;/code&gt; and &lt;code&gt;org-clock-out&lt;/code&gt; to track the time, the new workflow is as follows:
+&lt;/p&gt;
+&lt;ol class="org-ol"&gt;
+&lt;li&gt;Add the task to &lt;code&gt;org-agenda&lt;/code&gt; and schedule it properly using a capture template&lt;/li&gt;
+&lt;li&gt;Call &lt;code&gt;org-clock-in&lt;/code&gt; when starting to work on a task (bound to &lt;code&gt;I&lt;/code&gt; in the &lt;code&gt;*Org Agenda*&lt;/code&gt; buffer)&lt;/li&gt;
+&lt;li&gt;When I want to add a new developer entry for that task, I:
+&lt;ul class="org-ul"&gt;
+&lt;li&gt;switch to the &lt;code&gt;*Org Agenda*&lt;/code&gt; buffer using &lt;code&gt;C-x b&lt;/code&gt; (or &lt;code&gt;M-x switch-to-buffer&lt;/code&gt;)&lt;/li&gt;
+&lt;li&gt;in the agenda buffer I call &lt;code&gt;org-clock-go-to&lt;/code&gt; by pressing &lt;code&gt;C-c C-x C-j&lt;/code&gt;, then:
+&lt;ul class="org-ul"&gt;
+&lt;li&gt;&lt;code&gt;C-l&lt;/code&gt; to store the link to the current item&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;C-c c&lt;/code&gt; to start &lt;code&gt;org-capture&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;w j&lt;/code&gt; to select the developer journal capture template&lt;/li&gt;
+&lt;li&gt;input all the important information&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;C-c C-c&lt;/code&gt; to finalize the capture.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;
+Although it may seem complicated at first, I felt no resistance in internalizing this workflow because it became a natural extension of the previous workflow. And yes, there are a lot of keys to press. But for someone who types a lot (as all developers do), pressing all those keys takes a very small amount of time but the benefit it brings is &lt;i&gt;huge&lt;/i&gt;.
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id="outline-container-org4b75ff4" class="outline-2"&gt;
+&lt;h2 id="org4b75ff4"&gt;My developer journal&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org4b75ff4"&gt;
+&lt;p&gt;
+I write several entries per day in my developer journal and after keeping it for a year already I can say for sure that this habit improved my life as a developer in several ways. Besides being able to quickly start each day from a blank page, it forces me to think beforehand instead of just diving head-first into the implementation. As a result of this, my implementation has less kludge and is easier to modify/maintain. Furthermore, my developer journal helps the entire team because I am able to extract from it information that goes into the project wiki. Last but not least, &lt;i&gt;I feel&lt;/i&gt; that my writing skills have improved as a result of keeping a developer journal.
+&lt;/p&gt;
+
+
+&lt;p&gt;
+The excerpt is from a blog post about how the author uses Emacs to keep a developer journal. They explain why they find it helpful to keep a developer journal and why they chose to use Emacs for this purpose. They also describe their Emacs setup for keeping a developer journal, including the key bindings and functions they use. They conclude by discussing the benefits of keeping a developer journal.
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;</description><category>developer journal</category><category>Emacs</category><category>productivity</category><guid>https://rebeja.eu/posts/how-i-use-emacs-to-keep-a-developer-journal/</guid><pubDate>Thu, 31 Jul 2025 13:10:32 GMT</pubDate></item></channel></rss>

@@ -7,7 +7,7 @@
                         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
  <url>
   <loc>https://rebeja.eu/</loc>
-  <lastmod>2025-06-14T17:04:00Z</lastmod>
+  <lastmod>2025-07-31T13:12:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/2016/</loc>
@@ -43,11 +43,11 @@
  </url>
  <url>
   <loc>https://rebeja.eu/archive.html</loc>
-  <lastmod>2025-06-14T17:04:00Z</lastmod>
+  <lastmod>2025-07-31T13:12:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/categories/</loc>
-  <lastmod>2025-06-26T06:14:00Z</lastmod>
+  <lastmod>2025-07-31T13:20:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/categories/abstraction/</loc>
@@ -104,6 +104,10 @@
  <url>
   <loc>https://rebeja.eu/categories/custom-workflow/</loc>
   <lastmod>2025-03-03T19:48:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://rebeja.eu/categories/developer-journal/</loc>
+  <lastmod>2025-07-31T13:20:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/categories/dired/</loc>
@@ -206,6 +210,10 @@
   <lastmod>2025-03-03T19:48:00Z</lastmod>
  </url>
  <url>
+  <loc>https://rebeja.eu/categories/productivity/</loc>
+  <lastmod>2025-07-31T13:20:00Z</lastmod>
+ </url>
+ <url>
   <loc>https://rebeja.eu/categories/programming-principles/</loc>
   <lastmod>2025-03-03T19:48:00Z</lastmod>
  </url>
@@ -267,7 +275,11 @@
  </url>
  <url>
   <loc>https://rebeja.eu/index-1.html</loc>
-  <lastmod>2025-06-26T06:11:00Z</lastmod>
+  <lastmod>2025-07-31T13:12:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://rebeja.eu/index-2.html</loc>
+  <lastmod>2025-07-31T13:12:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/pages/en-ro-dictionary-for-ai/</loc>
@@ -308,6 +320,10 @@
  <url>
   <loc>https://rebeja.eu/posts/handling-automatic-update-of-concurrency-tokens-in-entity-framework-core/</loc>
   <lastmod>2025-06-26T06:11:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://rebeja.eu/posts/how-i-use-emacs-to-keep-a-developer-journal/</loc>
+  <lastmod>2025-07-31T13:12:00Z</lastmod>
  </url>
  <url>
   <loc>https://rebeja.eu/posts/managing-bibliography-using-emacs-org-mode-and-org-ref/</loc>

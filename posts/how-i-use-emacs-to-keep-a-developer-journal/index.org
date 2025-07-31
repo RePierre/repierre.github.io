@@ -1,0 +1,104 @@
+#+BEGIN_COMMENT
+.. title: How I use Emacs to keep a developer journal
+.. slug: how-i-use-emacs-to-keep-a-developer-journal
+.. date: 2025-07-31 16:10:32 UTC+03:00
+.. tags: Emacs, developer journal, productivity
+.. category: Emacs
+.. link:
+.. description:
+.. type: text
+
+#+END_COMMENT
+
+* Why keep a developer journal?
+
+I won't expand on what a developer journal is, or on what the benefits of keeping a developer journal are; there are plenty of resources for that online ([[https://blog.invidelabs.com/what-is-a-developer-diary/][What is a Developer Diary]], [[https://opensource.com/article/19/4/what-developer-journal][What is a developer journal?]], [[https://stackoverflow.blog/2024/12/24/you-should-keep-a-developer-s-journal/][You should keep a developer’s journal]], [[https://www.youtube.com/watch?v=Xw3SkhB4dMk][Everything Starts with a Note-taking System]]). But let me tell you what made me start keeping a developer journal.
+
+You see, I am one of those people that like to start each day from a blank page. This means that at the end of the work day I shut down my computer such that at the beginning of the next day I can start anew. The problem with starting anew each day is that /you don't always get to finish everything by the end of the day/. And in this case, starting anew the next day is, so to say, nothing else than loading state onto blank memory (I know; I am a nerd).
+
+This is where keeping a developer journal shines for me. I log in my developer journal all the useful snippets that I employ whilst working on a task, be it a SQL query, an URL which references some documentation, a milestone, a summary of a conversation with a colleague, an Eureka! moment, or a small progress --- anything that can help me restore the context at the current moment in the future. And the great part is that when I say future I don't necessarily mean tomorrow, or Monday --- I mean months into the future.
+
+Be aware however, that I am limiting the time frame to months only. As years go by, time takes its toll and it is harder and harder to recall the /exact/ context of a specific task, regardless of how detailed the journal logs are.
+
+* Why Emacs?
+
+For some time already I have been using =org-agenda= to track the time I spend on each of my tasks in the most simple way possible: I add each task to a file from which =org-agenda= reads its data, call =org-clock-in= on that task when I start working on it, and call =org-clock-out= when I am not working on that task anymore.
+
+Naturally, I wanted to build up from there. Also, I wanted to start with something simple that would allow me to do what I want and improve the workflow afterwards. In other words, and as cliché it may sound, I wanted to be agile in setup --- start small and let it evolve in the right direction. And, to the best of my knowledge, Emacs is the only piece of software that provides this flexibility.
+
+* The setup
+
+I do use =org-roam= which would have fit the requirements for a developer journal setup. However, I refrained from using it for a few reasons:
+1. I wanted to keep everything in a single file because I liked the idea of how =org-capture= can file entries under a [[https://orgmode.org/manual/Template-elements.html#FOOT84][date tree]].
+2. I would have polluted my Zettelkasten because I may need to create multiple entries for a single task which would not have been linked to the rest of the knowledge graph.
+3. I wanted to keep my developer journal separated from the Zettelkasten.
+
+As such, once I excluded =org-roam= from the list of candidates, I got back to the basics --- an =org-capture= template. But a simple capture template was not enough. During a work day I can switch between multiple tasks, and before switching from one task to another I would log the latest state of affairs for the current task into my developer journal. As such, I would need a way to distinguish between which tasks are referenced in my logs.
+
+After digging a bit through the documentation, I found a simple solution to this problem --- store a link to the current development task, and use that link in the capture template.
+
+The =org= package already provides a function for this --- =org-store-link=; so all I had to do was to add a key-binding to it --- =C-c l= in my case:
+#+begin_src emacs-lisp
+  (use-package org
+    :defer t
+    :bind (:map global-map
+                ("C-c c" . org-capture)
+                ("C-c a" . org-agenda)
+                :map org-mode-map
+                ("C-c l" . org-store-link)
+                :map org-agenda-mode-map
+                ("C-c l" . org-store-link)))
+#+end_src
+Unbeknownst to me, this solution proved to be a really good fit into my workflow, but more on this in the next section.
+
+At this point, my setup was ready; after storing a link to the task I was currently working on, I was able to capture whatever bits of information I considered relevant for the task at hand. However, there were some nuisances in how the capture environment presented itself so, after digging through the documentation again I found out that I can provide a function to setup the environment before starting the capture. So I created the following function to do just that --- configure the capture environment as I like it:
+- start =olivetti-mode= with a body width of 120 to avoid line wrap in source code blocks,
+- change the dictionary to US English, and start =flyspell-mode= (I try to have as little spelling mistakes as I can)
+- last but not least, delete other windows to avoid clutter.
+#+begin_src emacs-lisp
+  (defun rp/setup-work-journal-capture()
+    "Prepare an environment for capturing work journal entries."
+    (progn
+      (olivetti-mode)
+      (setq-local olivetti-body-width 120)
+      (ispell-change-dictionary "en_US")
+      (flyspell-mode 1)
+      (delete-other-windows)))
+#+end_src
+
+With all the above in place, this is how my final capture template looks like:
+#+begin_src emacs-lisp
+  (add-to-list
+   org-capture-templates
+   '(("w" "Work related items")
+     ("wj" "Journal entry"
+      entry
+      (file+olp+datetree "~/org/gtd/work.org" "Journal")
+      "* %a \n%U\n\n%?"
+      :hook rp/setup-work-journal-capture)))
+#+end_src
+
+* The workflow
+
+As I mentioned in the previous section, this setup proved to be a really good fit for my workflow, and became a seamless extension to it because I was using =org-agenda= and =org-clock= to schedule my tasks and track the time spent on each of them.
+
+While my previous workflow was: add the task to =org-agenda=, schedule it, and use =org-clock-in= and =org-clock-out= to track the time, the new workflow is as follows:
+1. Add the task to =org-agenda= and schedule it properly using a capture template
+2. Call =org-clock-in= when starting to work on a task (bound to =I= in the =*Org Agenda*= buffer)
+3. When I want to add a new developer entry for that task, I:
+   - switch to the =*Org Agenda*= buffer using =C-x b= (or =M-x switch-to-buffer=)
+   - in the agenda buffer I call =org-clock-go-to= by pressing =C-c C-x C-j=, then:
+     - =C-l= to store the link to the current item
+     - =C-c c= to start =org-capture=
+     - =w j= to select the developer journal capture template
+     - input all the important information
+     - =C-c C-c= to finalize the capture.
+
+Although it may seem complicated at first, I felt no resistance in internalizing this workflow because it became a natural extension of the previous workflow. And yes, there are a lot of keys to press. But for someone who types a lot (as all developers do), pressing all those keys takes a very small amount of time but the benefit it brings is /huge/.
+
+* My developer journal
+
+I write several entries per day in my developer journal and after keeping it for a year already I can say for sure that this habit improved my life as a developer in several ways. Besides being able to quickly start each day from a blank page, it forces me to think beforehand instead of just diving head-first into the implementation. As a result of this, my implementation has less kludge and is easier to modify/maintain. Furthermore, my developer journal helps the entire team because I am able to extract from it information that goes into the project wiki. Last but not least, /I feel/ that my writing skills have improved as a result of keeping a developer journal.
+
+
+The excerpt is from a blog post about how the author uses Emacs to keep a developer journal. They explain why they find it helpful to keep a developer journal and why they chose to use Emacs for this purpose. They also describe their Emacs setup for keeping a developer journal, including the key bindings and functions they use. They conclude by discussing the benefits of keeping a developer journal.
