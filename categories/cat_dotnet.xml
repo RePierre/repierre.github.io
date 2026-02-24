@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Rebeja (Posts about dotnet)</title><link>https://rebeja.eu/</link><description></description><atom:link href="https://rebeja.eu/categories/cat_dotnet.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2025 &lt;a href="mailto:petru.rebeja@gmail.com"&gt;Petru Rebeja&lt;/a&gt; </copyright><lastBuildDate>Thu, 26 Jun 2025 06:21:24 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Handling automatic update of concurrency tokens in Entity Framework Core</title><link>https://rebeja.eu/posts/handling-automatic-update-of-concurrency-tokens-in-entity-framework-core/</link><dc:creator>Petru Rebeja</dc:creator><description>&lt;div id="outline-container-org29c7e9b" class="outline-2"&gt;
-&lt;h2 id="org29c7e9b"&gt;Introduction&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-org29c7e9b"&gt;
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Rebeja (Posts about dotnet)</title><link>https://rebeja.eu/</link><description></description><atom:link href="https://rebeja.eu/categories/cat_dotnet.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2026 &lt;a href="mailto:petru.rebeja@gmail.com"&gt;Petru Rebeja&lt;/a&gt; </copyright><lastBuildDate>Tue, 24 Feb 2026 17:58:29 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Handling automatic update of concurrency tokens in Entity Framework Core</title><link>https://rebeja.eu/posts/handling-automatic-update-of-concurrency-tokens-in-entity-framework-core/</link><dc:creator>Petru Rebeja</dc:creator><description>&lt;div id="outline-container-org5b48340" class="outline-2"&gt;
+&lt;h2 id="org5b48340"&gt;Introduction&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org5b48340"&gt;
 &lt;p&gt;
 If your application uses &lt;a href="https://learn.microsoft.com/en-us/ef/core/"&gt;Entity Framework Core&lt;/a&gt; and has a business logic that is of medium or higher complexity, at some point, you may want to bake into that business logic some mechanism for &lt;a href="https://learn.microsoft.com/en-us/ef/core/saving/concurrency"&gt;handling concurrency&lt;/a&gt; when persisting the data into the database.
 &lt;/p&gt;
@@ -25,16 +25,16 @@ However, in any other circumstances the things get complicated. This post is abo
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-orgee90d17" class="outline-2"&gt;
-&lt;h2 id="orgee90d17"&gt;Automatic update of concurrency tokens&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-orgee90d17"&gt;
+&lt;div id="outline-container-org7b9db3f" class="outline-2"&gt;
+&lt;h2 id="org7b9db3f"&gt;Automatic update of concurrency tokens&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org7b9db3f"&gt;
 &lt;p&gt;
 The hint on how to approach such use-case lies buried in the &lt;a href="https://learn.microsoft.com/en-us/ef/core/saving/concurrency"&gt;documentation&lt;/a&gt;, behind a simple link, which contains the keyword for the actual solution: &lt;b&gt;&lt;a href="https://learn.microsoft.com/en-us/ef/core/logging-events-diagnostics/interceptors#savechanges-interception"&gt;use an interceptor when saving changes&lt;/a&gt; to automatically update the value of the property that holds the concurrency token&lt;/b&gt;. And since that documentation suffers from too much obscurity for my taste, below are the steps on how to achieve the same goal.
 &lt;/p&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-org292528b" class="outline-3"&gt;
-&lt;h3 id="org292528b"&gt;Prerequisites&lt;/h3&gt;
-&lt;div class="outline-text-3" id="text-org292528b"&gt;
+&lt;div id="outline-container-orga88063c" class="outline-3"&gt;
+&lt;h3 id="orga88063c"&gt;Prerequisites&lt;/h3&gt;
+&lt;div class="outline-text-3" id="text-orga88063c"&gt;
 &lt;p&gt;
 Let's say we have an entity named &lt;code&gt;Person&lt;/code&gt; in our code-base with the following structure:
 &lt;/p&gt;
@@ -76,9 +76,9 @@ After defining the interface, we use it to mark all desired entities as being co
 &lt;/pre&gt;&lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-org088d89f" class="outline-3"&gt;
-&lt;h3 id="org088d89f"&gt;Entity configuration&lt;/h3&gt;
-&lt;div class="outline-text-3" id="text-org088d89f"&gt;
+&lt;div id="outline-container-org33479a6" class="outline-3"&gt;
+&lt;h3 id="org33479a6"&gt;Entity configuration&lt;/h3&gt;
+&lt;div class="outline-text-3" id="text-org33479a6"&gt;
 &lt;p&gt;
 We need to tell Entity Framework Core to enable the concurrency checking mechanism for the &lt;code&gt;Person&lt;/code&gt; entity by specifying that the &lt;code&gt;Version&lt;/code&gt; property is a concurrency token in the entity configuration:
 &lt;/p&gt;
@@ -98,9 +98,9 @@ We need to tell Entity Framework Core to enable the concurrency checking mechani
 &lt;/pre&gt;&lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-org35550b4" class="outline-3"&gt;
-&lt;h3 id="org35550b4"&gt;Interceptor implementation&lt;/h3&gt;
-&lt;div class="outline-text-3" id="text-org35550b4"&gt;
+&lt;div id="outline-container-orgeec75a7" class="outline-3"&gt;
+&lt;h3 id="orgeec75a7"&gt;Interceptor implementation&lt;/h3&gt;
+&lt;div class="outline-text-3" id="text-orgeec75a7"&gt;
 &lt;p&gt;
 With the entity properly configured, it is time to implement the interceptor that will increment the value of the &lt;code&gt;Version&lt;/code&gt; property automatically when the entity is saved into the database.
 &lt;/p&gt;
@@ -198,9 +198,9 @@ These lines signal Entity Framework Core that it should update the row that has 
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-orgf2504e7" class="outline-3"&gt;
-&lt;h3 id="orgf2504e7"&gt;Add the interceptor to the &lt;code&gt;DbContext&lt;/code&gt;&lt;/h3&gt;
-&lt;div class="outline-text-3" id="text-orgf2504e7"&gt;
+&lt;div id="outline-container-orgecd7378" class="outline-3"&gt;
+&lt;h3 id="orgecd7378"&gt;Add the interceptor to the &lt;code&gt;DbContext&lt;/code&gt;&lt;/h3&gt;
+&lt;div class="outline-text-3" id="text-orgecd7378"&gt;
 &lt;p&gt;
 Now that we have an interceptor to automatically increment the value of the &lt;code&gt;Version&lt;/code&gt; property, all we need to do is to add it to the database context. This is done quite easily:
 &lt;/p&gt;
@@ -234,9 +234,9 @@ Once the interceptor is registered, you should see the value of the &lt;code&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-org420c485" class="outline-2"&gt;
-&lt;h2 id="org420c485"&gt;Concurency handling&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-org420c485"&gt;
+&lt;div id="outline-container-org50263a6" class="outline-2"&gt;
+&lt;h2 id="org50263a6"&gt;Concurency handling&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org50263a6"&gt;
 &lt;p&gt;
 At this point concurrency handling kicks-in out of the box thanks to the two aforementioned lines from the &lt;code&gt;IncrementVersionOfConcurrencyAwareEntities&lt;/code&gt; method:
 &lt;/p&gt;
@@ -254,9 +254,9 @@ If there is no row in the database table that satisfies the condition above, the
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-org0c9e0b3" class="outline-2"&gt;
-&lt;h2 id="org0c9e0b3"&gt;Conclusion&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-org0c9e0b3"&gt;
+&lt;div id="outline-container-org0ba71de" class="outline-2"&gt;
+&lt;h2 id="org0ba71de"&gt;Conclusion&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org0ba71de"&gt;
 &lt;p&gt;
 Entity Framework Core has a built-in mechanism for handling concurrency that works great out of the box when the application uses the default types for concurency tokens, and SQL Server as the database management system. This mechanism relies on comparing the values of the concurrency token for each database operation; if the value supplied by the application is not the same as the value from the database this is considered to be a concurrency conflict.
 &lt;/p&gt;
@@ -265,9 +265,9 @@ Entity Framework Core has a built-in mechanism for handling concurrency that wor
 But once you stray off the beaten path, things become more complicated as this post shows while trying to provide a guide on how to automatically update the value of the concurrency tokens in non-default scenarios. Fortunately, the concurrency handling mechanism from Entity Framework Core is designed to accommodate a wide range of use-cases, and with a slight adjustment through a custom interceptor that updates the value of concurrency tokens when saving entities to the database, we can ensure the conflict handling mechanism operates as originally intended
 &lt;/p&gt;
 &lt;/div&gt;
-&lt;/div&gt;</description><category>c#</category><category>concurrency</category><category>Entity Framework Core</category><category>interceptor</category><guid>https://rebeja.eu/posts/handling-automatic-update-of-concurrency-tokens-in-entity-framework-core/</guid><pubDate>Thu, 26 Jun 2025 05:57:09 GMT</pubDate></item><item><title>Introducing the Specialized Workers pattern</title><link>https://rebeja.eu/posts/specialized-workers-pattern/</link><dc:creator>Petru Rebeja</dc:creator><description>&lt;div id="outline-container-org773b09b" class="outline-2"&gt;
-&lt;h2 id="org773b09b"&gt;Introduction&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-org773b09b"&gt;
+&lt;/div&gt;</description><category>c#</category><category>concurrency</category><category>Entity Framework Core</category><category>interceptor</category><guid>https://rebeja.eu/posts/handling-automatic-update-of-concurrency-tokens-in-entity-framework-core/</guid><pubDate>Thu, 26 Jun 2025 05:57:09 GMT</pubDate></item><item><title>Introducing the Specialized Workers pattern</title><link>https://rebeja.eu/posts/specialized-workers-pattern/</link><dc:creator>Petru Rebeja</dc:creator><description>&lt;div id="outline-container-org5dc3734" class="outline-2"&gt;
+&lt;h2 id="org5dc3734"&gt;Introduction&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org5dc3734"&gt;
 &lt;p&gt;
 Some years ago, in my &lt;a href="https://rebeja.eu/posts/using-enums-in-c-sharp/"&gt;blog post about using enums in C#&lt;/a&gt; I mentioned that I like using what I called at that time &lt;code&gt;specialized builders&lt;/code&gt; to refactor the &lt;code&gt;switch&lt;/code&gt; statement into a series of classes that implement a common interface and are specialized for a specific &lt;code&gt;case&lt;/code&gt; of the &lt;code&gt;switch&lt;/code&gt; statement.
 &lt;/p&gt;
@@ -281,13 +281,13 @@ As such, I am excited to introduce to the world the &lt;code&gt;Specialized Work
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-org7ebd1c3" class="outline-2"&gt;
-&lt;h2 id="org7ebd1c3"&gt;Specialized Workers Pattern&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-org7ebd1c3"&gt;
+&lt;div id="outline-container-org4a67125" class="outline-2"&gt;
+&lt;h2 id="org4a67125"&gt;Specialized Workers Pattern&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org4a67125"&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-org2459499" class="outline-3"&gt;
-&lt;h3 id="org2459499"&gt;Description and usage&lt;/h3&gt;
-&lt;div class="outline-text-3" id="text-org2459499"&gt;
+&lt;div id="outline-container-orgb3c2f58" class="outline-3"&gt;
+&lt;h3 id="orgb3c2f58"&gt;Description and usage&lt;/h3&gt;
+&lt;div class="outline-text-3" id="text-orgb3c2f58"&gt;
 &lt;p&gt;
 The &lt;code&gt;Specialized Workers&lt;/code&gt; pattern aims to distribute the logic of a business operation that requires choosing between one or multiple tasks to be executed, into a collection of specialized classes, while keeping the knowledge about the task(s) to be executed into a single place.
 &lt;/p&gt;
@@ -410,13 +410,13 @@ On the other hand, each worker class is, as the name of the pattern suggests it,
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-org3a3a10d" class="outline-2"&gt;
-&lt;h2 id="org3a3a10d"&gt;Discussion&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-org3a3a10d"&gt;
+&lt;div id="outline-container-org35c53e2" class="outline-2"&gt;
+&lt;h2 id="org35c53e2"&gt;Discussion&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org35c53e2"&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-orga533269" class="outline-3"&gt;
-&lt;h3 id="orga533269"&gt;How is it different from the &lt;code&gt;Strategy&lt;/code&gt; pattern?&lt;/h3&gt;
-&lt;div class="outline-text-3" id="text-orga533269"&gt;
+&lt;div id="outline-container-org98784a2" class="outline-3"&gt;
+&lt;h3 id="org98784a2"&gt;How is it different from the &lt;code&gt;Strategy&lt;/code&gt; pattern?&lt;/h3&gt;
+&lt;div class="outline-text-3" id="text-org98784a2"&gt;
 &lt;p&gt;
 At this moment you may be wondering how the &lt;code&gt;Specialized Workers&lt;/code&gt; is different from the &lt;code&gt;Strategy&lt;/code&gt; pattern? After all, each worker implements and applies a different strategy in the processing of the data.
 &lt;/p&gt;
@@ -430,9 +430,9 @@ There is however, a difference in the nomenclature: &lt;code&gt;Strategy&lt;/cod
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-org5edcb28" class="outline-3"&gt;
-&lt;h3 id="org5edcb28"&gt;Why not use a &lt;code&gt;Factory method&lt;/code&gt;?&lt;/h3&gt;
-&lt;div class="outline-text-3" id="text-org5edcb28"&gt;
+&lt;div id="outline-container-orgb409a82" class="outline-3"&gt;
+&lt;h3 id="orgb409a82"&gt;Why not use a &lt;code&gt;Factory method&lt;/code&gt;?&lt;/h3&gt;
+&lt;div class="outline-text-3" id="text-orgb409a82"&gt;
 &lt;p&gt;
 Okay, you might say, then why not use a &lt;code&gt;Factory method&lt;/code&gt; to build directly the worker that knows how to handle the specific use-case?
 &lt;/p&gt;
@@ -567,9 +567,9 @@ You can have multiple workers capable of processing the same payload; in this ca
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-orgccea844" class="outline-2"&gt;
-&lt;h2 id="orgccea844"&gt;Ending thoughts&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-orgccea844"&gt;
+&lt;div id="outline-container-org8b8e3f7" class="outline-2"&gt;
+&lt;h2 id="org8b8e3f7"&gt;Ending thoughts&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org8b8e3f7"&gt;
 &lt;p&gt;
 As you can see from this quite lengthy post, the &lt;code&gt;Specialized Workers&lt;/code&gt; pattern, provides both a way to cluster business logic into specialized classes, and a good degree of flexibility in order to adapt the implementation to different situations. Despite its flexibility however, it is my &lt;i&gt;subjective&lt;/i&gt; opinion that the original form of the pattern (the one shown in the &lt;a href="https://rebeja.eu/posts/specialized-workers-pattern/#implementation"&gt;Implementation&lt;/a&gt; section) is the most elegant and eloquent, which is why I use that version most of the time. But, especially as a software developer, I am aware that each person has its own preferences in regards to how something should be done or implemented. As such, I hope you find this pattern useful, and if so, feel free to apply it in whichever way suits you best.
 &lt;/p&gt;

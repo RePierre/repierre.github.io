@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html prefix="
+<html \ prefix="
 " lang="en">
 <head>
 <meta charset="utf-8">
@@ -29,7 +29,7 @@
     
     
     </nav><footer id="footer"><span class="copyright">
-              Contents © 2025         <a href="mailto:petru.rebeja@gmail.com">Petru Rebeja</a> - Powered by   <a href="https://www.gnu.org/software/emacs/" rel="nofollow">GNU Emacs</a>  &amp;    <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+              Contents © 2026         <a href="mailto:petru.rebeja@gmail.com">Petru Rebeja</a> - Powered by   <a href="https://www.gnu.org/software/emacs/" rel="nofollow">GNU Emacs</a>  &amp;    <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
             </span>
             
             
@@ -55,9 +55,9 @@ While working on a project I had to load and process some resources from a MySQL
 <p>
 Instead, I decided to restore the database on a Docker image for MySQL and query the data using <code>mysql-client</code>.
 </p>
-<div id="outline-container-org9f89060" class="outline-2">
-<h2 id="org9f89060">Install <code>mysql-client</code> locally</h2>
-<div class="outline-text-2" id="text-org9f89060">
+<div id="outline-container-org83aeb62" class="outline-2">
+<h2 id="org83aeb62">Install <code>mysql-client</code> locally</h2>
+<div class="outline-text-2" id="text-org83aeb62">
 <p>
 This one is simple; just run:
 </p>
@@ -65,9 +65,9 @@ This one is simple; just run:
 </pre></div>
 </div>
 </div>
-<div id="outline-container-org65c78e0" class="outline-2">
-<h2 id="org65c78e0">Install Docker on Ubuntu</h2>
-<div class="outline-text-2" id="text-org65c78e0">
+<div id="outline-container-org4ea686e" class="outline-2">
+<h2 id="org4ea686e">Install Docker on Ubuntu</h2>
+<div class="outline-text-2" id="text-org4ea686e">
 <p>
 The first thing to do is to head to <a href="https://docs.docker.com/engine/installation/linux/ubuntu/#install-docker">Docker documentation</a> for instalation instructions which I've copied here:
 </p>
@@ -77,10 +77,10 @@ The first thing to do is to head to <a href="https://docs.docker.com/engine/inst
 Install packages to allow <code>apt</code> to use a repository over HTTPS:
 </p>
 <div class="highlight"><pre><span></span><span class="w">   </span>sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span><span class="se">\</span>
-<span class="w">       </span>apt-transport-https<span class="w"> </span><span class="se">\</span>
-<span class="w">       </span>ca-certificates<span class="w"> </span><span class="se">\</span>
-<span class="w">       </span>curl<span class="w"> </span><span class="se">\</span>
-<span class="w">       </span>software-properties-common
+<span class="w">            </span>apt-transport-https<span class="w"> </span><span class="se">\</span>
+<span class="w">            </span>ca-certificates<span class="w"> </span><span class="se">\</span>
+<span class="w">            </span>curl<span class="w"> </span><span class="se">\</span>
+<span class="w">            </span>software-properties-common
 </pre></div>
 </li>
 <li>
@@ -95,9 +95,9 @@ Add the official GPG key for Docker
 Setup the <b>stable</b> repository. Make sure to select the proper architecture; in my case it's <code>amd64</code>
 </p>
 <div class="highlight"><pre><span></span><span class="w">   </span>sudo<span class="w"> </span>add-apt-repository<span class="w"> </span><span class="se">\</span>
-<span class="w">       </span><span class="s2">"deb [arch=amd64] https://download.docker.com/linux/ubuntu \</span>
-<span class="s2">       </span><span class="k">$(</span>lsb_release<span class="w"> </span>-cs<span class="k">)</span><span class="s2"> \</span>
-<span class="s2">       stable"</span>
+<span class="w">            </span><span class="s2">"deb [arch=amd64] https://download.docker.com/linux/ubuntu \</span>
+<span class="s2">            </span><span class="k">$(</span>lsb_release<span class="w"> </span>-cs<span class="k">)</span><span class="s2"> \</span>
+<span class="s2">            stable"</span>
 </pre></div>
 </li>
 <li>
@@ -117,9 +117,9 @@ Install Docker
 </ul>
 </div>
 </div>
-<div id="outline-container-org12bc59c" class="outline-2">
-<h2 id="org12bc59c">Restore MySQL database to a Docker container</h2>
-<div class="outline-text-2" id="text-org12bc59c">
+<div id="outline-container-org1c2f5e9" class="outline-2">
+<h2 id="org1c2f5e9">Restore MySQL database to a Docker container</h2>
+<div class="outline-text-2" id="text-org1c2f5e9">
 <ul class="org-ul">
 <li>
 <p>
@@ -159,9 +159,9 @@ Notes:
 </ul>
 </div>
 </div>
-<div id="outline-container-org1096016" class="outline-2">
-<h2 id="org1096016">Connect to MySQL database running on Docker container from Emacs</h2>
-<div class="outline-text-2" id="text-org1096016">
+<div id="outline-container-org997581c" class="outline-2">
+<h2 id="org997581c">Connect to MySQL database running on Docker container from Emacs</h2>
+<div class="outline-text-2" id="text-org997581c">
 <ul class="org-ul">
 <li>First, start the container <code>sudo docker start &lt;container-name&gt;</code>
 </li>

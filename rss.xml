@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Rebeja</title><link>https://rebeja.eu/</link><description>Single threaded stories.</description><atom:link href="https://rebeja.eu/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2025 &lt;a href="mailto:petru.rebeja@gmail.com"&gt;Petru Rebeja&lt;/a&gt; </copyright><lastBuildDate>Thu, 31 Jul 2025 13:20:43 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>How I use Emacs to keep a developer journal</title><link>https://rebeja.eu/posts/how-i-use-emacs-to-keep-a-developer-journal/</link><dc:creator>Petru Rebeja</dc:creator><description>&lt;div id="outline-container-org32ba8e8" class="outline-2"&gt;
-&lt;h2 id="org32ba8e8"&gt;Why keep a developer journal?&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-org32ba8e8"&gt;
+<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Rebeja</title><link>https://rebeja.eu/</link><description>Single threaded stories.</description><atom:link href="https://rebeja.eu/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2026 &lt;a href="mailto:petru.rebeja@gmail.com"&gt;Petru Rebeja&lt;/a&gt; </copyright><lastBuildDate>Tue, 24 Feb 2026 17:58:28 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>How I use Emacs to keep a developer journal</title><link>https://rebeja.eu/posts/how-i-use-emacs-to-keep-a-developer-journal/</link><dc:creator>Petru Rebeja</dc:creator><description>&lt;div id="outline-container-org1dcefe4" class="outline-2"&gt;
+&lt;h2 id="org1dcefe4"&gt;Why keep a developer journal?&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org1dcefe4"&gt;
 &lt;p&gt;
 I won't expand on what a developer journal is, or on what the benefits of keeping a developer journal are; there are plenty of resources for that online (&lt;a href="https://blog.invidelabs.com/what-is-a-developer-diary/"&gt;What is a Developer Diary&lt;/a&gt;, &lt;a href="https://opensource.com/article/19/4/what-developer-journal"&gt;What is a developer journal?&lt;/a&gt;, &lt;a href="https://stackoverflow.blog/2024/12/24/you-should-keep-a-developer-s-journal/"&gt;You should keep a developer’s journal&lt;/a&gt;, &lt;a href="https://www.youtube.com/watch?v=Xw3SkhB4dMk"&gt;Everything Starts with a Note-taking System&lt;/a&gt;). But let me tell you what made me start keeping a developer journal.
 &lt;/p&gt;
@@ -19,9 +19,9 @@ Be aware however, that I am limiting the time frame to months only. As years go 
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-orgffef9b7" class="outline-2"&gt;
-&lt;h2 id="orgffef9b7"&gt;Why Emacs?&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-orgffef9b7"&gt;
+&lt;div id="outline-container-org1c0d65e" class="outline-2"&gt;
+&lt;h2 id="org1c0d65e"&gt;Why Emacs?&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org1c0d65e"&gt;
 &lt;p&gt;
 For some time already I have been using &lt;code&gt;org-agenda&lt;/code&gt; to track the time I spend on each of my tasks in the most simple way possible: I add each task to a file from which &lt;code&gt;org-agenda&lt;/code&gt; reads its data, call &lt;code&gt;org-clock-in&lt;/code&gt; on that task when I start working on it, and call &lt;code&gt;org-clock-out&lt;/code&gt; when I am not working on that task anymore.
 &lt;/p&gt;
@@ -31,9 +31,9 @@ Naturally, I wanted to build up from there. Also, I wanted to start with somethi
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-org9fc13db" class="outline-2"&gt;
-&lt;h2 id="org9fc13db"&gt;The setup&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-org9fc13db"&gt;
+&lt;div id="outline-container-org86f4239" class="outline-2"&gt;
+&lt;h2 id="org86f4239"&gt;The setup&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org86f4239"&gt;
 &lt;p&gt;
 I do use &lt;code&gt;org-roam&lt;/code&gt; which would have fit the requirements for a developer journal setup. However, I refrained from using it for a few reasons:
 &lt;/p&gt;
@@ -100,9 +100,9 @@ With all the above in place, this is how my final capture template looks like:
 &lt;/pre&gt;&lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-orgdc92920" class="outline-2"&gt;
-&lt;h2 id="orgdc92920"&gt;The workflow&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-orgdc92920"&gt;
+&lt;div id="outline-container-org57cdbd6" class="outline-2"&gt;
+&lt;h2 id="org57cdbd6"&gt;The workflow&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org57cdbd6"&gt;
 &lt;p&gt;
 As I mentioned in the previous section, this setup proved to be a really good fit for my workflow, and became a seamless extension to it because I was using &lt;code&gt;org-agenda&lt;/code&gt; and &lt;code&gt;org-clock&lt;/code&gt; to schedule my tasks and track the time spent on each of them.
 &lt;/p&gt;
@@ -132,9 +132,9 @@ Although it may seem complicated at first, I felt no resistance in internalizing
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-org4b75ff4" class="outline-2"&gt;
-&lt;h2 id="org4b75ff4"&gt;My developer journal&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-org4b75ff4"&gt;
+&lt;div id="outline-container-org1b8d466" class="outline-2"&gt;
+&lt;h2 id="org1b8d466"&gt;My developer journal&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org1b8d466"&gt;
 &lt;p&gt;
 I write several entries per day in my developer journal and after keeping it for a year already I can say for sure that this habit improved my life as a developer in several ways. Besides being able to quickly start each day from a blank page, it forces me to think beforehand instead of just diving head-first into the implementation. As a result of this, my implementation has less kludge and is easier to modify/maintain. Furthermore, my developer journal helps the entire team because I am able to extract from it information that goes into the project wiki. Last but not least, &lt;i&gt;I feel&lt;/i&gt; that my writing skills have improved as a result of keeping a developer journal.
 &lt;/p&gt;
@@ -144,9 +144,9 @@ I write several entries per day in my developer journal and after keeping it for
 The excerpt is from a blog post about how the author uses Emacs to keep a developer journal. They explain why they find it helpful to keep a developer journal and why they chose to use Emacs for this purpose. They also describe their Emacs setup for keeping a developer journal, including the key bindings and functions they use. They conclude by discussing the benefits of keeping a developer journal.
 &lt;/p&gt;
 &lt;/div&gt;
-&lt;/div&gt;</description><category>developer journal</category><category>Emacs</category><category>productivity</category><guid>https://rebeja.eu/posts/how-i-use-emacs-to-keep-a-developer-journal/</guid><pubDate>Thu, 31 Jul 2025 13:10:32 GMT</pubDate></item><item><title>Handling automatic update of concurrency tokens in Entity Framework Core</title><link>https://rebeja.eu/posts/handling-automatic-update-of-concurrency-tokens-in-entity-framework-core/</link><dc:creator>Petru Rebeja</dc:creator><description>&lt;div id="outline-container-org29c7e9b" class="outline-2"&gt;
-&lt;h2 id="org29c7e9b"&gt;Introduction&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-org29c7e9b"&gt;
+&lt;/div&gt;</description><category>developer journal</category><category>Emacs</category><category>productivity</category><guid>https://rebeja.eu/posts/how-i-use-emacs-to-keep-a-developer-journal/</guid><pubDate>Thu, 31 Jul 2025 13:10:32 GMT</pubDate></item><item><title>Handling automatic update of concurrency tokens in Entity Framework Core</title><link>https://rebeja.eu/posts/handling-automatic-update-of-concurrency-tokens-in-entity-framework-core/</link><dc:creator>Petru Rebeja</dc:creator><description>&lt;div id="outline-container-org5b48340" class="outline-2"&gt;
+&lt;h2 id="org5b48340"&gt;Introduction&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org5b48340"&gt;
 &lt;p&gt;
 If your application uses &lt;a href="https://learn.microsoft.com/en-us/ef/core/"&gt;Entity Framework Core&lt;/a&gt; and has a business logic that is of medium or higher complexity, at some point, you may want to bake into that business logic some mechanism for &lt;a href="https://learn.microsoft.com/en-us/ef/core/saving/concurrency"&gt;handling concurrency&lt;/a&gt; when persisting the data into the database.
 &lt;/p&gt;
@@ -170,16 +170,16 @@ However, in any other circumstances the things get complicated. This post is abo
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-orgee90d17" class="outline-2"&gt;
-&lt;h2 id="orgee90d17"&gt;Automatic update of concurrency tokens&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-orgee90d17"&gt;
+&lt;div id="outline-container-org7b9db3f" class="outline-2"&gt;
+&lt;h2 id="org7b9db3f"&gt;Automatic update of concurrency tokens&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org7b9db3f"&gt;
 &lt;p&gt;
 The hint on how to approach such use-case lies buried in the &lt;a href="https://learn.microsoft.com/en-us/ef/core/saving/concurrency"&gt;documentation&lt;/a&gt;, behind a simple link, which contains the keyword for the actual solution: &lt;b&gt;&lt;a href="https://learn.microsoft.com/en-us/ef/core/logging-events-diagnostics/interceptors#savechanges-interception"&gt;use an interceptor when saving changes&lt;/a&gt; to automatically update the value of the property that holds the concurrency token&lt;/b&gt;. And since that documentation suffers from too much obscurity for my taste, below are the steps on how to achieve the same goal.
 &lt;/p&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-org292528b" class="outline-3"&gt;
-&lt;h3 id="org292528b"&gt;Prerequisites&lt;/h3&gt;
-&lt;div class="outline-text-3" id="text-org292528b"&gt;
+&lt;div id="outline-container-orga88063c" class="outline-3"&gt;
+&lt;h3 id="orga88063c"&gt;Prerequisites&lt;/h3&gt;
+&lt;div class="outline-text-3" id="text-orga88063c"&gt;
 &lt;p&gt;
 Let's say we have an entity named &lt;code&gt;Person&lt;/code&gt; in our code-base with the following structure:
 &lt;/p&gt;
@@ -221,9 +221,9 @@ After defining the interface, we use it to mark all desired entities as being co
 &lt;/pre&gt;&lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-org088d89f" class="outline-3"&gt;
-&lt;h3 id="org088d89f"&gt;Entity configuration&lt;/h3&gt;
-&lt;div class="outline-text-3" id="text-org088d89f"&gt;
+&lt;div id="outline-container-org33479a6" class="outline-3"&gt;
+&lt;h3 id="org33479a6"&gt;Entity configuration&lt;/h3&gt;
+&lt;div class="outline-text-3" id="text-org33479a6"&gt;
 &lt;p&gt;
 We need to tell Entity Framework Core to enable the concurrency checking mechanism for the &lt;code&gt;Person&lt;/code&gt; entity by specifying that the &lt;code&gt;Version&lt;/code&gt; property is a concurrency token in the entity configuration:
 &lt;/p&gt;
@@ -243,9 +243,9 @@ We need to tell Entity Framework Core to enable the concurrency checking mechani
 &lt;/pre&gt;&lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-org35550b4" class="outline-3"&gt;
-&lt;h3 id="org35550b4"&gt;Interceptor implementation&lt;/h3&gt;
-&lt;div class="outline-text-3" id="text-org35550b4"&gt;
+&lt;div id="outline-container-orgeec75a7" class="outline-3"&gt;
+&lt;h3 id="orgeec75a7"&gt;Interceptor implementation&lt;/h3&gt;
+&lt;div class="outline-text-3" id="text-orgeec75a7"&gt;
 &lt;p&gt;
 With the entity properly configured, it is time to implement the interceptor that will increment the value of the &lt;code&gt;Version&lt;/code&gt; property automatically when the entity is saved into the database.
 &lt;/p&gt;
@@ -343,9 +343,9 @@ These lines signal Entity Framework Core that it should update the row that has 
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-orgf2504e7" class="outline-3"&gt;
-&lt;h3 id="orgf2504e7"&gt;Add the interceptor to the &lt;code&gt;DbContext&lt;/code&gt;&lt;/h3&gt;
-&lt;div class="outline-text-3" id="text-orgf2504e7"&gt;
+&lt;div id="outline-container-orgecd7378" class="outline-3"&gt;
+&lt;h3 id="orgecd7378"&gt;Add the interceptor to the &lt;code&gt;DbContext&lt;/code&gt;&lt;/h3&gt;
+&lt;div class="outline-text-3" id="text-orgecd7378"&gt;
 &lt;p&gt;
 Now that we have an interceptor to automatically increment the value of the &lt;code&gt;Version&lt;/code&gt; property, all we need to do is to add it to the database context. This is done quite easily:
 &lt;/p&gt;
@@ -379,9 +379,9 @@ Once the interceptor is registered, you should see the value of the &lt;code&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-org420c485" class="outline-2"&gt;
-&lt;h2 id="org420c485"&gt;Concurency handling&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-org420c485"&gt;
+&lt;div id="outline-container-org50263a6" class="outline-2"&gt;
+&lt;h2 id="org50263a6"&gt;Concurency handling&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org50263a6"&gt;
 &lt;p&gt;
 At this point concurrency handling kicks-in out of the box thanks to the two aforementioned lines from the &lt;code&gt;IncrementVersionOfConcurrencyAwareEntities&lt;/code&gt; method:
 &lt;/p&gt;
@@ -399,9 +399,9 @@ If there is no row in the database table that satisfies the condition above, the
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-org0c9e0b3" class="outline-2"&gt;
-&lt;h2 id="org0c9e0b3"&gt;Conclusion&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-org0c9e0b3"&gt;
+&lt;div id="outline-container-org0ba71de" class="outline-2"&gt;
+&lt;h2 id="org0ba71de"&gt;Conclusion&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org0ba71de"&gt;
 &lt;p&gt;
 Entity Framework Core has a built-in mechanism for handling concurrency that works great out of the box when the application uses the default types for concurency tokens, and SQL Server as the database management system. This mechanism relies on comparing the values of the concurrency token for each database operation; if the value supplied by the application is not the same as the value from the database this is considered to be a concurrency conflict.
 &lt;/p&gt;
@@ -410,9 +410,9 @@ Entity Framework Core has a built-in mechanism for handling concurrency that wor
 But once you stray off the beaten path, things become more complicated as this post shows while trying to provide a guide on how to automatically update the value of the concurrency tokens in non-default scenarios. Fortunately, the concurrency handling mechanism from Entity Framework Core is designed to accommodate a wide range of use-cases, and with a slight adjustment through a custom interceptor that updates the value of concurrency tokens when saving entities to the database, we can ensure the conflict handling mechanism operates as originally intended
 &lt;/p&gt;
 &lt;/div&gt;
-&lt;/div&gt;</description><category>c#</category><category>concurrency</category><category>Entity Framework Core</category><category>interceptor</category><guid>https://rebeja.eu/posts/handling-automatic-update-of-concurrency-tokens-in-entity-framework-core/</guid><pubDate>Thu, 26 Jun 2025 05:57:09 GMT</pubDate></item><item><title>Introducing the Specialized Workers pattern</title><link>https://rebeja.eu/posts/specialized-workers-pattern/</link><dc:creator>Petru Rebeja</dc:creator><description>&lt;div id="outline-container-org773b09b" class="outline-2"&gt;
-&lt;h2 id="org773b09b"&gt;Introduction&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-org773b09b"&gt;
+&lt;/div&gt;</description><category>c#</category><category>concurrency</category><category>Entity Framework Core</category><category>interceptor</category><guid>https://rebeja.eu/posts/handling-automatic-update-of-concurrency-tokens-in-entity-framework-core/</guid><pubDate>Thu, 26 Jun 2025 05:57:09 GMT</pubDate></item><item><title>Introducing the Specialized Workers pattern</title><link>https://rebeja.eu/posts/specialized-workers-pattern/</link><dc:creator>Petru Rebeja</dc:creator><description>&lt;div id="outline-container-org5dc3734" class="outline-2"&gt;
+&lt;h2 id="org5dc3734"&gt;Introduction&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org5dc3734"&gt;
 &lt;p&gt;
 Some years ago, in my &lt;a href="https://rebeja.eu/posts/using-enums-in-c-sharp/"&gt;blog post about using enums in C#&lt;/a&gt; I mentioned that I like using what I called at that time &lt;code&gt;specialized builders&lt;/code&gt; to refactor the &lt;code&gt;switch&lt;/code&gt; statement into a series of classes that implement a common interface and are specialized for a specific &lt;code&gt;case&lt;/code&gt; of the &lt;code&gt;switch&lt;/code&gt; statement.
 &lt;/p&gt;
@@ -426,13 +426,13 @@ As such, I am excited to introduce to the world the &lt;code&gt;Specialized Work
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-org7ebd1c3" class="outline-2"&gt;
-&lt;h2 id="org7ebd1c3"&gt;Specialized Workers Pattern&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-org7ebd1c3"&gt;
+&lt;div id="outline-container-org4a67125" class="outline-2"&gt;
+&lt;h2 id="org4a67125"&gt;Specialized Workers Pattern&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org4a67125"&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-org2459499" class="outline-3"&gt;
-&lt;h3 id="org2459499"&gt;Description and usage&lt;/h3&gt;
-&lt;div class="outline-text-3" id="text-org2459499"&gt;
+&lt;div id="outline-container-orgb3c2f58" class="outline-3"&gt;
+&lt;h3 id="orgb3c2f58"&gt;Description and usage&lt;/h3&gt;
+&lt;div class="outline-text-3" id="text-orgb3c2f58"&gt;
 &lt;p&gt;
 The &lt;code&gt;Specialized Workers&lt;/code&gt; pattern aims to distribute the logic of a business operation that requires choosing between one or multiple tasks to be executed, into a collection of specialized classes, while keeping the knowledge about the task(s) to be executed into a single place.
 &lt;/p&gt;
@@ -555,13 +555,13 @@ On the other hand, each worker class is, as the name of the pattern suggests it,
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-org3a3a10d" class="outline-2"&gt;
-&lt;h2 id="org3a3a10d"&gt;Discussion&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-org3a3a10d"&gt;
+&lt;div id="outline-container-org35c53e2" class="outline-2"&gt;
+&lt;h2 id="org35c53e2"&gt;Discussion&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org35c53e2"&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-orga533269" class="outline-3"&gt;
-&lt;h3 id="orga533269"&gt;How is it different from the &lt;code&gt;Strategy&lt;/code&gt; pattern?&lt;/h3&gt;
-&lt;div class="outline-text-3" id="text-orga533269"&gt;
+&lt;div id="outline-container-org98784a2" class="outline-3"&gt;
+&lt;h3 id="org98784a2"&gt;How is it different from the &lt;code&gt;Strategy&lt;/code&gt; pattern?&lt;/h3&gt;
+&lt;div class="outline-text-3" id="text-org98784a2"&gt;
 &lt;p&gt;
 At this moment you may be wondering how the &lt;code&gt;Specialized Workers&lt;/code&gt; is different from the &lt;code&gt;Strategy&lt;/code&gt; pattern? After all, each worker implements and applies a different strategy in the processing of the data.
 &lt;/p&gt;
@@ -575,9 +575,9 @@ There is however, a difference in the nomenclature: &lt;code&gt;Strategy&lt;/cod
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-org5edcb28" class="outline-3"&gt;
-&lt;h3 id="org5edcb28"&gt;Why not use a &lt;code&gt;Factory method&lt;/code&gt;?&lt;/h3&gt;
-&lt;div class="outline-text-3" id="text-org5edcb28"&gt;
+&lt;div id="outline-container-orgb409a82" class="outline-3"&gt;
+&lt;h3 id="orgb409a82"&gt;Why not use a &lt;code&gt;Factory method&lt;/code&gt;?&lt;/h3&gt;
+&lt;div class="outline-text-3" id="text-orgb409a82"&gt;
 &lt;p&gt;
 Okay, you might say, then why not use a &lt;code&gt;Factory method&lt;/code&gt; to build directly the worker that knows how to handle the specific use-case?
 &lt;/p&gt;
@@ -712,9 +712,9 @@ You can have multiple workers capable of processing the same payload; in this ca
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-orgccea844" class="outline-2"&gt;
-&lt;h2 id="orgccea844"&gt;Ending thoughts&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-orgccea844"&gt;
+&lt;div id="outline-container-org8b8e3f7" class="outline-2"&gt;
+&lt;h2 id="org8b8e3f7"&gt;Ending thoughts&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org8b8e3f7"&gt;
 &lt;p&gt;
 As you can see from this quite lengthy post, the &lt;code&gt;Specialized Workers&lt;/code&gt; pattern, provides both a way to cluster business logic into specialized classes, and a good degree of flexibility in order to adapt the implementation to different situations. Despite its flexibility however, it is my &lt;i&gt;subjective&lt;/i&gt; opinion that the original form of the pattern (the one shown in the &lt;a href="https://rebeja.eu/posts/specialized-workers-pattern/#implementation"&gt;Implementation&lt;/a&gt; section) is the most elegant and eloquent, which is why I use that version most of the time. But, especially as a software developer, I am aware that each person has its own preferences in regards to how something should be done or implemented. As such, I hope you find this pattern useful, and if so, feel free to apply it in whichever way suits you best.
 &lt;/p&gt;
@@ -722,10 +722,9 @@ As you can see from this quite lengthy post, the &lt;code&gt;Specialized Workers
 &lt;/div&gt;</description><category>c#</category><category>implementation</category><category>pattern</category><category>specialized workers</category><guid>https://rebeja.eu/posts/specialized-workers-pattern/</guid><pubDate>Sun, 12 May 2024 08:09:45 GMT</pubDate></item><item><title>Don't release to Production, release to QA</title><link>https://rebeja.eu/posts/release-to-qa-not-production/</link><dc:creator>Petru Rebeja</dc:creator><description>&lt;p&gt;
 &lt;b&gt;Automate your release workflow to such extent that the QA engineers from your team become the users of the application.&lt;/b&gt;
 &lt;/p&gt;
-
-&lt;div id="outline-container-org20ee48c" class="outline-2"&gt;
-&lt;h2 id="org20ee48c"&gt;Introduction&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-org20ee48c"&gt;
+&lt;div id="outline-container-org0c2fa9c" class="outline-2"&gt;
+&lt;h2 id="org0c2fa9c"&gt;Introduction&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org0c2fa9c"&gt;
 &lt;p&gt;
 It's Friday afternoon, the end of the sprint, and a few hours before the weekend starts, and the QA engineers are performing the required tests on the last Sprint Backlog Item (SBI). The developer responsible for that item, confident that the SBI meets all acceptance criteria, is already in the weekend mood.
 &lt;/p&gt;
@@ -743,10 +742,9 @@ Both sigh in relief while the SBI is marked as "Done" and the weekend starts. Bl
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-
-&lt;div id="outline-container-orgf828b8c" class="outline-2"&gt;
-&lt;h2 id="orgf828b8c"&gt;Getting to the root problem&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-orgf828b8c"&gt;
+&lt;div id="outline-container-orga4995f2" class="outline-2"&gt;
+&lt;h2 id="orga4995f2"&gt;Getting to the root problem&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-orga4995f2"&gt;
 &lt;p&gt;
 Although the day and the sprint goal were saved, I would argue that applying the cleanup script just fixed an issue but left the root problem untouched. And to get to the root problem, let's take a closer look on what happened.
 &lt;/p&gt;
@@ -772,10 +770,9 @@ But our root-cause analysis is not complete yet. We can't just say "let's never 
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-
-&lt;div id="outline-container-orge8deafd" class="outline-2"&gt;
-&lt;h2 id="orge8deafd"&gt;Why and when do we apply workarounds in production?&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-orge8deafd"&gt;
+&lt;div id="outline-container-orged4a61e" class="outline-2"&gt;
+&lt;h2 id="orged4a61e"&gt;Why and when do we apply workarounds in production?&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-orged4a61e"&gt;
 &lt;p&gt;
 In Production environment a workaround is applied &lt;i&gt;only in critical situations&lt;/i&gt; due to high risk of breaking the running system by making ad-hoc changes to it.
 &lt;/p&gt;
@@ -802,10 +799,9 @@ OK, now we're settled: workarounds are necessary &lt;i&gt;in critical situations
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-
-&lt;div id="outline-container-orge307b12" class="outline-2"&gt;
-&lt;h2 id="orge307b12"&gt;Why do we apply workarounds in QA environment?&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-orge307b12"&gt;
+&lt;div id="outline-container-org0262d2f" class="outline-2"&gt;
+&lt;h2 id="org0262d2f"&gt;Why do we apply workarounds in QA environment?&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org0262d2f"&gt;
 &lt;p&gt;
 QA environment is isolated from Production environment, and by definition it has way fewer users. Furthermore, those users have a lot of technical knowledge of how the system runs, and always have something else to do (like designing/writing test cases) while the system is being brought to normal again.
 &lt;/p&gt;
@@ -823,10 +819,9 @@ Now that the assessment of criticality is done, let's get back to our topic and 
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-
-&lt;div id="outline-container-org2f1ffd1" class="outline-2"&gt;
-&lt;h2 id="org2f1ffd1"&gt;What if we treated QA environment like Production?&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-org2f1ffd1"&gt;
+&lt;div id="outline-container-org1018764" class="outline-2"&gt;
+&lt;h2 id="org1018764"&gt;What if we treated QA environment like Production?&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org1018764"&gt;
 &lt;p&gt;
 Production and QA environments are different (&lt;i&gt;very&lt;/i&gt; different I may add); there's no doubt about that. What makes them different, from the point of view of our topic, is the fact that when a feature is deployed in Production environment, &lt;i&gt;all&lt;/i&gt; the prerequisites are known, and all preliminary steps are executed.
 &lt;/p&gt;
@@ -844,10 +839,9 @@ And when it comes to doing repetitive tasks…
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-
-&lt;div id="outline-container-org29aff0a" class="outline-2"&gt;
-&lt;h2 id="org29aff0a"&gt;Automation is key&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-org29aff0a"&gt;
+&lt;div id="outline-container-org1ac100a" class="outline-2"&gt;
+&lt;h2 id="org1ac100a"&gt;Automation is key&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org1ac100a"&gt;
 &lt;p&gt;
 To alleviate the difference between (successive) environments you only need to do one thing, although I must say from the start that achieving that one thing &lt;i&gt;can be really hard&lt;/i&gt; — &lt;b&gt;automate everything&lt;/b&gt;.
 &lt;/p&gt;
@@ -865,18 +859,16 @@ Although we strive to have our environments behave all the same, they are still 
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-
-&lt;div id="outline-container-org8d6284c" class="outline-2"&gt;
-&lt;h2 id="org8d6284c"&gt;The Snowball Effect&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-org8d6284c"&gt;
+&lt;div id="outline-container-orgfa9d108" class="outline-2"&gt;
+&lt;h2 id="orgfa9d108"&gt;The Snowball Effect&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-orgfa9d108"&gt;
 &lt;p&gt;
 Once achieved, the effects of this objective of having minimal manual intervention ripple through and start a &lt;a href="https://en.wikipedia.org/wiki/Snowball_effect"&gt;snowball effect&lt;/a&gt;.
 &lt;/p&gt;
 &lt;/div&gt;
-
-&lt;div id="outline-container-orgeb17bbb" class="outline-3"&gt;
-&lt;h3 id="orgeb17bbb"&gt;Efficiency&lt;/h3&gt;
-&lt;div class="outline-text-3" id="text-orgeb17bbb"&gt;
+&lt;div id="outline-container-org34a3851" class="outline-3"&gt;
+&lt;h3 id="org34a3851"&gt;Efficiency&lt;/h3&gt;
+&lt;div class="outline-text-3" id="text-org34a3851"&gt;
 &lt;p&gt;
 At first, you gain efficiency — there is no checklist to go through when deploying, no time needed to spend doing the tedious steps of deployment; the computers will perform those steps as quickly as possible and &lt;i&gt;always&lt;/i&gt; in the same order without skipping any of them or making the errors that humans usually do when performing tedious work.
 &lt;/p&gt;
@@ -886,10 +878,9 @@ With a click of a button, or on a certain event the deployment starts and while 
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-
-&lt;div id="outline-container-orga37fa72" class="outline-3"&gt;
-&lt;h3 id="orga37fa72"&gt;Speed&lt;/h3&gt;
-&lt;div class="outline-text-3" id="text-orga37fa72"&gt;
+&lt;div id="outline-container-org68101f8" class="outline-3"&gt;
+&lt;h3 id="org68101f8"&gt;Speed&lt;/h3&gt;
+&lt;div class="outline-text-3" id="text-org68101f8"&gt;
 &lt;p&gt;
 Furthermore, besides efficiency you can gain speed — just by delegating the deployment process to computers you gain time because computers do boring stuff a lot quicker than humans.
 &lt;/p&gt;
@@ -903,10 +894,9 @@ And this is where the magic unravels.
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-
-&lt;div id="outline-container-org7d787f7" class="outline-3"&gt;
-&lt;h3 id="org7d787f7"&gt;Tight feedback loop&lt;/h3&gt;
-&lt;div class="outline-text-3" id="text-org7d787f7"&gt;
+&lt;div id="outline-container-orgef0dd86" class="outline-3"&gt;
+&lt;h3 id="orgef0dd86"&gt;Tight feedback loop&lt;/h3&gt;
+&lt;div class="outline-text-3" id="text-orgef0dd86"&gt;
 &lt;p&gt;
 Once you automate the repetitive tasks you free-up the time of the QA engineer, which allows him/her to spend more time with the system(s) they are testing. In other words, the time gained through workflow automation is invested into the actual Quality Assurance of the system under test.
 &lt;/p&gt;
@@ -920,10 +910,9 @@ We have a name for this thing — it's called a &lt;i&gt;feedback loop&lt;/i&gt;
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-
-&lt;div id="outline-container-org110c008" class="outline-3"&gt;
-&lt;h3 id="org110c008"&gt;Improved user experience&lt;/h3&gt;
-&lt;div class="outline-text-3" id="text-org110c008"&gt;
+&lt;div id="outline-container-orga0e7f5d" class="outline-3"&gt;
+&lt;h3 id="orga0e7f5d"&gt;Improved user experience&lt;/h3&gt;
+&lt;div class="outline-text-3" id="text-orga0e7f5d"&gt;
 &lt;p&gt;
 But wait, there's more! The time that the QA engineer gets to invest into growing his/her skills is spent using the system under test. With more time spent using the system under test, the QA engineer gets closer and closer to the mindset of the real users of the system. And while in this mindset, the QA engineer not only understands what the system does for the user but also understands what the user wants to do.
 &lt;/p&gt;
@@ -950,10 +939,9 @@ Sure, all of those changes must be  discussed with the team &lt;i&gt;and&lt;/i&g
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-
-&lt;div id="outline-container-org191d7ab" class="outline-2"&gt;
-&lt;h2 id="org191d7ab"&gt;Allow the QA engineer to be an user of the system&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-org191d7ab"&gt;
+&lt;div id="outline-container-org6f83ced" class="outline-2"&gt;
+&lt;h2 id="org6f83ced"&gt;Allow the QA engineer to be an user of the system&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org6f83ced"&gt;
 &lt;p&gt;
 The main role of a QA engineer is to ensure that the system under test satisfies the needs of its users. As such, the QA engineer needs to think like a user, to act like a user, and to be able to quickly shift from the mindset of the user to the mindset of the problem analyst required by the job description.
 &lt;/p&gt;
@@ -1057,22 +1045,22 @@ Obviously, the next logical thing was to actually define the service interface w
 
 &lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="k"&gt;public&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nf"&gt;AccountingService&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;IMediator&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;mediator&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
-&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="n"&gt;_mediator&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;mediator&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="w"&gt;          &lt;/span&gt;&lt;span class="n"&gt;_mediator&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;mediator&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;
 
 &lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="k"&gt;public&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;void&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nf"&gt;RegisterPayment&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;RegisterPaymentCommand&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;paymentDetails&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
-&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="n"&gt;_mediator&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Send&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;paymentDetails&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="w"&gt;          &lt;/span&gt;&lt;span class="n"&gt;_mediator&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Send&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;paymentDetails&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 &lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;
 
 &lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="k"&gt;public&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;GetAccountBalanceResponse&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nf"&gt;GetAccountBalance&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;GetAccountBalanceRequest&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;accountId&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
-&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="k"&gt;return&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;_mediator&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Send&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;GetAccountBalanceRequest&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="w"&gt;          &lt;/span&gt;&lt;span class="k"&gt;return&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;_mediator&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Send&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;GetAccountBalanceRequest&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 &lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;
 
 &lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="k"&gt;public&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;GetAllPaymentsResponse&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nf"&gt;GetAllPayments&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
 &lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
-&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="k"&gt;return&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;_mediator&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Send&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;new&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;GetAllPaymentsRequest&lt;/span&gt;&lt;span class="p"&gt;());&lt;/span&gt;
+&lt;span class="w"&gt;          &lt;/span&gt;&lt;span class="k"&gt;return&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;_mediator&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Send&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;new&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;GetAllPaymentsRequest&lt;/span&gt;&lt;span class="p"&gt;());&lt;/span&gt;
 &lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
@@ -1097,7 +1085,7 @@ As a result I &lt;i&gt;do have more boilerplate code&lt;/i&gt; but on the upside
 &lt;span class="p"&gt;{&lt;/span&gt;
 &lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="k"&gt;protected&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;override&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;GetAllPaymentsResponse&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nf"&gt;Handle&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;GetAllPaymentsRequest&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;request&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
-&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="c1"&gt;// ...&lt;/span&gt;
+&lt;span class="w"&gt;          &lt;/span&gt;&lt;span class="c1"&gt;// ...&lt;/span&gt;
 &lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
@@ -1141,9 +1129,9 @@ This is why you need to separate tools from application domain. And this is how 
 
 &lt;p&gt;
 I would like to thank my colleagues for their reviews of this blog post. Also a big thank you goes to all the members of Centric Architecture Club for starting the discussion which led to this blog post.
-&lt;/p&gt;</description><guid>https://rebeja.eu/posts/separate-tools-from-domain/</guid><pubDate>Mon, 22 Jun 2020 13:56:02 GMT</pubDate></item><item><title>Building a Python IDE with Emacs and Docker</title><link>https://rebeja.eu/posts/python-ide-with-emacs-and-docker/</link><dc:creator>Petru Rebeja</dc:creator><description>&lt;div id="outline-container-orgbe84892" class="outline-2"&gt;
-&lt;h2 id="orgbe84892"&gt;Prologue&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-orgbe84892"&gt;
+&lt;/p&gt;</description><guid>https://rebeja.eu/posts/separate-tools-from-domain/</guid><pubDate>Mon, 22 Jun 2020 13:56:02 GMT</pubDate></item><item><title>Building a Python IDE with Emacs and Docker</title><link>https://rebeja.eu/posts/python-ide-with-emacs-and-docker/</link><dc:creator>Petru Rebeja</dc:creator><description>&lt;div id="outline-container-org327f678" class="outline-2"&gt;
+&lt;h2 id="org327f678"&gt;Prologue&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org327f678"&gt;
 &lt;p&gt;
 I am a fan of &lt;a href="https://en.wikipedia.org/wiki/Windows_Subsystem_for_Linux"&gt;&lt;code&gt;Windows Subsystem for Linux&lt;/code&gt;&lt;/a&gt;. It brings the power of Linux command-line tools to Windows which is something a developer cannot dislike but that isn't the main reason I'm fond of it. I like it because it allows me to run Emacs (albeit in console mode) at its full potential.
 &lt;/p&gt;
@@ -1173,9 +1161,9 @@ The answer is &lt;b&gt;Yes&lt;/b&gt;. If you want to see only the final &lt;code
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-org412b0e6" class="outline-2"&gt;
-&lt;h2 id="org412b0e6"&gt;How&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-org412b0e6"&gt;
+&lt;div id="outline-container-org6a4b1ba" class="outline-2"&gt;
+&lt;h2 id="org6a4b1ba"&gt;How&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org6a4b1ba"&gt;
 &lt;p&gt;
 Since I already have been using Emacs as a Python IDE in Ubuntu Bash, replicating this setup in Docker would imply:
 &lt;/p&gt;
@@ -1193,9 +1181,9 @@ Luckily, Docker already has an &lt;a href="https://docs.docker.com/engine/exampl
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-orgb1392e2" class="outline-2"&gt;
-&lt;h2 id="orgb1392e2"&gt;Issue #1: SSHD refuses connection&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-orgb1392e2"&gt;
+&lt;div id="outline-container-orgf231677" class="outline-2"&gt;
+&lt;h2 id="orgf231677"&gt;Issue #1: SSHD refuses connection&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-orgf231677"&gt;
 &lt;p&gt;
 This one was easy — there's a typo in the example provided by Docker. I figured it out after inspecting the contents of &lt;code&gt;sshd_config&lt;/code&gt; file.
 &lt;/p&gt;
@@ -1233,17 +1221,17 @@ Even though the &lt;code&gt;sshd&lt;/code&gt; was running and accepting connecti
 What this does is it declares a variable &lt;code&gt;password&lt;/code&gt; whose value is supplied when building the image like this:
 &lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="w"&gt;  &lt;/span&gt;docker&lt;span class="w"&gt; &lt;/span&gt;build&lt;span class="w"&gt; &lt;/span&gt;-t&lt;span class="w"&gt; &lt;/span&gt;&amp;lt;image-tag&amp;gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="se"&gt;\&lt;/span&gt;
-&lt;span class="w"&gt;         &lt;/span&gt;--build-arg&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;password&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&amp;lt;your-password-here&amp;gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="se"&gt;\&lt;/span&gt;
-&lt;span class="w"&gt;         &lt;/span&gt;.
+&lt;span class="w"&gt;             &lt;/span&gt;--build-arg&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;password&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&amp;lt;your-password-here&amp;gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="se"&gt;\&lt;/span&gt;
+&lt;span class="w"&gt;             &lt;/span&gt;.
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;
 This way, the root password isn't stored in clear text and in plain-sight anymore. Now I was ready to move to the next step.
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-orgfdb6593" class="outline-2"&gt;
-&lt;h2 id="orgfdb6593"&gt;Issue #2: Activating virtual environment inside container&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-orgfdb6593"&gt;
+&lt;div id="outline-container-org4d83181" class="outline-2"&gt;
+&lt;h2 id="org4d83181"&gt;Issue #2: Activating virtual environment inside container&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org4d83181"&gt;
 &lt;p&gt;
 The second item of my quest was to setup and activate a Python virtual environment. This environment will be used to install all the dependencies required for the project I'm working on.
 &lt;/p&gt;
@@ -1275,8 +1263,8 @@ The changes pertaining to my config are the following:
 &lt;span class="w"&gt;  &lt;/span&gt;RUN&lt;span class="w"&gt; &lt;/span&gt;python3&lt;span class="w"&gt; &lt;/span&gt;-m&lt;span class="w"&gt; &lt;/span&gt;virtualenv&lt;span class="w"&gt; &lt;/span&gt;--python&lt;span class="o"&gt;=&lt;/span&gt;/usr/bin/python3&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;$VIRTUAL_ENV&lt;/span&gt;
 &lt;span class="w"&gt;  &lt;/span&gt;ENV&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;PATH&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="nv"&gt;$VIRTUAL_ENV&lt;/span&gt;&lt;span class="s2"&gt;/bin:&lt;/span&gt;&lt;span class="nv"&gt;$PATH&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;
 &lt;span class="w"&gt;  &lt;/span&gt;RUN&lt;span class="w"&gt; &lt;/span&gt;pip&lt;span class="w"&gt; &lt;/span&gt;install&lt;span class="w"&gt; &lt;/span&gt;--upgrade&lt;span class="w"&gt; &lt;/span&gt;pip&lt;span class="w"&gt; &lt;/span&gt;setuptools&lt;span class="w"&gt; &lt;/span&gt;wheel&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="se"&gt;\&lt;/span&gt;
-&lt;span class="w"&gt;      &lt;/span&gt;pip&lt;span class="w"&gt; &lt;/span&gt;install&lt;span class="w"&gt; &lt;/span&gt;numpy&lt;span class="w"&gt; &lt;/span&gt;tensorflow&lt;span class="w"&gt; &lt;/span&gt;scikit-learn&lt;span class="w"&gt; &lt;/span&gt;gensim&lt;span class="w"&gt; &lt;/span&gt;matplotlib&lt;span class="w"&gt; &lt;/span&gt;pyyaml&lt;span class="w"&gt; &lt;/span&gt;matplotlib-venn&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="se"&gt;\&lt;/span&gt;
-&lt;span class="w"&gt;      &lt;/span&gt;pip&lt;span class="w"&gt; &lt;/span&gt;install&lt;span class="w"&gt; &lt;/span&gt;elpy&lt;span class="w"&gt; &lt;/span&gt;jedi&lt;span class="w"&gt; &lt;/span&gt;rope&lt;span class="w"&gt; &lt;/span&gt;yapf&lt;span class="w"&gt; &lt;/span&gt;importmagic&lt;span class="w"&gt; &lt;/span&gt;flake8&lt;span class="w"&gt; &lt;/span&gt;autopep8&lt;span class="w"&gt; &lt;/span&gt;black
+&lt;span class="w"&gt;          &lt;/span&gt;pip&lt;span class="w"&gt; &lt;/span&gt;install&lt;span class="w"&gt; &lt;/span&gt;numpy&lt;span class="w"&gt; &lt;/span&gt;tensorflow&lt;span class="w"&gt; &lt;/span&gt;scikit-learn&lt;span class="w"&gt; &lt;/span&gt;gensim&lt;span class="w"&gt; &lt;/span&gt;matplotlib&lt;span class="w"&gt; &lt;/span&gt;pyyaml&lt;span class="w"&gt; &lt;/span&gt;matplotlib-venn&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="se"&gt;\&lt;/span&gt;
+&lt;span class="w"&gt;          &lt;/span&gt;pip&lt;span class="w"&gt; &lt;/span&gt;install&lt;span class="w"&gt; &lt;/span&gt;elpy&lt;span class="w"&gt; &lt;/span&gt;jedi&lt;span class="w"&gt; &lt;/span&gt;rope&lt;span class="w"&gt; &lt;/span&gt;yapf&lt;span class="w"&gt; &lt;/span&gt;importmagic&lt;span class="w"&gt; &lt;/span&gt;flake8&lt;span class="w"&gt; &lt;/span&gt;autopep8&lt;span class="w"&gt; &lt;/span&gt;black
 &lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;
@@ -1296,9 +1284,9 @@ Afterwards, just install the required packages as usual.
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-orgc86ece8" class="outline-2"&gt;
-&lt;h2 id="orgc86ece8"&gt;Issue #3: Emacs monolithic configuration file&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-orgc86ece8"&gt;
+&lt;div id="outline-container-org80f106f" class="outline-2"&gt;
+&lt;h2 id="org80f106f"&gt;Issue #3: Emacs monolithic configuration file&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org80f106f"&gt;
 &lt;p&gt;
 After setting up and activating the virtual environment, I needed to configure Emacs for python development to start working.
 &lt;/p&gt;
@@ -1372,7 +1360,7 @@ Thus, the resulting &lt;code&gt;init.el&lt;/code&gt; looks like this (I promise 
 
 &lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;let&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="nf"&gt;file-name&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;expand-file-name&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;"config.el"&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;user-emacs-directory&lt;/span&gt;&lt;span class="p"&gt;)))&lt;/span&gt;
 &lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;file-exists-p&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;file-name&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;load-file&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;file-name&lt;/span&gt;&lt;span class="p"&gt;)))&lt;/span&gt;
+&lt;span class="w"&gt;            &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;load-file&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;file-name&lt;/span&gt;&lt;span class="p"&gt;)))&lt;/span&gt;
 
 &lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;org-babel-load-file&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;expand-file-name&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;"~/.emacs.d/common-config.org"&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
 &lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;org-babel-load-file&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;expand-file-name&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;"~/.emacs.d/python-config.org"&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
@@ -1381,7 +1369,7 @@ Thus, the resulting &lt;code&gt;init.el&lt;/code&gt; looks like this (I promise 
 
 &lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;let&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="nf"&gt;file-name&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;expand-file-name&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;"after-init.el"&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;user-emacs-directory&lt;/span&gt;&lt;span class="p"&gt;)))&lt;/span&gt;
 &lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;file-exists-p&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;file-name&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;load-file&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;file-name&lt;/span&gt;&lt;span class="p"&gt;)))&lt;/span&gt;
+&lt;span class="w"&gt;            &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;load-file&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;file-name&lt;/span&gt;&lt;span class="p"&gt;)))&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;
@@ -1412,9 +1400,9 @@ It does one more thing not mentioned previously: a &lt;code&gt;sed&lt;/code&gt; 
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-org1c0bc74" class="outline-2"&gt;
-&lt;h2 id="org1c0bc74"&gt;Issue #4: Using SSH keys to connect to GitHub&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-org1c0bc74"&gt;
+&lt;div id="outline-container-org7a5d885" class="outline-2"&gt;
+&lt;h2 id="org7a5d885"&gt;Issue #4: Using SSH keys to connect to GitHub&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org7a5d885"&gt;
 &lt;p&gt;
 Now that I have Emacs running on Ubuntu (albeit terminal only) I can enjoy a smooth workflow without having to wait too much for Magit or other application that took forever on Cygwin to finish.
 &lt;/p&gt;
@@ -1438,23 +1426,23 @@ I found how to do so easily: there's a StackOverflow &lt;a href="https://stackov
 &lt;span class="w"&gt;  &lt;/span&gt;ARG&lt;span class="w"&gt; &lt;/span&gt;ssh_pub_key
 
 &lt;span class="w"&gt;  &lt;/span&gt;RUN&lt;span class="w"&gt; &lt;/span&gt;mkdir&lt;span class="w"&gt; &lt;/span&gt;-p&lt;span class="w"&gt; &lt;/span&gt;/root/.ssh&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="se"&gt;\&lt;/span&gt;
-&lt;span class="w"&gt;      &lt;/span&gt;chmod&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;0700&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;/root/.ssh&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="se"&gt;\&lt;/span&gt;
-&lt;span class="w"&gt;      &lt;/span&gt;ssh-keyscan&lt;span class="w"&gt; &lt;/span&gt;github.com&lt;span class="w"&gt; &lt;/span&gt;&amp;gt;&lt;span class="w"&gt; &lt;/span&gt;/root/.ssh/known_hosts
+&lt;span class="w"&gt;          &lt;/span&gt;chmod&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;0700&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;/root/.ssh&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="se"&gt;\&lt;/span&gt;
+&lt;span class="w"&gt;          &lt;/span&gt;ssh-keyscan&lt;span class="w"&gt; &lt;/span&gt;github.com&lt;span class="w"&gt; &lt;/span&gt;&amp;gt;&lt;span class="w"&gt; &lt;/span&gt;/root/.ssh/known_hosts
 &lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;
 To provide the values for the keys use &lt;code&gt;--build-arg&lt;/code&gt; parameter when building your image like this:
 &lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="w"&gt;  &lt;/span&gt;docker&lt;span class="w"&gt; &lt;/span&gt;build&lt;span class="w"&gt; &lt;/span&gt;-t&lt;span class="w"&gt; &lt;/span&gt;&amp;lt;image-tag&amp;gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="se"&gt;\&lt;/span&gt;
-&lt;span class="w"&gt;         &lt;/span&gt;--build-arg&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;ssh_prv_key&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="k"&gt;$(&lt;/span&gt;cat&lt;span class="w"&gt; &lt;/span&gt;~/.ssh/id_rsa&lt;span class="k"&gt;)&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="se"&gt;\&lt;/span&gt;
-&lt;span class="w"&gt;         &lt;/span&gt;--build-arg&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;ssh_pub_key&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="k"&gt;$(&lt;/span&gt;cat&lt;span class="w"&gt; &lt;/span&gt;~/.ssh/id_rsa.pub&lt;span class="k"&gt;)&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="se"&gt;\&lt;/span&gt;
-&lt;span class="w"&gt;         &lt;/span&gt;.
+&lt;span class="w"&gt;             &lt;/span&gt;--build-arg&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;ssh_prv_key&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="k"&gt;$(&lt;/span&gt;cat&lt;span class="w"&gt; &lt;/span&gt;~/.ssh/id_rsa&lt;span class="k"&gt;)&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="se"&gt;\&lt;/span&gt;
+&lt;span class="w"&gt;             &lt;/span&gt;--build-arg&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;ssh_pub_key&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="k"&gt;$(&lt;/span&gt;cat&lt;span class="w"&gt; &lt;/span&gt;~/.ssh/id_rsa.pub&lt;span class="k"&gt;)&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="se"&gt;\&lt;/span&gt;
+&lt;span class="w"&gt;             &lt;/span&gt;.
 &lt;/pre&gt;&lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-orgf067b89" class="outline-2"&gt;
-&lt;h2 id="orgf067b89"&gt;Issue #5: Install Emacs packages once and done&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-orgf067b89"&gt;
+&lt;div id="outline-container-org926b8c7" class="outline-2"&gt;
+&lt;h2 id="org926b8c7"&gt;Issue #5: Install Emacs packages once and done&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org926b8c7"&gt;
 &lt;p&gt;
 After another build of the Docker image I started a container from it, logged in via ssh into the container, started Emacs and noticed yet another issue.
 &lt;/p&gt;
@@ -1481,9 +1469,9 @@ And to my great surprise, when rebuilding the image I saw the output of Emacs pa
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-orgf400a6d" class="outline-2"&gt;
-&lt;h2 id="orgf400a6d"&gt;Issue #6: Terminal colors&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-orgf400a6d"&gt;
+&lt;div id="outline-container-orgff57943" class="outline-2"&gt;
+&lt;h2 id="orgff57943"&gt;Issue #6: Terminal colors&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-orgff57943"&gt;
 &lt;p&gt;
 Being confident that everything should work now (it's the same setup I had on &lt;code&gt;WSL&lt;/code&gt;) I started a new container to which I mounted the GitHub repo as a volume and got cracking.
 &lt;/p&gt;
@@ -1513,8 +1501,8 @@ The full Dockerfile described in this post is below:
 
 RUN&lt;span class="w"&gt; &lt;/span&gt;apt-get&lt;span class="w"&gt; &lt;/span&gt;update&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="se"&gt;\&lt;/span&gt;
 &lt;span class="w"&gt;    &lt;/span&gt;apt-get&lt;span class="w"&gt; &lt;/span&gt;install&lt;span class="w"&gt; &lt;/span&gt;-y&lt;span class="w"&gt; &lt;/span&gt;--no-install-recommends&lt;span class="w"&gt; &lt;/span&gt;openssh-server&lt;span class="w"&gt; &lt;/span&gt;tmux&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="se"&gt;\&lt;/span&gt;
-&lt;span class="w"&gt;            &lt;/span&gt;emacs&lt;span class="w"&gt; &lt;/span&gt;emacs-goodies.el&lt;span class="w"&gt; &lt;/span&gt;curl&lt;span class="w"&gt; &lt;/span&gt;git&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="se"&gt;\&lt;/span&gt;
-&lt;span class="w"&gt;            &lt;/span&gt;python3&lt;span class="w"&gt; &lt;/span&gt;python3-pip&lt;span class="w"&gt; &lt;/span&gt;python3-virtualenv&lt;span class="w"&gt; &lt;/span&gt;python3-dev&lt;span class="w"&gt; &lt;/span&gt;build-essential
+&lt;span class="w"&gt;              &lt;/span&gt;emacs&lt;span class="w"&gt; &lt;/span&gt;emacs-goodies.el&lt;span class="w"&gt; &lt;/span&gt;curl&lt;span class="w"&gt; &lt;/span&gt;git&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="se"&gt;\&lt;/span&gt;
+&lt;span class="w"&gt;              &lt;/span&gt;python3&lt;span class="w"&gt; &lt;/span&gt;python3-pip&lt;span class="w"&gt; &lt;/span&gt;python3-virtualenv&lt;span class="w"&gt; &lt;/span&gt;python3-dev&lt;span class="w"&gt; &lt;/span&gt;build-essential
 
 ARG&lt;span class="w"&gt; &lt;/span&gt;password
 
@@ -1571,16 +1559,16 @@ CMD&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;s
 To build the image use this command:
 &lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;docker&lt;span class="w"&gt; &lt;/span&gt;build&lt;span class="w"&gt; &lt;/span&gt;-t&lt;span class="w"&gt; &lt;/span&gt;&amp;lt;image-tag&amp;gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="se"&gt;\&lt;/span&gt;
-&lt;span class="w"&gt;       &lt;/span&gt;--build-arg&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;ssh_prv_key&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="k"&gt;$(&lt;/span&gt;cat&lt;span class="w"&gt; &lt;/span&gt;~/.ssh/id_rsa&lt;span class="k"&gt;)&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="se"&gt;\&lt;/span&gt;
-&lt;span class="w"&gt;       &lt;/span&gt;--build-arg&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;ssh_pub_key&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="k"&gt;$(&lt;/span&gt;cat&lt;span class="w"&gt; &lt;/span&gt;~/.ssh/id_rsa.pub&lt;span class="k"&gt;)&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="se"&gt;\&lt;/span&gt;
-&lt;span class="w"&gt;       &lt;/span&gt;--build-arg&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;password&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&amp;lt;your-password-here&amp;gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="se"&gt;\&lt;/span&gt;
-&lt;span class="w"&gt;       &lt;/span&gt;.
+&lt;span class="w"&gt;         &lt;/span&gt;--build-arg&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;ssh_prv_key&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="k"&gt;$(&lt;/span&gt;cat&lt;span class="w"&gt; &lt;/span&gt;~/.ssh/id_rsa&lt;span class="k"&gt;)&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="se"&gt;\&lt;/span&gt;
+&lt;span class="w"&gt;         &lt;/span&gt;--build-arg&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;ssh_pub_key&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="k"&gt;$(&lt;/span&gt;cat&lt;span class="w"&gt; &lt;/span&gt;~/.ssh/id_rsa.pub&lt;span class="k"&gt;)&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="se"&gt;\&lt;/span&gt;
+&lt;span class="w"&gt;         &lt;/span&gt;--build-arg&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;password&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&amp;lt;your-password-here&amp;gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="se"&gt;\&lt;/span&gt;
+&lt;span class="w"&gt;         &lt;/span&gt;.
 &lt;/pre&gt;&lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-org33f8426" class="outline-2"&gt;
-&lt;h2 id="org33f8426"&gt;Epilogue&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-org33f8426"&gt;
+&lt;div id="outline-container-org6aa7a6c" class="outline-2"&gt;
+&lt;h2 id="org6aa7a6c"&gt;Epilogue&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org6aa7a6c"&gt;
 &lt;p&gt;
 Looking back at this sort of quest of mine, I have nothing else to say than it was, overall, a fun experience.
 &lt;/p&gt;
@@ -1594,9 +1582,9 @@ But the bottom line is that it was a great deal of fun involved which luckily re
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-orgbd0e82d" class="outline-2"&gt;
-&lt;h2 id="orgbd0e82d"&gt;References&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-orgbd0e82d"&gt;
+&lt;div id="outline-container-orgd687a6f" class="outline-2"&gt;
+&lt;h2 id="orgd687a6f"&gt;References&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-orgd687a6f"&gt;
 &lt;ol class="org-ol"&gt;
 &lt;li&gt;&lt;a href="https://docs.docker.com/engine/examples/running_ssh_service/"&gt;Dockerize an SSH service&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://pythonspeed.com/articles/activate-virtualenv-dockerfile/"&gt;Elegantly activating a virtualenv in a Dockerfile&lt;/a&gt;&lt;/li&gt;
@@ -1605,9 +1593,9 @@ But the bottom line is that it was a great deal of fun involved which luckily re
 &lt;/ol&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-org57aa837" class="outline-2"&gt;
-&lt;h2 id="org57aa837"&gt;Acknowledgments&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-org57aa837"&gt;
+&lt;div id="outline-container-orgbfd59b1" class="outline-2"&gt;
+&lt;h2 id="orgbfd59b1"&gt;Acknowledgments&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-orgbfd59b1"&gt;
 &lt;p&gt;
 I would like to thank my colleague &lt;a href="https://www.linkedin.com/in/ionelabarbuta/"&gt;Ionela Bărbuță&lt;/a&gt; for proofreading this post and for the tips &amp;amp; tricks she gave me in order to improve my writing.
 &lt;/p&gt;
@@ -1734,10 +1722,9 @@ When a part of the jury went to deliberate over which team should get which priz
 &lt;p&gt;
 Overall it was a great experience and I'm gratefull for the opportunity to participate. And now with the school long gone, I'm reviewing/archiving the to-do-list of activities for the summer school and building the list of…
 &lt;/p&gt;
-
-&lt;div id="outline-container-orgd49c898" class="outline-2"&gt;
-&lt;h2 id="orgd49c898"&gt;Lessons learned&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-orgd49c898"&gt;
+&lt;div id="outline-container-org55a6471" class="outline-2"&gt;
+&lt;h2 id="org55a6471"&gt;Lessons learned&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org55a6471"&gt;
 &lt;dl class="org-dl"&gt;
 &lt;dt&gt;Infrastructure &lt;i&gt;is&lt;/i&gt; a problem&lt;/dt&gt;&lt;dd&gt;We learned the hard way that not everyone has high-end laptops that can run resource-heavy applications.&lt;/dd&gt;
 &lt;dt&gt;Murphy's law is still applicable&lt;/dt&gt;&lt;dd&gt;"Anything that can go wrong, will go wrong", Murphy's las states. And indeed, we had a participant that couldn't build the docker image for some reason but when we tried to load an already built image into docker via a USB stick, the USB port failed.&lt;/dd&gt;
@@ -1818,8 +1805,8 @@ Then I created a function to get the whole line from the &lt;code&gt;csv&lt;/cod
 &lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;progn&lt;/span&gt;
 &lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;beginning-of-visual-line&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;let&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="nf"&gt;start&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;point&lt;/span&gt;&lt;span class="p"&gt;)))&lt;/span&gt;
-&lt;span class="w"&gt;      &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;end-of-visual-line&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;span class="w"&gt;      &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;buffer-substring-no-properties&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;start&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;point&lt;/span&gt;&lt;span class="p"&gt;)))))&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;end-of-visual-line&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;buffer-substring-no-properties&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;start&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;point&lt;/span&gt;&lt;span class="p"&gt;)))))&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;
 This function moves the point to the beginning of the line by calling &lt;code&gt;(beginning-of-visual-line)&lt;/code&gt; then saves the position in a local variable &lt;code&gt;start&lt;/code&gt; and moves to the end of the line via a call to &lt;code&gt;(end-of-visual-line)&lt;/code&gt;. In the end it returns the substring which is between &lt;code&gt;start&lt;/code&gt; position and the position returned by &lt;code&gt;(point)&lt;/code&gt; function.
@@ -1842,8 +1829,8 @@ This was also implemented with a function which can be called interactively via 
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;defun&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;compare-publications&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
 &lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;interactive&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;let*&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="nf"&gt;files&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;csv-split-string&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;get-current-line&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;","&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
-&lt;span class="w"&gt;         &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;file-1&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;car&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;files&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
-&lt;span class="w"&gt;         &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;file-2&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;car&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;cdr&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;files&lt;/span&gt;&lt;span class="p"&gt;))))&lt;/span&gt;
+&lt;span class="w"&gt;           &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;file-1&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;car&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;files&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+&lt;span class="w"&gt;           &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;file-2&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;car&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;cdr&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;files&lt;/span&gt;&lt;span class="p"&gt;))))&lt;/span&gt;
 &lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;other-window&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;find-file-read-only&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;concat&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;*compare-publications-dir*&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;file-1&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
 &lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;other-window&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;

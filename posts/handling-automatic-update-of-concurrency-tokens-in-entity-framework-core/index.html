@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html prefix="
+<html \ prefix="
 " lang="en">
 <head>
 <meta charset="utf-8">
@@ -29,7 +29,7 @@
     
     
     </nav><footer id="footer"><span class="copyright">
-              Contents © 2025         <a href="mailto:petru.rebeja@gmail.com">Petru Rebeja</a> - Powered by   <a href="https://www.gnu.org/software/emacs/" rel="nofollow">GNU Emacs</a>  &amp;    <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+              Contents © 2026         <a href="mailto:petru.rebeja@gmail.com">Petru Rebeja</a> - Powered by   <a href="https://www.gnu.org/software/emacs/" rel="nofollow">GNU Emacs</a>  &amp;    <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
             </span>
             
             
@@ -48,9 +48,9 @@
     
 
     <div class="e-content entry-content" itemprop="articleBody text">
-    <div id="outline-container-org29c7e9b" class="outline-2">
-<h2 id="org29c7e9b">Introduction</h2>
-<div class="outline-text-2" id="text-org29c7e9b">
+    <div id="outline-container-org5b48340" class="outline-2">
+<h2 id="org5b48340">Introduction</h2>
+<div class="outline-text-2" id="text-org5b48340">
 <p>
 If your application uses <a href="https://learn.microsoft.com/en-us/ef/core/">Entity Framework Core</a> and has a business logic that is of medium or higher complexity, at some point, you may want to bake into that business logic some mechanism for <a href="https://learn.microsoft.com/en-us/ef/core/saving/concurrency">handling concurrency</a> when persisting the data into the database.
 </p>
@@ -73,16 +73,16 @@ However, in any other circumstances the things get complicated. This post is abo
 </p>
 </div>
 </div>
-<div id="outline-container-orgee90d17" class="outline-2">
-<h2 id="orgee90d17">Automatic update of concurrency tokens</h2>
-<div class="outline-text-2" id="text-orgee90d17">
+<div id="outline-container-org7b9db3f" class="outline-2">
+<h2 id="org7b9db3f">Automatic update of concurrency tokens</h2>
+<div class="outline-text-2" id="text-org7b9db3f">
 <p>
 The hint on how to approach such use-case lies buried in the <a href="https://learn.microsoft.com/en-us/ef/core/saving/concurrency">documentation</a>, behind a simple link, which contains the keyword for the actual solution: <b><a href="https://learn.microsoft.com/en-us/ef/core/logging-events-diagnostics/interceptors#savechanges-interception">use an interceptor when saving changes</a> to automatically update the value of the property that holds the concurrency token</b>. And since that documentation suffers from too much obscurity for my taste, below are the steps on how to achieve the same goal.
 </p>
 </div>
-<div id="outline-container-org292528b" class="outline-3">
-<h3 id="org292528b">Prerequisites</h3>
-<div class="outline-text-3" id="text-org292528b">
+<div id="outline-container-orga88063c" class="outline-3">
+<h3 id="orga88063c">Prerequisites</h3>
+<div class="outline-text-3" id="text-orga88063c">
 <p>
 Let's say we have an entity named <code>Person</code> in our code-base with the following structure:
 </p>
@@ -124,9 +124,9 @@ After defining the interface, we use it to mark all desired entities as being co
 </pre></div>
 </div>
 </div>
-<div id="outline-container-org088d89f" class="outline-3">
-<h3 id="org088d89f">Entity configuration</h3>
-<div class="outline-text-3" id="text-org088d89f">
+<div id="outline-container-org33479a6" class="outline-3">
+<h3 id="org33479a6">Entity configuration</h3>
+<div class="outline-text-3" id="text-org33479a6">
 <p>
 We need to tell Entity Framework Core to enable the concurrency checking mechanism for the <code>Person</code> entity by specifying that the <code>Version</code> property is a concurrency token in the entity configuration:
 </p>
@@ -146,9 +146,9 @@ We need to tell Entity Framework Core to enable the concurrency checking mechani
 </pre></div>
 </div>
 </div>
-<div id="outline-container-org35550b4" class="outline-3">
-<h3 id="org35550b4">Interceptor implementation</h3>
-<div class="outline-text-3" id="text-org35550b4">
+<div id="outline-container-orgeec75a7" class="outline-3">
+<h3 id="orgeec75a7">Interceptor implementation</h3>
+<div class="outline-text-3" id="text-orgeec75a7">
 <p>
 With the entity properly configured, it is time to implement the interceptor that will increment the value of the <code>Version</code> property automatically when the entity is saved into the database.
 </p>
@@ -245,10 +245,10 @@ These lines signal Entity Framework Core that it should update the row that has 
 </p>
 </div>
 </div>
-<div id="outline-container-orgf2504e7" class="outline-3">
-<h3 id="orgf2504e7">Add the interceptor to the <code>DbContext</code>
+<div id="outline-container-orgecd7378" class="outline-3">
+<h3 id="orgecd7378">Add the interceptor to the <code>DbContext</code>
 </h3>
-<div class="outline-text-3" id="text-orgf2504e7">
+<div class="outline-text-3" id="text-orgecd7378">
 <p>
 Now that we have an interceptor to automatically increment the value of the <code>Version</code> property, all we need to do is to add it to the database context. This is done quite easily:
 </p>
@@ -285,9 +285,9 @@ Once the interceptor is registered, you should see the value of the <code>Versio
 </div>
 </div>
 </div>
-<div id="outline-container-org420c485" class="outline-2">
-<h2 id="org420c485">Concurency handling</h2>
-<div class="outline-text-2" id="text-org420c485">
+<div id="outline-container-org50263a6" class="outline-2">
+<h2 id="org50263a6">Concurency handling</h2>
+<div class="outline-text-2" id="text-org50263a6">
 <p>
 At this point concurrency handling kicks-in out of the box thanks to the two aforementioned lines from the <code>IncrementVersionOfConcurrencyAwareEntities</code> method:
 </p>
@@ -305,9 +305,9 @@ If there is no row in the database table that satisfies the condition above, the
 </p>
 </div>
 </div>
-<div id="outline-container-org0c9e0b3" class="outline-2">
-<h2 id="org0c9e0b3">Conclusion</h2>
-<div class="outline-text-2" id="text-org0c9e0b3">
+<div id="outline-container-org0ba71de" class="outline-2">
+<h2 id="org0ba71de">Conclusion</h2>
+<div class="outline-text-2" id="text-org0ba71de">
 <p>
 Entity Framework Core has a built-in mechanism for handling concurrency that works great out of the box when the application uses the default types for concurency tokens, and SQL Server as the database management system. This mechanism relies on comparing the values of the concurrency token for each database operation; if the value supplied by the application is not the same as the value from the database this is considered to be a concurrency conflict.
 </p>

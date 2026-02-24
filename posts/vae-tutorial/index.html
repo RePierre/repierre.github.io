@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html prefix="
+<html \ prefix="
 " lang="en">
 <head>
 <meta charset="utf-8">
@@ -27,7 +27,7 @@
     
     
     </nav><footer id="footer"><span class="copyright">
-              Contents © 2025         <a href="mailto:petru.rebeja@gmail.com">Petru Rebeja</a> - Powered by   <a href="https://www.gnu.org/software/emacs/" rel="nofollow">GNU Emacs</a>  &amp;    <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+              Contents © 2026         <a href="mailto:petru.rebeja@gmail.com">Petru Rebeja</a> - Powered by   <a href="https://www.gnu.org/software/emacs/" rel="nofollow">GNU Emacs</a>  &amp;    <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
             </span>
             
             
@@ -46,9 +46,9 @@
     
 
     <div class="e-content entry-content" itemprop="articleBody text">
-    <div id="outline-container-orgd011989" class="outline-2">
-<h2 id="orgd011989">Outline</h2>
-<div class="outline-text-2" id="text-orgd011989">
+    <div id="outline-container-org887e6ae" class="outline-2">
+<h2 id="org887e6ae">Outline</h2>
+<div class="outline-text-2" id="text-org887e6ae">
 <ul class="org-ul">
 <li>The core: latent variables and latent space</li>
 <li>The probabilistic perspective: \(p(l|w) \rightarrow p(z|w) \wedge p(l|z)\)</li>
@@ -56,9 +56,9 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-org9a5cf90" class="outline-2">
-<h2 id="org9a5cf90">Prolog</h2>
-<div class="outline-text-2" id="text-org9a5cf90">
+<div id="outline-container-orgbd7ce9e" class="outline-2">
+<h2 id="orgbd7ce9e">Prolog</h2>
+<div class="outline-text-2" id="text-orgbd7ce9e">
 <p>
 Înainte de a începe discuția despre subiectul propriu-zis al acestui articol vreau să răspund (mai mult pentru mine) la două întrebări:
 </p>
@@ -89,16 +89,16 @@ Așadar, începem cu:
 </p>
 </div>
 </div>
-<div id="outline-container-orge538a3e" class="outline-2">
-<h2 id="orge538a3e">Ce este un <code>Autoencoder</code>?</h2>
-<div class="outline-text-2" id="text-orge538a3e">
+<div id="outline-container-org9db7b93" class="outline-2">
+<h2 id="org9db7b93">Ce este un <code>Autoencoder</code>?</h2>
+<div class="outline-text-2" id="text-org9db7b93">
 <p>
 În linii mari, un <code>autoencoder</code> este o rețea neuronală alcătuită din două parți: <i>codor</i> și <i>decodor</i> (<code>encoder</code> și respectiv <code>decoder</code>), a cărei funcționalitate este să:
 </p>
 <ol class="org-ol">
 <li>primească la intrare un vector \(X \in R^D\)</li>
 <li>îl codifice (<code>encode</code>) într-un vector \(z \in R^K\) unde \(K \ll D\). În termeni matematici, codorul învață o funcție \(g:R^D \rightarrow R^K\)</li>
-<li>decodifice vectorul \(z\) în-un vector \(X'\) cât mai similar posibil cu vectorul original \(X\). Altfel spus, decodorul învață funcția \(f:R^K \rightarrow R^D\) aşa încât \(f(g(X)) \approx X\). <a id="org50d012b"></a>
+<li>decodifice vectorul \(z\) în-un vector \(X'\) cât mai similar posibil cu vectorul original \(X\). Altfel spus, decodorul învață funcția \(f:R^K \rightarrow R^D\) aşa încât \(f(g(X)) \approx X\). <a id="org89c4305"></a>
 </li>
 </ol>
 <p>
@@ -126,9 +126,9 @@ Având această imagine în minte, putem să începem discuția despre subiectul
 </p>
 </div>
 </div>
-<div id="outline-container-orgf223f97" class="outline-2">
-<h2 id="orgf223f97">Ce este un <code>Variational Autoencoder</code>?</h2>
-<div class="outline-text-2" id="text-orgf223f97">
+<div id="outline-container-orgf5f069c" class="outline-2">
+<h2 id="orgf5f069c">Ce este un <code>Variational Autoencoder</code>?</h2>
+<div class="outline-text-2" id="text-orgf5f069c">
 <p>
 Privind de la un nivel înalt, un <code>variational autoencoder</code><sup><a id="fnr.3" class="footref" href="#fn.3" role="doc-backlink">3</a></sup><sup>, </sup><sup><a id="fnr.4" class="footref" href="#fn.4" role="doc-backlink">4</a></sup>, pe numele său mic <code>VAE</code>, are aceeași arhitectură ca un <code>autoencoder</code>. Astfel și într-un <code>VAE</code> regăsim componentele binecunoscute ale unui <code>autoencoder</code>:
 </p>
@@ -170,7 +170,7 @@ Prezența acestei părți de deducție a reprezentărilor latente merită o men�
 </p>
 
 <p>
-Acestea fiind spuse, <b>definim un <code>Variational Autoencoder</code> ca fiind un <i>ansamblu</i> care constă dintr-o rețea de inferență și un model generativ</b> <sup><a id="fnr.5.100" class="footref" href="#fn.5" role="doc-backlink">5</a></sup>.
+Acestea fiind spuse, <b>definim un <code>Variational Autoencoder</code> ca fiind un <i>ansamblu</i> care constă dintr-o rețea de inferență și un model generativ</b> <sup><a id="fnr.5.5" class="footref" href="#fn.5" role="doc-backlink">5</a></sup>.
 </p>
 
 <p>
@@ -186,11 +186,11 @@ Abia văzut din ambele perspective, modelul <code>VAE</code> ni se arată în to
 </p>
 </div>
 </div>
-<div id="outline-container-org665146a" class="outline-2">
-<h2 id="org665146a">
+<div id="outline-container-org1bdc35a" class="outline-2">
+<h2 id="org1bdc35a">
 <code>VAE</code> din perspectiva <code>Deep Learning</code>
 </h2>
-<div class="outline-text-2" id="text-org665146a">
+<div class="outline-text-2" id="text-org1bdc35a">
 <p>
 Din perspectiva învățării automate aprofundate, <code>VAE</code> poate fi asociat cu un autoencoder care a suferit următoarele modificări:
 </p>
@@ -207,7 +207,7 @@ Din perspectiva învățării automate aprofundate, <code>VAE</code> poate fi as
 </ul>
 <p>
 Și cum o imagine face cât o mie de cuvinte, arhitectura de nivel înalt a unui <code>Variational Autoencoder</code> arată așa:
-<a id="org209fc8d"></a>
+<a id="org942aa51"></a>
 </p>
 <p>
 <img src="../../images/vae-schema.png" alt="nil"></p>
@@ -221,13 +221,13 @@ Pornind de la diagramele arhitecturale ale celor două modele, începem să iden
 <dt>Decodorul</dt>
 <dd>Învață de fapt două funcții:
 <ol class="org-ol">
-<li>O funcție care transformă un punct din distribuția dată de \((\mu, \sigma)\) într-un punct din spațiul <i>reprezentărilor latente ale lui \(X\)</i>. Cum face asta în cazul <code>VAE</code>? Simplu: învață o funcție care aranjează punctele unei distribuții date de \((\mu, \sigma)\) în forma necesară pentru \(z\)<sup><a id="fnr.7.100" class="footref" href="#fn.7" role="doc-backlink">7</a></sup>.</li>
+<li>O funcție care transformă un punct din distribuția dată de \((\mu, \sigma)\) într-un punct din spațiul <i>reprezentărilor latente ale lui \(X\)</i>. Cum face asta în cazul <code>VAE</code>? Simplu: învață o funcție care aranjează punctele unei distribuții date de \((\mu, \sigma)\) în forma necesară pentru \(z\)<sup><a id="fnr.7.7" class="footref" href="#fn.7" role="doc-backlink">7</a></sup>.</li>
 <li>O funcție care transformă reprezentarea latentă \(z\) în instanța primită la intrare.</li>
 </ol>
 </dd>
 </dl>
 <p>
-Așadar, schema din <a href="#org209fc8d">imaginea anterioară</a> este simplificată. Adevărata arhitectură a unui <code>VAE</code> arată astfel:
+Așadar, schema din <a href="#org11e0906">imaginea anterioară</a> este simplificată. Adevărata arhitectură a unui <code>VAE</code> arată astfel:
   <img src="../../images/vae-schema-complete.png" alt="nil"></p>
 
 <p>
@@ -235,7 +235,7 @@ La fel ca în diagrama pentru <code>autoencoder</code>, reprezentarea latentă \
 </p>
 
 <p>
-Abia această ultimă diagramă, cea cu arhitectura completă, ne oferă imaginea clară a diferențelor dintre un <code>autoencoder</code> clasic și un <code>VAE</code>: în cazul <code>VAE</code> nu mai vorbim de o compunere de funcții cum am văzut în cazul unui <a href="#org50d012b">autoencoder</a>. În principiu vorbim despre două <i>componente diferite</i>: (i) <b>rețeaua de inferență</b> care ne permite să aproximăm parametrii \((\mu, \sigma)\) și (ii) <b>modelul</b> propriu-zis care generează instanțe noi.
+Abia această ultimă diagramă, cea cu arhitectura completă, ne oferă imaginea clară a diferențelor dintre un <code>autoencoder</code> clasic și un <code>VAE</code>: în cazul <code>VAE</code> nu mai vorbim de o compunere de funcții cum am văzut în cazul unui <a href="#org89c4305">autoencoder</a>. În principiu vorbim despre două <i>componente diferite</i>: (i) <b>rețeaua de inferență</b> care ne permite să aproximăm parametrii \((\mu, \sigma)\) și (ii) <b>modelul</b> propriu-zis care generează instanțe noi.
 </p>
 
 <p>
@@ -257,10 +257,10 @@ După cum se observă deja din funcția de cost, am trecut de jumătatea podului
 </p>
 </div>
 </div>
-<div id="outline-container-orgadc8407" class="outline-2">
-<h2 id="orgadc8407">
+<div id="outline-container-orgeacba6b" class="outline-2">
+<h2 id="orgeacba6b">
 <code>VAE</code> din perspectiva probabilistică</h2>
-<div class="outline-text-2" id="text-orgadc8407">
+<div class="outline-text-2" id="text-orgeacba6b">
 <p>
 <b>Rețeaua de inferență</b>
 </p>
@@ -270,11 +270,11 @@ O reţea de inferenţă este o reţea neuronală care permite să identificăm p
 </p>
 </div>
 </div>
-<div id="outline-container-org6cd0d62" class="outline-2">
-<h2 id="org6cd0d62">Cum funcționează?</h2>
+<div id="outline-container-orgb0c60f7" class="outline-2">
+<h2 id="orgb0c60f7">Cum funcționează?</h2>
 </div>
-<div id="outline-container-org49f2d84" class="outline-2">
-<h2 id="org49f2d84">O implementare elegantă<sup><a id="fnr.9" class="footref" href="#fn.9" role="doc-backlink">9</a></sup>
+<div id="outline-container-org5b98cbf" class="outline-2">
+<h2 id="org5b98cbf">O implementare elegantă<sup><a id="fnr.9" class="footref" href="#fn.9" role="doc-backlink">9</a></sup>
 </h2>
 </div>
 <div id="footnotes">

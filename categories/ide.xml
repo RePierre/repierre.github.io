@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Rebeja (Posts about IDE)</title><link>https://rebeja.eu/</link><description></description><atom:link href="https://rebeja.eu/categories/ide.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2025 &lt;a href="mailto:petru.rebeja@gmail.com"&gt;Petru Rebeja&lt;/a&gt; </copyright><lastBuildDate>Mon, 03 Mar 2025 19:48:19 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Building a Python IDE with Emacs and Docker</title><link>https://rebeja.eu/posts/python-ide-with-emacs-and-docker/</link><dc:creator>Petru Rebeja</dc:creator><description>&lt;div id="outline-container-orgbe84892" class="outline-2"&gt;
-&lt;h2 id="orgbe84892"&gt;Prologue&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-orgbe84892"&gt;
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Rebeja (Posts about IDE)</title><link>https://rebeja.eu/</link><description></description><atom:link href="https://rebeja.eu/categories/ide.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2026 &lt;a href="mailto:petru.rebeja@gmail.com"&gt;Petru Rebeja&lt;/a&gt; </copyright><lastBuildDate>Tue, 24 Feb 2026 17:58:29 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Building a Python IDE with Emacs and Docker</title><link>https://rebeja.eu/posts/python-ide-with-emacs-and-docker/</link><dc:creator>Petru Rebeja</dc:creator><description>&lt;div id="outline-container-org327f678" class="outline-2"&gt;
+&lt;h2 id="org327f678"&gt;Prologue&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org327f678"&gt;
 &lt;p&gt;
 I am a fan of &lt;a href="https://en.wikipedia.org/wiki/Windows_Subsystem_for_Linux"&gt;&lt;code&gt;Windows Subsystem for Linux&lt;/code&gt;&lt;/a&gt;. It brings the power of Linux command-line tools to Windows which is something a developer cannot dislike but that isn't the main reason I'm fond of it. I like it because it allows me to run Emacs (albeit in console mode) at its full potential.
 &lt;/p&gt;
@@ -31,9 +31,9 @@ The answer is &lt;b&gt;Yes&lt;/b&gt;. If you want to see only the final &lt;code
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-org412b0e6" class="outline-2"&gt;
-&lt;h2 id="org412b0e6"&gt;How&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-org412b0e6"&gt;
+&lt;div id="outline-container-org6a4b1ba" class="outline-2"&gt;
+&lt;h2 id="org6a4b1ba"&gt;How&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org6a4b1ba"&gt;
 &lt;p&gt;
 Since I already have been using Emacs as a Python IDE in Ubuntu Bash, replicating this setup in Docker would imply:
 &lt;/p&gt;
@@ -51,9 +51,9 @@ Luckily, Docker already has an &lt;a href="https://docs.docker.com/engine/exampl
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-orgb1392e2" class="outline-2"&gt;
-&lt;h2 id="orgb1392e2"&gt;Issue #1: SSHD refuses connection&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-orgb1392e2"&gt;
+&lt;div id="outline-container-orgf231677" class="outline-2"&gt;
+&lt;h2 id="orgf231677"&gt;Issue #1: SSHD refuses connection&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-orgf231677"&gt;
 &lt;p&gt;
 This one was easy — there's a typo in the example provided by Docker. I figured it out after inspecting the contents of &lt;code&gt;sshd_config&lt;/code&gt; file.
 &lt;/p&gt;
@@ -91,17 +91,17 @@ Even though the &lt;code&gt;sshd&lt;/code&gt; was running and accepting connecti
 What this does is it declares a variable &lt;code&gt;password&lt;/code&gt; whose value is supplied when building the image like this:
 &lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="w"&gt;  &lt;/span&gt;docker&lt;span class="w"&gt; &lt;/span&gt;build&lt;span class="w"&gt; &lt;/span&gt;-t&lt;span class="w"&gt; &lt;/span&gt;&amp;lt;image-tag&amp;gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="se"&gt;\&lt;/span&gt;
-&lt;span class="w"&gt;         &lt;/span&gt;--build-arg&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;password&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&amp;lt;your-password-here&amp;gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="se"&gt;\&lt;/span&gt;
-&lt;span class="w"&gt;         &lt;/span&gt;.
+&lt;span class="w"&gt;             &lt;/span&gt;--build-arg&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;password&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&amp;lt;your-password-here&amp;gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="se"&gt;\&lt;/span&gt;
+&lt;span class="w"&gt;             &lt;/span&gt;.
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;
 This way, the root password isn't stored in clear text and in plain-sight anymore. Now I was ready to move to the next step.
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-orgfdb6593" class="outline-2"&gt;
-&lt;h2 id="orgfdb6593"&gt;Issue #2: Activating virtual environment inside container&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-orgfdb6593"&gt;
+&lt;div id="outline-container-org4d83181" class="outline-2"&gt;
+&lt;h2 id="org4d83181"&gt;Issue #2: Activating virtual environment inside container&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org4d83181"&gt;
 &lt;p&gt;
 The second item of my quest was to setup and activate a Python virtual environment. This environment will be used to install all the dependencies required for the project I'm working on.
 &lt;/p&gt;
@@ -133,8 +133,8 @@ The changes pertaining to my config are the following:
 &lt;span class="w"&gt;  &lt;/span&gt;RUN&lt;span class="w"&gt; &lt;/span&gt;python3&lt;span class="w"&gt; &lt;/span&gt;-m&lt;span class="w"&gt; &lt;/span&gt;virtualenv&lt;span class="w"&gt; &lt;/span&gt;--python&lt;span class="o"&gt;=&lt;/span&gt;/usr/bin/python3&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;$VIRTUAL_ENV&lt;/span&gt;
 &lt;span class="w"&gt;  &lt;/span&gt;ENV&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;PATH&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="nv"&gt;$VIRTUAL_ENV&lt;/span&gt;&lt;span class="s2"&gt;/bin:&lt;/span&gt;&lt;span class="nv"&gt;$PATH&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;
 &lt;span class="w"&gt;  &lt;/span&gt;RUN&lt;span class="w"&gt; &lt;/span&gt;pip&lt;span class="w"&gt; &lt;/span&gt;install&lt;span class="w"&gt; &lt;/span&gt;--upgrade&lt;span class="w"&gt; &lt;/span&gt;pip&lt;span class="w"&gt; &lt;/span&gt;setuptools&lt;span class="w"&gt; &lt;/span&gt;wheel&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="se"&gt;\&lt;/span&gt;
-&lt;span class="w"&gt;      &lt;/span&gt;pip&lt;span class="w"&gt; &lt;/span&gt;install&lt;span class="w"&gt; &lt;/span&gt;numpy&lt;span class="w"&gt; &lt;/span&gt;tensorflow&lt;span class="w"&gt; &lt;/span&gt;scikit-learn&lt;span class="w"&gt; &lt;/span&gt;gensim&lt;span class="w"&gt; &lt;/span&gt;matplotlib&lt;span class="w"&gt; &lt;/span&gt;pyyaml&lt;span class="w"&gt; &lt;/span&gt;matplotlib-venn&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="se"&gt;\&lt;/span&gt;
-&lt;span class="w"&gt;      &lt;/span&gt;pip&lt;span class="w"&gt; &lt;/span&gt;install&lt;span class="w"&gt; &lt;/span&gt;elpy&lt;span class="w"&gt; &lt;/span&gt;jedi&lt;span class="w"&gt; &lt;/span&gt;rope&lt;span class="w"&gt; &lt;/span&gt;yapf&lt;span class="w"&gt; &lt;/span&gt;importmagic&lt;span class="w"&gt; &lt;/span&gt;flake8&lt;span class="w"&gt; &lt;/span&gt;autopep8&lt;span class="w"&gt; &lt;/span&gt;black
+&lt;span class="w"&gt;          &lt;/span&gt;pip&lt;span class="w"&gt; &lt;/span&gt;install&lt;span class="w"&gt; &lt;/span&gt;numpy&lt;span class="w"&gt; &lt;/span&gt;tensorflow&lt;span class="w"&gt; &lt;/span&gt;scikit-learn&lt;span class="w"&gt; &lt;/span&gt;gensim&lt;span class="w"&gt; &lt;/span&gt;matplotlib&lt;span class="w"&gt; &lt;/span&gt;pyyaml&lt;span class="w"&gt; &lt;/span&gt;matplotlib-venn&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="se"&gt;\&lt;/span&gt;
+&lt;span class="w"&gt;          &lt;/span&gt;pip&lt;span class="w"&gt; &lt;/span&gt;install&lt;span class="w"&gt; &lt;/span&gt;elpy&lt;span class="w"&gt; &lt;/span&gt;jedi&lt;span class="w"&gt; &lt;/span&gt;rope&lt;span class="w"&gt; &lt;/span&gt;yapf&lt;span class="w"&gt; &lt;/span&gt;importmagic&lt;span class="w"&gt; &lt;/span&gt;flake8&lt;span class="w"&gt; &lt;/span&gt;autopep8&lt;span class="w"&gt; &lt;/span&gt;black
 &lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;
@@ -154,9 +154,9 @@ Afterwards, just install the required packages as usual.
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-orgc86ece8" class="outline-2"&gt;
-&lt;h2 id="orgc86ece8"&gt;Issue #3: Emacs monolithic configuration file&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-orgc86ece8"&gt;
+&lt;div id="outline-container-org80f106f" class="outline-2"&gt;
+&lt;h2 id="org80f106f"&gt;Issue #3: Emacs monolithic configuration file&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org80f106f"&gt;
 &lt;p&gt;
 After setting up and activating the virtual environment, I needed to configure Emacs for python development to start working.
 &lt;/p&gt;
@@ -230,7 +230,7 @@ Thus, the resulting &lt;code&gt;init.el&lt;/code&gt; looks like this (I promise 
 
 &lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;let&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="nf"&gt;file-name&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;expand-file-name&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;"config.el"&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;user-emacs-directory&lt;/span&gt;&lt;span class="p"&gt;)))&lt;/span&gt;
 &lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;file-exists-p&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;file-name&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;load-file&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;file-name&lt;/span&gt;&lt;span class="p"&gt;)))&lt;/span&gt;
+&lt;span class="w"&gt;            &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;load-file&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;file-name&lt;/span&gt;&lt;span class="p"&gt;)))&lt;/span&gt;
 
 &lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;org-babel-load-file&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;expand-file-name&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;"~/.emacs.d/common-config.org"&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
 &lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;org-babel-load-file&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;expand-file-name&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;"~/.emacs.d/python-config.org"&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
@@ -239,7 +239,7 @@ Thus, the resulting &lt;code&gt;init.el&lt;/code&gt; looks like this (I promise 
 
 &lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;let&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="nf"&gt;file-name&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;expand-file-name&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;"after-init.el"&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;user-emacs-directory&lt;/span&gt;&lt;span class="p"&gt;)))&lt;/span&gt;
 &lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;file-exists-p&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;file-name&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;load-file&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;file-name&lt;/span&gt;&lt;span class="p"&gt;)))&lt;/span&gt;
+&lt;span class="w"&gt;            &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;load-file&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;file-name&lt;/span&gt;&lt;span class="p"&gt;)))&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;
@@ -270,9 +270,9 @@ It does one more thing not mentioned previously: a &lt;code&gt;sed&lt;/code&gt; 
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-org1c0bc74" class="outline-2"&gt;
-&lt;h2 id="org1c0bc74"&gt;Issue #4: Using SSH keys to connect to GitHub&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-org1c0bc74"&gt;
+&lt;div id="outline-container-org7a5d885" class="outline-2"&gt;
+&lt;h2 id="org7a5d885"&gt;Issue #4: Using SSH keys to connect to GitHub&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org7a5d885"&gt;
 &lt;p&gt;
 Now that I have Emacs running on Ubuntu (albeit terminal only) I can enjoy a smooth workflow without having to wait too much for Magit or other application that took forever on Cygwin to finish.
 &lt;/p&gt;
@@ -296,23 +296,23 @@ I found how to do so easily: there's a StackOverflow &lt;a href="https://stackov
 &lt;span class="w"&gt;  &lt;/span&gt;ARG&lt;span class="w"&gt; &lt;/span&gt;ssh_pub_key
 
 &lt;span class="w"&gt;  &lt;/span&gt;RUN&lt;span class="w"&gt; &lt;/span&gt;mkdir&lt;span class="w"&gt; &lt;/span&gt;-p&lt;span class="w"&gt; &lt;/span&gt;/root/.ssh&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="se"&gt;\&lt;/span&gt;
-&lt;span class="w"&gt;      &lt;/span&gt;chmod&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;0700&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;/root/.ssh&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="se"&gt;\&lt;/span&gt;
-&lt;span class="w"&gt;      &lt;/span&gt;ssh-keyscan&lt;span class="w"&gt; &lt;/span&gt;github.com&lt;span class="w"&gt; &lt;/span&gt;&amp;gt;&lt;span class="w"&gt; &lt;/span&gt;/root/.ssh/known_hosts
+&lt;span class="w"&gt;          &lt;/span&gt;chmod&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;0700&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;/root/.ssh&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="se"&gt;\&lt;/span&gt;
+&lt;span class="w"&gt;          &lt;/span&gt;ssh-keyscan&lt;span class="w"&gt; &lt;/span&gt;github.com&lt;span class="w"&gt; &lt;/span&gt;&amp;gt;&lt;span class="w"&gt; &lt;/span&gt;/root/.ssh/known_hosts
 &lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;
 To provide the values for the keys use &lt;code&gt;--build-arg&lt;/code&gt; parameter when building your image like this:
 &lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="w"&gt;  &lt;/span&gt;docker&lt;span class="w"&gt; &lt;/span&gt;build&lt;span class="w"&gt; &lt;/span&gt;-t&lt;span class="w"&gt; &lt;/span&gt;&amp;lt;image-tag&amp;gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="se"&gt;\&lt;/span&gt;
-&lt;span class="w"&gt;         &lt;/span&gt;--build-arg&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;ssh_prv_key&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="k"&gt;$(&lt;/span&gt;cat&lt;span class="w"&gt; &lt;/span&gt;~/.ssh/id_rsa&lt;span class="k"&gt;)&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="se"&gt;\&lt;/span&gt;
-&lt;span class="w"&gt;         &lt;/span&gt;--build-arg&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;ssh_pub_key&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="k"&gt;$(&lt;/span&gt;cat&lt;span class="w"&gt; &lt;/span&gt;~/.ssh/id_rsa.pub&lt;span class="k"&gt;)&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="se"&gt;\&lt;/span&gt;
-&lt;span class="w"&gt;         &lt;/span&gt;.
+&lt;span class="w"&gt;             &lt;/span&gt;--build-arg&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;ssh_prv_key&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="k"&gt;$(&lt;/span&gt;cat&lt;span class="w"&gt; &lt;/span&gt;~/.ssh/id_rsa&lt;span class="k"&gt;)&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="se"&gt;\&lt;/span&gt;
+&lt;span class="w"&gt;             &lt;/span&gt;--build-arg&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;ssh_pub_key&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="k"&gt;$(&lt;/span&gt;cat&lt;span class="w"&gt; &lt;/span&gt;~/.ssh/id_rsa.pub&lt;span class="k"&gt;)&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="se"&gt;\&lt;/span&gt;
+&lt;span class="w"&gt;             &lt;/span&gt;.
 &lt;/pre&gt;&lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-orgf067b89" class="outline-2"&gt;
-&lt;h2 id="orgf067b89"&gt;Issue #5: Install Emacs packages once and done&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-orgf067b89"&gt;
+&lt;div id="outline-container-org926b8c7" class="outline-2"&gt;
+&lt;h2 id="org926b8c7"&gt;Issue #5: Install Emacs packages once and done&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org926b8c7"&gt;
 &lt;p&gt;
 After another build of the Docker image I started a container from it, logged in via ssh into the container, started Emacs and noticed yet another issue.
 &lt;/p&gt;
@@ -339,9 +339,9 @@ And to my great surprise, when rebuilding the image I saw the output of Emacs pa
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-orgf400a6d" class="outline-2"&gt;
-&lt;h2 id="orgf400a6d"&gt;Issue #6: Terminal colors&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-orgf400a6d"&gt;
+&lt;div id="outline-container-orgff57943" class="outline-2"&gt;
+&lt;h2 id="orgff57943"&gt;Issue #6: Terminal colors&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-orgff57943"&gt;
 &lt;p&gt;
 Being confident that everything should work now (it's the same setup I had on &lt;code&gt;WSL&lt;/code&gt;) I started a new container to which I mounted the GitHub repo as a volume and got cracking.
 &lt;/p&gt;
@@ -371,8 +371,8 @@ The full Dockerfile described in this post is below:
 
 RUN&lt;span class="w"&gt; &lt;/span&gt;apt-get&lt;span class="w"&gt; &lt;/span&gt;update&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="se"&gt;\&lt;/span&gt;
 &lt;span class="w"&gt;    &lt;/span&gt;apt-get&lt;span class="w"&gt; &lt;/span&gt;install&lt;span class="w"&gt; &lt;/span&gt;-y&lt;span class="w"&gt; &lt;/span&gt;--no-install-recommends&lt;span class="w"&gt; &lt;/span&gt;openssh-server&lt;span class="w"&gt; &lt;/span&gt;tmux&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="se"&gt;\&lt;/span&gt;
-&lt;span class="w"&gt;            &lt;/span&gt;emacs&lt;span class="w"&gt; &lt;/span&gt;emacs-goodies.el&lt;span class="w"&gt; &lt;/span&gt;curl&lt;span class="w"&gt; &lt;/span&gt;git&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="se"&gt;\&lt;/span&gt;
-&lt;span class="w"&gt;            &lt;/span&gt;python3&lt;span class="w"&gt; &lt;/span&gt;python3-pip&lt;span class="w"&gt; &lt;/span&gt;python3-virtualenv&lt;span class="w"&gt; &lt;/span&gt;python3-dev&lt;span class="w"&gt; &lt;/span&gt;build-essential
+&lt;span class="w"&gt;              &lt;/span&gt;emacs&lt;span class="w"&gt; &lt;/span&gt;emacs-goodies.el&lt;span class="w"&gt; &lt;/span&gt;curl&lt;span class="w"&gt; &lt;/span&gt;git&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="se"&gt;\&lt;/span&gt;
+&lt;span class="w"&gt;              &lt;/span&gt;python3&lt;span class="w"&gt; &lt;/span&gt;python3-pip&lt;span class="w"&gt; &lt;/span&gt;python3-virtualenv&lt;span class="w"&gt; &lt;/span&gt;python3-dev&lt;span class="w"&gt; &lt;/span&gt;build-essential
 
 ARG&lt;span class="w"&gt; &lt;/span&gt;password
 
@@ -429,16 +429,16 @@ CMD&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;s
 To build the image use this command:
 &lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;docker&lt;span class="w"&gt; &lt;/span&gt;build&lt;span class="w"&gt; &lt;/span&gt;-t&lt;span class="w"&gt; &lt;/span&gt;&amp;lt;image-tag&amp;gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="se"&gt;\&lt;/span&gt;
-&lt;span class="w"&gt;       &lt;/span&gt;--build-arg&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;ssh_prv_key&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="k"&gt;$(&lt;/span&gt;cat&lt;span class="w"&gt; &lt;/span&gt;~/.ssh/id_rsa&lt;span class="k"&gt;)&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="se"&gt;\&lt;/span&gt;
-&lt;span class="w"&gt;       &lt;/span&gt;--build-arg&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;ssh_pub_key&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="k"&gt;$(&lt;/span&gt;cat&lt;span class="w"&gt; &lt;/span&gt;~/.ssh/id_rsa.pub&lt;span class="k"&gt;)&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="se"&gt;\&lt;/span&gt;
-&lt;span class="w"&gt;       &lt;/span&gt;--build-arg&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;password&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&amp;lt;your-password-here&amp;gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="se"&gt;\&lt;/span&gt;
-&lt;span class="w"&gt;       &lt;/span&gt;.
+&lt;span class="w"&gt;         &lt;/span&gt;--build-arg&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;ssh_prv_key&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="k"&gt;$(&lt;/span&gt;cat&lt;span class="w"&gt; &lt;/span&gt;~/.ssh/id_rsa&lt;span class="k"&gt;)&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="se"&gt;\&lt;/span&gt;
+&lt;span class="w"&gt;         &lt;/span&gt;--build-arg&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;ssh_pub_key&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="k"&gt;$(&lt;/span&gt;cat&lt;span class="w"&gt; &lt;/span&gt;~/.ssh/id_rsa.pub&lt;span class="k"&gt;)&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="se"&gt;\&lt;/span&gt;
+&lt;span class="w"&gt;         &lt;/span&gt;--build-arg&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;password&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&amp;lt;your-password-here&amp;gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="se"&gt;\&lt;/span&gt;
+&lt;span class="w"&gt;         &lt;/span&gt;.
 &lt;/pre&gt;&lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-org33f8426" class="outline-2"&gt;
-&lt;h2 id="org33f8426"&gt;Epilogue&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-org33f8426"&gt;
+&lt;div id="outline-container-org6aa7a6c" class="outline-2"&gt;
+&lt;h2 id="org6aa7a6c"&gt;Epilogue&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org6aa7a6c"&gt;
 &lt;p&gt;
 Looking back at this sort of quest of mine, I have nothing else to say than it was, overall, a fun experience.
 &lt;/p&gt;
@@ -452,9 +452,9 @@ But the bottom line is that it was a great deal of fun involved which luckily re
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-orgbd0e82d" class="outline-2"&gt;
-&lt;h2 id="orgbd0e82d"&gt;References&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-orgbd0e82d"&gt;
+&lt;div id="outline-container-orgd687a6f" class="outline-2"&gt;
+&lt;h2 id="orgd687a6f"&gt;References&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-orgd687a6f"&gt;
 &lt;ol class="org-ol"&gt;
 &lt;li&gt;&lt;a href="https://docs.docker.com/engine/examples/running_ssh_service/"&gt;Dockerize an SSH service&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://pythonspeed.com/articles/activate-virtualenv-dockerfile/"&gt;Elegantly activating a virtualenv in a Dockerfile&lt;/a&gt;&lt;/li&gt;
@@ -463,9 +463,9 @@ But the bottom line is that it was a great deal of fun involved which luckily re
 &lt;/ol&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-org57aa837" class="outline-2"&gt;
-&lt;h2 id="org57aa837"&gt;Acknowledgments&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-org57aa837"&gt;
+&lt;div id="outline-container-orgbfd59b1" class="outline-2"&gt;
+&lt;h2 id="orgbfd59b1"&gt;Acknowledgments&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-orgbfd59b1"&gt;
 &lt;p&gt;
 I would like to thank my colleague &lt;a href="https://www.linkedin.com/in/ionelabarbuta/"&gt;Ionela Bărbuță&lt;/a&gt; for proofreading this post and for the tips &amp;amp; tricks she gave me in order to improve my writing.
 &lt;/p&gt;

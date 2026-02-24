@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Rebeja (Posts about developer journal)</title><link>https://rebeja.eu/</link><description></description><atom:link href="https://rebeja.eu/categories/developer-journal.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2025 &lt;a href="mailto:petru.rebeja@gmail.com"&gt;Petru Rebeja&lt;/a&gt; </copyright><lastBuildDate>Thu, 31 Jul 2025 13:20:43 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>How I use Emacs to keep a developer journal</title><link>https://rebeja.eu/posts/how-i-use-emacs-to-keep-a-developer-journal/</link><dc:creator>Petru Rebeja</dc:creator><description>&lt;div id="outline-container-org32ba8e8" class="outline-2"&gt;
-&lt;h2 id="org32ba8e8"&gt;Why keep a developer journal?&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-org32ba8e8"&gt;
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Rebeja (Posts about developer journal)</title><link>https://rebeja.eu/</link><description></description><atom:link href="https://rebeja.eu/categories/developer-journal.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2026 &lt;a href="mailto:petru.rebeja@gmail.com"&gt;Petru Rebeja&lt;/a&gt; </copyright><lastBuildDate>Tue, 24 Feb 2026 17:58:29 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>How I use Emacs to keep a developer journal</title><link>https://rebeja.eu/posts/how-i-use-emacs-to-keep-a-developer-journal/</link><dc:creator>Petru Rebeja</dc:creator><description>&lt;div id="outline-container-org1dcefe4" class="outline-2"&gt;
+&lt;h2 id="org1dcefe4"&gt;Why keep a developer journal?&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org1dcefe4"&gt;
 &lt;p&gt;
 I won't expand on what a developer journal is, or on what the benefits of keeping a developer journal are; there are plenty of resources for that online (&lt;a href="https://blog.invidelabs.com/what-is-a-developer-diary/"&gt;What is a Developer Diary&lt;/a&gt;, &lt;a href="https://opensource.com/article/19/4/what-developer-journal"&gt;What is a developer journal?&lt;/a&gt;, &lt;a href="https://stackoverflow.blog/2024/12/24/you-should-keep-a-developer-s-journal/"&gt;You should keep a developer’s journal&lt;/a&gt;, &lt;a href="https://www.youtube.com/watch?v=Xw3SkhB4dMk"&gt;Everything Starts with a Note-taking System&lt;/a&gt;). But let me tell you what made me start keeping a developer journal.
 &lt;/p&gt;
@@ -19,9 +19,9 @@ Be aware however, that I am limiting the time frame to months only. As years go 
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-orgffef9b7" class="outline-2"&gt;
-&lt;h2 id="orgffef9b7"&gt;Why Emacs?&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-orgffef9b7"&gt;
+&lt;div id="outline-container-org1c0d65e" class="outline-2"&gt;
+&lt;h2 id="org1c0d65e"&gt;Why Emacs?&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org1c0d65e"&gt;
 &lt;p&gt;
 For some time already I have been using &lt;code&gt;org-agenda&lt;/code&gt; to track the time I spend on each of my tasks in the most simple way possible: I add each task to a file from which &lt;code&gt;org-agenda&lt;/code&gt; reads its data, call &lt;code&gt;org-clock-in&lt;/code&gt; on that task when I start working on it, and call &lt;code&gt;org-clock-out&lt;/code&gt; when I am not working on that task anymore.
 &lt;/p&gt;
@@ -31,9 +31,9 @@ Naturally, I wanted to build up from there. Also, I wanted to start with somethi
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-org9fc13db" class="outline-2"&gt;
-&lt;h2 id="org9fc13db"&gt;The setup&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-org9fc13db"&gt;
+&lt;div id="outline-container-org86f4239" class="outline-2"&gt;
+&lt;h2 id="org86f4239"&gt;The setup&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org86f4239"&gt;
 &lt;p&gt;
 I do use &lt;code&gt;org-roam&lt;/code&gt; which would have fit the requirements for a developer journal setup. However, I refrained from using it for a few reasons:
 &lt;/p&gt;
@@ -100,9 +100,9 @@ With all the above in place, this is how my final capture template looks like:
 &lt;/pre&gt;&lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-orgdc92920" class="outline-2"&gt;
-&lt;h2 id="orgdc92920"&gt;The workflow&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-orgdc92920"&gt;
+&lt;div id="outline-container-org57cdbd6" class="outline-2"&gt;
+&lt;h2 id="org57cdbd6"&gt;The workflow&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org57cdbd6"&gt;
 &lt;p&gt;
 As I mentioned in the previous section, this setup proved to be a really good fit for my workflow, and became a seamless extension to it because I was using &lt;code&gt;org-agenda&lt;/code&gt; and &lt;code&gt;org-clock&lt;/code&gt; to schedule my tasks and track the time spent on each of them.
 &lt;/p&gt;
@@ -132,9 +132,9 @@ Although it may seem complicated at first, I felt no resistance in internalizing
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-org4b75ff4" class="outline-2"&gt;
-&lt;h2 id="org4b75ff4"&gt;My developer journal&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-org4b75ff4"&gt;
+&lt;div id="outline-container-org1b8d466" class="outline-2"&gt;
+&lt;h2 id="org1b8d466"&gt;My developer journal&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org1b8d466"&gt;
 &lt;p&gt;
 I write several entries per day in my developer journal and after keeping it for a year already I can say for sure that this habit improved my life as a developer in several ways. Besides being able to quickly start each day from a blank page, it forces me to think beforehand instead of just diving head-first into the implementation. As a result of this, my implementation has less kludge and is easier to modify/maintain. Furthermore, my developer journal helps the entire team because I am able to extract from it information that goes into the project wiki. Last but not least, &lt;i&gt;I feel&lt;/i&gt; that my writing skills have improved as a result of keeping a developer journal.
 &lt;/p&gt;

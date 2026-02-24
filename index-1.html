@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html prefix="
+<html \ prefix="
 " lang="en">
 <head>
 <meta charset="utf-8">
@@ -29,7 +29,7 @@
     
     
     </nav><footer id="footer"><span class="copyright">
-              Contents © 2025         <a href="mailto:petru.rebeja@gmail.com">Petru Rebeja</a> - Powered by   <a href="https://www.gnu.org/software/emacs/" rel="nofollow">GNU Emacs</a>  &amp;    <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+              Contents © 2026         <a href="mailto:petru.rebeja@gmail.com">Petru Rebeja</a> - Powered by   <a href="https://www.gnu.org/software/emacs/" rel="nofollow">GNU Emacs</a>  &amp;    <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
             </span>
             
             
@@ -95,10 +95,10 @@ Given the above, someone would be tempted to implement the <code>PlaceOrder</cod
 
 <span class="w">    </span><span class="k">foreach</span><span class="w"> </span><span class="p">(</span><span class="kt">var</span><span class="w"> </span><span class="n">orderedItem</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">orderItems</span><span class="p">)</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">        </span><span class="kt">var</span><span class="w"> </span><span class="n">item</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_itemRepository</span><span class="p">.</span><span class="n">Get</span><span class="p">(</span><span class="n">orderedItem</span><span class="p">.</span><span class="n">ItemId</span><span class="p">);</span>
-<span class="w">        </span><span class="n">item</span><span class="p">.</span><span class="n">DecreaseStockCount</span><span class="p">(</span><span class="n">orderedItem</span><span class="p">.</span><span class="n">Quantity</span><span class="p">);</span>
-<span class="w">        </span><span class="n">_itemRepository</span><span class="p">.</span><span class="n">Update</span><span class="p">(</span><span class="n">item</span><span class="p">);</span>
-<span class="w">        </span><span class="n">order</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">orderedItem</span><span class="p">);</span>
+<span class="w">          </span><span class="kt">var</span><span class="w"> </span><span class="n">item</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_itemRepository</span><span class="p">.</span><span class="n">Get</span><span class="p">(</span><span class="n">orderedItem</span><span class="p">.</span><span class="n">ItemId</span><span class="p">);</span>
+<span class="w">          </span><span class="n">item</span><span class="p">.</span><span class="n">DecreaseStockCount</span><span class="p">(</span><span class="n">orderedItem</span><span class="p">.</span><span class="n">Quantity</span><span class="p">);</span>
+<span class="w">          </span><span class="n">_itemRepository</span><span class="p">.</span><span class="n">Update</span><span class="p">(</span><span class="n">item</span><span class="p">);</span>
+<span class="w">          </span><span class="n">order</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">orderedItem</span><span class="p">);</span>
 <span class="w">    </span><span class="p">}</span>
 
 <span class="w">    </span><span class="n">_customerOrderRepository</span><span class="p">.</span><span class="n">Register</span><span class="p">(</span><span class="n">order</span><span class="p">);</span>
@@ -130,18 +130,18 @@ So, let's switch the paradigm and start working with collections in our code to 
 <span class="w">    </span><span class="kt">var</span><span class="w"> </span><span class="n">customerOrder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">CustomerOrder</span><span class="p">(</span><span class="n">customer</span><span class="p">);</span>
 
 <span class="w">    </span><span class="kt">var</span><span class="w"> </span><span class="n">items</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">itemRepository</span><span class="p">.</span><span class="n">Items</span>
-<span class="w">        </span><span class="p">.</span><span class="n">Join</span><span class="p">(</span><span class="n">orderItems</span><span class="p">,</span>
-<span class="w">              </span><span class="n">item</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">item</span><span class="p">.</span><span class="n">Id</span><span class="p">,</span>
-<span class="w">              </span><span class="n">orderedItem</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">orderedItem</span><span class="p">.</span><span class="n">ItemId</span><span class="p">,</span>
-<span class="w">              </span><span class="p">(</span><span class="n">item</span><span class="p">,</span><span class="w"> </span><span class="n">_</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">item</span><span class="p">)</span>
-<span class="w">        </span><span class="p">.</span><span class="n">ToDictionary</span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">i</span><span class="p">.</span><span class="n">Id</span><span class="p">);</span>
+<span class="w">          </span><span class="p">.</span><span class="n">Join</span><span class="p">(</span><span class="n">orderItems</span><span class="p">,</span>
+<span class="w">                </span><span class="n">item</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">item</span><span class="p">.</span><span class="n">Id</span><span class="p">,</span>
+<span class="w">                </span><span class="n">orderedItem</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">orderedItem</span><span class="p">.</span><span class="n">ItemId</span><span class="p">,</span>
+<span class="w">                </span><span class="p">(</span><span class="n">item</span><span class="p">,</span><span class="w"> </span><span class="n">_</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">item</span><span class="p">)</span>
+<span class="w">          </span><span class="p">.</span><span class="n">ToDictionary</span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">i</span><span class="p">.</span><span class="n">Id</span><span class="p">);</span>
 
 <span class="w">    </span><span class="k">foreach</span><span class="p">(</span><span class="kt">var</span><span class="w"> </span><span class="n">orderedItem</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">orderedItems</span><span class="p">)</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">        </span><span class="kt">var</span><span class="w"> </span><span class="n">item</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="n">items</span><span class="p">[</span><span class="n">orderedItem</span><span class="p">.</span><span class="n">ItemId</span><span class="p">];</span>
-<span class="w">        </span><span class="n">item</span><span class="p">.</span><span class="n">DecreaseStockCount</span><span class="p">(</span><span class="n">orderedItem</span><span class="p">.</span><span class="n">Quantity</span><span class="p">);</span>
-<span class="w">        </span><span class="n">_itemRepository</span><span class="p">.</span><span class="n">Update</span><span class="p">(</span><span class="n">item</span><span class="p">);</span>
-<span class="w">        </span><span class="n">customerOrder</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">item</span><span class="p">);</span>
+<span class="w">          </span><span class="kt">var</span><span class="w"> </span><span class="n">item</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="n">items</span><span class="p">[</span><span class="n">orderedItem</span><span class="p">.</span><span class="n">ItemId</span><span class="p">];</span>
+<span class="w">          </span><span class="n">item</span><span class="p">.</span><span class="n">DecreaseStockCount</span><span class="p">(</span><span class="n">orderedItem</span><span class="p">.</span><span class="n">Quantity</span><span class="p">);</span>
+<span class="w">          </span><span class="n">_itemRepository</span><span class="p">.</span><span class="n">Update</span><span class="p">(</span><span class="n">item</span><span class="p">);</span>
+<span class="w">          </span><span class="n">customerOrder</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">item</span><span class="p">);</span>
 <span class="w">    </span><span class="p">}</span>
 
 <span class="w">    </span><span class="n">_customerOrderRepository</span><span class="p">.</span><span class="n">Register</span><span class="p">(</span><span class="n">order</span><span class="p">);</span>
@@ -158,8 +158,8 @@ The best approach to this is to not load any data at all from the database and t
 And how can we do that? Exactly - with <code>stored procedures</code>.
 </p>
 <div class="highlight"><pre><span></span><span class="k">declare</span><span class="w"> </span><span class="k">procedure</span><span class="w"> </span><span class="n">CreateCustomerOrder</span><span class="p">(</span>
-<span class="w">        </span><span class="o">@</span><span class="n">customerId</span><span class="w"> </span><span class="n">uniqueidentifier</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="p">,</span>
-<span class="w">        </span><span class="o">@</span><span class="n">orderItems</span><span class="w"> </span><span class="n">udttorderitems</span><span class="w"> </span><span class="n">readonly</span><span class="p">)</span>
+<span class="w">          </span><span class="o">@</span><span class="n">customerId</span><span class="w"> </span><span class="n">uniqueidentifier</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="p">,</span>
+<span class="w">          </span><span class="o">@</span><span class="n">orderItems</span><span class="w"> </span><span class="n">udttorderitems</span><span class="w"> </span><span class="n">readonly</span><span class="p">)</span>
 <span class="k">begin</span>
 <span class="w">    </span><span class="k">set</span><span class="w"> </span><span class="n">no_count</span><span class="w"> </span><span class="k">on</span>
 
@@ -353,27 +353,27 @@ I did however liked the idea of using references to the papers being read and si
 <p>
 To handle the availability part I decided to use Dropbox which is also suggested by <code>org-ref</code>.
 </p>
-<div id="outline-container-orgbd7d5bf" class="outline-2">
-<h2 id="orgbd7d5bf">Setup org-ref</h2>
-<div class="outline-text-2" id="text-orgbd7d5bf">
+<div id="outline-container-org79d1903" class="outline-2">
+<h2 id="org79d1903">Setup org-ref</h2>
+<div class="outline-text-2" id="text-org79d1903">
 <p>
 <code>org-ref</code> is available on <a href="http://melpa.org/">Melpa</a> so to install it just type <code>M-x package-install org-ref</code>. Afterwards copy the code below to your init file and adjust the paths:
 </p>
 <div class="highlight"><pre><span></span><span class="w">  </span><span class="p">(</span><span class="nf">setq</span><span class="w"> </span><span class="nv">reftex-default-bibliography</span><span class="w"> </span><span class="o">'</span><span class="p">(</span><span class="s">"~/Dropbox/bibliography/references.bib"</span><span class="p">))</span>
 <span class="w">  </span><span class="c1">;; see org-ref for use of these variables</span>
 <span class="w">  </span><span class="p">(</span><span class="nf">setq</span><span class="w"> </span><span class="nv">org-ref-bibliography-notes</span><span class="w"> </span><span class="s">"~/Dropbox/bibliography/notes.org"</span>
-<span class="w">        </span><span class="nv">org-ref-default-bibliography</span><span class="w"> </span><span class="o">'</span><span class="p">(</span><span class="s">"~/Dropbox/bibliography/references.bib"</span><span class="p">)</span>
-<span class="w">        </span><span class="nv">org-ref-pdf-directory</span><span class="w"> </span><span class="s">"~/Dropbox/bibliography/bibtex-pdfs/"</span><span class="p">)</span>
+<span class="w">            </span><span class="nv">org-ref-default-bibliography</span><span class="w"> </span><span class="o">'</span><span class="p">(</span><span class="s">"~/Dropbox/bibliography/references.bib"</span><span class="p">)</span>
+<span class="w">            </span><span class="nv">org-ref-pdf-directory</span><span class="w"> </span><span class="s">"~/Dropbox/bibliography/bibtex-pdfs/"</span><span class="p">)</span>
 
 <span class="w">  </span><span class="p">(</span><span class="nf">setq</span><span class="w"> </span><span class="nv">bibtex-completion-bibliography</span><span class="w"> </span><span class="s">"~/Dropbox/bibliography/references.bib"</span>
-<span class="w">        </span><span class="nv">bibtex-completion-library-path</span><span class="w"> </span><span class="s">"~/Dropbox/bibliography/bibtex-pdfs"</span>
-<span class="w">        </span><span class="nv">bibtex-completion-notes-path</span><span class="w"> </span><span class="s">"~/Dropbox/bibliography/helm-bibtex-notes"</span><span class="p">)</span>
+<span class="w">            </span><span class="nv">bibtex-completion-library-path</span><span class="w"> </span><span class="s">"~/Dropbox/bibliography/bibtex-pdfs"</span>
+<span class="w">            </span><span class="nv">bibtex-completion-notes-path</span><span class="w"> </span><span class="s">"~/Dropbox/bibliography/helm-bibtex-notes"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
-<div id="outline-container-org0dd4d4f" class="outline-2">
-<h2 id="org0dd4d4f">Creating the reading list</h2>
-<div class="outline-text-2" id="text-org0dd4d4f">
+<div id="outline-container-org39452a7" class="outline-2">
+<h2 id="org39452a7">Creating the reading list</h2>
+<div class="outline-text-2" id="text-org39452a7">
 <p>
 With <code>org-ref</code> in place, it was time to setup the reading list so I created a new file named <code>reading-list.org</code> under <code>~/Dropbox/bibliography/</code> with the following header:
 </p>
@@ -396,20 +396,20 @@ The first line obviously defines the title of the document. The second line defi
 </ul>
 </div>
 </div>
-<div id="outline-container-orgb2976a9" class="outline-2">
-<h2 id="orgb2976a9">Adding an entry to the list</h2>
-<div class="outline-text-2" id="text-orgb2976a9">
+<div id="outline-container-org79d3498" class="outline-2">
+<h2 id="org79d3498">Adding an entry to the list</h2>
+<div class="outline-text-2" id="text-org79d3498">
 <ul class="org-ul">
 <li>
 <p>
 Add <code>bibtex</code> entry in <code>references.bib</code> file. E.g.:
 </p>
 <div class="highlight"><pre><span></span><span class="w">    </span>@inproceedings<span class="o">{</span>le2014distributed,
-<span class="w">      </span><span class="nv">title</span><span class="o">={</span>Distributed<span class="w"> </span>representations<span class="w"> </span>of<span class="w"> </span>sentences<span class="w"> </span>and<span class="w"> </span>documents<span class="o">}</span>,
-<span class="w">      </span><span class="nv">author</span><span class="o">={</span>Le,<span class="w"> </span>Quoc<span class="w"> </span>and<span class="w"> </span>Mikolov,<span class="w"> </span>Tomas<span class="o">}</span>,
-<span class="w">      </span><span class="nv">booktitle</span><span class="o">={</span>Proceedings<span class="w"> </span>of<span class="w"> </span>the<span class="w"> </span>31st<span class="w"> </span>International<span class="w"> </span>Conference<span class="w"> </span>on<span class="w"> </span>Machine<span class="w"> </span>Learning<span class="w"> </span><span class="o">(</span>ICML-14<span class="o">)}</span>,
-<span class="w">      </span><span class="nv">pages</span><span class="o">={</span><span class="m">1188</span>--1196<span class="o">}</span>,
-<span class="w">      </span><span class="nv">year</span><span class="o">={</span><span class="m">2014</span><span class="o">}</span>
+<span class="w">            </span><span class="nv">title</span><span class="o">={</span>Distributed<span class="w"> </span>representations<span class="w"> </span>of<span class="w"> </span>sentences<span class="w"> </span>and<span class="w"> </span>documents<span class="o">}</span>,
+<span class="w">            </span><span class="nv">author</span><span class="o">={</span>Le,<span class="w"> </span>Quoc<span class="w"> </span>and<span class="w"> </span>Mikolov,<span class="w"> </span>Tomas<span class="o">}</span>,
+<span class="w">            </span><span class="nv">booktitle</span><span class="o">={</span>Proceedings<span class="w"> </span>of<span class="w"> </span>the<span class="w"> </span>31st<span class="w"> </span>International<span class="w"> </span>Conference<span class="w"> </span>on<span class="w"> </span>Machine<span class="w"> </span>Learning<span class="w"> </span><span class="o">(</span>ICML-14<span class="o">)}</span>,
+<span class="w">            </span><span class="nv">pages</span><span class="o">={</span><span class="m">1188</span>--1196<span class="o">}</span>,
+<span class="w">            </span><span class="nv">year</span><span class="o">={</span><span class="m">2014</span><span class="o">}</span>
 <span class="w">    </span><span class="o">}</span>
 </pre></div>
 </li>
@@ -446,9 +446,9 @@ Repeat the steps above and you should end up with a list like this:
 <img src="images/emacs-reading-list.png" alt="nil"></p>
 </div>
 </div>
-<div id="outline-container-org478c003" class="outline-2">
-<h2 id="org478c003">Change the status of an entry</h2>
-<div class="outline-text-2" id="text-org478c003">
+<div id="outline-container-orgc9a9069" class="outline-2">
+<h2 id="orgc9a9069">Change the status of an entry</h2>
+<div class="outline-text-2" id="text-orgc9a9069">
 <p>
 To change the status of an entry:
 </p>
@@ -459,9 +459,9 @@ To change the status of an entry:
 </ul>
 </div>
 </div>
-<div id="outline-container-orga4aafd8" class="outline-2">
-<h2 id="orga4aafd8">Status overview</h2>
-<div class="outline-text-2" id="text-orga4aafd8">
+<div id="outline-container-org70d0339" class="outline-2">
+<h2 id="org70d0339">Status overview</h2>
+<div class="outline-text-2" id="text-org70d0339">
 <p>
 After creating the list you may want to have an overview of the status for each entry. This can be achieved using <code>Org Column View</code>.
 The setup for column view is in the third line of the header
@@ -478,9 +478,9 @@ which tells org-mode how to display the entries. Namely, we're defining two colu
 <b>Status</b> which will take as much space as needed to display the status</li>
 </ol>
 </div>
-<div id="outline-container-orgd90e79b" class="outline-3">
-<h3 id="orgd90e79b">Switching to column view</h3>
-<div class="outline-text-3" id="text-orgd90e79b">
+<div id="outline-container-orgbcc5ae3" class="outline-3">
+<h3 id="orgbcc5ae3">Switching to column view</h3>
+<div class="outline-text-3" id="text-orgbcc5ae3">
 <p>
 To switch to column view, place the cursor outside the headings and press <code>C-c C-x C-c</code> (or <code>M-x org-columns</code>). The list should look like the image below:
 <img src="images/emacs-reading-list-column-view.png" alt="nil">
@@ -488,9 +488,9 @@ If your cursor was on a heading when pressing <code>C-c C-x C-c</code> (invoking
 </p>
 </div>
 </div>
-<div id="outline-container-org76f320d" class="outline-3">
-<h3 id="org76f320d">Exiting column view</h3>
-<div class="outline-text-3" id="text-org76f320d">
+<div id="outline-container-orgc67fcce" class="outline-3">
+<h3 id="orgc67fcce">Exiting column view</h3>
+<div class="outline-text-3" id="text-orgc67fcce">
 <p>
 To exit column view position the cursor on a heading that is currently in column view and press <code>q</code>.
 </p>
@@ -501,9 +501,9 @@ That's it. Happy reading!
 </div>
 </div>
 </div>
-<div id="outline-container-orgba8b63d" class="outline-2">
-<h2 id="orgba8b63d">References</h2>
-<div class="outline-text-2" id="text-orgba8b63d">
+<div id="outline-container-org75e80f5" class="outline-2">
+<h2 id="org75e80f5">References</h2>
+<div class="outline-text-2" id="text-org75e80f5">
 <ol class="org-ol">
 <li><a href="https://github.com/jkitchin/org-ref/blob/master/org-ref.org#start-of-content">The org-ref manual</a></li>
 <li><a href="http://blog.modelworks.ch/managing-papers-with-org-mode-and-reftex/">Managing papers with Org-Mode and RefTex</a></li>
@@ -546,8 +546,8 @@ To do so, follow the steps below:
 Find the section to define configuration variables and make it look like this:
 </p>
 <div class="highlight"><pre><span></span><span class="w">   </span><span class="kd">var</span><span class="w"> </span><span class="nx">disqus_config</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="w">       </span><span class="k">this</span><span class="p">.</span><span class="nx">page</span><span class="p">.</span><span class="nx">url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'{{@blog.url}}{{url}}'</span><span class="p">;</span>
-<span class="w">       </span><span class="k">this</span><span class="p">.</span><span class="nx">page</span><span class="p">.</span><span class="nx">identifier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'{{id}}'</span><span class="p">;</span>
+<span class="w">            </span><span class="k">this</span><span class="p">.</span><span class="nx">page</span><span class="p">.</span><span class="nx">url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'{{@blog.url}}{{url}}'</span><span class="p">;</span>
+<span class="w">            </span><span class="k">this</span><span class="p">.</span><span class="nx">page</span><span class="p">.</span><span class="nx">identifier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'{{id}}'</span><span class="p">;</span>
 <span class="w">   </span><span class="p">};</span>
 </pre></div>
 </li>
@@ -574,9 +574,9 @@ While working on a project I had to load and process some resources from a MySQL
 <p>
 Instead, I decided to restore the database on a Docker image for MySQL and query the data using <code>mysql-client</code>.
 </p>
-<div id="outline-container-org9f89060" class="outline-2">
-<h2 id="org9f89060">Install <code>mysql-client</code> locally</h2>
-<div class="outline-text-2" id="text-org9f89060">
+<div id="outline-container-org83aeb62" class="outline-2">
+<h2 id="org83aeb62">Install <code>mysql-client</code> locally</h2>
+<div class="outline-text-2" id="text-org83aeb62">
 <p>
 This one is simple; just run:
 </p>
@@ -584,9 +584,9 @@ This one is simple; just run:
 </pre></div>
 </div>
 </div>
-<div id="outline-container-org65c78e0" class="outline-2">
-<h2 id="org65c78e0">Install Docker on Ubuntu</h2>
-<div class="outline-text-2" id="text-org65c78e0">
+<div id="outline-container-org4ea686e" class="outline-2">
+<h2 id="org4ea686e">Install Docker on Ubuntu</h2>
+<div class="outline-text-2" id="text-org4ea686e">
 <p>
 The first thing to do is to head to <a href="https://docs.docker.com/engine/installation/linux/ubuntu/#install-docker">Docker documentation</a> for instalation instructions which I've copied here:
 </p>
@@ -596,10 +596,10 @@ The first thing to do is to head to <a href="https://docs.docker.com/engine/inst
 Install packages to allow <code>apt</code> to use a repository over HTTPS:
 </p>
 <div class="highlight"><pre><span></span><span class="w">   </span>sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span><span class="se">\</span>
-<span class="w">       </span>apt-transport-https<span class="w"> </span><span class="se">\</span>
-<span class="w">       </span>ca-certificates<span class="w"> </span><span class="se">\</span>
-<span class="w">       </span>curl<span class="w"> </span><span class="se">\</span>
-<span class="w">       </span>software-properties-common
+<span class="w">            </span>apt-transport-https<span class="w"> </span><span class="se">\</span>
+<span class="w">            </span>ca-certificates<span class="w"> </span><span class="se">\</span>
+<span class="w">            </span>curl<span class="w"> </span><span class="se">\</span>
+<span class="w">            </span>software-properties-common
 </pre></div>
 </li>
 <li>
@@ -614,9 +614,9 @@ Add the official GPG key for Docker
 Setup the <b>stable</b> repository. Make sure to select the proper architecture; in my case it's <code>amd64</code>
 </p>
 <div class="highlight"><pre><span></span><span class="w">   </span>sudo<span class="w"> </span>add-apt-repository<span class="w"> </span><span class="se">\</span>
-<span class="w">       </span><span class="s2">"deb [arch=amd64] https://download.docker.com/linux/ubuntu \</span>
-<span class="s2">       </span><span class="k">$(</span>lsb_release<span class="w"> </span>-cs<span class="k">)</span><span class="s2"> \</span>
-<span class="s2">       stable"</span>
+<span class="w">            </span><span class="s2">"deb [arch=amd64] https://download.docker.com/linux/ubuntu \</span>
+<span class="s2">            </span><span class="k">$(</span>lsb_release<span class="w"> </span>-cs<span class="k">)</span><span class="s2"> \</span>
+<span class="s2">            stable"</span>
 </pre></div>
 </li>
 <li>
@@ -636,9 +636,9 @@ Install Docker
 </ul>
 </div>
 </div>
-<div id="outline-container-org12bc59c" class="outline-2">
-<h2 id="org12bc59c">Restore MySQL database to a Docker container</h2>
-<div class="outline-text-2" id="text-org12bc59c">
+<div id="outline-container-org1c2f5e9" class="outline-2">
+<h2 id="org1c2f5e9">Restore MySQL database to a Docker container</h2>
+<div class="outline-text-2" id="text-org1c2f5e9">
 <ul class="org-ul">
 <li>
 <p>
@@ -678,9 +678,9 @@ Notes:
 </ul>
 </div>
 </div>
-<div id="outline-container-org1096016" class="outline-2">
-<h2 id="org1096016">Connect to MySQL database running on Docker container from Emacs</h2>
-<div class="outline-text-2" id="text-org1096016">
+<div id="outline-container-org997581c" class="outline-2">
+<h2 id="org997581c">Connect to MySQL database running on Docker container from Emacs</h2>
+<div class="outline-text-2" id="text-org997581c">
 <ul class="org-ul">
 <li>First, start the container <code>sudo docker start &lt;container-name&gt;</code>
 </li>
@@ -724,17 +724,17 @@ In a discussion over a beer, a friend of mine asked whether I know a way to edit
 <p>
 This is how I do it.
 </p>
-<div id="outline-container-org35abd41" class="outline-2">
-<h2 id="org35abd41">Setup</h2>
-<div class="outline-text-2" id="text-org35abd41">
+<div id="outline-container-orgc65f0d8" class="outline-2">
+<h2 id="orgc65f0d8">Setup</h2>
+<div class="outline-text-2" id="text-orgc65f0d8">
 <p>
 I use <code>Emacs 25.2</code> on Kubuntu 17.04 and on Windows 10 using <a href="http://cygwin.com/">Cygwin</a> and when working with remote files both systems behave the same.
 </p>
 </div>
 </div>
-<div id="outline-container-orgfb58270" class="outline-2">
-<h2 id="orgfb58270">The flow</h2>
-<div class="outline-text-2" id="text-orgfb58270">
+<div id="outline-container-org669a0cc" class="outline-2">
+<h2 id="org669a0cc">The flow</h2>
+<div class="outline-text-2" id="text-org669a0cc">
 <ol class="org-ol">
 <li>Configure the remote machine to authenticate you with a key file as specified in this <a href="https://askubuntu.com/a/20921/561980">stackoverflow answer</a>
 </li>
@@ -747,9 +747,9 @@ To open the remote file for editing invoke the <code>find-file</code> command ei
 </pre></div>
 </div>
 </div>
-<div id="outline-container-org52daca5" class="outline-2">
-<h2 id="org52daca5">An example</h2>
-<div class="outline-text-2" id="text-org52daca5">
+<div id="outline-container-org8427fce" class="outline-2">
+<h2 id="org8427fce">An example</h2>
+<div class="outline-text-2" id="text-org8427fce">
 <p>
 To exemplify let's consider the following scenario: I have a virtual machine with the IP <code>192.168.13.13</code> to which I can connect remotely with <code>ssh</code> using the username <code>petru</code> and the default public key (<b>~/.ssh/id<sub>rsa.pub</sub></b>). On that machine I want to edit the file <code>/home/petru/src/debugutils.py</code>.
 </p>
@@ -813,8 +813,8 @@ we should declare them in a <code>type safe</code> manner like this:
 
 <span class="w">    </span><span class="k">private</span><span class="w"> </span><span class="nf">WeekDay</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="k">value</span><span class="p">,</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="n">name</span><span class="p">)</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">        </span><span class="n">Value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">value</span><span class="p">;</span>
-<span class="w">        </span><span class="n">Name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">name</span><span class="p">;</span>
+<span class="w">          </span><span class="n">Value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">value</span><span class="p">;</span>
+<span class="w">          </span><span class="n">Name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">name</span><span class="p">;</span>
 <span class="w">    </span><span class="p">}</span>
 
 <span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">Value</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">private</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
@@ -831,9 +831,9 @@ This way the <a href="https://msdn.microsoft.com/en-us/library/06tc147t.aspx"><c
 <p>
 However, the problems the article refers to are not in the lack of compiler checks for valid <code>enum</code> values but rather how the <code>enum</code> values are used.
 </p>
-<div id="outline-container-orgd321cd8" class="outline-2">
-<h2 id="orgd321cd8">Displaying <code>enums</code> in UI elements</h2>
-<div class="outline-text-2" id="text-orgd321cd8">
+<div id="outline-container-org0f75e92" class="outline-2">
+<h2 id="org0f75e92">Displaying <code>enums</code> in UI elements</h2>
+<div class="outline-text-2" id="text-org0f75e92">
 <p>
 Let's look at the simplest problem Steve mentiones - displaying <code>enum</code> values in the UI. Indeed using the <code>DescriptionAttribute</code> is not the best solution you can have.
 </p>
@@ -847,13 +847,13 @@ The idea behind this is simple - build a <code>Dictionary&lt;TEnum, string&gt;</
 </p>
 <div class="highlight"><pre><span></span><span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">EnumUtils</span>
 <span class="w">  </span><span class="p">{</span>
-<span class="w">      </span><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">Dictionary</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span><span class="w"> </span><span class="kt">string</span><span class="o">&gt;</span><span class="w"> </span><span class="n">GetLocalizedEnumValues</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="k">this</span><span class="w"> </span><span class="n">ResourceManager</span><span class="w"> </span><span class="n">resourceManager</span><span class="p">)</span>
-<span class="w">      </span><span class="p">{</span>
-<span class="w">          </span><span class="k">return</span><span class="w"> </span><span class="n">Enum</span><span class="p">.</span><span class="n">GetValues</span><span class="p">(</span><span class="k">typeof</span><span class="p">(</span><span class="n">T</span><span class="p">))</span>
-<span class="w">              </span><span class="p">.</span><span class="n">Cast</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">()</span>
-<span class="w">              </span><span class="p">.</span><span class="n">Select</span><span class="p">(</span><span class="n">val</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">Value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">val</span><span class="p">,</span><span class="w"> </span><span class="n">Text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">resourceManager</span><span class="p">.</span><span class="n">GetString</span><span class="p">(</span><span class="n">val</span><span class="p">.</span><span class="n">ToString</span><span class="p">())</span><span class="w"> </span><span class="p">})</span>
-<span class="w">              </span><span class="p">.</span><span class="n">ToDictionary</span><span class="p">(</span><span class="n">kvp</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">kvp</span><span class="p">.</span><span class="n">Value</span><span class="p">,</span><span class="w"> </span><span class="n">kvp</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">kvp</span><span class="p">.</span><span class="n">Text</span><span class="p">);</span>
-<span class="w">      </span><span class="p">}</span>
+<span class="w">          </span><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">Dictionary</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span><span class="w"> </span><span class="kt">string</span><span class="o">&gt;</span><span class="w"> </span><span class="n">GetLocalizedEnumValues</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="k">this</span><span class="w"> </span><span class="n">ResourceManager</span><span class="w"> </span><span class="n">resourceManager</span><span class="p">)</span>
+<span class="w">          </span><span class="p">{</span>
+<span class="w">              </span><span class="k">return</span><span class="w"> </span><span class="n">Enum</span><span class="p">.</span><span class="n">GetValues</span><span class="p">(</span><span class="k">typeof</span><span class="p">(</span><span class="n">T</span><span class="p">))</span>
+<span class="w">                  </span><span class="p">.</span><span class="n">Cast</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">()</span>
+<span class="w">                  </span><span class="p">.</span><span class="n">Select</span><span class="p">(</span><span class="n">val</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">Value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">val</span><span class="p">,</span><span class="w"> </span><span class="n">Text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">resourceManager</span><span class="p">.</span><span class="n">GetString</span><span class="p">(</span><span class="n">val</span><span class="p">.</span><span class="n">ToString</span><span class="p">())</span><span class="w"> </span><span class="p">})</span>
+<span class="w">                  </span><span class="p">.</span><span class="n">ToDictionary</span><span class="p">(</span><span class="n">kvp</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">kvp</span><span class="p">.</span><span class="n">Value</span><span class="p">,</span><span class="w"> </span><span class="n">kvp</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">kvp</span><span class="p">.</span><span class="n">Text</span><span class="p">);</span>
+<span class="w">          </span><span class="p">}</span>
 <span class="w">  </span><span class="p">}</span>
 </pre></div>
 <p>
@@ -865,15 +865,15 @@ And now let's look at how this method can be used to localize <code>enum</code> 
 </p>
 <div class="highlight"><pre><span></span><span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">ThemeController</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">Controller</span>
 <span class="w">  </span><span class="p">{</span>
-<span class="w">      </span><span class="k">public</span><span class="w"> </span><span class="n">ActionResult</span><span class="w"> </span><span class="nf">Index</span><span class="p">()</span>
-<span class="w">      </span><span class="p">{</span>
-<span class="w">          </span><span class="kt">var</span><span class="w"> </span><span class="n">viewModel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ThemeViewModel</span>
+<span class="w">          </span><span class="k">public</span><span class="w"> </span><span class="n">ActionResult</span><span class="w"> </span><span class="nf">Index</span><span class="p">()</span>
 <span class="w">          </span><span class="p">{</span>
-<span class="w">              </span><span class="n">WeekDays</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Resources</span><span class="p">.</span><span class="n">ResourceManager</span><span class="p">.</span><span class="n">GetLocalizedEnumValues</span><span class="o">&lt;</span><span class="n">WeekDay</span><span class="o">&gt;</span><span class="p">()</span>
-<span class="w">                  </span><span class="p">.</span><span class="n">Select</span><span class="p">(</span><span class="n">kvp</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">SelectListItem</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">Value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">kvp</span><span class="p">.</span><span class="n">Key</span><span class="p">,</span><span class="w"> </span><span class="n">Text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">kvp</span><span class="p">.</span><span class="n">Value</span><span class="p">})</span>
-<span class="w">          </span><span class="p">};</span>
-<span class="w">          </span><span class="k">return</span><span class="w"> </span><span class="nf">View</span><span class="p">(</span><span class="n">viewModel</span><span class="p">);</span>
-<span class="w">      </span><span class="p">}</span>
+<span class="w">              </span><span class="kt">var</span><span class="w"> </span><span class="n">viewModel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ThemeViewModel</span>
+<span class="w">              </span><span class="p">{</span>
+<span class="w">                  </span><span class="n">WeekDays</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Resources</span><span class="p">.</span><span class="n">ResourceManager</span><span class="p">.</span><span class="n">GetLocalizedEnumValues</span><span class="o">&lt;</span><span class="n">WeekDay</span><span class="o">&gt;</span><span class="p">()</span>
+<span class="w">                      </span><span class="p">.</span><span class="n">Select</span><span class="p">(</span><span class="n">kvp</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">SelectListItem</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">Value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">kvp</span><span class="p">.</span><span class="n">Key</span><span class="p">,</span><span class="w"> </span><span class="n">Text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">kvp</span><span class="p">.</span><span class="n">Value</span><span class="p">})</span>
+<span class="w">              </span><span class="p">};</span>
+<span class="w">              </span><span class="k">return</span><span class="w"> </span><span class="nf">View</span><span class="p">(</span><span class="n">viewModel</span><span class="p">);</span>
+<span class="w">          </span><span class="p">}</span>
 <span class="w">  </span><span class="p">}</span>
 </pre></div>
 <p>
@@ -887,9 +887,9 @@ Granted, it's more work to do in order to display <code>enums</code> like this b
 </ul>
 </div>
 </div>
-<div id="outline-container-org24137e8" class="outline-2">
-<h2 id="org24137e8">Use defensive coding in <code>switch</code> statements</h2>
-<div class="outline-text-2" id="text-org24137e8">
+<div id="outline-container-org990b9e0" class="outline-2">
+<h2 id="org990b9e0">Use defensive coding in <code>switch</code> statements</h2>
+<div class="outline-text-2" id="text-org990b9e0">
 <p>
 Now, let's address the bigger issue when dealing with <code>enums</code>, namely calling (in our case) <code>themeSelector.GetTheme((WeekDay)13)</code>. The problem here is that a lot of developers don't use defensive programming when dealing with <code>enums</code> (or at all).
 </p>
@@ -899,25 +899,25 @@ Let's consider how our <code>GetTheme</code> method would look like in a non-def
 </p>
 <div class="highlight"><pre><span></span><span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">ThemeSelector</span>
 <span class="w">  </span><span class="p">{</span>
-<span class="w">      </span><span class="k">public</span><span class="w"> </span><span class="n">Theme</span><span class="w"> </span><span class="nf">GetTheme</span><span class="p">(</span><span class="n">WeekDay</span><span class="w"> </span><span class="n">weekDay</span><span class="p">)</span>
-<span class="w">      </span><span class="p">{</span>
-<span class="w">          </span><span class="k">switch</span><span class="p">(</span><span class="n">weekDay</span><span class="p">)</span>
-<span class="w">              </span><span class="k">case</span><span class="w"> </span><span class="n">WeekDay</span><span class="p">.</span><span class="n">Monday</span><span class="p">:</span>
-<span class="w">                  </span><span class="k">return</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Theme</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">Playlist</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"Monday mood"</span><span class="w"> </span><span class="p">};</span>
-<span class="w">              </span><span class="k">case</span><span class="w"> </span><span class="n">WeekDay</span><span class="p">.</span><span class="n">Tuesday</span><span class="p">:</span>
-<span class="w">                  </span><span class="k">return</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Theme</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">Playlist</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"Four more days to Friday"</span><span class="w"> </span><span class="p">};</span>
-<span class="w">              </span><span class="k">case</span><span class="w"> </span><span class="n">WeekDay</span><span class="p">.</span><span class="n">Wednesday</span><span class="p">:</span>
-<span class="w">                  </span><span class="k">return</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Theme</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">Playlist</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"It's hump day already!"</span><span class="w"> </span><span class="p">};</span>
-<span class="w">              </span><span class="k">case</span><span class="w"> </span><span class="n">WeekDay</span><span class="p">.</span><span class="n">Thursday</span><span class="p">:</span>
-<span class="w">                  </span><span class="k">return</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Theme</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">Playlist</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"One more day!"</span><span class="w"> </span><span class="p">};</span>
-<span class="w">              </span><span class="k">case</span><span class="w"> </span><span class="n">WeekDay</span><span class="p">.</span><span class="n">Friday</span><span class="p">:</span>
-<span class="w">                  </span><span class="k">return</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Theme</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">Playlist</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"Friday margueritas!"</span><span class="w"> </span><span class="p">};</span>
-<span class="w">              </span><span class="k">case</span><span class="w"> </span><span class="n">WeekDay</span><span class="p">.</span><span class="n">Saturday</span><span class="p">:</span>
-<span class="w">                  </span><span class="k">return</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Theme</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">Playlist</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"Go away hangover!"</span><span class="w"> </span><span class="p">};</span>
-<span class="w">              </span><span class="k">case</span><span class="w"> </span><span class="n">WeekDay</span><span class="p">.</span><span class="n">Sunday</span><span class="p">:</span>
-<span class="w">              </span><span class="k">default</span><span class="p">:</span><span class="w"> </span><span class="c1">// BAD!!!</span>
-<span class="w">                  </span><span class="k">return</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Theme</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">Playlist</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"There's still time to party!"</span><span class="w"> </span><span class="p">};</span>
-<span class="w">      </span><span class="p">}</span>
+<span class="w">          </span><span class="k">public</span><span class="w"> </span><span class="n">Theme</span><span class="w"> </span><span class="nf">GetTheme</span><span class="p">(</span><span class="n">WeekDay</span><span class="w"> </span><span class="n">weekDay</span><span class="p">)</span>
+<span class="w">          </span><span class="p">{</span>
+<span class="w">              </span><span class="k">switch</span><span class="p">(</span><span class="n">weekDay</span><span class="p">)</span>
+<span class="w">                  </span><span class="k">case</span><span class="w"> </span><span class="n">WeekDay</span><span class="p">.</span><span class="n">Monday</span><span class="p">:</span>
+<span class="w">                      </span><span class="k">return</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Theme</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">Playlist</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"Monday mood"</span><span class="w"> </span><span class="p">};</span>
+<span class="w">                  </span><span class="k">case</span><span class="w"> </span><span class="n">WeekDay</span><span class="p">.</span><span class="n">Tuesday</span><span class="p">:</span>
+<span class="w">                      </span><span class="k">return</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Theme</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">Playlist</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"Four more days to Friday"</span><span class="w"> </span><span class="p">};</span>
+<span class="w">                  </span><span class="k">case</span><span class="w"> </span><span class="n">WeekDay</span><span class="p">.</span><span class="n">Wednesday</span><span class="p">:</span>
+<span class="w">                      </span><span class="k">return</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Theme</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">Playlist</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"It's hump day already!"</span><span class="w"> </span><span class="p">};</span>
+<span class="w">                  </span><span class="k">case</span><span class="w"> </span><span class="n">WeekDay</span><span class="p">.</span><span class="n">Thursday</span><span class="p">:</span>
+<span class="w">                      </span><span class="k">return</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Theme</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">Playlist</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"One more day!"</span><span class="w"> </span><span class="p">};</span>
+<span class="w">                  </span><span class="k">case</span><span class="w"> </span><span class="n">WeekDay</span><span class="p">.</span><span class="n">Friday</span><span class="p">:</span>
+<span class="w">                      </span><span class="k">return</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Theme</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">Playlist</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"Friday margueritas!"</span><span class="w"> </span><span class="p">};</span>
+<span class="w">                  </span><span class="k">case</span><span class="w"> </span><span class="n">WeekDay</span><span class="p">.</span><span class="n">Saturday</span><span class="p">:</span>
+<span class="w">                      </span><span class="k">return</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Theme</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">Playlist</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"Go away hangover!"</span><span class="w"> </span><span class="p">};</span>
+<span class="w">                  </span><span class="k">case</span><span class="w"> </span><span class="n">WeekDay</span><span class="p">.</span><span class="n">Sunday</span><span class="p">:</span>
+<span class="w">                  </span><span class="k">default</span><span class="p">:</span><span class="w"> </span><span class="c1">// BAD!!!</span>
+<span class="w">                      </span><span class="k">return</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Theme</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">Playlist</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"There's still time to party!"</span><span class="w"> </span><span class="p">};</span>
+<span class="w">          </span><span class="p">}</span>
 <span class="w">  </span><span class="p">}</span>
 </pre></div>
 <p>
@@ -929,26 +929,26 @@ The simplest fix for this is below:
 </p>
 <div class="highlight"><pre><span></span><span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">ThemeSelector</span>
 <span class="w">  </span><span class="p">{</span>
-<span class="w">      </span><span class="k">public</span><span class="w"> </span><span class="n">Theme</span><span class="w"> </span><span class="nf">GetTheme</span><span class="p">(</span><span class="n">WeekDay</span><span class="w"> </span><span class="n">weekDay</span><span class="p">)</span>
-<span class="w">      </span><span class="p">{</span>
-<span class="w">          </span><span class="k">switch</span><span class="p">(</span><span class="n">weekDay</span><span class="p">)</span>
-<span class="w">              </span><span class="k">case</span><span class="w"> </span><span class="n">WeekDay</span><span class="p">.</span><span class="n">Monday</span><span class="p">:</span>
-<span class="w">                  </span><span class="k">return</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Theme</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">Playlist</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"Monday mood"</span><span class="w"> </span><span class="p">};</span>
-<span class="w">              </span><span class="k">case</span><span class="w"> </span><span class="n">WeekDay</span><span class="p">.</span><span class="n">Tuesday</span><span class="p">:</span>
-<span class="w">                  </span><span class="k">return</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Theme</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">Playlist</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"Four more days to Friday"</span><span class="w"> </span><span class="p">};</span>
-<span class="w">              </span><span class="k">case</span><span class="w"> </span><span class="n">WeekDay</span><span class="p">.</span><span class="n">Wednesday</span><span class="p">:</span>
-<span class="w">                  </span><span class="k">return</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Theme</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">Playlist</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"It's hump day already!"</span><span class="w"> </span><span class="p">};</span>
-<span class="w">              </span><span class="k">case</span><span class="w"> </span><span class="n">WeekDay</span><span class="p">.</span><span class="n">Thursday</span><span class="p">:</span>
-<span class="w">                  </span><span class="k">return</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Theme</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">Playlist</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"One more day!"</span><span class="w"> </span><span class="p">};</span>
-<span class="w">              </span><span class="k">case</span><span class="w"> </span><span class="n">WeekDay</span><span class="p">.</span><span class="n">Friday</span><span class="p">:</span>
-<span class="w">                  </span><span class="k">return</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Theme</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">Playlist</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"Friday margueritas!"</span><span class="w"> </span><span class="p">};</span>
-<span class="w">              </span><span class="k">case</span><span class="w"> </span><span class="n">WeekDay</span><span class="p">.</span><span class="n">Saturday</span><span class="p">:</span>
-<span class="w">                  </span><span class="k">return</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Theme</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">Playlist</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"Go away hangover!"</span><span class="w"> </span><span class="p">};</span>
-<span class="w">              </span><span class="k">case</span><span class="w"> </span><span class="n">WeekDay</span><span class="p">.</span><span class="n">Sunday</span><span class="p">:</span>
-<span class="w">                  </span><span class="k">return</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Theme</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">Playlist</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"There's still time to party!"</span><span class="w"> </span><span class="p">};</span>
-<span class="w">              </span><span class="k">default</span><span class="p">:</span>
-<span class="w">                  </span><span class="k">throw</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nf">ArgumentException</span><span class="p">(</span><span class="s">"Invalid value for WeekDay enum."</span><span class="p">);</span>
-<span class="w">      </span><span class="p">}</span>
+<span class="w">          </span><span class="k">public</span><span class="w"> </span><span class="n">Theme</span><span class="w"> </span><span class="nf">GetTheme</span><span class="p">(</span><span class="n">WeekDay</span><span class="w"> </span><span class="n">weekDay</span><span class="p">)</span>
+<span class="w">          </span><span class="p">{</span>
+<span class="w">              </span><span class="k">switch</span><span class="p">(</span><span class="n">weekDay</span><span class="p">)</span>
+<span class="w">                  </span><span class="k">case</span><span class="w"> </span><span class="n">WeekDay</span><span class="p">.</span><span class="n">Monday</span><span class="p">:</span>
+<span class="w">                      </span><span class="k">return</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Theme</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">Playlist</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"Monday mood"</span><span class="w"> </span><span class="p">};</span>
+<span class="w">                  </span><span class="k">case</span><span class="w"> </span><span class="n">WeekDay</span><span class="p">.</span><span class="n">Tuesday</span><span class="p">:</span>
+<span class="w">                      </span><span class="k">return</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Theme</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">Playlist</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"Four more days to Friday"</span><span class="w"> </span><span class="p">};</span>
+<span class="w">                  </span><span class="k">case</span><span class="w"> </span><span class="n">WeekDay</span><span class="p">.</span><span class="n">Wednesday</span><span class="p">:</span>
+<span class="w">                      </span><span class="k">return</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Theme</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">Playlist</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"It's hump day already!"</span><span class="w"> </span><span class="p">};</span>
+<span class="w">                  </span><span class="k">case</span><span class="w"> </span><span class="n">WeekDay</span><span class="p">.</span><span class="n">Thursday</span><span class="p">:</span>
+<span class="w">                      </span><span class="k">return</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Theme</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">Playlist</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"One more day!"</span><span class="w"> </span><span class="p">};</span>
+<span class="w">                  </span><span class="k">case</span><span class="w"> </span><span class="n">WeekDay</span><span class="p">.</span><span class="n">Friday</span><span class="p">:</span>
+<span class="w">                      </span><span class="k">return</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Theme</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">Playlist</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"Friday margueritas!"</span><span class="w"> </span><span class="p">};</span>
+<span class="w">                  </span><span class="k">case</span><span class="w"> </span><span class="n">WeekDay</span><span class="p">.</span><span class="n">Saturday</span><span class="p">:</span>
+<span class="w">                      </span><span class="k">return</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Theme</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">Playlist</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"Go away hangover!"</span><span class="w"> </span><span class="p">};</span>
+<span class="w">                  </span><span class="k">case</span><span class="w"> </span><span class="n">WeekDay</span><span class="p">.</span><span class="n">Sunday</span><span class="p">:</span>
+<span class="w">                      </span><span class="k">return</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Theme</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">Playlist</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"There's still time to party!"</span><span class="w"> </span><span class="p">};</span>
+<span class="w">                  </span><span class="k">default</span><span class="p">:</span>
+<span class="w">                      </span><span class="k">throw</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nf">ArgumentException</span><span class="p">(</span><span class="s">"Invalid value for WeekDay enum."</span><span class="p">);</span>
+<span class="w">          </span><span class="p">}</span>
 <span class="w">  </span><span class="p">}</span>
 </pre></div>
 <p>
@@ -960,9 +960,9 @@ Throwing the <code>ArgumentException</code> when receiving an invalid value will
 </ul>
 </div>
 </div>
-<div id="outline-container-orgaea7954" class="outline-2">
-<h2 id="orgaea7954">Use specialzed <code>builders</code> instead of <code>switch</code> statements</h2>
-<div class="outline-text-2" id="text-orgaea7954">
+<div id="outline-container-orgc29f8f9" class="outline-2">
+<h2 id="orgc29f8f9">Use specialzed <code>builders</code> instead of <code>switch</code> statements</h2>
+<div class="outline-text-2" id="text-orgc29f8f9">
 <p>
 However, the best way to use <code>switch</code> statements is to avoid it altoghether. Why? Mainly because <code>switch</code> statements are the main violators of <a href="https://en.wikipedia.org/wiki/Open/closed_principle">Open/Closed Principle</a> i.e.every time a new member of the enum is added, every <code>switch</code> on that enum values needs to be changed in order to accomodate the new member (except for the cases that use the <code>default</code> label).
 </p>
@@ -984,9 +984,9 @@ Since the switch is used to build instances of <code>Theme</code> class, let's c
 </p>
 <div class="highlight"><pre><span></span><span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="k">interface</span><span class="w"> </span><span class="n">IThemeBuilder</span>
 <span class="w">  </span><span class="p">{</span>
-<span class="w">      </span><span class="n">WeekDay</span><span class="w"> </span><span class="n">WeekDay</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">          </span><span class="n">WeekDay</span><span class="w"> </span><span class="n">WeekDay</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 
-<span class="w">      </span><span class="n">Theme</span><span class="w"> </span><span class="nf">BuildTheme</span><span class="p">();</span>
+<span class="w">          </span><span class="n">Theme</span><span class="w"> </span><span class="nf">BuildTheme</span><span class="p">();</span>
 <span class="w">  </span><span class="p">}</span>
 </pre></div>
 <p>
@@ -994,15 +994,15 @@ Now an implementation of this interface for <code>WeekDay.Monday</code> would lo
 </p>
 <div class="highlight"><pre><span></span><span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">MondayThemeBuilder</span>
 <span class="w">  </span><span class="p">{</span>
-<span class="w">      </span><span class="k">public</span><span class="w"> </span><span class="n">WeekDay</span><span class="w"> </span><span class="n">WeekDay</span>
-<span class="w">      </span><span class="p">{</span>
-<span class="w">          </span><span class="k">get</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">WeekDay</span><span class="p">.</span><span class="n">Monday</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
-<span class="w">      </span><span class="p">}</span>
+<span class="w">          </span><span class="k">public</span><span class="w"> </span><span class="n">WeekDay</span><span class="w"> </span><span class="n">WeekDay</span>
+<span class="w">          </span><span class="p">{</span>
+<span class="w">              </span><span class="k">get</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">WeekDay</span><span class="p">.</span><span class="n">Monday</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">          </span><span class="p">}</span>
 
-<span class="w">      </span><span class="k">public</span><span class="w"> </span><span class="n">Theme</span><span class="w"> </span><span class="nf">BuildTheme</span><span class="p">()</span>
-<span class="w">      </span><span class="p">{</span>
-<span class="w">          </span><span class="k">return</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Theme</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">Playlist</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"Monday mood"</span><span class="w"> </span><span class="p">};</span>
-<span class="w">      </span><span class="p">}</span>
+<span class="w">          </span><span class="k">public</span><span class="w"> </span><span class="n">Theme</span><span class="w"> </span><span class="nf">BuildTheme</span><span class="p">()</span>
+<span class="w">          </span><span class="p">{</span>
+<span class="w">              </span><span class="k">return</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Theme</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">Playlist</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"Monday mood"</span><span class="w"> </span><span class="p">};</span>
+<span class="w">          </span><span class="p">}</span>
 <span class="w">  </span><span class="p">}</span>
 </pre></div>
 <p>
@@ -1010,20 +1010,20 @@ With all the implementations in place, all it remains to do is to register the i
 </p>
 <div class="highlight"><pre><span></span><span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">ThemeSelector</span>
 <span class="w">  </span><span class="p">{</span>
-<span class="w">      </span><span class="k">private</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="n">IEnumerable</span><span class="o">&lt;</span><span class="n">ThemeBuilder</span><span class="o">&gt;</span><span class="w"> </span><span class="n">builders</span><span class="p">;</span>
+<span class="w">          </span><span class="k">private</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="n">IEnumerable</span><span class="o">&lt;</span><span class="n">ThemeBuilder</span><span class="o">&gt;</span><span class="w"> </span><span class="n">builders</span><span class="p">;</span>
 
-<span class="w">      </span><span class="k">public</span><span class="w"> </span><span class="nf">ThemeSelector</span><span class="p">(</span><span class="n">IEnumerable</span><span class="o">&lt;</span><span class="n">IThemeBuilder</span><span class="o">&gt;</span><span class="w"> </span><span class="n">themeBuilders</span><span class="p">)</span>
-<span class="w">      </span><span class="p">{</span>
-<span class="w">          </span><span class="n">builders</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">themeBuilders</span><span class="p">;</span>
-<span class="w">      </span><span class="p">}</span>
+<span class="w">          </span><span class="k">public</span><span class="w"> </span><span class="nf">ThemeSelector</span><span class="p">(</span><span class="n">IEnumerable</span><span class="o">&lt;</span><span class="n">IThemeBuilder</span><span class="o">&gt;</span><span class="w"> </span><span class="n">themeBuilders</span><span class="p">)</span>
+<span class="w">          </span><span class="p">{</span>
+<span class="w">              </span><span class="n">builders</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">themeBuilders</span><span class="p">;</span>
+<span class="w">          </span><span class="p">}</span>
 
-<span class="w">      </span><span class="k">public</span><span class="w"> </span><span class="n">Theme</span><span class="w"> </span><span class="nf">GetTheme</span><span class="p">(</span><span class="n">WeekDay</span><span class="w"> </span><span class="n">weekDay</span><span class="p">)</span>
-<span class="w">      </span><span class="p">{</span>
-<span class="w">          </span><span class="kt">var</span><span class="w"> </span><span class="n">builder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">builders</span><span class="p">.</span><span class="n">SingleOrDefault</span><span class="p">(</span><span class="n">b</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">WeekDay</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">weekDay</span><span class="p">);</span>
-<span class="w">          </span><span class="k">if</span><span class="p">(</span><span class="w"> </span><span class="n">builder</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="k">null</span><span class="p">)</span>
-<span class="w">              </span><span class="k">throw</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nf">ArgumentException</span><span class="p">(</span><span class="n">String</span><span class="p">.</span><span class="n">Format</span><span class="p">(</span><span class="s">"Invalid value '{0}' received for week day."</span><span class="p">,</span><span class="w"> </span><span class="n">weekDay</span><span class="p">));</span>
-<span class="w">          </span><span class="k">return</span><span class="w"> </span><span class="n">builder</span><span class="p">.</span><span class="n">BuildTheme</span><span class="p">();</span>
-<span class="w">      </span><span class="p">}</span>
+<span class="w">          </span><span class="k">public</span><span class="w"> </span><span class="n">Theme</span><span class="w"> </span><span class="nf">GetTheme</span><span class="p">(</span><span class="n">WeekDay</span><span class="w"> </span><span class="n">weekDay</span><span class="p">)</span>
+<span class="w">          </span><span class="p">{</span>
+<span class="w">              </span><span class="kt">var</span><span class="w"> </span><span class="n">builder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">builders</span><span class="p">.</span><span class="n">SingleOrDefault</span><span class="p">(</span><span class="n">b</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">WeekDay</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">weekDay</span><span class="p">);</span>
+<span class="w">              </span><span class="k">if</span><span class="p">(</span><span class="w"> </span><span class="n">builder</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="k">null</span><span class="p">)</span>
+<span class="w">                  </span><span class="k">throw</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nf">ArgumentException</span><span class="p">(</span><span class="n">String</span><span class="p">.</span><span class="n">Format</span><span class="p">(</span><span class="s">"Invalid value '{0}' received for week day."</span><span class="p">,</span><span class="w"> </span><span class="n">weekDay</span><span class="p">));</span>
+<span class="w">              </span><span class="k">return</span><span class="w"> </span><span class="n">builder</span><span class="p">.</span><span class="n">BuildTheme</span><span class="p">();</span>
+<span class="w">          </span><span class="p">}</span>
 <span class="w">  </span><span class="p">}</span>
 </pre></div>
 <p>
@@ -1041,9 +1041,9 @@ Depending on which <code>dependency injection</code> library you use, there may 
 </p>
 </div>
 </div>
-<div id="outline-container-org4d1f290" class="outline-2">
-<h2 id="org4d1f290">Conclusions</h2>
-<div class="outline-text-2" id="text-org4d1f290">
+<div id="outline-container-org373bba8" class="outline-2">
+<h2 id="org373bba8">Conclusions</h2>
+<div class="outline-text-2" id="text-org373bba8">
 <p>
 The main conclusion of the article is that <b><code>enums</code> aren't bad they're just improperly used</b>. Sometimes creating a thick class to represent <code>type safe enums</code> may be suitable for your scenario but most of the time it's not worth the effort. Instead, you should concentrate more on the places in code where the <code>enum</code> is used to make them safer, more clean and elegant.
 </p>
@@ -1061,17 +1061,17 @@ The main conclusion of the article is that <b><code>enums</code> aren't bad they
             </p>
         </div>
     </header><div class="e-content entry-content">
-    <div id="outline-container-orgc80827b" class="outline-2">
-<h2 id="orgc80827b">TL;DR</h2>
-<div class="outline-text-2" id="text-orgc80827b">
+    <div id="outline-container-org16e5b6e" class="outline-2">
+<h2 id="org16e5b6e">TL;DR</h2>
+<div class="outline-text-2" id="text-org16e5b6e">
 <p>
 <code>Abstraction</code> is a core concept in programming and not a principle that is <b>solely</b> applicable in OOP, because <b>programming is all about dealing with an abstract representation of the business model (application space)</b>.
 </p>
 </div>
 </div>
-<div id="outline-container-org8ee4809" class="outline-2">
-<h2 id="org8ee4809">Abstraction is an overall programming principle</h2>
-<div class="outline-text-2" id="text-org8ee4809">
+<div id="outline-container-org0f9fe0c" class="outline-2">
+<h2 id="org0f9fe0c">Abstraction is an overall programming principle</h2>
+<div class="outline-text-2" id="text-org0f9fe0c">
 <p>
 There are a lot of articles saying that OOP has four principles:
 </p>
@@ -1098,9 +1098,9 @@ Why? Because programming means modeling entities and interactions of an <i>abstr
 </p>
 </div>
 </div>
-<div id="outline-container-orgc93faba" class="outline-2">
-<h2 id="orgc93faba">An example of <code>abstraction</code> in OOP</h2>
-<div class="outline-text-2" id="text-orgc93faba">
+<div id="outline-container-org315c725" class="outline-2">
+<h2 id="org315c725">An example of <code>abstraction</code> in OOP</h2>
+<div class="outline-text-2" id="text-org315c725">
 <p>
 To better clarify what <code>abstraction</code> is (in OOP) let's consider a trivial example: A <code>StudentRegistrationController</code> (ASP.NET MVC) needs to save the data from a registration form (<code>Student</code>) into some sort of database represented by an instance of <code>IStudentDataStore</code>.
 </p>
@@ -1110,7 +1110,7 @@ For the sake of brevity let's say that <code>IStudentDataStore</code> interface 
 </p>
 <div class="highlight"><pre><span></span><span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="k">interface</span><span class="w"> </span><span class="n">IStudentDataStore</span>
 <span class="w">  </span><span class="p">{</span>
-<span class="w">      </span><span class="k">void</span><span class="w"> </span><span class="nf">Save</span><span class="p">(</span><span class="n">Student</span><span class="w"> </span><span class="n">student</span><span class="p">);</span>
+<span class="w">          </span><span class="k">void</span><span class="w"> </span><span class="nf">Save</span><span class="p">(</span><span class="n">Student</span><span class="w"> </span><span class="n">student</span><span class="p">);</span>
 <span class="w">  </span><span class="p">}</span>
 </pre></div>
 <p>
@@ -1118,31 +1118,31 @@ With that in mind, the code for the example above would look like this:
 </p>
 <div class="highlight"><pre><span></span><span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">Student</span>
 <span class="w">  </span><span class="p">{</span>
-<span class="w">      </span><span class="k">public</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="n">FirstName</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">          </span><span class="k">public</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="n">FirstName</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 
-<span class="w">      </span><span class="k">public</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="n">LastName</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">          </span><span class="k">public</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="n">LastName</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 
-<span class="w">      </span><span class="k">public</span><span class="w"> </span><span class="n">DateTime</span><span class="w"> </span><span class="n">DateOfBirth</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">          </span><span class="k">public</span><span class="w"> </span><span class="n">DateTime</span><span class="w"> </span><span class="n">DateOfBirth</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 
-<span class="w">      </span><span class="k">public</span><span class="w"> </span><span class="n">Gender</span><span class="w"> </span><span class="n">Gender</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">          </span><span class="k">public</span><span class="w"> </span><span class="n">Gender</span><span class="w"> </span><span class="n">Gender</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 
-<span class="w">      </span><span class="k">public</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="n">Email</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">          </span><span class="k">public</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="n">Email</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 
-<span class="w">      </span><span class="k">public</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="n">PhoneNumber</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">          </span><span class="k">public</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="n">PhoneNumber</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 <span class="w">  </span><span class="p">}</span>
 
 <span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">StudentRegistrationController</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">Controller</span>
 <span class="w">  </span><span class="p">{</span>
-<span class="w">      </span><span class="k">public</span><span class="w"> </span><span class="nf">StudentRegistrationController</span><span class="p">(</span><span class="n">IStudentDataStore</span><span class="w"> </span><span class="n">dataStore</span><span class="p">)</span>
-<span class="w">      </span><span class="p">{</span>
-<span class="w">          </span><span class="n">_dataStore</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dataStore</span><span class="p">;</span>
-<span class="w">      </span><span class="p">}</span>
+<span class="w">          </span><span class="k">public</span><span class="w"> </span><span class="nf">StudentRegistrationController</span><span class="p">(</span><span class="n">IStudentDataStore</span><span class="w"> </span><span class="n">dataStore</span><span class="p">)</span>
+<span class="w">          </span><span class="p">{</span>
+<span class="w">              </span><span class="n">_dataStore</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dataStore</span><span class="p">;</span>
+<span class="w">          </span><span class="p">}</span>
 
-<span class="w">      </span><span class="k">public</span><span class="w"> </span><span class="n">ActionResult</span><span class="w"> </span><span class="nf">Save</span><span class="p">(</span><span class="n">Student</span><span class="w"> </span><span class="n">viewModel</span><span class="p">)</span>
-<span class="w">      </span><span class="p">{</span>
-<span class="w">          </span><span class="c1">// Validation ommited for brevity</span>
-<span class="w">          </span><span class="n">_dataStore</span><span class="p">.</span><span class="n">Save</span><span class="p">(</span><span class="n">viewModel</span><span class="p">);</span>
-<span class="w">      </span><span class="p">}</span>
+<span class="w">          </span><span class="k">public</span><span class="w"> </span><span class="n">ActionResult</span><span class="w"> </span><span class="nf">Save</span><span class="p">(</span><span class="n">Student</span><span class="w"> </span><span class="n">viewModel</span><span class="p">)</span>
+<span class="w">          </span><span class="p">{</span>
+<span class="w">              </span><span class="c1">// Validation ommited for brevity</span>
+<span class="w">              </span><span class="n">_dataStore</span><span class="p">.</span><span class="n">Save</span><span class="p">(</span><span class="n">viewModel</span><span class="p">);</span>
+<span class="w">          </span><span class="p">}</span>
 <span class="w">  </span><span class="p">}</span>
 </pre></div>
 <p>
@@ -1154,9 +1154,9 @@ But is this <code>abstraction</code> technique available <i>only</i> in OOP para
 </p>
 </div>
 </div>
-<div id="outline-container-orgf63fc95" class="outline-2">
-<h2 id="orgf63fc95">The same example of <code>abstraction</code> in functional programming</h2>
-<div class="outline-text-2" id="text-orgf63fc95">
+<div id="outline-container-org97cbbf5" class="outline-2">
+<h2 id="org97cbbf5">The same example of <code>abstraction</code> in functional programming</h2>
+<div class="outline-text-2" id="text-org97cbbf5">
 <p>
 To see how the same thing would be written in a functional style let's first see what are the entities from the previous example and how those entities interact between them:
 </p>
@@ -1201,34 +1201,34 @@ Note that both functions have the same signature. The parameters of these functi
 <div class="highlight"><pre><span></span><span class="w">  </span><span class="p">(</span><span class="nb">defun</span><span class="w"> </span><span class="nv">persist-student-info-to-file</span><span class="w"> </span><span class="p">(</span><span class="nv">first-name</span><span class="w"> </span><span class="nv">last-name</span><span class="w"> </span><span class="nv">dob</span><span class="w"> </span><span class="nv">gender</span><span class="w"> </span><span class="nv">email</span><span class="w"> </span><span class="nv">phone</span><span class="p">)</span>
 <span class="w">    </span><span class="c1">;; Writes the info as a new line into the file specified by *database-location*</span>
 <span class="w">    </span><span class="p">(</span><span class="k">let</span><span class="w"> </span><span class="p">((</span><span class="nc">stream</span><span class="w"> </span><span class="p">(</span><span class="nb">open</span><span class="w"> </span><span class="vg">*database-location*</span>
-<span class="w">                </span><span class="ss">:direction</span><span class="w"> </span><span class="ss">:output</span>
-<span class="w">                </span><span class="ss">:if-exists</span><span class="w"> </span><span class="ss">:append</span><span class="p">)))</span>
-<span class="w">      </span><span class="p">(</span><span class="nb">format</span><span class="w"> </span><span class="nc">stream</span><span class="w"> </span><span class="s">"~s|~s|~s|~s|~s|~s"</span>
-<span class="w">          </span><span class="nv">first-name</span>
-<span class="w">          </span><span class="nv">last-name</span>
-<span class="w">          </span><span class="nv">dob</span>
-<span class="w">          </span><span class="nv">gender</span>
-<span class="w">          </span><span class="nv">email</span>
-<span class="w">          </span><span class="nv">phone</span><span class="p">)</span>
-<span class="w">      </span><span class="p">(</span><span class="nb">close</span><span class="w"> </span><span class="nc">stream</span><span class="p">)))</span>
+<span class="w">                    </span><span class="ss">:direction</span><span class="w"> </span><span class="ss">:output</span>
+<span class="w">                    </span><span class="ss">:if-exists</span><span class="w"> </span><span class="ss">:append</span><span class="p">)))</span>
+<span class="w">          </span><span class="p">(</span><span class="nb">format</span><span class="w"> </span><span class="nc">stream</span><span class="w"> </span><span class="s">"~s|~s|~s|~s|~s|~s"</span>
+<span class="w">              </span><span class="nv">first-name</span>
+<span class="w">              </span><span class="nv">last-name</span>
+<span class="w">              </span><span class="nv">dob</span>
+<span class="w">              </span><span class="nv">gender</span>
+<span class="w">              </span><span class="nv">email</span>
+<span class="w">              </span><span class="nv">phone</span><span class="p">)</span>
+<span class="w">          </span><span class="p">(</span><span class="nb">close</span><span class="w"> </span><span class="nc">stream</span><span class="p">)))</span>
 
 
 <span class="w">  </span><span class="p">(</span><span class="nb">defun</span><span class="w"> </span><span class="nv">persist-student-info-in-memory</span><span class="w"> </span><span class="p">(</span><span class="nv">first-name</span><span class="w"> </span><span class="nv">last-name</span><span class="w"> </span><span class="nv">dob</span><span class="w"> </span><span class="nv">gender</span><span class="w"> </span><span class="nv">email</span><span class="w"> </span><span class="nv">phone</span><span class="p">)</span>
 <span class="w">    </span><span class="c1">;; Persists student data into an in-memory data store named *all-students*</span>
 <span class="w">    </span><span class="p">(</span><span class="k">let</span><span class="w"> </span><span class="p">((</span><span class="nv">student-id</span><span class="w"> </span><span class="p">(</span><span class="nb">list-length</span><span class="w"> </span><span class="vg">*all-students*</span><span class="p">)))</span>
-<span class="w">      </span><span class="p">(</span><span class="k">setq</span><span class="w"> </span><span class="vg">*all-students*</span>
-<span class="w">        </span><span class="p">(</span><span class="nb">append</span><span class="w"> </span><span class="vg">*all-students*</span>
-<span class="w">            </span><span class="p">(</span><span class="nb">list</span><span class="w"> </span><span class="nv">student-id</span><span class="w"> </span><span class="nv">first-name</span><span class="w"> </span><span class="nv">last-name</span><span class="w"> </span><span class="nv">dob</span><span class="w"> </span><span class="nv">gender</span><span class="w"> </span><span class="nv">email</span><span class="w"> </span><span class="nv">phone</span><span class="p">)))))</span>
+<span class="w">          </span><span class="p">(</span><span class="k">setq</span><span class="w"> </span><span class="vg">*all-students*</span>
+<span class="w">            </span><span class="p">(</span><span class="nb">append</span><span class="w"> </span><span class="vg">*all-students*</span>
+<span class="w">                </span><span class="p">(</span><span class="nb">list</span><span class="w"> </span><span class="nv">student-id</span><span class="w"> </span><span class="nv">first-name</span><span class="w"> </span><span class="nv">last-name</span><span class="w"> </span><span class="nv">dob</span><span class="w"> </span><span class="nv">gender</span><span class="w"> </span><span class="nv">email</span><span class="w"> </span><span class="nv">phone</span><span class="p">)))))</span>
 
 <span class="w">  </span><span class="p">(</span><span class="nb">defun</span><span class="w"> </span><span class="nv">save-student</span><span class="w"> </span><span class="p">(</span><span class="nv">student-info</span><span class="w"> </span><span class="nv">persist-func</span><span class="p">)</span>
 <span class="w">    </span><span class="c1">;; Saves student data to a persistent store</span>
 <span class="w">    </span><span class="p">(</span><span class="k">let</span><span class="w"> </span><span class="p">((</span><span class="nv">first-name</span><span class="w"> </span><span class="p">(</span><span class="nb">gethash</span><span class="w"> </span><span class="ss">'first-name</span><span class="w"> </span><span class="nv">student-info</span><span class="p">))</span>
-<span class="w">          </span><span class="p">(</span><span class="nv">last-name</span><span class="w"> </span><span class="p">(</span><span class="nb">gethash</span><span class="w"> </span><span class="ss">'last-name</span><span class="w"> </span><span class="nv">student-info</span><span class="p">))</span>
-<span class="w">          </span><span class="p">(</span><span class="nv">dob</span><span class="w"> </span><span class="p">(</span><span class="nb">gethash</span><span class="w"> </span><span class="ss">'date-of-birth</span><span class="w"> </span><span class="nv">student-info</span><span class="p">))</span>
-<span class="w">          </span><span class="p">(</span><span class="nv">gender</span><span class="w"> </span><span class="p">(</span><span class="nb">gethash</span><span class="w"> </span><span class="ss">'gender</span><span class="w"> </span><span class="nv">student-info</span><span class="p">))</span>
-<span class="w">          </span><span class="p">(</span><span class="nv">email</span><span class="w"> </span><span class="p">(</span><span class="nb">gethash</span><span class="w"> </span><span class="ss">'email</span><span class="w"> </span><span class="nv">student-info</span><span class="p">))</span>
-<span class="w">          </span><span class="p">(</span><span class="nv">phone</span><span class="w"> </span><span class="p">(</span><span class="nb">gethash</span><span class="w"> </span><span class="ss">'phone-number</span><span class="w"> </span><span class="nv">student-info</span><span class="p">)))</span>
-<span class="w">      </span><span class="p">(</span><span class="nb">funcall</span><span class="w"> </span><span class="nv">persist-func</span><span class="w"> </span><span class="nv">first-name</span><span class="w"> </span><span class="nv">last-name</span><span class="w"> </span><span class="nv">dob</span><span class="w"> </span><span class="nv">gender</span><span class="w"> </span><span class="nv">email</span><span class="w"> </span><span class="nv">phone</span><span class="p">)))</span>
+<span class="w">              </span><span class="p">(</span><span class="nv">last-name</span><span class="w"> </span><span class="p">(</span><span class="nb">gethash</span><span class="w"> </span><span class="ss">'last-name</span><span class="w"> </span><span class="nv">student-info</span><span class="p">))</span>
+<span class="w">              </span><span class="p">(</span><span class="nv">dob</span><span class="w"> </span><span class="p">(</span><span class="nb">gethash</span><span class="w"> </span><span class="ss">'date-of-birth</span><span class="w"> </span><span class="nv">student-info</span><span class="p">))</span>
+<span class="w">              </span><span class="p">(</span><span class="nv">gender</span><span class="w"> </span><span class="p">(</span><span class="nb">gethash</span><span class="w"> </span><span class="ss">'gender</span><span class="w"> </span><span class="nv">student-info</span><span class="p">))</span>
+<span class="w">              </span><span class="p">(</span><span class="nv">email</span><span class="w"> </span><span class="p">(</span><span class="nb">gethash</span><span class="w"> </span><span class="ss">'email</span><span class="w"> </span><span class="nv">student-info</span><span class="p">))</span>
+<span class="w">              </span><span class="p">(</span><span class="nv">phone</span><span class="w"> </span><span class="p">(</span><span class="nb">gethash</span><span class="w"> </span><span class="ss">'phone-number</span><span class="w"> </span><span class="nv">student-info</span><span class="p">)))</span>
+<span class="w">          </span><span class="p">(</span><span class="nb">funcall</span><span class="w"> </span><span class="nv">persist-func</span><span class="w"> </span><span class="nv">first-name</span><span class="w"> </span><span class="nv">last-name</span><span class="w"> </span><span class="nv">dob</span><span class="w"> </span><span class="nv">gender</span><span class="w"> </span><span class="nv">email</span><span class="w"> </span><span class="nv">phone</span><span class="p">)))</span>
 </pre></div>
 <p>
 Having the definitions above we can achieve the same level of abstraction by putting everything together and defining global variables (think of it as poor mans <code>dependency injection</code>):
@@ -1250,9 +1250,9 @@ Et voilà! We have used <code>abstraction</code> in a functional style to remove
 </p>
 </div>
 </div>
-<div id="outline-container-org6de851c" class="outline-2">
-<h2 id="org6de851c">Acknowledgments</h2>
-<div class="outline-text-2" id="text-org6de851c">
+<div id="outline-container-orgdc8dd1d" class="outline-2">
+<h2 id="orgdc8dd1d">Acknowledgments</h2>
+<div class="outline-text-2" id="text-orgdc8dd1d">
 <p>
 A big thank you to <a href="https://be.linkedin.com/in/ion-cojocaru-81b5a230">Ion Cojocaru</a> and <a href="https://ro.linkedin.com/in/florin-olariu-38615126">Florin Olariu</a> who reviewed this post before publication.
 </p>
@@ -1270,17 +1270,17 @@ A big thank you to <a href="https://be.linkedin.com/in/ion-cojocaru-81b5a230">Io
             </p>
         </div>
     </header><div class="e-content entry-content">
-    <div id="outline-container-org348975c" class="outline-2">
-<h2 id="org348975c">Programming principles</h2>
-<div class="outline-text-2" id="text-org348975c">
+    <div id="outline-container-org5476b34" class="outline-2">
+<h2 id="org5476b34">Programming principles</h2>
+<div class="outline-text-2" id="text-org5476b34">
 </div>
-<div id="outline-container-orgefa6310" class="outline-3">
-<h3 id="orgefa6310">Chapter I - Object Oriented Programming</h3>
-<div class="outline-text-3" id="text-orgefa6310">
+<div id="outline-container-orga3b01a7" class="outline-3">
+<h3 id="orga3b01a7">Chapter I - Object Oriented Programming</h3>
+<div class="outline-text-3" id="text-orga3b01a7">
 </div>
-<div id="outline-container-org209146d" class="outline-4">
-<h4 id="org209146d">Encapsulation</h4>
-<div class="outline-text-4" id="text-org209146d">
+<div id="outline-container-org6fc4d36" class="outline-4">
+<h4 id="org6fc4d36">Encapsulation</h4>
+<div class="outline-text-4" id="text-org6fc4d36">
 <blockquote>
 <p>
 <a href="https://en.wikipedia.org/wiki/Encapsulation_%2528computer_programming%2529">Encapsulation facilitates bundling of data with the method(s) operating on that data.</a>
@@ -1307,20 +1307,20 @@ The code below should do it:
 </p>
 <div class="highlight"><pre><span></span><span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">Account</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">        </span><span class="k">public</span><span class="w"> </span><span class="n">Money</span><span class="w"> </span><span class="n">Balance</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">              </span><span class="k">public</span><span class="w"> </span><span class="n">Money</span><span class="w"> </span><span class="n">Balance</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 
 <span class="w">    </span><span class="p">}</span>
 
 <span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">Program</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">        </span><span class="k">static</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">Main</span><span class="p">(</span><span class="kt">string</span><span class="p">[]</span><span class="w"> </span><span class="n">args</span><span class="p">)</span>
-<span class="w">        </span><span class="p">{</span>
-<span class="w">            </span><span class="kt">var</span><span class="w"> </span><span class="n">account</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Account</span><span class="p">();</span>
-<span class="w">            </span><span class="c1">// Make a deposit</span>
-<span class="w">            </span><span class="n">account</span><span class="p">.</span><span class="n">Balance</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mi">50</span><span class="p">;</span>
-<span class="w">            </span><span class="c1">// Withdraw some cash</span>
-<span class="w">            </span><span class="n">account</span><span class="p">.</span><span class="n">Balance</span><span class="w"> </span><span class="o">-=</span><span class="w"> </span><span class="mi">100</span><span class="p">;</span>
-<span class="w">        </span><span class="p">}</span>
+<span class="w">              </span><span class="k">static</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">Main</span><span class="p">(</span><span class="kt">string</span><span class="p">[]</span><span class="w"> </span><span class="n">args</span><span class="p">)</span>
+<span class="w">              </span><span class="p">{</span>
+<span class="w">                  </span><span class="kt">var</span><span class="w"> </span><span class="n">account</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Account</span><span class="p">();</span>
+<span class="w">                  </span><span class="c1">// Make a deposit</span>
+<span class="w">                  </span><span class="n">account</span><span class="p">.</span><span class="n">Balance</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mi">50</span><span class="p">;</span>
+<span class="w">                  </span><span class="c1">// Withdraw some cash</span>
+<span class="w">                  </span><span class="n">account</span><span class="p">.</span><span class="n">Balance</span><span class="w"> </span><span class="o">-=</span><span class="w"> </span><span class="mi">100</span><span class="p">;</span>
+<span class="w">              </span><span class="p">}</span>
 <span class="w">    </span><span class="p">}</span>
 </pre></div>
 
@@ -1338,17 +1338,17 @@ and we simply may not have access to the code that uses our class. What we <i>ca
 
 <span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="n">Money</span><span class="w"> </span><span class="nf">Withdraw</span><span class="p">(</span><span class="n">Money</span><span class="w"> </span><span class="n">amount</span><span class="p">)</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="w"> </span><span class="n">Balance</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">amount</span><span class="p">)</span>
-<span class="w">        </span><span class="p">{</span>
-<span class="w">            </span><span class="k">throw</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nf">InvalidOperationException</span><span class="p">(</span><span class="s">"Insufficient funds."</span><span class="p">);</span>
-<span class="w">        </span><span class="p">}</span>
-<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="n">Balance</span><span class="w"> </span><span class="o">-=</span><span class="w"> </span><span class="n">amount</span><span class="p">;</span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">amount</span><span class="p">;</span>
+<span class="w">          </span><span class="k">if</span><span class="p">(</span><span class="w"> </span><span class="n">Balance</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">amount</span><span class="p">)</span>
+<span class="w">          </span><span class="p">{</span>
+<span class="w">              </span><span class="k">throw</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nf">InvalidOperationException</span><span class="p">(</span><span class="s">"Insufficient funds."</span><span class="p">);</span>
+<span class="w">          </span><span class="p">}</span>
+<span class="w">          </span><span class="k">this</span><span class="p">.</span><span class="n">Balance</span><span class="w"> </span><span class="o">-=</span><span class="w"> </span><span class="n">amount</span><span class="p">;</span>
+<span class="w">          </span><span class="k">return</span><span class="w"> </span><span class="n">amount</span><span class="p">;</span>
 <span class="w">    </span><span class="p">}</span>
 
 <span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">Deposit</span><span class="p">(</span><span class="n">Money</span><span class="w"> </span><span class="n">money</span><span class="p">)</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="n">Balance</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">money</span><span class="p">;</span>
+<span class="w">          </span><span class="k">this</span><span class="p">.</span><span class="n">Balance</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">money</span><span class="p">;</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 
@@ -1356,9 +1356,9 @@ and we simply may not have access to the code that uses our class. What we <i>ca
 <span class="p">{</span>
 <span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">Main</span><span class="p">(</span><span class="kt">string</span><span class="p">[]</span><span class="w"> </span><span class="n">args</span><span class="p">)</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">        </span><span class="kt">var</span><span class="w"> </span><span class="n">account</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Account</span><span class="p">();</span>
-<span class="w">        </span><span class="n">account</span><span class="p">.</span><span class="n">Deposit</span><span class="p">(</span><span class="mi">50</span><span class="p">);</span>
-<span class="w">        </span><span class="n">account</span><span class="p">.</span><span class="n">Withdraw</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span><span class="w"> </span><span class="c1">// =&gt; InvalidOperationException.</span>
+<span class="w">          </span><span class="kt">var</span><span class="w"> </span><span class="n">account</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Account</span><span class="p">();</span>
+<span class="w">          </span><span class="n">account</span><span class="p">.</span><span class="n">Deposit</span><span class="p">(</span><span class="mi">50</span><span class="p">);</span>
+<span class="w">          </span><span class="n">account</span><span class="p">.</span><span class="n">Withdraw</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span><span class="w"> </span><span class="c1">// =&gt; InvalidOperationException.</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
@@ -1368,9 +1368,9 @@ Much better! Now we are in control and we can be sure that <i>every</i> withdraw
 </p>
 </div>
 </div>
-<div id="outline-container-orgefea58e" class="outline-4">
-<h4 id="orgefea58e">Inheritance and Polymorphism</h4>
-<div class="outline-text-4" id="text-orgefea58e">
+<div id="outline-container-org19b18a6" class="outline-4">
+<h4 id="org19b18a6">Inheritance and Polymorphism</h4>
+<div class="outline-text-4" id="text-org19b18a6">
 <blockquote>
 <p>
 <a href="http://www.codeproject.com/Articles/22769/Introduction-to-Object-Oriented-Programming-Concep#Inheritance">Inheritance is the ability of a new class to acquire the properties of another class.</a>
@@ -1411,7 +1411,7 @@ Given the above, our code would look like this:
 
 <span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="nf">Account</span><span class="p">(</span><span class="n">AccountType</span><span class="w"> </span><span class="n">accountType</span><span class="p">)</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">        </span><span class="n">_accountType</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">accountType</span><span class="p">;</span>
+<span class="w">          </span><span class="n">_accountType</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">accountType</span><span class="p">;</span>
 <span class="w">    </span><span class="p">}</span>
 
 <span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="n">AccountType</span><span class="w"> </span><span class="n">AccountType</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">_accountType</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">}</span>
@@ -1420,24 +1420,24 @@ Given the above, our code would look like this:
 
 <span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">Deposit</span><span class="p">(</span><span class="n">Money</span><span class="w"> </span><span class="n">money</span><span class="p">)</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="n">Balance</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">money</span><span class="p">;</span>
+<span class="w">          </span><span class="k">this</span><span class="p">.</span><span class="n">Balance</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">money</span><span class="p">;</span>
 <span class="w">    </span><span class="p">}</span>
 
 <span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="n">Money</span><span class="w"> </span><span class="nf">Withdraw</span><span class="p">(</span><span class="n">Money</span><span class="w"> </span><span class="n">amount</span><span class="p">)</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">        </span><span class="kt">var</span><span class="w"> </span><span class="n">fee</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CalculateWithdrawalFee</span><span class="p">(</span><span class="n">amount</span><span class="p">);</span>
-<span class="w">        </span><span class="n">amount</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">amount</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">fee</span><span class="p">;</span>
-<span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="w"> </span><span class="n">Balance</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">amount</span><span class="p">)</span>
-<span class="w">        </span><span class="p">{</span>
-<span class="w">            </span><span class="k">throw</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nf">InvalidOperationException</span><span class="p">(</span><span class="s">"Insufficient funds."</span><span class="p">);</span>
-<span class="w">        </span><span class="p">}</span>
-<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="n">Balance</span><span class="w"> </span><span class="o">-=</span><span class="w"> </span><span class="n">amount</span><span class="p">;</span>
+<span class="w">          </span><span class="kt">var</span><span class="w"> </span><span class="n">fee</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CalculateWithdrawalFee</span><span class="p">(</span><span class="n">amount</span><span class="p">);</span>
+<span class="w">          </span><span class="n">amount</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">amount</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">fee</span><span class="p">;</span>
+<span class="w">          </span><span class="k">if</span><span class="p">(</span><span class="w"> </span><span class="n">Balance</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">amount</span><span class="p">)</span>
+<span class="w">          </span><span class="p">{</span>
+<span class="w">              </span><span class="k">throw</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nf">InvalidOperationException</span><span class="p">(</span><span class="s">"Insufficient funds."</span><span class="p">);</span>
+<span class="w">          </span><span class="p">}</span>
+<span class="w">          </span><span class="k">this</span><span class="p">.</span><span class="n">Balance</span><span class="w"> </span><span class="o">-=</span><span class="w"> </span><span class="n">amount</span><span class="p">;</span>
 <span class="w">    </span><span class="p">}</span>
 
 <span class="w">    </span><span class="k">private</span><span class="w"> </span><span class="n">Money</span><span class="w"> </span><span class="nf">CalculateWithdrawalFee</span><span class="p">(</span><span class="n">Money</span><span class="w"> </span><span class="n">amount</span><span class="p">)</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">        </span><span class="kt">var</span><span class="w"> </span><span class="n">margin</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_accountType</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">AccountType</span><span class="p">.</span><span class="n">Savings</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="mf">0.5</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">amount</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">margin</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">100</span><span class="p">;</span>
+<span class="w">          </span><span class="kt">var</span><span class="w"> </span><span class="n">margin</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_accountType</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">AccountType</span><span class="p">.</span><span class="n">Savings</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="mf">0.5</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">          </span><span class="k">return</span><span class="w"> </span><span class="n">amount</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">margin</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">100</span><span class="p">;</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
@@ -1465,12 +1465,12 @@ To accomodate this new requirement we just have to change the <code>CalculateWit
 <span class="k">private</span><span class="w"> </span><span class="n">Money</span><span class="w"> </span><span class="nf">CalculateWithdrawalFee</span><span class="p">(</span><span class="n">Money</span><span class="w"> </span><span class="n">amount</span><span class="p">)</span>
 <span class="p">{</span>
 <span class="w">    </span><span class="k">switch</span><span class="p">(</span><span class="w"> </span><span class="n">_accountType</span><span class="w"> </span><span class="p">)</span>
-<span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="n">AccountType</span><span class="p">.</span><span class="n">Savings</span><span class="p">:</span>
-<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">amount</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">0.5</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">100</span><span class="p">;</span>
-<span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="n">AccountType</span><span class="p">.</span><span class="n">Credit</span><span class="p">:</span>
-<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">amount</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">0.7</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">100</span><span class="p">;</span>
-<span class="w">        </span><span class="k">default</span><span class="p">:</span>
-<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">          </span><span class="k">case</span><span class="w"> </span><span class="n">AccountType</span><span class="p">.</span><span class="n">Savings</span><span class="p">:</span>
+<span class="w">              </span><span class="k">return</span><span class="w"> </span><span class="n">amount</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">0.5</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">100</span><span class="p">;</span>
+<span class="w">          </span><span class="k">case</span><span class="w"> </span><span class="n">AccountType</span><span class="p">.</span><span class="n">Credit</span><span class="p">:</span>
+<span class="w">              </span><span class="k">return</span><span class="w"> </span><span class="n">amount</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">0.7</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">100</span><span class="p">;</span>
+<span class="w">          </span><span class="k">default</span><span class="p">:</span>
+<span class="w">              </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 <span class="p">}</span>
 </pre></div>
 <p>
@@ -1527,18 +1527,18 @@ Now, with this approach let's address each requirement in the order they arrived
 
 <span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">Deposit</span><span class="p">(</span><span class="n">Money</span><span class="w"> </span><span class="n">money</span><span class="p">)</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="n">Balance</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">money</span><span class="p">;</span>
+<span class="w">          </span><span class="k">this</span><span class="p">.</span><span class="n">Balance</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">money</span><span class="p">;</span>
 <span class="w">    </span><span class="p">}</span>
 
 <span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="n">Money</span><span class="w"> </span><span class="nf">Withdraw</span><span class="p">(</span><span class="n">Money</span><span class="w"> </span><span class="n">amount</span><span class="p">)</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">        </span><span class="kt">var</span><span class="w"> </span><span class="n">fee</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CalculateWithdrawalFee</span><span class="p">(</span><span class="n">amount</span><span class="p">);</span>
-<span class="w">        </span><span class="n">amount</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">amount</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">fee</span><span class="p">;</span>
-<span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="w"> </span><span class="n">Balance</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">amount</span><span class="p">)</span>
-<span class="w">        </span><span class="p">{</span>
-<span class="w">            </span><span class="k">throw</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nf">InvalidOperationException</span><span class="p">(</span><span class="s">"Insufficient funds."</span><span class="p">);</span>
-<span class="w">        </span><span class="p">}</span>
-<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="n">Balance</span><span class="w"> </span><span class="o">-=</span><span class="w"> </span><span class="n">amount</span><span class="p">;</span>
+<span class="w">          </span><span class="kt">var</span><span class="w"> </span><span class="n">fee</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CalculateWithdrawalFee</span><span class="p">(</span><span class="n">amount</span><span class="p">);</span>
+<span class="w">          </span><span class="n">amount</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">amount</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">fee</span><span class="p">;</span>
+<span class="w">          </span><span class="k">if</span><span class="p">(</span><span class="w"> </span><span class="n">Balance</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">amount</span><span class="p">)</span>
+<span class="w">          </span><span class="p">{</span>
+<span class="w">              </span><span class="k">throw</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nf">InvalidOperationException</span><span class="p">(</span><span class="s">"Insufficient funds."</span><span class="p">);</span>
+<span class="w">          </span><span class="p">}</span>
+<span class="w">          </span><span class="k">this</span><span class="p">.</span><span class="n">Balance</span><span class="w"> </span><span class="o">-=</span><span class="w"> </span><span class="n">amount</span><span class="p">;</span>
 <span class="w">    </span><span class="p">}</span>
 
 <span class="w">    </span><span class="k">protected</span><span class="w"> </span><span class="k">abstract</span><span class="w"> </span><span class="n">Money</span><span class="w"> </span><span class="nf">CalculateWithdrawalFee</span><span class="p">(</span><span class="n">Money</span><span class="w"> </span><span class="n">amount</span><span class="p">);</span>
@@ -1551,7 +1551,7 @@ With the base class in place, let's model the first two account types - <i>debit
 <span class="p">{</span>
 <span class="w">    </span><span class="k">protected</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="n">Money</span><span class="w"> </span><span class="nf">CalculateWithdrawalFee</span><span class="p">(</span><span class="n">Money</span><span class="w"> </span><span class="n">amount</span><span class="p">)</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">          </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 
@@ -1559,7 +1559,7 @@ With the base class in place, let's model the first two account types - <i>debit
 <span class="p">{</span>
 <span class="w">    </span><span class="k">protected</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="n">Money</span><span class="w"> </span><span class="nf">CalculateWithdrawalFee</span><span class="p">(</span><span class="n">Money</span><span class="w"> </span><span class="n">amount</span><span class="p">)</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">amount</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">0.5</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">100</span><span class="p">;</span>
+<span class="w">          </span><span class="k">return</span><span class="w"> </span><span class="n">amount</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">0.5</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">100</span><span class="p">;</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
@@ -1570,16 +1570,16 @@ With this structure in place adding a new account type is as simple as adding a 
 <span class="p">{</span>
 <span class="w">    </span><span class="k">protected</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="n">Money</span><span class="w"> </span><span class="nf">CalculateWithdrawalFee</span><span class="p">(</span><span class="n">Money</span><span class="w"> </span><span class="n">amount</span><span class="p">)</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">amount</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">0.7</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">100</span><span class="p">;</span>
+<span class="w">          </span><span class="k">return</span><span class="w"> </span><span class="n">amount</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">0.7</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">100</span><span class="p">;</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 </div>
 </div>
 </div>
-<div id="outline-container-org2949a0c" class="outline-3">
-<h3 id="org2949a0c">Chapter II - Structure</h3>
-<div class="outline-text-3" id="text-org2949a0c">
+<div id="outline-container-org90fe6f0" class="outline-3">
+<h3 id="org90fe6f0">Chapter II - Structure</h3>
+<div class="outline-text-3" id="text-org90fe6f0">
 <p>
 How you structure your code is very important in software development. A good code structure promotes <b>low coupling and high cohesion</b> which is a must for all good software.
 </p>
@@ -1588,10 +1588,10 @@ How you structure your code is very important in software development. A good co
 Let's take a look at what <b>coupling</b> and <b>cohesion</b> mean.
 </p>
 </div>
-<div id="outline-container-org04fb82c" class="outline-4">
-<h4 id="org04fb82c">Low coupling - The case of the <code>Singleton</code>
+<div id="outline-container-org840ea66" class="outline-4">
+<h4 id="org840ea66">Low coupling - The case of the <code>Singleton</code>
 </h4>
-<div class="outline-text-4" id="text-org04fb82c">
+<div class="outline-text-4" id="text-org840ea66">
 <blockquote>
 <p>
 <a href="https://en.wikipedia.org/wiki/Coupling_%2528computer_programming%2529">Coupling is the manner and degree of interdependence between software modules; a measure of how closely connected two routines or modules are; the strength of the relationships between modules.</a>
@@ -1610,14 +1610,14 @@ To exemplify what <b>low coupling</b> is and its importance let's take a look at
 
 <span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">FileSystem</span><span class="w"> </span><span class="n">Root</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">        </span><span class="k">get</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">_root</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">          </span><span class="k">get</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">_root</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 <span class="w">    </span><span class="p">}</span>
 
 <span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="kt">string</span><span class="p">[]</span><span class="w"> </span><span class="nf">List</span><span class="p">(</span><span class="kt">string</span><span class="w"> </span><span class="n">path</span><span class="p">)</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">Directory</span><span class="p">.</span><span class="n">EnumerateDirectories</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
-<span class="w">            </span><span class="p">.</span><span class="n">Union</span><span class="p">(</span><span class="n">Directory</span><span class="p">.</span><span class="n">EnumerateFiles</span><span class="p">(</span><span class="n">path</span><span class="p">))</span>
-<span class="w">            </span><span class="p">.</span><span class="n">ToArray</span><span class="p">();</span>
+<span class="w">          </span><span class="k">return</span><span class="w"> </span><span class="n">Directory</span><span class="p">.</span><span class="n">EnumerateDirectories</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+<span class="w">              </span><span class="p">.</span><span class="n">Union</span><span class="p">(</span><span class="n">Directory</span><span class="p">.</span><span class="n">EnumerateFiles</span><span class="p">(</span><span class="n">path</span><span class="p">))</span>
+<span class="w">              </span><span class="p">.</span><span class="n">ToArray</span><span class="p">();</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 
@@ -1629,14 +1629,14 @@ To exemplify what <b>low coupling</b> is and its importance let's take a look at
 
 <span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">NavigateTo</span><span class="p">(</span><span class="kt">string</span><span class="w"> </span><span class="n">path</span><span class="p">)</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">        </span><span class="kt">var</span><span class="w"> </span><span class="n">contents</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FileSystem</span><span class="p">.</span><span class="n">Root</span><span class="p">.</span><span class="n">List</span><span class="p">(</span><span class="n">path</span><span class="p">);</span>
-<span class="w">        </span><span class="n">CurrentDirectory</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">path</span><span class="p">;</span>
-<span class="w">        </span><span class="n">Contents</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">contents</span><span class="p">;</span>
+<span class="w">          </span><span class="kt">var</span><span class="w"> </span><span class="n">contents</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FileSystem</span><span class="p">.</span><span class="n">Root</span><span class="p">.</span><span class="n">List</span><span class="p">(</span><span class="n">path</span><span class="p">);</span>
+<span class="w">          </span><span class="n">CurrentDirectory</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">path</span><span class="p">;</span>
+<span class="w">          </span><span class="n">Contents</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">contents</span><span class="p">;</span>
 
-<span class="w">        </span><span class="k">foreach</span><span class="p">(</span><span class="kt">var</span><span class="w"> </span><span class="n">item</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">contents</span><span class="p">)</span>
-<span class="w">        </span><span class="p">{</span>
-<span class="w">            </span><span class="n">Display</span><span class="p">(</span><span class="n">item</span><span class="p">);</span>
-<span class="w">        </span><span class="p">}</span>
+<span class="w">          </span><span class="k">foreach</span><span class="p">(</span><span class="kt">var</span><span class="w"> </span><span class="n">item</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">contents</span><span class="p">)</span>
+<span class="w">          </span><span class="p">{</span>
+<span class="w">              </span><span class="n">Display</span><span class="p">(</span><span class="n">item</span><span class="p">);</span>
+<span class="w">          </span><span class="p">}</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 
@@ -1644,8 +1644,8 @@ To exemplify what <b>low coupling</b> is and its importance let's take a look at
 <span class="p">{</span>
 <span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">Main</span><span class="p">(</span><span class="kt">string</span><span class="p">[]</span><span class="w"> </span><span class="n">args</span><span class="p">)</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">        </span><span class="kt">var</span><span class="w"> </span><span class="n">explorer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Explorer</span><span class="p">();</span>
-<span class="w">        </span><span class="n">explorer</span><span class="p">.</span><span class="n">NavigateTo</span><span class="p">(</span><span class="s">@"c:\users\petru\Documents\"</span><span class="p">);</span>
+<span class="w">          </span><span class="kt">var</span><span class="w"> </span><span class="n">explorer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Explorer</span><span class="p">();</span>
+<span class="w">          </span><span class="n">explorer</span><span class="p">.</span><span class="n">NavigateTo</span><span class="p">(</span><span class="s">@"c:\users\petru\Documents\"</span><span class="p">);</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
@@ -1664,26 +1664,26 @@ To demonstrate this <b>tight coupling</b> let's create a test for <code>Explorer
 
 <span class="w">    </span><span class="k">protected</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">Initialize</span><span class="p">()</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">        </span><span class="n">Explorer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Explorer</span><span class="p">();</span>
+<span class="w">          </span><span class="n">Explorer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Explorer</span><span class="p">();</span>
 <span class="w">    </span><span class="p">}</span>
 
 <span class="w">    </span><span class="na">[TestClass]</span>
 <span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">WhenNavigatingToTempDirectory</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">ExplorerTests</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">        </span><span class="na">[TestInitialize]</span>
-<span class="w">        </span><span class="k">public</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">TestInitialize</span><span class="p">()</span>
-<span class="w">        </span><span class="p">{</span>
-<span class="w">            </span><span class="n">Initialize</span><span class="p">();</span>
-<span class="w">            </span><span class="n">Directory</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">@"C:\Temp\"</span><span class="p">;</span>
-<span class="w">        </span><span class="p">}</span>
+<span class="w">          </span><span class="na">[TestInitialize]</span>
+<span class="w">          </span><span class="k">public</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">TestInitialize</span><span class="p">()</span>
+<span class="w">          </span><span class="p">{</span>
+<span class="w">              </span><span class="n">Initialize</span><span class="p">();</span>
+<span class="w">              </span><span class="n">Directory</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">@"C:\Temp\"</span><span class="p">;</span>
+<span class="w">          </span><span class="p">}</span>
 
-<span class="w">        </span><span class="na">[TestMethod]</span>
-<span class="w">        </span><span class="k">public</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">ShouldDisplayDirectoryContents</span><span class="p">()</span>
-<span class="w">        </span><span class="p">{</span>
-<span class="w">            </span><span class="n">Explorer</span><span class="p">.</span><span class="n">NavigateTo</span><span class="p">(</span><span class="n">Directory</span><span class="p">);</span>
-<span class="w">            </span><span class="n">Assert</span><span class="p">.</span><span class="n">AreEqual</span><span class="p">(</span><span class="n">Directory</span><span class="p">,</span><span class="w"> </span><span class="n">Explorer</span><span class="p">.</span><span class="n">CurrentDirectory</span><span class="p">);</span>
-<span class="w">            </span><span class="n">Assert</span><span class="p">.</span><span class="n">AreEqual</span><span class="p">(</span><span class="s">"C:\Temp\test.txt"</span><span class="p">,</span><span class="w"> </span><span class="n">Explorer</span><span class="p">.</span><span class="n">Contents</span><span class="p">.</span><span class="n">Single</span><span class="p">());</span>
-<span class="w">        </span><span class="p">}</span>
+<span class="w">          </span><span class="na">[TestMethod]</span>
+<span class="w">          </span><span class="k">public</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">ShouldDisplayDirectoryContents</span><span class="p">()</span>
+<span class="w">          </span><span class="p">{</span>
+<span class="w">              </span><span class="n">Explorer</span><span class="p">.</span><span class="n">NavigateTo</span><span class="p">(</span><span class="n">Directory</span><span class="p">);</span>
+<span class="w">              </span><span class="n">Assert</span><span class="p">.</span><span class="n">AreEqual</span><span class="p">(</span><span class="n">Directory</span><span class="p">,</span><span class="w"> </span><span class="n">Explorer</span><span class="p">.</span><span class="n">CurrentDirectory</span><span class="p">);</span>
+<span class="w">              </span><span class="n">Assert</span><span class="p">.</span><span class="n">AreEqual</span><span class="p">(</span><span class="s">"C:\Temp\test.txt"</span><span class="p">,</span><span class="w"> </span><span class="n">Explorer</span><span class="p">.</span><span class="n">Contents</span><span class="p">.</span><span class="n">Single</span><span class="p">());</span>
+<span class="w">          </span><span class="p">}</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
@@ -1696,9 +1696,9 @@ Having such code means that not only our <code>Explorer</code> class is <b>tight
 </p>
 </div>
 </div>
-<div id="outline-container-org1e14f08" class="outline-4">
-<h4 id="org1e14f08">High cohesion - Why can't I have all code in <code>Program.cs</code>?</h4>
-<div class="outline-text-4" id="text-org1e14f08">
+<div id="outline-container-orgafddf5a" class="outline-4">
+<h4 id="orgafddf5a">High cohesion - Why can't I have all code in <code>Program.cs</code>?</h4>
+<div class="outline-text-4" id="text-orgafddf5a">
 <blockquote>
 <p>
 <a href="https://en.wikipedia.org/wiki/Cohesion_%2528computer_science%2529">Cohesion refers to the degree to which the elements of a module belong together.</a>
@@ -1715,17 +1715,17 @@ Let's consider the previous example in a less cohesive form:
 <span class="p">{</span>
 <span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">Main</span><span class="p">(</span><span class="kt">string</span><span class="p">[]</span><span class="w"> </span><span class="n">args</span><span class="p">)</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">        </span><span class="n">NavigateTo</span><span class="p">(</span><span class="s">@"C:\users\petru\Documents\"</span><span class="p">);</span>
+<span class="w">          </span><span class="n">NavigateTo</span><span class="p">(</span><span class="s">@"C:\users\petru\Documents\"</span><span class="p">);</span>
 <span class="w">    </span><span class="p">}</span>
 
 <span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">NavigateTo</span><span class="p">(</span><span class="kt">string</span><span class="w"> </span><span class="n">path</span><span class="p">)</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">        </span><span class="kt">var</span><span class="w"> </span><span class="n">contents</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Directory</span><span class="p">.</span><span class="n">EnumerateDirectories</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
-<span class="w">            </span><span class="p">.</span><span class="n">Union</span><span class="p">(</span><span class="n">Directory</span><span class="p">.</span><span class="n">EnumerateFiles</span><span class="p">(</span><span class="n">path</span><span class="p">));</span>
-<span class="w">        </span><span class="k">foreach</span><span class="p">(</span><span class="kt">var</span><span class="w"> </span><span class="n">item</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">contents</span><span class="p">)</span>
-<span class="w">        </span><span class="p">{</span>
-<span class="w">            </span><span class="n">Display</span><span class="p">(</span><span class="n">item</span><span class="p">);</span>
-<span class="w">        </span><span class="p">}</span>
+<span class="w">          </span><span class="kt">var</span><span class="w"> </span><span class="n">contents</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Directory</span><span class="p">.</span><span class="n">EnumerateDirectories</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+<span class="w">              </span><span class="p">.</span><span class="n">Union</span><span class="p">(</span><span class="n">Directory</span><span class="p">.</span><span class="n">EnumerateFiles</span><span class="p">(</span><span class="n">path</span><span class="p">));</span>
+<span class="w">          </span><span class="k">foreach</span><span class="p">(</span><span class="kt">var</span><span class="w"> </span><span class="n">item</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">contents</span><span class="p">)</span>
+<span class="w">          </span><span class="p">{</span>
+<span class="w">              </span><span class="n">Display</span><span class="p">(</span><span class="n">item</span><span class="p">);</span>
+<span class="w">          </span><span class="p">}</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
@@ -1739,13 +1739,13 @@ Even small production applications have a lot of objects and that number keeps g
 </div>
 </div>
 </div>
-<div id="outline-container-org1ce4451" class="outline-3">
-<h3 id="org1ce4451">Chapter III - SOLID code</h3>
-<div class="outline-text-3" id="text-org1ce4451">
+<div id="outline-container-org711d5e3" class="outline-3">
+<h3 id="org711d5e3">Chapter III - SOLID code</h3>
+<div class="outline-text-3" id="text-org711d5e3">
 </div>
-<div id="outline-container-org822fc08" class="outline-4">
-<h4 id="org822fc08">Single Responsibility Principle</h4>
-<div class="outline-text-4" id="text-org822fc08">
+<div id="outline-container-org5dfa8ff" class="outline-4">
+<h4 id="org5dfa8ff">Single Responsibility Principle</h4>
+<div class="outline-text-4" id="text-org5dfa8ff">
 <blockquote>
 <p>
 <a href="https://en.wikipedia.org/wiki/Single_responsibility_principle">Every module or class should have responsibility over a single part of the functionality provided by the software, and that responsibility should be entirely encapsulated by the class.</a>
@@ -1760,18 +1760,18 @@ Let's look again at our Account example:
 
 <span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">Deposit</span><span class="p">(</span><span class="n">Money</span><span class="w"> </span><span class="n">money</span><span class="p">)</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="n">Balance</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">money</span><span class="p">;</span>
+<span class="w">          </span><span class="k">this</span><span class="p">.</span><span class="n">Balance</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">money</span><span class="p">;</span>
 <span class="w">    </span><span class="p">}</span>
 
 <span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="n">Money</span><span class="w"> </span><span class="nf">Withdraw</span><span class="p">(</span><span class="n">Money</span><span class="w"> </span><span class="n">amount</span><span class="p">)</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">        </span><span class="kt">var</span><span class="w"> </span><span class="n">fee</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CalculateWithdrawalFee</span><span class="p">(</span><span class="n">amount</span><span class="p">);</span>
-<span class="w">        </span><span class="n">amount</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">amount</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">fee</span><span class="p">;</span>
-<span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="w"> </span><span class="n">Balance</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">amount</span><span class="p">)</span>
-<span class="w">        </span><span class="p">{</span>
-<span class="w">            </span><span class="k">throw</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nf">InvalidOperationException</span><span class="p">(</span><span class="s">"Insufficient funds."</span><span class="p">);</span>
-<span class="w">        </span><span class="p">}</span>
-<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="n">Balance</span><span class="w"> </span><span class="o">-=</span><span class="w"> </span><span class="n">amount</span><span class="p">;</span>
+<span class="w">          </span><span class="kt">var</span><span class="w"> </span><span class="n">fee</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CalculateWithdrawalFee</span><span class="p">(</span><span class="n">amount</span><span class="p">);</span>
+<span class="w">          </span><span class="n">amount</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">amount</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">fee</span><span class="p">;</span>
+<span class="w">          </span><span class="k">if</span><span class="p">(</span><span class="w"> </span><span class="n">Balance</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">amount</span><span class="p">)</span>
+<span class="w">          </span><span class="p">{</span>
+<span class="w">              </span><span class="k">throw</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nf">InvalidOperationException</span><span class="p">(</span><span class="s">"Insufficient funds."</span><span class="p">);</span>
+<span class="w">          </span><span class="p">}</span>
+<span class="w">          </span><span class="k">this</span><span class="p">.</span><span class="n">Balance</span><span class="w"> </span><span class="o">-=</span><span class="w"> </span><span class="n">amount</span><span class="p">;</span>
 <span class="w">    </span><span class="p">}</span>
 
 <span class="w">    </span><span class="k">protected</span><span class="w"> </span><span class="k">abstract</span><span class="w"> </span><span class="n">Money</span><span class="w"> </span><span class="nf">CalculateWithdrawalFee</span><span class="p">(</span><span class="n">Money</span><span class="w"> </span><span class="n">amount</span><span class="p">);</span>
@@ -1791,7 +1791,7 @@ The purpose of this method is to withdraw the <code>amount</code> from the avail
 <span class="p">{</span>
 <span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="n">Money</span><span class="w"> </span><span class="nf">CalculateWithdrawalAmount</span><span class="p">(</span><span class="n">Money</span><span class="w"> </span><span class="n">amount</span><span class="p">,</span><span class="w"> </span><span class="kt">decimal</span><span class="w"> </span><span class="n">percentage</span><span class="p">)</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">amount</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">percentage</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">100</span><span class="p">;</span>
+<span class="w">          </span><span class="k">return</span><span class="w"> </span><span class="n">amount</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">percentage</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">100</span><span class="p">;</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
@@ -1802,7 +1802,7 @@ Now, let's put it all together and remove the extra responsibilities from <code>
 <span class="p">{</span>
 <span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="n">Money</span><span class="w"> </span><span class="nf">CalculateWithdrawalAmount</span><span class="p">(</span><span class="n">Money</span><span class="w"> </span><span class="n">amount</span><span class="p">,</span><span class="w"> </span><span class="kt">decimal</span><span class="w"> </span><span class="n">feePercentage</span><span class="p">)</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">amount</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">feePercentage</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">100</span><span class="p">;</span>
+<span class="w">          </span><span class="k">return</span><span class="w"> </span><span class="n">amount</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">feePercentage</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">100</span><span class="p">;</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 
@@ -1812,7 +1812,7 @@ Now, let's put it all together and remove the extra responsibilities from <code>
 
 <span class="w">    </span><span class="k">protected</span><span class="w"> </span><span class="nf">Account</span><span class="p">(</span><span class="n">WithdrawalFeeCalculator</span><span class="w"> </span><span class="n">amountCalculator</span><span class="p">)</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">        </span><span class="n">_amountCalculator</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">amountCalculator</span><span class="p">;</span>
+<span class="w">          </span><span class="n">_amountCalculator</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">amountCalculator</span><span class="p">;</span>
 <span class="w">    </span><span class="p">}</span>
 
 <span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="n">Money</span><span class="w"> </span><span class="n">Balance</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">private</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
@@ -1821,18 +1821,18 @@ Now, let's put it all together and remove the extra responsibilities from <code>
 
 <span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">Deposit</span><span class="p">(</span><span class="n">Money</span><span class="w"> </span><span class="n">money</span><span class="p">)</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="n">Balance</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">money</span><span class="p">;</span>
+<span class="w">          </span><span class="k">this</span><span class="p">.</span><span class="n">Balance</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">money</span><span class="p">;</span>
 <span class="w">    </span><span class="p">}</span>
 
 <span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="n">Money</span><span class="w"> </span><span class="nf">Withdraw</span><span class="p">(</span><span class="n">Money</span><span class="w"> </span><span class="n">amount</span><span class="p">)</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">        </span><span class="kt">var</span><span class="w"> </span><span class="n">amountToWithdraw</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_amountCalculator</span><span class="p">.</span><span class="n">CalculateWithdrawalAmount</span><span class="p">(</span><span class="n">amount</span><span class="p">,</span><span class="w"> </span><span class="n">WithdrawalInterestRate</span><span class="p">);</span>
-<span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="w"> </span><span class="n">Balance</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">amountToWithdraw</span><span class="p">)</span>
-<span class="w">        </span><span class="p">{</span>
-<span class="w">            </span><span class="k">throw</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nf">InvalidOperationException</span><span class="p">(</span><span class="s">"Insufficient funds."</span><span class="p">);</span>
-<span class="w">        </span><span class="p">}</span>
-<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="n">Balance</span><span class="w"> </span><span class="o">-=</span><span class="w"> </span><span class="n">amountToWithdraw</span><span class="p">;</span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">amount</span><span class="p">;</span>
+<span class="w">          </span><span class="kt">var</span><span class="w"> </span><span class="n">amountToWithdraw</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_amountCalculator</span><span class="p">.</span><span class="n">CalculateWithdrawalAmount</span><span class="p">(</span><span class="n">amount</span><span class="p">,</span><span class="w"> </span><span class="n">WithdrawalInterestRate</span><span class="p">);</span>
+<span class="w">          </span><span class="k">if</span><span class="p">(</span><span class="w"> </span><span class="n">Balance</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">amountToWithdraw</span><span class="p">)</span>
+<span class="w">          </span><span class="p">{</span>
+<span class="w">              </span><span class="k">throw</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nf">InvalidOperationException</span><span class="p">(</span><span class="s">"Insufficient funds."</span><span class="p">);</span>
+<span class="w">          </span><span class="p">}</span>
+<span class="w">          </span><span class="k">this</span><span class="p">.</span><span class="n">Balance</span><span class="w"> </span><span class="o">-=</span><span class="w"> </span><span class="n">amountToWithdraw</span><span class="p">;</span>
+<span class="w">          </span><span class="k">return</span><span class="w"> </span><span class="n">amount</span><span class="p">;</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 
@@ -1844,7 +1844,7 @@ Now, let's put it all together and remove the extra responsibilities from <code>
 
 <span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="kt">decimal</span><span class="w"> </span><span class="n">WithdrawalInterestRate</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="mf">0m</span><span class="p">;</span><span class="w"> </span><span class="p">}}</span>
+<span class="w">          </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="mf">0m</span><span class="p">;</span><span class="w"> </span><span class="p">}}</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 
@@ -1852,11 +1852,11 @@ Now, let's put it all together and remove the extra responsibilities from <code>
 <span class="p">{</span>
 <span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">Main</span><span class="p">(</span><span class="kt">string</span><span class="p">[]</span><span class="w"> </span><span class="n">args</span><span class="p">)</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">        </span><span class="kt">var</span><span class="w"> </span><span class="n">calculator</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">WithdrawalAmountCalculator</span><span class="p">();</span>
-<span class="w">        </span><span class="kt">var</span><span class="w"> </span><span class="n">account</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">DebitAccount</span><span class="p">(</span><span class="n">calculator</span><span class="p">);</span>
-<span class="w">        </span><span class="n">account</span><span class="p">.</span><span class="n">Deposit</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">Money</span><span class="p">(</span><span class="mi">100</span><span class="p">));</span>
+<span class="w">          </span><span class="kt">var</span><span class="w"> </span><span class="n">calculator</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">WithdrawalAmountCalculator</span><span class="p">();</span>
+<span class="w">          </span><span class="kt">var</span><span class="w"> </span><span class="n">account</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">DebitAccount</span><span class="p">(</span><span class="n">calculator</span><span class="p">);</span>
+<span class="w">          </span><span class="n">account</span><span class="p">.</span><span class="n">Deposit</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">Money</span><span class="p">(</span><span class="mi">100</span><span class="p">));</span>
 
-<span class="w">        </span><span class="kt">var</span><span class="w"> </span><span class="n">cash</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">account</span><span class="p">.</span><span class="n">Withdraw</span><span class="p">(</span><span class="mi">50</span><span class="p">);</span>
+<span class="w">          </span><span class="kt">var</span><span class="w"> </span><span class="n">cash</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">account</span><span class="p">.</span><span class="n">Withdraw</span><span class="p">(</span><span class="mi">50</span><span class="p">);</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
@@ -1871,9 +1871,9 @@ Much better! Each class does only one thing, namely:
 </ul>
 </div>
 </div>
-<div id="outline-container-org6336762" class="outline-4">
-<h4 id="org6336762">Open/Closed principle</h4>
-<div class="outline-text-4" id="text-org6336762">
+<div id="outline-container-orgf0ffaee" class="outline-4">
+<h4 id="orgf0ffaee">Open/Closed principle</h4>
+<div class="outline-text-4" id="text-orgf0ffaee">
 <blockquote>
 <p>
 <a href="https://en.wikipedia.org/wiki/Open/closed_principle">Software entities (classes, modules, functions, etc.) should be open for extension, but closed for modification</a>
@@ -1894,12 +1894,12 @@ Let's go back again to a previous example, the one with multiple account types:
 <span class="k">private</span><span class="w"> </span><span class="n">Money</span><span class="w"> </span><span class="nf">CalculateWithdrawalFee</span><span class="p">(</span><span class="n">Money</span><span class="w"> </span><span class="n">amount</span><span class="p">)</span>
 <span class="p">{</span>
 <span class="w">    </span><span class="k">switch</span><span class="p">(</span><span class="w"> </span><span class="n">_accountType</span><span class="w"> </span><span class="p">)</span>
-<span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="n">AccountType</span><span class="p">.</span><span class="n">Savings</span><span class="p">:</span>
-<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">amount</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">0.5</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">100</span><span class="p">;</span>
-<span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="n">AccountType</span><span class="p">.</span><span class="n">Credit</span><span class="p">:</span>
-<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">amount</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">0.7</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">100</span><span class="p">;</span>
-<span class="w">        </span><span class="k">default</span><span class="p">:</span>
-<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">          </span><span class="k">case</span><span class="w"> </span><span class="n">AccountType</span><span class="p">.</span><span class="n">Savings</span><span class="p">:</span>
+<span class="w">              </span><span class="k">return</span><span class="w"> </span><span class="n">amount</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">0.5</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">100</span><span class="p">;</span>
+<span class="w">          </span><span class="k">case</span><span class="w"> </span><span class="n">AccountType</span><span class="p">.</span><span class="n">Credit</span><span class="p">:</span>
+<span class="w">              </span><span class="k">return</span><span class="w"> </span><span class="n">amount</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">0.7</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">100</span><span class="p">;</span>
+<span class="w">          </span><span class="k">default</span><span class="p">:</span>
+<span class="w">              </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 <span class="p">}</span>
 </pre></div>
 <p>
@@ -1911,9 +1911,9 @@ The code from the example above is the exact opposite of <b>Open/Closed principl
 </ul>
 </div>
 </div>
-<div id="outline-container-org21de9c9" class="outline-4">
-<h4 id="org21de9c9">Liskov substitution principle</h4>
-<div class="outline-text-4" id="text-org21de9c9">
+<div id="outline-container-orgaf76d7b" class="outline-4">
+<h4 id="orgaf76d7b">Liskov substitution principle</h4>
+<div class="outline-text-4" id="text-orgaf76d7b">
 <blockquote>
 <p>
 <a href="https://en.wikipedia.org/wiki/Liskov_substitution_principle">Objects in a program should be replaceable with instances of their subtypes without altering the correctness of that program.</a>
@@ -1934,14 +1934,14 @@ As an object hierarchy this would look like the following:
 
 <span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">virtual</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">Width</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">        </span><span class="k">get</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">_width</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
-<span class="w">        </span><span class="k">set</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">_width</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">value</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">          </span><span class="k">get</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">_width</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">          </span><span class="k">set</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">_width</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">value</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 <span class="w">    </span><span class="p">}</span>
 
 <span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">virtual</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">Height</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">        </span><span class="k">get</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">_height</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
-<span class="w">        </span><span class="k">set</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">_height</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">value</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">          </span><span class="k">get</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">_height</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">          </span><span class="k">set</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">_height</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">value</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 
@@ -1949,22 +1949,22 @@ As an object hierarchy this would look like the following:
 <span class="p">{</span>
 <span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">Width</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">        </span><span class="k">get</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">_width</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
-<span class="w">        </span><span class="k">set</span>
-<span class="w">        </span><span class="p">{</span>
-<span class="w">            </span><span class="n">_width</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">value</span><span class="p">;</span>
-<span class="w">            </span><span class="n">_height</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">value</span><span class="p">;</span>
-<span class="w">        </span><span class="p">}</span>
+<span class="w">          </span><span class="k">get</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">_width</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">          </span><span class="k">set</span>
+<span class="w">          </span><span class="p">{</span>
+<span class="w">              </span><span class="n">_width</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">value</span><span class="p">;</span>
+<span class="w">              </span><span class="n">_height</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">value</span><span class="p">;</span>
+<span class="w">          </span><span class="p">}</span>
 <span class="w">    </span><span class="p">}</span>
 
 <span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">Height</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">        </span><span class="k">get</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">_height</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
-<span class="w">        </span><span class="k">set</span>
-<span class="w">        </span><span class="p">{</span>
-<span class="w">            </span><span class="n">_height</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">value</span><span class="p">;</span>
-<span class="w">            </span><span class="n">_width</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">value</span><span class="p">;</span>
-<span class="w">        </span><span class="p">}</span>
+<span class="w">          </span><span class="k">get</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">_height</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">          </span><span class="k">set</span>
+<span class="w">          </span><span class="p">{</span>
+<span class="w">              </span><span class="n">_height</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">value</span><span class="p">;</span>
+<span class="w">              </span><span class="n">_width</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">value</span><span class="p">;</span>
+<span class="w">          </span><span class="p">}</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
@@ -1978,16 +1978,16 @@ Now let' think of consumer of this code: it knows it's working with a <code>Rect
 
 <span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">Main</span><span class="p">(</span><span class="kt">string</span><span class="p">[]</span><span class="w"> </span><span class="n">args</span><span class="p">)</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">        </span><span class="kt">var</span><span class="w"> </span><span class="n">rectangle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Square</span><span class="p">();</span>
-<span class="w">        </span><span class="n">InitializeRectangle</span><span class="p">(</span><span class="n">rectangle</span><span class="p">);</span>
-<span class="w">        </span><span class="kt">var</span><span class="w"> </span><span class="n">area</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rectangle</span><span class="p">.</span><span class="n">Width</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">rectangle</span><span class="p">.</span><span class="n">Height</span><span class="p">;</span>
-<span class="w">        </span><span class="n">Debug</span><span class="p">.</span><span class="n">Assert</span><span class="p">(</span><span class="n">area</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">ImageWidth</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">ImageHeight</span><span class="p">);</span>
+<span class="w">          </span><span class="kt">var</span><span class="w"> </span><span class="n">rectangle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Square</span><span class="p">();</span>
+<span class="w">          </span><span class="n">InitializeRectangle</span><span class="p">(</span><span class="n">rectangle</span><span class="p">);</span>
+<span class="w">          </span><span class="kt">var</span><span class="w"> </span><span class="n">area</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rectangle</span><span class="p">.</span><span class="n">Width</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">rectangle</span><span class="p">.</span><span class="n">Height</span><span class="p">;</span>
+<span class="w">          </span><span class="n">Debug</span><span class="p">.</span><span class="n">Assert</span><span class="p">(</span><span class="n">area</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">ImageWidth</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">ImageHeight</span><span class="p">);</span>
 <span class="w">    </span><span class="p">}</span>
 
 <span class="w">    </span><span class="k">void</span><span class="w"> </span><span class="nf">InitializeRectangle</span><span class="p">(</span><span class="n">Rectangle</span><span class="w"> </span><span class="n">rectangle</span><span class="p">)</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">        </span><span class="n">rectangle</span><span class="p">.</span><span class="n">Width</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ImageWidth</span><span class="p">;</span>
-<span class="w">        </span><span class="n">rectangle</span><span class="p">.</span><span class="n">Height</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ImageHeight</span><span class="p">;</span>
+<span class="w">          </span><span class="n">rectangle</span><span class="p">.</span><span class="n">Width</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ImageWidth</span><span class="p">;</span>
+<span class="w">          </span><span class="n">rectangle</span><span class="p">.</span><span class="n">Height</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ImageHeight</span><span class="p">;</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
@@ -2000,9 +2000,9 @@ This shows that although a <code>Square</code> may have a similar structure with
 </p>
 </div>
 </div>
-<div id="outline-container-orgf5f1ef4" class="outline-4">
-<h4 id="orgf5f1ef4">Interface Segregation principle</h4>
-<div class="outline-text-4" id="text-orgf5f1ef4">
+<div id="outline-container-orge2239d9" class="outline-4">
+<h4 id="orge2239d9">Interface Segregation principle</h4>
+<div class="outline-text-4" id="text-orge2239d9">
 <blockquote>
 <p>
 <a href="https://en.wikipedia.org/wiki/Interface_segregation_principle">Many client-specific interfaces are better than one general-purpose interface.</a>
@@ -2107,9 +2107,9 @@ If we would have to implement a simple authentication mechanism the functionalit
 </p>
 </div>
 </div>
-<div id="outline-container-orge94fda2" class="outline-4">
-<h4 id="orge94fda2">Dependency Inversion principle</h4>
-<div class="outline-text-4" id="text-orge94fda2">
+<div id="outline-container-orgf3fbc97" class="outline-4">
+<h4 id="orgf3fbc97">Dependency Inversion principle</h4>
+<div class="outline-text-4" id="text-orgf3fbc97">
 <blockquote>
 <p>
 <a href="https://en.wikipedia.org/wiki/Dependency_inversion_principle">Depend upon Abstractions. Do not depend upon concretions.</a>
@@ -2131,9 +2131,9 @@ To break this dependency we need to hide the functionality of our <code>FileSyst
 <span class="p">{</span>
 <span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="kt">string</span><span class="p">[]</span><span class="w"> </span><span class="nf">List</span><span class="p">(</span><span class="kt">string</span><span class="w"> </span><span class="n">path</span><span class="p">)</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">Directory</span><span class="p">.</span><span class="n">EnumerateDirectories</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
-<span class="w">            </span><span class="p">.</span><span class="n">Union</span><span class="p">(</span><span class="n">Directory</span><span class="p">.</span><span class="n">EnumerateFiles</span><span class="p">(</span><span class="n">path</span><span class="p">))</span>
-<span class="w">            </span><span class="p">.</span><span class="n">ToArray</span><span class="p">();</span>
+<span class="w">          </span><span class="k">return</span><span class="w"> </span><span class="n">Directory</span><span class="p">.</span><span class="n">EnumerateDirectories</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+<span class="w">              </span><span class="p">.</span><span class="n">Union</span><span class="p">(</span><span class="n">Directory</span><span class="p">.</span><span class="n">EnumerateFiles</span><span class="p">(</span><span class="n">path</span><span class="p">))</span>
+<span class="w">              </span><span class="p">.</span><span class="n">ToArray</span><span class="p">();</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
@@ -2146,7 +2146,7 @@ Now we make the <code>Explorer</code> class depend upon the <code>IFileSystem</c
 
 <span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="nf">Explorer</span><span class="p">(</span><span class="n">IFileSystem</span><span class="w"> </span><span class="n">fileSystem</span><span class="p">)</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">        </span><span class="n">_fileSystem</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fileSystem</span><span class="p">;</span>
+<span class="w">          </span><span class="n">_fileSystem</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fileSystem</span><span class="p">;</span>
 <span class="w">    </span><span class="p">}</span>
 
 <span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="n">CurrentDirectory</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
@@ -2155,14 +2155,14 @@ Now we make the <code>Explorer</code> class depend upon the <code>IFileSystem</c
 
 <span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">NavigateTo</span><span class="p">(</span><span class="kt">string</span><span class="w"> </span><span class="n">path</span><span class="p">)</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">        </span><span class="kt">var</span><span class="w"> </span><span class="n">contents</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_fileSystem</span><span class="p">.</span><span class="n">Root</span><span class="p">.</span><span class="n">List</span><span class="p">(</span><span class="n">path</span><span class="p">);</span>
-<span class="w">        </span><span class="n">CurrentDirectory</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">path</span><span class="p">;</span>
-<span class="w">        </span><span class="n">Contents</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">contents</span><span class="p">;</span>
+<span class="w">          </span><span class="kt">var</span><span class="w"> </span><span class="n">contents</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_fileSystem</span><span class="p">.</span><span class="n">Root</span><span class="p">.</span><span class="n">List</span><span class="p">(</span><span class="n">path</span><span class="p">);</span>
+<span class="w">          </span><span class="n">CurrentDirectory</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">path</span><span class="p">;</span>
+<span class="w">          </span><span class="n">Contents</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">contents</span><span class="p">;</span>
 
-<span class="w">        </span><span class="k">foreach</span><span class="p">(</span><span class="kt">var</span><span class="w"> </span><span class="n">item</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">contents</span><span class="p">)</span>
-<span class="w">        </span><span class="p">{</span>
-<span class="w">            </span><span class="n">Display</span><span class="p">(</span><span class="n">item</span><span class="p">);</span>
-<span class="w">        </span><span class="p">}</span>
+<span class="w">          </span><span class="k">foreach</span><span class="p">(</span><span class="kt">var</span><span class="w"> </span><span class="n">item</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">contents</span><span class="p">)</span>
+<span class="w">          </span><span class="p">{</span>
+<span class="w">              </span><span class="n">Display</span><span class="p">(</span><span class="n">item</span><span class="p">);</span>
+<span class="w">          </span><span class="p">}</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
@@ -2173,9 +2173,9 @@ Now it's up to the <code>Program</code> class to glue them together:
 <span class="p">{</span>
 <span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">Main</span><span class="p">(</span><span class="kt">string</span><span class="p">[]</span><span class="w"> </span><span class="n">args</span><span class="p">)</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">        </span><span class="kt">var</span><span class="w"> </span><span class="n">fs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">FileSystem</span><span class="p">();</span>
-<span class="w">        </span><span class="kt">var</span><span class="w"> </span><span class="n">explorer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Explorer</span><span class="p">(</span><span class="n">fs</span><span class="p">);</span>
-<span class="w">        </span><span class="n">explorer</span><span class="p">.</span><span class="n">NavigateTo</span><span class="p">(</span><span class="s">@"c:\users\petru\Documents\"</span><span class="p">);</span>
+<span class="w">          </span><span class="kt">var</span><span class="w"> </span><span class="n">fs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">FileSystem</span><span class="p">();</span>
+<span class="w">          </span><span class="kt">var</span><span class="w"> </span><span class="n">explorer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Explorer</span><span class="p">(</span><span class="n">fs</span><span class="p">);</span>
+<span class="w">          </span><span class="n">explorer</span><span class="p">.</span><span class="n">NavigateTo</span><span class="p">(</span><span class="s">@"c:\users\petru\Documents\"</span><span class="p">);</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 </pre></div>

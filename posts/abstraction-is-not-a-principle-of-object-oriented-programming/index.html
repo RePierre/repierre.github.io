@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html prefix="
+<html \ prefix="
 " lang="en">
 <head>
 <meta charset="utf-8">
@@ -29,7 +29,7 @@
     
     
     </nav><footer id="footer"><span class="copyright">
-              Contents © 2025         <a href="mailto:petru.rebeja@gmail.com">Petru Rebeja</a> - Powered by   <a href="https://www.gnu.org/software/emacs/" rel="nofollow">GNU Emacs</a>  &amp;    <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+              Contents © 2026         <a href="mailto:petru.rebeja@gmail.com">Petru Rebeja</a> - Powered by   <a href="https://www.gnu.org/software/emacs/" rel="nofollow">GNU Emacs</a>  &amp;    <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
             </span>
             
             
@@ -48,17 +48,17 @@
     
 
     <div class="e-content entry-content" itemprop="articleBody text">
-    <div id="outline-container-orgc80827b" class="outline-2">
-<h2 id="orgc80827b">TL;DR</h2>
-<div class="outline-text-2" id="text-orgc80827b">
+    <div id="outline-container-org16e5b6e" class="outline-2">
+<h2 id="org16e5b6e">TL;DR</h2>
+<div class="outline-text-2" id="text-org16e5b6e">
 <p>
 <code>Abstraction</code> is a core concept in programming and not a principle that is <b>solely</b> applicable in OOP, because <b>programming is all about dealing with an abstract representation of the business model (application space)</b>.
 </p>
 </div>
 </div>
-<div id="outline-container-org8ee4809" class="outline-2">
-<h2 id="org8ee4809">Abstraction is an overall programming principle</h2>
-<div class="outline-text-2" id="text-org8ee4809">
+<div id="outline-container-org0f9fe0c" class="outline-2">
+<h2 id="org0f9fe0c">Abstraction is an overall programming principle</h2>
+<div class="outline-text-2" id="text-org0f9fe0c">
 <p>
 There are a lot of articles saying that OOP has four principles:
 </p>
@@ -85,9 +85,9 @@ Why? Because programming means modeling entities and interactions of an <i>abstr
 </p>
 </div>
 </div>
-<div id="outline-container-orgc93faba" class="outline-2">
-<h2 id="orgc93faba">An example of <code>abstraction</code> in OOP</h2>
-<div class="outline-text-2" id="text-orgc93faba">
+<div id="outline-container-org315c725" class="outline-2">
+<h2 id="org315c725">An example of <code>abstraction</code> in OOP</h2>
+<div class="outline-text-2" id="text-org315c725">
 <p>
 To better clarify what <code>abstraction</code> is (in OOP) let's consider a trivial example: A <code>StudentRegistrationController</code> (ASP.NET MVC) needs to save the data from a registration form (<code>Student</code>) into some sort of database represented by an instance of <code>IStudentDataStore</code>.
 </p>
@@ -97,7 +97,7 @@ For the sake of brevity let's say that <code>IStudentDataStore</code> interface 
 </p>
 <div class="highlight"><pre><span></span><span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="k">interface</span><span class="w"> </span><span class="n">IStudentDataStore</span>
 <span class="w">  </span><span class="p">{</span>
-<span class="w">      </span><span class="k">void</span><span class="w"> </span><span class="nf">Save</span><span class="p">(</span><span class="n">Student</span><span class="w"> </span><span class="n">student</span><span class="p">);</span>
+<span class="w">          </span><span class="k">void</span><span class="w"> </span><span class="nf">Save</span><span class="p">(</span><span class="n">Student</span><span class="w"> </span><span class="n">student</span><span class="p">);</span>
 <span class="w">  </span><span class="p">}</span>
 </pre></div>
 <p>
@@ -105,31 +105,31 @@ With that in mind, the code for the example above would look like this:
 </p>
 <div class="highlight"><pre><span></span><span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">Student</span>
 <span class="w">  </span><span class="p">{</span>
-<span class="w">      </span><span class="k">public</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="n">FirstName</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">          </span><span class="k">public</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="n">FirstName</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 
-<span class="w">      </span><span class="k">public</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="n">LastName</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">          </span><span class="k">public</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="n">LastName</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 
-<span class="w">      </span><span class="k">public</span><span class="w"> </span><span class="n">DateTime</span><span class="w"> </span><span class="n">DateOfBirth</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">          </span><span class="k">public</span><span class="w"> </span><span class="n">DateTime</span><span class="w"> </span><span class="n">DateOfBirth</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 
-<span class="w">      </span><span class="k">public</span><span class="w"> </span><span class="n">Gender</span><span class="w"> </span><span class="n">Gender</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">          </span><span class="k">public</span><span class="w"> </span><span class="n">Gender</span><span class="w"> </span><span class="n">Gender</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 
-<span class="w">      </span><span class="k">public</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="n">Email</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">          </span><span class="k">public</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="n">Email</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 
-<span class="w">      </span><span class="k">public</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="n">PhoneNumber</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">          </span><span class="k">public</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="n">PhoneNumber</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 <span class="w">  </span><span class="p">}</span>
 
 <span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">StudentRegistrationController</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">Controller</span>
 <span class="w">  </span><span class="p">{</span>
-<span class="w">      </span><span class="k">public</span><span class="w"> </span><span class="nf">StudentRegistrationController</span><span class="p">(</span><span class="n">IStudentDataStore</span><span class="w"> </span><span class="n">dataStore</span><span class="p">)</span>
-<span class="w">      </span><span class="p">{</span>
-<span class="w">          </span><span class="n">_dataStore</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dataStore</span><span class="p">;</span>
-<span class="w">      </span><span class="p">}</span>
+<span class="w">          </span><span class="k">public</span><span class="w"> </span><span class="nf">StudentRegistrationController</span><span class="p">(</span><span class="n">IStudentDataStore</span><span class="w"> </span><span class="n">dataStore</span><span class="p">)</span>
+<span class="w">          </span><span class="p">{</span>
+<span class="w">              </span><span class="n">_dataStore</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dataStore</span><span class="p">;</span>
+<span class="w">          </span><span class="p">}</span>
 
-<span class="w">      </span><span class="k">public</span><span class="w"> </span><span class="n">ActionResult</span><span class="w"> </span><span class="nf">Save</span><span class="p">(</span><span class="n">Student</span><span class="w"> </span><span class="n">viewModel</span><span class="p">)</span>
-<span class="w">      </span><span class="p">{</span>
-<span class="w">          </span><span class="c1">// Validation ommited for brevity</span>
-<span class="w">          </span><span class="n">_dataStore</span><span class="p">.</span><span class="n">Save</span><span class="p">(</span><span class="n">viewModel</span><span class="p">);</span>
-<span class="w">      </span><span class="p">}</span>
+<span class="w">          </span><span class="k">public</span><span class="w"> </span><span class="n">ActionResult</span><span class="w"> </span><span class="nf">Save</span><span class="p">(</span><span class="n">Student</span><span class="w"> </span><span class="n">viewModel</span><span class="p">)</span>
+<span class="w">          </span><span class="p">{</span>
+<span class="w">              </span><span class="c1">// Validation ommited for brevity</span>
+<span class="w">              </span><span class="n">_dataStore</span><span class="p">.</span><span class="n">Save</span><span class="p">(</span><span class="n">viewModel</span><span class="p">);</span>
+<span class="w">          </span><span class="p">}</span>
 <span class="w">  </span><span class="p">}</span>
 </pre></div>
 <p>
@@ -141,9 +141,9 @@ But is this <code>abstraction</code> technique available <i>only</i> in OOP para
 </p>
 </div>
 </div>
-<div id="outline-container-orgf63fc95" class="outline-2">
-<h2 id="orgf63fc95">The same example of <code>abstraction</code> in functional programming</h2>
-<div class="outline-text-2" id="text-orgf63fc95">
+<div id="outline-container-org97cbbf5" class="outline-2">
+<h2 id="org97cbbf5">The same example of <code>abstraction</code> in functional programming</h2>
+<div class="outline-text-2" id="text-org97cbbf5">
 <p>
 To see how the same thing would be written in a functional style let's first see what are the entities from the previous example and how those entities interact between them:
 </p>
@@ -188,34 +188,34 @@ Note that both functions have the same signature. The parameters of these functi
 <div class="highlight"><pre><span></span><span class="w">  </span><span class="p">(</span><span class="nb">defun</span><span class="w"> </span><span class="nv">persist-student-info-to-file</span><span class="w"> </span><span class="p">(</span><span class="nv">first-name</span><span class="w"> </span><span class="nv">last-name</span><span class="w"> </span><span class="nv">dob</span><span class="w"> </span><span class="nv">gender</span><span class="w"> </span><span class="nv">email</span><span class="w"> </span><span class="nv">phone</span><span class="p">)</span>
 <span class="w">    </span><span class="c1">;; Writes the info as a new line into the file specified by *database-location*</span>
 <span class="w">    </span><span class="p">(</span><span class="k">let</span><span class="w"> </span><span class="p">((</span><span class="nc">stream</span><span class="w"> </span><span class="p">(</span><span class="nb">open</span><span class="w"> </span><span class="vg">*database-location*</span>
-<span class="w">                </span><span class="ss">:direction</span><span class="w"> </span><span class="ss">:output</span>
-<span class="w">                </span><span class="ss">:if-exists</span><span class="w"> </span><span class="ss">:append</span><span class="p">)))</span>
-<span class="w">      </span><span class="p">(</span><span class="nb">format</span><span class="w"> </span><span class="nc">stream</span><span class="w"> </span><span class="s">"~s|~s|~s|~s|~s|~s"</span>
-<span class="w">          </span><span class="nv">first-name</span>
-<span class="w">          </span><span class="nv">last-name</span>
-<span class="w">          </span><span class="nv">dob</span>
-<span class="w">          </span><span class="nv">gender</span>
-<span class="w">          </span><span class="nv">email</span>
-<span class="w">          </span><span class="nv">phone</span><span class="p">)</span>
-<span class="w">      </span><span class="p">(</span><span class="nb">close</span><span class="w"> </span><span class="nc">stream</span><span class="p">)))</span>
+<span class="w">                    </span><span class="ss">:direction</span><span class="w"> </span><span class="ss">:output</span>
+<span class="w">                    </span><span class="ss">:if-exists</span><span class="w"> </span><span class="ss">:append</span><span class="p">)))</span>
+<span class="w">          </span><span class="p">(</span><span class="nb">format</span><span class="w"> </span><span class="nc">stream</span><span class="w"> </span><span class="s">"~s|~s|~s|~s|~s|~s"</span>
+<span class="w">              </span><span class="nv">first-name</span>
+<span class="w">              </span><span class="nv">last-name</span>
+<span class="w">              </span><span class="nv">dob</span>
+<span class="w">              </span><span class="nv">gender</span>
+<span class="w">              </span><span class="nv">email</span>
+<span class="w">              </span><span class="nv">phone</span><span class="p">)</span>
+<span class="w">          </span><span class="p">(</span><span class="nb">close</span><span class="w"> </span><span class="nc">stream</span><span class="p">)))</span>
 
 
 <span class="w">  </span><span class="p">(</span><span class="nb">defun</span><span class="w"> </span><span class="nv">persist-student-info-in-memory</span><span class="w"> </span><span class="p">(</span><span class="nv">first-name</span><span class="w"> </span><span class="nv">last-name</span><span class="w"> </span><span class="nv">dob</span><span class="w"> </span><span class="nv">gender</span><span class="w"> </span><span class="nv">email</span><span class="w"> </span><span class="nv">phone</span><span class="p">)</span>
 <span class="w">    </span><span class="c1">;; Persists student data into an in-memory data store named *all-students*</span>
 <span class="w">    </span><span class="p">(</span><span class="k">let</span><span class="w"> </span><span class="p">((</span><span class="nv">student-id</span><span class="w"> </span><span class="p">(</span><span class="nb">list-length</span><span class="w"> </span><span class="vg">*all-students*</span><span class="p">)))</span>
-<span class="w">      </span><span class="p">(</span><span class="k">setq</span><span class="w"> </span><span class="vg">*all-students*</span>
-<span class="w">        </span><span class="p">(</span><span class="nb">append</span><span class="w"> </span><span class="vg">*all-students*</span>
-<span class="w">            </span><span class="p">(</span><span class="nb">list</span><span class="w"> </span><span class="nv">student-id</span><span class="w"> </span><span class="nv">first-name</span><span class="w"> </span><span class="nv">last-name</span><span class="w"> </span><span class="nv">dob</span><span class="w"> </span><span class="nv">gender</span><span class="w"> </span><span class="nv">email</span><span class="w"> </span><span class="nv">phone</span><span class="p">)))))</span>
+<span class="w">          </span><span class="p">(</span><span class="k">setq</span><span class="w"> </span><span class="vg">*all-students*</span>
+<span class="w">            </span><span class="p">(</span><span class="nb">append</span><span class="w"> </span><span class="vg">*all-students*</span>
+<span class="w">                </span><span class="p">(</span><span class="nb">list</span><span class="w"> </span><span class="nv">student-id</span><span class="w"> </span><span class="nv">first-name</span><span class="w"> </span><span class="nv">last-name</span><span class="w"> </span><span class="nv">dob</span><span class="w"> </span><span class="nv">gender</span><span class="w"> </span><span class="nv">email</span><span class="w"> </span><span class="nv">phone</span><span class="p">)))))</span>
 
 <span class="w">  </span><span class="p">(</span><span class="nb">defun</span><span class="w"> </span><span class="nv">save-student</span><span class="w"> </span><span class="p">(</span><span class="nv">student-info</span><span class="w"> </span><span class="nv">persist-func</span><span class="p">)</span>
 <span class="w">    </span><span class="c1">;; Saves student data to a persistent store</span>
 <span class="w">    </span><span class="p">(</span><span class="k">let</span><span class="w"> </span><span class="p">((</span><span class="nv">first-name</span><span class="w"> </span><span class="p">(</span><span class="nb">gethash</span><span class="w"> </span><span class="ss">'first-name</span><span class="w"> </span><span class="nv">student-info</span><span class="p">))</span>
-<span class="w">          </span><span class="p">(</span><span class="nv">last-name</span><span class="w"> </span><span class="p">(</span><span class="nb">gethash</span><span class="w"> </span><span class="ss">'last-name</span><span class="w"> </span><span class="nv">student-info</span><span class="p">))</span>
-<span class="w">          </span><span class="p">(</span><span class="nv">dob</span><span class="w"> </span><span class="p">(</span><span class="nb">gethash</span><span class="w"> </span><span class="ss">'date-of-birth</span><span class="w"> </span><span class="nv">student-info</span><span class="p">))</span>
-<span class="w">          </span><span class="p">(</span><span class="nv">gender</span><span class="w"> </span><span class="p">(</span><span class="nb">gethash</span><span class="w"> </span><span class="ss">'gender</span><span class="w"> </span><span class="nv">student-info</span><span class="p">))</span>
-<span class="w">          </span><span class="p">(</span><span class="nv">email</span><span class="w"> </span><span class="p">(</span><span class="nb">gethash</span><span class="w"> </span><span class="ss">'email</span><span class="w"> </span><span class="nv">student-info</span><span class="p">))</span>
-<span class="w">          </span><span class="p">(</span><span class="nv">phone</span><span class="w"> </span><span class="p">(</span><span class="nb">gethash</span><span class="w"> </span><span class="ss">'phone-number</span><span class="w"> </span><span class="nv">student-info</span><span class="p">)))</span>
-<span class="w">      </span><span class="p">(</span><span class="nb">funcall</span><span class="w"> </span><span class="nv">persist-func</span><span class="w"> </span><span class="nv">first-name</span><span class="w"> </span><span class="nv">last-name</span><span class="w"> </span><span class="nv">dob</span><span class="w"> </span><span class="nv">gender</span><span class="w"> </span><span class="nv">email</span><span class="w"> </span><span class="nv">phone</span><span class="p">)))</span>
+<span class="w">              </span><span class="p">(</span><span class="nv">last-name</span><span class="w"> </span><span class="p">(</span><span class="nb">gethash</span><span class="w"> </span><span class="ss">'last-name</span><span class="w"> </span><span class="nv">student-info</span><span class="p">))</span>
+<span class="w">              </span><span class="p">(</span><span class="nv">dob</span><span class="w"> </span><span class="p">(</span><span class="nb">gethash</span><span class="w"> </span><span class="ss">'date-of-birth</span><span class="w"> </span><span class="nv">student-info</span><span class="p">))</span>
+<span class="w">              </span><span class="p">(</span><span class="nv">gender</span><span class="w"> </span><span class="p">(</span><span class="nb">gethash</span><span class="w"> </span><span class="ss">'gender</span><span class="w"> </span><span class="nv">student-info</span><span class="p">))</span>
+<span class="w">              </span><span class="p">(</span><span class="nv">email</span><span class="w"> </span><span class="p">(</span><span class="nb">gethash</span><span class="w"> </span><span class="ss">'email</span><span class="w"> </span><span class="nv">student-info</span><span class="p">))</span>
+<span class="w">              </span><span class="p">(</span><span class="nv">phone</span><span class="w"> </span><span class="p">(</span><span class="nb">gethash</span><span class="w"> </span><span class="ss">'phone-number</span><span class="w"> </span><span class="nv">student-info</span><span class="p">)))</span>
+<span class="w">          </span><span class="p">(</span><span class="nb">funcall</span><span class="w"> </span><span class="nv">persist-func</span><span class="w"> </span><span class="nv">first-name</span><span class="w"> </span><span class="nv">last-name</span><span class="w"> </span><span class="nv">dob</span><span class="w"> </span><span class="nv">gender</span><span class="w"> </span><span class="nv">email</span><span class="w"> </span><span class="nv">phone</span><span class="p">)))</span>
 </pre></div>
 <p>
 Having the definitions above we can achieve the same level of abstraction by putting everything together and defining global variables (think of it as poor mans <code>dependency injection</code>):
@@ -237,9 +237,9 @@ Et voilà! We have used <code>abstraction</code> in a functional style to remove
 </p>
 </div>
 </div>
-<div id="outline-container-org6de851c" class="outline-2">
-<h2 id="org6de851c">Acknowledgments</h2>
-<div class="outline-text-2" id="text-org6de851c">
+<div id="outline-container-orgdc8dd1d" class="outline-2">
+<h2 id="orgdc8dd1d">Acknowledgments</h2>
+<div class="outline-text-2" id="text-orgdc8dd1d">
 <p>
 A big thank you to <a href="https://be.linkedin.com/in/ion-cojocaru-81b5a230">Ion Cojocaru</a> and <a href="https://ro.linkedin.com/in/florin-olariu-38615126">Florin Olariu</a> who reviewed this post before publication.
 </p>

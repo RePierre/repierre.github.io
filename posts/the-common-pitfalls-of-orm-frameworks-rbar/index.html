@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html prefix="
+<html \ prefix="
 " lang="en">
 <head>
 <meta charset="utf-8">
@@ -29,7 +29,7 @@
     
     
     </nav><footer id="footer"><span class="copyright">
-              Contents © 2025         <a href="mailto:petru.rebeja@gmail.com">Petru Rebeja</a> - Powered by   <a href="https://www.gnu.org/software/emacs/" rel="nofollow">GNU Emacs</a>  &amp;    <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+              Contents © 2026         <a href="mailto:petru.rebeja@gmail.com">Petru Rebeja</a> - Powered by   <a href="https://www.gnu.org/software/emacs/" rel="nofollow">GNU Emacs</a>  &amp;    <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
             </span>
             
             
@@ -93,10 +93,10 @@ Given the above, someone would be tempted to implement the <code>PlaceOrder</cod
 
 <span class="w">    </span><span class="k">foreach</span><span class="w"> </span><span class="p">(</span><span class="kt">var</span><span class="w"> </span><span class="n">orderedItem</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">orderItems</span><span class="p">)</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">        </span><span class="kt">var</span><span class="w"> </span><span class="n">item</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_itemRepository</span><span class="p">.</span><span class="n">Get</span><span class="p">(</span><span class="n">orderedItem</span><span class="p">.</span><span class="n">ItemId</span><span class="p">);</span>
-<span class="w">        </span><span class="n">item</span><span class="p">.</span><span class="n">DecreaseStockCount</span><span class="p">(</span><span class="n">orderedItem</span><span class="p">.</span><span class="n">Quantity</span><span class="p">);</span>
-<span class="w">        </span><span class="n">_itemRepository</span><span class="p">.</span><span class="n">Update</span><span class="p">(</span><span class="n">item</span><span class="p">);</span>
-<span class="w">        </span><span class="n">order</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">orderedItem</span><span class="p">);</span>
+<span class="w">          </span><span class="kt">var</span><span class="w"> </span><span class="n">item</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_itemRepository</span><span class="p">.</span><span class="n">Get</span><span class="p">(</span><span class="n">orderedItem</span><span class="p">.</span><span class="n">ItemId</span><span class="p">);</span>
+<span class="w">          </span><span class="n">item</span><span class="p">.</span><span class="n">DecreaseStockCount</span><span class="p">(</span><span class="n">orderedItem</span><span class="p">.</span><span class="n">Quantity</span><span class="p">);</span>
+<span class="w">          </span><span class="n">_itemRepository</span><span class="p">.</span><span class="n">Update</span><span class="p">(</span><span class="n">item</span><span class="p">);</span>
+<span class="w">          </span><span class="n">order</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">orderedItem</span><span class="p">);</span>
 <span class="w">    </span><span class="p">}</span>
 
 <span class="w">    </span><span class="n">_customerOrderRepository</span><span class="p">.</span><span class="n">Register</span><span class="p">(</span><span class="n">order</span><span class="p">);</span>
@@ -128,18 +128,18 @@ So, let's switch the paradigm and start working with collections in our code to 
 <span class="w">    </span><span class="kt">var</span><span class="w"> </span><span class="n">customerOrder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">CustomerOrder</span><span class="p">(</span><span class="n">customer</span><span class="p">);</span>
 
 <span class="w">    </span><span class="kt">var</span><span class="w"> </span><span class="n">items</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">itemRepository</span><span class="p">.</span><span class="n">Items</span>
-<span class="w">        </span><span class="p">.</span><span class="n">Join</span><span class="p">(</span><span class="n">orderItems</span><span class="p">,</span>
-<span class="w">              </span><span class="n">item</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">item</span><span class="p">.</span><span class="n">Id</span><span class="p">,</span>
-<span class="w">              </span><span class="n">orderedItem</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">orderedItem</span><span class="p">.</span><span class="n">ItemId</span><span class="p">,</span>
-<span class="w">              </span><span class="p">(</span><span class="n">item</span><span class="p">,</span><span class="w"> </span><span class="n">_</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">item</span><span class="p">)</span>
-<span class="w">        </span><span class="p">.</span><span class="n">ToDictionary</span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">i</span><span class="p">.</span><span class="n">Id</span><span class="p">);</span>
+<span class="w">          </span><span class="p">.</span><span class="n">Join</span><span class="p">(</span><span class="n">orderItems</span><span class="p">,</span>
+<span class="w">                </span><span class="n">item</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">item</span><span class="p">.</span><span class="n">Id</span><span class="p">,</span>
+<span class="w">                </span><span class="n">orderedItem</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">orderedItem</span><span class="p">.</span><span class="n">ItemId</span><span class="p">,</span>
+<span class="w">                </span><span class="p">(</span><span class="n">item</span><span class="p">,</span><span class="w"> </span><span class="n">_</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">item</span><span class="p">)</span>
+<span class="w">          </span><span class="p">.</span><span class="n">ToDictionary</span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">i</span><span class="p">.</span><span class="n">Id</span><span class="p">);</span>
 
 <span class="w">    </span><span class="k">foreach</span><span class="p">(</span><span class="kt">var</span><span class="w"> </span><span class="n">orderedItem</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">orderedItems</span><span class="p">)</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">        </span><span class="kt">var</span><span class="w"> </span><span class="n">item</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="n">items</span><span class="p">[</span><span class="n">orderedItem</span><span class="p">.</span><span class="n">ItemId</span><span class="p">];</span>
-<span class="w">        </span><span class="n">item</span><span class="p">.</span><span class="n">DecreaseStockCount</span><span class="p">(</span><span class="n">orderedItem</span><span class="p">.</span><span class="n">Quantity</span><span class="p">);</span>
-<span class="w">        </span><span class="n">_itemRepository</span><span class="p">.</span><span class="n">Update</span><span class="p">(</span><span class="n">item</span><span class="p">);</span>
-<span class="w">        </span><span class="n">customerOrder</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">item</span><span class="p">);</span>
+<span class="w">          </span><span class="kt">var</span><span class="w"> </span><span class="n">item</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="n">items</span><span class="p">[</span><span class="n">orderedItem</span><span class="p">.</span><span class="n">ItemId</span><span class="p">];</span>
+<span class="w">          </span><span class="n">item</span><span class="p">.</span><span class="n">DecreaseStockCount</span><span class="p">(</span><span class="n">orderedItem</span><span class="p">.</span><span class="n">Quantity</span><span class="p">);</span>
+<span class="w">          </span><span class="n">_itemRepository</span><span class="p">.</span><span class="n">Update</span><span class="p">(</span><span class="n">item</span><span class="p">);</span>
+<span class="w">          </span><span class="n">customerOrder</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">item</span><span class="p">);</span>
 <span class="w">    </span><span class="p">}</span>
 
 <span class="w">    </span><span class="n">_customerOrderRepository</span><span class="p">.</span><span class="n">Register</span><span class="p">(</span><span class="n">order</span><span class="p">);</span>
@@ -156,8 +156,8 @@ The best approach to this is to not load any data at all from the database and t
 And how can we do that? Exactly - with <code>stored procedures</code>.
 </p>
 <div class="highlight"><pre><span></span><span class="k">declare</span><span class="w"> </span><span class="k">procedure</span><span class="w"> </span><span class="n">CreateCustomerOrder</span><span class="p">(</span>
-<span class="w">        </span><span class="o">@</span><span class="n">customerId</span><span class="w"> </span><span class="n">uniqueidentifier</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="p">,</span>
-<span class="w">        </span><span class="o">@</span><span class="n">orderItems</span><span class="w"> </span><span class="n">udttorderitems</span><span class="w"> </span><span class="n">readonly</span><span class="p">)</span>
+<span class="w">          </span><span class="o">@</span><span class="n">customerId</span><span class="w"> </span><span class="n">uniqueidentifier</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="p">,</span>
+<span class="w">          </span><span class="o">@</span><span class="n">orderItems</span><span class="w"> </span><span class="n">udttorderitems</span><span class="w"> </span><span class="n">readonly</span><span class="p">)</span>
 <span class="k">begin</span>
 <span class="w">    </span><span class="k">set</span><span class="w"> </span><span class="n">no_count</span><span class="w"> </span><span class="k">on</span>
 

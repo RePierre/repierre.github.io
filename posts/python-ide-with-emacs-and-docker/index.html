@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html prefix="
+<html \ prefix="
 " lang="en">
 <head>
 <meta charset="utf-8">
@@ -29,7 +29,7 @@
     
     
     </nav><footer id="footer"><span class="copyright">
-              Contents © 2025         <a href="mailto:petru.rebeja@gmail.com">Petru Rebeja</a> - Powered by   <a href="https://www.gnu.org/software/emacs/" rel="nofollow">GNU Emacs</a>  &amp;    <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+              Contents © 2026         <a href="mailto:petru.rebeja@gmail.com">Petru Rebeja</a> - Powered by   <a href="https://www.gnu.org/software/emacs/" rel="nofollow">GNU Emacs</a>  &amp;    <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
             </span>
             
             
@@ -48,9 +48,9 @@
     
 
     <div class="e-content entry-content" itemprop="articleBody text">
-    <div id="outline-container-orgbe84892" class="outline-2">
-<h2 id="orgbe84892">Prologue</h2>
-<div class="outline-text-2" id="text-orgbe84892">
+    <div id="outline-container-org327f678" class="outline-2">
+<h2 id="org327f678">Prologue</h2>
+<div class="outline-text-2" id="text-org327f678">
 <p>
 I am a fan of <a href="https://en.wikipedia.org/wiki/Windows_Subsystem_for_Linux"><code>Windows Subsystem for Linux</code></a>. It brings the power of Linux command-line tools to Windows which is something a developer cannot dislike but that isn't the main reason I'm fond of it. I like it because it allows me to run Emacs (albeit in console mode) at its full potential.
 </p>
@@ -80,9 +80,9 @@ The answer is <b>Yes</b>. If you want to see only the final <code>Dockerfile</co
 </p>
 </div>
 </div>
-<div id="outline-container-org412b0e6" class="outline-2">
-<h2 id="org412b0e6">How</h2>
-<div class="outline-text-2" id="text-org412b0e6">
+<div id="outline-container-org6a4b1ba" class="outline-2">
+<h2 id="org6a4b1ba">How</h2>
+<div class="outline-text-2" id="text-org6a4b1ba">
 <p>
 Since I already have been using Emacs as a Python IDE in Ubuntu Bash, replicating this setup in Docker would imply:
 </p>
@@ -99,9 +99,9 @@ Luckily, Docker already has an <a href="https://docs.docker.com/engine/examples/
 </p>
 </div>
 </div>
-<div id="outline-container-orgb1392e2" class="outline-2">
-<h2 id="orgb1392e2">Issue #1: SSHD refuses connection</h2>
-<div class="outline-text-2" id="text-orgb1392e2">
+<div id="outline-container-orgf231677" class="outline-2">
+<h2 id="orgf231677">Issue #1: SSHD refuses connection</h2>
+<div class="outline-text-2" id="text-orgf231677">
 <p>
 This one was easy — there's a typo in the example provided by Docker. I figured it out after inspecting the contents of <code>sshd_config</code> file.
 </p>
@@ -139,17 +139,17 @@ Even though the <code>sshd</code> was running and accepting connections, the fac
 What this does is it declares a variable <code>password</code> whose value is supplied when building the image like this:
 </p>
 <div class="highlight"><pre><span></span><span class="w">  </span>docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>&lt;image-tag&gt;<span class="w"> </span><span class="se">\</span>
-<span class="w">         </span>--build-arg<span class="w"> </span><span class="nv">password</span><span class="o">=</span>&lt;your-password-here&gt;<span class="w"> </span><span class="se">\</span>
-<span class="w">         </span>.
+<span class="w">             </span>--build-arg<span class="w"> </span><span class="nv">password</span><span class="o">=</span>&lt;your-password-here&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">             </span>.
 </pre></div>
 <p>
 This way, the root password isn't stored in clear text and in plain-sight anymore. Now I was ready to move to the next step.
 </p>
 </div>
 </div>
-<div id="outline-container-orgfdb6593" class="outline-2">
-<h2 id="orgfdb6593">Issue #2: Activating virtual environment inside container</h2>
-<div class="outline-text-2" id="text-orgfdb6593">
+<div id="outline-container-org4d83181" class="outline-2">
+<h2 id="org4d83181">Issue #2: Activating virtual environment inside container</h2>
+<div class="outline-text-2" id="text-org4d83181">
 <p>
 The second item of my quest was to setup and activate a Python virtual environment. This environment will be used to install all the dependencies required for the project I'm working on.
 </p>
@@ -181,8 +181,8 @@ The changes pertaining to my config are the following:
 <span class="w">  </span>RUN<span class="w"> </span>python3<span class="w"> </span>-m<span class="w"> </span>virtualenv<span class="w"> </span>--python<span class="o">=</span>/usr/bin/python3<span class="w"> </span><span class="nv">$VIRTUAL_ENV</span>
 <span class="w">  </span>ENV<span class="w"> </span><span class="nv">PATH</span><span class="o">=</span><span class="s2">"</span><span class="nv">$VIRTUAL_ENV</span><span class="s2">/bin:</span><span class="nv">$PATH</span><span class="s2">"</span>
 <span class="w">  </span>RUN<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>pip<span class="w"> </span>setuptools<span class="w"> </span>wheel<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">      </span>pip<span class="w"> </span>install<span class="w"> </span>numpy<span class="w"> </span>tensorflow<span class="w"> </span>scikit-learn<span class="w"> </span>gensim<span class="w"> </span>matplotlib<span class="w"> </span>pyyaml<span class="w"> </span>matplotlib-venn<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">      </span>pip<span class="w"> </span>install<span class="w"> </span>elpy<span class="w"> </span>jedi<span class="w"> </span>rope<span class="w"> </span>yapf<span class="w"> </span>importmagic<span class="w"> </span>flake8<span class="w"> </span>autopep8<span class="w"> </span>black
+<span class="w">          </span>pip<span class="w"> </span>install<span class="w"> </span>numpy<span class="w"> </span>tensorflow<span class="w"> </span>scikit-learn<span class="w"> </span>gensim<span class="w"> </span>matplotlib<span class="w"> </span>pyyaml<span class="w"> </span>matplotlib-venn<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">          </span>pip<span class="w"> </span>install<span class="w"> </span>elpy<span class="w"> </span>jedi<span class="w"> </span>rope<span class="w"> </span>yapf<span class="w"> </span>importmagic<span class="w"> </span>flake8<span class="w"> </span>autopep8<span class="w"> </span>black
 </pre></div>
 
 <p>
@@ -202,9 +202,9 @@ Afterwards, just install the required packages as usual.
 </p>
 </div>
 </div>
-<div id="outline-container-orgc86ece8" class="outline-2">
-<h2 id="orgc86ece8">Issue #3: Emacs monolithic configuration file</h2>
-<div class="outline-text-2" id="text-orgc86ece8">
+<div id="outline-container-org80f106f" class="outline-2">
+<h2 id="org80f106f">Issue #3: Emacs monolithic configuration file</h2>
+<div class="outline-text-2" id="text-org80f106f">
 <p>
 After setting up and activating the virtual environment, I needed to configure Emacs for python development to start working.
 </p>
@@ -278,7 +278,7 @@ Thus, the resulting <code>init.el</code> looks like this (I promise to fix those
 
 <span class="w">  </span><span class="p">(</span><span class="k">let</span><span class="w"> </span><span class="p">((</span><span class="nf">file-name</span><span class="w"> </span><span class="p">(</span><span class="nf">expand-file-name</span><span class="w"> </span><span class="s">"config.el"</span><span class="w"> </span><span class="nv">user-emacs-directory</span><span class="p">)))</span>
 <span class="w">    </span><span class="p">(</span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nf">file-exists-p</span><span class="w"> </span><span class="nv">file-name</span><span class="p">)</span>
-<span class="w">        </span><span class="p">(</span><span class="nf">load-file</span><span class="w"> </span><span class="nv">file-name</span><span class="p">)))</span>
+<span class="w">            </span><span class="p">(</span><span class="nf">load-file</span><span class="w"> </span><span class="nv">file-name</span><span class="p">)))</span>
 
 <span class="w">  </span><span class="p">(</span><span class="nf">org-babel-load-file</span><span class="w"> </span><span class="p">(</span><span class="nf">expand-file-name</span><span class="w"> </span><span class="s">"~/.emacs.d/common-config.org"</span><span class="p">))</span>
 <span class="w">  </span><span class="p">(</span><span class="nf">org-babel-load-file</span><span class="w"> </span><span class="p">(</span><span class="nf">expand-file-name</span><span class="w"> </span><span class="s">"~/.emacs.d/python-config.org"</span><span class="p">))</span>
@@ -287,7 +287,7 @@ Thus, the resulting <code>init.el</code> looks like this (I promise to fix those
 
 <span class="w">  </span><span class="p">(</span><span class="k">let</span><span class="w"> </span><span class="p">((</span><span class="nf">file-name</span><span class="w"> </span><span class="p">(</span><span class="nf">expand-file-name</span><span class="w"> </span><span class="s">"after-init.el"</span><span class="w"> </span><span class="nv">user-emacs-directory</span><span class="p">)))</span>
 <span class="w">    </span><span class="p">(</span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nf">file-exists-p</span><span class="w"> </span><span class="nv">file-name</span><span class="p">)</span>
-<span class="w">        </span><span class="p">(</span><span class="nf">load-file</span><span class="w"> </span><span class="nv">file-name</span><span class="p">)))</span>
+<span class="w">            </span><span class="p">(</span><span class="nf">load-file</span><span class="w"> </span><span class="nv">file-name</span><span class="p">)))</span>
 </pre></div>
 
 <p>
@@ -318,9 +318,9 @@ It does one more thing not mentioned previously: a <code>sed</code> call to remo
 </p>
 </div>
 </div>
-<div id="outline-container-org1c0bc74" class="outline-2">
-<h2 id="org1c0bc74">Issue #4: Using SSH keys to connect to GitHub</h2>
-<div class="outline-text-2" id="text-org1c0bc74">
+<div id="outline-container-org7a5d885" class="outline-2">
+<h2 id="org7a5d885">Issue #4: Using SSH keys to connect to GitHub</h2>
+<div class="outline-text-2" id="text-org7a5d885">
 <p>
 Now that I have Emacs running on Ubuntu (albeit terminal only) I can enjoy a smooth workflow without having to wait too much for Magit or other application that took forever on Cygwin to finish.
 </p>
@@ -344,23 +344,23 @@ I found how to do so easily: there's a StackOverflow <a href="https://stackoverf
 <span class="w">  </span>ARG<span class="w"> </span>ssh_pub_key
 
 <span class="w">  </span>RUN<span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </span>/root/.ssh<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">      </span>chmod<span class="w"> </span><span class="m">0700</span><span class="w"> </span>/root/.ssh<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">      </span>ssh-keyscan<span class="w"> </span>github.com<span class="w"> </span>&gt;<span class="w"> </span>/root/.ssh/known_hosts
+<span class="w">          </span>chmod<span class="w"> </span><span class="m">0700</span><span class="w"> </span>/root/.ssh<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">          </span>ssh-keyscan<span class="w"> </span>github.com<span class="w"> </span>&gt;<span class="w"> </span>/root/.ssh/known_hosts
 </pre></div>
 
 <p>
 To provide the values for the keys use <code>--build-arg</code> parameter when building your image like this:
 </p>
 <div class="highlight"><pre><span></span><span class="w">  </span>docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>&lt;image-tag&gt;<span class="w"> </span><span class="se">\</span>
-<span class="w">         </span>--build-arg<span class="w"> </span><span class="nv">ssh_prv_key</span><span class="o">=</span><span class="s2">"</span><span class="k">$(</span>cat<span class="w"> </span>~/.ssh/id_rsa<span class="k">)</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
-<span class="w">         </span>--build-arg<span class="w"> </span><span class="nv">ssh_pub_key</span><span class="o">=</span><span class="s2">"</span><span class="k">$(</span>cat<span class="w"> </span>~/.ssh/id_rsa.pub<span class="k">)</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
-<span class="w">         </span>.
+<span class="w">             </span>--build-arg<span class="w"> </span><span class="nv">ssh_prv_key</span><span class="o">=</span><span class="s2">"</span><span class="k">$(</span>cat<span class="w"> </span>~/.ssh/id_rsa<span class="k">)</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">             </span>--build-arg<span class="w"> </span><span class="nv">ssh_pub_key</span><span class="o">=</span><span class="s2">"</span><span class="k">$(</span>cat<span class="w"> </span>~/.ssh/id_rsa.pub<span class="k">)</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">             </span>.
 </pre></div>
 </div>
 </div>
-<div id="outline-container-orgf067b89" class="outline-2">
-<h2 id="orgf067b89">Issue #5: Install Emacs packages once and done</h2>
-<div class="outline-text-2" id="text-orgf067b89">
+<div id="outline-container-org926b8c7" class="outline-2">
+<h2 id="org926b8c7">Issue #5: Install Emacs packages once and done</h2>
+<div class="outline-text-2" id="text-org926b8c7">
 <p>
 After another build of the Docker image I started a container from it, logged in via ssh into the container, started Emacs and noticed yet another issue.
 </p>
@@ -387,9 +387,9 @@ And to my great surprise, when rebuilding the image I saw the output of Emacs pa
 </p>
 </div>
 </div>
-<div id="outline-container-orgf400a6d" class="outline-2">
-<h2 id="orgf400a6d">Issue #6: Terminal colors</h2>
-<div class="outline-text-2" id="text-orgf400a6d">
+<div id="outline-container-orgff57943" class="outline-2">
+<h2 id="orgff57943">Issue #6: Terminal colors</h2>
+<div class="outline-text-2" id="text-orgff57943">
 <p>
 Being confident that everything should work now (it's the same setup I had on <code>WSL</code>) I started a new container to which I mounted the GitHub repo as a volume and got cracking.
 </p>
@@ -419,8 +419,8 @@ The full Dockerfile described in this post is below:
 
 RUN<span class="w"> </span>apt-get<span class="w"> </span>update<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>--no-install-recommends<span class="w"> </span>openssh-server<span class="w"> </span>tmux<span class="w"> </span><span class="se">\</span>
-<span class="w">            </span>emacs<span class="w"> </span>emacs-goodies.el<span class="w"> </span>curl<span class="w"> </span>git<span class="w"> </span><span class="se">\</span>
-<span class="w">            </span>python3<span class="w"> </span>python3-pip<span class="w"> </span>python3-virtualenv<span class="w"> </span>python3-dev<span class="w"> </span>build-essential
+<span class="w">              </span>emacs<span class="w"> </span>emacs-goodies.el<span class="w"> </span>curl<span class="w"> </span>git<span class="w"> </span><span class="se">\</span>
+<span class="w">              </span>python3<span class="w"> </span>python3-pip<span class="w"> </span>python3-virtualenv<span class="w"> </span>python3-dev<span class="w"> </span>build-essential
 
 ARG<span class="w"> </span>password
 
@@ -477,16 +477,16 @@ CMD<span class="w"> </span><span class="o">[</span><span class="s2">"/usr/sbin/s
 To build the image use this command:
 </p>
 <div class="highlight"><pre><span></span>docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>&lt;image-tag&gt;<span class="w"> </span><span class="se">\</span>
-<span class="w">       </span>--build-arg<span class="w"> </span><span class="nv">ssh_prv_key</span><span class="o">=</span><span class="s2">"</span><span class="k">$(</span>cat<span class="w"> </span>~/.ssh/id_rsa<span class="k">)</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
-<span class="w">       </span>--build-arg<span class="w"> </span><span class="nv">ssh_pub_key</span><span class="o">=</span><span class="s2">"</span><span class="k">$(</span>cat<span class="w"> </span>~/.ssh/id_rsa.pub<span class="k">)</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
-<span class="w">       </span>--build-arg<span class="w"> </span><span class="nv">password</span><span class="o">=</span>&lt;your-password-here&gt;<span class="w"> </span><span class="se">\</span>
-<span class="w">       </span>.
+<span class="w">         </span>--build-arg<span class="w"> </span><span class="nv">ssh_prv_key</span><span class="o">=</span><span class="s2">"</span><span class="k">$(</span>cat<span class="w"> </span>~/.ssh/id_rsa<span class="k">)</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>--build-arg<span class="w"> </span><span class="nv">ssh_pub_key</span><span class="o">=</span><span class="s2">"</span><span class="k">$(</span>cat<span class="w"> </span>~/.ssh/id_rsa.pub<span class="k">)</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>--build-arg<span class="w"> </span><span class="nv">password</span><span class="o">=</span>&lt;your-password-here&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>.
 </pre></div>
 </div>
 </div>
-<div id="outline-container-org33f8426" class="outline-2">
-<h2 id="org33f8426">Epilogue</h2>
-<div class="outline-text-2" id="text-org33f8426">
+<div id="outline-container-org6aa7a6c" class="outline-2">
+<h2 id="org6aa7a6c">Epilogue</h2>
+<div class="outline-text-2" id="text-org6aa7a6c">
 <p>
 Looking back at this sort of quest of mine, I have nothing else to say than it was, overall, a fun experience.
 </p>
@@ -500,9 +500,9 @@ But the bottom line is that it was a great deal of fun involved which luckily re
 </p>
 </div>
 </div>
-<div id="outline-container-orgbd0e82d" class="outline-2">
-<h2 id="orgbd0e82d">References</h2>
-<div class="outline-text-2" id="text-orgbd0e82d">
+<div id="outline-container-orgd687a6f" class="outline-2">
+<h2 id="orgd687a6f">References</h2>
+<div class="outline-text-2" id="text-orgd687a6f">
 <ol class="org-ol">
 <li><a href="https://docs.docker.com/engine/examples/running_ssh_service/">Dockerize an SSH service</a></li>
 <li><a href="https://pythonspeed.com/articles/activate-virtualenv-dockerfile/">Elegantly activating a virtualenv in a Dockerfile</a></li>
@@ -511,9 +511,9 @@ But the bottom line is that it was a great deal of fun involved which luckily re
 </ol>
 </div>
 </div>
-<div id="outline-container-org57aa837" class="outline-2">
-<h2 id="org57aa837">Acknowledgments</h2>
-<div class="outline-text-2" id="text-org57aa837">
+<div id="outline-container-orgbfd59b1" class="outline-2">
+<h2 id="orgbfd59b1">Acknowledgments</h2>
+<div class="outline-text-2" id="text-orgbfd59b1">
 <p>
 I would like to thank my colleague <a href="https://www.linkedin.com/in/ionelabarbuta/">Ionela Bărbuță</a> for proofreading this post and for the tips &amp; tricks she gave me in order to improve my writing.
 </p>

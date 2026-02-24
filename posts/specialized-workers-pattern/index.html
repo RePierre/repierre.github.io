@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html prefix="
+<html \ prefix="
 " lang="en">
 <head>
 <meta charset="utf-8">
@@ -29,7 +29,7 @@
     
     
     </nav><footer id="footer"><span class="copyright">
-              Contents © 2025         <a href="mailto:petru.rebeja@gmail.com">Petru Rebeja</a> - Powered by   <a href="https://www.gnu.org/software/emacs/" rel="nofollow">GNU Emacs</a>  &amp;    <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+              Contents © 2026         <a href="mailto:petru.rebeja@gmail.com">Petru Rebeja</a> - Powered by   <a href="https://www.gnu.org/software/emacs/" rel="nofollow">GNU Emacs</a>  &amp;    <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
             </span>
             
             
@@ -48,9 +48,9 @@
     
 
     <div class="e-content entry-content" itemprop="articleBody text">
-    <div id="outline-container-org773b09b" class="outline-2">
-<h2 id="org773b09b">Introduction</h2>
-<div class="outline-text-2" id="text-org773b09b">
+    <div id="outline-container-org5dc3734" class="outline-2">
+<h2 id="org5dc3734">Introduction</h2>
+<div class="outline-text-2" id="text-org5dc3734">
 <p>
 Some years ago, in my <a href="../using-enums-in-c-sharp/">blog post about using enums in C#</a> I mentioned that I like using what I called at that time <code>specialized builders</code> to refactor the <code>switch</code> statement into a series of classes that implement a common interface and are specialized for a specific <code>case</code> of the <code>switch</code> statement.
 </p>
@@ -64,13 +64,13 @@ As such, I am excited to introduce to the world the <code>Specialized Workers</c
 </p>
 </div>
 </div>
-<div id="outline-container-org7ebd1c3" class="outline-2">
-<h2 id="org7ebd1c3">Specialized Workers Pattern</h2>
-<div class="outline-text-2" id="text-org7ebd1c3">
+<div id="outline-container-org4a67125" class="outline-2">
+<h2 id="org4a67125">Specialized Workers Pattern</h2>
+<div class="outline-text-2" id="text-org4a67125">
 </div>
-<div id="outline-container-org2459499" class="outline-3">
-<h3 id="org2459499">Description and usage</h3>
-<div class="outline-text-3" id="text-org2459499">
+<div id="outline-container-orgb3c2f58" class="outline-3">
+<h3 id="orgb3c2f58">Description and usage</h3>
+<div class="outline-text-3" id="text-orgb3c2f58">
 <p>
 The <code>Specialized Workers</code> pattern aims to distribute the logic of a business operation that requires choosing between one or multiple tasks to be executed, into a collection of specialized classes, while keeping the knowledge about the task(s) to be executed into a single place.
 </p>
@@ -192,13 +192,13 @@ On the other hand, each worker class is, as the name of the pattern suggests it,
 </div>
 </div>
 </div>
-<div id="outline-container-org3a3a10d" class="outline-2">
-<h2 id="org3a3a10d">Discussion</h2>
-<div class="outline-text-2" id="text-org3a3a10d">
+<div id="outline-container-org35c53e2" class="outline-2">
+<h2 id="org35c53e2">Discussion</h2>
+<div class="outline-text-2" id="text-org35c53e2">
 </div>
-<div id="outline-container-orga533269" class="outline-3">
-<h3 id="orga533269">How is it different from the <code>Strategy</code> pattern?</h3>
-<div class="outline-text-3" id="text-orga533269">
+<div id="outline-container-org98784a2" class="outline-3">
+<h3 id="org98784a2">How is it different from the <code>Strategy</code> pattern?</h3>
+<div class="outline-text-3" id="text-org98784a2">
 <p>
 At this moment you may be wondering how the <code>Specialized Workers</code> is different from the <code>Strategy</code> pattern? After all, each worker implements and applies a different strategy in the processing of the data.
 </p>
@@ -212,9 +212,9 @@ There is however, a difference in the nomenclature: <code>Strategy</code> is a <
 </p>
 </div>
 </div>
-<div id="outline-container-org5edcb28" class="outline-3">
-<h3 id="org5edcb28">Why not use a <code>Factory method</code>?</h3>
-<div class="outline-text-3" id="text-org5edcb28">
+<div id="outline-container-orgb409a82" class="outline-3">
+<h3 id="orgb409a82">Why not use a <code>Factory method</code>?</h3>
+<div class="outline-text-3" id="text-orgb409a82">
 <p>
 Okay, you might say, then why not use a <code>Factory method</code> to build directly the worker that knows how to handle the specific use-case?
 </p>
@@ -349,9 +349,9 @@ You can have multiple workers capable of processing the same payload; in this ca
 </div>
 </div>
 </div>
-<div id="outline-container-orgccea844" class="outline-2">
-<h2 id="orgccea844">Ending thoughts</h2>
-<div class="outline-text-2" id="text-orgccea844">
+<div id="outline-container-org8b8e3f7" class="outline-2">
+<h2 id="org8b8e3f7">Ending thoughts</h2>
+<div class="outline-text-2" id="text-org8b8e3f7">
 <p>
 As you can see from this quite lengthy post, the <code>Specialized Workers</code> pattern, provides both a way to cluster business logic into specialized classes, and a good degree of flexibility in order to adapt the implementation to different situations. Despite its flexibility however, it is my <i>subjective</i> opinion that the original form of the pattern (the one shown in the <a href="#implementation">Implementation</a> section) is the most elegant and eloquent, which is why I use that version most of the time. But, especially as a software developer, I am aware that each person has its own preferences in regards to how something should be done or implemented. As such, I hope you find this pattern useful, and if so, feel free to apply it in whichever way suits you best.
 </p>
